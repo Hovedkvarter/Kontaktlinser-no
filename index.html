@@ -106,12 +106,22 @@ a { color: inherit; }
 .hero-actions { margin-top: 16px; }
 .btn-primary { display: inline-block; background: var(--ink); color: white; font-weight: 600; font-size: 0.88rem; text-decoration: none; padding: 11px 20px; border-radius: 24px; }
 .btn-primary:hover { background: var(--aqua); }
-.trust-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 24px 0 8px; box-shadow: var(--card-shadow); }
+.trust-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 40px 0 0; box-shadow: var(--card-shadow); }
 .trust-item { font-size: 0.78rem; color: var(--muted); }
 .trust-item strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }
-.search-row { margin: 4px 0 28px; }
-.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }
+.search-section { margin: 28px 0 36px; }
+.search-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 10px; }
+.search-row { position: relative; }
+.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }
 .search-input:focus { outline: none; border-color: var(--aqua); }
+.search-suggestions { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }
+.search-suggestion { display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }
+.search-suggestion:last-child { border-bottom: none; }
+.search-suggestion:hover { background: var(--mist); }
+.search-suggestion .product-thumb { width: 36px; height: 36px; font-size: 0.68rem; }
+.search-suggestion-name { font-weight: 600; font-size: 0.86rem; }
+.search-suggestion-meta { font-size: 0.74rem; color: var(--muted); }
+.search-no-match { padding: 14px; font-size: 0.84rem; color: var(--muted); }
 .section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }
 .section-header:first-of-type { margin-top: 0; }
 .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
@@ -172,16 +182,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
 
-  <div class="trust-strip">
-    <div class="trust-item"><strong>6</strong>forhandlere sammenlignet</div>
-    <div class="trust-item"><strong>61</strong>linser fulgt</div>
-    <div class="trust-item"><strong>6t</strong>mellom hver prisoppdatering</div>
-    <div class="trust-item"><strong>0 kr</strong>i skjulte gebyrer hos oss</div>
-  </div>
-
-  <div class="search-row">
-    <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
-    <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
+  <div class="search-section">
+    <h2>Søk etter linse eller merke</h2>
+    <div class="search-row">
+      <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+      <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
+      <div class="search-suggestions" id="search-suggestions"></div>
+    </div>
   </div>
 
   <div class="section-header" id="merker">
@@ -855,19 +862,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="guide-card-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
 </a>
   </div>
+
+  <div class="trust-strip">
+    <div class="trust-item"><strong>6</strong>forhandlere sammenlignet</div>
+    <div class="trust-item"><strong>61</strong>linser fulgt</div>
+    <div class="trust-item"><strong>6t</strong>mellom hver prisoppdatering</div>
+    <div class="trust-item"><strong>0 kr</strong>i skjulte gebyrer hos oss</div>
+  </div>
 </div>
 
 <script>
   // Progressiv forbedring: alle linsekort finnes allerede i DOM-en over og
   // fungerer som vanlige lenker uten JS. Dette skjuler/viser dem basert på
-  // søketekst -- bygger dem aldri fra scratch.
+  // søketekst -- bygger dem aldri fra scratch. Hurtiglinkene i dropdownen
+  // under søkefeltet er samme kort gjenbrukt (klonet fra DOM-en), ikke en
+  // egen datakilde.
   const searchInput = document.getElementById('lens-search');
   const grid = document.getElementById('lens-grid');
   const cards = Array.from(grid.querySelectorAll('.product-card'));
   const noResults = document.getElementById('no-results');
+  const suggestions = document.getElementById('search-suggestions');
+
+  function renderSuggestions(q) {
+    if (!q) {
+      suggestions.style.display = 'none';
+      suggestions.innerHTML = '';
+      return;
+    }
+    const matches = cards.filter(card => card.dataset.search.includes(q)).slice(0, 8);
+    if (matches.length === 0) {
+      suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
+      suggestions.style.display = 'block';
+      return;
+    }
+    suggestions.innerHTML = matches.map(card => {
+      const thumbHtml = card.querySelector('.product-thumb').outerHTML;
+      const name = card.querySelector('.product-name').textContent;
+      const meta = card.querySelector('.product-meta').textContent;
+      return `<a class="search-suggestion" href="${card.getAttribute('href')}">${thumbHtml}` +
+        `<div><div class="search-suggestion-name">${name}</div>` +
+        `<div class="search-suggestion-meta">${meta}</div></div></a>`;
+    }).join('');
+    suggestions.style.display = 'block';
+  }
 
   searchInput.addEventListener('input', () => {
     const q = searchInput.value.trim().toLowerCase();
+    renderSuggestions(q);
     let visible = 0;
     cards.forEach(card => {
       const show = q === '' || card.dataset.search.includes(q);
@@ -875,6 +916,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (show) visible++;
     });
     noResults.style.display = visible === 0 ? 'block' : 'none';
+  });
+
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim()) renderSuggestions(searchInput.value.trim().toLowerCase());
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.search-row')) suggestions.style.display = 'none';
   });
 </script>
 <footer class="site-footer">
