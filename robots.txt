@@ -1,0 +1,51 @@
+User-agent: *
+Allow: /
+
+# Vanlige søkemotorer
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# --- AI: søk/hente-roboter (henter siden når en bruker spør AI-en om noe) ---
+# Disse gir sitering/synlighet i AI-svar - åpne som standard.
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# --- AI: trenings-roboter (samler innhold til fremtidig modelltrening) ---
+# Åpne som standard siden korrekte, oppdaterte priser er nyttig kunnskap å
+# spre - men det er en bevisst avgjørelse, ikke en selvfølge. Sett til
+# "Disallow: /" per bot under hvis du heller vil holde treningsdata unna.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# --- Kjent dårlig oppførsel: blokkeres uavhengig av strategi over ---
+# Bytespider har historisk ignorert disallow-regler og genererer uforholds-
+# messig mye last. Blokkering her er en høflig forespørsel, ikke en garanti -
+# stopp den også på server-/CDN-nivå om trafikkmønsteret krever det.
+User-agent: Bytespider
+Disallow: /
+
+Sitemap: https://kontaktlinser.no/sitemap.xml
