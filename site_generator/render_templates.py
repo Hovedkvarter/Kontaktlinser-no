@@ -78,6 +78,17 @@ a { color: inherit; }
 .related a:hover, .guides a:hover { border-color: var(--aqua); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
+.site-footer { margin-top: 48px; background: var(--ink); color: white; }
+.footer-inner { max-width: 760px; margin: 0 auto; padding: 40px 20px 8px; display: flex; flex-wrap: wrap; gap: 32px 24px; }
+.footer-col { flex: 1 1 140px; min-width: 140px; }
+.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--aqua); margin: 0 0 12px; }
+.footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.78); text-decoration: none; padding: 3px 0; }
+.footer-col a:hover { color: white; text-decoration: underline; }
+.footer-brand-list { columns: 2; column-gap: 16px; }
+.footer-disclosure { max-width: 760px; margin: 8px auto 0; padding: 20px 20px 0; font-size: 0.75rem; line-height: 1.6; color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.14); }
+.footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
+.footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.footer-bottom a:hover { color: white; }
 """
 
 RING_MARK = """<svg class="ring-mark" viewBox="0 0 40 40" aria-hidden="true">
@@ -111,6 +122,81 @@ TOPBAR_HTML = f"""<div class="topbar">
     <a href="/guider/">Guider</a>
   </nav>
 </div>"""
+
+# Kuratert, ikke generert fra catalog.json -- oppdater manuelt hvis
+# kategori- eller merkeutvalget endres vesentlig (samme praksis som TOPBAR_HTML).
+FOOTER_CATEGORIES = [
+    ("manedslinser", "Månedslinser"),
+    ("dagslinser", "Dagslinser"),
+    ("toriske-linser", "Toriske linser"),
+    ("fargede-linser", "Fargede linser"),
+    ("multifokale-linser", "Multifokale linser"),
+]
+
+FOOTER_BRANDS = [
+    ("acuvue", "Acuvue"),
+    ("adore", "ADORE"),
+    ("air-optix", "Air Optix"),
+    ("avaira", "Avaira"),
+    ("biofinity", "Biofinity"),
+    ("biomedics", "Biomedics"),
+    ("biotrue", "Biotrue"),
+    ("clariti", "Clariti"),
+    ("dailies", "Dailies"),
+    ("freshlook", "FreshLook"),
+    ("myday", "MyDay"),
+    ("precision1", "Precision1"),
+    ("precision7", "Precision7"),
+    ("proclear", "Proclear"),
+    ("purevision", "PureVision"),
+    ("soflens", "SofLens"),
+    ("total30", "TOTAL30"),
+    ("ultra", "ULTRA"),
+]
+
+
+def render_footer() -> str:
+    year = datetime.now(timezone.utc).year
+    category_links = "\n    ".join(
+        f'<a href="/kontaktlinser/{slug}/">{escape(label)}</a>' for slug, label in FOOTER_CATEGORIES
+    )
+    brand_links = "\n      ".join(
+        f'<a href="/merke/{slug}/">{escape(label)}</a>' for slug, label in FOOTER_BRANDS
+    )
+    return f"""<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>Kategorier</h3>
+    {category_links}
+    </div>
+    <div class="footer-col">
+      <h3>Merker</h3>
+      <div class="footer-brand-list">
+      {brand_links}
+      </div>
+    </div>
+    <div class="footer-col">
+      <h3>Guider</h3>
+      <a href="/guider/">Alle guider</a>
+      <a href="/guide/manedslinser-vs-dagslinser/">Månedslinser vs. dagslinser</a>
+      <a href="/guide/hvordan-velge-kontaktlinser/">Hvordan velge kontaktlinser</a>
+    </div>
+  </div>
+  <p class="footer-disclosure">
+    kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
+    automatisk fra forhandlernes egne nettsider hver 6. time og sorterer alltid
+    etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
+    lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
+    av tilbud. Vi selger ikke kontaktlinser selv. Kontaktlinser er reseptvare:
+    rådfør deg alltid med optiker ved valg av linsetype og styrke.
+  </p>
+  <div class="footer-bottom">
+    <span>&copy; {year} kontaktlinser.no</span>
+    <a href="/">Forside</a>
+    <a href="/guider/">Guider</a>
+  </div>
+</footer>"""
+
 
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
@@ -307,6 +393,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
   </p>
   {specs_html}
 </div>
+{render_footer()}
 </body>
 </html>"""
 
@@ -431,6 +518,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     document.getElementById('result-count').textContent = visible + ' produkter';
   }});
 </script>
+{render_footer()}
 </body>
 </html>"""
 
@@ -660,6 +748,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     noResults.style.display = visible === 0 ? 'block' : 'none';
   }});
 </script>
+{render_footer()}
 </body>
 </html>"""
 
@@ -760,6 +849,7 @@ def render_guide_page(slug: str) -> str | None:
     {guide["body_html"]}
   </div>
 </div>
+{render_footer()}
 </body>
 </html>"""
 
@@ -803,6 +893,7 @@ def render_guides_index_page() -> str:
   </div>
   {cards_html}
 </div>
+{render_footer()}
 </body>
 </html>"""
 
@@ -957,5 +1048,6 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     cards.forEach(c => list.appendChild(c));
   }});
 </script>
+{render_footer()}
 </body>
 </html>"""
