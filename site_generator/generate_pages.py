@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_brand_page
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -43,7 +43,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
 
     products_written = []
     for product in catalog["products"]:
-        html = render_product_page(product, now)
+        html = render_product_page(product, catalog["categories"], now)
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)
@@ -55,6 +55,14 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         out_path = BUILD_DIR / "kontaktlinser" / category_slug / "index.html"
         write_file(out_path, html)
         print(f"  kategori -> /kontaktlinser/{category_slug}/")
+
+    brand_labels = {p["brand_slug"]: p["brand_label"] for p in catalog["products"]}
+    for brand_slug, brand_label in brand_labels.items():
+        products_for_brand = [p for p in catalog["products"] if p["brand_slug"] == brand_slug]
+        html = render_brand_page(brand_slug, brand_label, products_for_brand, catalog["categories"], now)
+        out_path = BUILD_DIR / "merke" / brand_slug / "index.html"
+        write_file(out_path, html)
+        print(f"  merke    -> /merke/{brand_slug}/")
 
     guide_slugs = {g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])}
     for slug in guide_slugs:

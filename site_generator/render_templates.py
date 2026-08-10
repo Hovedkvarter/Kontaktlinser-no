@@ -156,7 +156,7 @@ def render_offer_card(o: dict, retailer: str) -> str:
 </div>"""
 
 
-def render_product_page(product: dict, now: datetime | None = None) -> str:
+def render_product_page(product: dict, categories: dict, now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
@@ -254,7 +254,7 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
 <div class="wrap">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
-    <a href="/kontaktlinser/{escape(product["category_slug"])}/">{escape(product["category_slug"])}</a> ›
+    <a href="/kontaktlinser/{escape(product["category_slug"])}/">{escape(categories[product["category_slug"]]["label"])}</a> ›
     <a href="/merke/{escape(product["brand_slug"])}/">{escape(product["brand_label"])}</a> ›
     {escape(product["name"])}
   </p>
@@ -279,6 +279,128 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
   </p>
   {specs_html}
 </div>
+</body>
+</html>"""
+
+
+def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, now: datetime | None = None) -> str:
+    now = now or datetime.now(timezone.utc)
+
+    rows = []
+    for p in products:
+        offers = reconcile_product(p["offers"], now)
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        image_url = pick_product_image(p["offers"])
+        rows.append({"product": p, "lowest": lowest, "image_url": image_url})
+
+    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+
+    def render_row(r: dict) -> str:
+        p, lowest = r["product"], r["lowest"]
+        thumb = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
+            else escape(p["brand_label"][:2].upper())
+        price_block = (
+            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
+            f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
+            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        )
+        href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
+        category_label = categories[p["category_slug"]]["label"]
+        return f"""<a class="product-card" href="{escape(href)}" data-category="{escape(p["category_slug"])}">
+  <div class="product-thumb">{thumb}</div>
+  <div class="product-main">
+    <div class="product-name">{escape(p["name"])}</div>
+    <div class="product-meta">{escape(category_label)}</div>
+  </div>
+  <div class="product-price-col">{price_block}</div>
+</a>"""
+
+    product_rows_html = "\n".join(render_row(r) for r in rows)
+
+    category_slugs = sorted({p["category_slug"] for p in products})
+    category_chips = "".join(
+        f'<button class="chip" data-category="{escape(c)}">{escape(categories[c]["label"])}</button>' for c in category_slugs
+    )
+
+    schema_items = ",\n      ".join(
+        f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
+        for i, p in enumerate(products)
+    )
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{"@type": "BreadcrumbList", "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "{escape(brand_label)}", "item": "{BASE_URL}/merke/{brand_slug}/"}}
+    ]}},
+    {{"@type": "ItemList", "itemListElement": [{schema_items}]}}
+  ]
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(brand_label)} kontaktlinser – sammenlign priser | kontaktlinser.no</title>
+<meta name="description" content="Sammenlign priser på alle {escape(brand_label)}-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}</style>
+</head>
+<body>
+<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Merke</div>
+      <h1>{escape(brand_label)}</h1>
+      <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+    </div>
+  </div>
+
+  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
+    <button class="chip active" data-category="all">Alle kategorier</button>
+    {category_chips}
+  </div>
+
+  <div class="list-header">
+    <h2 id="result-count">{len(products)} produkter</h2>
+  </div>
+
+  <div id="product-list">
+    {product_rows_html}
+  </div>
+  <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
+    via lenkene på produktsidene, men det påvirker ikke prisen du betaler
+    eller rangeringen av produkter eller tilbud.
+  </p>
+</div>
+
+<script>
+  const filterRow = document.getElementById('filter-row');
+  const list = document.getElementById('product-list');
+
+  filterRow.addEventListener('click', e => {{
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const category = btn.dataset.category;
+    let visible = 0;
+    list.querySelectorAll('.product-card').forEach(card => {{
+      const show = category === 'all' || card.dataset.category === category;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }});
+    document.getElementById('result-count').textContent = visible + ' produkter';
+  }});
+</script>
 </body>
 </html>"""
 
@@ -322,6 +444,27 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
         render_category_card(slug, category) for slug, category in catalog["categories"].items()
     )
 
+    brand_counts: dict[str, int] = {}
+    brand_labels: dict[str, str] = {}
+    for p in catalog["products"]:
+        brand_counts[p["brand_slug"]] = brand_counts.get(p["brand_slug"], 0) + 1
+        brand_labels[p["brand_slug"]] = p["brand_label"]
+    brand_order = sorted(brand_counts, key=lambda b: (-brand_counts[b], brand_labels[b]))
+
+    def render_brand_card(slug: str) -> str:
+        label = brand_labels[slug]
+        count = brand_counts[slug]
+        n_label = "produkt" if count == 1 else "produkter"
+        return f"""<a class="brand-card" href="/merke/{escape(slug)}/">
+  <div class="brand-card-badge">{escape(label[:2].upper())}</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">{escape(label)}</div>
+    <div class="brand-card-count">{count} {n_label}</div>
+  </div>
+</a>"""
+
+    brand_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order)
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -331,19 +474,31 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
+.hero {{ position: relative; overflow: hidden; padding: 28px 0 26px; }}
+.hero-rings {{ position: absolute; top: 50%; right: -60px; transform: translateY(-50%); width: 260px; height: 260px; opacity: 0.5; pointer-events: none; }}
+.hero-copy {{ position: relative; z-index: 1; }}
 .search-row {{ margin: 4px 0 28px; }}
 .search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
 .search-input:focus {{ outline: none; border-color: var(--aqua); }}
-.section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }}
+.section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; }}
+.section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
-.category-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }}
+.category-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }}
 .category-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }}
 .category-card:hover {{ border-color: var(--aqua); }}
 .category-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }}
 .category-card-count {{ font-size: 0.78rem; color: var(--muted); margin-top: 3px; }}
+.brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
+.brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
+.brand-card:hover {{ border-color: var(--aqua); }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--aqua-tint); color: var(--aqua); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card-info {{ min-width: 0; }}
+.brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+.brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
 .lens-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
 .lens-grid .product-card {{ margin-bottom: 0; }}
 .no-results {{ display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }}
+@media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 @media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 </style>
 </head>
@@ -351,6 +506,12 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <div class="topbar">{RING_MARK} kontaktlinser.no</div>
 <div class="wrap">
   <div class="hero">
+    <svg class="hero-rings" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="13" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="8" fill="none" stroke="#0BA36F" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="3" fill="#0BA36F"/>
+    </svg>
     <div class="hero-copy">
       <div class="kicker">Prissammenligning</div>
       <h1>Finn billigste kontaktlinser</h1>
@@ -361,6 +522,13 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
   <div class="search-row">
     <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
     <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
+  </div>
+
+  <div class="section-header">
+    <h2>Merker</h2>
+  </div>
+  <div class="brand-grid">
+    {brand_cards_html}
   </div>
 
   <div class="section-header">

@@ -128,6 +128,21 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   fraværende hos Lensit og Interoptik). Precision7 hos Interoptik selges kun
   i 12-pakning (vårt produkt er 6-pakning) -- bevisst IKKE koblet til
   Interoptik siden det ville sammenlignet ulike pakningsstørrelser.
+- `render_brand_page()` bygger nå `/merke/{slug}/` -- disse lenkene lå i
+  brødsmulen på HVER produktside og i sitemapen fra dag én, men siden ble
+  ALDRI bygget (ren 404 for både brukere og søkemotorer inntil dette ble
+  oppdaget 28.08.2026). `render_product_page()` og `render_brand_page()`
+  trenger nå `categories`-dicten som eget argument (ikke bare product-objektet)
+  for å vise riktig kategorinavn med æøå -- de brukte tidligere kategori-slugen
+  direkte som visningstekst, som også var en (mindre alvorlig) visningsfeil.
+- Forsiden har et "Merker"-rutenett (linker til `/merke/{slug}/`, sortert
+  etter flest produkter) mellom søkefeltet og kategori-rutenettet, inspirert
+  av lenspricer.no sin merke-først-navigasjon. Pluss en dekorativ
+  ring-bakgrunn i heroen (SVG, gjenbruker ring-motivet). NB: `.brand-card`
+  MÅ ha `min-width: 0` på både kortet og tekst-wrapperen -- uten den tvinger
+  lange merkenavn + antall-tekst grid-kolonnen bredere enn viewporten og gir
+  horisontal scroll på mobil (fant og fikset dette 28.08.2026, testet på
+  375px bredde).
 - Lensons/Lensways listeside (ikke bare produktsiden) inneholder SAMME
   universalAnalyticsInfo-JSON-blob som produktsiden, med productId, navn,
   pris, kategori og produsent for ALLE produkter på siden (`?_page=0` til
