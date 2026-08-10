@@ -19,7 +19,12 @@
       {"@type": "ListItem", "position": 2, "url": "https://kontaktlinser.no/kontaktlinser/biofinity/biofinity-multifocal-6-pack/", "name": "Biofinity Multifocal 6-pack"},
       {"@type": "ListItem", "position": 3, "url": "https://kontaktlinser.no/kontaktlinser/myday/myday-multifocal-30-pack/", "name": "MyDay Multifocal 30-pack"},
       {"@type": "ListItem", "position": 4, "url": "https://kontaktlinser.no/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/", "name": "Air Optix plus HydraGlyde Multifocal 6-pack"},
-      {"@type": "ListItem", "position": 5, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/", "name": "Dailies Total1 Multifocal 30-pack"}]}
+      {"@type": "ListItem", "position": 5, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/", "name": "Dailies Total1 Multifocal 30-pack"},
+      {"@type": "ListItem", "position": 6, "url": "https://kontaktlinser.no/kontaktlinser/purevision/purevision-multifocal-6-pack/", "name": "PureVision Multifocal 6-pack"},
+      {"@type": "ListItem", "position": 7, "url": "https://kontaktlinser.no/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/", "name": "PureVision2 for Presbyopia 6-pack"},
+      {"@type": "ListItem", "position": 8, "url": "https://kontaktlinser.no/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/", "name": "Biotrue ONEday for Presbyopia 30-pack"},
+      {"@type": "ListItem", "position": 9, "url": "https://kontaktlinser.no/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/", "name": "ULTRA for Presbyopia 6-pack"},
+      {"@type": "ListItem", "position": 10, "url": "https://kontaktlinser.no/kontaktlinser/total30/total30-multifocal-6-pack/", "name": "TOTAL30 Multifocal 6-pack"}]}
   ]
 }</script>
 <style>
@@ -97,18 +102,26 @@ a { color: inherit; }
 
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
-    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button>
+    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="purevision">Purevision</button><button class="chip" data-brand="total30">Total30</button><button class="chip" data-brand="ultra">Ultra</button>
   </div>
 
   <div class="list-header">
-    <h2 id="result-count">5 produkter</h2>
+    <h2 id="result-count">10 produkter</h2>
     <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--aqua);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/" data-brand="acuvue">
+    <a class="product-card" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/" data-brand="biotrue">
+  <div class="product-thumb">BI</div>
+  <div class="product-main">
+    <div class="product-name">Biotrue ONEday for Presbyopia 30-pack</div>
+    <div class="product-meta">Biotrue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">322 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/" data-brand="acuvue">
   <div class="product-thumb">AC</div>
   <div class="product-main">
     <div class="product-name">Acuvue Oasys Multifocal 6-pack</div>
@@ -140,6 +153,22 @@ a { color: inherit; }
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">629 kr</div><div class="retailer-count">2 forhandlere</div></div>
 </a>
+<a class="product-card" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/" data-brand="purevision">
+  <div class="product-thumb">PU</div>
+  <div class="product-main">
+    <div class="product-name">PureVision2 for Presbyopia 6-pack</div>
+    <div class="product-meta">PureVision</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">644 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/" data-brand="purevision">
+  <div class="product-thumb">PU</div>
+  <div class="product-main">
+    <div class="product-name">PureVision Multifocal 6-pack</div>
+    <div class="product-meta">PureVision</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">650 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
 <a class="product-card" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/" data-brand="biofinity">
   <div class="product-thumb">BI</div>
   <div class="product-main">
@@ -147,6 +176,22 @@ a { color: inherit; }
     <div class="product-meta">Biofinity</div>
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">659 kr</div><div class="retailer-count">4 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/" data-brand="ultra">
+  <div class="product-thumb">UL</div>
+  <div class="product-main">
+    <div class="product-name">ULTRA for Presbyopia 6-pack</div>
+    <div class="product-meta">ULTRA</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">697 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/total30/total30-multifocal-6-pack/" data-brand="total30">
+  <div class="product-thumb">TO</div>
+  <div class="product-main">
+    <div class="product-name">TOTAL30 Multifocal 6-pack</div>
+    <div class="product-meta">TOTAL30</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">699 kr</div><div class="retailer-count">2 forhandlere</div></div>
 </a>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>

@@ -24,7 +24,10 @@
       {"@type": "ListItem", "position": 7, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/", "name": "Dailies AquaComfort Plus 30-pack"},
       {"@type": "ListItem", "position": 8, "url": "https://kontaktlinser.no/kontaktlinser/precision1/precision1-30-pack/", "name": "Precision1 30-pack"},
       {"@type": "ListItem", "position": 9, "url": "https://kontaktlinser.no/kontaktlinser/soflens/soflens-daily-disposable-30-pack/", "name": "SofLens Daily Disposable 30-pack"},
-      {"@type": "ListItem", "position": 10, "url": "https://kontaktlinser.no/kontaktlinser/biotrue/biotrue-oneday-30-pack/", "name": "Biotrue ONEday 30-pack"}]}
+      {"@type": "ListItem", "position": 10, "url": "https://kontaktlinser.no/kontaktlinser/biotrue/biotrue-oneday-30-pack/", "name": "Biotrue ONEday 30-pack"},
+      {"@type": "ListItem", "position": 11, "url": "https://kontaktlinser.no/kontaktlinser/ultra/ultra-one-day-30-pack/", "name": "ULTRA ONE DAY 30-pack"},
+      {"@type": "ListItem", "position": 12, "url": "https://kontaktlinser.no/kontaktlinser/biomedics/biomedics-1-day-xtra-30-pack/", "name": "Biomedics 1Day Extra 30-pack"},
+      {"@type": "ListItem", "position": 13, "url": "https://kontaktlinser.no/kontaktlinser/dailies/focus-dailies-30-pack/", "name": "Focus Dailies 30-pack"}]}
   ]
 }</script>
 <style>
@@ -102,18 +105,26 @@ a { color: inherit; }
 
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
-    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="clariti">Clariti</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="precision1">Precision1</button><button class="chip" data-brand="soflens">Soflens</button>
+    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="biomedics">Biomedics</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="clariti">Clariti</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="precision1">Precision1</button><button class="chip" data-brand="soflens">Soflens</button><button class="chip" data-brand="ultra">Ultra</button>
   </div>
 
   <div class="list-header">
-    <h2 id="result-count">10 produkter</h2>
+    <h2 id="result-count">13 produkter</h2>
     <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--aqua);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/" data-brand="soflens">
+    <a class="product-card" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-30-pack/" data-brand="biomedics">
+  <div class="product-thumb">BI</div>
+  <div class="product-main">
+    <div class="product-name">Biomedics 1Day Extra 30-pack</div>
+    <div class="product-meta">Biomedics</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">168 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/" data-brand="soflens">
   <div class="product-thumb">SO</div>
   <div class="product-main">
     <div class="product-name">SofLens Daily Disposable 30-pack</div>
@@ -161,6 +172,14 @@ a { color: inherit; }
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">277 kr</div><div class="retailer-count">2 forhandlere</div></div>
 </a>
+<a class="product-card" href="/kontaktlinser/dailies/focus-dailies-30-pack/" data-brand="dailies">
+  <div class="product-thumb">DA</div>
+  <div class="product-main">
+    <div class="product-name">Focus Dailies 30-pack</div>
+    <div class="product-meta">Dailies</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">279 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
 <a class="product-card" href="/kontaktlinser/biotrue/biotrue-oneday-30-pack/" data-brand="biotrue">
   <div class="product-thumb">BI</div>
   <div class="product-main">
@@ -192,6 +211,14 @@ a { color: inherit; }
     <div class="product-meta">Dailies</div>
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">344 kr</div><div class="retailer-count">2 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/ultra/ultra-one-day-30-pack/" data-brand="ultra">
+  <div class="product-thumb">UL</div>
+  <div class="product-main">
+    <div class="product-name">ULTRA ONE DAY 30-pack</div>
+    <div class="product-meta">ULTRA</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">429 kr</div><div class="retailer-count">2 forhandlere</div></div>
 </a>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
