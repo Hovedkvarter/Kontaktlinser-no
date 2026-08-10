@@ -80,10 +80,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     static_src = Path(__file__).parent.parent / "static"
     if static_src.exists():
         static_out = BUILD_DIR / "static"
-        static_out.mkdir(parents=True, exist_ok=True)
-        for asset in static_src.iterdir():
-            if asset.is_file():
-                shutil.copy2(asset, static_out / asset.name)
+        shutil.copytree(static_src, static_out, dirs_exist_ok=True)
     return catalog
 
 

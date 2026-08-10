@@ -48,7 +48,7 @@ a { color: inherit; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
 .best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
-.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; }
+.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
@@ -58,6 +58,9 @@ a { color: inherit; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
 .lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
+.retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
+.best-price-band .retailer-logo { height: 22px; max-width: 110px; }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
 .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
@@ -200,6 +203,33 @@ def render_footer() -> str:
 
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
+# Nøytral bruk for å identifisere hvor tilbudet faktisk kommer fra (samme
+# praksis som enhver prissammenligningstjeneste) - ikke ment å antyde
+# partnerskap/godkjenning fra forhandleren. Hentet direkte fra hver
+# forhandlers egen nettside (static/logos/), fjernes umiddelbart ved
+# forespørsel. dark_bg=True betyr logoen er hvit/lys og trenger en mørk
+# bakgrunnslapp for å være synlig på våre lyse kort.
+RETAILER_LOGOS = {
+    "Interoptik": ("interoptik.png", False),
+    "Lensway": ("lensway.svg", False),
+    "Lenson": ("lenson.svg", False),
+    "Extra Optical": ("extraoptical.svg", False),
+    "Shopping4net": ("shopping4net.png", True),
+    "Lensit": ("lensit.svg", False),
+    "Specsavers": ("specsavers.svg", False),
+    "Synsam": ("synsam.svg", False),
+    "Brilleland": ("brilleland.svg", False),
+}
+
+
+def _retailer_logo_html(retailer: str) -> str:
+    entry = RETAILER_LOGOS.get(retailer)
+    if not entry:
+        return ""
+    filename, dark_bg = entry
+    img = f'<img class="retailer-logo" src="/static/logos/{filename}" alt="" loading="lazy">'
+    return f'<span class="retailer-logo-chip">{img}</span>' if dark_bg else img
+
 
 def _fmt_kr(n: float) -> str:
     return f"{n:,.0f}".replace(",", " ") + " kr"
@@ -254,10 +284,11 @@ def render_offer_card(o: dict, retailer: str) -> str:
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
     shipping_text = f'+ {_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
+    logo_html = _retailer_logo_html(retailer)
 
     return f"""<div class="{css_class}">
   <div class="offer-main">
-    <div class="offer-retailer">{escape(retailer)} {lowest_tag}</div>
+    <div class="offer-retailer">{logo_html}{escape(retailer)} {lowest_tag}</div>
     {status_note}
   </div>
   <div class="offer-price-col">
@@ -284,7 +315,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
         best_band = f"""<div class="best-price-band">
   <div class="label-group">
     <div class="label">Laveste pris</div>
-    <div class="retailer">{escape(best["retailer"])}</div>
+    <div class="retailer">{_retailer_logo_html(best["retailer"])}{escape(best["retailer"])}</div>
   </div>
   <div class="price">{_fmt_kr(best["total"])}</div>
 </div>"""
