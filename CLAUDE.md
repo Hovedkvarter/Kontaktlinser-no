@@ -101,15 +101,18 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
 - 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
-  multifokale linser), 61 produkter totalt (28.08.2026), alle med reelle
-  tilbud fra minst Lenson og Lensway. Lensit og Interoptik dekker de fleste,
-  men ikke alle, av de opprinnelige 14 (Lensit mangler Acuvue Vita og begge
-  ADORE-produktene; Interoptik mangler i tillegg Air Optix Colors og Acuvue
-  Oasys Multifocal) -- de 28 nyeste produktene (CooperVision/Alcon/Bausch+Lomb
-  -serien) er KUN verifisert på Lenson+Lensway, ikke sjekket mot
-  Lensit/Interoptik ennå. Ikke gjett/legg til scrape_targets for et par som
-  ikke faktisk er verifisert å eksistere hos den forhandleren.
+  multifokale linser), 61 produkter totalt (28.08.2026). Alle 61 har tilbud
+  fra Lenson+Lensway, 54 har i tillegg Lensit, 34 har i tillegg Interoptik
+  (snitt 3,4 forhandlere/produkt). Manglende dekning er alltid fordi
+  forhandleren faktisk ikke fører akkurat den varianten/pakningsstørrelsen
+  (bekreftet ved gjennomgang av deres egne merke-/kolleksjonssider) -- IKKE
+  fordi det ikke er sjekket. Ikke gjett/legg til scrape_targets for et par
+  som ikke faktisk er verifisert å eksistere hos den forhandleren.
   Tørre-øyne-kategorien er fortsatt ikke bygget.
+- ADORE (2 produkter) og Acuvue Vita finnes kun hos Lenson/Lensway (bekreftet
+  fraværende hos Lensit og Interoptik). Precision7 hos Interoptik selges kun
+  i 12-pakning (vårt produkt er 6-pakning) -- bevisst IKKE koblet til
+  Interoptik siden det ville sammenlignet ulike pakningsstørrelser.
 - Lensons/Lensways listeside (ikke bare produktsiden) inneholder SAMME
   universalAnalyticsInfo-JSON-blob som produktsiden, med productId, navn,
   pris, kategori og produsent for ALLE produkter på siden (`?_page=0` til
