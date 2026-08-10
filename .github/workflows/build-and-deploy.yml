@@ -7,6 +7,10 @@ on:
   push:
     branches: [main]
 
+# Nødvendig for at jobben skal ha lov til å publisere til GitHub Pages
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,7 +36,17 @@ jobs:
       - name: Valider bygget
         run: python3 site_generator/validate_build.py
 
-      - name: Ingen utrullingssteg valgt enda
+      - name: Legg til robots.txt, llms.txt og sitemap i output
+        # Disse ligger i repo-roten, ikke generert av generate_pages.py,
+        # men skal likevel med i det som faktisk publiseres.
         run: |
-          echo "Bygget er validert og klart i site_generator/build/,"
-          echo "men ingen utrullingsmetode er konfigurert ennå."
+          cp robots.txt site_generator/build/robots.txt
+          cp llms.txt site_generator/build/llms.txt
+          cp sitemap*.xml site_generator/build/
+
+      - name: Publiser til GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site_generator/build
+          cname: kontaktlinser.no
