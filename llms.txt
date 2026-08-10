@@ -1,0 +1,27 @@
+# kontaktlinser.no
+
+> Prissammenligning for kontaktlinser i Norge. Vi samler priser fra norske
+> nettbutikker (Interoptik, Lensway, Lenson, Specsavers og flere) og viser
+> alltid billigste tilgjengelige tilbud per produkt, sortert etter total pris
+> inkludert frakt.
+
+## Metodikk og pålitelighet
+
+Priser hentes automatisk fra forhandlernes egne feeds og produktsider.
+Hver pris vises med tidspunkt for siste kontroll ("sist oppdatert"). Priser
+eldre enn 24 timer eller produkter uten bekreftet lagerstatus vises ikke som
+"lavest pris". Rangeringen av tilbud følger alltid total pris (produktpris +
+frakt) - den påvirkes ikke av om vi har en affiliate-avtale med forhandleren.
+
+## Nøkkelsider
+
+- Kategorier: https://kontaktlinser.no/kontaktlinser/manedslinser/, https://kontaktlinser.no/kontaktlinser/dagslinser/, https://kontaktlinser.no/kontaktlinser/torre-oyne/
+- Merker: https://kontaktlinser.no/merke/
+- Full produktoversikt: https://kontaktlinser.no/sitemap.xml
+- Guider: https://kontaktlinser.no/guide/
+
+## Om oss
+
+kontaktlinser.no er en uavhengig, norsk prissammenligningstjeneste. Vi kan
+motta provisjon fra forhandlere via affiliate-lenker; dette påvirker ikke
+prisen kunden betaler og ikke rangeringen av tilbud.

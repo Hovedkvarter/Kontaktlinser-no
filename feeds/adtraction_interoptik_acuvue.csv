@@ -1,0 +1,4 @@
+merchant_name,price,shipping_cost,tracking_url,in_stock,last_updated,image_url,sku
+Interoptik,349.0,49.0,https://track.adtraction.com/example-interoptik,1,2026-08-07T09:12:00+02:00,https://cdn.eksempel-nettverk.no/produktbilder/acuvue-oasys-6pk.jpg,ADT-OASYS-6
+Interoptik,419.0,0.0,https://track.adtraction.com/example-interoptik-vita,1,2026-08-07T07:55:00+02:00,,ADT-VITA-6
+Interoptik,199.0,0.0,https://track.adtraction.com/example-uten-match,1,2026-08-07T09:00:00+02:00,,ADT-UKJENT-PRODUKT

@@ -1,0 +1,49 @@
+{
+  "$comment": "default_source gjelder alle merker hos en forhandler, med mindre brand_overrides sier noe annet. Når en avtale godkjennes for et merke hos en forhandler: legg til/oppdater raden i brand_overrides. Ingen kodeendring nødvendig.",
+
+  "interoptik": {
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.interoptik.no",
+      "price_selector": ".product-price",
+      "stock_selector": ".stock-status",
+      "product_url_pattern": "/produkt/{slug}"
+    },
+    "brand_overrides": {
+      "acuvue": {
+        "source": "affiliate_feed",
+        "network": "adtraction",
+        "feed_path": "feeds/adtraction_interoptik_acuvue.csv"
+      }
+    }
+  },
+
+  "lensway": {
+    "default_source": "affiliate_feed",
+    "network": "partner-ads",
+    "feed_path": "feeds/partner_ads_lensway.csv",
+    "brand_overrides": {}
+  },
+
+  "lenson": {
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.lenson.no",
+      "price_selector": ".price-current",
+      "stock_selector": ".availability",
+      "product_url_pattern": "/kontaktlinser/{slug}"
+    },
+    "brand_overrides": {}
+  },
+
+  "specsavers": {
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.specsavers.no",
+      "price_selector": ".product__price",
+      "stock_selector": ".product__stock",
+      "product_url_pattern": "/kontaktlinser/{slug}"
+    },
+    "brand_overrides": {}
+  }
+}

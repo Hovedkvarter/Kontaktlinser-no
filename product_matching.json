@@ -1,0 +1,13 @@
+{
+  "$comment": "Én tabell per nettverk. Nøkkelen er verdien i feedens egen SKU/produktnummer-kolonne, verdien er product.id fra products_meta.json. Oppdater denne når nye produkter legges til i en feed.",
+
+  "adtraction": {
+    "ADT-OASYS-6": "acuvue-oasys-6pk",
+    "ADT-VITA-6": "acuvue-vita-6pk"
+  },
+
+  "partner-ads": {
+    "PA-OASYS-6": "acuvue-oasys-6pk",
+    "PA-VITA-6": "acuvue-vita-6pk"
+  }
+}

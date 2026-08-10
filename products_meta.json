@@ -1,0 +1,52 @@
+{
+  "$comment": "Ingen priser her - kun det som IKKE endrer seg fra kjøring til kjøring. scrape_targets sier hvilke (forhandler, slug)-par som skal scrapes for dette produktet, hvis den forhandleren er satt til 'scraper' for merket i sources_config.json.",
+
+  "categories": {
+    "manedslinser": {
+      "label": "Månedslinser",
+      "intro": "Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        { "slug": "manedslinser-vs-dagslinser", "title": "Månedslinser vs. dagslinser – hva passer deg?" },
+        { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
+      ]
+    }
+  },
+
+  "products": [
+    {
+      "id": "acuvue-oasys-6pk",
+      "slug": "oasys-6-pack",
+      "name": "Acuvue Oasys 6-pack",
+      "description": "Silikonhydrogel, UV-beskyttelse.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "manedslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-oasys-6pk" }
+      ]
+    },
+    {
+      "id": "acuvue-vita-6pk",
+      "slug": "vita-6-pack",
+      "name": "Acuvue Vita 6-pack",
+      "description": "Månedslinse med HydraMax-teknologi.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "manedslinser",
+      "scrape_targets": []
+    },
+    {
+      "id": "biofinity-6pk",
+      "slug": "biofinity-6-pack",
+      "name": "Biofinity 6-pack",
+      "description": "Silikonhydrogel-linse fra CooperVision.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "manedslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biofinity-6pk" },
+        { "retailer": "specsavers", "slug": "biofinity-6pk" }
+      ]
+    }
+  ]
+}
