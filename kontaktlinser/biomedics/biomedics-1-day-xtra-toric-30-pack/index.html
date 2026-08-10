@@ -105,11 +105,15 @@ a { color: inherit; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
 .best-price-band .retailer-logo { height: 22px; max-width: 110px; }
-.brand-card-badge.has-logo, .brand-hero-logo.has-logo { background: white; padding: 6px; }
-.brand-card-badge.has-logo-dark, .brand-hero-logo.has-logo-dark { background: var(--ink); }
+.brand-card-badge.has-logo, .brand-card-badge.has-logo-dark { width: 52px; border-radius: 8px; padding: 4px; }
+.brand-card-badge.has-logo { background: white; }
+.brand-card-badge.has-logo-dark { background: var(--ink); }
 .brand-logo-img { width: 100%; height: 100%; object-fit: contain; }
 .brand-hero-row { display: flex; align-items: center; gap: 16px; }
 .brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-hero-logo.has-logo, .brand-hero-logo.has-logo-dark { width: 128px; border-radius: 14px; padding: 10px; }
+.brand-hero-logo.has-logo { background: white; }
+.brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
 .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
