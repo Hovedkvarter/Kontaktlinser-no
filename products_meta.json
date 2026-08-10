@@ -1,5 +1,5 @@
 {
-  "$comment": "Ingen priser her - kun det som IKKE endrer seg fra kjøring til kjøring. scrape_targets sier hvilke (forhandler, slug)-par som skal scrapes for dette produktet, hvis den forhandleren er satt til 'scraper' for merket i sources_config.json. NB: biofinity-6pk er MED VILJE tatt ut av products-listen under. Den har kun scraping som kilde, og price_selector/stock_selector for lenson og specsavers i sources_config.json er fortsatt gjetninger, ikke bekreftet mot ekte HTML. Legg den tilbake som et ekte produktobjekt når selectorene er verifisert.",
+  "$comment": "Ingen priser her - kun det som IKKE endrer seg fra kjøring til kjøring. scrape_targets sier hvilke (forhandler, slug)-par som skal scrapes for dette produktet, hvis den forhandleren er satt til 'scraper' for merket i sources_config.json. NB: biofinity-6pk ble tidligere holdt utenfor til Lenson/Specsavers-selectorene var verifisert -- Lenson (og fire andre forhandlere) er nå bekreftet mot ekte HTML (28.08.2026), så den er lagt tilbake. Specsavers er fortsatt uverifisert og ikke brukt som scrape_target for noe produkt.",
 
   "categories": {
     "manedslinser": {
@@ -22,7 +22,8 @@
       "brand_label": "Acuvue",
       "category_slug": "manedslinser",
       "scrape_targets": [
-        { "retailer": "lenson", "slug": "acuvue-oasys-6pk" }
+        { "retailer": "lenson", "slug": "acuvue-oasys-lens-154" },
+        { "retailer": "lensway", "slug": "acuvue-oasys-lens-154" }
       ]
     },
     {
@@ -33,7 +34,24 @@
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "manedslinser",
-      "scrape_targets": []
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-vita-lens-6648" },
+        { "retailer": "lensway", "slug": "acuvue-vita-lens-6648" }
+      ]
+    },
+    {
+      "id": "biofinity-6pk",
+      "slug": "biofinity-6-pack",
+      "name": "Biofinity 6-pack",
+      "description": "Silikonhydrogel-linse fra CooperVision.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "manedslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biofinity-lens-347" },
+        { "retailer": "lensway", "slug": "biofinity-lens-347" },
+        { "retailer": "lensit", "slug": "biofinity-prd39456092" }
+      ]
     }
   ]
 }

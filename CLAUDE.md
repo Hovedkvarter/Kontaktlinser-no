@@ -81,14 +81,34 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   feed-eksporter. Kolonnenavn (`sku`, `produktnummer`, `image_url`,
   `bilde_url` osv.) er gjettet og MÅ verifiseres mot faktiske
   Adtraction/Partner-ads-eksporter når avtalene er signert.
-- CSS-selectorene i `sources_config.json` (`price_selector`,
-  `stock_selector` for Lenson/Specsavers) var uverifiserte gjetninger — sjekk
-  om en tidligere Claude Code-økt har bekreftet/rettet disse mot ekte HTML
-  før du stoler på scraping-resultatet.
-- Kun 1 kategori (månedslinser), 2 produkter er i katalogen. Dagslinser og
-  tørre-øyne-kategoriene er planlagt, men ikke bygget.
-- Biofinity-6pk er med vilje utelatt fra `products_meta.json` til scraping av
-  Lenson/Specsavers er verifisert.
+- Lenson og Lensway (samme plattform/LensGroup) er verifisert mot ekte HTML
+  (28.08.2026) og scraper faktisk live priser — se `sources_config.json`.
+  VIKTIG: begge er React-apper som ALDRI server-rendrer pris i DOM-en, kun i
+  en analytics-JSON-blob i en `<script>`-tag (`price_source: "embedded_json"`
+  i `scraper.py`). Ikke bytt disse to tilbake til CSS-selectorer uten å sjekke
+  dette på nytt.
+- Bekreftede affiliate-nettverk så langt: Lenson, Lensway og Shopping4net
+  kjører alle via **Tradedoubler**. ExtraOptical og Lensit har programmer,
+  men nettverk er ikke bekreftet.
+- ExtraOptical er BLOKKERT for skraping: ren React-app (Magento/Venia) uten
+  embedded prisdata i rå-HTML, krever JS/GraphQL som dagens scraper bevisst
+  ikke gjør. Shopping4net er BLOKKERT: robots.txt finnes ikke på domenets rot
+  (kun på `/no/robots.txt`, ugyldig plassering), så `robots_allows()` nekter
+  scraping inntil det er avklart med dem. Selectorene for begge er verifiserte
+  og klare — se `$comment` per forhandler i `sources_config.json` for detaljer
+  og mulige løsninger.
+- SmartBuyGlasses er IKKE lagt til: robots.txt blokkerer `/product/` for
+  vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
+  men ingen skraping uten å utgi seg for å være Googlebot.
+- Kun 1 kategori (månedslinser). Dagslinser og tørre-øyne-kategoriene er
+  planlagt, men ikke bygget. 3 produkter i katalogen (Acuvue Oasys 6pk,
+  Acuvue Vita 6pk, Biofinity 6pk), hver med reelle tilbud fra Lenson, Lensway
+  og (for Biofinity) Lensit.
+- Biofinity-6pk er lagt tilbake i `products_meta.json` — Lenson er nå
+  verifisert (Specsavers er det fortsatt ikke, men det kravet er innhentet av
+  fire andre bekreftede kilder).
+- Specsavers er IKKE rørt — fortsatt uverifiserte gjetninger i
+  `sources_config.json`.
 - Domene, DNS (Domeneshop), HTTPS og GitHub Pages er satt opp og fungerer.
 
 ## Arbeidsspråk og autorisasjon

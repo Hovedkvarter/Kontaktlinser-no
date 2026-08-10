@@ -6,6 +6,15 @@ sources_config.json faktisk sier "scraper" som kilde. Selectorene ligger i
 config, ikke i koden -- endrer en forhandler layouten sin, oppdaterer du
 config, ikke Python.
 
+To hente-moduser, valgt via price_source i scraper_config (default "css"):
+  "css"           - price_selector/sale_price_selector leses av server-rendret
+                     DOM med BeautifulSoup, slik det alltid har fungert her.
+  "embedded_json" - for React/SPA-forhandlere som ALDRI server-rendrer prisen
+                     i DOM-en (CSS-selectorer treffer da ingenting uansett hvor
+                     riktige de er). embedded_json_pattern + _price_path
+                     plukker prisen ut av en JSON-blob i en <script>-tag som
+                     ligger i rå-HTML-en uavhengig av om JS kjøres.
+
 To regler som IKKE er valgfrie:
 1. Sjekk robots.txt før hver kjøring mot en gitt forhandler. Er stien disallowed,
    scraper vi ikke -- uansett hvor fristende dataene er.
@@ -17,6 +26,7 @@ scraperen automatisk hoppe over det paret -- se should_scrape().
 """
 
 import json
+import re
 import time
 import urllib.robotparser
 from datetime import datetime, timezone
@@ -70,16 +80,58 @@ class DomainRateLimiter:
         self.min_delay = min_delay
         self._last_request: dict[str, float] = {}
 
-    def wait(self, domain: str) -> None:
+    def wait(self, domain: str, min_delay: float | None = None) -> None:
+        """min_delay overstyrer standarden -- enkelte forhandlere (f.eks.
+        ExtraOptical) krever lengre crawl-delay enn 3 sek i robots.txt."""
+        delay = min_delay if min_delay is not None else self.min_delay
         last = self._last_request.get(domain)
         if last is not None:
             elapsed = time.monotonic() - last
-            if elapsed < self.min_delay:
-                time.sleep(self.min_delay - elapsed)
+            if elapsed < delay:
+                time.sleep(delay - elapsed)
         self._last_request[domain] = time.monotonic()
 
 
 _rate_limiter = DomainRateLimiter()
+
+
+def _find_price_in_dom(sc: dict, soup: BeautifulSoup) -> float | None:
+    """Tilbudspris (sale_price_selector) vinner over ordinærpris når begge
+    finnes -- flere forhandlere viser strøket originalpris + kampanjepris
+    side om side i samme markup."""
+    price_el = None
+    if sc.get("sale_price_selector"):
+        price_el = soup.select_one(sc["sale_price_selector"])
+    if price_el is None:
+        price_el = soup.select_one(sc["price_selector"])
+    if price_el is None:
+        return None
+    price_text = price_el.get_text(strip=True).replace("kr", "").replace(",", ".").strip()
+    try:
+        return float("".join(c for c in price_text if c.isdigit() or c == "."))
+    except ValueError:
+        return None
+
+
+def _find_price_in_embedded_json(sc: dict, resp_text: str) -> float | None:
+    """Enkelte forhandlere (Lenson/Lensway) er React-apper der prisen ALDRI
+    finnes i server-rendret DOM -- CSS-selectorer treffer ingenting uansett
+    hvor riktige de er. Prisen ligger derimot ferdig utregnet (rabatt
+    inkludert) som en JSON-blob i en <script>-tag, ment for deres egen
+    analytics -- den blobben er til stede uten at JS kjøres."""
+    m = re.search(sc["embedded_json_pattern"], resp_text, re.S)
+    if not m:
+        return None
+    try:
+        value = json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return None
+    for key in sc["embedded_json_price_path"]:
+        try:
+            value = value[key]
+        except (KeyError, IndexError, TypeError):
+            return None
+    return float(value) if isinstance(value, int | float) else None
 
 
 def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | None:
@@ -92,7 +144,7 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | N
     if not robots_allows(base_url, path):
         return None  # respekter robots.txt uten unntak
 
-    _rate_limiter.wait(base_url)
+    _rate_limiter.wait(base_url, min_delay=sc.get("crawl_delay_seconds"))
 
     try:
         resp = requests.get(
@@ -106,17 +158,14 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | N
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    price_el = soup.select_one(sc["price_selector"])
-    stock_el = soup.select_one(sc["stock_selector"])
-    if price_el is None:
+    if sc.get("price_source") == "embedded_json":
+        price = _find_price_in_embedded_json(sc, resp.text)
+    else:
+        price = _find_price_in_dom(sc, soup)
+    if price is None:
         return None  # ikke publiser en pris vi ikke faktisk fant
 
-    price_text = price_el.get_text(strip=True).replace("kr", "").replace(",", ".").strip()
-    try:
-        price = float("".join(c for c in price_text if c.isdigit() or c == "."))
-    except ValueError:
-        return None
-
+    stock_el = soup.select_one(sc["stock_selector"]) if sc.get("stock_selector") else None
     in_stock = True
     if stock_el is not None:
         in_stock = "utsolgt" not in stock_el.get_text(strip=True).lower()
