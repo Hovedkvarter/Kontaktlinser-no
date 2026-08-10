@@ -90,6 +90,19 @@ FONT_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">"""
 
+GTM_HEAD = """<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KGPF68');</script>
+<!-- End Google Tag Manager -->"""
+
+GTM_BODY = """<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGPF68"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->"""
+
 TOPBAR_HTML = f"""<div class="topbar">
   <a href="/" class="topbar-logo">{RING_MARK} kontaktlinser.no</a>
   <nav class="topbar-nav">
@@ -244,6 +257,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
@@ -263,6 +277,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 </style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb">
@@ -354,6 +369,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(brand_label)} kontaktlinser – sammenlign priser | kontaktlinser.no</title>
@@ -363,6 +379,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
@@ -514,6 +531,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
@@ -562,6 +580,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 </style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <div class="hero">
@@ -718,6 +737,7 @@ def render_guide_page(slug: str) -> str | None:
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(guide["title"])} | kontaktlinser.no</title>
@@ -726,6 +746,7 @@ def render_guide_page(slug: str) -> str | None:
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
@@ -755,6 +776,7 @@ def render_guides_index_page() -> str:
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guider – kontaktlinser.no</title>
@@ -768,6 +790,7 @@ def render_guides_index_page() -> str:
 </style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
@@ -847,6 +870,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(category["label"])} – sammenlign priser | kontaktlinser.no</title>
@@ -856,6 +880,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
+{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(category["label"])}</p>
