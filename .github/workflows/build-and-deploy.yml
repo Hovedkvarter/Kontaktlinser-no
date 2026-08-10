@@ -1,0 +1,37 @@
+name: Oppdater priser og bygg siden
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut repo
+        uses: actions/checkout@v4
+
+      - name: Sett opp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer avhengigheter
+        run: pip install requests beautifulsoup4
+
+      - name: Hent priser (feeds + scraping) og bygg katalog
+        run: python3 build_catalog.py
+
+      - name: Generer statiske sider
+        run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
+
+      - name: Valider bygget
+        run: python3 site_generator/validate_build.py
+
+      - name: Ingen utrullingssteg valgt enda
+        run: |
+          echo "Bygget er validert og klart i site_generator/build/,"
+          echo "men ingen utrullingsmetode er konfigurert ennå."
