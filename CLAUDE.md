@@ -101,7 +101,7 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
 - 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
-  multifokale linser), 42 produkter totalt (28.08.2026), alle med reelle
+  multifokale linser), 61 produkter totalt (28.08.2026), alle med reelle
   tilbud fra minst Lenson og Lensway. Lensit og Interoptik dekker de fleste,
   men ikke alle, av de opprinnelige 14 (Lensit mangler Acuvue Vita og begge
   ADORE-produktene; Interoptik mangler i tillegg Air Optix Colors og Acuvue
@@ -118,7 +118,7 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   titalls produkter. Bruk dette fremfor å skrape enkeltsider når flere
   produkter skal legges til samtidig -- MYE raskere enn nettleser-basert
   paginering.
-- Alle 42 produkter har nå `specs` (liste av [label, verdi]-par: materiale,
+- Alle 61 produkter har nå `specs` (liste av [label, verdi]-par: materiale,
   vanninnhold, basiskurve, diameter, styrkeområde, brukstid, linsetype, evt.
   sylinder/akse/addisjon) og `long_description` (unik, faktabasert, 2-3
   setninger) i `products_meta.json`. Data er satt sammen fra Interoptiks

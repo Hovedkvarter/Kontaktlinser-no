@@ -987,6 +987,381 @@
         { "retailer": "lenson", "slug": "biomedics-55-evolution-lens-16" },
         { "retailer": "lensway", "slug": "biomedics-55-evolution-lens-16" }
       ]
+    },
+    {
+      "id": "air-optix-night-day-aqua-6pk",
+      "slug": "night-day-aqua-6-pack",
+      "name": "Air Optix Night & Day Aqua 6-pack",
+      "description": "Månedslinse for kontinuerlig bruk.",
+      "long_description": "Air Optix Night & Day Aqua er Alcons månedslinse i lotrafilcon A, godkjent for kontinuerlig bruk i inntil 30 dager/netter etter avtale med optiker. Lavere vanninnhold enn nyere Air Optix-linser, men svært høy oksygengjennomstrømning.",
+      "brand_slug": "air-optix",
+      "brand_label": "Air Optix",
+      "category_slug": "manedslinser",
+      "specs": [
+        ["Materiale", "Lotrafilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "24 %"],
+        ["Basiskurve", "8,4 / 8,6 mm"],
+        ["Diameter", "13,8 mm"],
+        ["Brukstid", "Månedslinse (godkjent for kontinuerlig bruk)"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "air-optix-night-day-aqua-lens-222" },
+        { "retailer": "lensway", "slug": "air-optix-night-day-aqua-lens-222" }
+      ]
+    },
+    {
+      "id": "purevision-6pk",
+      "slug": "purevision-6-pack",
+      "name": "PureVision 6-pack",
+      "description": "Månedslinse fra Bausch + Lomb.",
+      "long_description": "PureVision er den opprinnelige linsen i serien fra Bausch + Lomb, i balafilcon A. Forgjengeren til PureVision2, fortsatt i salg som et rimeligere alternativ.",
+      "brand_slug": "purevision",
+      "brand_label": "PureVision",
+      "category_slug": "manedslinser",
+      "specs": [
+        ["Materiale", "Balafilcon A (silikonhydrogel)"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "purevision-lens-191" },
+        { "retailer": "lensway", "slug": "purevision-lens-191" }
+      ]
+    },
+    {
+      "id": "purevision-multifocal-6pk",
+      "slug": "purevision-multifocal-6-pack",
+      "name": "PureVision Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra Bausch + Lomb.",
+      "long_description": "PureVision Multifocal er den progressive varianten av den opprinnelige PureVision, samme balafilcon A-materiale, for deg med alderssyn.",
+      "brand_slug": "purevision",
+      "brand_label": "PureVision",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Balafilcon A (silikonhydrogel)"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "purevision-multifocal-lens-198" },
+        { "retailer": "lensway", "slug": "purevision-multifocal-lens-198" }
+      ]
+    },
+    {
+      "id": "purevision2-astigmatism-6pk",
+      "slug": "purevision2-for-astigmatism-6-pack",
+      "name": "PureVision2 for Astigmatism 6-pack",
+      "description": "Torisk månedslinse fra Bausch + Lomb.",
+      "long_description": "PureVision2 for Astigmatism er den toriske varianten av PureVision2, samme balafilcon A-materiale, formet for stabilt sete ved skjev hornhinne.",
+      "brand_slug": "purevision",
+      "brand_label": "PureVision",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Balafilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "36 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "purevision2-for-astigmatism-lens-1691" },
+        { "retailer": "lensway", "slug": "purevision2-for-astigmatism-lens-1691" }
+      ]
+    },
+    {
+      "id": "purevision2-presbyopia-6pk",
+      "slug": "purevision2-for-presbyopia-6-pack",
+      "name": "PureVision2 for Presbyopia 6-pack",
+      "description": "Multifokal månedslinse fra Bausch + Lomb.",
+      "long_description": "PureVision2 for Presbyopia er den progressive varianten av PureVision2, samme balafilcon A-materiale, for deg med alderssyn.",
+      "brand_slug": "purevision",
+      "brand_label": "PureVision",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Balafilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "36 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "purevision2-for-presbyopia-lens-3494" },
+        { "retailer": "lensway", "slug": "purevision2-for-presbyopia-lens-3494" }
+      ]
+    },
+    {
+      "id": "biotrue-oneday-astigmatism-30pk",
+      "slug": "biotrue-oneday-for-astigmatism-30-pack",
+      "name": "Biotrue ONEday for Astigmatism 30-pack",
+      "description": "Torisk dagslinse fra Bausch + Lomb.",
+      "long_description": "Biotrue ONEday for Astigmatism er den toriske dagslinsen fra Bausch + Lomb, samme nesofilcon A-materiale med høyt vanninnhold som standard Biotrue ONEday.",
+      "brand_slug": "biotrue",
+      "brand_label": "Biotrue",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Nesofilcon A (Hypergel)"],
+        ["Vanninnhold", "78 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biotrue-oneday-for-astigmatism-lens-7067" },
+        { "retailer": "lensway", "slug": "biotrue-oneday-for-astigmatism-lens-7067" }
+      ]
+    },
+    {
+      "id": "biotrue-oneday-presbyopia-30pk",
+      "slug": "biotrue-oneday-for-presbyopia-30-pack",
+      "name": "Biotrue ONEday for Presbyopia 30-pack",
+      "description": "Multifokal dagslinse fra Bausch + Lomb.",
+      "long_description": "Biotrue ONEday for Presbyopia er den progressive dagslinsen fra Bausch + Lomb, samme nesofilcon A-materiale som standard Biotrue ONEday, for deg med alderssyn.",
+      "brand_slug": "biotrue",
+      "brand_label": "Biotrue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Nesofilcon A (Hypergel)"],
+        ["Vanninnhold", "78 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biotrue-oneday-for-presbyopia-lens-5873" },
+        { "retailer": "lensway", "slug": "biotrue-oneday-for-presbyopia-lens-5873" }
+      ]
+    },
+    {
+      "id": "ultra-oneday-30pk",
+      "slug": "ultra-one-day-30-pack",
+      "name": "ULTRA ONE DAY 30-pack",
+      "description": "Dagslinse fra Bausch + Lomb.",
+      "long_description": "ULTRA ONE DAY er dagslinse-varianten av ULTRA fra Bausch + Lomb, samme MoistureSeal-teknologi som månedslinse-utgaven, for deg som vil bytte linse hver dag.",
+      "brand_slug": "ultra",
+      "brand_label": "ULTRA",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Samfilcon A med MoistureSeal-teknologi"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "ultra-one-day-lens-9569" },
+        { "retailer": "lensway", "slug": "ultra-one-day-lens-9569" }
+      ]
+    },
+    {
+      "id": "ultra-astigmatism-6pk",
+      "slug": "ultra-for-astigmatism-6-pack",
+      "name": "ULTRA for Astigmatism 6-pack",
+      "description": "Torisk månedslinse fra Bausch + Lomb.",
+      "long_description": "ULTRA for Astigmatism er den toriske månedslinsen fra Bausch + Lomb, samme samfilcon A-materiale som standard ULTRA, formet for astigmatisme.",
+      "brand_slug": "ultra",
+      "brand_label": "ULTRA",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Samfilcon A med MoistureSeal-teknologi"],
+        ["Vanninnhold", "46 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "ultra-for-astigmatism-lens-8796" },
+        { "retailer": "lensway", "slug": "ultra-for-astigmatism-lens-8796" }
+      ]
+    },
+    {
+      "id": "ultra-presbyopia-6pk",
+      "slug": "ultra-for-presbyopia-6-pack",
+      "name": "ULTRA for Presbyopia 6-pack",
+      "description": "Multifokal månedslinse fra Bausch + Lomb.",
+      "long_description": "ULTRA for Presbyopia er den progressive månedslinsen fra Bausch + Lomb, samme samfilcon A-materiale som standard ULTRA, for deg med alderssyn.",
+      "brand_slug": "ultra",
+      "brand_label": "ULTRA",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Samfilcon A med MoistureSeal-teknologi"],
+        ["Vanninnhold", "46 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "ultra-for-presbyopia-lens-6666" },
+        { "retailer": "lensway", "slug": "ultra-for-presbyopia-lens-6666" }
+      ]
+    },
+    {
+      "id": "biomedics-1day-xtra-30pk",
+      "slug": "biomedics-1-day-xtra-30-pack",
+      "name": "Biomedics 1Day Extra 30-pack",
+      "description": "Dagslinse fra CooperVision.",
+      "long_description": "Biomedics 1Day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
+      "brand_slug": "biomedics",
+      "brand_label": "Biomedics",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biomedics-1-day-xtra-lens-1991" },
+        { "retailer": "lensway", "slug": "biomedics-1-day-xtra-lens-1991" }
+      ]
+    },
+    {
+      "id": "biomedics-1day-xtra-toric-30pk",
+      "slug": "biomedics-1-day-xtra-toric-30-pack",
+      "name": "Biomedics 1Day Extra Toric 30-pack",
+      "description": "Torisk dagslinse fra CooperVision.",
+      "long_description": "Biomedics 1Day Extra Toric er den toriske dagslinsen fra CooperVision, samme materiale som standard 1Day Extra, formet for astigmatisme.",
+      "brand_slug": "biomedics",
+      "brand_label": "Biomedics",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biomedics-1-day-xtra-toric-lens-112" },
+        { "retailer": "lensway", "slug": "biomedics-1-day-xtra-toric-lens-112" }
+      ]
+    },
+    {
+      "id": "biomedics-toric-6pk",
+      "slug": "biomedics-toric-6-pack",
+      "name": "Biomedics Toric 6-pack",
+      "description": "Torisk månedslinse fra CooperVision.",
+      "long_description": "Biomedics Toric er den toriske månedslinsen i CooperVisions budsjettserie, i ocufilcon D, formet for astigmatisme.",
+      "brand_slug": "biomedics",
+      "brand_label": "Biomedics",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Ocufilcon D (hydrogel)"],
+        ["Vanninnhold", "55 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biomedics-toric-lens-298" },
+        { "retailer": "lensway", "slug": "biomedics-toric-lens-298" }
+      ]
+    },
+    {
+      "id": "total30-multifocal-6pk",
+      "slug": "total30-multifocal-6-pack",
+      "name": "TOTAL30 Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra Alcon med vanngradient.",
+      "long_description": "TOTAL30 Multifocal er den progressive månedslinsen fra Alcon, samme vanngradient-prinsipp (lehfilcon A) som standard TOTAL30, for deg med alderssyn.",
+      "brand_slug": "total30",
+      "brand_label": "TOTAL30",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Lehfilcon A med vanngradient"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "total30-multifocal-lens-9993" },
+        { "retailer": "lensway", "slug": "total30-multifocal-lens-9993" }
+      ]
+    },
+    {
+      "id": "total30-astigmatism-6pk",
+      "slug": "total30-for-astigmatism-6-pack",
+      "name": "TOTAL30 for Astigmatism 6-pack",
+      "description": "Torisk månedslinse fra Alcon med vanngradient.",
+      "long_description": "TOTAL30 for Astigmatism er den toriske månedslinsen fra Alcon, samme vanngradient-prinsipp (lehfilcon A) som standard TOTAL30, formet for astigmatisme.",
+      "brand_slug": "total30",
+      "brand_label": "TOTAL30",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Lehfilcon A med vanngradient"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "total30-for-astigmatism-lens-9638" },
+        { "retailer": "lensway", "slug": "total30-for-astigmatism-lens-9638" }
+      ]
+    },
+    {
+      "id": "precision7-6pk",
+      "slug": "precision7-6-pack",
+      "name": "Precision7 6-pack",
+      "description": "Ukelinse fra Alcon.",
+      "long_description": "Precision7 er Alcons nyeste ukelinse (7 dagers brukstid) i serafilcon A, med Activ-Flo-teknologi ment å etterfylle fuktighet gjennom hele brukstiden. Mellomting mellom en dagslinse og en månedslinse i bytterutine.",
+      "brand_slug": "precision7",
+      "brand_label": "Precision7",
+      "category_slug": "manedslinser",
+      "specs": [
+        ["Materiale", "Serafilcon A med Activ-Flo-teknologi"],
+        ["Vanninnhold", "55 %"],
+        ["Basiskurve", "8,4 mm"],
+        ["Diameter", "14,2 mm"],
+        ["Brukstid", "Ukelinse (7 dager)"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "precision7-lens-10819" },
+        { "retailer": "lensway", "slug": "precision7-lens-10819" }
+      ]
+    },
+    {
+      "id": "precision7-astigmatism-6pk",
+      "slug": "precision7-for-astigmatism-6-pack",
+      "name": "Precision7 for Astigmatism 6-pack",
+      "description": "Torisk ukelinse fra Alcon.",
+      "long_description": "Precision7 for Astigmatism er den toriske ukelinsen fra Alcon, samme serafilcon A-materiale som standard Precision7, formet for astigmatisme.",
+      "brand_slug": "precision7",
+      "brand_label": "Precision7",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Serafilcon A med Activ-Flo-teknologi"],
+        ["Vanninnhold", "55 %"],
+        ["Brukstid", "Ukelinse (7 dager)"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "precision7-for-astigmatism-lens-10821" },
+        { "retailer": "lensway", "slug": "precision7-for-astigmatism-lens-10821" }
+      ]
+    },
+    {
+      "id": "freshlook-oneday-30pk",
+      "slug": "freshlook-oneday-30-pack",
+      "name": "FreshLook ONEday 30-pack",
+      "description": "Fargede dagslinser fra Alcon.",
+      "long_description": "FreshLook ONEday er Alcons fargede dagslinse, med et nytt fargelag hver dag siden linsen kastes etter én bruk. Fås både med og uten styrke, men krever resept uansett.",
+      "brand_slug": "freshlook",
+      "brand_label": "FreshLook",
+      "category_slug": "fargede-linser",
+      "specs": [
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Farget, med og uten styrke"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "freshlook-oneday-lens-328" },
+        { "retailer": "lensway", "slug": "freshlook-oneday-lens-328" }
+      ]
+    },
+    {
+      "id": "focus-dailies-30pk",
+      "slug": "focus-dailies-30-pack",
+      "name": "Focus Dailies 30-pack",
+      "description": "Dagslinse fra Alcon.",
+      "long_description": "Focus Dailies er en av Alcons eldre, rimeligere dagslinser i nelfilcon A, med høyt vanninnhold. Et budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Basiskurve", "8,6 mm"],
+        ["Diameter", "13,8 mm"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "focus-dailies-lens-245" },
+        { "retailer": "lensway", "slug": "focus-dailies-lens-245" }
+      ]
     }
   ]
 }
