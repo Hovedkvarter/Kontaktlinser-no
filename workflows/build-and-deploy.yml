@@ -1,0 +1,68 @@
+name: Oppdater priser og bygg siden
+
+on:
+  schedule:
+    # Kjør hver 6. time. Juster etter hvor ofte feedene faktisk oppdateres -
+    # ingen vits i å kjøre oftere enn dataene faktisk endrer seg.
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}   # lar deg trigge en kjøring manuelt fra GitHub-fanen
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sjekk ut repo
+        uses: actions/checkout@v4
+
+      - name: Sett opp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer avhengigheter
+        run: pip install requests beautifulsoup4
+
+      - name: Hent priser (feeds + scraping) og bygg katalog
+        run: python3 build_catalog.py
+
+      - name: Generer statiske sider
+        run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
+
+      - name: Valider bygget
+        # Feiler hele jobben (og stopper utrulling) hvis validate_build.py
+        # finner et brutt produkt, ødelagt JSON-LD, eller for mange produkter
+        # uten tilbud på én gang - se validate_build.py for terskler.
+        run: python3 site_generator/validate_build.py
+
+      # --- Utrullingssteg: velg ETT av disse basert på hvor siden hostes ---
+      # Fjern kommentar på det som passer, fjern de andre.
+
+      # Alternativ A: GitHub Pages (enklest, gratis, krever ingen ekstern konto)
+      # - name: Publiser til GitHub Pages
+      #   uses: peaceiris/actions-gh-pages@v4
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     publish_dir: ./site_generator/build
+
+      # Alternativ B: Netlify
+      # - name: Publiser til Netlify
+      #   uses: nwtgck/actions-netlify@v3
+      #   with:
+      #     publish-dir: "./site_generator/build"
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Alternativ C: Egen VPS via rsync over SSH
+      # - name: Synkroniser til server
+      #   run: rsync -avz --delete ./site_generator/build/ user@server:/var/www/kontaktlinser.no/
+      #   env:
+      #     SSH_AUTH_SOCK: ${{ steps.ssh-agent.outputs.SSH_AUTH_SOCK }}
+
+      - name: Ingen utrullingssteg valgt enda
+        run: |
+          echo "Bygget er validert og klart i site_generator/build/,"
+          echo "men ingen utrullingsmetode er konfigurert ennå."
+          echo "Se kommenterte alternativer i denne filen."

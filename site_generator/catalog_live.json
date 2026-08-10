@@ -1,0 +1,116 @@
+{
+  "categories": {
+    "manedslinser": {
+      "label": "Månedslinser",
+      "intro": "Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        {
+          "slug": "manedslinser-vs-dagslinser",
+          "title": "Månedslinser vs. dagslinser – hva passer deg?"
+        },
+        {
+          "slug": "hvordan-velge-kontaktlinser",
+          "title": "Hvordan velge kontaktlinser"
+        }
+      ]
+    }
+  },
+  "products": [
+    {
+      "id": "acuvue-oasys-6pk",
+      "slug": "oasys-6-pack",
+      "name": "Acuvue Oasys 6-pack",
+      "description": "Silikonhydrogel, UV-beskyttelse.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "manedslinser",
+      "offers": [
+        {
+          "retailer": "Interoptik",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 349.0,
+          "shipping_nok": 49.0,
+          "url": "https://track.adtraction.com/example-interoptik",
+          "in_stock": true,
+          "checked_at": "2026-08-07T09:12:00+02:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://cdn.eksempel-nettverk.no/produktbilder/acuvue-oasys-6pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "partner-ads",
+          "price_nok": 379.0,
+          "shipping_nok": 0.0,
+          "url": "https://tracking.partner-ads.com/example-lensway",
+          "in_stock": true,
+          "checked_at": "2026-08-07T08:40:00+02:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-6pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-vita-6pk",
+      "slug": "vita-6-pack",
+      "name": "Acuvue Vita 6-pack",
+      "description": "Månedslinse med HydraMax-teknologi.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "manedslinser",
+      "offers": [
+        {
+          "retailer": "Interoptik",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 419.0,
+          "shipping_nok": 0.0,
+          "url": "https://track.adtraction.com/example-interoptik-vita",
+          "in_stock": true,
+          "checked_at": "2026-08-07T07:55:00+02:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-vita-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "partner-ads",
+          "price_nok": 449.0,
+          "shipping_nok": 49.0,
+          "url": "https://tracking.partner-ads.com/example-lensway-vita",
+          "in_stock": true,
+          "checked_at": "2026-08-07T06:30:00+02:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-vita-6pk"
+        }
+      ]
+    },
+    {
+      "id": "biofinity-6pk",
+      "slug": "biofinity-6-pack",
+      "name": "Biofinity 6-pack",
+      "description": "Silikonhydrogel-linse fra CooperVision.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "manedslinser",
+      "offers": []
+    }
+  ]
+}
