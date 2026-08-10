@@ -65,9 +65,44 @@
       "slug": "oasys-6-pack",
       "name": "Acuvue Oasys 6-pack",
       "description": "Silikonhydrogel, UV-beskyttelse.",
+      "long_description": "Acuvue Oasys er en silikonhydrogel-linse (senofilcon A) med UV-filter, offisielt en 14-dagerslinse, men brukes i praksis ofte som ukelinse. Slipper gjennom mye oksygen og passer godt for aktive brukere og for deg med noe tørre øyne.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,4 / 8,8 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "14-dagerslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -78,7 +113,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-lens-154",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:37.040627+00:00",
+          "checked_at": "2026-08-10T14:32:23.561631+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -94,7 +129,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-lens-154",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:37.887896+00:00",
+          "checked_at": "2026-08-10T14:32:24.315666+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -110,7 +145,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/acuvue-oasys-prd19897602",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:38.846288+00:00",
+          "checked_at": "2026-08-10T14:32:25.329583+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -126,7 +161,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys/",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:40.992256+00:00",
+          "checked_at": "2026-08-10T14:32:26.902127+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -140,9 +175,40 @@
       "slug": "vita-6-pack",
       "name": "Acuvue Vita 6-pack",
       "description": "Månedslinse med HydraMax-teknologi.",
+      "long_description": "Acuvue Vita er en månedslinse i senofilcon C, en videreutvikling av materialet i Oasys med noe høyere vanninnhold (41 %). Passer for deg som ønsker en tradisjonell månedlig bytterutine fremfor ukentlig eller daglig bytte.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon C (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "41 %"
+        ],
+        [
+          "Basiskurve",
+          "8,4 / 8,8 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -153,7 +219,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-vita-lens-6648",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:42.429884+00:00",
+          "checked_at": "2026-08-10T14:32:27.728541+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -169,7 +235,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-vita-lens-6648",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:43.283349+00:00",
+          "checked_at": "2026-08-10T14:32:28.436902+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -183,9 +249,40 @@
       "slug": "biofinity-6-pack",
       "name": "Biofinity 6-pack",
       "description": "Silikonhydrogel-linse fra CooperVision.",
+      "long_description": "Biofinity fra CooperVision er en månedslinse i comfilcon A med 48 % vanninnhold og høy oksygengjennomstrømning. Kan godkjennes for kontinuerlig bruk i flere døgn etter avtale med optiker, men brukes normalt som en vanlig månedslinse.",
       "brand_slug": "biofinity",
       "brand_label": "Biofinity",
       "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -196,7 +293,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/biofinity-lens-347",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:44.971966+00:00",
+          "checked_at": "2026-08-10T14:32:30.757508+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -212,7 +309,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/biofinity-lens-347",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:46.299760+00:00",
+          "checked_at": "2026-08-10T14:32:31.500146+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -228,7 +325,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/biofinity-prd39456092",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:47.555828+00:00",
+          "checked_at": "2026-08-10T14:32:32.514211+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -244,7 +341,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-sphere/",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:49.326118+00:00",
+          "checked_at": "2026-08-10T14:32:34.014068+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -258,9 +355,40 @@
       "slug": "moist-30-pack",
       "name": "1-Day Acuvue Moist 30-pack",
       "description": "Endagslinse med LACREON-fuktighetsteknologi.",
+      "long_description": "1-Day Acuvue Moist er en dagslinse i etafilcon A med LACREON-teknologi, som binder et fuktighetsbevarende stoff (PVP) inn i linsen. Høyt vanninnhold (58 %) gjør den godt egnet for deg med normale til noe tørre øyne som foretrekker å bytte linse hver dag.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +6,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -271,7 +399,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/1-day-acuvue-moist-lens-205",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:50.313267+00:00",
+          "checked_at": "2026-08-10T14:32:34.750736+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -287,7 +415,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/1-day-acuvue-moist-lens-205",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:51.440023+00:00",
+          "checked_at": "2026-08-10T14:32:35.528403+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -303,7 +431,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/1-day-acuvue-moist-prd43800736",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:52.544621+00:00",
+          "checked_at": "2026-08-10T14:32:36.583830+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -319,7 +447,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:54.284815+00:00",
+          "checked_at": "2026-08-10T14:32:38.092314+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -333,9 +461,44 @@
       "slug": "oasys-max-1-day-30-pack",
       "name": "Acuvue Oasys MAX 1-Day 30-pack",
       "description": "Endagslinse med TearStable-teknologi og UV-beskyttelse.",
+      "long_description": "Acuvue Oasys MAX 1-Day er Johnson & Johnsons nyeste dagslinse i senofilcon A, med TearStable-teknologi for jevnere fuktighet gjennom dagen. Litt bredere diameter enn standard Oasys-linsene gir god sentrering på øyet.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A med TearStable-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -346,7 +509,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-max-1-day-lens-9627",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:55.146639+00:00",
+          "checked_at": "2026-08-10T14:32:39.069534+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -362,7 +525,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-max-1-day-lens-9627",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:56.084148+00:00",
+          "checked_at": "2026-08-10T14:32:40.044830+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -378,7 +541,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/acuvue-oasys-max-1-day",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:57.183354+00:00",
+          "checked_at": "2026-08-10T14:32:41.147102+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -394,7 +557,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:58.938669+00:00",
+          "checked_at": "2026-08-10T14:32:42.751074+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -408,9 +571,44 @@
       "slug": "oasys-1-day-hydraluxe-30-pack",
       "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
       "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
+      "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A med Hydraluxe-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -421,7 +619,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-1-day-with-hydraluxe-lens-6057",
           "in_stock": true,
-          "checked_at": "2026-08-10T11:59:59.959351+00:00",
+          "checked_at": "2026-08-10T14:32:43.703391+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -437,7 +635,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-1-day-with-hydraluxe-lens-6057",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:00.913601+00:00",
+          "checked_at": "2026-08-10T14:32:44.600711+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -453,7 +651,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/acuvue-oasys-1-day-1",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:02.077516+00:00",
+          "checked_at": "2026-08-10T14:32:45.903893+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -469,7 +667,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:02.873430+00:00",
+          "checked_at": "2026-08-10T14:32:47.271190+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -483,9 +681,48 @@
       "slug": "oasys-astigmatism-6-pack",
       "name": "Acuvue Oasys for Astigmatism 6-pack",
       "description": "Torisk linse for astigmatisme, silikonhydrogel.",
+      "long_description": "Acuvue Oasys for Astigmatism er den toriske varianten av Oasys, formet for å ligge stabilt ved skjev hornhinne. Dekker sylinderstyrke fra -0,75 til -2,75 og brukes offisielt som 14-dagerslinse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-9,00 til +6,00"
+        ],
+        [
+          "Sylinder",
+          "-0,75 til -2,75"
+        ],
+        [
+          "Akse",
+          "10–180°"
+        ],
+        [
+          "Brukstid",
+          "14-dagerslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -496,7 +733,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-for-astigmatism-lens-199",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:04.104861+00:00",
+          "checked_at": "2026-08-10T14:32:48.133395+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -512,7 +749,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-for-astigmatism-lens-199",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:05.078634+00:00",
+          "checked_at": "2026-08-10T14:32:49.067034+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -528,7 +765,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/acuvue-oasys-for-astigmatism-prd42172188-1",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:06.140314+00:00",
+          "checked_at": "2026-08-10T14:32:50.265306+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -544,7 +781,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:07.807001+00:00",
+          "checked_at": "2026-08-10T14:32:52.111458+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -558,9 +795,48 @@
       "slug": "moist-astigmatism-30-pack",
       "name": "1-Day Acuvue Moist for Astigmatism 30-pack",
       "description": "Endagslinse med torisk design for astigmatisme.",
+      "long_description": "1-Day Acuvue Moist for Astigmatism er den toriske dagslinsen i serien, med samme LACREON-fuktighetsteknologi som standard Moist. Dekker sylinderstyrke fra -0,75 til -2,25 og byttes hver dag.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-9,00 til +4,00"
+        ],
+        [
+          "Sylinder",
+          "-0,75 til -2,25"
+        ],
+        [
+          "Akse",
+          "10–180°"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -571,7 +847,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/1-day-acuvue-moist-for-astigmatism-lens-824",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:08.787328+00:00",
+          "checked_at": "2026-08-10T14:32:53.221839+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -587,7 +863,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/1-day-acuvue-moist-for-astigmatism-lens-824",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:09.751777+00:00",
+          "checked_at": "2026-08-10T14:32:54.114768+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -603,7 +879,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/1-day-acuvue-moist-for-astigmatism-2",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:11.015645+00:00",
+          "checked_at": "2026-08-10T14:32:55.244288+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -619,7 +895,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:12.640699+00:00",
+          "checked_at": "2026-08-10T14:32:56.959796+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -633,9 +909,48 @@
       "slug": "biofinity-toric-6-pack",
       "name": "Biofinity Toric 6-pack",
       "description": "Torisk månedslinse fra CooperVision for astigmatisme.",
+      "long_description": "Biofinity Toric er den toriske månedslinsen fra CooperVision, med samme comfilcon A-materiale og 48 % vanninnhold som standard Biofinity. Dekker sylinderstyrke fra -0,75 til -2,25 med styrker opp mot +8,00/-10,00.",
       "brand_slug": "biofinity",
       "brand_label": "Biofinity",
       "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-10,00 til +8,00"
+        ],
+        [
+          "Sylinder",
+          "-0,75 til -2,25"
+        ],
+        [
+          "Akse",
+          "10–180°"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -646,7 +961,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/biofinity-toric-lens-1442",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:13.557428+00:00",
+          "checked_at": "2026-08-10T14:32:57.948399+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -662,7 +977,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/biofinity-toric-lens-1442",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:14.620431+00:00",
+          "checked_at": "2026-08-10T14:32:58.785156+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -678,7 +993,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/biofinity-toric-prd14312049",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:15.918087+00:00",
+          "checked_at": "2026-08-10T14:32:59.946607+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -694,7 +1009,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-toric/",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:17.904655+00:00",
+          "checked_at": "2026-08-10T14:33:01.488337+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -708,9 +1023,36 @@
       "slug": "colors-2-pack",
       "name": "Air Optix Colors 2-pack",
       "description": "Fargede månedslinser, med og uten styrke.",
+      "long_description": "Air Optix Colors er en farget månedslinse fra Alcon i lotrafilcon B, med en tre-lags fargeteknologi som skal gi et naturlig utseende. Fås både med og uten styrke, men krever resept uansett.",
       "brand_slug": "air-optix",
       "brand_label": "Air Optix",
       "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Lotrafilcon B (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "33 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -721,7 +1063,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/air-optix-colors-lens-4445",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:18.842239+00:00",
+          "checked_at": "2026-08-10T14:33:02.391071+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -737,7 +1079,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/air-optix-colors-lens-4445",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:19.757979+00:00",
+          "checked_at": "2026-08-10T14:33:03.411975+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -753,7 +1095,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/air-optix-colors-aoa286142",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:21.448275+00:00",
+          "checked_at": "2026-08-10T14:33:04.662125+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -767,9 +1109,44 @@
       "slug": "bi-tone-2-pack",
       "name": "ADORE Bi-tone 2-pack",
       "description": "Fargede endagslinser uten styrke.",
+      "long_description": "ADORE Bi-tone er en farget linse fra den italienske produsenten Eyemed Technologies, i polymacon med 38 % vanninnhold. Bi-tone-designet kombinerer to fargetoner for en fyldigere, mer flerdimensjonal effekt enn en enkelt flat farge.",
       "brand_slug": "adore",
       "brand_label": "ADORE",
       "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Eyemed Technologies (Italia)"
+        ],
+        [
+          "Materiale",
+          "Polymacon"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "3 måneder"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ],
+        [
+          "Fargevalg",
+          "Aqua, Blue, Green, Grey, Hazel, Violet, Yellow"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -780,7 +1157,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/adore-bi-tone-lens-6282",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:22.321709+00:00",
+          "checked_at": "2026-08-10T14:33:05.550988+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -796,7 +1173,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/adore-bi-tone-lens-6282",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:23.306632+00:00",
+          "checked_at": "2026-08-10T14:33:06.433039+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -810,9 +1187,44 @@
       "slug": "dare-2-pack",
       "name": "ADORE Dare 2-pack",
       "description": "Fargede endagslinser uten styrke.",
+      "long_description": "ADORE Dare er en farget linse fra samme serie som ADORE Bi-tone (Eyemed Technologies, polymacon, 38 % vanninnhold), men med et mer markant fargemønster for en tydeligere endring av øyefargen.",
       "brand_slug": "adore",
       "brand_label": "ADORE",
       "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Eyemed Technologies (Italia)"
+        ],
+        [
+          "Materiale",
+          "Polymacon"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "3 måneder"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ],
+        [
+          "Fargevalg",
+          "Aqua, Blue, Green, Grey, Hazel, Violet, Yellow"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -823,7 +1235,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/adore-dare-lens-6281",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:25.337451+00:00",
+          "checked_at": "2026-08-10T14:33:08.523365+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -839,7 +1251,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/adore-dare-lens-6281",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:26.237118+00:00",
+          "checked_at": "2026-08-10T14:33:09.553425+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -853,9 +1265,44 @@
       "slug": "oasys-multifocal-6-pack",
       "name": "Acuvue Oasys Multifocal 6-pack",
       "description": "Multifokal månedslinse for alderssyn.",
+      "long_description": "Acuvue Oasys Multifocal er den progressive varianten av Oasys for deg med alderssyn, bygget på samme senofilcon A-materiale. Fås i tre addisjonsstyrker (lav, middels, høy) og brukes offisielt som 14-dagerslinse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,4 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-10,00 til +6,00"
+        ],
+        [
+          "Addisjon",
+          "Lav / middels / høy"
+        ],
+        [
+          "Brukstid",
+          "14-dagerslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -866,7 +1313,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:28.321625+00:00",
+          "checked_at": "2026-08-10T14:33:11.573372+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -882,7 +1329,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-multifocal-lens-9610",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:29.328636+00:00",
+          "checked_at": "2026-08-10T14:33:12.463448+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -898,7 +1345,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/acuvue-oasys-multifocal",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:30.433870+00:00",
+          "checked_at": "2026-08-10T14:33:13.572234+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -912,9 +1359,44 @@
       "slug": "biofinity-multifocal-6-pack",
       "name": "Biofinity Multifocal 6-pack",
       "description": "Multifokal månedslinse fra CooperVision for alderssyn.",
+      "long_description": "Biofinity Multifocal er CooperVisions progressive månedslinse for alderssyn, bygget på samme comfilcon A-materiale som standard Biofinity. Addisjonsstyrke fra +1,00 til +2,50, med samme høye oksygengjennomstrømning som resten av serien.",
       "brand_slug": "biofinity",
       "brand_label": "Biofinity",
       "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-10,00 til +6,00"
+        ],
+        [
+          "Addisjon",
+          "+1,00 til +2,50"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
       "offers": [
         {
           "retailer": "Lenson",
@@ -925,7 +1407,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/biofinity-multifocal-lens-1989",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:31.363542+00:00",
+          "checked_at": "2026-08-10T14:33:14.544579+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -941,7 +1423,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/biofinity-multifocal-lens-1989",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:32.419133+00:00",
+          "checked_at": "2026-08-10T14:33:15.530742+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -957,7 +1439,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/biofinity-multifocal-pd12345678-1",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:33.461373+00:00",
+          "checked_at": "2026-08-10T14:33:16.733300+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -973,7 +1455,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-multifocal/",
           "in_stock": true,
-          "checked_at": "2026-08-10T12:00:34.974850+00:00",
+          "checked_at": "2026-08-10T14:33:17.906255+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,

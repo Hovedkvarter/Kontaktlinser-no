@@ -190,10 +190,21 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
     low_price = min((o["total"] for o in in_stock_offers), default=0)
     high_price = max((o["total"] for o in in_stock_offers), default=0)
 
+    specs = product.get("specs", [])
+    schema_props = ""
+    if specs:
+        schema_props = ',\n  "additionalProperty": [' + ",\n    ".join(
+            f'{{"@type": "PropertyValue", "name": "{escape(label)}", "value": "{escape(value)}"}}'
+            for label, value in specs
+        ) + "]"
+
+    long_description = product.get("long_description", product["description"])
+
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{escape(product["name"])}",
+  "description": "{escape(long_description)}",
   "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},
   "offers": {{
     "@type": "AggregateOffer",
@@ -202,8 +213,20 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
     "highPrice": {high_price},
     "offerCount": {len(in_stock_offers)},
     "offers": [{schema_offers}]
-  }}
+  }}{schema_props}
 }}"""
+
+    specs_html = ""
+    if specs:
+        rows = "\n".join(
+            f'<div class="spec-row"><span class="spec-label">{escape(label)}</span><span class="spec-value">{escape(value)}</span></div>'
+            for label, value in specs
+        )
+        specs_html = f"""<div class="specs">
+    <h2>Spesifikasjoner</h2>
+    <div class="specs-table">{rows}</div>
+    <p class="specs-note">Veiledende tall, satt sammen fra forhandlernes egne spesifikasjoner og produsentens produktinformasjon. Bekreft alltid mot din synsresept og pakningsvedlegget før kjøp.</p>
+  </div>"""
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -211,11 +234,19 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på {escape(product["name"])} hos norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<meta name="description" content="{escape(long_description[:155])}">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
+.specs {{ margin-top: 32px; }}
+.specs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
+.specs-table {{ background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }}
+.spec-row {{ display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--border); }}
+.spec-row:last-child {{ border-bottom: none; }}
+.spec-label {{ color: var(--muted); }}
+.spec-value {{ font-family: 'IBM Plex Mono', monospace; text-align: right; }}
+.specs-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }}
 </style>
 </head>
 <body>
@@ -232,7 +263,7 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
     <div class="hero-copy">
       <div class="kicker">{escape(product["brand_label"])}</div>
       <h1>{escape(product["name"])}</h1>
-      <p>{escape(product["description"])} Priser fra {len(offers)} norske nettbutikker.</p>
+      <p>{escape(long_description)}</p>
     </div>
   </div>
   {best_band}
@@ -246,6 +277,7 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
+  {specs_html}
 </div>
 </body>
 </html>"""
