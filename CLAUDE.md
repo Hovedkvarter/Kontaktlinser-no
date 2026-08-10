@@ -100,15 +100,30 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
 - SmartBuyGlasses er IKKE lagt til: robots.txt blokkerer `/product/` for
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
+- Specsavers er IKKE lagt til: siden sitter bak en Cloudflare bot-utfordring
+  ("Just a moment...", `Cf-Mitigated: challenge`) -- vi løser ikke
+  CAPTCHA/bot-utfordringer. Selectorene i `sources_config.json` er fortsatt
+  uverifiserte gjetninger fra tidligere, aldri testet mot ekte HTML.
+- **6 aktive forhandlere**: Lenson, Lensway, Lensit, Interoptik, Synsam,
+  Brilleland. Synsam er en Next.js-app -- pris hentes fra standard
+  `__NEXT_DATA__`-JSON-blob (samme embedded_json-mekanisme som
+  Lenson/Lensway, men Next.js sitt eget stabile mønster, ikke en
+  egendefinert analytics-blob). Brilleland kjører på SAMME plattform som
+  Interoptik (identisk `.price-big`-selector og URL-struktur).
 - 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
   multifokale linser), 61 produkter totalt (28.08.2026). Alle 61 har tilbud
-  fra Lenson+Lensway, 54 har i tillegg Lensit, 34 har i tillegg Interoptik
-  (snitt 3,4 forhandlere/produkt). Manglende dekning er alltid fordi
-  forhandleren faktisk ikke fører akkurat den varianten/pakningsstørrelsen
-  (bekreftet ved gjennomgang av deres egne merke-/kolleksjonssider) -- IKKE
-  fordi det ikke er sjekket. Ikke gjett/legg til scrape_targets for et par
-  som ikke faktisk er verifisert å eksistere hos den forhandleren.
-  Tørre-øyne-kategorien er fortsatt ikke bygget.
+  fra Lenson+Lensway, 54 har i tillegg Lensit, 34 Interoptik, 28 Synsam, 19
+  Brilleland (snitt **4,2 forhandlere/produkt**). Manglende dekning er
+  alltid fordi forhandleren faktisk ikke fører akkurat den
+  varianten/pakningsstørrelsen (bekreftet ved gjennomgang av deres egne
+  merke-/kolleksjonssider) -- IKKE fordi det ikke er sjekket. Ikke gjett/legg
+  til scrape_targets for et par som ikke faktisk er verifisert å eksistere
+  hos den forhandleren. Tørre-øyne-kategorien er fortsatt ikke bygget.
+- Synsam og Brilleland selger delvis under egne private label-merker
+  (EyeQ hos Synsam, iWear hos Brilleland) -- disse er IKKE koblet inn siden
+  de ikke finnes hos andre forhandlere (ville uansett bare vist ett tilbud).
+  Kun ekte merkevarer (Acuvue, Biofinity, Dailies osv.) som også finnes
+  andre steder er koblet sammen.
 - ADORE (2 produkter) og Acuvue Vita finnes kun hos Lenson/Lensway (bekreftet
   fraværende hos Lensit og Interoptik). Precision7 hos Interoptik selges kun
   i 12-pakning (vårt produkt er 6-pakning) -- bevisst IKKE koblet til

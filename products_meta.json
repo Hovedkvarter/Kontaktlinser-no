@@ -120,6 +120,10 @@
         {
           "retailer": "interoptik",
           "slug": "acuvue/acuvue-oasys"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "acuvue/acuvue-oasys"
         }
       ]
     },
@@ -228,6 +232,14 @@
         {
           "retailer": "interoptik",
           "slug": "biofinity/biofinity-sphere"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biofinity-6-stk-pk-1"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "biofinity/biofinity"
         }
       ]
     },
@@ -285,6 +297,10 @@
         },
         {
           "retailer": "interoptik",
+          "slug": "acuvue/1-day-acuvue-moist-30-pack2"
+        },
+        {
+          "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-moist-30-pack2"
         }
       ]
@@ -348,6 +364,10 @@
         {
           "retailer": "interoptik",
           "slug": "acuvue/acuvue-oasys-max-1-day"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "acuvue/acuvue-oasys-max-1-day"
         }
       ]
     },
@@ -409,6 +429,10 @@
         },
         {
           "retailer": "interoptik",
+          "slug": "acuvue/1-day-acuvue-oasys-30-pack2"
+        },
+        {
+          "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-oasys-30-pack2"
         }
       ]
@@ -476,6 +500,10 @@
         {
           "retailer": "interoptik",
           "slug": "acuvue/acuvue-oasys-for-astigmatism"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "acuvue/acuvue-oasys-for-astigmatism"
         }
       ]
     },
@@ -541,6 +569,10 @@
         },
         {
           "retailer": "interoptik",
+          "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2"
+        },
+        {
+          "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2"
         }
       ]
@@ -608,6 +640,14 @@
         {
           "retailer": "interoptik",
           "slug": "biofinity/biofinity-toric"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biofinity-toric-6-stk-pk-1"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "biofinity-toric/biofinity-toric"
         }
       ]
     },
@@ -886,6 +926,10 @@
         {
           "retailer": "interoptik",
           "slug": "biofinity/biofinity-multifocal"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "biofinity-multifocal-cd/biofinity-multifocal"
         }
       ]
     },
@@ -936,6 +980,14 @@
         {
           "retailer": "lensit",
           "slug": "biofinity-energys-2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biofinity-energys-6-stk-pk"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "biofinty-energys/biofinty-energys"
         }
       ]
     },
@@ -1040,6 +1092,14 @@
         {
           "retailer": "interoptik",
           "slug": "avaira/avaira-vitality"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "avaira-vitality-6-stk-pk"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "avaira2/avaira"
         }
       ]
     },
@@ -1086,6 +1146,10 @@
         {
           "retailer": "interoptik",
           "slug": "avaira/avaira-vitality-toric"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "avaira-vitality-toric-6-stk-pk"
         }
       ]
     },
@@ -1140,6 +1204,14 @@
         {
           "retailer": "interoptik",
           "slug": "myday/myday-sphere-30-pack2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "myday-daily-disposable-30-stk-pk-1"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "myday_daily_disposable/myday-daily-disposable"
         }
       ]
     },
@@ -1178,6 +1250,10 @@
         {
           "retailer": "lensway",
           "slug": "myday-multifocal-lens-9607"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "myday-daily-disposable-multifocal-30-stk-pk"
         }
       ]
     },
@@ -1220,6 +1296,14 @@
         {
           "retailer": "interoptik",
           "slug": "myday/myday-toric"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "myday-daily-disposable-toric-30-stk-pk-1"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "myday-daily-disposable-toric/myday-daily-disposable-toric"
         }
       ]
     },
@@ -1366,6 +1450,14 @@
         {
           "retailer": "lensit",
           "slug": "clariti-1-day"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "clariti-1-day-30-stk-pk"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "clariti/clariti"
         }
       ]
     },
@@ -1404,6 +1496,10 @@
         {
           "retailer": "lensway",
           "slug": "clariti-1-day-toric-lens-4447"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "clariti-1-day-8855a282/clariti-1-day-toric"
         }
       ]
     },
@@ -1454,6 +1550,10 @@
         {
           "retailer": "lensit",
           "slug": "air-optix-plus-hydraglyde-prd666600001236-1"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "air-optix-plus-hydraglyde-6-stk-pk"
         }
       ]
     },
@@ -1496,6 +1596,10 @@
         {
           "retailer": "lensit",
           "slug": "air-optix-hydraglyde-multif-2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "air-optix-plus-hydraglyde-multifocal-6-stk-pk"
         }
       ]
     },
@@ -1554,6 +1658,10 @@
         {
           "retailer": "lensit",
           "slug": "air-optix-hydraglyde-for-astigmatism"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "air-optix-plus-hydraglyde-for-astigmatism-6-stk-pk"
         }
       ]
     },
@@ -1608,6 +1716,10 @@
         {
           "retailer": "interoptik",
           "slug": "dailies/dailies-total-1-30-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-total-1-30-pack2"
         }
       ]
     },
@@ -1658,6 +1770,10 @@
         {
           "retailer": "interoptik",
           "slug": "dailies/dailies-total-1-multifocal-30-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-total-1-multifocal-30-pack2"
         }
       ]
     },
@@ -1703,6 +1819,10 @@
         },
         {
           "retailer": "interoptik",
+          "slug": "dailies/dailies-total1-for-astigmatism-30-pack"
+        },
+        {
+          "retailer": "brilleland",
           "slug": "dailies/dailies-total1-for-astigmatism-30-pack"
         }
       ]
@@ -1758,6 +1878,14 @@
         {
           "retailer": "interoptik",
           "slug": "dailies/dailies-aquacomfort-plus-30-pack"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "dailies-aquacomfort-plus-30-stk-linser"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-aquacomfort-plus-30-pack-6d5743ac"
         }
       ]
     },
@@ -1992,6 +2120,10 @@
         {
           "retailer": "lensit",
           "slug": "soflens-daily-disposable-prd59328065"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "soflens-daily-disposable-30-stk-pk"
         }
       ]
     },
@@ -2034,6 +2166,10 @@
         {
           "retailer": "lensit",
           "slug": "soflens-toric-2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "soflens-toric-6-stk-pk"
         }
       ]
     },
@@ -2088,6 +2224,10 @@
         {
           "retailer": "interoptik",
           "slug": "purevision/purevision-2-hd-svs"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "purevision-2-6-stk-pk"
         }
       ]
     },
@@ -2134,6 +2274,10 @@
         {
           "retailer": "interoptik",
           "slug": "biotrue/biotrue-oneday"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biotrue-oneday-30-stk-pk"
         }
       ]
     },
@@ -2188,6 +2332,10 @@
         {
           "retailer": "interoptik",
           "slug": "ultra/ultra-svs"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "ultra-6-stk-pk"
         }
       ]
     },
@@ -2238,6 +2386,10 @@
         {
           "retailer": "lensit",
           "slug": "biomedics-55-evolution-prd65532469"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biomedics-55-evolution-6-stk-pk"
         }
       ]
     },
@@ -2288,6 +2440,10 @@
         {
           "retailer": "lensit",
           "slug": "air-optix-night-day-aqua-prd33155936"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "air-optix-night-och-day-aqua-6-stk-pk"
         }
       ]
     },
@@ -2364,6 +2520,10 @@
         {
           "retailer": "lensit",
           "slug": "purevision-multifocal-prd76579103"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "purevision-multifocal-6-stk-pk"
         }
       ]
     },
@@ -2452,6 +2612,10 @@
         {
           "retailer": "interoptik",
           "slug": "purevision/purevision-2-hd-presbyopia"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "purevision-2-for-presbyopia-6-stk-pk"
         }
       ]
     },
@@ -2498,6 +2662,10 @@
         {
           "retailer": "interoptik",
           "slug": "biotrue/biotrue-oneday-astigmatism"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biotrue-oneday-for-astigmatism-30-stk-pk"
         }
       ]
     },
@@ -2544,6 +2712,10 @@
         {
           "retailer": "interoptik",
           "slug": "biotrue/biotrue-oneday-presbyopia"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biotrue-oneday-for-presbyopia-30-stk-pk"
         }
       ]
     },
@@ -2628,6 +2800,10 @@
         {
           "retailer": "interoptik",
           "slug": "ultra/ultra-astigmatism"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "ultra-for-astigmatism-6-stk-pk"
         }
       ]
     },
@@ -2674,6 +2850,10 @@
         {
           "retailer": "interoptik",
           "slug": "ultra/ultra-presbyopia"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "ultra-for-presbyopia-6-stk-pk"
         }
       ]
     },
@@ -2712,6 +2892,10 @@
         {
           "retailer": "interoptik",
           "slug": "biomedics/biomedics-1-day-extra-30-pack2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biomedics-1-day-extra-30-stk-pk-1"
         }
       ]
     },
@@ -2796,6 +2980,10 @@
         {
           "retailer": "interoptik",
           "slug": "biomedics/biomedics-toric"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biomedics-toric-6-stk-pk"
         }
       ]
     },

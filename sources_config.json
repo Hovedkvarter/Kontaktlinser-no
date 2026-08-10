@@ -81,7 +81,7 @@
   },
 
   "specsavers": {
-    "$comment": "IKKE rørt i denne runden -- price_selector/stock_selector er fortsatt uverifiserte gjetninger fra tidligere. Verifiser mot ekte HTML før dette brukes.",
+    "$comment": "BLOKKERT for skraping: siden sitter bak en Cloudflare bot-utfordring (Cf-Mitigated: challenge, 'Just a moment...'-side, meta robots noindex,nofollow) -- bekreftet 28.08.2026. Vi løser IKKE CAPTCHA/bot-utfordringer. price_selector/stock_selector under er fortsatt uverifiserte gjetninger fra tidligere og har aldri blitt testet mot ekte HTML siden vi ikke kommer forbi utfordringen med vanlige HTTP-kall.",
     "display_name": "Specsavers",
     "default_source": "scraper",
     "scraper_config": {
@@ -89,6 +89,32 @@
       "price_selector": ".product__price",
       "stock_selector": ".product__stock",
       "product_url_pattern": "/kontaktlinser/{slug}"
+    },
+    "brand_overrides": {}
+  },
+
+  "synsam": {
+    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Next.js-app: pris finnes IKKE i vanlig DOM (som Lenson/Lensway), men embedded_json fungerer fint her siden Synsam bruker Next.js sitt standard __NEXT_DATA__-mønster (mer stabilt enn Lensons egendefinerte analytics-blob). Ingen 'utsolgt'-felt funnet på toppnivå i article-objektet -- stock_selector utelatt, alle tilbud antas på lager inntil videre.",
+    "display_name": "Synsam",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.synsam.no",
+      "price_source": "embedded_json",
+      "embedded_json_pattern": "<script id=\"__NEXT_DATA__\" type=\"application/json\">(.*?)</script>",
+      "embedded_json_price_path": ["props", "pageProps", "productPage", "article", "price", "unit", "ordinaryPrice"],
+      "product_url_pattern": "/{slug}"
+    },
+    "brand_overrides": {}
+  },
+
+  "brilleland": {
+    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Samme plattform som Interoptik (identisk .price-big-selector og /kontaktlinser/{merke}/{produkt}/-URL-struktur) -- bekreftet 28.08.2026. Ingen 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre.",
+    "display_name": "Brilleland",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.brilleland.no",
+      "price_selector": ".price-big",
+      "product_url_pattern": "/kontaktlinser/{slug}/"
     },
     "brand_overrides": {}
   }
