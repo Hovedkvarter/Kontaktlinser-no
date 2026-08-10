@@ -3,22 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Proclear kontaktlinser – sammenlign priser | kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på alle Proclear-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<title>Guider – kontaktlinser.no</title>
+<meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, og forskjellen på dagslinser og månedslinser.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@graph": [
-    {"@type": "BreadcrumbList", "itemListElement": [
-      {"@type": "ListItem", "position": 1, "name": "Hjem", "item": "https://kontaktlinser.no/"},
-      {"@type": "ListItem", "position": 2, "name": "Proclear", "item": "https://kontaktlinser.no/merke/proclear/"}
-    ]},
-    {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://kontaktlinser.no/kontaktlinser/proclear/proclear-sphere-6-pack/", "name": "Proclear Sphere 6-pack"},
-      {"@type": "ListItem", "position": 2, "url": "https://kontaktlinser.no/kontaktlinser/proclear/proclear-toric-6-pack/", "name": "Proclear Toric 6-pack"}]}
-  ]
-}</script>
 <style>
 :root {
   --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
@@ -78,6 +67,11 @@ a { color: inherit; }
 .related a:hover, .guides a:hover { border-color: var(--aqua); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
+
+.guide-card { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 10px; }
+.guide-card:hover { border-color: var(--aqua); }
+.guide-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+.guide-card-desc { font-size: 0.86rem; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -94,69 +88,22 @@ a { color: inherit; }
   </nav>
 </div>
 <div class="wrap">
-  <p class="breadcrumb"><a href="/">Hjem</a> › Proclear</p>
+  <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
   <div class="hero">
     <div class="hero-copy">
-      <div class="kicker">Merke</div>
-      <h1>Proclear</h1>
-      <p>Alle Proclear-linser vi følger prisen på, sortert etter lavest pris.</p>
+      <div class="kicker">Guider</div>
+      <h1>Guider</h1>
+      <p>Kort og saklig hjelp til å velge riktig kontaktlinse.</p>
     </div>
   </div>
-
-  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
-    <button class="chip active" data-category="all">Alle kategorier</button>
-    <button class="chip" data-category="manedslinser">Månedslinser</button><button class="chip" data-category="toriske-linser">Toriske linser</button>
-  </div>
-
-  <div class="list-header">
-    <h2 id="result-count">2 produkter</h2>
-  </div>
-
-  <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/proclear/proclear-sphere-6-pack/" data-category="manedslinser">
-  <div class="product-thumb">PR</div>
-  <div class="product-main">
-    <div class="product-name">Proclear Sphere 6-pack</div>
-    <div class="product-meta">Månedslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">223 kr</div><div class="retailer-count">3 forhandlere</div></div>
+  <a class="guide-card" href="/guide/manedslinser-vs-dagslinser/">
+  <div class="guide-card-title">Månedslinser vs. dagslinser – hva passer deg?</div>
+  <div class="guide-card-desc">Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.</div>
 </a>
-<a class="product-card" href="/kontaktlinser/proclear/proclear-toric-6-pack/" data-category="toriske-linser">
-  <div class="product-thumb">PR</div>
-  <div class="product-main">
-    <div class="product-name">Proclear Toric 6-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">368 kr</div><div class="retailer-count">4 forhandlere</div></div>
+<a class="guide-card" href="/guide/hvordan-velge-kontaktlinser/">
+  <div class="guide-card-title">Hvordan velge kontaktlinser</div>
+  <div class="guide-card-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
 </a>
-  </div>
-  <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
-
-  <p class="disclosure">
-    Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
-    via lenkene på produktsidene, men det påvirker ikke prisen du betaler
-    eller rangeringen av produkter eller tilbud.
-  </p>
 </div>
-
-<script>
-  const filterRow = document.getElementById('filter-row');
-  const list = document.getElementById('product-list');
-
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    const category = btn.dataset.category;
-    let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {
-      const show = category === 'all' || card.dataset.category === category;
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    document.getElementById('result-count').textContent = visible + ' produkter';
-  });
-</script>
 </body>
 </html>
