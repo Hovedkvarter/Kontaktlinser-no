@@ -67,12 +67,17 @@ a { color: inherit; }
 .search-row { margin: 4px 0 28px; }
 .search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }
 .search-input:focus { outline: none; border-color: var(--aqua); }
-.lens-grid-header { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }
-.lens-grid-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }
+.section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+.category-card { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }
+.category-card:hover { border-color: var(--aqua); }
+.category-card-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }
+.category-card-count { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
 .lens-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .lens-grid .product-card { margin-bottom: 0; }
 .no-results { display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }
-@media (min-width: 640px) { .lens-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 640px) { .lens-grid { grid-template-columns: 1fr 1fr; } .category-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>
 </head>
 <body>
@@ -95,8 +100,34 @@ a { color: inherit; }
     <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
   </div>
 
-  <div class="lens-grid-header">
-    <h2 id="lens-grid-heading">Populære linser</h2>
+  <div class="section-header">
+    <h2>Kategorier</h2>
+  </div>
+  <div class="category-grid">
+    <a class="category-card" href="/kontaktlinser/manedslinser/">
+  <div class="category-card-label">Månedslinser</div>
+  <div class="category-card-count">3 produkter</div>
+</a>
+<a class="category-card" href="/kontaktlinser/dagslinser/">
+  <div class="category-card-label">Dagslinser</div>
+  <div class="category-card-count">3 produkter</div>
+</a>
+<a class="category-card" href="/kontaktlinser/toriske-linser/">
+  <div class="category-card-label">Toriske linser</div>
+  <div class="category-card-count">3 produkter</div>
+</a>
+<a class="category-card" href="/kontaktlinser/fargede-linser/">
+  <div class="category-card-label">Fargede linser</div>
+  <div class="category-card-count">3 produkter</div>
+</a>
+<a class="category-card" href="/kontaktlinser/multifokale-linser/">
+  <div class="category-card-label">Multifokale linser</div>
+  <div class="category-card-count">2 produkter</div>
+</a>
+  </div>
+
+  <div class="section-header">
+    <h2 id="lens-grid-heading">Alle linser</h2>
   </div>
   <div id="lens-grid" class="lens-grid">
     <a class="product-card" href="/kontaktlinser/acuvue/oasys-6-pack/" data-search="acuvue oasys 6-pack acuvue">
@@ -123,15 +154,96 @@ a { color: inherit; }
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">331 kr</div></div>
 </a>
+<a class="product-card" href="/kontaktlinser/acuvue/moist-30-pack/" data-search="1-day acuvue moist 30-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">1-Day Acuvue Moist 30-pack</div>
+    <div class="product-meta">Acuvue</div>
   </div>
-  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se alle kategorier under.</p>
-
-  <div class="related">
-    <h2>Kategorier</h2>
-    <ul>
-      <li><a href="/kontaktlinser/manedslinser/">Månedslinser</a></li>
-    </ul>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">232 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/oasys-max-1-day-30-pack/" data-search="acuvue oasys max 1-day 30-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Oasys MAX 1-Day 30-pack</div>
+    <div class="product-meta">Acuvue</div>
   </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">344 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-30-pack/" data-search="acuvue oasys 1-day with hydraluxe 30-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Oasys 1-Day with Hydraluxe 30-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">276 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/" data-search="acuvue oasys for astigmatism 6-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Oasys for Astigmatism 6-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">350 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/moist-astigmatism-30-pack/" data-search="1-day acuvue moist for astigmatism 30-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">1-Day Acuvue Moist for Astigmatism 30-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">297 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/" data-search="biofinity toric 6-pack biofinity">
+  <div class="product-thumb">BI</div>
+  <div class="product-main">
+    <div class="product-name">Biofinity Toric 6-pack</div>
+    <div class="product-meta">Biofinity</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">454 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/air-optix/colors-2-pack/" data-search="air optix colors 2-pack air optix">
+  <div class="product-thumb">AI</div>
+  <div class="product-main">
+    <div class="product-name">Air Optix Colors 2-pack</div>
+    <div class="product-meta">Air Optix</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">292 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/adore/bi-tone-2-pack/" data-search="adore bi-tone 2-pack adore">
+  <div class="product-thumb">AD</div>
+  <div class="product-main">
+    <div class="product-name">ADORE Bi-tone 2-pack</div>
+    <div class="product-meta">ADORE</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">379 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/adore/dare-2-pack/" data-search="adore dare 2-pack adore">
+  <div class="product-thumb">AD</div>
+  <div class="product-main">
+    <div class="product-name">ADORE Dare 2-pack</div>
+    <div class="product-meta">ADORE</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">379 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/" data-search="acuvue oasys multifocal 6-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Oasys Multifocal 6-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">449 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/" data-search="biofinity multifocal 6-pack biofinity">
+  <div class="product-thumb">BI</div>
+  <div class="product-main">
+    <div class="product-name">Biofinity Multifocal 6-pack</div>
+    <div class="product-meta">Biofinity</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">659 kr</div></div>
+</a>
+  </div>
+  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se en kategori over.</p>
 </div>
 
 <script>
