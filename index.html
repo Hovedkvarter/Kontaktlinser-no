@@ -63,6 +63,16 @@ a { color: inherit; }
 .related a:hover, .guides a:hover { border-color: var(--aqua); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
+
+.search-row { margin: 4px 0 28px; }
+.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }
+.search-input:focus { outline: none; border-color: var(--aqua); }
+.lens-grid-header { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }
+.lens-grid-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+.lens-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.lens-grid .product-card { margin-bottom: 0; }
+.no-results { display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }
+@media (min-width: 640px) { .lens-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
@@ -76,9 +86,46 @@ a { color: inherit; }
     <div class="hero-copy">
       <div class="kicker">Prissammenligning</div>
       <h1>Finn billigste kontaktlinser</h1>
-      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Velg en kategori for å se alle produkter og laveste pris.</p>
+      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Søk eller velg en linse under for å se alle tilbud.</p>
     </div>
   </div>
+
+  <div class="search-row">
+    <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+    <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
+  </div>
+
+  <div class="lens-grid-header">
+    <h2 id="lens-grid-heading">Populære linser</h2>
+  </div>
+  <div id="lens-grid" class="lens-grid">
+    <a class="product-card" href="/kontaktlinser/acuvue/oasys-6-pack/" data-search="acuvue oasys 6-pack acuvue">
+  <div class="product-thumb"><img src="https://cdn.eksempel-nettverk.no/produktbilder/acuvue-oasys-6pk.jpg" alt="Acuvue Oasys 6-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Oasys 6-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">262 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/acuvue/vita-6-pack/" data-search="acuvue vita 6-pack acuvue">
+  <div class="product-thumb">AC</div>
+  <div class="product-main">
+    <div class="product-name">Acuvue Vita 6-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">429 kr</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/biofinity/biofinity-6-pack/" data-search="biofinity 6-pack biofinity">
+  <div class="product-thumb">BI</div>
+  <div class="product-main">
+    <div class="product-name">Biofinity 6-pack</div>
+    <div class="product-meta">Biofinity</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">331 kr</div></div>
+</a>
+  </div>
+  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se alle kategorier under.</p>
+
   <div class="related">
     <h2>Kategorier</h2>
     <ul>
@@ -86,5 +133,26 @@ a { color: inherit; }
     </ul>
   </div>
 </div>
+
+<script>
+  // Progressiv forbedring: alle linsekort finnes allerede i DOM-en over og
+  // fungerer som vanlige lenker uten JS. Dette skjuler/viser dem basert på
+  // søketekst -- bygger dem aldri fra scratch.
+  const searchInput = document.getElementById('lens-search');
+  const grid = document.getElementById('lens-grid');
+  const cards = Array.from(grid.querySelectorAll('.product-card'));
+  const noResults = document.getElementById('no-results');
+
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {
+      const show = q === '' || card.dataset.search.includes(q);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  });
+</script>
 </body>
 </html>
