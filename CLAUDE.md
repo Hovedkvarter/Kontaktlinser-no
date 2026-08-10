@@ -101,12 +101,33 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
 - 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
-  multifokale linser), 14 produkter totalt, alle med reelle tilbud fra Lenson
-  og Lensway. Lensit og Interoptik dekker de fleste, men ikke alle, av de 14
-  (Lensit mangler Acuvue Vita og begge ADORE-produktene; Interoptik mangler i
-  tillegg Air Optix Colors og Acuvue Oasys Multifocal). Ikke gjett/legg til
-  scrape_targets for et par som ikke faktisk er verifisert å eksistere hos den
-  forhandleren. Tørre-øyne-kategorien er fortsatt ikke bygget.
+  multifokale linser), 42 produkter totalt (28.08.2026), alle med reelle
+  tilbud fra minst Lenson og Lensway. Lensit og Interoptik dekker de fleste,
+  men ikke alle, av de opprinnelige 14 (Lensit mangler Acuvue Vita og begge
+  ADORE-produktene; Interoptik mangler i tillegg Air Optix Colors og Acuvue
+  Oasys Multifocal) -- de 28 nyeste produktene (CooperVision/Alcon/Bausch+Lomb
+  -serien) er KUN verifisert på Lenson+Lensway, ikke sjekket mot
+  Lensit/Interoptik ennå. Ikke gjett/legg til scrape_targets for et par som
+  ikke faktisk er verifisert å eksistere hos den forhandleren.
+  Tørre-øyne-kategorien er fortsatt ikke bygget.
+- Lensons/Lensways listeside (ikke bare produktsiden) inneholder SAMME
+  universalAnalyticsInfo-JSON-blob som produktsiden, med productId, navn,
+  pris, kategori og produsent for ALLE produkter på siden (`?_page=0` til
+  `?_page=13` gir ~293 unike produkter totalt). Slug-mønsteret er
+  `{slugify(navn)}-lens-{productId}` -- bekreftet stabilt på tvers av
+  titalls produkter. Bruk dette fremfor å skrape enkeltsider når flere
+  produkter skal legges til samtidig -- MYE raskere enn nettleser-basert
+  paginering.
+- Alle 42 produkter har nå `specs` (liste av [label, verdi]-par: materiale,
+  vanninnhold, basiskurve, diameter, styrkeområde, brukstid, linsetype, evt.
+  sylinder/akse/addisjon) og `long_description` (unik, faktabasert, 2-3
+  setninger) i `products_meta.json`. Data er satt sammen fra Interoptiks
+  egne spesifikasjonstabeller (der produktet finnes der) og offentlig
+  produsentinformasjon -- IKKE hentet fra pakningsvedlegg, så behandle som
+  veiledende. `render_product_page()` viser dette som en spesifikasjonstabell
+  og utvider Product-JSON-LD-en med description + additionalProperty per
+  spec, til nytte for søkemotorer/AI-svarmotorer. Nye produkter bør få
+  samme behandling -- ikke bare pris/lenke.
 - Interoptik hadde tidligere en `brand_overrides.acuvue` som pekte på en
   FALSK adtraction-testfeed (`feeds/adtraction_interoptik_acuvue.csv`,
   aldri en reell avtale, fake URL-er som `track.adtraction.com/example-...`).
