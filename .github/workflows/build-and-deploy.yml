@@ -28,6 +28,14 @@ jobs:
         run: pip install requests beautifulsoup4
 
       - name: Hent priser (feeds + scraping) og bygg katalog
+        # Kun på den faste timeren (og manuell kjøring) -- IKKE på hver push.
+        # En vanlig kode-/designendring trenger ikke fersk skraping, og skal
+        # ikke legge unødig, gjentatt last på forhandlernes servere. Endrer
+        # du products_meta.json/sources_config.json (nye produkter/
+        # forhandlere), kjør build_catalog.py lokalt og committ resultatet
+        # (site_generator/catalog_live.json) sammen med endringen, slik
+        # praksis har vært hele denne økten.
+        if: github.event_name != 'push'
         run: python3 build_catalog.py
 
       - name: Generer statiske sider
