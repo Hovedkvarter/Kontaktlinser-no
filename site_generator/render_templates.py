@@ -251,6 +251,43 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
 </html>"""
 
 
+def render_home_page(catalog: dict) -> str:
+    category_links = "\n".join(
+        f'<li><a href="/kontaktlinser/{escape(slug)}/">{escape(category["label"])}</a></li>'
+        for slug, category in catalog["categories"].items()
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
+<meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+{FONT_LINKS}
+<style>{SHARED_STYLE}</style>
+</head>
+<body>
+<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Prissammenligning</div>
+      <h1>Finn billigste kontaktlinser</h1>
+      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Velg en kategori for å se alle produkter og laveste pris.</p>
+    </div>
+  </div>
+  <div class="related">
+    <h2>Kategorier</h2>
+    <ul>
+      {category_links}
+    </ul>
+  </div>
+</div>
+</body>
+</html>"""
+
+
 def render_category_page(category_slug: str, category: dict, products: list[dict], now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 

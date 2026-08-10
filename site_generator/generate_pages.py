@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
 
-from render_templates import render_product_page, render_category_page
+from render_templates import render_product_page, render_category_page, render_home_page
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -36,6 +36,10 @@ def write_file(path: Path, content: str) -> None:
 def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    home_html = render_home_page(catalog)
+    write_file(BUILD_DIR / "index.html", home_html)
+    print("  forside  -> /")
 
     products_written = []
     for product in catalog["products"]:
