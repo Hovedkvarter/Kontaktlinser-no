@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
+<meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
+  --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #7C8A9E; --muted-bg: #ECEFF3;
+  --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
+}
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.5; }
+a { color: inherit; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+.topbar { display: flex; align-items: center; gap: 8px; padding: 18px 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; max-width: 760px; margin: 0 auto; }
+.topbar .ring-mark { width: 22px; height: 22px; flex-shrink: 0; }
+.breadcrumb { font-size: 0.8rem; color: var(--muted); margin: 4px 0 20px; }
+.breadcrumb a { text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.hero { position: relative; padding: 8px 0 22px; }
+.hero-copy { position: relative; z-index: 1; max-width: 520px; }
+.hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
+.hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
+.hero-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
+.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; }
+.best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
+.offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
+.offer-card.is-muted { opacity: 0.55; }
+.product-card:hover, .offer-card a.cta:hover { border-color: var(--aqua); }
+.offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+.offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
+.lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
+.offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
+.offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
+.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
+.cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
+.offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
+.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--aqua-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--aqua); flex-shrink: 0; overflow: hidden; }
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
+.chip.active { background: var(--ink); border-color: var(--ink); color: white; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 24px; }
+.list-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+.list-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+.related, .guides { margin-top: 32px; }
+.related h2, .guides h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin: 0 0 10px; }
+.related ul, .guides ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.related a, .guides a { display: block; font-size: 0.88rem; text-decoration: none; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; }
+.related a:hover, .guides a:hover { border-color: var(--aqua); }
+.disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
+@media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
+</style>
+</head>
+<body>
+<div class="topbar"><svg class="ring-mark" viewBox="0 0 40 40" aria-hidden="true">
+  <circle cx="20" cy="20" r="18" fill="none" stroke="#0B2545" stroke-width="2.2"/>
+  <circle cx="20" cy="20" r="11" fill="none" stroke="#2EC4D6" stroke-width="2.2"/>
+  <circle cx="20" cy="20" r="4" fill="#0B2545"/>
+</svg> kontaktlinser.no</div>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Prissammenligning</div>
+      <h1>Finn billigste kontaktlinser</h1>
+      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Velg en kategori for å se alle produkter og laveste pris.</p>
+    </div>
+  </div>
+  <div class="related">
+    <h2>Kategorier</h2>
+    <ul>
+      <li><a href="/kontaktlinser/manedslinser/">Månedslinser</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
