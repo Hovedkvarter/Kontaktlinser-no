@@ -15,13 +15,14 @@ Output-struktur (matcher URL-skjemaet fra informasjonsarkitekturen):
 """
 
 import json
+import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_brand_page
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -73,6 +74,16 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         write_file(BUILD_DIR / "guide" / slug / "index.html", html)
         print(f"  guide    -> /guide/{slug}/")
 
+    write_file(BUILD_DIR / "guider" / "index.html", render_guides_index_page())
+    print("  guider   -> /guider/")
+
+    static_src = Path(__file__).parent.parent / "static"
+    if static_src.exists():
+        static_out = BUILD_DIR / "static"
+        static_out.mkdir(parents=True, exist_ok=True)
+        for asset in static_src.iterdir():
+            if asset.is_file():
+                shutil.copy2(asset, static_out / asset.name)
     return catalog
 
 

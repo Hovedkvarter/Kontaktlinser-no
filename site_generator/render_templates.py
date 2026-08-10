@@ -32,8 +32,12 @@ SHARED_STYLE = """
 body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.5; }
 a { color: inherit; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
-.topbar { display: flex; align-items: center; gap: 8px; padding: 18px 20px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; max-width: 760px; margin: 0 auto; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; max-width: 760px; margin: 0 auto; flex-wrap: wrap; }
+.topbar-logo { display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; text-decoration: none; color: var(--ink); }
 .topbar .ring-mark { width: 22px; height: 22px; flex-shrink: 0; }
+.topbar-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.topbar-nav a { font-size: 0.86rem; font-weight: 600; text-decoration: none; color: var(--ink); }
+.topbar-nav a:hover { color: var(--aqua); }
 .breadcrumb { font-size: 0.8rem; color: var(--muted); margin: 4px 0 20px; }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
@@ -85,6 +89,15 @@ RING_MARK = """<svg class="ring-mark" viewBox="0 0 40 40" aria-hidden="true">
 FONT_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">"""
+
+TOPBAR_HTML = f"""<div class="topbar">
+  <a href="/" class="topbar-logo">{RING_MARK} kontaktlinser.no</a>
+  <nav class="topbar-nav">
+    <a href="/#merker">Merker</a>
+    <a href="/#kategorier">Kategorier</a>
+    <a href="/guider/">Guider</a>
+  </nav>
+</div>"""
 
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
@@ -250,7 +263,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 </style>
 </head>
 <body>
-<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+{TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
@@ -350,7 +363,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+{TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
   <div class="hero">
@@ -465,6 +478,39 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 
     brand_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order)
 
+    category_icons = {
+        "dagslinser": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/>',
+        "manedslinser": '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+        "toriske-linser": '<circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6"/>',
+        "fargede-linser": '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none" opacity="0.35"/>',
+        "multifokale-linser": '<circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/>',
+    }
+
+    def render_category_card(slug: str, category: dict) -> str:
+        count = sum(1 for p in catalog["products"] if p["category_slug"] == slug)
+        n_label = "produkt" if count == 1 else "produkter"
+        icon = category_icons.get(slug, "")
+        return f"""<a class="category-card" href="/kontaktlinser/{escape(slug)}/">
+  <svg class="category-card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true">{icon}</svg>
+  <div class="category-card-label">{escape(category["label"])}</div>
+  <div class="category-card-count">{count} {n_label}</div>
+</a>"""
+
+    category_cards_html = "\n".join(
+        render_category_card(slug, category) for slug, category in catalog["categories"].items()
+    )
+
+    guide_cards_html = "\n".join(
+        f"""<a class="guide-mini-card" href="/guide/{escape(slug)}/">
+  <div class="guide-card-title">{escape(g["title"])}</div>
+  <div class="guide-card-desc">{escape(g["description"])}</div>
+</a>"""
+        for slug, g in GUIDE_CONTENT.items()
+    )
+
+    n_retailers = len({o["retailer"] for p in catalog["products"] for o in p["offers"]})
+    n_products = len(catalog["products"])
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -474,18 +520,27 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
-.hero {{ position: relative; overflow: hidden; padding: 28px 0 26px; }}
-.hero-rings {{ position: absolute; top: 50%; right: -60px; transform: translateY(-50%); width: 260px; height: 260px; opacity: 0.5; pointer-events: none; }}
-.hero-copy {{ position: relative; z-index: 1; }}
+.hero {{ display: flex; flex-direction: column; gap: 20px; padding: 8px 0 24px; }}
+.hero-copy {{ max-width: 560px; }}
+.hero-media {{ border-radius: 18px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: var(--card-shadow); }}
+.hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
+.hero-photo-credit {{ font-size: 0.66rem; color: var(--muted); margin: -14px 0 4px; text-align: right; }}
+.hero-actions {{ margin-top: 16px; }}
+.btn-primary {{ display: inline-block; background: var(--ink); color: white; font-weight: 600; font-size: 0.88rem; text-decoration: none; padding: 11px 20px; border-radius: 24px; }}
+.btn-primary:hover {{ background: var(--aqua); }}
+.trust-strip {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 24px 0 8px; box-shadow: var(--card-shadow); }}
+.trust-item {{ font-size: 0.78rem; color: var(--muted); }}
+.trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }}
 .search-row {{ margin: 4px 0 28px; }}
 .search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
 .search-input:focus {{ outline: none; border-color: var(--aqua); }}
-.section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; }}
+.section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
 .category-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }}
 .category-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }}
 .category-card:hover {{ border-color: var(--aqua); }}
+.category-card-icon {{ width: 20px; height: 20px; margin-bottom: 8px; }}
 .category-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }}
 .category-card-count {{ font-size: 0.78rem; color: var(--muted); margin-top: 3px; }}
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
@@ -498,25 +553,37 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 .lens-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
 .lens-grid .product-card {{ margin-bottom: 0; }}
 .no-results {{ display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }}
-@media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
-@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+.guide-mini-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
+.guide-mini-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--card-shadow); }}
+.guide-mini-card:hover {{ border-color: var(--aqua); }}
+@media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
+@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} .guide-mini-grid {{ grid-template-columns: 1fr 1fr; }} }}
+@media (min-width: 700px) {{ .hero {{ flex-direction: row; align-items: center; gap: 32px; }} .hero-copy {{ flex: 1; }} .hero-media {{ flex: 0 0 42%; aspect-ratio: 4 / 3; }} }}
 </style>
 </head>
 <body>
-<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+{TOPBAR_HTML}
 <div class="wrap">
   <div class="hero">
-    <svg class="hero-rings" viewBox="0 0 40 40" aria-hidden="true">
-      <circle cx="20" cy="20" r="18" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
-      <circle cx="20" cy="20" r="13" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
-      <circle cx="20" cy="20" r="8" fill="none" stroke="#0BA36F" stroke-width="1.4"/>
-      <circle cx="20" cy="20" r="3" fill="#0BA36F"/>
-    </svg>
     <div class="hero-copy">
       <div class="kicker">Prissammenligning</div>
       <h1>Finn billigste kontaktlinser</h1>
       <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Søk eller velg en linse under for å se alle tilbud.</p>
+      <div class="hero-actions">
+        <a href="#merker" class="btn-primary">Se alle merker</a>
+      </div>
     </div>
+    <div class="hero-media">
+      <img src="/static/hero-eye.jpg" alt="" loading="eager">
+    </div>
+  </div>
+  <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
+
+  <div class="trust-strip">
+    <div class="trust-item"><strong>{n_retailers}</strong>forhandlere sammenlignet</div>
+    <div class="trust-item"><strong>{n_products}</strong>linser fulgt</div>
+    <div class="trust-item"><strong>6t</strong>mellom hver prisoppdatering</div>
+    <div class="trust-item"><strong>0 kr</strong>i skjulte gebyrer hos oss</div>
   </div>
 
   <div class="search-row">
@@ -524,14 +591,14 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
   </div>
 
-  <div class="section-header">
+  <div class="section-header" id="merker">
     <h2>Merker</h2>
   </div>
   <div class="brand-grid">
     {brand_cards_html}
   </div>
 
-  <div class="section-header">
+  <div class="section-header" id="kategorier">
     <h2>Kategorier</h2>
   </div>
   <div class="category-grid">
@@ -545,6 +612,13 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     {lens_cards_html}
   </div>
   <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se en kategori over.</p>
+
+  <div class="section-header">
+    <h2>Guider</h2>
+  </div>
+  <div class="guide-mini-grid">
+    {guide_cards_html}
+  </div>
 </div>
 
 <script>
@@ -652,7 +726,7 @@ def render_guide_page(slug: str) -> str | None:
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+{TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
   <div class="hero">
@@ -664,6 +738,47 @@ def render_guide_page(slug: str) -> str | None:
   <div style="max-width:640px;">
     {guide["body_html"]}
   </div>
+</div>
+</body>
+</html>"""
+
+
+def render_guides_index_page() -> str:
+    cards_html = "\n".join(
+        f"""<a class="guide-card" href="/guide/{escape(slug)}/">
+  <div class="guide-card-title">{escape(g["title"])}</div>
+  <div class="guide-card-desc">{escape(g["description"])}</div>
+</a>"""
+        for slug, g in GUIDE_CONTENT.items()
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guider – kontaktlinser.no</title>
+<meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, og forskjellen på dagslinser og månedslinser.">
+{FONT_LINKS}
+<style>{SHARED_STYLE}
+.guide-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 10px; }}
+.guide-card:hover {{ border-color: var(--aqua); }}
+.guide-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }}
+.guide-card-desc {{ font-size: 0.86rem; color: var(--muted); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Guider</div>
+      <h1>Guider</h1>
+      <p>Kort og saklig hjelp til å velge riktig kontaktlinse.</p>
+    </div>
+  </div>
+  {cards_html}
 </div>
 </body>
 </html>"""
@@ -741,7 +856,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+{TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(category["label"])}</p>
   <div class="hero">

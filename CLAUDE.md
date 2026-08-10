@@ -143,6 +143,25 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   lange merkenavn + antall-tekst grid-kolonnen bredere enn viewporten og gir
   horisontal scroll på mobil (fant og fikset dette 28.08.2026, testet på
   375px bredde).
+- `TOPBAR_HTML` (i `render_templates.py`) er nå en delt konstant brukt av
+  ALLE sidetyper -- ikke skriv `<div class="topbar">...` for hånd i en ny
+  mal, bruk `{{TOPBAR_HTML}}`. Menyen (Merker/Kategorier/Guider) peker på
+  anker på forsiden (`/#merker`, `/#kategorier`) siden vi ikke har egne
+  samleider for det -- IKKE fjern `id="merker"`/`id="kategorier"` fra
+  seksjonsoverskriftene på forsiden uten å oppdatere menyen tilsvarende.
+- `render_guides_index_page()` bygger `/guider/` -- la til fordi
+  toppmenyen trengte et mål og vi ikke hadde noen oversiktsside for de to
+  guidene fra før.
+- Forsidens hero har nå et ekte foto (`static/hero-eye.jpg`, Amanda
+  Dalbjörn, fri Unsplash-lisens, kreditert i footer-teksten under bildet).
+  `generate_pages.py` kopierer alt i `static/` til `build/static/`
+  automatisk ved hver bygging (ikke noe eget steg i CI-workflowen) -- legg
+  nye statiske filer i `static/` i repo-roten, ikke i `site_generator/`.
+  Trygghetsstripen under heroen (forhandlerantall, produktantall osv.) er
+  regnet ut dynamisk fra katalogen, IKKE hardkodede tall -- ikke bytt den
+  til statisk tekst, og legg ALDRI til stjerner/anmeldelser vi ikke faktisk
+  har (ba bevisst om å utelate dette fra en designreferanse 28.08.2026,
+  siden vi ingen Trustpilot-integrasjon har).
 - Lensons/Lensways listeside (ikke bare produktsiden) inneholder SAMME
   universalAnalyticsInfo-JSON-blob som produktsiden, med productId, navn,
   pris, kategori og produsent for ALLE produkter på siden (`?_page=0` til
