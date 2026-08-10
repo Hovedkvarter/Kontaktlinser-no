@@ -278,9 +278,16 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 
     lens_cards_html = "\n".join(render_lens_card(p) for p in catalog["products"])
 
-    category_links = "\n".join(
-        f'<li><a href="/kontaktlinser/{escape(slug)}/">{escape(category["label"])}</a></li>'
-        for slug, category in catalog["categories"].items()
+    def render_category_card(slug: str, category: dict) -> str:
+        count = sum(1 for p in catalog["products"] if p["category_slug"] == slug)
+        n_label = "produkt" if count == 1 else "produkter"
+        return f"""<a class="category-card" href="/kontaktlinser/{escape(slug)}/">
+  <div class="category-card-label">{escape(category["label"])}</div>
+  <div class="category-card-count">{count} {n_label}</div>
+</a>"""
+
+    category_cards_html = "\n".join(
+        render_category_card(slug, category) for slug, category in catalog["categories"].items()
     )
 
     return f"""<!DOCTYPE html>
@@ -295,12 +302,17 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 .search-row {{ margin: 4px 0 28px; }}
 .search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
 .search-input:focus {{ outline: none; border-color: var(--aqua); }}
-.lens-grid-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }}
-.lens-grid-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+.section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }}
+.section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+.category-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }}
+.category-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }}
+.category-card:hover {{ border-color: var(--aqua); }}
+.category-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }}
+.category-card-count {{ font-size: 0.78rem; color: var(--muted); margin-top: 3px; }}
 .lens-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
 .lens-grid .product-card {{ margin-bottom: 0; }}
 .no-results {{ display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }}
-@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} }}
+@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 </style>
 </head>
 <body>
@@ -319,20 +331,20 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
   </div>
 
-  <div class="lens-grid-header">
-    <h2 id="lens-grid-heading">Populære linser</h2>
+  <div class="section-header">
+    <h2>Kategorier</h2>
+  </div>
+  <div class="category-grid">
+    {category_cards_html}
+  </div>
+
+  <div class="section-header">
+    <h2 id="lens-grid-heading">Alle linser</h2>
   </div>
   <div id="lens-grid" class="lens-grid">
     {lens_cards_html}
   </div>
-  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se alle kategorier under.</p>
-
-  <div class="related">
-    <h2>Kategorier</h2>
-    <ul>
-      {category_links}
-    </ul>
-  </div>
+  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se en kategori over.</p>
 </div>
 
 <script>
@@ -355,6 +367,104 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     noResults.style.display = visible === 0 ? 'block' : 'none';
   }});
 </script>
+</body>
+</html>"""
+
+
+GUIDE_CONTENT = {
+    "manedslinser-vs-dagslinser": {
+        "title": "Månedslinser vs. dagslinser – hva passer deg?",
+        "description": "Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.",
+        "body_html": """
+<p>Det korte svaret: bruker du linser <strong>sjeldnere enn 4–5 dager i uken</strong>, kommer
+dagslinser oftest billigst ut totalt sett, selv om prisen per linse er høyere. Bruker du
+linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Dagslinser</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske</li>
+  <li>Praktisk til sport, reise eller sjelden bruk</li>
+  <li>Lavere risiko for øyeinfeksjon siden linsen aldri gjenbrukes</li>
+  <li>Høyere kostnad per linse, og mer emballasjeavfall ved daglig bruk</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Månedslinser</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Samme par brukes i opptil 30 dager (følg optikerens anbefaling)</li>
+  <li>Lavere kostnad per bruksdag ved daglig bruk</li>
+  <li>Krever daglig rengjøring og riktig oppbevaringsvæske</li>
+  <li>Mange moderne månedslinser (silikonhydrogel) slipper gjennom mer oksygen enn eldre
+  materialer, noe som kan gi bedre komfort ved lange dager med linser</li>
+</ul>
+
+<p style="margin-top:24px;">Uansett type: følg alltid byttefrekvensen optikeren har satt for
+akkurat din linse og resept – det er ikke bare et prisspørsmål, men avgjørende for
+øyehelsen.</p>
+""",
+    },
+    "hvordan-velge-kontaktlinser": {
+        "title": "Hvordan velge kontaktlinser",
+        "description": "En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.",
+        "body_html": """
+<p>Kontaktlinser er reseptvare, også de uten styrke (f.eks. fargede linser). Første steg er
+alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og linsetype
+øynene dine tåler godt.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Det resepten din vanligvis avgjør</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li><strong>Astigmatisme</strong> (skjev hornhinne) → toriske linser, formet for å ligge
+  stabilt i en bestemt retning</li>
+  <li><strong>Alderssyn</strong> (vansker med å se på nært hold fra ca. 40–45 år) →
+  multifokale/progressive linser</li>
+  <li><strong>Sfærisk syn</strong> uten astigmatisme eller alderssyn → vanlige sfæriske
+  linser, det enkleste og billigste utvalget</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Hvor ofte du bruker linser, se vår <a href="/guide/manedslinser-vs-dagslinser/">sammenligning
+  av månedslinser og dagslinser</a></li>
+  <li>Tørre øyne kan gjøre enkelte materialer (silikonhydrogel) mer behagelige enn andre</li>
+  <li>Fargede linser krever samme oppfølging som andre linser, selv uten styrke</li>
+</ul>
+
+<p style="margin-top:24px;">Vi sammenligner priser på tvers av nettbutikker, men kan
+aldri erstatte en synsundersøkelse – bruk alltid en resept som er gyldig for den
+spesifikke linsen du bestiller.</p>
+""",
+    },
+}
+
+
+def render_guide_page(slug: str) -> str | None:
+    guide = GUIDE_CONTENT.get(slug)
+    if guide is None:
+        return None
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(guide["title"])} | kontaktlinser.no</title>
+<meta name="description" content="{escape(guide["description"])}">
+{FONT_LINKS}
+<style>{SHARED_STYLE}</style>
+</head>
+<body>
+<div class="topbar">{RING_MARK} kontaktlinser.no</div>
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Guide</div>
+      <h1>{escape(guide["title"])}</h1>
+    </div>
+  </div>
+  <div style="max-width:640px;">
+    {guide["body_html"]}
+  </div>
+</div>
 </body>
 </html>"""
 

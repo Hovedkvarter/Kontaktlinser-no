@@ -2,6 +2,7 @@
   "$comment": "default_source gjelder alle merker hos en forhandler, med mindre brand_overrides sier noe annet. Når en avtale godkjennes for et merke hos en forhandler: legg til/oppdater raden i brand_overrides. Ingen kodeendring nødvendig.",
 
   "interoptik": {
+    "display_name": "Interoptik",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.interoptik.no",
@@ -20,6 +21,7 @@
 
   "lensway": {
     "$comment": "Bekreftet affiliate-program hos Lensway kjøres via Tradedoubler, men vi har ingen signert feed-avtale ennå. Scraper inntil videre -- bytt til affiliate_feed/tradedoubler den dagen avtalen er på plass. VIKTIG: Lensway er en React-app som ALDRI server-rendrer pris i DOM-en -- CSS-selectorer treffer ingenting uansett hvor riktige de er (verifisert 28.08.2026, brukte timevis på feil spor før dette ble oppdaget). price_source=embedded_json henter i stedet prisen ferdig utregnet fra deres egen analytics-JSON i <script>-taggen, som ligger i rå-HTML-en uavhengig av JS. Samme plattform som Lenson (LensGroup) -- identisk oppsett, til og med samme produkt-ID-er på tvers av de to sidene.",
+    "display_name": "Lensway",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.lensway.no",
@@ -33,6 +35,7 @@
 
   "lenson": {
     "$comment": "Bekreftet affiliate-program hos Lenson kjøres via Tradedoubler (aktiv siden 2008, lenson.com/no/affiliate). Ingen signert feed-avtale ennå -- scraper inntil videre. Samme React-app-arkitektur som Lensway: pris finnes ALDRI i server-rendret DOM, kun i en analytics-JSON-blob i <script>-taggen -- se price_source=embedded_json. Ingen 'utsolgt'-felt funnet i den blobben eller ellers på siden ved verifisering -- stock_selector er derfor utelatt, alle tilbud antas på lager inntil dette er sjekket mot et faktisk utsolgt produkt.",
+    "display_name": "Lenson",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.lenson.com",
@@ -46,6 +49,7 @@
 
   "extraoptical": {
     "$comment": "BLOKKERT for skraping akkurat nå: siden er en ren React-app (Magento/Venia) som server-rendrer KUN et tomt <div id=\"root\">, ingen embedded prisdata i rå-HTML slik Lenson/Lensway har -- prisen finnes bare etter at JS har kjørt og hentet den via GraphQL. Vår scraper bruker bevisst ikke en headless nettleser, så dette paret gir aldri data med dagens arkitektur. Løsning hvis det blir viktig: kall Magento sitt /graphql-endepunkt direkte i stedet for å skrape HTML. Har for øvrig et affiliate-program (funnet via dansk affiliate-katalog), nettverk ikke bekreftet -- avklar direkte med dem. robots.txt krever crawl-delay 10 sek hvis/når scraping blir mulig.",
+    "display_name": "Extra Optical",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://extraoptical.no",
@@ -59,6 +63,7 @@
 
   "shopping4net": {
     "$comment": "BLOKKERT for skraping akkurat nå: robots.txt finnes IKKE på domenets rot (https://www.shopping4net.com/robots.txt -> 404) -- de har kun lagt en robots.txt under /no/robots.txt, som ikke er gyldig plassering per robots.txt-spesifikasjonen og derfor ikke fanges opp av robots_allows(). Prosjektets regel er at manglende robots.txt betyr 'ikke scrape uten bekreftet tillatelse', så dette paret gir aldri data før det er avklart med dem direkte (eller de flytter robots.txt til rot). Bekreftet affiliate-program via Tradedoubler (opptil 10% provisjon, program-id 198299) -- ingen signert avtale ennå. price_selector (.amount) og product_url_pattern er verifisert mot ekte HTML og klare til bruk den dagen robots.txt-spørsmålet er løst.",
+    "display_name": "Shopping4net",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.shopping4net.com",
@@ -70,6 +75,7 @@
 
   "lensit": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Standard Shopify-tema (Dawn-aktig), stabile klassenavn uten hash. Ingen pålitelig 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre.",
+    "display_name": "Lensit",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.lensit.no",
@@ -82,6 +88,7 @@
 
   "specsavers": {
     "$comment": "IKKE rørt i denne runden -- price_selector/stock_selector er fortsatt uverifiserte gjetninger fra tidligere. Verifiser mot ekte HTML før dette brukes.",
+    "display_name": "Specsavers",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.specsavers.no",

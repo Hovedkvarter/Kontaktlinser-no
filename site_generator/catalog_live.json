@@ -13,6 +13,50 @@
           "title": "Hvordan velge kontaktlinser"
         }
       ]
+    },
+    "dagslinser": {
+      "label": "Dagslinser",
+      "intro": "Sammenlign priser på dagslinser (endagslinser) fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        {
+          "slug": "manedslinser-vs-dagslinser",
+          "title": "Månedslinser vs. dagslinser – hva passer deg?"
+        },
+        {
+          "slug": "hvordan-velge-kontaktlinser",
+          "title": "Hvordan velge kontaktlinser"
+        }
+      ]
+    },
+    "toriske-linser": {
+      "label": "Toriske linser",
+      "intro": "Sammenlign priser på toriske linser for astigmatisme fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        {
+          "slug": "hvordan-velge-kontaktlinser",
+          "title": "Hvordan velge kontaktlinser"
+        }
+      ]
+    },
+    "fargede-linser": {
+      "label": "Fargede linser",
+      "intro": "Sammenlign priser på fargede kontaktlinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        {
+          "slug": "hvordan-velge-kontaktlinser",
+          "title": "Hvordan velge kontaktlinser"
+        }
+      ]
+    },
+    "multifokale-linser": {
+      "label": "Multifokale linser",
+      "intro": "Sammenlign priser på multifokale (progressive) kontaktlinser for alderssyn fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        {
+          "slug": "hvordan-velge-kontaktlinser",
+          "title": "Hvordan velge kontaktlinser"
+        }
+      ]
     }
   },
   "products": [
@@ -42,7 +86,7 @@
           "product_id": "acuvue-oasys-6pk"
         },
         {
-          "retailer": "lenson",
+          "retailer": "Lenson",
           "brand": "acuvue",
           "source": "scraper",
           "network": "scrape",
@@ -50,7 +94,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-oasys-lens-154",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:40.075168+00:00",
+          "checked_at": "2026-08-10T11:19:46.015356+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -58,7 +102,7 @@
           "product_id": "acuvue-oasys-6pk"
         },
         {
-          "retailer": "lensway",
+          "retailer": "Lensway",
           "brand": "acuvue",
           "source": "scraper",
           "network": "scrape",
@@ -66,7 +110,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-oasys-lens-154",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:40.844403+00:00",
+          "checked_at": "2026-08-10T11:19:46.846625+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -101,7 +145,7 @@
           "product_id": "acuvue-vita-6pk"
         },
         {
-          "retailer": "lenson",
+          "retailer": "Lenson",
           "brand": "acuvue",
           "source": "scraper",
           "network": "scrape",
@@ -109,7 +153,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/acuvue-vita-lens-6648",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:43.107293+00:00",
+          "checked_at": "2026-08-10T11:19:49.097802+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -117,7 +161,7 @@
           "product_id": "acuvue-vita-6pk"
         },
         {
-          "retailer": "lensway",
+          "retailer": "Lensway",
           "brand": "acuvue",
           "source": "scraper",
           "network": "scrape",
@@ -125,7 +169,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/acuvue-vita-lens-6648",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:43.930822+00:00",
+          "checked_at": "2026-08-10T11:19:50.001708+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -144,7 +188,7 @@
       "category_slug": "manedslinser",
       "offers": [
         {
-          "retailer": "lenson",
+          "retailer": "Lenson",
           "brand": "biofinity",
           "source": "scraper",
           "network": "scrape",
@@ -152,7 +196,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lenson.com/no/biofinity-lens-347",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:46.146554+00:00",
+          "checked_at": "2026-08-10T11:19:52.105323+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -160,7 +204,7 @@
           "product_id": "biofinity-6pk"
         },
         {
-          "retailer": "lensway",
+          "retailer": "Lensway",
           "brand": "biofinity",
           "source": "scraper",
           "network": "scrape",
@@ -168,7 +212,7 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensway.no/biofinity-lens-347",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:46.976442+00:00",
+          "checked_at": "2026-08-10T11:19:53.011528+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -176,7 +220,7 @@
           "product_id": "biofinity-6pk"
         },
         {
-          "retailer": "lensit",
+          "retailer": "Lensit",
           "brand": "biofinity",
           "source": "scraper",
           "network": "scrape",
@@ -184,12 +228,485 @@
           "shipping_nok": 0.0,
           "url": "https://www.lensit.no/products/biofinity-prd39456092",
           "in_stock": true,
-          "checked_at": "2026-08-10T10:30:48.007414+00:00",
+          "checked_at": "2026-08-10T11:19:54.037365+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
           "image_source": "unlicensed",
           "product_id": "biofinity-6pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-moist-30pk",
+      "slug": "moist-30-pack",
+      "name": "1-Day Acuvue Moist 30-pack",
+      "description": "Endagslinse med LACREON-fuktighetsteknologi.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 232.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/1-day-acuvue-moist-lens-205",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:19:55.050834+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-moist-30pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 232.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/1-day-acuvue-moist-lens-205",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:19:56.010679+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-moist-30pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-max-1day-30pk",
+      "slug": "oasys-max-1-day-30-pack",
+      "name": "Acuvue Oasys MAX 1-Day 30-pack",
+      "description": "Endagslinse med TearStable-teknologi og UV-beskyttelse.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 344.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/acuvue-oasys-max-1-day-lens-9627",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:19:58.060493+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-max-1day-30pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 344.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/acuvue-oasys-max-1-day-lens-9627",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:19:58.992120+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-max-1day-30pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-1day-hydraluxe-30pk",
+      "slug": "oasys-1-day-hydraluxe-30-pack",
+      "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
+      "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 276.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/acuvue-oasys-1-day-with-hydraluxe-lens-6057",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:01.086342+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-1day-hydraluxe-30pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 276.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/acuvue-oasys-1-day-with-hydraluxe-lens-6057",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:02.372065+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-1day-hydraluxe-30pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-astigmatism-6pk",
+      "slug": "oasys-astigmatism-6-pack",
+      "name": "Acuvue Oasys for Astigmatism 6-pack",
+      "description": "Torisk linse for astigmatisme, silikonhydrogel.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 350.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/acuvue-oasys-for-astigmatism-lens-199",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:04.282385+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-astigmatism-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 351.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/acuvue-oasys-for-astigmatism-lens-199",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:05.404190+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-astigmatism-6pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-moist-astigmatism-30pk",
+      "slug": "moist-astigmatism-30-pack",
+      "name": "1-Day Acuvue Moist for Astigmatism 30-pack",
+      "description": "Endagslinse med torisk design for astigmatisme.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 297.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/1-day-acuvue-moist-for-astigmatism-lens-824",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:07.149178+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-moist-astigmatism-30pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 297.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/1-day-acuvue-moist-for-astigmatism-lens-824",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:08.234395+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-moist-astigmatism-30pk"
+        }
+      ]
+    },
+    {
+      "id": "biofinity-toric-6pk",
+      "slug": "biofinity-toric-6-pack",
+      "name": "Biofinity Toric 6-pack",
+      "description": "Torisk månedslinse fra CooperVision for astigmatisme.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "toriske-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "biofinity",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 454.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/biofinity-toric-lens-1442",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:10.091993+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "biofinity-toric-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "biofinity",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 454.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/biofinity-toric-lens-1442",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:11.264220+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "biofinity-toric-6pk"
+        }
+      ]
+    },
+    {
+      "id": "air-optix-colors-2pk",
+      "slug": "colors-2-pack",
+      "name": "Air Optix Colors 2-pack",
+      "description": "Fargede månedslinser, med og uten styrke.",
+      "brand_slug": "air-optix",
+      "brand_label": "Air Optix",
+      "category_slug": "fargede-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "air-optix",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 292.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/air-optix-colors-lens-4445",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:13.051553+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "air-optix-colors-2pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "air-optix",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 292.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/air-optix-colors-lens-4445",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:14.243290+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "air-optix-colors-2pk"
+        }
+      ]
+    },
+    {
+      "id": "adore-bi-tone-2pk",
+      "slug": "bi-tone-2-pack",
+      "name": "ADORE Bi-tone 2-pack",
+      "description": "Fargede endagslinser uten styrke.",
+      "brand_slug": "adore",
+      "brand_label": "ADORE",
+      "category_slug": "fargede-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "adore",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 379.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/adore-bi-tone-lens-6282",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:16.088026+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "adore-bi-tone-2pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "adore",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 379.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/adore-bi-tone-lens-6282",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:17.225348+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "adore-bi-tone-2pk"
+        }
+      ]
+    },
+    {
+      "id": "adore-dare-2pk",
+      "slug": "dare-2-pack",
+      "name": "ADORE Dare 2-pack",
+      "description": "Fargede endagslinser uten styrke.",
+      "brand_slug": "adore",
+      "brand_label": "ADORE",
+      "category_slug": "fargede-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "adore",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 379.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/adore-dare-lens-6281",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:19.106005+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "adore-dare-2pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "adore",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 379.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/adore-dare-lens-6281",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:20.238434+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "adore-dare-2pk"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-multifocal-6pk",
+      "slug": "oasys-multifocal-6-pack",
+      "name": "Acuvue Oasys Multifocal 6-pack",
+      "description": "Multifokal månedslinse for alderssyn.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 449.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:22.072961+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-multifocal-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "acuvue",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 449.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/acuvue-oasys-multifocal-lens-9610",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:23.221625+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "acuvue-oasys-multifocal-6pk"
+        }
+      ]
+    },
+    {
+      "id": "biofinity-multifocal-6pk",
+      "slug": "biofinity-multifocal-6-pack",
+      "name": "Biofinity Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra CooperVision for alderssyn.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "multifokale-linser",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "biofinity",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 659.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lenson.com/no/biofinity-multifocal-lens-1989",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:25.088452+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "biofinity-multifocal-6pk"
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "biofinity",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 659.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.lensway.no/biofinity-multifocal-lens-1989",
+          "in_stock": true,
+          "checked_at": "2026-08-10T11:20:26.250130+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "biofinity-multifocal-6pk"
         }
       ]
     }

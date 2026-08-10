@@ -171,7 +171,7 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | N
         in_stock = "utsolgt" not in stock_el.get_text(strip=True).lower()
 
     return mark_staleness(Offer(
-        retailer=retailer,
+        retailer=cfg.get("display_name", retailer),
         brand=brand,
         source="scraper",
         network="scrape",

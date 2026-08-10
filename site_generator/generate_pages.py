@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
 
-from render_templates import render_product_page, render_category_page, render_home_page
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -55,6 +55,15 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         out_path = BUILD_DIR / "kontaktlinser" / category_slug / "index.html"
         write_file(out_path, html)
         print(f"  kategori -> /kontaktlinser/{category_slug}/")
+
+    guide_slugs = {g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])}
+    for slug in guide_slugs:
+        html = render_guide_page(slug)
+        if html is None:
+            print(f"  [advarsel] guide referert i en kategori, men mangler innhold: {slug}")
+            continue
+        write_file(BUILD_DIR / "guide" / slug / "index.html", html)
+        print(f"  guide    -> /guide/{slug}/")
 
     return catalog
 

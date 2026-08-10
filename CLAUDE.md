@@ -100,15 +100,28 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
 - SmartBuyGlasses er IKKE lagt til: robots.txt blokkerer `/product/` for
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
-- Kun 1 kategori (månedslinser). Dagslinser og tørre-øyne-kategoriene er
-  planlagt, men ikke bygget. 3 produkter i katalogen (Acuvue Oasys 6pk,
-  Acuvue Vita 6pk, Biofinity 6pk), hver med reelle tilbud fra Lenson, Lensway
-  og (for Biofinity) Lensit.
+- 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
+  multifokale linser), 14 produkter totalt, alle med reelle tilbud fra Lenson
+  og Lensway (Biofinity 6-pack i tillegg fra Lensit). Tørre-øyne-kategorien er
+  fortsatt ikke bygget.
+- `retailer`-feltet i tilbud kommer fra `display_name` i
+  `sources_config.json` per forhandler, IKKE fra den lowercase config-nøkkelen
+  (`lenson`, `lensway` osv.) — sett `display_name` når en ny forhandler legges
+  til, ellers vises navnet med små bokstaver på siden.
 - Biofinity-6pk er lagt tilbake i `products_meta.json` — Lenson er nå
   verifisert (Specsavers er det fortsatt ikke, men det kravet er innhentet av
   fire andre bekreftede kilder).
 - Specsavers er IKKE rørt — fortsatt uverifiserte gjetninger i
   `sources_config.json`.
+- `render_guide_page()` i `render_templates.py` + `GUIDE_CONTENT`-dict
+  (samme fil) bygger nå faktiske guide-sider til `/guide/{slug}/`. Disse var
+  tidligere døde lenker fra kategorisidene -- generate_pages.py sin build()
+  itererer over alle guide-slugs referert i categories og bygger dem. Ny
+  kategori med guide krever enten en ny nøkkel i GUIDE_CONTENT, eller
+  gjenbruk av en eksisterende guide-slug.
+- Forsiden (`render_home_page()`) har nå søk (client-side filter,
+  progressiv forbedring) + et rutenett med kategorikort + et rutenett med
+  alle linser, inspirert av lenspricer.no sin "finn din linse raskt"-modell.
 - Domene, DNS (Domeneshop), HTTPS og GitHub Pages er satt opp og fungerer.
 
 ## Arbeidsspråk og autorisasjon

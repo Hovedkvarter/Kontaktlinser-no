@@ -1,5 +1,5 @@
 {
-  "$comment": "Ingen priser her - kun det som IKKE endrer seg fra kjøring til kjøring. scrape_targets sier hvilke (forhandler, slug)-par som skal scrapes for dette produktet, hvis den forhandleren er satt til 'scraper' for merket i sources_config.json. NB: biofinity-6pk ble tidligere holdt utenfor til Lenson/Specsavers-selectorene var verifisert -- Lenson (og fire andre forhandlere) er nå bekreftet mot ekte HTML (28.08.2026), så den er lagt tilbake. Specsavers er fortsatt uverifisert og ikke brukt som scrape_target for noe produkt.",
+  "$comment": "Ingen priser her - kun det som IKKE endrer seg fra kjøring til kjøring. scrape_targets sier hvilke (forhandler, slug)-par som skal scrapes for dette produktet, hvis den forhandleren er satt til 'scraper' for merket i sources_config.json. Alle scrape_targets under er verifisert mot ekte produkt-URL-er hos Lenson/Lensway (28.08.2026) -- se sources_config.json for hvorfor disse to bruker price_source=embedded_json i stedet for CSS-selectorer.",
 
   "categories": {
     "manedslinser": {
@@ -7,6 +7,35 @@
       "intro": "Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
       "guides": [
         { "slug": "manedslinser-vs-dagslinser", "title": "Månedslinser vs. dagslinser – hva passer deg?" },
+        { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
+      ]
+    },
+    "dagslinser": {
+      "label": "Dagslinser",
+      "intro": "Sammenlign priser på dagslinser (endagslinser) fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        { "slug": "manedslinser-vs-dagslinser", "title": "Månedslinser vs. dagslinser – hva passer deg?" },
+        { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
+      ]
+    },
+    "toriske-linser": {
+      "label": "Toriske linser",
+      "intro": "Sammenlign priser på toriske linser for astigmatisme fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
+      ]
+    },
+    "fargede-linser": {
+      "label": "Fargede linser",
+      "intro": "Sammenlign priser på fargede kontaktlinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
+        { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
+      ]
+    },
+    "multifokale-linser": {
+      "label": "Multifokale linser",
+      "intro": "Sammenlign priser på multifokale (progressive) kontaktlinser for alderssyn fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.",
+      "guides": [
         { "slug": "hvordan-velge-kontaktlinser", "title": "Hvordan velge kontaktlinser" }
       ]
     }
@@ -51,6 +80,149 @@
         { "retailer": "lenson", "slug": "biofinity-lens-347" },
         { "retailer": "lensway", "slug": "biofinity-lens-347" },
         { "retailer": "lensit", "slug": "biofinity-prd39456092" }
+      ]
+    },
+    {
+      "id": "acuvue-moist-30pk",
+      "slug": "moist-30-pack",
+      "name": "1-Day Acuvue Moist 30-pack",
+      "description": "Endagslinse med LACREON-fuktighetsteknologi.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "1-day-acuvue-moist-lens-205" },
+        { "retailer": "lensway", "slug": "1-day-acuvue-moist-lens-205" }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-max-1day-30pk",
+      "slug": "oasys-max-1-day-30-pack",
+      "name": "Acuvue Oasys MAX 1-Day 30-pack",
+      "description": "Endagslinse med TearStable-teknologi og UV-beskyttelse.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-oasys-max-1-day-lens-9627" },
+        { "retailer": "lensway", "slug": "acuvue-oasys-max-1-day-lens-9627" }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-1day-hydraluxe-30pk",
+      "slug": "oasys-1-day-hydraluxe-30-pack",
+      "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
+      "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "dagslinser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6057" },
+        { "retailer": "lensway", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6057" }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-astigmatism-6pk",
+      "slug": "oasys-astigmatism-6-pack",
+      "name": "Acuvue Oasys for Astigmatism 6-pack",
+      "description": "Torisk linse for astigmatisme, silikonhydrogel.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-oasys-for-astigmatism-lens-199" },
+        { "retailer": "lensway", "slug": "acuvue-oasys-for-astigmatism-lens-199" }
+      ]
+    },
+    {
+      "id": "acuvue-moist-astigmatism-30pk",
+      "slug": "moist-astigmatism-30-pack",
+      "name": "1-Day Acuvue Moist for Astigmatism 30-pack",
+      "description": "Endagslinse med torisk design for astigmatisme.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "1-day-acuvue-moist-for-astigmatism-lens-824" },
+        { "retailer": "lensway", "slug": "1-day-acuvue-moist-for-astigmatism-lens-824" }
+      ]
+    },
+    {
+      "id": "biofinity-toric-6pk",
+      "slug": "biofinity-toric-6-pack",
+      "name": "Biofinity Toric 6-pack",
+      "description": "Torisk månedslinse fra CooperVision for astigmatisme.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "toriske-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biofinity-toric-lens-1442" },
+        { "retailer": "lensway", "slug": "biofinity-toric-lens-1442" }
+      ]
+    },
+    {
+      "id": "air-optix-colors-2pk",
+      "slug": "colors-2-pack",
+      "name": "Air Optix Colors 2-pack",
+      "description": "Fargede månedslinser, med og uten styrke.",
+      "brand_slug": "air-optix",
+      "brand_label": "Air Optix",
+      "category_slug": "fargede-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "air-optix-colors-lens-4445" },
+        { "retailer": "lensway", "slug": "air-optix-colors-lens-4445" }
+      ]
+    },
+    {
+      "id": "adore-bi-tone-2pk",
+      "slug": "bi-tone-2-pack",
+      "name": "ADORE Bi-tone 2-pack",
+      "description": "Fargede endagslinser uten styrke.",
+      "brand_slug": "adore",
+      "brand_label": "ADORE",
+      "category_slug": "fargede-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "adore-bi-tone-lens-6282" },
+        { "retailer": "lensway", "slug": "adore-bi-tone-lens-6282" }
+      ]
+    },
+    {
+      "id": "adore-dare-2pk",
+      "slug": "dare-2-pack",
+      "name": "ADORE Dare 2-pack",
+      "description": "Fargede endagslinser uten styrke.",
+      "brand_slug": "adore",
+      "brand_label": "ADORE",
+      "category_slug": "fargede-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "adore-dare-lens-6281" },
+        { "retailer": "lensway", "slug": "adore-dare-lens-6281" }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-multifocal-6pk",
+      "slug": "oasys-multifocal-6-pack",
+      "name": "Acuvue Oasys Multifocal 6-pack",
+      "description": "Multifokal månedslinse for alderssyn.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "acuvue-oasys-multifocal-lens-9610" },
+        { "retailer": "lensway", "slug": "acuvue-oasys-multifocal-lens-9610" }
+      ]
+    },
+    {
+      "id": "biofinity-multifocal-6pk",
+      "slug": "biofinity-multifocal-6-pack",
+      "name": "Biofinity Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra CooperVision for alderssyn.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "multifokale-linser",
+      "scrape_targets": [
+        { "retailer": "lenson", "slug": "biofinity-multifocal-lens-1989" },
+        { "retailer": "lensway", "slug": "biofinity-multifocal-lens-1989" }
       ]
     }
   ]
