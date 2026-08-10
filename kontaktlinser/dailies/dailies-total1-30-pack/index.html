@@ -104,7 +104,7 @@ a { color: inherit; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
 .best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
-.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; }
+.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
@@ -114,6 +114,9 @@ a { color: inherit; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
 .lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
+.retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
+.best-price-band .retailer-logo { height: 22px; max-width: 110px; }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
 .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
@@ -134,6 +137,17 @@ a { color: inherit; }
 .related a:hover, .guides a:hover { border-color: var(--aqua); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
+.site-footer { margin-top: 48px; background: var(--ink); color: white; }
+.footer-inner { max-width: 760px; margin: 0 auto; padding: 40px 20px 8px; display: flex; flex-wrap: wrap; gap: 32px 24px; }
+.footer-col { flex: 1 1 140px; min-width: 140px; }
+.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--aqua); margin: 0 0 12px; }
+.footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.78); text-decoration: none; padding: 3px 0; }
+.footer-col a:hover { color: white; text-decoration: underline; }
+.footer-brand-list { columns: 2; column-gap: 16px; }
+.footer-disclosure { max-width: 760px; margin: 8px auto 0; padding: 20px 20px 0; font-size: 0.75rem; line-height: 1.6; color: rgba(255,255,255,0.55); border-top: 1px solid rgba(255,255,255,0.14); }
+.footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
+.footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+.footer-bottom a:hover { color: white; }
 
 .hero { display: flex; align-items: center; gap: 20px; }
 .specs { margin-top: 32px; }
@@ -181,7 +195,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="best-price-band">
   <div class="label-group">
     <div class="label">Laveste pris</div>
-    <div class="retailer">Brilleland</div>
+    <div class="retailer"><img class="retailer-logo" src="/static/logos/brilleland.svg" alt="" loading="lazy">Brilleland</div>
   </div>
   <div class="price">301 kr</div>
 </div>
@@ -189,8 +203,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Alle tilbud, sortert etter total pris</h2>
     <div class="offer-card is-lowest">
   <div class="offer-main">
-    <div class="offer-retailer">Brilleland <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/brilleland.svg" alt="" loading="lazy">Brilleland <span class="lowest-tag">Lavest pris</span></div>
+    <div class="offer-meta">Sist oppdatert: 3 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">301 kr</div>
@@ -200,8 +214,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="offer-card">
   <div class="offer-main">
-    <div class="offer-retailer">Lenson </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="" loading="lazy">Lenson </div>
+    <div class="offer-meta">Sist oppdatert: 3 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">344 kr</div>
@@ -211,8 +225,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="offer-card">
   <div class="offer-main">
-    <div class="offer-retailer">Lensit </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="" loading="lazy">Lensit </div>
+    <div class="offer-meta">Sist oppdatert: 3 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">344 kr</div>
@@ -222,8 +236,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="offer-card">
   <div class="offer-main">
-    <div class="offer-retailer">Interoptik </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="" loading="lazy">Interoptik </div>
+    <div class="offer-meta">Sist oppdatert: 3 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">359 kr</div>
@@ -233,8 +247,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="offer-card">
   <div class="offer-main">
-    <div class="offer-retailer">Lensway </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="" loading="lazy">Lensway </div>
+    <div class="offer-meta">Sist oppdatert: 3 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">361 kr</div>
@@ -260,5 +274,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="specs-note">Veiledende tall, satt sammen fra forhandlernes egne spesifikasjoner og produsentens produktinformasjon. Bekreft alltid mot din synsresept og pakningsvedlegget før kjøp.</p>
   </div>
 </div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h3>Kategorier</h3>
+    <a href="/kontaktlinser/manedslinser/">Månedslinser</a>
+    <a href="/kontaktlinser/dagslinser/">Dagslinser</a>
+    <a href="/kontaktlinser/toriske-linser/">Toriske linser</a>
+    <a href="/kontaktlinser/fargede-linser/">Fargede linser</a>
+    <a href="/kontaktlinser/multifokale-linser/">Multifokale linser</a>
+    </div>
+    <div class="footer-col">
+      <h3>Merker</h3>
+      <div class="footer-brand-list">
+      <a href="/merke/acuvue/">Acuvue</a>
+      <a href="/merke/adore/">ADORE</a>
+      <a href="/merke/air-optix/">Air Optix</a>
+      <a href="/merke/avaira/">Avaira</a>
+      <a href="/merke/biofinity/">Biofinity</a>
+      <a href="/merke/biomedics/">Biomedics</a>
+      <a href="/merke/biotrue/">Biotrue</a>
+      <a href="/merke/clariti/">Clariti</a>
+      <a href="/merke/dailies/">Dailies</a>
+      <a href="/merke/freshlook/">FreshLook</a>
+      <a href="/merke/myday/">MyDay</a>
+      <a href="/merke/precision1/">Precision1</a>
+      <a href="/merke/precision7/">Precision7</a>
+      <a href="/merke/proclear/">Proclear</a>
+      <a href="/merke/purevision/">PureVision</a>
+      <a href="/merke/soflens/">SofLens</a>
+      <a href="/merke/total30/">TOTAL30</a>
+      <a href="/merke/ultra/">ULTRA</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h3>Guider</h3>
+      <a href="/guider/">Alle guider</a>
+      <a href="/guide/manedslinser-vs-dagslinser/">Månedslinser vs. dagslinser</a>
+      <a href="/guide/hvordan-velge-kontaktlinser/">Hvordan velge kontaktlinser</a>
+    </div>
+  </div>
+  <p class="footer-disclosure">
+    kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
+    automatisk fra forhandlernes egne nettsider hver 6. time og sorterer alltid
+    etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
+    lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
+    av tilbud. Vi selger ikke kontaktlinser selv. Kontaktlinser er reseptvare:
+    rådfør deg alltid med optiker ved valg av linsetype og styrke.
+  </p>
+  <div class="footer-bottom">
+    <span>&copy; 2026 kontaktlinser.no</span>
+    <a href="/">Forside</a>
+    <a href="/guider/">Guider</a>
+  </div>
+</footer>
 </body>
 </html>
