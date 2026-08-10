@@ -64,19 +64,31 @@ a { color: inherit; }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
 
+.hero { position: relative; overflow: hidden; padding: 28px 0 26px; }
+.hero-rings { position: absolute; top: 50%; right: -60px; transform: translateY(-50%); width: 260px; height: 260px; opacity: 0.5; pointer-events: none; }
+.hero-copy { position: relative; z-index: 1; }
 .search-row { margin: 4px 0 28px; }
 .search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }
 .search-input:focus { outline: none; border-color: var(--aqua); }
-.section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; }
+.section-header:first-of-type { margin-top: 0; }
 .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
-.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 32px; }
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .category-card { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }
 .category-card:hover { border-color: var(--aqua); }
 .category-card-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }
 .category-card-count { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+.brand-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.brand-card { display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }
+.brand-card:hover { border-color: var(--aqua); }
+.brand-card-badge { flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--aqua-tint); color: var(--aqua); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }
+.brand-card-info { min-width: 0; }
+.brand-card-name { font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-card-count { font-size: 0.74rem; color: var(--muted); }
 .lens-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
 .lens-grid .product-card { margin-bottom: 0; }
 .no-results { display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }
+@media (min-width: 560px) { .brand-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 640px) { .lens-grid { grid-template-columns: 1fr 1fr; } .category-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>
 </head>
@@ -88,6 +100,12 @@ a { color: inherit; }
 </svg> kontaktlinser.no</div>
 <div class="wrap">
   <div class="hero">
+    <svg class="hero-rings" viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="13" fill="none" stroke="#2EC4D6" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="8" fill="none" stroke="#0BA36F" stroke-width="1.4"/>
+      <circle cx="20" cy="20" r="3" fill="#0BA36F"/>
+    </svg>
     <div class="hero-copy">
       <div class="kicker">Prissammenligning</div>
       <h1>Finn billigste kontaktlinser</h1>
@@ -98,6 +116,138 @@ a { color: inherit; }
   <div class="search-row">
     <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
     <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
+  </div>
+
+  <div class="section-header">
+    <h2>Merker</h2>
+  </div>
+  <div class="brand-grid">
+    <a class="brand-card" href="/merke/acuvue/">
+  <div class="brand-card-badge">AC</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Acuvue</div>
+    <div class="brand-card-count">8 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/air-optix/">
+  <div class="brand-card-badge">AI</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Air Optix</div>
+    <div class="brand-card-count">5 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/biofinity/">
+  <div class="brand-card-badge">BI</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Biofinity</div>
+    <div class="brand-card-count">5 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/dailies/">
+  <div class="brand-card-badge">DA</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Dailies</div>
+    <div class="brand-card-count">5 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/purevision/">
+  <div class="brand-card-badge">PU</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">PureVision</div>
+    <div class="brand-card-count">5 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/biomedics/">
+  <div class="brand-card-badge">BI</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Biomedics</div>
+    <div class="brand-card-count">4 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/ultra/">
+  <div class="brand-card-badge">UL</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">ULTRA</div>
+    <div class="brand-card-count">4 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/biotrue/">
+  <div class="brand-card-badge">BI</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Biotrue</div>
+    <div class="brand-card-count">3 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/myday/">
+  <div class="brand-card-badge">MY</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">MyDay</div>
+    <div class="brand-card-count">3 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/soflens/">
+  <div class="brand-card-badge">SO</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">SofLens</div>
+    <div class="brand-card-count">3 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/total30/">
+  <div class="brand-card-badge">TO</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">TOTAL30</div>
+    <div class="brand-card-count">3 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/adore/">
+  <div class="brand-card-badge">AD</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">ADORE</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/avaira/">
+  <div class="brand-card-badge">AV</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Avaira</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/clariti/">
+  <div class="brand-card-badge">CL</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Clariti</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/precision1/">
+  <div class="brand-card-badge">PR</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Precision1</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/precision7/">
+  <div class="brand-card-badge">PR</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Precision7</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/proclear/">
+  <div class="brand-card-badge">PR</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">Proclear</div>
+    <div class="brand-card-count">2 produkter</div>
+  </div>
+</a>
+<a class="brand-card" href="/merke/freshlook/">
+  <div class="brand-card-badge">FR</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">FreshLook</div>
+    <div class="brand-card-count">1 produkt</div>
+  </div>
+</a>
   </div>
 
   <div class="section-header">
