@@ -222,13 +222,18 @@ RETAILER_LOGOS = {
 }
 
 
-def _retailer_logo_html(retailer: str) -> str:
+def _retailer_badge_html(retailer: str) -> str:
+    """Logo istedenfor navnetekst når vi har en - men navnet ligger fortsatt i
+    rå-HTML (visuelt skjult), siden både skjermlesere og enkle AI-tekst-
+    uttrekkere skal kunne se hvilken forhandler det er uten å tolke <img alt>."""
     entry = RETAILER_LOGOS.get(retailer)
     if not entry:
-        return ""
+        return escape(retailer)
     filename, dark_bg = entry
-    img = f'<img class="retailer-logo" src="/static/logos/{filename}" alt="" loading="lazy">'
-    return f'<span class="retailer-logo-chip">{img}</span>' if dark_bg else img
+    img = f'<img class="retailer-logo" src="/static/logos/{filename}" alt="{escape(retailer)}" loading="lazy">'
+    logo = f'<span class="retailer-logo-chip">{img}</span>' if dark_bg else img
+    hidden_name = f'<span style="position:absolute;left:-9999px;">{escape(retailer)}</span>'
+    return logo + hidden_name
 
 
 def _fmt_kr(n: float) -> str:
@@ -284,11 +289,10 @@ def render_offer_card(o: dict, retailer: str) -> str:
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
     shipping_text = f'+ {_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
-    logo_html = _retailer_logo_html(retailer)
 
     return f"""<div class="{css_class}">
   <div class="offer-main">
-    <div class="offer-retailer">{logo_html}{escape(retailer)} {lowest_tag}</div>
+    <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
   </div>
   <div class="offer-price-col">
@@ -315,7 +319,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
         best_band = f"""<div class="best-price-band">
   <div class="label-group">
     <div class="label">Laveste pris</div>
-    <div class="retailer">{_retailer_logo_html(best["retailer"])}{escape(best["retailer"])}</div>
+    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
   </div>
   <div class="price">{_fmt_kr(best["total"])}</div>
 </div>"""
