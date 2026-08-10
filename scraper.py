@@ -47,12 +47,21 @@ def should_scrape(config: dict, retailer: str, brand: str) -> bool:
 
 
 def robots_allows(base_url: str, path: str) -> bool:
-    rp = urllib.robotparser.RobotFileParser()
-    rp.set_url(urljoin(base_url, "/robots.txt"))
+    """Henter robots.txt selv, med en faktisk timeout - RobotFileParser.read()
+    har INGEN timeout innebygd og kan henge for alltid hvis en side svarer
+    trått eller ikke i det hele tatt. Det er nøyaktig den typen feil som skal
+    gjøre en jobb rask og trygg å avbryte, ikke la den sitte fast timer i strekk."""
+    robots_url = urljoin(base_url, "/robots.txt")
     try:
-        rp.read()
-    except Exception:
+        resp = requests.get(robots_url, headers={"User-Agent": USER_AGENT}, timeout=8)
+    except requests.RequestException:
         return False  # kan ikke bekrefte tillatelse -> ikke scrape
+
+    if resp.status_code >= 400:
+        return False  # ingen robots.txt eller feil -> ikke scrape uten bekreftet tillatelse
+
+    rp = urllib.robotparser.RobotFileParser()
+    rp.parse(resp.text.splitlines())
     return rp.can_fetch(USER_AGENT, urljoin(base_url, path))
 
 
