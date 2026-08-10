@@ -251,7 +251,33 @@ def render_product_page(product: dict, now: datetime | None = None) -> str:
 </html>"""
 
 
-def render_home_page(catalog: dict) -> str:
+def render_home_page(catalog: dict, now: datetime | None = None) -> str:
+    now = now or datetime.now(timezone.utc)
+
+    def render_lens_card(p: dict) -> str:
+        offers = reconcile_product(p["offers"], now)
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        image_url = pick_product_image(p["offers"])
+        thumb = f'<img src="{escape(image_url)}" alt="{escape(p["name"])}" loading="lazy">' if image_url \
+            else escape(p["brand_label"][:2].upper())
+        price_block = (
+            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
+            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        )
+        href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
+        search_key = f'{p["name"]} {p["brand_label"]}'.lower()
+        return f"""<a class="product-card" href="{escape(href)}" data-search="{escape(search_key)}">
+  <div class="product-thumb">{thumb}</div>
+  <div class="product-main">
+    <div class="product-name">{escape(p["name"])}</div>
+    <div class="product-meta">{escape(p["brand_label"])}</div>
+  </div>
+  <div class="product-price-col">{price_block}</div>
+</a>"""
+
+    lens_cards_html = "\n".join(render_lens_card(p) for p in catalog["products"])
+
     category_links = "\n".join(
         f'<li><a href="/kontaktlinser/{escape(slug)}/">{escape(category["label"])}</a></li>'
         for slug, category in catalog["categories"].items()
@@ -265,7 +291,17 @@ def render_home_page(catalog: dict) -> str:
 <title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 {FONT_LINKS}
-<style>{SHARED_STYLE}</style>
+<style>{SHARED_STYLE}
+.search-row {{ margin: 4px 0 28px; }}
+.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1rem; padding: 14px 18px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
+.search-input:focus {{ outline: none; border-color: var(--aqua); }}
+.lens-grid-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 12px; }}
+.lens-grid-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+.lens-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
+.lens-grid .product-card {{ margin-bottom: 0; }}
+.no-results {{ display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }}
+@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} }}
+</style>
 </head>
 <body>
 <div class="topbar">{RING_MARK} kontaktlinser.no</div>
@@ -274,9 +310,23 @@ def render_home_page(catalog: dict) -> str:
     <div class="hero-copy">
       <div class="kicker">Prissammenligning</div>
       <h1>Finn billigste kontaktlinser</h1>
-      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Velg en kategori for å se alle produkter og laveste pris.</p>
+      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Søk eller velg en linse under for å se alle tilbud.</p>
     </div>
   </div>
+
+  <div class="search-row">
+    <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+    <input type="search" id="lens-search" class="search-input" placeholder="Søk etter merke eller linse, f.eks. «Biofinity»" autocomplete="off">
+  </div>
+
+  <div class="lens-grid-header">
+    <h2 id="lens-grid-heading">Populære linser</h2>
+  </div>
+  <div id="lens-grid" class="lens-grid">
+    {lens_cards_html}
+  </div>
+  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se alle kategorier under.</p>
+
   <div class="related">
     <h2>Kategorier</h2>
     <ul>
@@ -284,6 +334,27 @@ def render_home_page(catalog: dict) -> str:
     </ul>
   </div>
 </div>
+
+<script>
+  // Progressiv forbedring: alle linsekort finnes allerede i DOM-en over og
+  // fungerer som vanlige lenker uten JS. Dette skjuler/viser dem basert på
+  // søketekst -- bygger dem aldri fra scratch.
+  const searchInput = document.getElementById('lens-search');
+  const grid = document.getElementById('lens-grid');
+  const cards = Array.from(grid.querySelectorAll('.product-card'));
+  const noResults = document.getElementById('no-results');
+
+  searchInput.addEventListener('input', () => {{
+    const q = searchInput.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach(card => {{
+      const show = q === '' || card.dataset.search.includes(q);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }});
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }});
+</script>
 </body>
 </html>"""
 

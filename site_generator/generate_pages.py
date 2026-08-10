@@ -37,7 +37,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     now = now or datetime.now(timezone.utc)
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
 
-    home_html = render_home_page(catalog)
+    home_html = render_home_page(catalog, now)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
 
