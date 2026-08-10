@@ -2,21 +2,15 @@
   "$comment": "default_source gjelder alle merker hos en forhandler, med mindre brand_overrides sier noe annet. Når en avtale godkjennes for et merke hos en forhandler: legg til/oppdater raden i brand_overrides. Ingen kodeendring nødvendig.",
 
   "interoptik": {
+    "$comment": "Har hatt en adtraction-brand_override for acuvue som pekte på en falsk testfeed (feeds/adtraction_interoptik_acuvue.csv, aldri en ekte avtale) -- fjernet på eksplisitt beskjed om å bruke direktelenke i stedet for adtraction-lenken til avtale er reell. Selectorene under er verifisert mot ekte HTML (28.08.2026): server-rendrer prisen direkte, ingen JS-triks nødvendig. Ingen 'utsolgt'-indikator funnet ved verifisering -- stock_selector er derfor utelatt, alle tilbud antas på lager inntil dette er sjekket mot et faktisk utsolgt produkt. URL-strukturen er /kontaktlinser/{merke}/{produkt}/ -- slug må derfor inneholde hele stien fra merke-segmentet.",
     "display_name": "Interoptik",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.interoptik.no",
-      "price_selector": ".product-price",
-      "stock_selector": ".stock-status",
-      "product_url_pattern": "/produkt/{slug}"
+      "price_selector": ".price-big",
+      "product_url_pattern": "/kontaktlinser/{slug}/"
     },
-    "brand_overrides": {
-      "acuvue": {
-        "source": "affiliate_feed",
-        "network": "adtraction",
-        "feed_path": "feeds/adtraction_interoptik_acuvue.csv"
-      }
-    }
+    "brand_overrides": {}
   },
 
   "lensway": {

@@ -102,8 +102,18 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   men ingen skraping uten å utgi seg for å være Googlebot.
 - 5 kategorier (månedslinser, dagslinser, toriske linser, fargede linser,
   multifokale linser), 14 produkter totalt, alle med reelle tilbud fra Lenson
-  og Lensway (Biofinity 6-pack i tillegg fra Lensit). Tørre-øyne-kategorien er
-  fortsatt ikke bygget.
+  og Lensway. Lensit og Interoptik dekker de fleste, men ikke alle, av de 14
+  (Lensit mangler Acuvue Vita og begge ADORE-produktene; Interoptik mangler i
+  tillegg Air Optix Colors og Acuvue Oasys Multifocal). Ikke gjett/legg til
+  scrape_targets for et par som ikke faktisk er verifisert å eksistere hos den
+  forhandleren. Tørre-øyne-kategorien er fortsatt ikke bygget.
+- Interoptik hadde tidligere en `brand_overrides.acuvue` som pekte på en
+  FALSK adtraction-testfeed (`feeds/adtraction_interoptik_acuvue.csv`,
+  aldri en reell avtale, fake URL-er som `track.adtraction.com/example-...`).
+  Fjernet på eksplisitt beskjed (28.08.2026) — Interoptik skraper nå direkte
+  som de andre forhandlerne, med verifiserte selectorer
+  (`.price-big`, url-mønster `/kontaktlinser/{merke}/{produkt}/`). Ikke legg
+  den falske feeden tilbake med mindre en ekte Adtraction-avtale er signert.
 - `retailer`-feltet i tilbud kommer fra `display_name` i
   `sources_config.json` per forhandler, IKKE fra den lowercase config-nøkkelen
   (`lenson`, `lensway` osv.) — sett `display_name` når en ny forhandler legges
