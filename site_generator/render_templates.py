@@ -61,6 +61,11 @@ a { color: inherit; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
 .best-price-band .retailer-logo { height: 22px; max-width: 110px; }
+.brand-card-badge.has-logo, .brand-hero-logo.has-logo { background: white; padding: 6px; }
+.brand-card-badge.has-logo-dark, .brand-hero-logo.has-logo-dark { background: var(--ink); }
+.brand-logo-img { width: 100%; height: 100%; object-fit: contain; }
+.brand-hero-row { display: flex; align-items: center; gap: 16px; }
+.brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
 .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
@@ -220,6 +225,47 @@ RETAILER_LOGOS = {
     "Synsam": ("synsam.svg", False),
     "Brilleland": ("brilleland.svg", False),
 }
+
+
+# Nøytral, beskrivende bruk for å identifisere hvilket produkt/merke det
+# faktisk er snakk om - selve definisjonen av nominativ varemerkebruk.
+# Noen merker (Biofinity, Air Optix, Dailies, Precision1/7, Total30,
+# FreshLook, Avaira, Biomedics, Clariti, MyDay, Proclear, Biotrue,
+# PureVision, SofLens, Ultra) har ingen egen rendyrket ordmerke-logofil på
+# produsentens offisielle side (kun produktbilder av emballasjen) - der
+# brukes produsentens hovedlogo (CooperVision/Alcon/Bausch + Lomb) i
+# stedet, etter eksplisitt avklaring med brukeren 2026-08-10.
+BRAND_LOGOS = {
+    "acuvue": ("acuvue.svg", False),
+    "adore": ("adore.png", False),
+    "air-optix": ("alcon.svg", False),
+    "avaira": ("coopervision.png", False),
+    "biofinity": ("coopervision.png", False),
+    "biomedics": ("coopervision.png", False),
+    "biotrue": ("bauschlomb.svg", True),
+    "clariti": ("coopervision.png", False),
+    "dailies": ("alcon.svg", False),
+    "freshlook": ("alcon.svg", False),
+    "myday": ("coopervision.png", False),
+    "precision1": ("alcon.svg", False),
+    "precision7": ("alcon.svg", False),
+    "proclear": ("coopervision.png", False),
+    "purevision": ("bauschlomb.svg", True),
+    "soflens": ("bauschlomb.svg", True),
+    "total30": ("alcon.svg", False),
+    "ultra": ("bauschlomb.svg", True),
+}
+
+
+def _brand_badge(brand_slug: str, brand_label: str) -> tuple[str, str]:
+    """Returnerer (ekstra CSS-klasse for badge-sirkelen, innhold i den) -
+    logo når vi har en, ellers samme initial-fallback som før."""
+    entry = BRAND_LOGOS.get(brand_slug)
+    if not entry:
+        return "", escape(brand_label[:2].upper())
+    filename, dark_bg = entry
+    img = f'<img class="brand-logo-img" src="/static/logos/{filename}" alt="" loading="lazy">'
+    return ("has-logo has-logo-dark" if dark_bg else "has-logo"), img
 
 
 def _retailer_badge_html(retailer: str) -> str:
@@ -468,6 +514,9 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
 
+    brand_logo_cls, brand_logo_content = _brand_badge(brand_slug, brand_label)
+    brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>' if brand_logo_cls else ""
+
     category_slugs = sorted({p["category_slug"] for p in products})
     category_chips = "".join(
         f'<button class="chip" data-category="{escape(c)}">{escape(categories[c]["label"])}</button>' for c in category_slugs
@@ -506,10 +555,13 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
   <div class="hero">
-    <div class="hero-copy">
-      <div class="kicker">Merke</div>
-      <h1>{escape(brand_label)}</h1>
-      <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+    <div class="brand-hero-row">
+      {brand_logo_block}
+      <div class="hero-copy">
+        <div class="kicker">Merke</div>
+        <h1>{escape(brand_label)}</h1>
+        <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+      </div>
     </div>
   </div>
 
@@ -608,8 +660,10 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
         label = brand_labels[slug]
         count = brand_counts[slug]
         n_label = "produkt" if count == 1 else "produkter"
+        extra_cls, badge_content = _brand_badge(slug, label)
+        badge_class = ("brand-card-badge " + extra_cls).strip()
         return f"""<a class="brand-card" href="/merke/{escape(slug)}/">
-  <div class="brand-card-badge">{escape(label[:2].upper())}</div>
+  <div class="{badge_class}">{badge_content}</div>
   <div class="brand-card-info">
     <div class="brand-card-name">{escape(label)}</div>
     <div class="brand-card-count">{count} {n_label}</div>
