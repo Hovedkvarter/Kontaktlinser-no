@@ -890,18 +890,18 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
-.hero {{ display: flex; flex-direction: column; gap: 20px; padding: 8px 0 24px; }}
-.hero-copy {{ max-width: 560px; }}
-.hero-media {{ border-radius: 18px; overflow: hidden; aspect-ratio: 16 / 9; box-shadow: var(--card-shadow); }}
+.hero {{ display: flex; flex-direction: column; gap: 16px; padding: 8px 0 24px; }}
+.hero-copy {{ max-width: 560px; order: 1; }}
+.search-section {{ order: 2; }}
+.hero-media {{ order: 3; border-radius: 18px; overflow: hidden; max-height: 170px; box-shadow: var(--card-shadow); }}
 .hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
-.hero-photo-credit {{ font-size: 0.66rem; color: var(--muted); margin: -14px 0 4px; text-align: right; }}
+.hero-photo-credit {{ order: 4; font-size: 0.66rem; color: var(--muted); margin: -10px 0 0; text-align: right; }}
 .hero-actions {{ margin-top: 16px; }}
 .btn-primary {{ display: inline-block; background: var(--ink); color: white; font-weight: 600; font-size: 0.88rem; text-decoration: none; padding: 11px 20px; border-radius: 24px; }}
 .btn-primary:hover {{ background: var(--aqua); }}
 .trust-strip {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 40px 0 0; box-shadow: var(--card-shadow); }}
 .trust-item {{ font-size: 0.78rem; color: var(--muted); }}
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }}
-.search-section {{ margin: 28px 0 36px; }}
 .search-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 10px; }}
 .search-row {{ position: relative; }}
 .search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
@@ -938,7 +938,13 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 .guide-mini-card:hover {{ border-color: var(--aqua); }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} .guide-mini-grid {{ grid-template-columns: 1fr 1fr; }} }}
-@media (min-width: 700px) {{ .hero {{ flex-direction: row; align-items: center; gap: 32px; }} .hero-copy {{ flex: 1; }} .hero-media {{ flex: 0 0 42%; aspect-ratio: 4 / 3; }} }}
+@media (min-width: 700px) {{
+  .hero {{ flex-direction: row; flex-wrap: wrap; align-items: center; gap: 32px; }}
+  .hero-copy {{ flex: 1; order: 1; }}
+  .hero-media {{ flex: 0 0 42%; max-height: none; aspect-ratio: 4 / 3; order: 2; }}
+  .hero-photo-credit {{ flex-basis: 100%; order: 3; margin-top: -22px; }}
+  .search-section {{ flex-basis: 100%; order: 4; }}
+}}
 </style>
 </head>
 <body>
@@ -956,15 +962,14 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     <div class="hero-media">
       <img src="/static/hero-eye.jpg" alt="" loading="eager">
     </div>
-  </div>
-  <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
-
-  <div class="search-section">
-    <h2>Søk etter linse eller merke</h2>
-    <div class="search-row">
-      <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
-      <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
-      <div class="search-suggestions" id="search-suggestions"></div>
+    <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
+    <div class="search-section">
+      <h2>Søk etter linse eller merke</h2>
+      <div class="search-row">
+        <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+        <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
+        <div class="search-suggestions" id="search-suggestions"></div>
+      </div>
     </div>
   </div>
 
