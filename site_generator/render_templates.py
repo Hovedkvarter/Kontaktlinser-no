@@ -48,7 +48,8 @@ a { color: inherit; }
 .hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
 .hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
-.best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; text-decoration: none; color: inherit; }
+.best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
@@ -555,13 +556,14 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 
     best_band = ""
     if best:
-        best_band = f"""<div class="best-price-band">
+        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
     <div class="label">Laveste pris</div>
     <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
   </div>
   <div class="price">{_fmt_kr(best["total"])}</div>
-</div>"""
+</a>"""
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     schema_offers = ",\n      ".join(f'''{{
