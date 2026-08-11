@@ -102,24 +102,130 @@ a { color: inherit; }
 .footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
 .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
 .footer-bottom a:hover { color: white; }
+.consent-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; background: white; border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(11, 37, 69, 0.12); }
+.consent-inner { max-width: 760px; margin: 0 auto; padding: 16px 20px; }
+.consent-text { font-size: 0.82rem; line-height: 1.55; color: var(--ink); margin: 0 0 12px; }
+.consent-text a { color: var(--aqua); }
+.consent-choices { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; font-size: 0.84rem; }
+.consent-choices label { display: flex; align-items: center; gap: 8px; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.consent-btn { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; padding: 9px 16px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
+.consent-btn-primary { background: var(--ink); color: white; }
+.consent-btn-primary:hover { background: var(--aqua); }
+.consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
+.consent-btn-secondary:hover { border-color: var(--aqua); }
+.consent-btn-link { background: none; color: var(--muted); padding: 9px 4px; text-decoration: underline; }
 """
 
 FONT_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">"""
 
-GTM_HEAD = """<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KGPF68');</script>
+# GTM lastes IKKE lenger automatisk - kun definert her, faktisk kalt av
+# CONSENT_SCRIPT etter samtykke (lagret fra forrige besøk) eller når bruker
+# trykker "Godta alle"/"Lagre valg" med statistikk på i samtykke-banneret.
+# Ingen <noscript>-fallback lenger: uten JS kan vi ikke innhente samtykke
+# interaktivt, og skal derfor ikke sette GTM-cookien i det hele tatt for de
+# besøkende - se CONSENT_BANNER_HTML/CONSENT_SCRIPT og /personvern/.
+GTM_HEAD = """<!-- Google Tag Manager (lastes kun etter samtykke - se CONSENT_SCRIPT) -->
+<script>
+function __loadGTM() {
+  if (window.__gtmLoaded) return;
+  window.__gtmLoaded = true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KGPF68');
+}
+</script>
 <!-- End Google Tag Manager -->"""
 
-GTM_BODY = """<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGPF68"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->"""
+# Samtykke-banner: vises til nytt besøk har tatt et valg (lagret i
+# localStorage, IKKE en cookie i seg selv - selve valget skal jo virke uten
+# at vi allerede har satt en sporings-cookie). To kategorier, ikke bundlet i
+# ett avkryssingsfelt (Datatilsynets krav): statistikk (GTM) og
+# affiliate-sporing (Tradedoubler/Awin/AdService - settes av nettverkets/
+# forhandlerens eget domene når du klikker en tilbudslenke, ikke av oss
+# direkte, men du skal likevel kunne velge det bort på forhånd).
+CONSENT_BANNER_HTML = """<div id="consent-banner" class="consent-banner" hidden>
+  <div class="consent-inner">
+    <p class="consent-text">
+      Vi bruker informasjonskapsler til statistikk (Google Tag Manager) og for å
+      registrere at et kjøp hos en forhandler kom via en lenke fra oss
+      (Tradedoubler, Awin, AdService), slik at vi kan motta provisjon. Du
+      velger selv hva du godtar - se
+      <a href="/personvern/">personvern og cookies</a> for detaljer.
+    </p>
+    <div class="consent-choices" id="consent-choices" hidden>
+      <label><input type="checkbox" checked disabled> Nødvendig (alltid på)</label>
+      <label><input type="checkbox" id="consent-stats" checked> Statistikk (Google Tag Manager)</label>
+      <label><input type="checkbox" id="consent-affiliate" checked> Affiliate-sporing (Tradedoubler, Awin, AdService)</label>
+    </div>
+    <div class="consent-actions">
+      <button type="button" id="consent-customize" class="consent-btn consent-btn-link">Tilpass</button>
+      <button type="button" id="consent-save" class="consent-btn consent-btn-primary" hidden>Lagre valg</button>
+      <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">Kun nødvendige</button>
+      <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta alle</button>
+    </div>
+  </div>
+</div>"""
+
+CONSENT_SCRIPT = """<script>
+(function () {
+  var KEY = 'kl_consent_v1';
+
+  function getConsent() {
+    try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
+  }
+
+  function apply(c) {
+    window.__klConsent = c;
+    if (c.stats && window.__loadGTM) window.__loadGTM();
+  }
+
+  function saveConsent(c) {
+    c.timestamp = new Date().toISOString();
+    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
+    apply(c);
+  }
+
+  var banner = document.getElementById('consent-banner');
+  var existing = getConsent();
+  if (existing) {
+    apply(existing);
+  } else if (banner) {
+    banner.hidden = false;
+  }
+
+  if (!banner) return;
+
+  function hide() { banner.hidden = true; }
+
+  document.getElementById('consent-accept').addEventListener('click', function () {
+    saveConsent({ stats: true, affiliate: true });
+    hide();
+  });
+  document.getElementById('consent-reject').addEventListener('click', function () {
+    saveConsent({ stats: false, affiliate: false });
+    hide();
+  });
+  document.getElementById('consent-customize').addEventListener('click', function () {
+    document.getElementById('consent-choices').hidden = false;
+    document.getElementById('consent-customize').hidden = true;
+    document.getElementById('consent-reject').hidden = true;
+    document.getElementById('consent-accept').hidden = true;
+    document.getElementById('consent-save').hidden = false;
+  });
+  document.getElementById('consent-save').addEventListener('click', function () {
+    saveConsent({
+      stats: document.getElementById('consent-stats').checked,
+      affiliate: document.getElementById('consent-affiliate').checked
+    });
+    hide();
+  });
+})();
+</script>"""
 
 TOPBAR_HTML = f"""<div class="topbar">
   <a href="/" class="topbar-logo"><img src="/static/logo.png" alt="kontaktlinser.no" loading="eager"></a>
@@ -444,7 +550,6 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 </style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb">
@@ -475,6 +580,8 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
   {specs_html}
 </div>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -550,7 +657,6 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
@@ -606,6 +712,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
   }});
 </script>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -767,7 +875,6 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 </style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <div class="hero">
@@ -887,6 +994,8 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
   }});
 </script>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -973,7 +1082,6 @@ def render_guide_page(slug: str) -> str | None:
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
@@ -988,6 +1096,8 @@ def render_guide_page(slug: str) -> str | None:
   </div>
 </div>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -1018,7 +1128,6 @@ def render_guides_index_page() -> str:
 </style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
@@ -1032,6 +1141,8 @@ def render_guides_index_page() -> str:
   {cards_html}
 </div>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -1065,7 +1176,6 @@ def render_privacy_page(now: datetime | None = None) -> str:
 </style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › Personvern og cookies</p>
@@ -1091,12 +1201,12 @@ def render_privacy_page(now: datetime | None = None) -> str:
         <td>Ikke nødvendig (statistikk)</td>
       </tr>
       <tr>
-        <td>Tradedoubler</td>
-        <td>Settes først når du klikker deg videre til en forhandler (f.eks. Lenson,
-        Lensway) via en lenke fra oss. Registrerer at besøket kom fra
+        <td>Tradedoubler, Awin, AdService</td>
+        <td>Settes først når du klikker deg videre til en forhandler via en
+        tilbudslenke fra oss. Registrerer at besøket kom fra
         kontaktlinser.no, slik at forhandleren kan betale riktig provisjon til
-        oss. Denne cookien settes av Tradedoubler eller forhandlerens eget
-        domene, ikke av kontaktlinser.no direkte.</td>
+        oss. Disse cookiene settes av det aktuelle affiliate-nettverket eller
+        forhandlerens eget domene, ikke av kontaktlinser.no direkte.</td>
         <td>Ikke nødvendig (tilknyttet markedsføring)</td>
       </tr>
     </table>
@@ -1104,10 +1214,12 @@ def render_privacy_page(now: datetime | None = None) -> str:
     og ingen deling eller salg av data til tredjeparter.</p>
 
     <h2>Samtykke</h2>
-    <p>Etter regelverket skal ikke-nødvendige cookies som hovedregel ikke settes
-    før du har samtykket. Vi jobber med å få på plass en løsning for dette;
-    inntil videre kan du blokkere eller slette cookies manuelt i
-    nettleserinnstillingene dine, se under.</p>
+    <p>Ved første besøk får du opp en samtykke-boks nederst på siden der du
+    kan velge "Godta alle", "Kun nødvendige", eller tilpasse statistikk og
+    affiliate-sporing hver for seg. Statistikk-skriptet (Google Tag Manager)
+    lastes ikke før du har samtykket til det. Valget lagres i nettleseren din
+    og du kan endre det når som helst ved å slette lagret nettstedsdata for
+    kontaktlinser.no i nettleserinnstillingene og laste siden på nytt.</p>
 
     <h2>Hvordan kontrollere eller slette cookies</h2>
     <p>De fleste nettlesere lar deg se, blokkere og slette cookies under
@@ -1120,6 +1232,8 @@ def render_privacy_page(now: datetime | None = None) -> str:
   </div>
 </div>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""
 
@@ -1197,7 +1311,6 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <style>{SHARED_STYLE}</style>
 </head>
 <body>
-{GTM_BODY}
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(category["label"])}</p>
@@ -1275,5 +1388,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
   }});
 </script>
 {render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
 </body>
 </html>"""

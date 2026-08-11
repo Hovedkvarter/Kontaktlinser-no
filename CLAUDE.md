@@ -211,11 +211,22 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   Lenson/Lensway/Shopping4net) krever dette, men strukturen/innholdet følger
   den faktiske juridiske standarden (ekomloven § 3-15 + GDPR), ikke bare
   Tradedoublers krav -- modellert etter Datatilsynets egen cookie-erklæring.
-  NB: siden er bevisst ærlig om at det IKKE finnes noe samtykkebanner ennå --
-  GTM-taggen settes derfor fortsatt før samtykke i dag. Et faktisk
-  samtykkebanner (som blokkerer GTM til bruker har samtykket) ble eksplisitt
-  utsatt til senere (avklart med bruker 2026-08-11) -- ikke fjern eller myk
-  opp den ærlige formuleringen om dette uten ny avklaring.
+- Samtykke-banner (`CONSENT_BANNER_HTML`/`CONSENT_SCRIPT` i
+  `render_templates.py`, satt inn på ALLE sider rett før `</body>`, samme
+  mønster som `render_footer()`) lagt til 2026-08-11 under forutsetning om at
+  Tradedoubler + Awin + AdService-avtaler er på plass (fortsatt ikke reelt
+  signerte avtaler -- bytt ut nettverksnavnene i banner-teksten og
+  `/personvern/`-tabellen den dagen faktiske avtaler er signert, hvis andre
+  nettverk enn disse tre blir aktuelle). GTM lastes IKKE lenger automatisk --
+  `GTM_HEAD` definerer kun `window.__loadGTM()`, som `CONSENT_SCRIPT` kaller
+  ETTER samtykke (enten lagret fra forrige besøk i `localStorage`
+  `kl_consent_v1`, eller når bruker trykker "Godta alle"/"Lagre valg" med
+  statistikk på). To atskilte kategorier (statistikk/affiliate), ikke bundlet
+  i ett valg -- det er et eksplisitt Datatilsynet-krav. Ingen
+  `<noscript>`-GTM-fallback lenger (fjernet med vilje: uten JS kan vi ikke
+  innhente samtykke interaktivt, så vi skal ikke sette cookien for de
+  besøkende heller). IKKE gjør GTM_HEAD til en auto-kjørende tag igjen uten å
+  fjerne/erstatte samtykke-banneret samtidig -- da mister vi poenget med det.
 
 ## Arbeidsspråk og autorisasjon
 
