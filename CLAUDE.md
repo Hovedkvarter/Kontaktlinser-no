@@ -228,6 +228,24 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   besøkende heller). IKKE gjør GTM_HEAD til en auto-kjørende tag igjen uten å
   fjerne/erstatte samtykke-banneret samtidig -- da mister vi poenget med det.
 
+- SEO-runde 2026-08-11: `rel="canonical"` lagt til på alle 8 sidetyper,
+  `render_404_page()` bygger `build/404.html` (GitHub Pages plukker denne
+  opp automatisk med ekte HTTP 404), og begge guidene har fått en ekte,
+  synlig "Ofte stilte spørsmål"-seksjon + tilhørende FAQPage-JSON-LD
+  (spørsmålene er omformulert fra eksisterende guide-innhold, ikke nye
+  påstander -- se `faq`-nøkkelen i `GUIDE_CONTENT`).
+- **Gamle `.aspx`-URL-er kan IKKE omdirigeres med en statisk fil på GitHub
+  Pages.** Testet empirisk 2026-08-11: `.aspx` finnes ikke i mime-db
+  (databasen GH Pages bruker for content-type), og serveres derfor som
+  `application/octet-stream` (nedlasting, ikke HTML) -- en
+  meta-refresh-fil på den gamle stien vil aldri kjøre i nettleseren. Reelle
+  alternativer er (a) legge domenet bak Cloudflare (proxy-modus) og bruke
+  Page Rules/en Worker til ekte 301-er, eller (b) la de gamle URL-ene fortsatt
+  gi 404 og heller stole på at de faller ut av Googles indeks over tid.
+  Ingen av delene er gjort -- krever et bevisst valg fra bruker (Cloudflare
+  er en infrastrukturendring på DNS-nivå, ikke noe som bør gjøres
+  ensidig). Ikke gjenta .aspx-testen, resultatet er allerede bekreftet.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
