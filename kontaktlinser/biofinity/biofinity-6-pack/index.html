@@ -173,19 +173,31 @@ a { color: inherit; }
 .footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
 .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
 .footer-bottom a:hover { color: white; }
-.consent-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; background: white; border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(11, 37, 69, 0.12); }
-.consent-inner { max-width: 760px; margin: 0 auto; padding: 16px 20px; }
-.consent-text { font-size: 0.82rem; line-height: 1.55; color: var(--ink); margin: 0 0 12px; }
+.consent-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(11, 37, 69, 0.45); display: flex; align-items: center; justify-content: center; padding: 20px; }
+.consent-overlay[hidden] { display: none; }
+.consent-modal { background: white; border-radius: 16px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(11, 37, 69, 0.28); }
+.consent-modal h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin: 0 0 14px; }
+.consent-text { font-size: 0.88rem; line-height: 1.6; color: var(--ink); margin: 0 0 20px; }
 .consent-text a { color: var(--aqua); }
-.consent-choices:not([hidden]) { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; font-size: 0.84rem; }
-.consent-choices label { display: flex; align-items: center; gap: 8px; }
-.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.consent-btn { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; padding: 9px 16px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.consent-btn { font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 10px 18px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
 .consent-btn-primary { background: var(--ink); color: white; }
 .consent-btn-primary:hover { background: var(--aqua); }
 .consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
 .consent-btn-secondary:hover { border-color: var(--aqua); }
-.consent-btn-link { background: none; color: var(--muted); padding: 9px 4px; text-decoration: underline; }
+.consent-category { border-top: 1px solid var(--border); padding: 14px 0; }
+.consent-category:first-of-type { border-top: none; padding-top: 0; }
+.consent-category-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 0.9rem; }
+.consent-category-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
+.consent-toggle { flex-shrink: 0; appearance: none; -webkit-appearance: none; width: 40px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer; margin: 0; transition: background 0.15s; }
+.consent-toggle::before { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.3); }
+.consent-toggle:checked { background: var(--aqua); }
+.consent-toggle:checked::before { transform: translateX(16px); }
+.consent-toggle:disabled { opacity: 0.6; cursor: default; }
+.consent-link-btn { background: none; border: none; color: var(--aqua); font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 14px 0 0; display: block; }
+.consent-providers-list:not([hidden]) { list-style: none; padding: 8px 0 0; margin: 0; font-size: 0.82rem; color: var(--muted); }
+.consent-providers-list li { padding: 3px 0; }
+.consent-more-link { font-size: 0.8rem; }
 
 .hero { display: flex; align-items: center; gap: 20px; }
 .specs { margin-top: 32px; }
@@ -371,25 +383,57 @@ a { color: inherit; }
     <a href="/personvern/">Personvern og cookies</a>
   </div>
 </footer>
-<div id="consent-banner" class="consent-banner" hidden>
-  <div class="consent-inner">
-    <p class="consent-text">
-      Vi bruker informasjonskapsler til statistikk (Google Tag Manager) og for å
-      registrere at et kjøp hos en forhandler kom via en lenke fra oss
-      (Tradedoubler, Awin, AdService), slik at vi kan motta provisjon. Du
-      velger selv hva du godtar - se
-      <a href="/personvern/">personvern og cookies</a> for detaljer.
-    </p>
-    <div class="consent-choices" id="consent-choices" hidden>
-      <label><input type="checkbox" checked disabled> Nødvendig (alltid på)</label>
-      <label><input type="checkbox" id="consent-stats" checked> Statistikk (Google Tag Manager)</label>
-      <label><input type="checkbox" id="consent-affiliate" checked> Affiliate-sporing (Tradedoubler, Awin, AdService)</label>
+<div id="consent-overlay" class="consent-overlay" hidden>
+  <div class="consent-modal" role="dialog" aria-modal="true" aria-labelledby="consent-title">
+    <div id="consent-step-main">
+      <h2 id="consent-title">Vi bruker cookies på kontaktlinser.no</h2>
+      <p class="consent-text">
+        Vi og våre 3 samarbeidspartnere bruker cookies til statistikk og for å
+        registrere når et kjøp hos en forhandler skjedde via en lenke fra oss,
+        slik at vi kan motta provisjon. Du velger selv, og kan endre valget
+        når som helst. <a href="/personvern/">Mer informasjon</a>.
+      </p>
+      <div class="consent-actions">
+        <button type="button" id="consent-customize" class="consent-btn consent-btn-secondary">Innstillinger</button>
+        <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">Kun nødvendige</button>
+        <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta</button>
+      </div>
     </div>
-    <div class="consent-actions">
-      <button type="button" id="consent-customize" class="consent-btn consent-btn-link">Tilpass</button>
-      <button type="button" id="consent-save" class="consent-btn consent-btn-primary" hidden>Lagre valg</button>
-      <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">Kun nødvendige</button>
-      <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta alle</button>
+    <div id="consent-step-settings" hidden>
+      <h2>Cookieinnstillinger</h2>
+      <p class="consent-text">Velg hvilke typer cookies du godtar. Nødvendige cookies kan ikke slås av.</p>
+
+      <div class="consent-category">
+        <div class="consent-category-row">
+          <span>Nødvendig</span>
+          <input type="checkbox" class="consent-toggle" checked disabled>
+        </div>
+      </div>
+      <div class="consent-category">
+        <div class="consent-category-row">
+          <span>Statistikk</span>
+          <input type="checkbox" class="consent-toggle" id="consent-stats" checked>
+        </div>
+        <p class="consent-category-desc">Måler trafikk og bruk av siden, slik at vi vet hva som faktisk er nyttig.</p>
+      </div>
+      <div class="consent-category">
+        <div class="consent-category-row">
+          <span>Affiliate-sporing</span>
+          <input type="checkbox" class="consent-toggle" id="consent-affiliate" checked>
+        </div>
+        <p class="consent-category-desc">Registrerer at et kjøp kom via en lenke fra oss, slik at forhandleren kan betale riktig provisjon.</p>
+        <button type="button" id="consent-toggle-providers" class="consent-link-btn">Vis alle leverandører</button>
+        <ul id="consent-providers-list" class="consent-providers-list" hidden>
+          <li>Tradedoubler</li>
+          <li>Awin</li>
+          <li>AdService</li>
+        </ul>
+      </div>
+
+      <div class="consent-actions" style="margin-top:18px;">
+        <button type="button" id="consent-back" class="consent-btn consent-btn-secondary">Avbryt</button>
+        <button type="button" id="consent-save" class="consent-btn consent-btn-primary">Lagre valg</button>
+      </div>
     </div>
   </div>
 </div>
@@ -412,17 +456,22 @@ a { color: inherit; }
     apply(c);
   }
 
-  var banner = document.getElementById('consent-banner');
+  var overlay = document.getElementById('consent-overlay');
   var existing = getConsent();
   if (existing) {
     apply(existing);
-  } else if (banner) {
-    banner.hidden = false;
+  } else if (overlay) {
+    overlay.hidden = false;
   }
 
-  if (!banner) return;
+  if (!overlay) return;
 
-  function hide() { banner.hidden = true; }
+  var stepMain = document.getElementById('consent-step-main');
+  var stepSettings = document.getElementById('consent-step-settings');
+
+  function hide() { overlay.hidden = true; }
+  function showSettings() { stepMain.hidden = true; stepSettings.hidden = false; }
+  function showMain() { stepSettings.hidden = true; stepMain.hidden = false; }
 
   document.getElementById('consent-accept').addEventListener('click', function () {
     saveConsent({ stats: true, affiliate: true });
@@ -432,12 +481,11 @@ a { color: inherit; }
     saveConsent({ stats: false, affiliate: false });
     hide();
   });
-  document.getElementById('consent-customize').addEventListener('click', function () {
-    document.getElementById('consent-choices').hidden = false;
-    document.getElementById('consent-customize').hidden = true;
-    document.getElementById('consent-reject').hidden = true;
-    document.getElementById('consent-accept').hidden = true;
-    document.getElementById('consent-save').hidden = false;
+  document.getElementById('consent-customize').addEventListener('click', showSettings);
+  document.getElementById('consent-back').addEventListener('click', showMain);
+  document.getElementById('consent-toggle-providers').addEventListener('click', function () {
+    var list = document.getElementById('consent-providers-list');
+    list.hidden = !list.hidden;
   });
   document.getElementById('consent-save').addEventListener('click', function () {
     saveConsent({
