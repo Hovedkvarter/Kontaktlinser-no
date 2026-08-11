@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="nb">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KGPF68');</script>
+<!-- Google Tag Manager (lastes kun etter samtykke - se CONSENT_SCRIPT) -->
+<script>
+function __loadGTM() {
+  if (window.__gtmLoaded) return;
+  window.__gtmLoaded = true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KGPF68');
+}
+</script>
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -158,6 +164,19 @@ a { color: inherit; }
 .footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
 .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
 .footer-bottom a:hover { color: white; }
+.consent-banner { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; background: white; border-top: 1px solid var(--border); box-shadow: 0 -4px 20px rgba(11, 37, 69, 0.12); }
+.consent-inner { max-width: 760px; margin: 0 auto; padding: 16px 20px; }
+.consent-text { font-size: 0.82rem; line-height: 1.55; color: var(--ink); margin: 0 0 12px; }
+.consent-text a { color: var(--aqua); }
+.consent-choices { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; font-size: 0.84rem; }
+.consent-choices label { display: flex; align-items: center; gap: 8px; }
+.consent-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.consent-btn { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; padding: 9px 16px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
+.consent-btn-primary { background: var(--ink); color: white; }
+.consent-btn-primary:hover { background: var(--aqua); }
+.consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
+.consent-btn-secondary:hover { border-color: var(--aqua); }
+.consent-btn-link { background: none; color: var(--muted); padding: 9px 4px; text-decoration: underline; }
 
 .hero { display: flex; align-items: center; gap: 20px; }
 .specs { margin-top: 32px; }
@@ -171,10 +190,6 @@ a { color: inherit; }
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGPF68"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div class="topbar">
   <a href="/" class="topbar-logo"><img src="/static/logo.png" alt="kontaktlinser.no" loading="eager"></a>
   <nav class="topbar-nav">
@@ -210,7 +225,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="offer-card is-lowest">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/brilleland.svg" alt="Brilleland" loading="lazy"><span style="position:absolute;left:-9999px;">Brilleland</span> <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 21 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">301 kr</div>
@@ -221,7 +236,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 21 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">344 kr</div>
@@ -232,7 +247,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 21 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">344 kr</div>
@@ -243,7 +258,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 21 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">359 kr</div>
@@ -254,7 +269,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 21 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">361 kr</div>
@@ -335,5 +350,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="/personvern/">Personvern og cookies</a>
   </div>
 </footer>
+<div id="consent-banner" class="consent-banner" hidden>
+  <div class="consent-inner">
+    <p class="consent-text">
+      Vi bruker informasjonskapsler til statistikk (Google Tag Manager) og for å
+      registrere at et kjøp hos en forhandler kom via en lenke fra oss
+      (Tradedoubler, Awin, AdService), slik at vi kan motta provisjon. Du
+      velger selv hva du godtar - se
+      <a href="/personvern/">personvern og cookies</a> for detaljer.
+    </p>
+    <div class="consent-choices" id="consent-choices" hidden>
+      <label><input type="checkbox" checked disabled> Nødvendig (alltid på)</label>
+      <label><input type="checkbox" id="consent-stats" checked> Statistikk (Google Tag Manager)</label>
+      <label><input type="checkbox" id="consent-affiliate" checked> Affiliate-sporing (Tradedoubler, Awin, AdService)</label>
+    </div>
+    <div class="consent-actions">
+      <button type="button" id="consent-customize" class="consent-btn consent-btn-link">Tilpass</button>
+      <button type="button" id="consent-save" class="consent-btn consent-btn-primary" hidden>Lagre valg</button>
+      <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">Kun nødvendige</button>
+      <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta alle</button>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var KEY = 'kl_consent_v1';
+
+  function getConsent() {
+    try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
+  }
+
+  function apply(c) {
+    window.__klConsent = c;
+    if (c.stats && window.__loadGTM) window.__loadGTM();
+  }
+
+  function saveConsent(c) {
+    c.timestamp = new Date().toISOString();
+    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
+    apply(c);
+  }
+
+  var banner = document.getElementById('consent-banner');
+  var existing = getConsent();
+  if (existing) {
+    apply(existing);
+  } else if (banner) {
+    banner.hidden = false;
+  }
+
+  if (!banner) return;
+
+  function hide() { banner.hidden = true; }
+
+  document.getElementById('consent-accept').addEventListener('click', function () {
+    saveConsent({ stats: true, affiliate: true });
+    hide();
+  });
+  document.getElementById('consent-reject').addEventListener('click', function () {
+    saveConsent({ stats: false, affiliate: false });
+    hide();
+  });
+  document.getElementById('consent-customize').addEventListener('click', function () {
+    document.getElementById('consent-choices').hidden = false;
+    document.getElementById('consent-customize').hidden = true;
+    document.getElementById('consent-reject').hidden = true;
+    document.getElementById('consent-accept').hidden = true;
+    document.getElementById('consent-save').hidden = false;
+  });
+  document.getElementById('consent-save').addEventListener('click', function () {
+    saveConsent({
+      stats: document.getElementById('consent-stats').checked,
+      affiliate: document.getElementById('consent-affiliate').checked
+    });
+    hide();
+  });
+})();
+</script>
 </body>
 </html>
