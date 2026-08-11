@@ -102,6 +102,7 @@ a { color: inherit; }
 .footer-bottom { max-width: 760px; margin: 0 auto; padding: 14px 20px 28px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; font-size: 0.76rem; color: rgba(255,255,255,0.5); }
 .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
 .footer-bottom a:hover { color: white; }
+.footer-verification { max-width: 760px; margin: 0 auto; padding: 0 20px 14px; font-size: 0.68rem; color: rgba(255,255,255,0.35); }
 .consent-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(11, 37, 69, 0.45); display: flex; align-items: center; justify-content: center; padding: 20px; }
 .consent-overlay[hidden] { display: none; }
 .consent-modal { background: white; border-radius: 16px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(11, 37, 69, 0.28); }
@@ -155,7 +156,7 @@ function __loadGTM() {
 
 # Midtstilt popup (ikke bunn-banner), modellert etter Prisjakts cookie-flyt
 # (skjermbilder delt av bruker 2026-08-11): generisk "X samarbeidspartnere"
-# i hovedteksten (ikke navngi Tradedoubler/Awin/AdService der), med en egen
+# i hovedteksten (ikke navngi Tradedoubler/Awin/Adtraction der), med en egen
 # "Innstillinger"-visning som har per-kategori-toggles + en nedtonet "Vis
 # alle leverandører"-lenke som avslører de faktiske navnene. Selve
 # /personvern/-siden navngir dem fortsatt åpent (det er nettopp poenget med
@@ -206,7 +207,7 @@ CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidde
         <ul id="consent-providers-list" class="consent-providers-list" hidden>
           <li>Tradedoubler</li>
           <li>Awin</li>
-          <li>AdService</li>
+          <li>Adtraction</li>
         </ul>
       </div>
 
@@ -359,7 +360,12 @@ def render_footer() -> str:
     <a href="/">Forside</a>
     <a href="/guider/">Guider</a>
     <a href="/personvern/">Personvern og cookies</a>
+    <a href="mailto:kontakt@kontaktlinser.no">kontakt@kontaktlinser.no</a>
   </div>
+  <!-- Midlertidig Tradedoubler-eierskapsverifisering (Site ID 3494407) -- fjern
+       denne linjen så snart Tradedoubler har godkjent kontakt@kontaktlinser.no
+       som kontaktadresse (avtalt med bruker 2026-08-11, e-post fra Filippa/TD). -->
+  <p class="footer-verification">Tradedoubler Site ID: 3494407</p>
 </footer>"""
 
 
@@ -1252,7 +1258,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
         <td>Ikke nødvendig (statistikk)</td>
       </tr>
       <tr>
-        <td>Tradedoubler, Awin, AdService</td>
+        <td>Tradedoubler, Awin, Adtraction</td>
         <td>Settes først når du klikker deg videre til en forhandler via en
         tilbudslenke fra oss. Registrerer at besøket kom fra
         kontaktlinser.no, slik at forhandleren kan betale riktig provisjon til
@@ -1265,12 +1271,14 @@ def render_privacy_page(now: datetime | None = None) -> str:
     og ingen deling eller salg av data til tredjeparter.</p>
 
     <h2>Samtykke</h2>
-    <p>Ved første besøk får du opp en samtykke-boks nederst på siden der du
-    kan velge "Godta alle", "Kun nødvendige", eller tilpasse statistikk og
-    affiliate-sporing hver for seg. Statistikk-skriptet (Google Tag Manager)
-    lastes ikke før du har samtykket til det. Valget lagres i nettleseren din
-    og du kan endre det når som helst ved å slette lagret nettstedsdata for
-    kontaktlinser.no i nettleserinnstillingene og laste siden på nytt.</p>
+    <p>Ved første besøk får du opp en samtykke-boks der du kan velge "Godta",
+    "Kun nødvendige", eller tilpasse statistikk og affiliate-sporing hver for
+    seg (under "Innstillinger" finner du også en full liste over
+    tredjepartsleverandørene vi samarbeider med). Statistikk-skriptet (Google
+    Tag Manager) lastes ikke før du har samtykket til det. Valget lagres i
+    nettleseren din og du kan endre det når som helst ved å slette lagret
+    nettstedsdata for kontaktlinser.no i nettleserinnstillingene og laste
+    siden på nytt.</p>
 
     <h2>Hvordan kontrollere eller slette cookies</h2>
     <p>De fleste nettlesere lar deg se, blokkere og slette cookies under
@@ -1278,6 +1286,10 @@ def render_privacy_page(now: datetime | None = None) -> str:
     cookies helt, vil kontaktlinser.no fortsatt fungere som normalt - vi
     bruker dem kun til måling og provisjonssporing, ikke til selve
     prissammenligningen.</p>
+
+    <h2>Kontakt</h2>
+    <p>Spørsmål om personvern eller cookies på kontaktlinser.no? Send oss en
+    e-post på <a href="mailto:kontakt@kontaktlinser.no">kontakt@kontaktlinser.no</a>.</p>
 
     <p class="updated">Sist oppdatert: {updated}</p>
   </div>

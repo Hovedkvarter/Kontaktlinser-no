@@ -214,7 +214,7 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
 - Samtykke-banner (`CONSENT_BANNER_HTML`/`CONSENT_SCRIPT` i
   `render_templates.py`, satt inn på ALLE sider rett før `</body>`, samme
   mønster som `render_footer()`) lagt til 2026-08-11 under forutsetning om at
-  Tradedoubler + Awin + AdService-avtaler er på plass (fortsatt ikke reelt
+  Tradedoubler + Awin + Adtraction-avtaler er på plass (fortsatt ikke reelt
   signerte avtaler -- bytt ut nettverksnavnene i banner-teksten og
   `/personvern/`-tabellen den dagen faktiske avtaler er signert, hvis andre
   nettverk enn disse tre blir aktuelle). GTM lastes IKKE lenger automatisk --
