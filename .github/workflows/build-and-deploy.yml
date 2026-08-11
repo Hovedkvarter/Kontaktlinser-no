@@ -52,7 +52,6 @@ jobs:
           cp llms.txt site_generator/build/llms.txt
           cp sitemap*.xml site_generator/build/
           cp google*.html site_generator/build/ 2>/dev/null || true
-          cp aspxtest.aspx site_generator/build/ 2>/dev/null || true
 
       - name: Publiser til GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
