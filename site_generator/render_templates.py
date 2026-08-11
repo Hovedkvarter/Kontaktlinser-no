@@ -1120,6 +1120,20 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
 akkurat din linse og resept – det er ikke bare et prisspørsmål, men avgjørende for
 øyehelsen.</p>
 """,
+        "faq": [
+            {
+                "question": "Er dagslinser eller månedslinser billigst?",
+                "answer": "Bruker du linser sjeldnere enn 4–5 dager i uken, kommer dagslinser oftest billigst ut totalt sett, selv om prisen per linse er høyere. Bruker du linser daglig, er månedslinser normalt rimeligst per bruksdag.",
+            },
+            {
+                "question": "Hva er fordelen med dagslinser?",
+                "answer": "Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske. Praktisk til sport, reise eller sjelden bruk, og lavere risiko for øyeinfeksjon siden linsen aldri gjenbrukes.",
+            },
+            {
+                "question": "Hva er fordelen med månedslinser?",
+                "answer": "Lavere kostnad per bruksdag ved daglig bruk. Mange moderne månedslinser (silikonhydrogel) slipper gjennom mer oksygen enn eldre materialer, som kan gi bedre komfort ved lange dager med linser.",
+            },
+        ],
     },
     "hvordan-velge-kontaktlinser": {
         "title": "Hvordan velge kontaktlinser",
@@ -1151,6 +1165,20 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
 aldri erstatte en synsundersøkelse – bruk alltid en resept som er gyldig for den
 spesifikke linsen du bestiller.</p>
 """,
+        "faq": [
+            {
+                "question": "Kan jeg velge kontaktlinser selv, uten synsundersøkelse?",
+                "answer": "Nei. Kontaktlinser er reseptvare, også de uten styrke (f.eks. fargede linser). Første steg er alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og linsetype øynene dine tåler godt.",
+            },
+            {
+                "question": "Hvilken linsetype passer ved astigmatisme?",
+                "answer": "Toriske linser, formet for å ligge stabilt i en bestemt retning i øyet.",
+            },
+            {
+                "question": "Hvilken linsetype passer ved alderssyn?",
+                "answer": "Multifokale/progressive linser passer normalt best ved alderssyn (vansker med å se på nært hold fra ca. 40–45 år).",
+            },
+        ],
     },
 }
 
@@ -1159,6 +1187,37 @@ def render_guide_page(slug: str) -> str | None:
     guide = GUIDE_CONTENT.get(slug)
     if guide is None:
         return None
+
+    faq = guide.get("faq", [])
+    faq_html = ""
+    faq_schema = ""
+    if faq:
+        items_html = "\n".join(
+            f"""<div class="faq-item">
+  <h3>{escape(item["question"])}</h3>
+  <p>{escape(item["answer"])}</p>
+</div>"""
+            for item in faq
+        )
+        faq_html = f"""<div class="faq-section">
+    <h2>Ofte stilte spørsmål</h2>
+    {items_html}
+  </div>"""
+        faq_entities = ",\n      ".join(
+            f'''{{
+        "@type": "Question",
+        "name": "{escape(item["question"])}",
+        "acceptedAnswer": {{"@type": "Answer", "text": "{escape(item["answer"])}"}}
+      }}'''
+            for item in faq
+        )
+        faq_schema = f"""<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+      {faq_entities}
+  ]
+}}</script>"""
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -1170,7 +1229,14 @@ def render_guide_page(slug: str) -> str | None:
 <meta name="description" content="{escape(guide["description"])}">
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
 {FONT_LINKS}
-<style>{SHARED_STYLE}</style>
+{faq_schema}
+<style>{SHARED_STYLE}
+.faq-section {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }}
+.faq-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }}
+.faq-item {{ margin-bottom: 18px; }}
+.faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
+.faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
+</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -1184,6 +1250,7 @@ def render_guide_page(slug: str) -> str | None:
   </div>
   <div style="max-width:640px;">
     {guide["body_html"]}
+    {faq_html}
   </div>
 </div>
 {render_footer()}
