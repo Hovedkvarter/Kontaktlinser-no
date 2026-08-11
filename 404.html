@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="nb">
 <head>
+<script>
+(function () {
+  var legacyRedirects = {"/infosider/vedlikehold_av_linser/vedlikehold_av_kontaktlinsene.aspx": "/guider/", "/kontaktlinser/dagslinser.aspx": "/kontaktlinser/dagslinser/", "/kontaktlinser/fargede_linser.aspx": "/kontaktlinser/fargede-linser/", "/infosider/reising_med_kontaktlinser.aspx": "/guider/", "/infosider/vedlikehold_av_linser.aspx": "/guider/", "/infosider/kosmetiske_kontaktlinser.aspx": "/kontaktlinser/fargede-linser/", "/infosider/harde_eller_myke_linser.aspx": "/guide/hvordan-velge-kontaktlinser/", "/infosider/hvordan.aspx": "/guide/hvordan-velge-kontaktlinser/", "/kontaktlinser/dagslinser/linser.aspx": "/kontaktlinser/dagslinser/", "/infosider/produksjon_av_kontaktlinser.aspx": "/guider/"};
+  var target = legacyRedirects[location.pathname.toLowerCase()];
+  if (target) location.replace(target);
+})();
+</script>
 <!-- Google Tag Manager (lastes kun etter samtykke - se CONSENT_SCRIPT) -->
 <script>
 function __loadGTM() {
