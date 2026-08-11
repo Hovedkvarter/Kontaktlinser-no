@@ -364,8 +364,8 @@ def render_footer() -> str:
     {_contact_email_link()}
   </div>
   <!-- Midlertidig Tradedoubler-eierskapsverifisering (Site ID 3494407) -- fjern
-       denne linjen så snart Tradedoubler har godkjent kontakt@kontaktlinser.no
-       som kontaktadresse (avtalt med bruker 2026-08-11, e-post fra Filippa/TD). -->
+       denne linjen så snart Tradedoubler har godkjent kontaktadressen i footeren
+       over (avtalt med bruker 2026-08-11, e-post fra Filippa/TD). -->
   <p class="footer-verification">Tradedoubler Site ID: 3494407</p>
 </footer>"""
 
