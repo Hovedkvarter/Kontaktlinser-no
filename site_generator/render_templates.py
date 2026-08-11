@@ -359,8 +359,9 @@ def render_footer() -> str:
     <span>&copy; {year} kontaktlinser.no</span>
     <a href="/">Forside</a>
     <a href="/guider/">Guider</a>
+    <a href="/om-oss/">Om oss</a>
     <a href="/personvern/">Personvern og cookies</a>
-    <a href="mailto:kontakt@kontaktlinser.no">kontakt@kontaktlinser.no</a>
+    {_contact_email_link()}
   </div>
   <!-- Midlertidig Tradedoubler-eierskapsverifisering (Site ID 3494407) -- fjern
        denne linjen så snart Tradedoubler har godkjent kontakt@kontaktlinser.no
@@ -443,6 +444,20 @@ def _retailer_badge_html(retailer: str) -> str:
     logo = f'<span class="retailer-logo-chip">{img}</span>' if dark_bg else img
     hidden_name = f'<span style="position:absolute;left:-9999px;">{escape(retailer)}</span>'
     return logo + hidden_name
+
+
+def _obfuscate_email(email: str) -> str:
+    """Numeriske HTML-entiteter per tegn - vises normalt i alle nettlesere og
+    fungerer uten JS (ingen brudd på "innhold skal finnes i rå-HTML"-
+    prinsippet), men gjør adressen usynlig for enkle regex-baserte
+    e-post-innhøstere som leser rå HTML/tekst uten å rendre den."""
+    return "".join(f"&#{ord(c)};" for c in email)
+
+
+def _contact_email_link(css_class: str = "") -> str:
+    obf = _obfuscate_email("kontakt@kontaktlinser.no")
+    cls = f' class="{css_class}"' if css_class else ""
+    return f'<a href="mailto:{obf}"{cls}>{obf}</a>'
 
 
 def _fmt_kr(n: float) -> str:
@@ -1204,6 +1219,68 @@ def render_guides_index_page() -> str:
 </html>"""
 
 
+def render_about_page() -> str:
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om oss – kontaktlinser.no</title>
+<meta name="description" content="Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.">
+{FONT_LINKS}
+<style>{SHARED_STYLE}
+.about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.about-body p {{ font-size: 0.92rem; line-height: 1.65; color: var(--ink); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Om oss</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Om oss</div>
+      <h1>Om kontaktlinser.no</h1>
+      <p>En uavhengig prissammenligningstjeneste for kontaktlinser i Norge.</p>
+    </div>
+  </div>
+
+  <div class="about-body" style="max-width:640px;">
+    <p>Kontaktlinser koster ofte svært ulikt fra butikk til butikk for nøyaktig
+    samme vare - samme merke, samme styrke, samme pakningsstørrelse. Vi samler
+    prisene fra norske nettbutikker på ett sted, slik at du slipper å sjekke
+    ti forskjellige nettsider for å finne billigste tilgjengelige tilbud.</p>
+
+    <h2>Hvordan det fungerer</h2>
+    <p>Prisene hentes automatisk fra forhandlernes egne nettsider hver
+    6. time. Vi sorterer alltid etter lavest totalpris, inkludert frakt - et
+    tilbud som er utsolgt eller ikke bekreftet siste 24 timer kan aldri vinne
+    "laveste pris"-merket, uansett hvor lavt tallet er.</p>
+
+    <h2>Hvordan vi tjener penger</h2>
+    <p>Vi kan motta provisjon fra enkelte forhandlere når du handler via
+    lenkene våre. Det påvirker aldri prisen du betaler, og det påvirker aldri
+    rangeringen av tilbud - den følger alltid faktisk totalpris, ikke hvem vi
+    har en avtale med.</p>
+
+    <h2>Hva vi ikke er</h2>
+    <p>Vi selger ikke kontaktlinser selv, og driver ikke butikk. Vi gir heller
+    ikke medisinske råd: kontaktlinser er reseptvare, så rådfør deg alltid med
+    optiker ved valg av linsetype og styrke.</p>
+
+    <h2>Kontakt</h2>
+    <p>Spørsmål, feilmelding eller tips om et tilbud som ikke stemmer? Send oss
+    en e-post på {_contact_email_link()}.</p>
+  </div>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
 # Innhold og struktur speiler Datatilsynets egen cookie-erklæring (formål,
 # rettslig grunnlag ekomloven § 3-15, oversiktstabell) - ikke bare et
 # Tradedoubler-spesifikt krav. Ingen samtykkebanner ennå (bevisst utsatt,
@@ -1289,7 +1366,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
 
     <h2>Kontakt</h2>
     <p>Spørsmål om personvern eller cookies på kontaktlinser.no? Send oss en
-    e-post på <a href="mailto:kontakt@kontaktlinser.no">kontakt@kontaktlinser.no</a>.</p>
+    e-post på {_contact_email_link()}.</p>
 
     <p class="updated">Sist oppdatert: {updated}</p>
   </div>

@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -80,6 +80,9 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     write_file(BUILD_DIR / "personvern" / "index.html", render_privacy_page(now))
     print("  personvern -> /personvern/")
 
+    write_file(BUILD_DIR / "om-oss" / "index.html", render_about_page())
+    print("  om oss   -> /om-oss/")
+
     static_src = Path(__file__).parent.parent / "static"
     if static_src.exists():
         static_out = BUILD_DIR / "static"
@@ -95,6 +98,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         "static_pages": [
             {"path": "/", "lastmod": today},
             {"path": "/personvern/", "lastmod": today},
+            {"path": "/om-oss/", "lastmod": today},
         ],
         "categories": [
             {"slug": slug, "lastmod": today} for slug in catalog["categories"].keys()
