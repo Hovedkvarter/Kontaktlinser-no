@@ -22,6 +22,27 @@ function __loadGTM() {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Kan jeg velge kontaktlinser selv, uten synsundersøkelse?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Nei. Kontaktlinser er reseptvare, også de uten styrke (f.eks. fargede linser). Første steg er alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og linsetype øynene dine tåler godt."}
+      },
+      {
+        "@type": "Question",
+        "name": "Hvilken linsetype passer ved astigmatisme?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Toriske linser, formet for å ligge stabilt i en bestemt retning i øyet."}
+      },
+      {
+        "@type": "Question",
+        "name": "Hvilken linsetype passer ved alderssyn?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Multifokale/progressive linser passer normalt best ved alderssyn (vansker med å se på nært hold fra ca. 40–45 år)."}
+      }
+  ]
+}</script>
 <style>
 :root {
   --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
@@ -130,6 +151,12 @@ a { color: inherit; }
 .consent-providers-list:not([hidden]) { list-style: none; padding: 8px 0 0; margin: 0; font-size: 0.82rem; color: var(--muted); }
 .consent-providers-list li { padding: 3px 0; }
 .consent-more-link { font-size: 0.8rem; }
+
+.faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
+.faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
+.faq-item { margin-bottom: 18px; }
+.faq-item h3 { font-size: 0.94rem; margin: 0 0 6px; }
+.faq-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }
 </style>
 </head>
 <body>
@@ -177,6 +204,21 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
 aldri erstatte en synsundersøkelse – bruk alltid en resept som er gyldig for den
 spesifikke linsen du bestiller.</p>
 
+    <div class="faq-section">
+    <h2>Ofte stilte spørsmål</h2>
+    <div class="faq-item">
+  <h3>Kan jeg velge kontaktlinser selv, uten synsundersøkelse?</h3>
+  <p>Nei. Kontaktlinser er reseptvare, også de uten styrke (f.eks. fargede linser). Første steg er alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og linsetype øynene dine tåler godt.</p>
+</div>
+<div class="faq-item">
+  <h3>Hvilken linsetype passer ved astigmatisme?</h3>
+  <p>Toriske linser, formet for å ligge stabilt i en bestemt retning i øyet.</p>
+</div>
+<div class="faq-item">
+  <h3>Hvilken linsetype passer ved alderssyn?</h3>
+  <p>Multifokale/progressive linser passer normalt best ved alderssyn (vansker med å se på nært hold fra ca. 40–45 år).</p>
+</div>
+  </div>
   </div>
 </div>
 <footer class="site-footer">
