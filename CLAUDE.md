@@ -206,6 +206,16 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   progressiv forbedring) + et rutenett med kategorikort + et rutenett med
   alle linser, inspirert av lenspricer.no sin "finn din linse raskt"-modell.
 - Domene, DNS (Domeneshop), HTTPS og GitHub Pages er satt opp og fungerer.
+- `render_privacy_page()` bygger `/personvern/` -- cookie-/personvernside,
+  lenket fra footeren. Trigget av at Tradedoubler (affiliate-nettverket for
+  Lenson/Lensway/Shopping4net) krever dette, men strukturen/innholdet følger
+  den faktiske juridiske standarden (ekomloven § 3-15 + GDPR), ikke bare
+  Tradedoublers krav -- modellert etter Datatilsynets egen cookie-erklæring.
+  NB: siden er bevisst ærlig om at det IKKE finnes noe samtykkebanner ennå --
+  GTM-taggen settes derfor fortsatt før samtykke i dag. Et faktisk
+  samtykkebanner (som blokkerer GTM til bruker har samtykket) ble eksplisitt
+  utsatt til senere (avklart med bruker 2026-08-11) -- ikke fjern eller myk
+  opp den ærlige formuleringen om dette uten ny avklaring.
 
 ## Arbeidsspråk og autorisasjon
 

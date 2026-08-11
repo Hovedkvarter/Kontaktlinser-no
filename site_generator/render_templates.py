@@ -201,6 +201,7 @@ def render_footer() -> str:
     <span>&copy; {year} kontaktlinser.no</span>
     <a href="/">Forside</a>
     <a href="/guider/">Guider</a>
+    <a href="/personvern/">Personvern og cookies</a>
   </div>
 </footer>"""
 
@@ -1029,6 +1030,94 @@ def render_guides_index_page() -> str:
     </div>
   </div>
   {cards_html}
+</div>
+{render_footer()}
+</body>
+</html>"""
+
+
+# Innhold og struktur speiler Datatilsynets egen cookie-erklæring (formål,
+# rettslig grunnlag ekomloven § 3-15, oversiktstabell) - ikke bare et
+# Tradedoubler-spesifikt krav. Ingen samtykkebanner ennå (bevisst utsatt,
+# avklart med bruker 2026-08-11): GTM settes derfor fortsatt før samtykke i
+# dag - siden må ikke late som noe annet i teksten under.
+def render_privacy_page(now: datetime | None = None) -> str:
+    now = now or datetime.now(timezone.utc)
+    updated = now.strftime("%d.%m.%Y")
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personvern og cookies – kontaktlinser.no</title>
+<meta name="description" content="Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.">
+{FONT_LINKS}
+<style>{SHARED_STYLE}
+.cookie-table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.86rem; margin: 16px 0; }}
+.cookie-table th, .cookie-table td {{ text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }}
+.cookie-table th {{ background: var(--mist); font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }}
+.cookie-table tr:last-child td {{ border-bottom: none; }}
+.privacy-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.privacy-body p {{ font-size: 0.92rem; line-height: 1.6; color: var(--ink); }}
+.privacy-body p.updated {{ color: var(--muted); font-size: 0.78rem; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 16px; }}
+</style>
+</head>
+<body>
+{GTM_BODY}
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Personvern og cookies</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Personvern</div>
+      <h1>Personvern og cookies</h1>
+      <p>Hvilke informasjonskapsler vi bruker på kontaktlinser.no, hvorfor, og hvordan du styrer dem selv.</p>
+    </div>
+  </div>
+
+  <div class="privacy-body" style="max-width:640px;">
+    <p>En informasjonskapsel (cookie) er en liten tekstfil nettleseren din lagrer
+    når du besøker en nettside. Denne siden beskriver hvilke vi bruker og
+    hvorfor, i tråd med ekomloven § 3-15 og personvernforordningen (GDPR).</p>
+
+    <h2>Hvilke informasjonskapsler bruker vi</h2>
+    <table class="cookie-table">
+      <tr><th>Kilde</th><th>Formål</th><th>Type</th></tr>
+      <tr>
+        <td>Google Tag Manager</td>
+        <td>Måler trafikk og bruk av siden, slik at vi vet hvilket innhold som faktisk er nyttig.</td>
+        <td>Ikke nødvendig (statistikk)</td>
+      </tr>
+      <tr>
+        <td>Tradedoubler</td>
+        <td>Settes først når du klikker deg videre til en forhandler (f.eks. Lenson,
+        Lensway) via en lenke fra oss. Registrerer at besøket kom fra
+        kontaktlinser.no, slik at forhandleren kan betale riktig provisjon til
+        oss. Denne cookien settes av Tradedoubler eller forhandlerens eget
+        domene, ikke av kontaktlinser.no direkte.</td>
+        <td>Ikke nødvendig (tilknyttet markedsføring)</td>
+      </tr>
+    </table>
+    <p style="font-size:0.8rem;color:var(--muted);">Vi bruker ikke cookies til noe utover dette - ingen retargeting-annonsering
+    og ingen deling eller salg av data til tredjeparter.</p>
+
+    <h2>Samtykke</h2>
+    <p>Etter regelverket skal ikke-nødvendige cookies som hovedregel ikke settes
+    før du har samtykket. Vi jobber med å få på plass en løsning for dette;
+    inntil videre kan du blokkere eller slette cookies manuelt i
+    nettleserinnstillingene dine, se under.</p>
+
+    <h2>Hvordan kontrollere eller slette cookies</h2>
+    <p>De fleste nettlesere lar deg se, blokkere og slette cookies under
+    personvern- eller sikkerhetsinnstillingene. Slår du av ikke-nødvendige
+    cookies helt, vil kontaktlinser.no fortsatt fungere som normalt - vi
+    bruker dem kun til måling og provisjonssporing, ikke til selve
+    prissammenligningen.</p>
+
+    <p class="updated">Sist oppdatert: {updated}</p>
+  </div>
 </div>
 {render_footer()}
 </body>
