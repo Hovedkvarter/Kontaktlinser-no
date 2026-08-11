@@ -38,6 +38,22 @@ jobs:
         if: github.event_name != 'push'
         run: python3 build_catalog.py
 
+      - name: Lagre oppdatert prisdata tilbake til repoet
+        # KRITISK: uten dette steget forsvinner hver fersk skraping igjen
+        # ved neste push - push-bygg bruker catalog_live.json SLIK DEN LIGGER
+        # I GIT (skraper ikke selv, se steget over), så uten en commit her
+        # blir enhver kode-/designendring en utilsiktet "gjenopprett gårsdagens
+        # priser"-handling. Fant og fikset 2026-08-11 etter at nettopp dette
+        # skjedde gjentatte ganger i løpet av en økt med mange pushes.
+        # [skip ci] hindrer at denne commiten trigger enda en kjøring.
+        if: github.event_name != 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site_generator/catalog_live.json
+          git diff --staged --quiet || git commit -m "Oppdater catalog_live.json med ferske priser [skip ci]"
+          git push
+
       - name: Generer statiske sider
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
