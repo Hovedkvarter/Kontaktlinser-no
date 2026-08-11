@@ -170,7 +170,7 @@ a { color: inherit; }
 .consent-inner { max-width: 760px; margin: 0 auto; padding: 16px 20px; }
 .consent-text { font-size: 0.82rem; line-height: 1.55; color: var(--ink); margin: 0 0 12px; }
 .consent-text a { color: var(--aqua); }
-.consent-choices { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; font-size: 0.84rem; }
+.consent-choices:not([hidden]) { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; font-size: 0.84rem; }
 .consent-choices label { display: flex; align-items: center; gap: 8px; }
 .consent-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .consent-btn { font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; padding: 9px 16px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
