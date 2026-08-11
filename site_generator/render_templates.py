@@ -602,6 +602,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
+<link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -719,6 +720,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(brand_label)} kontaktlinser – sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="Sammenlign priser på alle {escape(brand_label)}-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<link rel="canonical" href="{BASE_URL}/merke/{brand_slug}/">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -888,6 +890,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<link rel="canonical" href="{BASE_URL}/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .hero {{
@@ -1165,6 +1168,7 @@ def render_guide_page(slug: str) -> str | None:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(guide["title"])} | kontaktlinser.no</title>
 <meta name="description" content="{escape(guide["description"])}">
+<link rel="canonical" href="{BASE_URL}/guide/{slug}/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}</style>
 </head>
@@ -1206,6 +1210,7 @@ def render_guides_index_page() -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guider – kontaktlinser.no</title>
 <meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, og forskjellen på dagslinser og månedslinser.">
+<link rel="canonical" href="{BASE_URL}/guider/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .guide-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 10px; }}
@@ -1243,6 +1248,7 @@ def render_about_page() -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Om oss – kontaktlinser.no</title>
 <meta name="description" content="Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.">
+<link rel="canonical" href="{BASE_URL}/om-oss/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
@@ -1296,6 +1302,56 @@ def render_about_page() -> str:
 </html>"""
 
 
+def render_404_page() -> str:
+    """GitHub Pages serverer denne automatisk med faktisk HTTP 404-status for
+    enhver manglende sti - se generate_pages.py (skrives til build/404.html,
+    rot-nivå, ikke en undermappe). noindex i tillegg, som en ekstra sikring
+    hvis siden noensinne skulle bli lenket til eller crawlet direkte."""
+    category_links = "\n    ".join(
+        f'<a href="/kontaktlinser/{slug}/" class="not-found-link">{escape(label)}</a>' for slug, label in FOOTER_CATEGORIES
+    )
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Siden ble ikke funnet – kontaktlinser.no</title>
+{FONT_LINKS}
+<style>{SHARED_STYLE}
+.not-found-hero {{ padding: 40px 0 16px; text-align: center; }}
+.not-found-hero .kicker {{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }}
+.not-found-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; margin: 8px 0 10px; }}
+.not-found-hero p {{ color: var(--muted); font-size: 0.94rem; max-width: 440px; margin: 0 auto; }}
+.not-found-links {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 440px; margin: 28px auto 0; }}
+.not-found-link {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: var(--card-shadow); }}
+.not-found-link:hover {{ border-color: var(--aqua); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <div class="not-found-hero">
+    <div class="kicker">404</div>
+    <h1>Fant ikke siden</h1>
+    <p>Lenken kan være utdatert, eller siden kan ha flyttet. Prøv en av
+    kategoriene under, eller gå til forsiden for å søke.</p>
+  </div>
+  <div class="not-found-links">
+    <a href="/" class="not-found-link">Forside</a>
+    <a href="/guider/" class="not-found-link">Guider</a>
+    {category_links}
+  </div>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
 # Innhold og struktur speiler Datatilsynets egen cookie-erklæring (formål,
 # rettslig grunnlag ekomloven § 3-15, oversiktstabell) - ikke bare et
 # Tradedoubler-spesifikt krav. Ingen samtykkebanner ennå (bevisst utsatt,
@@ -1313,6 +1369,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personvern og cookies – kontaktlinser.no</title>
 <meta name="description" content="Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.">
+<link rel="canonical" href="{BASE_URL}/personvern/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .cookie-table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.86rem; margin: 16px 0; }}
@@ -1461,6 +1518,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(category["label"])} – sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(category["intro"])}">
+<link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
