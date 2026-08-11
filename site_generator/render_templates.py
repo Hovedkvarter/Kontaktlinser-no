@@ -14,6 +14,7 @@ Bruker samme CSS-tokens som prototypene: ink/mist/aqua/mint, Space Grotesk /
 Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
+import json
 from datetime import datetime, timezone
 from html import escape
 
@@ -317,6 +318,25 @@ FOOTER_BRANDS = [
     ("total30", "TOTAL30"),
     ("ultra", "ULTRA"),
 ]
+
+# Gamle, fortsatt Google-indekserte URL-er fra forrige versjon av siden
+# (funnet via "site:kontaktlinser.no" 2026-08-11). GitHub Pages kan ikke
+# servere .aspx som HTML (bekreftet: mime-db mangler .aspx, serveres som
+# application/octet-stream - se CLAUDE.md) - derfor ingen ekte 301, kun en
+# klientsidevis omdirigering fra 404-siden (se render_404_page). Nøklene MÅ
+# være små bokstaver (matches mot location.pathname.toLowerCase() i JS-en).
+LEGACY_REDIRECTS = {
+    "/infosider/vedlikehold_av_linser/vedlikehold_av_kontaktlinsene.aspx": "/guider/",
+    "/kontaktlinser/dagslinser.aspx": "/kontaktlinser/dagslinser/",
+    "/kontaktlinser/fargede_linser.aspx": "/kontaktlinser/fargede-linser/",
+    "/infosider/reising_med_kontaktlinser.aspx": "/guider/",
+    "/infosider/vedlikehold_av_linser.aspx": "/guider/",
+    "/infosider/kosmetiske_kontaktlinser.aspx": "/kontaktlinser/fargede-linser/",
+    "/infosider/harde_eller_myke_linser.aspx": "/guide/hvordan-velge-kontaktlinser/",
+    "/infosider/hvordan.aspx": "/guide/hvordan-velge-kontaktlinser/",
+    "/kontaktlinser/dagslinser/linser.aspx": "/kontaktlinser/dagslinser/",
+    "/infosider/produksjon_av_kontaktlinser.aspx": "/guider/",
+}
 
 
 def render_footer() -> str:
@@ -1373,14 +1393,30 @@ def render_404_page() -> str:
     """GitHub Pages serverer denne automatisk med faktisk HTTP 404-status for
     enhver manglende sti - se generate_pages.py (skrives til build/404.html,
     rot-nivå, ikke en undermappe). noindex i tillegg, som en ekstra sikring
-    hvis siden noensinne skulle bli lenket til eller crawlet direkte."""
+    hvis siden noensinne skulle bli lenket til eller crawlet direkte.
+
+    Kjører også en klientsidevis oppslag mot LEGACY_REDIRECTS helt øverst i
+    <head> (før noe annet), for de ti gamle .aspx-URL-ene fra forrige
+    versjon av siden - .aspx kan ikke serveres som en fungerende HTML-
+    omdirigering på GitHub Pages (se kommentar ved LEGACY_REDIRECTS), så
+    dette er en bevisst nest-best løsning: browser mottar 404, men ekte
+    besøkende sendes likevel videre i stedet for å treffe en blindvei. IKKE
+    et substitutt for en ekte 301 SEO-messig - se CLAUDE.md."""
     category_links = "\n    ".join(
         f'<a href="/kontaktlinser/{slug}/" class="not-found-link">{escape(label)}</a>' for slug, label in FOOTER_CATEGORIES
     )
+    legacy_redirect_script = f"""<script>
+(function () {{
+  var legacyRedirects = {json.dumps(LEGACY_REDIRECTS)};
+  var target = legacyRedirects[location.pathname.toLowerCase()];
+  if (target) location.replace(target);
+}})();
+</script>"""
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
+{legacy_redirect_script}
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
