@@ -42,9 +42,11 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
 
+    products_by_id = {p["id"]: p for p in catalog["products"]}
+
     products_written = []
     for product in catalog["products"]:
-        html = render_product_page(product, catalog["categories"], now)
+        html = render_product_page(product, catalog["categories"], products_by_id, now)
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)

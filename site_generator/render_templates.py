@@ -550,11 +550,39 @@ def render_offer_card(o: dict, retailer: str) -> str:
 </div>"""
 
 
-def render_product_page(product: dict, categories: dict, now: datetime | None = None) -> str:
+def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
     image_url = pick_product_image(product["offers"])
+
+    pack_size_callout = ""
+    pack_size = 30 if product["id"].endswith("-30pk") else (90 if product["id"].endswith("-90pk") else None)
+    if pack_size and best and products_by_id:
+        sibling_pack_size = 90 if pack_size == 30 else 30
+        sibling_id = product["id"][: -len(f"-{pack_size}pk")] + f"-{sibling_pack_size}pk"
+        sibling = products_by_id.get(sibling_id)
+        if sibling:
+            sibling_offers = reconcile_product(sibling["offers"], now)
+            sibling_eligible = [o for o in sibling_offers if o["in_stock"] and not o["is_stale"]]
+            sibling_best = min(sibling_eligible, key=lambda o: o["total"], default=None)
+            if sibling_best:
+                this_per_lens = best["total"] / pack_size
+                sibling_per_lens = sibling_best["total"] / sibling_pack_size
+                sibling_href = f'/kontaktlinser/{sibling["brand_slug"]}/{sibling["slug"]}/'
+                diff_pct = abs(sibling_per_lens - this_per_lens) / this_per_lens * 100
+                if diff_pct < 1:
+                    comparison = "omtrent samme pris per linse"
+                else:
+                    retning = "billigere" if sibling_per_lens < this_per_lens else "dyrere"
+                    comparison = f"{diff_pct:.0f} % {retning} per linse"
+                per_lens_str = f"{sibling_per_lens:.2f}".replace(".", ",") + " kr/linse"
+                pack_size_callout = f"""<a class="pack-size-callout" href="{escape(sibling_href)}">
+  <div class="pack-size-callout-text">
+    Finnes også i <strong>{sibling_pack_size}-pakning</strong> — {per_lens_str} ({comparison})
+  </div>
+  <div class="pack-size-callout-arrow">→</div>
+</a>"""
 
     thumb = f'<img src="{escape(image_url)}" alt="{escape(product["name"])}" loading="lazy">' if image_url \
         else escape(product["brand_label"][:2].upper())
@@ -644,6 +672,9 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
 .spec-label {{ color: var(--muted); }}
 .spec-value {{ font-family: 'IBM Plex Mono', monospace; text-align: right; }}
 .specs-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }}
+.pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
+.pack-size-callout:hover {{ border-color: var(--aqua); }}
+.pack-size-callout-arrow {{ color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }}
 </style>
 </head>
 <body>
@@ -664,6 +695,7 @@ def render_product_page(product: dict, categories: dict, now: datetime | None = 
     </div>
   </div>
   {best_band}
+  {pack_size_callout}
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
     {offer_cards_html}
