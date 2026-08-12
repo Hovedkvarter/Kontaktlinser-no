@@ -131,9 +131,16 @@ a { color: inherit; }
 .consent-more-link { font-size: 0.8rem; }
 """
 
+# Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
+# inn her bevisst fremfor å røre alle 9 sidetypenes <head> hver for seg.
+# favicon-o.png er den oransje "O"-en (ring + ansiktssilhuett) beskåret ut
+# av static/logo.png, med hvit bakgrunn gjort gjennomsiktig - se historikk
+# 2026-08-11.
 FONT_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">"""
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="/static/favicon-o.png">
+<link rel="apple-touch-icon" href="/static/favicon-o.png">"""
 
 # GTM lastes IKKE lenger automatisk - kun definert her, faktisk kalt av
 # CONSENT_SCRIPT etter samtykke (lagret fra forrige besøk) eller når bruker
