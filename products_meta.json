@@ -115,7 +115,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "acuvue-oasys-prd19897602"
+          "slug": "acuvue-oasys-prd19897602",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -227,7 +228,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biofinity-prd39456092"
+          "slug": "biofinity-prd39456092",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -293,7 +295,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "1-day-acuvue-moist-prd43800736"
+          "slug": "1-day-acuvue-moist-prd43800736",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -359,7 +362,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "acuvue-oasys-max-1-day"
+          "slug": "acuvue-oasys-max-1-day",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -425,7 +429,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "acuvue-oasys-1-day-1"
+          "slug": "acuvue-oasys-1-day-1",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -495,7 +500,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "acuvue-oasys-for-astigmatism-prd42172188-1"
+          "slug": "acuvue-oasys-for-astigmatism-prd42172188-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -565,7 +571,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "1-day-acuvue-moist-for-astigmatism-2"
+          "slug": "1-day-acuvue-moist-for-astigmatism-2",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -635,7 +642,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biofinity-toric-prd14312049"
+          "slug": "biofinity-toric-prd14312049",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -697,7 +705,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "air-optix-colors-aoa286142"
+          "slug": "air-optix-colors-aoa286142",
+          "variant": "2"
         }
       ]
     },
@@ -863,7 +872,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "acuvue-oasys-multifocal"
+          "slug": "acuvue-oasys-multifocal",
+          "variant": "6"
         }
       ]
     },
@@ -921,7 +931,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biofinity-multifocal-pd12345678-1"
+          "slug": "biofinity-multifocal-pd12345678-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -979,7 +990,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biofinity-energys-2"
+          "slug": "biofinity-energys-2",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -1034,10 +1046,6 @@
         {
           "retailer": "lensway",
           "slug": "biofinity-xr-lens-4244"
-        },
-        {
-          "retailer": "lensit",
-          "slug": "biofinity-xr-1"
         }
       ]
     },
@@ -1087,7 +1095,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "avaira-vitality-prd91397419-1"
+          "slug": "avaira-vitality-prd91397419-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -1141,7 +1150,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "avaira-vitality-toric-lavarvt685-1"
+          "slug": "avaira-vitality-toric-lavarvt685-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -1199,7 +1209,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "myday-daily-disposable-myday-23592732"
+          "slug": "myday-daily-disposable-myday-23592732",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -1353,7 +1364,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "proclear-sphere-prd34870918"
+          "slug": "proclear-sphere-prd34870918",
+          "variant": "6"
         }
       ]
     },
@@ -1395,7 +1407,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "proclear-toric-prd22992034"
+          "slug": "proclear-toric-prd22992034",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -1449,7 +1462,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "clariti-1-day"
+          "slug": "clariti-1-day",
+          "variant": "30"
         },
         {
           "retailer": "synsam",
@@ -1549,7 +1563,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "air-optix-plus-hydraglyde-prd666600001236-1"
+          "slug": "air-optix-plus-hydraglyde-prd666600001236-1",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -1595,7 +1610,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "air-optix-hydraglyde-multif-2"
+          "slug": "air-optix-hydraglyde-multif-2",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -1657,7 +1673,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "air-optix-hydraglyde-for-astigmatism"
+          "slug": "air-optix-hydraglyde-for-astigmatism",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -1711,7 +1728,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "dailies-total-1-dt1030912"
+          "slug": "dailies-total-1-dt1030912",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -1765,7 +1783,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "dailies-total-1-multifocal-dt1m85141-1"
+          "slug": "dailies-total-1-multifocal-dt1m85141-1",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -1815,7 +1834,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "dailies-total-1-for-astigmatism"
+          "slug": "dailies-total-1-for-astigmatism",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -1873,7 +1893,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "dailies-aquacomfort-plus-prd83817115"
+          "slug": "dailies-aquacomfort-plus-prd83817115",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -1923,7 +1944,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "total-30"
+          "slug": "total-30",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -1977,7 +1999,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "precision-1"
+          "slug": "precision-1",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2023,7 +2046,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "precision-1-toric"
+          "slug": "precision-1-toric",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2077,7 +2101,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "soflens-59-prd20429154"
+          "slug": "soflens-59-prd20429154",
+          "variant": "6"
         }
       ]
     },
@@ -2119,7 +2144,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "soflens-daily-disposable-prd59328065"
+          "slug": "soflens-daily-disposable-prd59328065",
+          "variant": "30"
         },
         {
           "retailer": "synsam",
@@ -2165,7 +2191,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "soflens-toric-2"
+          "slug": "soflens-toric-2",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -2219,7 +2246,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "purevision-2-hd-prd22187187"
+          "slug": "purevision-2-hd-prd22187187",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -2269,7 +2297,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biotrue-oneday-btod-1231"
+          "slug": "biotrue-oneday-btod-1231",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2327,7 +2356,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "ultra-1"
+          "slug": "ultra-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -2385,7 +2415,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biomedics-55-evolution-prd65532469"
+          "slug": "biomedics-55-evolution-prd65532469",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -2439,7 +2470,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "air-optix-night-day-aqua-prd33155936"
+          "slug": "air-optix-night-day-aqua-prd33155936",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -2481,7 +2513,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "purevision-prd19104790"
+          "slug": "purevision-prd19104790",
+          "variant": "6"
         }
       ]
     },
@@ -2519,7 +2552,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "purevision-multifocal-prd76579103"
+          "slug": "purevision-multifocal-prd76579103",
+          "variant": "6"
         },
         {
           "retailer": "synsam",
@@ -2565,7 +2599,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "purevision-2hd-for-astigmatism-2"
+          "slug": "purevision-2hd-for-astigmatism-2",
+          "variant": "6"
         }
       ]
     },
@@ -2607,7 +2642,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "purevision-2-hd-multifocal-purevision2hdmf"
+          "slug": "purevision-2-hd-multifocal-purevision2hdmf",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -2657,7 +2693,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biotrue-oneday-for-astigmatism"
+          "slug": "biotrue-oneday-for-astigmatism",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2707,7 +2744,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biotrue-oneday-for-presbyopia-biop30pk-1"
+          "slug": "biotrue-oneday-for-presbyopia-biop30pk-1",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2753,7 +2791,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "ultra-oneday"
+          "slug": "ultra-oneday",
+          "variant": "30"
         }
       ]
     },
@@ -2795,7 +2834,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "ultra-for-astigmatism"
+          "slug": "ultra-for-astigmatism",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -2845,7 +2885,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "ultra-presbyopia"
+          "slug": "ultra-presbyopia",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -2887,7 +2928,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biomedics-1day-extra-b1dx987654321"
+          "slug": "biomedics-1day-extra-b1dx987654321",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2929,7 +2971,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biomedics-1-day-extra-toric-b1detoric"
+          "slug": "biomedics-1-day-extra-toric-b1detoric",
+          "variant": "30"
         },
         {
           "retailer": "interoptik",
@@ -2975,7 +3018,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "biomedics-toric-prd23084202"
+          "slug": "biomedics-toric-prd23084202",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -3021,7 +3065,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "total30-multifocal-1"
+          "slug": "total30-multifocal-1",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -3063,7 +3108,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "total-30-for-astigmatism"
+          "slug": "total-30-for-astigmatism",
+          "variant": "6"
         },
         {
           "retailer": "interoptik",
@@ -3114,10 +3160,6 @@
         {
           "retailer": "lensway",
           "slug": "precision7-lens-10819"
-        },
-        {
-          "retailer": "lensit",
-          "slug": "precision-7"
         }
       ]
     },
@@ -3156,10 +3198,6 @@
         {
           "retailer": "lensway",
           "slug": "precision7-for-astigmatism-lens-10821"
-        },
-        {
-          "retailer": "lensit",
-          "slug": "precision-7-for-astigmatism"
         }
       ]
     },
@@ -3239,7 +3277,8 @@
         },
         {
           "retailer": "lensit",
-          "slug": "focus-dailies-prd30058595"
+          "slug": "focus-dailies-prd30058595",
+          "variant": "30"
         }
       ]
     },

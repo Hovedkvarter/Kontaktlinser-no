@@ -7,13 +7,29 @@ config, ikke i koden -- endrer en forhandler layouten sin, oppdaterer du
 config, ikke Python.
 
 To hente-moduser, valgt via price_source i scraper_config (default "css"):
-  "css"           - price_selector/sale_price_selector leses av server-rendret
-                     DOM med BeautifulSoup, slik det alltid har fungert her.
-  "embedded_json" - for React/SPA-forhandlere som ALDRI server-rendrer prisen
-                     i DOM-en (CSS-selectorer treffer da ingenting uansett hvor
-                     riktige de er). embedded_json_pattern + _price_path
-                     plukker prisen ut av en JSON-blob i en <script>-tag som
-                     ligger i rå-HTML-en uavhengig av om JS kjøres.
+  "css"                - price_selector/sale_price_selector leses av
+                          server-rendret DOM med BeautifulSoup, slik det
+                          alltid har fungert her.
+  "embedded_json"      - for React/SPA-forhandlere som ALDRI server-rendrer
+                          prisen i DOM-en (CSS-selectorer treffer da
+                          ingenting uansett hvor riktige de er).
+                          embedded_json_pattern + _price_path plukker prisen
+                          ut av en JSON-blob i en <script>-tag som ligger i
+                          rå-HTML-en uavhengig av om JS kjøres.
+  "shopify_variant_json" - for Shopify-forhandlere (Lensit) der
+                          pakningsstørrelse er et variant-valg PÅ SAMME URL,
+                          ikke en egen produktside. price_selector ville her
+                          bare hentet prisen til whatever variant Shopify
+                          rendrer som forhåndsvalgt -- for et produkt som
+                          finnes i både 3- og 6-pakning kunne det HENDE å
+                          treffe feil pakningsstørrelse, uten noen feilmelding
+                          (funnet 2026-08-12: Air Optix HydraGlyde for
+                          Astigmatism viste 3-pack-pris på 6-pack-produktet).
+                          Krever et "variant"-felt per scrape_target som sier
+                          nøyaktig hvilken pakningsstørrelse (Shopify sin
+                          "public_title"/"title") som skal hentes -- finnes
+                          ingen variant med akkurat den tittelen, hentes
+                          INGEN pris, det gjettes aldri på nærmeste treff.
 
 To regler som IKKE er valgfrie:
 1. Sjekk robots.txt før hver kjøring mot en gitt forhandler. Er stien disallowed,
@@ -113,6 +129,36 @@ def _find_price_in_dom(sc: dict, soup: BeautifulSoup) -> float | None:
         return None
 
 
+_SHOPIFY_VARIANT_JSON_RE = re.compile(
+    r'<script[^>]*id="ProductJson-product-template"[^>]*>(.*?)</script>', re.S
+)
+
+
+def _find_price_in_shopify_variants(resp_text: str, expected_variant: str | None) -> float | None:
+    """Plukker prisen til den ene Shopify-varianten (pakningsstørrelsen) vi
+    faktisk vil ha, fra variant-JSON-en Shopify alltid legger i rå-HTML-en
+    (samme data driver variant-velgeren på siden). expected_variant matches
+    mot variantens public_title/title (f.eks. "6", "30", "90") -- finnes ikke
+    en variant med akkurat den tittelen, returneres None. Vi gjetter ALDRI
+    nærmeste variant, selv om det bare finnes én -- se docstring i scraper.py
+    for hvorfor (default-variant-bugen fra 2026-08-12)."""
+    if not expected_variant:
+        return None
+    m = _SHOPIFY_VARIANT_JSON_RE.search(resp_text)
+    if not m:
+        return None
+    try:
+        data = json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return None
+    for variant in data.get("variants", []):
+        title = str(variant.get("public_title") or variant.get("title") or "").strip()
+        if title == expected_variant:
+            price = variant.get("price")
+            return float(price) / 100 if isinstance(price, int | float) else None
+    return None  # ingen variant matchet forventet pakningsstørrelse
+
+
 def _find_price_in_embedded_json(sc: dict, resp_text: str) -> float | None:
     """Enkelte forhandlere (Lenson/Lensway) er React-apper der prisen ALDRI
     finnes i server-rendret DOM -- CSS-selectorer treffer ingenting uansett
@@ -134,9 +180,11 @@ def _find_price_in_embedded_json(sc: dict, resp_text: str) -> float | None:
     return float(value) if isinstance(value, int | float) else None
 
 
-def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | None:
+def scrape_product(retailer: str, brand: str, slug: str, cfg: dict, expected_variant: str | None = None) -> Offer | None:
     """Henter én produktside og returnerer en Offer, eller None hvis siden
-    ikke kan hentes, ikke er tillatt av robots.txt, eller mangler forventede felt."""
+    ikke kan hentes, ikke er tillatt av robots.txt, eller mangler forventede felt.
+    expected_variant brukes kun når price_source er "shopify_variant_json" --
+    se scraper.py sin docstring."""
     sc = cfg["scraper_config"]
     base_url = sc["base_url"]
     path = sc["product_url_pattern"].format(slug=slug)
@@ -158,7 +206,9 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict) -> Offer | N
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    if sc.get("price_source") == "embedded_json":
+    if sc.get("price_source") == "shopify_variant_json":
+        price = _find_price_in_shopify_variants(resp.text, expected_variant)
+    elif sc.get("price_source") == "embedded_json":
         price = _find_price_in_embedded_json(sc, resp.text)
     else:
         price = _find_price_in_dom(sc, soup)

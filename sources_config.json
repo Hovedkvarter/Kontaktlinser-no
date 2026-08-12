@@ -68,13 +68,12 @@
   },
 
   "lensit": {
-    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Standard Shopify-tema (Dawn-aktig), stabile klassenavn uten hash. Ingen pålitelig 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre.",
+    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Standard Shopify-tema (Dawn-aktig). Ingen pålitelig 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre. price_source er shopify_variant_json (byttet fra ren CSS-selector 2026-08-12): mange produkter finnes i flere pakningsstørrelser som variant-valg på SAMME url (f.eks. 3-pack og 6-pack), og price_selector plukket blindt opp prisen til whatever variant Shopify rendret som forhåndsvalgt -- traff feil pakningsstørrelse for 10 av 54 produkter uten noen feilmelding. Hvert scrape_target for lensit MÅ nå ha et \"variant\"-felt (Shopify sin public_title/title for riktig pakningsstørrelse, f.eks. \"6\" eller \"30\") -- se products_meta.json.",
     "display_name": "Lensit",
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.lensit.no",
-      "price_selector": ".price-item--regular",
-      "sale_price_selector": ".price-item--sale",
+      "price_source": "shopify_variant_json",
       "product_url_pattern": "/products/{slug}"
     },
     "brand_overrides": {}

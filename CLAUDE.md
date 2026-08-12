@@ -246,6 +246,31 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   er en infrastrukturendring på DNS-nivå, ikke noe som bør gjøres
   ensidig). Ikke gjenta .aspx-testen, resultatet er allerede bekreftet.
 
+- **Kritisk databug funnet og fikset 2026-08-12: Lensit viste feil
+  pakningsstørrelses pris på 13 av 54 produkter.** Bruker oppdaget at
+  Air Optix HydraGlyde for Astigmatism 6-pack viste "laveste pris" fra
+  Lensit som egentlig var 3-pack-prisen. Årsak: Lensit er Shopify, og
+  pakningsstørrelse er et variant-valg PÅ SAMME produkt-url (ikke egen
+  side per pakningsstørrelse) -- den gamle CSS-selector-skrapingen
+  (`.price-item--regular`) plukket blindt opp prisen til whatever variant
+  Shopify rendret som forhåndsvalgt i rå-HTML-en, uten noen feilmelding
+  når det var feil variant. Full audit av alle 54 Lensit-scrape_targets
+  (via variant-JSON-en i `<script id="ProductJson-product-template">`)
+  fant: 10 produkter med feil default-variant (nå fikset), og 3 produkter
+  (Biofinity XR, Precision7, Precision7 for Astigmatism) der Lensit ikke
+  en gang SELGER vår pakningsstørrelse i det hele tatt -- Lensit-target
+  fjernet for disse tre, samme prinsipp som Precision7/Interoptik-unntaket
+  lenger opp i dette dokumentet.
+  **Fix:** `sources_config.json` sin lensit-entry bruker nå
+  `"price_source": "shopify_variant_json"`, og hvert scrape_target for
+  lensit i `products_meta.json` har et `"variant"`-felt (Shopify sin
+  `public_title`/`title`, f.eks. `"6"` eller `"30"`).
+  `_find_price_in_shopify_variants()` i `scraper.py` matcher eksakt mot
+  dette feltet og gjetter ALDRI nærmeste variant -- finnes ingen treff,
+  hentes ingen pris (samme "ikke gjett"-prinsipp som resten av siden).
+  Legger du til et NYTT Lensit-produkt: husk `"variant"`-feltet, ellers
+  hentes ingen pris i det hele tatt (fail-safe, ikke fail-silent).
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

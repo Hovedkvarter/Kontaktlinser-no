@@ -82,7 +82,10 @@ def collect_scraped_offers(products_meta: dict, sources_config: dict) -> dict[st
             if not should_scrape(sources_config, retailer, product["brand_slug"]):
                 continue  # flyttet til feed siden sist - ikke scrape
 
-            offer = scrape_product(retailer, product["brand_slug"], target["slug"], sources_config[retailer])
+            offer = scrape_product(
+                retailer, product["brand_slug"], target["slug"], sources_config[retailer],
+                expected_variant=target.get("variant"),
+            )
             if offer is None:
                 print(f"  [ingen data] scraping av {retailer}/{target['slug']} ga ikke noe tilbud")
                 continue
