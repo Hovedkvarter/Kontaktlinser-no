@@ -352,8 +352,8 @@
   "ultra-astigmatism-6pk": [
     {
       "date": "2026-08-14",
-      "price": 524.0,
-      "store": "Synsam"
+      "price": 562.0,
+      "store": "Lenson"
     }
   ],
   "ultra-presbyopia-6pk": [
@@ -815,6 +815,27 @@
     {
       "date": "2026-08-14",
       "price": 139.0,
+      "store": "Lenson"
+    }
+  ],
+  "oxysept-1step-300ml": [
+    {
+      "date": "2026-08-14",
+      "price": 95.0,
+      "store": "Lenson"
+    }
+  ],
+  "acuvue-revitalens-100ml": [
+    {
+      "date": "2026-08-14",
+      "price": 45.0,
+      "store": "Lenson"
+    }
+  ],
+  "acuvue-revitalens-300ml": [
+    {
+      "date": "2026-08-14",
+      "price": 69.0,
       "store": "Lenson"
     }
   ]
