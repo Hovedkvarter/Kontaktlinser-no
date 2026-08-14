@@ -425,6 +425,22 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   er heller ikke bygget -- krever klassifisering medisinsk utstyr vs.
   legemiddel per produkt først (se punktet om Apotekhjem).
 
+- **Lenson/Lensway-lenkefiks samme dag: `-lens-{id}`-slugen (brukt for
+  kontaktlinser) fungerer IKKE for Tilbehør-kategorien.** Bruker oppdaget
+  at linsevæske-lenkene til Lenson/Lensway ikke virket. Årsak: sidetittelen
+  (server-rendret meta) og prisdataen (embedded JSON-blob) var begge
+  korrekte selv med feil slug, så skrapingen "virket" og ga riktig pris --
+  men selve klientside-rendringen av produktsiden kastet "Oops! Noe gikk
+  galt" fordi Tilbehør-kategorien bruker et annet slug-suffiks:
+  `{navn}-extra-{id}`, ikke `{navn}-lens-{id}`. Bekreftet ved å faktisk
+  lese produktlisten på `/no/tilbehor` (der ekte lenker ligger, f.eks.
+  `aosept-plus-extra-864`). Alle 13 Lenson/Lensway-slugs i
+  `solutions_meta.json` rettet og verifisert på nytt (ingen feilside).
+  **Lærdom:** for en NY produktkategori hos en forhandler holder det ikke
+  å bekrefte via sidetittel/embedded-data alene -- se etter faktisk
+  "Oops! Noe gikk galt"-tekst i `get_page_text`, siden serveren kan
+  rendre riktig metadata selv når klientsiden feiler på selve URL-formatet.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

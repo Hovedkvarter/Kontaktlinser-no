@@ -12,8 +12,8 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-lens-5"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-lens-5"}
+        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-5"},
+        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-5"}
       ]
     },
     {
@@ -27,8 +27,8 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-lens-280"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-lens-280"}
+        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-280"},
+        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-280"}
       ]
     },
     {
@@ -42,8 +42,8 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-lens-102"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-lens-102"}
+        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-102"},
+        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-102"}
       ]
     },
     {
@@ -57,8 +57,8 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free PureMoist er Alcons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser, med fuktighetsbevarende tilsetning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-puremoist-lens-1334"},
-        {"retailer": "lensway", "slug": "opti-free-puremoist-lens-1334"}
+        {"retailer": "lenson", "slug": "opti-free-puremoist-extra-1334"},
+        {"retailer": "lensway", "slug": "opti-free-puremoist-extra-1334"}
       ]
     },
     {
@@ -72,8 +72,8 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free PureMoist er Alcons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser, med fuktighetsbevarende tilsetning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-puremoist-lens-1335"},
-        {"retailer": "lensway", "slug": "opti-free-puremoist-lens-1335"}
+        {"retailer": "lenson", "slug": "opti-free-puremoist-extra-1335"},
+        {"retailer": "lensway", "slug": "opti-free-puremoist-extra-1335"}
       ]
     },
     {
@@ -87,8 +87,8 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free Express er Alcons rimeligere flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-express-lens-56"},
-        {"retailer": "lensway", "slug": "opti-free-express-lens-56"}
+        {"retailer": "lenson", "slug": "opti-free-express-extra-56"},
+        {"retailer": "lensway", "slug": "opti-free-express-extra-56"}
       ]
     },
     {
@@ -114,8 +114,8 @@
       "description": "Peroksidbasert linsevæske fra Alcon.",
       "long_description": "AOSept Plus er en peroksidbasert oppbevaringsløsning fra Alcon. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "aosept-plus-lens-864"},
-        {"retailer": "lensway", "slug": "aosept-plus-lens-864"}
+        {"retailer": "lenson", "slug": "aosept-plus-extra-864"},
+        {"retailer": "lensway", "slug": "aosept-plus-extra-864"}
       ]
     },
     {
@@ -129,8 +129,8 @@
       "description": "Peroksidbasert linsevæske.",
       "long_description": "EasySept er en peroksidbasert oppbevaringsløsning. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "easysept-lens-303"},
-        {"retailer": "lensway", "slug": "easysept-lens-303"}
+        {"retailer": "lenson", "slug": "easysept-extra-303"},
+        {"retailer": "lensway", "slug": "easysept-extra-303"}
       ]
     },
     {
@@ -144,8 +144,8 @@
       "description": "Peroksidbasert linsevæske.",
       "long_description": "EasySept er en peroksidbasert oppbevaringsløsning. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning. Denne reisestørrelsen er praktisk for kortere turer.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "easysept-lens-50"},
-        {"retailer": "lensway", "slug": "easysept-lens-50"}
+        {"retailer": "lenson", "slug": "easysept-extra-50"},
+        {"retailer": "lensway", "slug": "easysept-extra-50"}
       ]
     },
     {
@@ -159,8 +159,8 @@
       "description": "Multipurpose linsevæske fra Menicon.",
       "long_description": "SoloCare Aqua er Menicons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "solo-care-aqua-lens-149"},
-        {"retailer": "lensway", "slug": "solo-care-aqua-lens-149"}
+        {"retailer": "lenson", "slug": "solo-care-aqua-extra-149"},
+        {"retailer": "lensway", "slug": "solo-care-aqua-extra-149"}
       ]
     },
     {
@@ -174,8 +174,8 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "Biotrue er Bausch + Lombs flerbruksløsning, formulert til å ligne øyets eget tårefilm i pH og innhold. Ikke å forveksle med Biotrue ONEday, som er en dagslinse fra samme produsent.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biotrue-lens-947"},
-        {"retailer": "lensway", "slug": "biotrue-lens-947"}
+        {"retailer": "lenson", "slug": "biotrue-extra-947"},
+        {"retailer": "lensway", "slug": "biotrue-extra-947"}
       ]
     },
     {
@@ -189,8 +189,8 @@
       "description": "Multipurpose linsevæske, Lensons eget merke.",
       "long_description": "everclear REFRESH er en flerbruksløsning under Lensons eget merke everclear, for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "everclear-refresh-lens-8157"},
-        {"retailer": "lensway", "slug": "everclear-refresh-lens-8157"}
+        {"retailer": "lenson", "slug": "everclear-refresh-extra-8157"},
+        {"retailer": "lensway", "slug": "everclear-refresh-extra-8157"}
       ]
     },
     {
@@ -204,8 +204,8 @@
       "description": "Multipurpose linsevæske, reisestørrelse.",
       "long_description": "SWATI Lens Solution er en flerbruksløsning i reisestørrelse, praktisk som suppleringsflaske eller på kortere turer.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "swati-lens-solution-100-ml-lens-9576"},
-        {"retailer": "lensway", "slug": "swati-lens-solution-100-ml-lens-9576"}
+        {"retailer": "lenson", "slug": "swati-lens-solution-100-ml-extra-9576"},
+        {"retailer": "lensway", "slug": "swati-lens-solution-100-ml-extra-9576"}
       ]
     }
   ]
