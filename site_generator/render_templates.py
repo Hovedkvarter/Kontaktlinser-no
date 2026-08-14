@@ -292,6 +292,7 @@ TOPBAR_HTML = f"""<div class="topbar">
   <nav class="topbar-nav">
     <a href="/#merker">Merker</a>
     <a href="/#kategorier">Kategorier</a>
+    <a href="/linsevaeske/">Linsevæske</a>
     <a href="/guider/">Guider</a>
   </nav>
 </div>"""
@@ -1823,6 +1824,223 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     cards.forEach(c => list.appendChild(c));
   }});
 </script>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_solution_product_page(product: dict, now: datetime | None = None) -> str:
+    """Linsevæske o.l. -- egen produkttype med annen datamodell enn
+    kontaktlinser (size_ml/solution_type i stedet for category_slug/specs),
+    men samme pris-/tilbudslogikk (reconcile_product, _retailer_badge_html
+    osv. er delt kode uendret fra kontaktlinse-sidene)."""
+    now = now or datetime.now(timezone.utc)
+    offers = reconcile_product(product["offers"], now)
+    best = next((o for o in offers if o["is_lowest"]), None)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+    long_description = product.get("long_description", product.get("description", ""))
+
+    best_band = ""
+    if best:
+        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
+  <div class="label-group">
+    <div class="label">Laveste pris</div>
+    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
+  </div>
+  <div class="price">{_fmt_kr(best["total"])}</div>
+</a>"""
+
+    size_ml = product.get("size_ml")
+    price_per_unit_html = ""
+    if size_ml and best:
+        per_100 = best["total"] / size_ml * 100
+        price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris</p>'
+
+    safety_notice = ""
+    if product.get("solution_type") == "peroxide":
+        safety_notice = """<div class="safety-notice">
+  <strong>Peroksidbasert linsevæske</strong> må nøytraliseres i riktig oppbevaringsetui før linsene settes i øyet igjen -- følg alltid bruksanvisningen. Linser satt direkte i ufortynnet peroksidløsning kan gi alvorlig øyeskade.
+</div>"""
+
+    in_stock_offers = [o for o in offers if o["in_stock"]]
+    schema_offers = ",\n      ".join(f'''{{
+        "@type": "Offer",
+        "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
+        "price": {o["total"]},
+        "priceCurrency": "NOK",
+        "url": "{escape(o["url"])}",
+        "availability": "https://schema.org/InStock"
+      }}''' for o in in_stock_offers)
+    low_price = min((o["total"] for o in in_stock_offers), default=0)
+    high_price = max((o["total"] for o in in_stock_offers), default=0)
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{escape(product["name"])}",
+  "description": "{escape(long_description)}",
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},
+  "offers": {{
+    "@type": "AggregateOffer",
+    "priceCurrency": "NOK",
+    "lowPrice": {low_price},
+    "highPrice": {high_price},
+    "offerCount": {len(in_stock_offers)},
+    "offers": [{schema_offers}]
+  }}
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
+<meta name="description" content="{escape(long_description[:155])}">
+<link rel="canonical" href="{BASE_URL}/linsevaeske/{product["brand_slug"]}/{product["slug"]}/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.hero {{ display: flex; align-items: center; gap: 20px; }}
+.price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
+.safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb">
+    <a href="/">Hjem</a> ›
+    <a href="/linsevaeske/">Linsevæske</a> ›
+    {escape(product["name"])}
+  </p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">{escape(product["brand_label"])}</div>
+      <h1>{escape(product["name"])}</h1>
+      <p>{escape(long_description)}</p>
+    </div>
+  </div>
+  {best_band}
+  {price_per_unit_html}
+  {safety_notice}
+  <div class="offers">
+    <h2>Alle tilbud, sortert etter total pris</h2>
+    {offer_cards_html}
+  </div>
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    provisjon når du handler via lenkene, men det påvirker ikke prisen du
+    betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
+    varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
+  </p>
+  <p class="disclosure">
+    kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
+    forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
+    hvilken linsevæske som passer for dine kontaktlinser.
+  </p>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_solution_category_page(products: list[dict], now: datetime | None = None) -> str:
+    now = now or datetime.now(timezone.utc)
+
+    rows = []
+    for p in products:
+        offers = reconcile_product(p["offers"], now)
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        rows.append({"product": p, "lowest": lowest})
+
+    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+
+    def render_row(r: dict) -> str:
+        p, lowest = r["product"], r["lowest"]
+        price_block = (
+            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
+            f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
+            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        )
+        href = f'/linsevaeske/{p["brand_slug"]}/{p["slug"]}/'
+        size_label = f'{p["size_ml"]} ml' if p.get("size_ml") else ""
+        meta = escape(p["brand_label"]) + (f" · {escape(size_label)}" if size_label else "")
+        return f"""<a class="product-card" href="{escape(href)}">
+  <div class="product-thumb">{escape(p["brand_label"][:2].upper())}</div>
+  <div class="product-main">
+    <div class="product-name">{escape(p["name"])}</div>
+    <div class="product-meta">{meta}</div>
+  </div>
+  <div class="product-price-col">{price_block}</div>
+</a>"""
+
+    product_rows_html = "\n".join(render_row(r) for r in rows)
+
+    schema_items = ",\n      ".join(
+        f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/linsevaeske/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
+        for i, p in enumerate(products)
+    )
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{"@type": "BreadcrumbList", "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "Linsevæske", "item": "{BASE_URL}/linsevaeske/"}}
+    ]}},
+    {{"@type": "ItemList", "itemListElement": [{schema_items}]}}
+  ]
+}}"""
+
+    intro = "Sammenlign priser på linsevæske fra Lenson, Lensway og Extra Optical. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare."
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linsevæske – sammenlign priser | kontaktlinser.no</title>
+<meta name="description" content="{escape(intro)}">
+<link rel="canonical" href="{BASE_URL}/linsevaeske/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Linsevæske</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Tilbehør</div>
+      <h1>Linsevæske</h1>
+      <p>{escape(intro)}</p>
+    </div>
+  </div>
+
+  <div class="list-header">
+    <h2>{len(products)} produkter</h2>
+  </div>
+
+  <div id="product-list">
+    {product_rows_html}
+  </div>
+
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
+    via lenkene på produktsidene, men det påvirker ikke prisen du betaler
+    eller rangeringen av produkter eller tilbud. kontaktlinser.no er en
+    uavhengig prissammenligningstjeneste, ikke en forhandler.
+  </p>
+</div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
 {CONSENT_SCRIPT}

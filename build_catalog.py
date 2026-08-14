@@ -31,6 +31,7 @@ from scraper import scrape_product, should_scrape
 
 ROOT = Path(__file__).parent
 PRODUCTS_META_PATH = ROOT / "products_meta.json"
+SOLUTIONS_META_PATH = ROOT / "solutions_meta.json"
 PRODUCT_MATCHING_PATH = ROOT / "product_matching.json"
 SOURCES_CONFIG_PATH = ROOT / "sources_config.json"
 OUTPUT_PATH = ROOT / "site_generator" / "catalog_live.json"
@@ -135,6 +136,14 @@ def build_catalog(products_meta: dict, offers_by_product: dict[str, list[Offer]]
 def main() -> None:
     print("Leser konfigurasjon ...")
     products_meta = load_json(PRODUCTS_META_PATH)
+    if SOLUTIONS_META_PATH.exists():
+        # Linsevæske o.l. lever i en egen fil (annen datamodell -- size_ml/
+        # solution_type i stedet for category_slug/specs), men går inn i
+        # SAMME katalog-pipeline siden scraping/feed-matching er identisk.
+        # "categories" hentes kun fra products_meta.json -- solutions_meta.json
+        # trenger ikke sin egen, produktene har bare ikke category_slug.
+        solutions_meta = load_json(SOLUTIONS_META_PATH)
+        products_meta = {**products_meta, "products": products_meta["products"] + solutions_meta["products"]}
     product_matching = load_json(PRODUCT_MATCHING_PATH)
     sources_config = load_json(SOURCES_CONFIG_PATH)
 

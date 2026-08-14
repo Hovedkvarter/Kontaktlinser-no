@@ -43,7 +43,10 @@ def main() -> int:
     missing_offers_count = 0
 
     for product in catalog["products"]:
-        page_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
+        # Linsevæske o.l. (fra solutions_meta.json) mangler category_slug og
+        # ligger under /linsevaeske/, ikke /kontaktlinser/ -- se generate_pages.py.
+        base_dir = "kontaktlinser" if "category_slug" in product else "linsevaeske"
+        page_path = BUILD_DIR / base_dir / product["brand_slug"] / product["slug"] / "index.html"
 
         if not page_path.exists():
             errors.append(f"MANGLER SIDE: {page_path}")

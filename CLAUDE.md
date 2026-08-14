@@ -396,6 +396,35 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   i selve teksten er IKKE til å stole på -- bekreft alltid mot faktisk
   sidetekst ("X PACK") før den brukes, ikke bare mot at siden laster.
 
+- **Linsevæske lansert som ny produkttype (2026-08-14), fase 1 av
+  tilleggsprodukt-strategien.** Egen datamodell i `solutions_meta.json`
+  (repo-rot): `size_ml`/`solution_type` (multipurpose/peroxide) i stedet
+  for `category_slug`/`specs` som kontaktlinser bruker. Slås sammen med
+  `products_meta.json` sine produkter i `build_catalog.py` sin `main()` --
+  SAMME katalog-pipeline (scraping, feed-matching, price_history) uendret,
+  ingen duplisert infrastruktur. 14 produkter i første runde, alle
+  verifisert manuelt (Lenson/Lensway + ExtraOptical der de har samme
+  merke/størrelse -- ReNu, Opti-Free PureMoist/Express, AOSept).
+  **VIKTIG arkitektur-detalj:** `generate_pages.py` sin `build()` MÅ skille
+  `lens_products` (har `category_slug`) fra `solution_products` (har det
+  ikke) FØR den kjører kategori-/merke-/forside-løkkene -- de leser
+  `categories[p["category_slug"]]` og krasjer på et produkt uten det
+  feltet. Samme grunn til at `validate_build.py` sjekker riktig
+  build-mappe (`linsevaeske/` vs `kontaktlinser/`) per produkt basert på
+  om `category_slug` finnes.
+  Linsevæske-sider ligger på `/linsevaeske/{brand_slug}/{slug}/`, egen
+  oversiktsside på `/linsevaeske/`, egen `sitemap-linsevaeske.xml`, egen
+  lenke i `TOPBAR_HTML`. Peroksidbaserte produkter (AOSept, EasySept) får
+  en synlig sikkerhetsboks om nøytralisering på produktsiden
+  (`safety-notice`-klassen) -- IKKE fjern denne, det er en reell
+  øyeskaderisiko ved feil bruk, ikke bare en juridisk formalitet.
+  **Bevisst utelatt fra denne runden:** Oxysept 1-Step (solgt i "dager",
+  ikke ml), Acuvue RevitaLens (solgt i "stk", ikke ml), everclear REFRESH
+  x3 (multipack-bundle) -- disse trenger en annen sammenligningsenhet enn
+  pris-per-100ml og er ikke med ennå. Øyedråper (prioritet 2 i strategien)
+  er heller ikke bygget -- krever klassifisering medisinsk utstyr vs.
+  legemiddel per produkt først (se punktet om Apotekhjem).
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
