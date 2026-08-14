@@ -194,6 +194,51 @@
       ]
     },
     {
+      "id": "oxysept-1step-300ml",
+      "slug": "oxysept-1-step-300-ml",
+      "name": "Oxysept 1-Step 300 ml",
+      "brand_slug": "oxysept",
+      "brand_label": "Oxysept",
+      "size_ml": 300,
+      "solution_type": "peroxide",
+      "description": "Peroksidbasert linsevæske i ett trinn.",
+      "long_description": "Oxysept 1-Step er en peroksidbasert oppbevaringsløsning i ett trinn. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "oxysept-1-step-extra-6406"},
+        {"retailer": "lensway", "slug": "oxysept-1-step-extra-6406"}
+      ]
+    },
+    {
+      "id": "acuvue-revitalens-100ml",
+      "slug": "revitalens-100-ml",
+      "name": "Acuvue RevitaLens 100 ml",
+      "brand_slug": "acuvue-revitalens",
+      "brand_label": "Acuvue RevitaLens",
+      "size_ml": 100,
+      "solution_type": "peroxide",
+      "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
+      "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "acuvue-revitalens-extra-7832"},
+        {"retailer": "lensway", "slug": "acuvue-revitalens-extra-7832"}
+      ]
+    },
+    {
+      "id": "acuvue-revitalens-300ml",
+      "slug": "revitalens-300-ml",
+      "name": "Acuvue RevitaLens 300 ml",
+      "brand_slug": "acuvue-revitalens",
+      "brand_label": "Acuvue RevitaLens",
+      "size_ml": 300,
+      "solution_type": "peroxide",
+      "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
+      "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "acuvue-revitalens-extra-7833"},
+        {"retailer": "lensway", "slug": "acuvue-revitalens-extra-7833"}
+      ]
+    },
+    {
       "id": "swati-lens-solution-100ml",
       "slug": "lens-solution-100-ml",
       "name": "SWATI Lens Solution 100 ml",
