@@ -564,7 +564,52 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     return stem, int(size_part)
 
 
-def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, now: datetime | None = None) -> str:
+def _render_price_history_chart(history: list[dict]) -> str:
+    """Enkel SVG-linjegraf over laveste pris per dag, tegnet server-side --
+    ingen JS-bibliotek, fungerer uten at noe script kjører. Viser ingenting
+    før vi faktisk har minst en ukes historikk (en 2-punkts strek fra dag 2
+    ser useriøs ut). Vokser med én dag per bygging inntil price_history.py
+    sin MAX_DAYS-grense (365) er nådd."""
+    if len(history) < 7:
+        return ""
+
+    prices = [h["price"] for h in history]
+    min_price, max_price = min(prices), max(prices)
+    price_range = max_price - min_price or 1
+
+    width, height = 680, 180
+    pad_left, pad_right, pad_top, pad_bottom = 6, 6, 14, 22
+    plot_w = width - pad_left - pad_right
+    plot_h = height - pad_top - pad_bottom
+    n = len(history)
+
+    def x_for(i: int) -> float:
+        return pad_left + (i / (n - 1) if n > 1 else 0) * plot_w
+
+    def y_for(price: float) -> float:
+        return pad_top + (1 - (price - min_price) / price_range) * plot_h
+
+    points = " ".join(f"{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(history))
+    first, last = history[0], history[-1]
+    last_x, last_y = x_for(n - 1), y_for(last["price"])
+
+    def short_date(date_str: str) -> str:
+        _, month, day = date_str.split("-")
+        return f"{day}.{month}"
+
+    return f"""<div class="price-history">
+    <h2>Prisutvikling</h2>
+    <p class="price-history-summary">Laveste pris siste {n} dager: {_fmt_kr(min_price)}. I dag: {_fmt_kr(last["price"])} hos {escape(last["store"])}.</p>
+    <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(min_price)} til {_fmt_kr(max_price)}">
+      <polyline points="{points}" class="price-history-line" />
+      <circle cx="{last_x:.1f}" cy="{last_y:.1f}" r="3.5" class="price-history-dot" />
+      <text x="{pad_left}" y="{height - 6}" class="price-history-axis-label">{escape(short_date(first["date"]))}</text>
+      <text x="{width - pad_right}" y="{height - 6}" text-anchor="end" class="price-history-axis-label">{escape(short_date(last["date"]))}</text>
+    </svg>
+  </div>"""
+
+
+def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
@@ -672,6 +717,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <p class="specs-note">Veiledende tall, satt sammen fra forhandlernes egne spesifikasjoner og produsentens produktinformasjon. Bekreft alltid mot din synsresept og pakningsvedlegget før kjøp.</p>
   </div>"""
 
+    price_history_html = _render_price_history_chart(price_history or [])
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -699,6 +746,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-product-image {{ width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; }} }}
+.price-history {{ margin-top: 28px; }}
+.price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
+.price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
+.price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }}
+.price-history-line {{ fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
+.price-history-dot {{ fill: var(--aqua); }}
+.price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
 </style>
 </head>
 <body>
@@ -730,6 +784,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
+  {price_history_html}
   {specs_html}
 </div>
 {render_footer()}

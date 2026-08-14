@@ -57,6 +57,20 @@ jobs:
       - name: Generer statiske sider
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
+      - name: Lagre oppdatert prishistorikk tilbake til repoet
+        # generate_pages.py skriver dagens laveste pris til
+        # site_generator/price_history.json ved HVER kjøring (også push,
+        # siden dette steget kjører uansett event-type) -- uten en commit
+        # her forsvinner historikken igjen ved neste checkout, samme
+        # problem som catalog_live.json hadde før 2026-08-11-fiksen.
+        # [skip ci] hindrer at denne commiten trigger enda en kjøring.
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site_generator/price_history.json
+          git diff --staged --quiet || git commit -m "Oppdater price_history.json [skip ci]"
+          git push
+
       - name: Valider bygget
         run: python3 site_generator/validate_build.py
 

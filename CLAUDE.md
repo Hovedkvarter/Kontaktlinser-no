@@ -347,6 +347,27 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   som Biofinity XR har et 3/6-par og Dailies AquaComfort Plus har et
   30/90/180-triplett.
 
+- **Prisutvikling-graf per produkt (2026-08-14)**, inspirert av
+  lenspricer.no (som bruker Chart.js -- vi gjør det samme uten noe
+  JS-bibliotek, ren SVG generert server-side, i tråd med prinsippet om at
+  kjerneinnhold skal fungere uten JavaScript). Viser laveste pris per dag
+  (ikke per forhandler -- én linje, samme som lenspricer), pluss hvilken
+  butikk som hadde den. `price_history.py` (repo-rot) har hele
+  lagrings-logikken: `record_price()` overskriver dagens rad i stedet for å
+  legge til en ny, siden bygget kjører 4x/dag men vi vil ha ett punkt per
+  dag. Beholder maks 365 dager (`MAX_DAYS`), eldre rader forsvinner
+  automatisk. Data lagres i `site_generator/price_history.json`, commitet
+  tilbake til repoet i et eget steg i workflowen (samme mønster som
+  catalog_live.json, men kjører på ALLE event-typer siden
+  generate_pages.py -- som skriver filen -- selv kjører uansett
+  push/schedule/manuell).
+  `_render_price_history_chart()` i `render_templates.py` viser INGENTING
+  før produktet har minst 7 dagers historikk (en 2-punkts strek dag 2 ser
+  useriøs ut) -- grafen dukker opp av seg selv etter en ukes drift og vokser
+  videre dag for dag helt automatisk, ingen egen "fase 2"-logikk nødvendig.
+  Startet fra null 2026-08-14 -- ingen historisk data å vise før den datoen,
+  i motsetning til lenspricer sine 360 dager.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

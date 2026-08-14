@@ -20,9 +20,10 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py
+sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, reconcile_product
+from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -44,13 +45,23 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
 
     products_by_id = {p["id"]: p for p in catalog["products"]}
 
+    price_history = load_history()
+    today = now.date().isoformat()
+
     products_written = []
     for product in catalog["products"]:
-        html = render_product_page(product, catalog["categories"], products_by_id, now)
+        offers = reconcile_product(product["offers"], now)
+        best = next((o for o in offers if o["is_lowest"]), None)
+        if best:
+            record_price(price_history, product["id"], today, best["total"], best["retailer"])
+
+        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now)
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)
         print(f"  produkt  -> /kontaktlinser/{product['brand_slug']}/{product['slug']}/")
+
+    save_history(price_history)
 
     for category_slug, category in catalog["categories"].items():
         products_in_category = [p for p in catalog["products"] if p["category_slug"] == category_slug]
