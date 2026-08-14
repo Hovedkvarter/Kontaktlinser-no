@@ -26,7 +26,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from offer import Offer
-from ingest_feed import load_feed
+from ingest_feed import load_feed, load_feed_url
 from scraper import scrape_product, should_scrape
 
 ROOT = Path(__file__).parent
@@ -41,28 +41,35 @@ def load_json(path: Path) -> dict:
 
 
 def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[str, list[Offer]]:
-    """Kjør load_feed() for hver forhandler som har affiliate_feed konfigurert
-    - enten som forhandler-bred standard eller som merke-spesifikk override -
-    og grupper resultatet per produkt-id (satt av mapper-funksjonene selv)."""
+    """Kjør load_feed()/load_feed_url() for hver forhandler som har
+    affiliate_feed konfigurert - enten som forhandler-bred standard eller
+    som merke-spesifikk override - og grupper resultatet per produkt-id
+    (satt av mapper-funksjonene selv). feed_url (ekte, levende feeds) hentes
+    ferskt over HTTP hver gang; feed_path (lokale testfeeds) leses fra disk."""
     offers_by_product: dict[str, list[Offer]] = {}
 
-    def _ingest(network: str, feed_path: Path) -> None:
-        if not feed_path.exists():
-            print(f"  [hopper over] feed ikke funnet: {feed_path}")
-            return
+    def _ingest(network: str, cfg: dict) -> None:
         match_map = product_matching.get(network, {})
-        for offer in load_feed(str(feed_path), network, match_map):
+        if "feed_url" in cfg:
+            offers = load_feed_url(cfg["feed_url"], network, match_map)
+        else:
+            feed_path = ROOT / cfg["feed_path"]
+            if not feed_path.exists():
+                print(f"  [hopper over] feed ikke funnet: {feed_path}")
+                return
+            offers = load_feed(str(feed_path), network, match_map)
+        for offer in offers:
             offers_by_product.setdefault(offer.product_id, []).append(offer)
 
     for retailer, cfg in sources_config.items():
         if retailer.startswith("$"):
             continue
-        if cfg.get("default_source") == "affiliate_feed" and "feed_path" in cfg:
-            _ingest(cfg["network"], ROOT / cfg["feed_path"])
+        if cfg.get("default_source") == "affiliate_feed" and ("feed_path" in cfg or "feed_url" in cfg):
+            _ingest(cfg["network"], cfg)
 
         for brand, override in cfg.get("brand_overrides", {}).items():
             if override.get("source") == "affiliate_feed":
-                _ingest(override["network"], ROOT / override["feed_path"])
+                _ingest(override["network"], override)
 
     return offers_by_product
 

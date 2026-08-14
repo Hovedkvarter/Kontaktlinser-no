@@ -13,6 +13,15 @@
     "brand_overrides": {}
   },
 
+  "extraoptical": {
+    "$comment": "FØRSTE ekte affiliate-avtale på siden (godkjent i Adtraction 2026-08-12). Tidligere blokkert for skraping (ren React-app uten server-rendret prisdata) -- løst av seg selv nå som de har egen feed i stedet. feed_url hentes FERSK ved hver bygging (se load_feed_url() i ingest_feed.py), ikke en fil som må lastes ned manuelt. Feeden er Adtraction sitt Google Shopping-formaterte eksport, forhandler-spesifikk (kun ExtraOptical, ingen egen merchant-navn-kolonne) -- se map_adtraction_row() i ingest_feed.py for feltnavn. cdelim=comma&tdelim=doublequote gir en standard CSV Python sin csv-modul leser uten spesialtilpasning (feeden støtter også tab/enkeltfnutt, men det krever egen dialect). display_name må være nøyaktig 'Extra Optical' -- det er nøkkelen extraoptical.svg-logoen er registrert under i RETAILER_LOGOS (render_templates.py).",
+    "display_name": "Extra Optical",
+    "default_source": "affiliate_feed",
+    "network": "adtraction",
+    "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1123997289&asid=2102229792&gsh=1&pfid=1650&gt=0",
+    "brand_overrides": {}
+  },
+
   "lensway": {
     "$comment": "Bekreftet affiliate-program hos Lensway kjøres via Tradedoubler, men vi har ingen signert feed-avtale ennå. Scraper inntil videre -- bytt til affiliate_feed/tradedoubler den dagen avtalen er på plass. VIKTIG: Lensway er en React-app som ALDRI server-rendrer pris i DOM-en -- CSS-selectorer treffer ingenting uansett hvor riktige de er (verifisert 28.08.2026, brukte timevis på feil spor før dette ble oppdaget). price_source=embedded_json henter i stedet prisen ferdig utregnet fra deres egen analytics-JSON i <script>-taggen, som ligger i rå-HTML-en uavhengig av JS. Samme plattform som Lenson (LensGroup) -- identisk oppsett, til og med samme produkt-ID-er på tvers av de to sidene.",
     "display_name": "Lensway",

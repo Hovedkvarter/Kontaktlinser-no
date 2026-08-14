@@ -271,6 +271,35 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   Legger du til et NYTT Lensit-produkt: husk `"variant"`-feltet, ellers
   hentes ingen pris i det hele tatt (fail-safe, ikke fail-silent).
 
+- **Første ekte affiliate-avtale live: ExtraOptical via Adtraction
+  (2026-08-12).** Tidligere blokkert for skraping (ren React-app uten
+  server-rendret prisdata) -- løst av seg selv med en ekte feed i stedet.
+  Feeden er Adtraction sitt Google Shopping-formaterte eksport
+  (kolonner: id/title/link/image_link/price/availability/brand osv.) --
+  HELT ANNERLEDES enn den tidligere gjettede test-strukturen
+  (merchant_name/tracking_url/sku), som nå er fjernet sammen med den falske
+  testfilen `feeds/adtraction_interoptik_acuvue.csv`. `map_adtraction_row()`
+  i `ingest_feed.py` er oppdatert til de ekte feltnavnene. `link`-kolonnen
+  ER allerede den ferdige affiliate-trackinglenken (limes rett inn som
+  tilbudets url), og `image_link` er et lisensiert produktbilde (kvalifiserer
+  for `LICENSED_IMAGE_SOURCES`).
+  **Ny arkitektur-mulighet:** `sources_config.json` støtter nå `feed_url`
+  (hentes FERSK over HTTP ved hver bygging via `load_feed_url()`) som
+  alternativ til `feed_path` (lokal fil, brukt av testdata). ExtraOptical
+  bruker `feed_url` siden dette er en levende feed, ikke noe som lastes ned
+  manuelt.
+  Av feedens 75 kontaktlinse-rader matcher 49 mot eksisterende produkter
+  (lagt i `product_matching.json` sin `adtraction`-tabell). De resterende 26
+  er bevisst IKKE koblet: enten fører vi ikke produktet, pakningsstørrelsen
+  matcher ikke (samme prinsipp som Precision7/Interoptik), eller selve
+  feed-raden har motstridende id/title (f.eks. `id="MyDay 1 Day Toric 30
+  stk"` med `title="Biomedics 1 Day Extra Toric 30 stk"`, og to
+  PureVision2/PureVision2-HD-rader med forvirrende id/title-par som ikke lot
+  seg skille fra hverandre med sikkerhet) -- disse gjettes ALDRI inn.
+  `RETAILER_LOGOS["Extra Optical"]` (og `static/logos/extraoptical.svg`) var
+  allerede satt opp fra tidligere -- `display_name` i sources_config.json må
+  fortsatt matche "Extra Optical" nøyaktig for at logoen skal slå til.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
