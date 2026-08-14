@@ -52,6 +52,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add site_generator/catalog_live.json
           git diff --staged --quiet || git commit -m "Oppdater catalog_live.json med ferske priser [skip ci]"
+          git pull --rebase origin main
           git push
 
       - name: Generer statiske sider
@@ -69,6 +70,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add site_generator/price_history.json
           git diff --staged --quiet || git commit -m "Oppdater price_history.json [skip ci]"
+          git pull --rebase origin main
           git push
 
       - name: Valider bygget

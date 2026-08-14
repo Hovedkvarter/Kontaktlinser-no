@@ -367,6 +367,11 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   videre dag for dag helt automatisk, ingen egen "fase 2"-logikk nødvendig.
   Startet fra null 2026-08-14 -- ingen historisk data å vise før den datoen,
   i motsetning til lenspricer sine 360 dager.
+  Begge auto-commit-stegene i workflowen (catalog_live.json og
+  price_history.json) gjør nå `git pull --rebase origin main` før `git
+  push` -- uten det feiler pushen (non-fast-forward) hvis to kjøringer
+  overlapper (f.eks. et push-trigget bygg og en manuell kjøring rett
+  etter hverandre, som skjedde og feilet 2026-08-14 før denne fiksen).
 
 ## Arbeidsspråk og autorisasjon
 
