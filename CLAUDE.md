@@ -299,6 +299,53 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   `RETAILER_LOGOS["Extra Optical"]` (og `static/logos/extraoptical.svg`) var
   allerede satt opp fra tidligere -- `display_name` i sources_config.json må
   fortsatt matche "Extra Optical" nøyaktig for at logoen skal slå til.
+  **VIKTIG:** ExtraOptical-tilbud kobles UTELUKKENDE via
+  `product_matching.json` sin `adtraction`-tabell (feedens `id`-felt →
+  produkt-id) -- IKKE via `scrape_targets` i products_meta.json.
+  `should_scrape()` filtrerer stille bort ethvert `scrape_targets`-element
+  med `retailer: "extraoptical"` siden `default_source` der er
+  `affiliate_feed`, ikke `scraper` -- et slikt element gjør ingenting, bare
+  villeder senere lesere. Ikke legg extraoptical inn i scrape_targets.
+
+- **24 nye kontaktlinse-produkter lagt til (2026-08-14)**, alle produkter
+  ExtraOptical-feeden dekket som vi ikke hadde i katalogen fra før (Acuvue
+  Moist Multifocal, Acuvue Oasys 1-Day for Astigmatism, Dailies
+  AquaComfort Plus i Multifokal/Torisk/180-pakning, Dailies Total1
+  180-pakning, Focus Dailies 180-pakning, hele Proclear 1 Day-serien,
+  Proclear Multifocal/Multifocal Toric/Multifocal XR/Toric XR, SofLens
+  38/Multifocal/Daily Disposable for Astigmatism, Biofinity Multifocal
+  Toric, Biofinity XR Toric). De fleste fikk i tillegg Lenson+Lensway
+  verifisert via samme bulk-listeteknikk som tidligere (paginert
+  `/no/kontaktlinser/?_page=0..13`, ~292 unike produkter) -- IKKE
+  Interoptik/Brilleland/Synsam, det er ikke gjort for disse 24 ennå.
+  **Kritisk funn underveis:** Lenson/Lensway sin produkt-id 4244
+  ("biofinity-xr-lens-4244"), som det EKSISTERENDE `biofinity-xr-6pk`
+  brukte, er faktisk en 3-pakning ("Biofinity XR 3 stk/pk", bekreftet i
+  sidetittelen) -- IKKE en 6-pakning. Lenson/Lensway fører tilsynelatende
+  ikke Biofinity XR i 6-pakning i det hele tatt (kun ett oppslag i hele
+  katalogen deres). `biofinity-xr-6pk` sine lenson/lensway scrape_targets
+  er fjernet (står nå med `[]` derfra, men har fortsatt et gyldig
+  ExtraOptical-tilbud), og selve id 4244 er flyttet til det NYE
+  `biofinity-xr-3pk`-produktet i stedet, sammen med Lensit sin
+  `biofinity-xr-1`-variant (`variant: "3"`) som opprinnelig ble fjernet fra
+  6-pack-produktet i Lensit-variant-fiksen tidligere samme dag. Sjekk
+  pakningsstørrelse i selve sidetittelen/-teksten før du kobler en
+  Lenson/Lensway-id til et produkt -- produktnavnet i deres analytics-blob
+  (`universalAnalyticsInfo`) inneholder IKKE pakningsstørrelse, bare
+  produktsiden selv gjør.
+  Tre opprinnelig uklare ExtraOptical-feedrader ble oppklart ved å lese
+  description-feltet og destinasjons-URL-en i tillegg til id/title (som
+  motsa hverandre i title-feltet alene): "MyDay 1 Day Toric 30 stk" (id) →
+  faktisk MyDay, ikke Biomedics som title feilaktig sa → `myday-toric-30pk`.
+  "PureVision 6 stk-2" (id) → faktisk vanlig PureVision, ikke "PureVision 2"
+  som title feilaktig la til → `purevision-6pk`. "PureVision 2 6 stk" (id)
+  → bekreftet ekte PureVision2 HD (samme specs som vårt eksisterende
+  `purevision2-6pk`) → `purevision2-6pk`.
+  `_pack_size_from_id()` i `render_templates.py` generaliserte
+  søsken-kryssreferansen (tidligere hardkodet til kun 30/90-par) til å finne
+  NÆRMESTE søsken i en hvilken som helst pakningsstørrelse -- nødvendig nå
+  som Biofinity XR har et 3/6-par og Dailies AquaComfort Plus har et
+  30/90/180-triplett.
 
 ## Arbeidsspråk og autorisasjon
 

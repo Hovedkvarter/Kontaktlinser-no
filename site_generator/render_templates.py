@@ -550,6 +550,20 @@ def render_offer_card(o: dict, retailer: str) -> str:
 </div>"""
 
 
+def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
+    """Plukker ut ('produkt-stamme', pakningsstørrelse) fra en id som slutter
+    på f.eks. '-30pk' eller '-3pk'. Brukes til å finne søsken i andre
+    pakningsstørrelser uten å hardkode hvilke størrelser som finnes -- samme
+    produkt kan ha 2 eller 3 søsken (f.eks. Dailies AquaComfort Plus i
+    30/90/180-pakning)."""
+    if not product_id.endswith("pk"):
+        return None
+    stem, sep, size_part = product_id[:-2].rpartition("-")
+    if not sep or not size_part.isdigit():
+        return None
+    return stem, int(size_part)
+
+
 def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
@@ -557,12 +571,19 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     image_url = pick_product_image(product["offers"])
 
     pack_size_callout = ""
-    pack_size = 30 if product["id"].endswith("-30pk") else (90 if product["id"].endswith("-90pk") else None)
-    if pack_size and best and products_by_id:
-        sibling_pack_size = 90 if pack_size == 30 else 30
-        sibling_id = product["id"][: -len(f"-{pack_size}pk")] + f"-{sibling_pack_size}pk"
-        sibling = products_by_id.get(sibling_id)
-        if sibling:
+    parsed = _pack_size_from_id(product["id"])
+    if parsed and best and products_by_id:
+        base_stem, pack_size = parsed
+        siblings = []
+        for pid, p in products_by_id.items():
+            if pid == product["id"]:
+                continue
+            p_parsed = _pack_size_from_id(pid)
+            if p_parsed and p_parsed[0] == base_stem:
+                siblings.append((p_parsed[1], p))
+        if siblings:
+            siblings.sort(key=lambda s: abs(s[0] - pack_size))
+            sibling_pack_size, sibling = siblings[0]
             sibling_offers = reconcile_product(sibling["offers"], now)
             sibling_eligible = [o for o in sibling_offers if o["in_stock"] and not o["is_stale"]]
             sibling_best = min(sibling_eligible, key=lambda o: o["total"], default=None)

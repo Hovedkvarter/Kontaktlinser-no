@@ -1038,16 +1038,7 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": [
-        {
-          "retailer": "lenson",
-          "slug": "biofinity-xr-lens-4244"
-        },
-        {
-          "retailer": "lensway",
-          "slug": "biofinity-xr-lens-4244"
-        }
-      ]
+      "scrape_targets": []
     },
     {
       "id": "avaira-vitality-6pk",
@@ -3686,6 +3677,477 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "ultra-one-day-lens-10837"},
         {"retailer": "lensway", "slug": "ultra-one-day-lens-10837"}
+      ]
+    },
+    {
+      "id": "acuvue-moist-multifocal-30pk",
+      "slug": "moist-multifocal-30-pack",
+      "name": "1-Day Acuvue Moist Multifocal 30-pack",
+      "description": "Multifokal endagslinse med LACREON-fuktighetsteknologi.",
+      "long_description": "1-Day Acuvue Moist Multifocal er den progressive dagslinsen i Moist-serien, samme etafilcon A-materiale og LACREON-teknologi som standard Moist, tilpasset alderssyn.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Etafilcon A med LACREON-teknologi"],
+        ["Vanninnhold", "58 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5752"},
+        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5752"}
+      ]
+    },
+    {
+      "id": "acuvue-moist-multifocal-90pk",
+      "slug": "moist-multifocal-90-pack",
+      "name": "1-Day Acuvue Moist Multifocal 90-pack",
+      "description": "Multifokal endagslinse med LACREON-fuktighetsteknologi.",
+      "long_description": "1-Day Acuvue Moist Multifocal er den progressive dagslinsen i Moist-serien, samme etafilcon A-materiale og LACREON-teknologi som standard Moist, tilpasset alderssyn.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Etafilcon A med LACREON-teknologi"],
+        ["Vanninnhold", "58 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5753"},
+        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5753"}
+      ]
+    },
+    {
+      "id": "acuvue-oasys-1day-astigmatism-30pk",
+      "slug": "oasys-1-day-for-astigmatism-30-pack",
+      "name": "Acuvue Oasys 1-Day for Astigmatism 30-pack",
+      "description": "Torisk endagslinse fra Acuvue.",
+      "long_description": "Acuvue Oasys 1-Day for Astigmatism er den toriske dagslinsen i Oasys 1-Day-serien, adskilt fra den vanlige (månedlige) Acuvue Oasys for Astigmatism -- denne byttes hver dag.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Senofilcon A (silikonhydrogel)"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"},
+        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"}
+      ]
+    },
+    {
+      "id": "acuvue-oasys-1day-astigmatism-90pk",
+      "slug": "oasys-1-day-for-astigmatism-90-pack",
+      "name": "Acuvue Oasys 1-Day for Astigmatism 90-pack",
+      "description": "Torisk endagslinse fra Acuvue.",
+      "long_description": "Acuvue Oasys 1-Day for Astigmatism er den toriske dagslinsen i Oasys 1-Day-serien, adskilt fra den vanlige (månedlige) Acuvue Oasys for Astigmatism -- denne byttes hver dag.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Senofilcon A (silikonhydrogel)"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"},
+        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"}
+      ]
+    },
+    {
+      "id": "biofinity-multifocal-toric-3pk",
+      "slug": "multifocal-toric-3-pack",
+      "name": "Biofinity Multifocal Toric 3-pack",
+      "description": "Multifokal og torisk månedslinse fra CooperVision.",
+      "long_description": "Biofinity Multifocal Toric kombinerer Biofinitys progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Comfilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "48 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal og torisk"]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "biofinity-xr-toric-3pk",
+      "slug": "xr-toric-3-pack",
+      "name": "Biofinity XR Toric 3-pack",
+      "description": "Torisk månedslinse for ekstreme styrker fra CooperVision.",
+      "long_description": "Biofinity XR Toric kombinerer Biofinity XR sitt utvidede styrkeområde med et torisk design for astigmatisme, samme comfilcon A-materiale som standard Biofinity.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Comfilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "48 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "biofinity-xr-toric-lens-8745"},
+        {"retailer": "lensway", "slug": "biofinity-xr-toric-lens-8745"}
+      ]
+    },
+    {
+      "id": "biofinity-xr-3pk",
+      "slug": "xr-3-pack",
+      "name": "Biofinity XR 3-pack",
+      "description": "Månedslinse for ekstreme styrker.",
+      "long_description": "Biofinity XR er CooperVisions utvidede styrkeserie av Biofinity, samme comfilcon A-materiale men produsert for høyere plusstyrker og minusstyrker enn standardserien dekker. Nyttig for deg med sterk brytningsfeil som ikke fås i vanlig Biofinity.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "manedslinser",
+      "specs": [
+        ["Materiale", "Comfilcon A (silikonhydrogel)"],
+        ["Vanninnhold", "48 %"],
+        ["Basiskurve", "8,7 mm"],
+        ["Diameter", "14,5 mm"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "biofinity-xr-lens-4244"},
+        {"retailer": "lensway", "slug": "biofinity-xr-lens-4244"},
+        {"retailer": "lensit", "slug": "biofinity-xr-1", "variant": "3"}
+      ]
+    },
+    {
+      "id": "dailies-aquacomfort-plus-180pk",
+      "slug": "dailies-aquacomfort-plus-180-pack",
+      "name": "Dailies AquaComfort Plus 180-pack",
+      "description": "Dagslinse fra Alcon.",
+      "long_description": "Dailies AquaComfort Plus er Alcons rimeligere hydrogel-dagslinse i nelfilcon A, med 69 % vanninnhold. Storpakning for deg som vet du kommer til å bruke linsen lenge.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Basiskurve", "8,7 mm"],
+        ["Diameter", "14,0 mm"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-lens-9612"},
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-lens-9612"}
+      ]
+    },
+    {
+      "id": "dailies-aquacomfort-plus-multifocal-30pk",
+      "slug": "dailies-aquacomfort-plus-multifocal-30-pack",
+      "name": "Dailies AquaComfort Plus Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra Alcon.",
+      "long_description": "Dailies AquaComfort Plus Multifocal er den progressive dagslinsen i AquaComfort Plus-serien, samme nelfilcon A-materiale som standardversjonen, tilpasset alderssyn.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"},
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"}
+      ]
+    },
+    {
+      "id": "dailies-aquacomfort-plus-multifocal-90pk",
+      "slug": "dailies-aquacomfort-plus-multifocal-90-pack",
+      "name": "Dailies AquaComfort Plus Multifocal 90-pack",
+      "description": "Multifokal dagslinse fra Alcon.",
+      "long_description": "Dailies AquaComfort Plus Multifocal er den progressive dagslinsen i AquaComfort Plus-serien, samme nelfilcon A-materiale som standardversjonen, tilpasset alderssyn.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"},
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"}
+      ]
+    },
+    {
+      "id": "dailies-aquacomfort-plus-toric-30pk",
+      "slug": "dailies-aquacomfort-plus-toric-30-pack",
+      "name": "Dailies AquaComfort Plus Toric 30-pack",
+      "description": "Torisk dagslinse fra Alcon.",
+      "long_description": "Dailies AquaComfort Plus Toric er den toriske dagslinsen i AquaComfort Plus-serien, samme nelfilcon A-materiale som standardversjonen, formet for astigmatisme.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-3978"},
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-3978"}
+      ]
+    },
+    {
+      "id": "dailies-aquacomfort-plus-toric-90pk",
+      "slug": "dailies-aquacomfort-plus-toric-90-pack",
+      "name": "Dailies AquaComfort Plus Toric 90-pack",
+      "description": "Torisk dagslinse fra Alcon.",
+      "long_description": "Dailies AquaComfort Plus Toric er den toriske dagslinsen i AquaComfort Plus-serien, samme nelfilcon A-materiale som standardversjonen, formet for astigmatisme.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-6465"},
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-6465"}
+      ]
+    },
+    {
+      "id": "dailies-total1-180pk",
+      "slug": "dailies-total1-180-pack",
+      "name": "Dailies Total1 180-pack",
+      "description": "Dagslinse fra Alcon med vanngradient.",
+      "long_description": "Dailies Total1 er Alcons dagslinse med en vanngradient-design: en tørrere kjerne (delefilcon A) omgitt av et nesten rent vann-lag ytterst, ment å redusere friksjon mot øyelokket. Storpakning for deg som vet du kommer til å bruke linsen lenge.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Delefilcon A med vanngradient"],
+        ["Vanninnhold", "33 % i kjernen, opp mot 100 % på overflaten"],
+        ["Basiskurve", "8,5 mm"],
+        ["Diameter", "14,1 mm"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "dailies-total1-lens-9619"},
+        {"retailer": "lensway", "slug": "dailies-total1-lens-9619"}
+      ]
+    },
+    {
+      "id": "focus-dailies-180pk",
+      "slug": "focus-dailies-180-pack",
+      "name": "Focus Dailies 180-pack",
+      "description": "Dagslinse fra Alcon.",
+      "long_description": "Focus Dailies er en av Alcons eldre, rimeligere dagslinser i nelfilcon A, med høyt vanninnhold. Storpakning for deg som vet du kommer til å bruke linsen lenge.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Nelfilcon A (hydrogel)"],
+        ["Vanninnhold", "69 %"],
+        ["Basiskurve", "8,6 mm"],
+        ["Diameter", "13,8 mm"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "proclear-1day-30pk",
+      "slug": "1-day-30-pack",
+      "name": "Proclear 1 Day 30-pack",
+      "description": "Dagslinse fra CooperVision.",
+      "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "proclear-1-day-lens-71"},
+        {"retailer": "lensway", "slug": "proclear-1-day-lens-71"}
+      ]
+    },
+    {
+      "id": "proclear-1day-90pk",
+      "slug": "1-day-90-pack",
+      "name": "Proclear 1 Day 90-pack",
+      "description": "Dagslinse fra CooperVision.",
+      "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "proclear-1-day-lens-258"},
+        {"retailer": "lensway", "slug": "proclear-1-day-lens-258"}
+      ]
+    },
+    {
+      "id": "proclear-1day-multifocal-30pk",
+      "slug": "1-day-multifocal-30-pack",
+      "name": "Proclear 1 Day Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra CooperVision.",
+      "long_description": "Proclear 1 Day Multifocal er den progressive dagslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "proclear-1-day-multifocal-lens-2077"},
+        {"retailer": "lensway", "slug": "proclear-1-day-multifocal-lens-2077"}
+      ]
+    },
+    {
+      "id": "proclear-multifocal-6pk",
+      "slug": "multifocal-6-pack",
+      "name": "Proclear Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra CooperVision.",
+      "long_description": "Proclear Multifocal er den progressive månedslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "proclear-multifocal-lens-421"},
+        {"retailer": "lensway", "slug": "proclear-multifocal-lens-421"}
+      ]
+    },
+    {
+      "id": "proclear-multifocal-toric-3pk",
+      "slug": "multifocal-toric-3-pack",
+      "name": "Proclear Multifocal Toric 3-pack",
+      "description": "Multifokal og torisk månedslinse fra CooperVision.",
+      "long_description": "Proclear Multifocal Toric kombinerer Proclears progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal og torisk"]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "proclear-multifocal-xr-3pk",
+      "slug": "multifocal-xr-3-pack",
+      "name": "Proclear Multifocal XR 3-pack",
+      "description": "Multifokal månedslinse for ekstreme styrker fra CooperVision.",
+      "long_description": "Proclear Multifocal XR er den progressive varianten av Proclears utvidede styrkeserie, for deg med sterk brytningsfeil og alderssyn som ikke dekkes av standard Multifocal.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "proclear-toric-xr-3pk",
+      "slug": "toric-xr-3-pack",
+      "name": "Proclear Toric XR 3-pack",
+      "description": "Torisk månedslinse for ekstreme styrker fra CooperVision.",
+      "long_description": "Proclear Toric XR er den toriske varianten av Proclears utvidede styrkeserie, for deg med sterk brytningsfeil og astigmatisme som ikke dekkes av standard Toric.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
+        ["Vanninnhold", "60 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "soflens-38-6pk",
+      "slug": "38-6-pack",
+      "name": "SofLens 38 6-pack",
+      "description": "Månedslinse fra Bausch + Lomb.",
+      "long_description": "SofLens 38 er en av de eldre, rimeligere månedslinsene fra Bausch + Lomb, oppkalt etter sitt vanninnhold.",
+      "brand_slug": "soflens",
+      "brand_label": "SofLens",
+      "category_slug": "manedslinser",
+      "specs": [
+        ["Vanninnhold", "38 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Sfærisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "soflens-38-lens-85"},
+        {"retailer": "lensway", "slug": "soflens-38-lens-85"}
+      ]
+    },
+    {
+      "id": "soflens-daily-disposable-astigmatism-30pk",
+      "slug": "daily-disposable-for-astigmatism-30-pack",
+      "name": "SofLens Daily Disposable for Astigmatism 30-pack",
+      "description": "Torisk dagslinse fra Bausch + Lomb.",
+      "long_description": "SofLens Daily Disposable for Astigmatism er den toriske dagslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som standard SofLens Daily Disposable, formet for astigmatisme.",
+      "brand_slug": "soflens",
+      "brand_label": "SofLens",
+      "category_slug": "toriske-linser",
+      "specs": [
+        ["Materiale", "Hilafilcon B"],
+        ["Vanninnhold", "59 %"],
+        ["Brukstid", "Dagslinse"],
+        ["Linsetype", "Torisk"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"},
+        {"retailer": "lensway", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"}
+      ]
+    },
+    {
+      "id": "soflens-multifocal-6pk",
+      "slug": "multifocal-6-pack",
+      "name": "SofLens Multifocal 6-pack",
+      "description": "Multifokal månedslinse fra Bausch + Lomb.",
+      "long_description": "SofLens Multifocal er den progressive månedslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som SofLens 59, tilpasset alderssyn.",
+      "brand_slug": "soflens",
+      "brand_label": "SofLens",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        ["Materiale", "Hilafilcon B"],
+        ["Vanninnhold", "59 %"],
+        ["Brukstid", "Månedslinse"],
+        ["Linsetype", "Multifokal"]
+      ],
+      "scrape_targets": [
+        {"retailer": "lenson", "slug": "soflens-multifocal-lens-252"},
+        {"retailer": "lensway", "slug": "soflens-multifocal-lens-252"}
       ]
     }
   ]
