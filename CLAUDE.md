@@ -373,6 +373,29 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   overlapper (f.eks. et push-trigget bygg og en manuell kjøring rett
   etter hverandre, som skjedde og feilet 2026-08-14 før denne fiksen).
 
+- **Nok en pakningsstørrelse-bug funnet og fikset (2026-08-14), denne
+  gangen hos Brilleland.** Bruker oppdaget at Biofinity Multifocal 6-pack
+  viste Brilleland som "laveste pris" på 431 kr -- vesentlig lavere enn de
+  andre forhandlernes ~660-890 kr. Årsak: Brilleland selger produktet under
+  sitt eget private label-navn ("iWear Oxygen Presbyopia", bekrefter for
+  øvrig lenspricer.no sin private label-mapping uavhengig), og
+  scrape_targets-slugen vår (`biofinity-multifocal-cd/biofinity-multifocal`)
+  pekte på 3-pack-varianten, ikke 6-pack -- Brilleland sin url-struktur for
+  "søk på originalmerke" ser ut til å kunne lande på feil pakningsstørrelse
+  når flere finnes under samme private label-linje, uten at slugen selv
+  avslører det (INGEN pakningsstørrelse i selve slug-teksten, i motsetning
+  til de fleste andre Brilleland-slugene som har f.eks. `-30-pack2` eller
+  `-6-stk-pk` bakt inn).
+  Revidert ALLE 12 Brilleland scrape_targets uten pakningsstørrelse i selve
+  slug-teksten (høyest risiko-mønster) ved å faktisk besøke hver side og
+  lese av "X PACK"-teksten. Fant én til med samme feil: Biofinity Toric
+  6-pack pekte på "iWear Oxygen Astigmatism 3 pack". Begge rettet til de
+  ekte 6-pack-URL-ene (`iwear/iwear-oxygen-presbyopia-6-pack` og
+  `iwear/iwear-oxygen-astigmatism-6-pack`). De resterende 10 stemte.
+  **Regel fremover:** en Brilleland-slug uten eksplisitt pakningsstørrelse
+  i selve teksten er IKKE til å stole på -- bekreft alltid mot faktisk
+  sidetekst ("X PACK") før den brukes, ikke bare mot at siden laster.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
