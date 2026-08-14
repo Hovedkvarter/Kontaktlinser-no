@@ -42,7 +42,17 @@ function __loadGTM() {
       {"@type": "ListItem", "position": 9, "url": "https://kontaktlinser.no/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/", "name": "ULTRA for Presbyopia 6-pack"},
       {"@type": "ListItem", "position": 10, "url": "https://kontaktlinser.no/kontaktlinser/total30/total30-multifocal-6-pack/", "name": "TOTAL30 Multifocal 6-pack"},
       {"@type": "ListItem", "position": 11, "url": "https://kontaktlinser.no/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/", "name": "Biotrue ONEday for Presbyopia 90-pack"},
-      {"@type": "ListItem", "position": 12, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/", "name": "Dailies Total1 Multifocal 90-pack"}]}
+      {"@type": "ListItem", "position": 12, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/", "name": "Dailies Total1 Multifocal 90-pack"},
+      {"@type": "ListItem", "position": 13, "url": "https://kontaktlinser.no/kontaktlinser/acuvue/moist-multifocal-30-pack/", "name": "1-Day Acuvue Moist Multifocal 30-pack"},
+      {"@type": "ListItem", "position": 14, "url": "https://kontaktlinser.no/kontaktlinser/acuvue/moist-multifocal-90-pack/", "name": "1-Day Acuvue Moist Multifocal 90-pack"},
+      {"@type": "ListItem", "position": 15, "url": "https://kontaktlinser.no/kontaktlinser/biofinity/multifocal-toric-3-pack/", "name": "Biofinity Multifocal Toric 3-pack"},
+      {"@type": "ListItem", "position": 16, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/", "name": "Dailies AquaComfort Plus Multifocal 30-pack"},
+      {"@type": "ListItem", "position": 17, "url": "https://kontaktlinser.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/", "name": "Dailies AquaComfort Plus Multifocal 90-pack"},
+      {"@type": "ListItem", "position": 18, "url": "https://kontaktlinser.no/kontaktlinser/proclear/1-day-multifocal-30-pack/", "name": "Proclear 1 Day Multifocal 30-pack"},
+      {"@type": "ListItem", "position": 19, "url": "https://kontaktlinser.no/kontaktlinser/proclear/multifocal-6-pack/", "name": "Proclear Multifocal 6-pack"},
+      {"@type": "ListItem", "position": 20, "url": "https://kontaktlinser.no/kontaktlinser/proclear/multifocal-toric-3-pack/", "name": "Proclear Multifocal Toric 3-pack"},
+      {"@type": "ListItem", "position": 21, "url": "https://kontaktlinser.no/kontaktlinser/proclear/multifocal-xr-3-pack/", "name": "Proclear Multifocal XR 3-pack"},
+      {"@type": "ListItem", "position": 22, "url": "https://kontaktlinser.no/kontaktlinser/soflens/multifocal-6-pack/", "name": "SofLens Multifocal 6-pack"}]}
   ]
 }</script>
 <style>
@@ -177,24 +187,56 @@ a { color: inherit; }
 
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
-    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="purevision">Purevision</button><button class="chip" data-brand="total30">Total30</button><button class="chip" data-brand="ultra">Ultra</button>
+    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="proclear">Proclear</button><button class="chip" data-brand="purevision">Purevision</button><button class="chip" data-brand="soflens">Soflens</button><button class="chip" data-brand="total30">Total30</button><button class="chip" data-brand="ultra">Ultra</button>
   </div>
 
   <div class="list-header">
-    <h2 id="result-count">12 produkter</h2>
+    <h2 id="result-count">22 produkter</h2>
     <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--aqua);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/" data-brand="biotrue">
+    <a class="product-card" href="/kontaktlinser/acuvue/moist-multifocal-30-pack/" data-brand="acuvue">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg" alt="1-Day Acuvue Moist Multifocal 30-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">1-Day Acuvue Moist Multifocal 30-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">280 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/" data-brand="biotrue">
   <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biotrue_ONEday_for_Presbyopia_30pk.jpg" alt="Biotrue ONEday for Presbyopia 30-pack" loading="lazy"></div>
   <div class="product-main">
     <div class="product-name">Biotrue ONEday for Presbyopia 30-pack</div>
     <div class="product-meta">Biotrue</div>
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">322 kr</div><div class="retailer-count">6 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/proclear/1-day-multifocal-30-pack/" data-brand="proclear">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_1_day_Multifocal_30pk.jpg" alt="Proclear 1 Day Multifocal 30-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Proclear 1 Day Multifocal 30-pack</div>
+    <div class="product-meta">Proclear</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">326 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/" data-brand="dailies">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg" alt="Dailies AquaComfort Plus Multifocal 30-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Dailies AquaComfort Plus Multifocal 30-pack</div>
+    <div class="product-meta">Dailies</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">369 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/proclear/multifocal-6-pack/" data-brand="proclear">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_6pk.jpg" alt="Proclear Multifocal 6-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Proclear Multifocal 6-pack</div>
+    <div class="product-meta">Proclear</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">418 kr</div><div class="retailer-count">3 forhandlere</div></div>
 </a>
 <a class="product-card" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/" data-brand="dailies">
   <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg" alt="Dailies Total1 Multifocal 30-pack" loading="lazy"></div>
@@ -227,6 +269,14 @@ a { color: inherit; }
     <div class="product-meta">Acuvue</div>
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">449 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/soflens/multifocal-6-pack/" data-brand="soflens">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/S/o/SofLens_Multi-Focal_6pk.jpg" alt="SofLens Multifocal 6-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">SofLens Multifocal 6-pack</div>
+    <div class="product-meta">SofLens</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">523 kr</div><div class="retailer-count">3 forhandlere</div></div>
 </a>
 <a class="product-card" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/" data-brand="purevision">
   <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/u/PureVision_Multi-Focal_6pk.jpg" alt="PureVision Multifocal 6-pack" loading="lazy"></div>
@@ -268,6 +318,14 @@ a { color: inherit; }
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">699 kr</div><div class="retailer-count">4 forhandlere</div></div>
 </a>
+<a class="product-card" href="/kontaktlinser/acuvue/moist-multifocal-90-pack/" data-brand="acuvue">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg" alt="1-Day Acuvue Moist Multifocal 90-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">1-Day Acuvue Moist Multifocal 90-pack</div>
+    <div class="product-meta">Acuvue</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">727 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
 <a class="product-card" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/" data-brand="biotrue">
   <div class="product-thumb">BI</div>
   <div class="product-main">
@@ -275,6 +333,38 @@ a { color: inherit; }
     <div class="product-meta">Biotrue</div>
   </div>
   <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">811 kr</div><div class="retailer-count">1 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/proclear/multifocal-toric-3-pack/" data-brand="proclear">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg" alt="Proclear Multifocal Toric 3-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Proclear Multifocal Toric 3-pack</div>
+    <div class="product-meta">Proclear</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">895 kr</div><div class="retailer-count">1 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/proclear/multifocal-xr-3-pack/" data-brand="proclear">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Proclear Multifocal XR 3-pack</div>
+    <div class="product-meta">Proclear</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">895 kr</div><div class="retailer-count">1 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/" data-brand="dailies">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/D/a/Dailies_Aquacomfort_Plus_Multifocal_90pk.jpg" alt="Dailies AquaComfort Plus Multifocal 90-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Dailies AquaComfort Plus Multifocal 90-pack</div>
+    <div class="product-meta">Dailies</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">999 kr</div><div class="retailer-count">3 forhandlere</div></div>
+</a>
+<a class="product-card" href="/kontaktlinser/biofinity/multifocal-toric-3-pack/" data-brand="biofinity">
+  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" loading="lazy"></div>
+  <div class="product-main">
+    <div class="product-name">Biofinity Multifocal Toric 3-pack</div>
+    <div class="product-meta">Biofinity</div>
+  </div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">1 095 kr</div><div class="retailer-count">1 forhandlere</div></div>
 </a>
 <a class="product-card" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/" data-brand="dailies">
   <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" loading="lazy"></div>
