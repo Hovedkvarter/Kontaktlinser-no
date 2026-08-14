@@ -719,5 +719,103 @@
       "price": 523.0,
       "store": "Lenson"
     }
+  ],
+  "renu-multipurpose-60ml": [
+    {
+      "date": "2026-08-14",
+      "price": 39.0,
+      "store": "Lenson"
+    }
+  ],
+  "renu-multipurpose-240ml": [
+    {
+      "date": "2026-08-14",
+      "price": 79.0,
+      "store": "Lenson"
+    }
+  ],
+  "renu-multipurpose-360ml": [
+    {
+      "date": "2026-08-14",
+      "price": 99.0,
+      "store": "Lenson"
+    }
+  ],
+  "optifree-puremoist-90ml": [
+    {
+      "date": "2026-08-14",
+      "price": 75.0,
+      "store": "Extra Optical"
+    }
+  ],
+  "optifree-puremoist-300ml": [
+    {
+      "date": "2026-08-14",
+      "price": 129.0,
+      "store": "Lenson"
+    }
+  ],
+  "optifree-express-355ml": [
+    {
+      "date": "2026-08-14",
+      "price": 99.0,
+      "store": "Lenson"
+    }
+  ],
+  "optifree-express-120ml": [
+    {
+      "date": "2026-08-14",
+      "price": 65.0,
+      "store": "Extra Optical"
+    }
+  ],
+  "aosept-plus-360ml": [
+    {
+      "date": "2026-08-14",
+      "price": 159.0,
+      "store": "Lenson"
+    }
+  ],
+  "easysept-360ml": [
+    {
+      "date": "2026-08-14",
+      "price": 149.0,
+      "store": "Lenson"
+    }
+  ],
+  "easysept-120ml": [
+    {
+      "date": "2026-08-14",
+      "price": 85.0,
+      "store": "Lenson"
+    }
+  ],
+  "solocare-aqua-360ml": [
+    {
+      "date": "2026-08-14",
+      "price": 115.0,
+      "store": "Lenson"
+    }
+  ],
+  "biotrue-solution-300ml": [
+    {
+      "date": "2026-08-14",
+      "price": 129.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-refresh-250ml": [
+    {
+      "date": "2026-08-14",
+      "price": 39.0,
+      "store": "Lenson"
+    }
+  ],
+  "swati-lens-solution-100ml": [
+    {
+      "date": "2026-08-14",
+      "price": 139.0,
+      "store": "Lenson"
+    }
   ]
 }
