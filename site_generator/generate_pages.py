@@ -48,7 +48,9 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     lens_products = [p for p in catalog["products"] if "category_slug" in p]
     solution_products = [p for p in catalog["products"] if "category_slug" not in p]
 
-    home_html = render_home_page({**catalog, "products": lens_products}, now)
+    private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"] if PRIVATE_LABELS_PATH.exists() else []
+
+    home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
 
@@ -107,8 +109,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         write_file(out_path, html)
         print(f"  merke    -> /merke/{brand_slug}/")
 
-    if PRIVATE_LABELS_PATH.exists():
-        private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"]
+    if private_labels:
         for label in private_labels:
             real_product = products_by_id.get(label["real_product_id"])
             if real_product is None:

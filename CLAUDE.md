@@ -610,6 +610,32 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     (antyder direktekjøp) til fordel for "Billigste pris"/"Se priser"-
     rammingen brukeren selv landet på -- konsistent med at vi eksplisitt
     ikke selger noe selv.
+- **Private label-produkter nå søkbare fra forsiden + mindre tekst før
+  pris (2026-08-15):** brukeren rapporterte at private label-sidene
+  (`/private-label/{slug}/`, 46 stk) ikke dukket opp i søket på forsiden,
+  og at det var for mye forklaringstekst før selve prissammenligningen
+  på mobil.
+  - **Søk:** Forsidens søkefelt søkte kun i `catalog["products"]`
+    (ekte katalogprodukter) -- private label-navn fantes ingen steder i
+    søkeindeksen. Fikset ved å legge et skjult (`hidden`-attributt,
+    fungerer uten CSS) `#private-label-search-data`-element på
+    forsiden med alle 46 navnene, og utvide søkeforslag-logikken
+    (`renderSuggestions()`) til å søke i BÅDE ekte produktkort OG disse.
+    Bevisst KUN i forslagsboksen (dropdown mens man skriver), IKKE i
+    "Alle linser"-rutenettet -- å vise 46 private label-kort blandet
+    inn blant de ekte produktene der ville dupli­sert/forvirret, siden
+    de peker til nøyaktig samme fysiske vare som allerede vises under
+    sitt ekte navn. `render_home_page()` tar nå en `private_labels`-
+    parameter; `generate_pages.py` laster `private_labels.json` én gang
+    tidligere i `build()` og gjenbruker den (fjernet dobbel innlesing).
+  - **Rekkefølge på private label-sidene:** flyttet prissammenligningen
+    (`best_band` + tilbudslisten) opp til rett under H1 -- de to
+    forklarings-/advarselsboksene ("hvorfor har den to navn?" og
+    fraskrivelsen) kommer nå ETTER prisen, ikke før. Samme prinsipp som
+    "søkefeltet skal være først synlig" fra tidligere denne økten:
+    hovedfunksjonen (sammenligne pris) skal ikke kreve at brukeren
+    scroller forbi flere avsnitt tekst på mobil først. All tekst er
+    fortsatt der, uendret, bare i en bedre rekkefølge.
 
 ## Arbeidsspråk og autorisasjon
 

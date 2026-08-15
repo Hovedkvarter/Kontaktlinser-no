@@ -952,8 +952,21 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 </html>"""
 
 
-def render_home_page(catalog: dict, now: datetime | None = None) -> str:
+def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
+
+    def render_private_label_search_item(label: dict) -> str:
+        search_key = f'{label["name"]} {label["chain"]}'.lower()
+        href = f'/private-label/{label["slug"]}/'
+        return f"""<a class="product-card" href="{escape(href)}" data-search="{escape(search_key)}">
+  <div class="product-thumb">{escape(label["chain"][:2].upper())}</div>
+  <div class="product-main">
+    <div class="product-name">{escape(label["name"])}</div>
+    <div class="product-meta">{escape(label["chain"])} sitt eget merke</div>
+  </div>
+</a>"""
+
+    private_label_search_html = "\n".join(render_private_label_search_item(l) for l in (private_labels or []))
 
     def render_lens_card(p: dict) -> str:
         offers = reconcile_product(p["offers"], now)
@@ -1185,6 +1198,10 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
   </div>
   <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se en kategori over.</p>
 
+  <div id="private-label-search-data" hidden aria-hidden="true">
+    {private_label_search_html}
+  </div>
+
   <div class="section-header">
     <h2>Guider</h2>
   </div>
@@ -1213,6 +1230,12 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
   const cards = Array.from(grid.querySelectorAll('.product-card'));
   const noResults = document.getElementById('no-results');
   const suggestions = document.getElementById('search-suggestions');
+  // Optikerkjedenes egne merkenavn (f.eks. "iWear Oxygen") er ikke egne
+  // katalogprodukter -- de er kun søkbare via forslagsboksen under
+  // søkefeltet, ikke i "Alle linser"-rutenettet, siden de peker til
+  // samme fysiske vare som allerede vises der under sitt ekte navn.
+  const privateLabelCards = Array.from(document.querySelectorAll('#private-label-search-data .product-card'));
+  const allSearchable = cards.concat(privateLabelCards);
 
   function renderSuggestions(q) {{
     if (!q) {{
@@ -1220,7 +1243,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
       suggestions.innerHTML = '';
       return;
     }}
-    const matches = cards.filter(card => card.dataset.search.includes(q)).slice(0, 8);
+    const matches = allSearchable.filter(card => card.dataset.search.includes(q)).slice(0, 8);
     if (matches.length === 0) {{
       suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
       suggestions.style.display = 'block';
@@ -2229,16 +2252,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     <div class="hero-copy">
       <div class="kicker">{escape(chain)} sitt eget merkenavn</div>
       <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
-      <p>{escape(chain)} selger denne linsen under sitt eget navn, {escape(private_name)}. Det er ikke en egen linsetype – det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i {escape(chain)} sin egen innpakning.</p>
+      <p>{escape(chain)} selger denne linsen under sitt eget navn, {escape(private_name)}. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning.</p>
     </div>
-  </div>
-
-  <div class="private-label-explainer">
-    <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for {escape(chain)}.</p>
-  </div>
-
-  <div class="private-label-caveat">
-    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
   </div>
 
   <h2>Sammenlign priser på {escape(real_name)}</h2>
@@ -2247,6 +2262,14 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     {offer_cards_html}
   </div>
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
+
+  <div class="private-label-explainer">
+    <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for {escape(chain)}.</p>
+  </div>
+
+  <div class="private-label-caveat">
+    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
+  </div>
 
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
