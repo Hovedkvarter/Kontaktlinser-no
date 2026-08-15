@@ -447,6 +447,18 @@ BRAND_LOGOS = {
 }
 
 
+# Kjedenes egne private label-serier har ikke en egen ordmerke-logo --
+# kun produktbilder av emballasjen (sjekket på brilleland.no/kontaktlinser/
+# iwear 2026-08-15, samme situasjon som flere av BRAND_LOGOS-produsentene
+# over). Bruker derfor kjedens egen logo (som vi allerede har via
+# RETAILER_LOGOS) som visuelt merke, med selve serienavnet som tekst.
+PRIVATE_LABEL_SUBBRANDS = {
+    "Brilleland": "iWear",
+    "Synsam": "EyeQ",
+    "Specsavers": "Easyvision",
+}
+
+
 def _brand_badge(brand_slug: str, brand_label: str) -> tuple[str, str]:
     """Returnerer (ekstra CSS-klasse for badge-sirkelen, innhold i den) -
     logo når vi har en, ellers samme initial-fallback som før."""
@@ -1027,11 +1039,20 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
     def render_private_label_chain_card(chain: str, count: int) -> str:
         n_label = "eget merke" if count == 1 else "egne merker"
+        subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+        logo_entry = RETAILER_LOGOS.get(chain)
+        if logo_entry:
+            filename, dark_bg = logo_entry
+            badge_class = "brand-card-badge has-logo has-logo-dark" if dark_bg else "brand-card-badge has-logo"
+            badge_content = f'<img class="brand-logo-img" src="/static/logos/{filename}" alt="" loading="lazy">'
+        else:
+            badge_class = "brand-card-badge"
+            badge_content = escape(chain[:2].upper())
         return f"""<a class="brand-card" href="/private-label/#{escape(chain.lower())}">
-  <div class="brand-card-badge">{escape(chain[:2].upper())}</div>
+  <div class="{badge_class}">{badge_content}</div>
   <div class="brand-card-info">
-    <div class="brand-card-name">{escape(chain)}</div>
-    <div class="brand-card-count">{count} {n_label}</div>
+    <div class="brand-card-name">{escape(subbrand)}</div>
+    <div class="brand-card-count">{escape(chain)} · {count} {n_label}</div>
   </div>
 </a>"""
 

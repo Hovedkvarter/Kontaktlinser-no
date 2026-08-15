@@ -658,6 +658,18 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   linseprodusenter uten å trenge egen CSS-badge. Lenker til
   `/private-label/#{kjede}` -- lagt til ankere (`id="brilleland"` osv.)
   på oversiktssidens kjede-overskrifter for dette.
+  **Oppdatert samme dag:** brukeren ville heller ha selve serienavnet
+  (iWear/EyeQ/Easyvision) som hovedtekst på kortet, ikke kjedenavnet, og
+  gjerne med logo. Sjekket brilleland.no/kontaktlinser/iwear direkte --
+  ingen egen iWear-logofil finnes der, kun produktbilder av emballasjen
+  (samme situasjon som allerede dokumentert for flere BRAND_LOGOS-
+  produsenter uten egen ordmerke-logo). Løsning: `PRIVATE_LABEL_SUBBRANDS`
+  (nytt dict, Brilleland->iWear, Synsam->EyeQ, Specsavers->Easyvision)
+  gir hovedteksten, mens badge-sirkelen gjenbruker kjedens EGEN logo
+  (fra `RETAILER_LOGOS`, som vi allerede har og bruker andre steder) --
+  nærmeste reelle, lovlige visuelle merke siden serien selv ikke har en.
+  Kjedenavnet står fortsatt som undertekst ("Brilleland · 15 egne
+  merker") slik at koblingen til kjeden ikke går tapt.
 
 ## Arbeidsspråk og autorisasjon
 
