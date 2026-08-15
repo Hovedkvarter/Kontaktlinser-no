@@ -690,6 +690,32 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   `brands`-liste (gjenbruker eksisterende `/merke/{slug}/`-sitemap-URL,
   ingen egen sitemap-fil trengtes). `generate_pages.py` bygger disse
   rett etter de vanlige private label-sidene.
+- **"Topp 6 merker"-dokument avvist, redaksjonell rekkefølge valgt i
+  stedet (2026-08-15):** brukeren la inn nok et AI-generert dokument
+  med kilder ("Topp 6 kontaktlinsemerker i Norge"). Sjekket hver kilde
+  direkte i stedet for å stole på oppsummeringen: Specsavers' 38-40 %
+  markedsandel stemte (bekreftet i retailmagasinet.no-artikkelen), men
+  det er total optikermarkedsandel, ikke bevis for at easyvision er mest
+  brukte LINSEmerke -- et logisk hopp dokumentet selv gjør. Påstanden om
+  at iWear er et fellesmerke for Brilleland OG Interoptik/Synoptik er
+  usann -- kilden (interoptik.no/om-oss) nevner verken iWear eller
+  GrandVision, og vår egen re-verifiserte private_labels.json-data viser
+  at samtlige 15 iWear-produkter er utelukkende Brilleland. EyeQ-kilden
+  (optikerbransjen.no) var en død lenke (404). Fant i stedet en reell,
+  uavhengig norsk kilde (prisradar.no sin klikkbaserte "mest populære"-
+  rangering) som direkte MOTSIER dokumentets rangering -- ingen private
+  label-navn i det hele tatt i deres topp 7, ekte merkenavn dominerer.
+  Prøvde også Google Trends (Norge-filtrert søkeinteresse) for et rent
+  datagrunnlag, men ble konsekvent 429-blokkert (flere forsøk, aldri
+  fikk lastet faktiske tall) -- forkastet som metode, ikke presset videre.
+  **Endelig løsning:** ikke en popularitetspåstand, men et eksplisitt
+  redaksjonelt valg fra brukeren -- de tre nye private label-seriene
+  (iWear/EyeQ/Easyvision) først i Merker-seksjonen, deretter Acuvue,
+  Dailies og Biofinity (brukeren bekreftet disse tre spesifikt, ikke
+  Air Optix, da dokumentets "Dailies & Air Optix" var ett felles punkt
+  i originalen men er to separate merker i vår katalog). Resten av
+  merkene følger i uendret rekkefølge (etter antall produkter). Se
+  `PINNED_BRAND_SLUGS` i `render_home_page()`.
 
 ## Arbeidsspråk og autorisasjon
 

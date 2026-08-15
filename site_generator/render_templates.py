@@ -1064,7 +1064,21 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
     )
 
-    brand_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order) + "\n" + private_label_chain_cards_html
+    # Redaksjonell rekkefølge på forsidens Merker-seksjon (2026-08-15,
+    # eksplisitt bruker-valg) -- IKKE en påstand om bevist popularitet.
+    # Et AI-generert "topp 6 mest populære merker i Norge"-dokument ble
+    # sjekket kilde for kilde først: markedsandelstallet for Specsavers
+    # stemte, men iWear/Interoptik-koblingen var usann (motsagt av både
+    # kilden selv og vår egen re-verifiserte private_labels.json-data) og
+    # EyeQ-kilden var en død lenke -- forkastet som datagrunnlag. Dette er
+    # i stedet en bevisst plassering: fremhev de tre nye private label-
+    # seriene øverst, deretter tre kjente merker brukeren pekte ut selv.
+    PINNED_BRAND_SLUGS = ["acuvue", "dailies", "biofinity"]
+    pinned_cards_html = "\n".join(render_brand_card(slug) for slug in PINNED_BRAND_SLUGS if slug in brand_counts)
+    remaining_order = [b for b in brand_order if b not in PINNED_BRAND_SLUGS]
+    remaining_cards_html = "\n".join(render_brand_card(slug) for slug in remaining_order)
+
+    brand_cards_html = private_label_chain_cards_html + "\n" + pinned_cards_html + "\n" + remaining_cards_html
 
     category_icons = {
         "dagslinser": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/>',
