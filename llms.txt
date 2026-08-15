@@ -15,7 +15,10 @@ frakt) - den påvirkes ikke av om vi har en affiliate-avtale med forhandleren.
 
 ## Nøkkelsider
 
-- Kategorier: https://kontaktlinser.no/kontaktlinser/manedslinser/, https://kontaktlinser.no/kontaktlinser/dagslinser/, https://kontaktlinser.no/kontaktlinser/torre-oyne/
+- Kategorier: https://kontaktlinser.no/kontaktlinser/manedslinser/, https://kontaktlinser.no/kontaktlinser/dagslinser/, https://kontaktlinser.no/kontaktlinser/toriske-linser/, https://kontaktlinser.no/kontaktlinser/fargede-linser/, https://kontaktlinser.no/kontaktlinser/multifokale-linser/
+- Linsevæske: https://kontaktlinser.no/linsevaeske/
+- Øyedråper: https://kontaktlinser.no/oyedraper/
+- Optikerkjedenes egne merker (private label): https://kontaktlinser.no/private-label/
 - Merker: https://kontaktlinser.no/merke/
 - Full produktoversikt: https://kontaktlinser.no/sitemap.xml
 - Guider: https://kontaktlinser.no/guide/

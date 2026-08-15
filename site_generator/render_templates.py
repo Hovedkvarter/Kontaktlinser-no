@@ -1024,6 +1024,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 
     n_retailers = len({o["retailer"] for p in catalog["products"] for o in p["offers"]})
     n_products = len(catalog["products"])
+    home_faq_html, home_faq_schema = _render_faq_block(HOME_FAQ)
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -1034,6 +1035,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 <title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
+{home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .hero {{
@@ -1090,6 +1092,11 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 .guide-mini-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
 .guide-mini-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--card-shadow); }}
 .guide-mini-card:hover {{ border-color: var(--aqua); }}
+.faq-section {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }}
+.faq-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }}
+.faq-item {{ margin-bottom: 18px; }}
+.faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
+.faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} .guide-mini-grid {{ grid-template-columns: 1fr 1fr; }} }}
 @media (min-width: 700px) {{
@@ -1127,7 +1134,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     </div>
     <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
     <div class="hero-lead">
-      <p>Vi sammenligner priser fra norske nettbutikker, oppdatert fortløpende. Søk eller velg en linse under for å se alle tilbud.</p>
+      <p>kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk eller velg en linse under for å se alle tilbud.</p>
       <div class="hero-actions">
         <a href="#merker" class="btn-primary">Se alle merker</a>
       </div>
@@ -1169,6 +1176,8 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
     <div class="trust-item"><strong>6t</strong>mellom hver prisoppdatering</div>
     <div class="trust-item"><strong>0 kr</strong>i skjulte gebyrer hos oss</div>
   </div>
+
+  {home_faq_html}
 </div>
 
 <script>
@@ -1326,41 +1335,86 @@ spesifikke linsen du bestiller.</p>
 }
 
 
-def render_guide_page(slug: str) -> str | None:
-    guide = GUIDE_CONTENT.get(slug)
-    if guide is None:
-        return None
-
-    faq = guide.get("faq", [])
-    faq_html = ""
-    faq_schema = ""
-    if faq:
-        items_html = "\n".join(
-            f"""<div class="faq-item">
+def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") -> tuple[str, str]:
+    """Bygger både synlig FAQ-markup og FAQPage-schema fra samme {question,answer}-liste,
+    slik at innhold og strukturert data aldri kan komme ut av synk med hverandre."""
+    if not faq:
+        return "", ""
+    items_html = "\n".join(
+        f"""<div class="faq-item">
   <h3>{escape(item["question"])}</h3>
   <p>{escape(item["answer"])}</p>
 </div>"""
-            for item in faq
-        )
-        faq_html = f"""<div class="faq-section">
-    <h2>Ofte stilte spørsmål</h2>
+        for item in faq
+    )
+    faq_html = f"""<div class="faq-section">
+    <h2>{escape(heading)}</h2>
     {items_html}
   </div>"""
-        faq_entities = ",\n      ".join(
-            f'''{{
+    faq_entities = ",\n      ".join(
+        f'''{{
         "@type": "Question",
         "name": "{escape(item["question"])}",
         "acceptedAnswer": {{"@type": "Answer", "text": "{escape(item["answer"])}"}}
       }}'''
-            for item in faq
-        )
-        faq_schema = f"""<script type="application/ld+json">{{
+        for item in faq
+    )
+    faq_schema = f"""<script type="application/ld+json">{{
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
       {faq_entities}
   ]
 }}</script>"""
+    return faq_html, faq_schema
+
+
+HOME_FAQ = [
+    {
+        "question": "Hvordan fungerer kontaktlinser.no?",
+        "answer": "kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikkers egne nettsider og feeds hver 6. time, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
+    },
+    {
+        "question": "Koster det mer å kjøpe via en prissammenligningsside?",
+        "answer": "Nei. Prisen du ser er forhandlerens egen pris, og du betaler akkurat det samme som om du gikk direkte til nettbutikken. Vi kan motta provisjon fra enkelte forhandlere når du handler via lenkene våre, men det påvirker verken prisen du betaler eller hvilket tilbud som vises som lavest.",
+    },
+    {
+        "question": "Hvor ofte oppdateres prisene?",
+        "answer": "Vi henter oppdaterte priser fra forhandlerne hver 6. time. Hvert tilbud viser når det sist ble kontrollert, og priser som er eldre enn 24 timer eller mangler bekreftet lagerstatus vises fortsatt, men kan ikke vinne merket «laveste pris».",
+    },
+    {
+        "question": "Hvordan unngår jeg skjulte fraktkostnader?",
+        "answer": "Vi sorterer alltid tilbudene etter total pris - produktpris pluss frakt - ikke bare produktprisen alene. En nettbutikk med lav produktpris, men høyt fraktgebyr, havner derfor ikke automatisk øverst, slik den kan gjøre om du bare sammenligner produktpriser direkte på forhandlernes egne sider.",
+    },
+    {
+        "question": "Er dagslinser eller månedslinser billigst?",
+        "answer": "Det kommer an på linsetype, merke og hvor ofte du bruker linser - det finnes ikke ett svar som gjelder for alle. Se vår guide om månedslinser vs. dagslinser, og bruk kategoriene på kontaktlinser.no til å sammenligne faktiske priser for akkurat den styrken og pakningsstørrelsen du trenger.",
+    },
+    {
+        "question": "Selger dere også linsevæske og øyedråper?",
+        "answer": "Ja. I tillegg til kontaktlinser sammenligner vi priser på linsevæske og øyedråper fra de samme norske nettbutikkene, etter samme prinsipp: alltid sortert etter lavest totalpris.",
+    },
+    {
+        "question": "Hvorfor har noen kontaktlinser to forskjellige navn?",
+        "answer": "Flere optikerkjeder selger kjente kontaktlinser under sitt eget varenavn - for eksempel selger Brilleland Biofinity under navnet «iWear Oxygen». Det er samme fysiske produkt, bare med kjedens egen emballasje og navn. Vi har en egen oversikt over disse koblingene under Optikerkjedenes egne merker.",
+    },
+    {
+        "question": "Er kontaktlinser.no en nettbutikk eller et apotek?",
+        "answer": "Nei, kontaktlinser.no er verken en nettbutikk eller et apotek - vi er en uavhengig sammenligningstjeneste og selger ingenting selv. Kontaktlinser er reseptvare, så rådfør deg alltid med optiker eller øyelege om riktig linsetype og styrke før kjøp.",
+    },
+    {
+        "question": "Kan jeg søke opp en spesifikk linse direkte?",
+        "answer": "Ja, søkefeltet øverst på forsiden lar deg søke etter linsenavn eller merke og gå rett til produktsiden med gjeldende priser fra alle forhandlere vi følger.",
+    },
+]
+
+
+def render_guide_page(slug: str) -> str | None:
+    guide = GUIDE_CONTENT.get(slug)
+    if guide is None:
+        return None
+
+    faq_html, faq_schema = _render_faq_block(guide.get("faq", []))
 
     return f"""<!DOCTYPE html>
 <html lang="nb">

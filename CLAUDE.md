@@ -529,6 +529,38 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   Merk: dette er IKKE skraping som er treg -- skraping kjører uansett kun
   på cron/manuell trigger (`if: github.event_name != 'push'`), aldri på
   vanlig push.
+- **GEO/AI-søk-tiltak (2026-08-15):** brukeren limte inn tre AI-genererte
+  strategidokumenter om GEO-optimalisering (teknisk SSR/JSON-LD-dokument,
+  robots.txt-forslag, og et tidligere dokument som feilaktig påsto at
+  "Megon AS" står bak siden -- bekreftet fabrikkert av brukeren, IKKE
+  implementert). Alt ble sjekket faktisk mot koden før noe ble bygget:
+  - SSR og Product/AggregateOffer JSON-LD var allerede fullt implementert
+    fra før -- ingen handling nødvendig der.
+  - `robots.txt` var allerede mer finmasket enn forslaget (skiller AI-søk-
+    vs. AI-trenings-roboter per leverandør); eneste reelle mangel var
+    `Applebot-Extended`, lagt til.
+  - `llms.txt` linket til en kategori (`/kontaktlinser/torre-oyne/`) som
+    ikke finnes -- fikset til de faktiske 5 kategoriene, samt lagt til
+    linsevæske/øyedråper/private-label-sidene som manglet der.
+  - Lagt til en tettere, siterbar AI-oppsummering i `hero-lead` på
+    forsiden (bruker dynamisk `n_retailers`/`n_products`, ikke hardkodet
+    forhandlerliste -- unngår at teksten blir feil når katalogen endres).
+    Plassert bevisst i "lead"-grid-området, som allerede kommer ETTER
+    søkefeltet i mobil-rekkefølgen (`heading` `search` `media` `credit`
+    `lead`) -- søkefeltet er fortsatt det som vises tidligst på mobil.
+  - Ny side-nivå FAQ-seksjon nederst på forsiden (9 spørsmål, original
+    tekst, egen `FAQPage`-schema) om hvordan tjenesten fungerer generelt
+    (skjulte fraktkostnader, oppdateringsfrekvens, private label, osv.)
+    -- skiller seg fra de eksisterende guide-spesifikke FAQ-ene (som
+    handler om linsetyper). `_render_faq_block()` er en ny delt helper
+    som bygger synlig markup + schema fra samme datastruktur, brukt både
+    av guide-sidene (refaktorert til å bruke den) og forsiden, slik at
+    innhold og strukturert data aldri kan komme ut av synk.
+  - Spørsmålet om dagslinser-vs-månedslinser i den nye FAQ-en unngår
+    bevisst dokumentets ferdigskrevne påstand ("månedslinser nesten alltid
+    billigst") -- det er en uverifisert generalisering. Lenker i stedet
+    til den eksisterende guiden med et mer presist, allerede verifisert
+    svar (terskel på 4-5 dager/uke).
 
 ## Arbeidsspråk og autorisasjon
 
