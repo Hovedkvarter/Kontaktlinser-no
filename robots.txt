@@ -41,6 +41,9 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Applebot-Extended
+Allow: /
+
 # --- Kjent dårlig oppførsel: blokkeres uavhengig av strategi over ---
 # Bytespider har historisk ignorert disallow-regler og genererer uforholds-
 # messig mye last. Blokkering her er en høflig forespørsel, ikke en garanti -
