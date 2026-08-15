@@ -490,6 +490,36 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   gjort ensidig her, siden det endrer produktets identitet/pris-sammenligning
   ikke bare en scrape-kilde.
 
+- **Private label-sider lansert (2026-08-15), autonomt arbeid.** Flere
+  optikerkjeder (Brilleland, Synsam, Specsavers) selger ekte kjente
+  kontaktlinser under sitt eget merkenavn (f.eks. Synsam sin "EyeQ 24" er
+  Biofinity fra CooperVision, bare i egen innpakning). `private_labels.json`
+  (repo-rot) holder KUN høy-sikkerhet-koblinger -- 46 stk, bekreftet direkte
+  mot Lensway sin egen "Optikerkjedenes varemerke"-seksjon
+  (`/kontaktlinser/linseliste?p_privateBrand=...`), som eksplisitt oppgir
+  hvilket produsent-navn hver private label-linse selges under (besøkt hver
+  enkelt `-private-{id}`-produktside, ikke gjettet fra navnelikhet). Dekker
+  29 av våre eksisterende produkter. IKKE en egen datakilde/prisinnhenting
+  -- `render_private_label_page()` i `render_templates.py` gjenbruker
+  `real_product` sine faktiske tilbud (samme fysiske vare, samme pris),
+  bygges på `/private-label/{slug}/`. Alt innhold er egenformulert (IKKE
+  kopiert fra Lensway sin tekst) -- inkluderer en tydelig fraskrivelse om
+  at kontaktlinser.no ikke har noen avtale med kjedene og ikke kan
+  garantere at koblingen stemmer i alle tilfeller (eksplisitt bruker-krav).
+  Oversiktsside på `/private-label/`, lenket fra footeren under "Guider".
+  Egen `sitemap-private-label.xml`.
+  **Underveis-funn:** samme research avdekket at Precision7 (se punktet
+  rett over) heller ikke fantes i 6-pakning hos Lenson/Lensway -- derfor
+  ingen private label-oppføring for Precision7 i denne runden, siden vi
+  ikke selv har en pålitelig 6-pack-pris å vise frem.
+  **Ikke bygget ennå:** Mister Spex og Synologen (de to andre kjedene i
+  filteret) hadde ingen treff i dette utvalget -- enten fører de ingen
+  private label-linser, eller de var ikke representert i de 5 sidene som
+  ble hentet. Flere av Brilleland/Synsam/Specsavers sine ~50 gjenstående
+  private label-navn (de som ikke matcher et produkt vi allerede fører,
+  f.eks. hele "iWear DD"-serien) er heller ikke undersøkt -- kun de som
+  ga et umiddelbart, høy-sikkerhet-treff mot eksisterende katalog.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

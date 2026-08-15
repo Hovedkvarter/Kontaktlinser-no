@@ -75,9 +75,15 @@ def main(content_path: str = "site_content.json") -> None:
     ]
     write_urlset("sitemap-linsevaeske.xml", solution_entries)
 
+    private_label_entries = [
+        url_entry(f"/private-label/{p['slug']}/", p["lastmod"])
+        for p in content.get("private_labels", [])
+    ]
+    write_urlset("sitemap-private-label.xml", private_label_entries)
+
     write_sitemap_index(
         "sitemap.xml",
-        ["sitemap-statiske.xml", "sitemap-kategorier.xml", "sitemap-produkter.xml", "sitemap-guider.xml", "sitemap-linsevaeske.xml"],
+        ["sitemap-statiske.xml", "sitemap-kategorier.xml", "sitemap-produkter.xml", "sitemap-guider.xml", "sitemap-linsevaeske.xml", "sitemap-private-label.xml"],
     )
     print("Generert: sitemap.xml + 4 delte sitemaps")
 

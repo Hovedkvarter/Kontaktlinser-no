@@ -374,6 +374,7 @@ def render_footer() -> str:
       <a href="/guider/">Alle guider</a>
       <a href="/guide/manedslinser-vs-dagslinser/">Månedslinser vs. dagslinser</a>
       <a href="/guide/hvordan-velge-kontaktlinser/">Hvordan velge kontaktlinser</a>
+      <a href="/private-label/">Optikerkjedenes egne merker</a>
     </div>
   </div>
   <p class="footer-disclosure">
@@ -2059,6 +2060,185 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
     via lenkene på produktsidene, men det påvirker ikke prisen du betaler
     eller rangeringen av produkter eller tilbud. kontaktlinser.no er en
     uavhengig prissammenligningstjeneste, ikke en forhandler.
+  </p>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None) -> str:
+    """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget
+    merkenavn (f.eks. Synsam sin "EyeQ 24" er egentlig Biofinity fra
+    CooperVision). private_labels.json holder KUN høy-sikkerhet-koblinger,
+    bekreftet direkte mot en uavhengig kilde (Lensway sin egen
+    "optikerkjedenes varemerke"-seksjon, som eksplisitt oppgir hvilket
+    produsent-navn hver private label-linse selges under). Denne siden
+    viser IKKE egen pris/tilbudsdata -- den gjenbruker real_product sine
+    faktiske tilbud, siden det er nøyaktig samme fysiske vare."""
+    now = now or datetime.now(timezone.utc)
+    offers = reconcile_product(real_product["offers"], now)
+    best = next((o for o in offers if o["is_lowest"]), None)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+
+    real_name = real_product["name"]
+    real_brand = real_product["brand_label"]
+    chain = label["chain"]
+    private_name = label["name"]
+    real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
+    category_label = categories[real_product["category_slug"]]["label"]
+
+    best_band = ""
+    if best:
+        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
+  <div class="label-group">
+    <div class="label">Laveste pris</div>
+    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
+  </div>
+  <div class="price">{_fmt_kr(best["total"])}</div>
+</a>"""
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{escape(private_name)} ({escape(chain)}) er egentlig {escape(real_name)}",
+  "about": {{"@type": "Product", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}}},
+  "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(private_name)} ({escape(chain)}) – hva heter den egentlig? | kontaktlinser.no</title>
+<meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
+<link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.hero {{ display: flex; align-items: center; gap: 20px; }}
+.private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
+.private-label-explainer strong {{ color: var(--ink); }}
+.private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb">
+    <a href="/">Hjem</a> ›
+    <a href="/private-label/">Optikerkjedenes egne merker</a> ›
+    {escape(private_name)}
+  </p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">{escape(chain)} sitt eget merkenavn</div>
+      <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
+      <p>{escape(chain)} selger denne linsen under sitt eget navn, {escape(private_name)}. Det er ikke en egen linsetype – det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i {escape(chain)} sin egen innpakning.</p>
+    </div>
+  </div>
+
+  <div class="private-label-explainer">
+    <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for {escape(chain)}.</p>
+  </div>
+
+  <div class="private-label-caveat">
+    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
+  </div>
+
+  <h2>Sammenlign priser på {escape(real_name)}</h2>
+  {best_band}
+  <div class="offers">
+    {offer_cards_html}
+  </div>
+  <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
+
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    provisjon når du handler via lenkene, men det påvirker ikke prisen du
+    betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
+    varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
+    kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
+    forhandler, og har ingen avtale med {escape(chain)}.
+  </p>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_private_label_index_page(labels: list[dict], products_by_id: dict) -> str:
+    """Oversiktsside -- gruppert per optikerkjede, lenker videre til hver
+    enkelt private label-side."""
+    by_chain: dict[str, list[dict]] = {}
+    for label in labels:
+        by_chain.setdefault(label["chain"], []).append(label)
+
+    sections_html = ""
+    for chain in sorted(by_chain.keys()):
+        chain_labels = sorted(by_chain[chain], key=lambda l: l["name"])
+        rows = "\n".join(
+            f'<a class="product-card" href="/private-label/{escape(l["slug"])}/">'
+            f'<div class="product-main"><div class="product-name">{escape(l["name"])}</div>'
+            f'<div class="product-meta">= {escape(products_by_id[l["real_product_id"]]["name"])}</div></div>'
+            f'</a>'
+            for l in chain_labels
+        )
+        sections_html += f"""<h2>{escape(chain)}</h2>
+  <div class="product-list-group">{rows}</div>
+"""
+
+    intro = "Flere optikerkjeder selger kontaktlinser under sitt eget merkenavn, selv om linsen er identisk med et kjent produkt fra produsenten. Her finner du oversikten – hvilket navn hos hvilken kjede tilsvarer hvilket produkt vi allerede sammenligner priser på."
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Optikerkjedenes egne merker", "item": "{BASE_URL}/private-label/"}}
+  ]
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Optikerkjedenes egne merker – hva heter linsen egentlig? | kontaktlinser.no</title>
+<meta name="description" content="{escape(intro)}">
+<link rel="canonical" href="{BASE_URL}/private-label/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.product-list-group {{ display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Optikerkjedenes egne merker</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Guide</div>
+      <h1>Optikerkjedenes egne merker</h1>
+      <p>{escape(intro)}</p>
+    </div>
+  </div>
+  {sections_html}
+  <p class="disclosure">
+    Koblingene over er satt sammen basert på tilgjengelig informasjon om
+    produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale
+    med optikerkjedene nevnt her og kan ikke garantere at hver kobling
+    stemmer i alle tilfeller. Bekreft alltid med din optiker før du bytter
+    mellom disse navnene.
   </p>
 </div>
 {render_footer()}

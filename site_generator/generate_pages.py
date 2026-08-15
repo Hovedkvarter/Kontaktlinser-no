@@ -22,12 +22,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, reconcile_product
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, reconcile_product
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
 SITE_CONTENT_PATH = Path(__file__).parent.parent / "site_content.json"
+PRIVATE_LABELS_PATH = Path(__file__).parent.parent / "private_labels.json"
 
 
 def write_file(path: Path, content: str) -> None:
@@ -106,6 +107,20 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         write_file(out_path, html)
         print(f"  merke    -> /merke/{brand_slug}/")
 
+    if PRIVATE_LABELS_PATH.exists():
+        private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"]
+        for label in private_labels:
+            real_product = products_by_id.get(label["real_product_id"])
+            if real_product is None:
+                print(f"  [advarsel] private label '{label['slug']}' peker til ukjent produkt-id: {label['real_product_id']}")
+                continue
+            html = render_private_label_page(label, real_product, catalog["categories"], now)
+            write_file(BUILD_DIR / "private-label" / label["slug"] / "index.html", html)
+            print(f"  private-label -> /private-label/{label['slug']}/")
+
+        write_file(BUILD_DIR / "private-label" / "index.html", render_private_label_index_page(private_labels, products_by_id))
+        print("  private-label -> /private-label/")
+
     guide_slugs = {g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])}
     for slug in guide_slugs:
         html = render_guide_page(slug)
@@ -141,6 +156,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
     lens_products = [p for p in catalog["products"] if "category_slug" in p]
     solution_products = [p for p in catalog["products"] if "category_slug" not in p]
     solution_categories = sorted({p["solution_category"] for p in solution_products})
+    private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"] if PRIVATE_LABELS_PATH.exists() else []
     site_content = {
         "static_pages": [
             {"path": "/", "lastmod": today},
@@ -148,7 +164,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
             {"path": "/om-oss/", "lastmod": today},
         ] + [
             {"path": f"/{cat_slug}/", "lastmod": today} for cat_slug in solution_categories
-        ],
+        ] + ([{"path": "/private-label/", "lastmod": today}] if private_labels else []),
         "categories": [
             {"slug": slug, "lastmod": today} for slug in catalog["categories"].keys()
         ],
@@ -168,6 +184,9 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         "solutions": [
             {"solution_category": p["solution_category"], "brand_slug": p["brand_slug"], "slug": p["slug"], "lastmod": today}
             for p in solution_products
+        ],
+        "private_labels": [
+            {"slug": label["slug"], "lastmod": today} for label in private_labels
         ],
     }
     SITE_CONTENT_PATH.write_text(json.dumps(site_content, indent=2, ensure_ascii=False), encoding="utf-8")
