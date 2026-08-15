@@ -3143,16 +3143,7 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": [
-        {
-          "retailer": "lenson",
-          "slug": "precision7-lens-10819"
-        },
-        {
-          "retailer": "lensway",
-          "slug": "precision7-lens-10819"
-        }
-      ]
+      "scrape_targets": []
     },
     {
       "id": "precision7-astigmatism-6pk",
@@ -3181,16 +3172,7 @@
           "Torisk"
         ]
       ],
-      "scrape_targets": [
-        {
-          "retailer": "lenson",
-          "slug": "precision7-for-astigmatism-lens-10821"
-        },
-        {
-          "retailer": "lensway",
-          "slug": "precision7-for-astigmatism-lens-10821"
-        }
-      ]
+      "scrape_targets": []
     },
     {
       "id": "freshlook-oneday-30pk",

@@ -473,6 +473,23 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   Apotekhjem eller andre apotek, der klassifisering fortsatt må gjøres
   eksplisitt per produkt.
 
+- **Precision7 6-pack: Lenson/Lensway sitt tilbud fjernet (2026-08-15) --
+  samme pakningsstørrelse-feil som Interoptik allerede var ekskludert for.**
+  Oppdaget under research på private label-linser: Lensway (og dermed
+  sannsynligvis Lenson, samme plattform/produkt-id 10819) selger Precision7
+  KUN i 12- og 27-pakning, aldri 6-pakning -- variant-velgeren viste
+  "12 stk/pk"/"27 stk/pk", ingen 6-pakning i det hele tatt. Scrape_targets
+  fjernet fra både `precision7-6pk` og `precision7-astigmatism-6pk`
+  (samme fix som Interoptik fikk tidligere, se lenger opp i dokumentet).
+  **STATUS:** Begge produktene har nå `"scrape_targets": []` og publiseres
+  UTEN priser -- ingen bekreftet norsk forhandler selger Precision7 i ekte
+  6-pakning så langt vi har funnet (Interoptik: 12-pk, Lenson/Lensway:
+  12/27-pk). Dette er en åpen avgjørelse for bruker: enten fortsette å lete
+  etter en reell 6-pack-kilde, eller vurdere om produktet burde redefineres
+  til 12-pakning for å matche hva som faktisk selges i markedet -- IKKE
+  gjort ensidig her, siden det endrer produktets identitet/pris-sammenligning
+  ikke bare en scrape-kilde.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
