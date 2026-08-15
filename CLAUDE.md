@@ -519,6 +519,16 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   private label-navn (de som ikke matcher et produkt vi allerede fører,
   f.eks. hele "iWear DD"-serien) er heller ikke undersøkt -- kun de som
   ga et umiddelbart, høy-sikkerhet-treff mot eksisterende katalog.
+- **Build-timeout økt fra 10 til 20 minutter (2026-08-15):** bygget etter
+  private label-commiten feilet -- ikke pga. en kode-/logikkfeil
+  (`validate_build.py` og alle genereringssteg gikk gjennom fint), men
+  fordi jobben traff `timeout-minutes: 10` under "Publiser til GitHub
+  Pages"-steget. Katalogen har vokst mye denne økten (103 linser + 39
+  linsevæske/øyedråper + 46 private label-sider), så publiseringen tar nå
+  lenger tid enn det opprinnelige 10-minutters-budsjettet forutsatte.
+  Merk: dette er IKKE skraping som er treg -- skraping kjører uansett kun
+  på cron/manuell trigger (`if: github.event_name != 'push'`), aldri på
+  vanlig push.
 
 ## Arbeidsspråk og autorisasjon
 
