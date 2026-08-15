@@ -15,4 +15,7 @@
   <sitemap>
     <loc>https://kontaktlinser.no/sitemap-linsevaeske.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://kontaktlinser.no/sitemap-private-label.xml</loc>
+  </sitemap>
 </sitemapindex>
