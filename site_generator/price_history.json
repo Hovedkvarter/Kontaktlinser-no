@@ -1438,5 +1438,138 @@
       "price": 69.0,
       "store": "Lenson"
     }
+  ],
+  "systane-ultra-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 129.0,
+      "store": "Lenson"
+    }
+  ],
+  "systane-complete-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 179.0,
+      "store": "Lenson"
+    }
+  ],
+  "systane-hydration-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 149.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-care-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 229.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-gel-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 209.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-fresh-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 159.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-comod-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 209.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-dual-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 229.0,
+      "store": "Lenson"
+    }
+  ],
+  "hylo-dual-intense-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 259.0,
+      "store": "Lenson"
+    }
+  ],
+  "thealoz-duo-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 179.0,
+      "store": "Lenson"
+    }
+  ],
+  "oxyal-trehalos-duo-action-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 129.0,
+      "store": "Lenson"
+    }
+  ],
+  "oxyal-trehalos-triple-action-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 219.0,
+      "store": "Lenson"
+    }
+  ],
+  "oxyal-triple-action-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 209.0,
+      "store": "Lenson"
+    }
+  ],
+  "tearsagain-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 129.0,
+      "store": "Lenson"
+    }
+  ],
+  "tearsagain-spray-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 179.0,
+      "store": "Lenson"
+    }
+  ],
+  "tearsagain-sensitive-spray-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 179.0,
+      "store": "Lenson"
+    }
+  ],
+  "eyz-plus-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 179.0,
+      "store": "Lenson"
+    }
+  ],
+  "eyz-protect-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 219.0,
+      "store": "Lenson"
+    }
+  ],
+  "add1-10ml": [
+    {
+      "date": "2026-08-15",
+      "price": 189.0,
+      "store": "Lenson"
+    }
   ]
 }
