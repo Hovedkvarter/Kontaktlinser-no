@@ -658,6 +658,15 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
 
+    if best:
+        ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+</section>"""
+    else:
+        ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
+  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
+</section>"""
+
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
@@ -697,7 +706,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},{f' "image": "{escape(image_url)}",' if image_url else ""}
   "offers": {{
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -728,7 +737,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
+<title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
 {FONT_LINKS}
@@ -756,6 +765,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-history-line {{ fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
 .price-history-dot {{ fill: var(--aqua); }}
 .price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
+.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary p {{ margin: 0; }}
+.product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
 </head>
 <body>
@@ -775,6 +787,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
       <p>{escape(long_description)}</p>
     </div>
   </div>
+  {ai_summary_html}
   {best_band}
   {pack_size_callout}
   <div class="offers">
@@ -809,6 +822,15 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
 
     rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+
+    top_product_names = [r["product"]["name"] for r in rows if r["lowest"]][:3]
+    if not top_product_names:
+        meta_description = f"Sammenlign priser på alle {brand_label}-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
+    elif len(top_product_names) == 1:
+        meta_description = f"Sammenlign priser på {brand_label}-kontaktlinser som {top_product_names[0]}, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
+    else:
+        examples = ", ".join(top_product_names[:-1]) + " og " + top_product_names[-1]
+        meta_description = f"Sammenlign priser på {brand_label}-kontaktlinser som {examples}, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
@@ -861,8 +883,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(brand_label)} kontaktlinser – sammenlign priser | kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på alle {escape(brand_label)}-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<title>{escape(brand_label)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
+<meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/merke/{brand_slug}/">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
@@ -1032,7 +1054,7 @@ def render_home_page(catalog: dict, now: datetime | None = None) -> str:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>kontaktlinser.no – sammenlign priser på kontaktlinser</title>
+<title>kontaktlinser.no – Sammenlign priser på kontaktlinser</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
 {home_faq_schema}
@@ -1796,7 +1818,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(category["label"])} – sammenlign priser | kontaktlinser.no</title>
+<title>{escape(category["label"])} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(category["intro"])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
 {FONT_LINKS}
@@ -1917,6 +1939,16 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     cat_slug = product["solution_category"]
     cat = SOLUTION_CATEGORIES[cat_slug]
     base_url_path = f"/{cat_slug}/{product['brand_slug']}/{product['slug']}/"
+    image_url = pick_product_image(product["offers"])
+
+    if best:
+        ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+</section>"""
+    else:
+        ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
+  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne akkurat nå. Prisene oppdateres hver 6. time.</p>
+</section>"""
 
     best_band = ""
     if best:
@@ -1958,7 +1990,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},{f' "image": "{escape(image_url)}",' if image_url else ""}
   "offers": {{
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -1975,7 +2007,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
+<title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
 {FONT_LINKS}
@@ -1984,6 +2016,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary p {{ margin: 0; }}
+.product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
 </head>
 <body>
@@ -2001,6 +2036,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
       <p>{escape(long_description)}</p>
     </div>
   </div>
+  {ai_summary_html}
   {best_band}
   {price_per_unit_html}
   {safety_notice}
@@ -2082,7 +2118,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(cat["label"])} – sammenlign priser | kontaktlinser.no</title>
+<title>{escape(cat["label"])} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(cat["intro"])}">
 <link rel="canonical" href="{BASE_URL}/{solution_category}/">
 {FONT_LINKS}
@@ -2169,7 +2205,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(private_name)} ({escape(chain)}) – hva heter den egentlig? | kontaktlinser.no</title>
+<title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | kontaktlinser.no</title>
 <meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
 {FONT_LINKS}
@@ -2266,7 +2302,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Optikerkjedenes egne merker – hva heter linsen egentlig? | kontaktlinser.no</title>
+<title>Optikerkjedenes egne merker – Hva heter linsen egentlig? | kontaktlinser.no</title>
 <meta name="description" content="{escape(intro)}">
 <link rel="canonical" href="{BASE_URL}/private-label/">
 {FONT_LINKS}

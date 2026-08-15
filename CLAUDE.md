@@ -561,6 +561,55 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     billigst") -- det er en uverifisert generalisering. Lenker i stedet
     til den eksisterende guiden med et mer presist, allerede verifisert
     svar (terskel på 4-5 dager/uke).
+- **Titler, synlig AI-oppsummeringsboks og bilde-schema (2026-08-15):**
+  brukeren limte inn en serie AI-genererte tittel-/meta-maler fra et
+  eksternt verktøy, dryppvis over flere meldinger -- evaluert samlet mot
+  faktisk kode, ikke implementert blindt:
+  - **Kapitalisering i `<title>`:** ordet rett etter en "–" var
+    inkonsekvent små forbokstaver ("billigste pris", "sammenlign priser",
+    "hva heter den egentlig?") på tvers av produkt-, merke-, kategori-,
+    forside- og private label-sider. Fikset til stor forbokstav overalt
+    ("Billigste pris", "Sammenlign priser", "Hva heter den egentlig?").
+    IKKE endret der ordet etter "–" er selve merkenavnet
+    "kontaktlinser.no" (Guider/Om oss/404/Personvern-titlene) -- det er
+    en bevisst, konsekvent brukt små bokstaver-stil brukt over 200+
+    steder på siden (forsidetittel, brødtekst, footer, llms.txt), og
+    Google har uansett ingen `og:site_name`/`WebSite`-schema å styres av
+    her -- det viste lille "kontaktlinser.no" øverst i Google-treff er
+    trolig hentet rett fra domenet, ikke fra title-taggen. Anbefaling:
+    IKKE endre denne -- brukeren informert, ikke gjort uten videre.
+  - **Produktside-tittel:** vurderte å bake inn live laveste-pris i
+    `<title>` (som i AI-verktøyets forslag), men avvist -- produktnavn
+    varierer sterkt i lengde ("MyDay 30-pack" vs. "Dailies Total1 for
+    Astigmatism 90-pack"), og å legge til "fra XXXX kr" i tillegg ville
+    presset mange titler godt forbi Googles ca. 60-tegns visningsgrense,
+    slik at "| kontaktlinser.no"-halen uansett kuttes bort. Prisen vises
+    i stedet i den nye synlige AI-boksen under (se neste punkt), som
+    ikke har samme lengdebegrensning.
+  - **Ny synlig AI-oppsummeringsboks** (`.product-ai-summary`) rett
+    under H1 på både vanlige produktsider og linsevæske/øyedråper-sider:
+    dynamisk setning med faktisk antall forhandlere for akkurat DETTE
+    produktet (`len(product["offers"])`) og faktisk laveste pris/
+    forhandler -- IKKE "alle store norske nettbutikker" slik AI-
+    forslaget hardkodet (brukeren selv bekreftet at vi ikke har alle).
+    Egen fallback-variant (grå i stedet for blå) når produktet ikke har
+    noen bekreftet pris (f.eks. Precision7 6-pack) -- ordlyden unngår
+    bevisst AI-forslagets antakelse om at dette alltid betyr
+    "midlertidig utsolgt", siden det hos oss ofte heller betyr at ingen
+    av forhandlerne vi følger har denne pakningsstørrelsen i det hele
+    tatt (strukturelt, ikke midlertidig).
+  - **`image`-felt lagt til i `Product`-JSON-LD-schemaen** på begge
+    produktsidetyper -- `image_url` ble allerede regnet ut for hero-
+    bildet, men ble aldri sendt med i strukturert data. Reelt funn (ikke
+    fra AI-dokumentene), relevant for Google Bilder/Lens-søk.
+  - **Merkeside-meta-beskrivelse** nevner nå faktiske produktnavn (de 2-3
+    billigste for merket, hentet fra samme sorterte liste som allerede
+    rendres på siden) i stedet for generisk "alle X vi følger"-tekst --
+    fortsatt ingen overclaims, siden navnene faktisk finnes på siden.
+  - Droppet AI-forslagets "Kjøp {{ product.name }} billig"-tittelramme
+    (antyder direktekjøp) til fordel for "Billigste pris"/"Se priser"-
+    rammingen brukeren selv landet på -- konsistent med at vi eksplisitt
+    ikke selger noe selv.
 
 ## Arbeidsspråk og autorisasjon
 
