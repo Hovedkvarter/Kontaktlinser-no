@@ -636,6 +636,28 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     hovedfunksjonen (sammenligne pris) skal ikke kreve at brukeren
     scroller forbi flere avsnitt tekst på mobil først. All tekst er
     fortsatt der, uendret, bare i en bedre rekkefølge.
+- **Private label-data re-verifisert + kjedene lagt til under "Merker"
+  (2026-08-15):** brukeren ba om en uavhengig dobbeltsjekk av alle 46
+  private label-koblingene. Kjørt via en agent som spurte Lensway sitt
+  eget backend-API (`viewproductpageinfo/lens/{id}`, samme endepunkt
+  siden bruker til å rendre "selges også som"-info på deres egne
+  produktsider) for alle 46, i stedet for å tolke rendret HTML.
+  **43 bekreftet korrekte, 3 feil funnet og rettet:** `iwear-oxygen-xr`,
+  `eyeq-24-xr` og `easyvision-opteyes-xr` pekte til `biofinity-xr-6pk`,
+  men Lensway sin egen pakningsdata for samme produkt-id (4244) viser at
+  det kun finnes som 3-pack -- samme kjente id-4244-forveksling som
+  allerede var dokumentert for Lenson/Lensway sine scrape_targets (se
+  Precision7-punktet lenger opp), bare ikke fanget opp da private
+  label-listen ble bygget. Rettet til `biofinity-xr-3pk` i
+  `private_labels.json`, som er en egen, reell produktoppføring (egen
+  `slug`, egen beskrivelse) -- bekreftet selv før endring, ikke bare
+  tatt agentens ord for det.
+  Lagt til Brilleland/Synsam/Specsavers som egne kort i "Merker"-
+  seksjonen på forsiden (samme `.brand-card`-stil), tekstet "X egne
+  merker" i stedet for "X produkter" for å skille dem fra ekte
+  linseprodusenter uten å trenge egen CSS-badge. Lenker til
+  `/private-label/#{kjede}` -- lagt til ankere (`id="brilleland"` osv.)
+  på oversiktssidens kjede-overskrifter for dette.
 
 ## Arbeidsspråk og autorisasjon
 

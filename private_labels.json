@@ -1,5 +1,5 @@
 {
-  "$comment": "Optikerkjedenes egne private label-navn for kontaktlinser vi allerede har i produkts_meta.json -- KUN høy-sikkerhet-koblinger, bekreftet direkte mot Lensway sin egen 'Optikerkjedenes varemerke'-seksjon (https://www.lensway.no/kontaktlinser/linseliste?p_privateBrand=...), som eksplisitt forklarer hvilket produsent-navn hver private label-linse faktisk selges under. real_product_id peker til den eksisterende oppføringen i products_meta.json -- ingen egen prisdata her, siden det er nøyaktig samme fysiske produkt/samme tilbud. Verifisert 2026-08-15.",
+  "$comment": "Optikerkjedenes egne private label-navn for kontaktlinser vi allerede har i produkts_meta.json -- KUN høy-sikkerhet-koblinger, bekreftet direkte mot Lensway sin egen 'Optikerkjedenes varemerke'-seksjon (https://www.lensway.no/kontaktlinser/linseliste?p_privateBrand=...), som eksplisitt forklarer hvilket produsent-navn hver private label-linse faktisk selges under. real_product_id peker til den eksisterende oppføringen i products_meta.json -- ingen egen prisdata her, siden det er nøyaktig samme fysiske produkt/samme tilbud. Verifisert 2026-08-15, re-verifisert 2026-08-15 mot Lensway sitt eget produkt-API (viewproductpageinfo) -- fant og rettet 3 feil der XR-varianten pekte til biofinity-xr-6pk, men Lensway sin egen pakningsstørrelse-data for samme produkt-id (4244) viste at det er 3-pack, ikke 6-pack (samme kjente id-4244-forveksling som allerede var dokumentert for Lenson/Lensway sine scrape_targets).",
   "labels": [
     {"slug": "iwear-oxygen", "name": "iWear Oxygen", "chain": "Brilleland", "real_product_id": "biofinity-6pk"},
     {"slug": "eyeq-24", "name": "EyeQ 24", "chain": "Synsam", "real_product_id": "biofinity-6pk"},
@@ -16,9 +16,9 @@
     {"slug": "iwear-oxygen-relax", "name": "iWear Oxygen Relax", "chain": "Brilleland", "real_product_id": "biofinity-energys-6pk"},
     {"slug": "eyeq-digital-focus", "name": "EyeQ Digital Focus", "chain": "Synsam", "real_product_id": "biofinity-energys-6pk"},
 
-    {"slug": "iwear-oxygen-xr", "name": "iWear Oxygen XR", "chain": "Brilleland", "real_product_id": "biofinity-xr-6pk"},
-    {"slug": "eyeq-24-xr", "name": "EyeQ 24 XR", "chain": "Synsam", "real_product_id": "biofinity-xr-6pk"},
-    {"slug": "easyvision-opteyes-xr", "name": "Easyvision Opteyes XR", "chain": "Specsavers", "real_product_id": "biofinity-xr-6pk"},
+    {"slug": "iwear-oxygen-xr", "name": "iWear Oxygen XR", "chain": "Brilleland", "real_product_id": "biofinity-xr-3pk"},
+    {"slug": "eyeq-24-xr", "name": "EyeQ 24 XR", "chain": "Synsam", "real_product_id": "biofinity-xr-3pk"},
+    {"slug": "easyvision-opteyes-xr", "name": "Easyvision Opteyes XR", "chain": "Specsavers", "real_product_id": "biofinity-xr-3pk"},
 
     {"slug": "iwear-balance-plus", "name": "iWear Balance Plus", "chain": "Brilleland", "real_product_id": "avaira-vitality-6pk"},
     {"slug": "easyvision-uvicia-plus", "name": "Easyvision Uvicia Plus", "chain": "Specsavers", "real_product_id": "avaira-vitality-6pk"},

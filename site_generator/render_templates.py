@@ -1025,7 +1025,25 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 </a>"""
 
-    brand_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order)
+    def render_private_label_chain_card(chain: str, count: int) -> str:
+        n_label = "eget merke" if count == 1 else "egne merker"
+        return f"""<a class="brand-card" href="/private-label/#{escape(chain.lower())}">
+  <div class="brand-card-badge">{escape(chain[:2].upper())}</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">{escape(chain)}</div>
+    <div class="brand-card-count">{count} {n_label}</div>
+  </div>
+</a>"""
+
+    chain_counts: dict[str, int] = {}
+    for label in (private_labels or []):
+        chain_counts[label["chain"]] = chain_counts.get(label["chain"], 0) + 1
+    private_label_chain_cards_html = "\n".join(
+        render_private_label_chain_card(chain, count)
+        for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
+    )
+
+    brand_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order) + "\n" + private_label_chain_cards_html
 
     category_icons = {
         "dagslinser": '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/>',
@@ -2304,7 +2322,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
             f'</a>'
             for l in chain_labels
         )
-        sections_html += f"""<h2>{escape(chain)}</h2>
+        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)}</h2>
   <div class="product-list-group">{rows}</div>
 """
 
