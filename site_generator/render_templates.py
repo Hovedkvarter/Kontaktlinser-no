@@ -1048,7 +1048,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         else:
             badge_class = "brand-card-badge"
             badge_content = escape(chain[:2].upper())
-        return f"""<a class="brand-card" href="/private-label/#{escape(chain.lower())}">
+        return f"""<a class="brand-card" href="/merke/{escape(subbrand.lower())}/">
   <div class="{badge_class}">{badge_content}</div>
   <div class="brand-card-info">
     <div class="brand-card-name">{escape(subbrand)}</div>
@@ -2221,6 +2221,175 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 </html>"""
 
 
+def render_private_label_brand_page(chain: str, labels: list[dict], products_by_id: dict, categories: dict, now: datetime | None = None) -> str:
+    """Egen 'merke'-side for en optikerkjedes private label-serie (f.eks.
+    /merke/eyeq/ for Synsam sin EyeQ-serie) -- samme URL-mønster og
+    kortstil som render_brand_page(), men kildedata er private_labels.json
+    + de ekte produktenes tilbud (ingen egen prisdata her heller, se
+    render_private_label_page()). Gir serien sin egen indekserbare side i
+    stedet for å kun leve som en seksjon på /private-label/."""
+    now = now or datetime.now(timezone.utc)
+    subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+    slug = subbrand.lower()
+
+    rows = []
+    for label in labels:
+        real_product = products_by_id.get(label["real_product_id"])
+        if real_product is None:
+            continue
+        offers = reconcile_product(real_product["offers"], now)
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        image_url = pick_product_image(real_product["offers"])
+        rows.append({"label": label, "real_product": real_product, "lowest": lowest, "image_url": image_url})
+
+    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+
+    def render_row(r: dict) -> str:
+        label, real_product, lowest = r["label"], r["real_product"], r["lowest"]
+        thumb = f'<img src="{escape(r["image_url"])}" alt="{escape(label["name"])}" loading="lazy">' if r["image_url"] \
+            else escape(chain[:2].upper())
+        price_block = (
+            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
+            f'<div class="retailer-count">{len(real_product["offers"])} forhandlere</div>'
+            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        )
+        href = f'/private-label/{escape(label["slug"])}/'
+        category_label = categories[real_product["category_slug"]]["label"] if "category_slug" in real_product else ""
+        return f"""<a class="product-card" href="{href}" data-category="{escape(real_product.get("category_slug", ""))}">
+  <div class="product-thumb">{thumb}</div>
+  <div class="product-main">
+    <div class="product-name">{escape(label["name"])}</div>
+    <div class="product-meta">= {escape(real_product["name"])}{" · " + escape(category_label) if category_label else ""}</div>
+  </div>
+  <div class="product-price-col">{price_block}</div>
+</a>"""
+
+    product_rows_html = "\n".join(render_row(r) for r in rows)
+
+    category_slugs = sorted({r["real_product"]["category_slug"] for r in rows if "category_slug" in r["real_product"]})
+    category_chips = "".join(
+        f'<button class="chip" data-category="{escape(c)}">{escape(categories[c]["label"])}</button>' for c in category_slugs
+    )
+
+    # _brand_badge() slår opp i BRAND_LOGOS (linsemerker), ikke
+    # RETAILER_LOGOS (kjeder) -- bygg badgen selv med kjedens logo i stedet.
+    logo_entry = RETAILER_LOGOS.get(chain)
+    if logo_entry:
+        filename, dark_bg = logo_entry
+        brand_logo_cls = "has-logo has-logo-dark" if dark_bg else "has-logo"
+        brand_logo_content = f'<img class="brand-logo-img" src="/static/logos/{filename}" alt="" loading="lazy">'
+    else:
+        brand_logo_cls, brand_logo_content = "", escape(chain[:2].upper())
+    brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>'
+
+    meta_description = f"{subbrand} er {chain} sitt eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
+
+    schema_items = ",\n      ".join(
+        f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/private-label/{r["label"]["slug"]}/", "name": "{escape(r["label"]["name"])}"}}'''
+        for i, r in enumerate(rows)
+    )
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{"@type": "BreadcrumbList", "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "{escape(subbrand)}", "item": "{BASE_URL}/merke/{slug}/"}}
+    ]}},
+    {{"@type": "ItemList", "itemListElement": [{schema_items}]}}
+  ]
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(subbrand)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
+<meta name="description" content="{escape(meta_description)}">
+<link rel="canonical" href="{BASE_URL}/merke/{slug}/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
+.private-label-explainer strong {{ color: var(--ink); }}
+.private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(subbrand)}</p>
+  <div class="hero">
+    <div class="brand-hero-row">
+      {brand_logo_block}
+      <div class="hero-copy">
+        <div class="kicker">{escape(chain)} sitt eget merkenavn</div>
+        <h1>{escape(subbrand)} kontaktlinser</h1>
+        <p>Alle {escape(subbrand)}-varianter vi har identifisert, sortert etter lavest pris.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="private-label-explainer">
+    <p><strong>Hva er {escape(subbrand)}?</strong> {escape(chain)} selger kontaktlinser under sitt eget varenavn, {escape(subbrand)}, i stedet for produsentens opprinnelige navn. Det er ikke en egen linseprodusent – hver {escape(subbrand)}-linse er identisk med en kjent linse fra en av de store produsentene, bare med {escape(chain)} sin egen emballasje og navn. Prisene under er hentet fra det ekte produktet, siden det er nøyaktig samme fysiske vare.</p>
+  </div>
+
+  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
+    <button class="chip active" data-category="all">Alle kategorier</button>
+    {category_chips}
+  </div>
+
+  <div class="list-header">
+    <h2 id="result-count">{len(rows)} produkter</h2>
+  </div>
+
+  <div id="product-list">
+    {product_rows_html}
+  </div>
+  <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  <div class="private-label-caveat">
+    <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
+  </div>
+
+  <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
+
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    provisjon når du handler via lenkene, men det påvirker ikke prisen du
+    betaler eller rekkefølgen på tilbudene. kontaktlinser.no er en uavhengig
+    prissammenligningstjeneste, ikke en forhandler.
+  </p>
+</div>
+
+<script>
+  const filterRow = document.getElementById('filter-row');
+  const list = document.getElementById('product-list');
+
+  filterRow.addEventListener('click', e => {{
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    const category = btn.dataset.category;
+    let visible = 0;
+    list.querySelectorAll('.product-card').forEach(card => {{
+      const show = category === 'all' || card.dataset.category === category;
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    }});
+    document.getElementById('result-count').textContent = visible + ' produkter';
+  }});
+</script>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
 def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None) -> str:
     """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget
     merkenavn (f.eks. Synsam sin "EyeQ 24" er egentlig Biofinity fra
@@ -2343,7 +2512,8 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
             f'</a>'
             for l in chain_labels
         )
-        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)}</h2>
+        subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--aqua);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
   <div class="product-list-group">{rows}</div>
 """
 

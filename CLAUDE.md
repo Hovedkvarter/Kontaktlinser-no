@@ -670,6 +670,26 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   nærmeste reelle, lovlige visuelle merke siden serien selv ikke har en.
   Kjedenavnet står fortsatt som undertekst ("Brilleland · 15 egne
   merker") slik at koblingen til kjeden ikke går tapt.
+- **Egne merke-sider for private label-seriene (2026-08-15):** brukeren
+  ville at iWear/EyeQ/Easyvision skulle ha egen dedikert side som ekte
+  merker (`/merke/dailies/`-mønsteret), ikke bare leve som en seksjon på
+  `/private-label/`. Ny `render_private_label_brand_page()` i
+  `render_templates.py`, bygger `/merke/{iwear|eyeq|easyvision}/` --
+  samme kortstil/kategorifilter-JS som `render_brand_page()`, men
+  produktkortene lenker til `/private-label/{slug}/` (ikke direkte til
+  det ekte produktet), siden den siden allerede har full prissammenligning
+  + fraskrivelse. Har original forklaringstekst om hva serien er (unngår
+  bevisst å navngi spesifikke produsenter siden produsent-miksen varierer
+  per kjede -- t.d. iWear er nesten utelukkende CooperVision, mens EyeQ
+  blander CooperVision og Alcon -- en generisk "en av de store
+  produsentene"-formulering er trygg for alle tre uten å måtte
+  produsent-spesifikke fakta-sjekkes per kjede). `/merke/`-kortene på
+  forsiden peker nå hit i stedet for til `/private-label/#{kjede}`, og
+  `/private-label/`-oversikten lenker tilbake til den nye siden fra hver
+  kjede-overskrift. Lagt til i sitemap via `site_content.json`sin
+  `brands`-liste (gjenbruker eksisterende `/merke/{slug}/`-sitemap-URL,
+  ingen egen sitemap-fil trengtes). `generate_pages.py` bygger disse
+  rett etter de vanlige private label-sidene.
 
 ## Arbeidsspråk og autorisasjon
 
