@@ -70,7 +70,7 @@ def main(content_path: str = "site_content.json") -> None:
     write_urlset("sitemap-guider.xml", guide_entries)
 
     solution_entries = [
-        url_entry(f"/linsevaeske/{s['brand_slug']}/{s['slug']}/", s["lastmod"])
+        url_entry(f"/{s['solution_category']}/{s['brand_slug']}/{s['slug']}/", s["lastmod"])
         for s in content.get("solutions", [])
     ]
     write_urlset("sitemap-linsevaeske.xml", solution_entries)

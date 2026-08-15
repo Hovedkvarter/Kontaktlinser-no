@@ -441,6 +441,38 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   "Oops! Noe gikk galt"-tekst i `get_page_text`, siden serveren kan
   rendre riktig metadata selv når klientsiden feiler på selve URL-formatet.
 
+- **Øyedråper lansert som andre tilbehørskategori (2026-08-14/15),
+  autonomt arbeid mens bruker var vekk fra skjerm** (eksplisitt avtalt:
+  fortsett uten å måtte godkjenne hvert steg). `render_solution_product_page`/
+  `render_solution_category_page` i `render_templates.py` er nå generalisert
+  til flere kategorier via `SOLUTION_CATEGORIES`-oppslaget og produktenes
+  `solution_category`-felt ("linsevaeske" eller "oyedraper") -- URL-prefiks,
+  tittel og intro slås opp derfra i stedet for hardkodet "linsevaeske"
+  over alt. `generate_pages.py`, `generate_sitemap.py` og
+  `validate_build.py` er oppdatert tilsvarende (grupperer/sjekker per
+  `solution_category`, ikke lenger én fast mappe). Ny kategori senere
+  (f.eks. linseetui) er bare en ny nøkkel i `SOLUTION_CATEGORIES` +
+  produkter med riktig `solution_category`-verdi, ingen kodeduplisering.
+  19 øyedråper lagt til, alle bekreftet ekte 10 ml flytende dråper hos
+  Lenson/Lensway (samme `-extra-{id}`-slug-mønster som linsevæske, samme
+  verifiseringsdisiplin -- besøkt hver side, lest av faktisk ml-tall).
+  Merker: Systane (3), Hylo (7), OXYAL (3), Tearsagain (3), EYZ (2), Thealoz
+  Duo, Add1 (Consol). **Bevisst utelatt:** Hylo Night og EYZ Night er
+  gel/salve i gram, ikke ml-baserte dråper -- annen enhet, ikke sammenlignbar
+  med resten på pris-per-100ml, ikke lagt til. Blephaclean/Blephacura/EYZ
+  Clean er øyelokk-hygieneprodukter (våtservietter/rens), ikke dråper --
+  utenfor scope. Apotekhjem sine øyedråper er IKKE med i det hele tatt:
+  de er et ekte apotek og selger både medisinsk utstyr OG reseptfrie
+  legemidler (f.eks. Livostin, Lomudal -- antihistamin) side om side, og
+  krever ekte klassifisering per produkt før noe derfra kan publiseres.
+  Lenson/Lensway sitt utvalg unngår dette problemet strukturelt: de er
+  IKKE apotek, og etter apotekloven kan de derfor ikke selge legemidler i
+  utgangspunktet -- alt i deres Tilbehør-kategori er per definisjon
+  medisinsk utstyr/kosmetikk, ikke legemiddel. Denne logikken gjelder KUN
+  Lenson/Lensway (og tilsvarende ikke-apotek-forhandlere) -- gjelder IKKE
+  Apotekhjem eller andre apotek, der klassifisering fortsatt må gjøres
+  eksplisitt per produkt.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

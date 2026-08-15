@@ -293,6 +293,7 @@ TOPBAR_HTML = f"""<div class="topbar">
     <a href="/#merker">Merker</a>
     <a href="/#kategorier">Kategorier</a>
     <a href="/linsevaeske/">Linsevæske</a>
+    <a href="/oyedraper/">Øyedråper</a>
     <a href="/guider/">Guider</a>
   </nav>
 </div>"""
@@ -1831,16 +1832,36 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 </html>"""
 
 
+# "Linsevæske"/"øyedråper" o.l. -- delt produkttype (size_ml/solution_type/
+# solution_category i stedet for category_slug/specs som kontaktlinser
+# bruker), men samme pris-/tilbudslogikk. product["solution_category"]
+# peker inn i dette oppslaget for URL-prefiks/tittel/intro -- ny kategori
+# (f.eks. linseetui senere) er kun en ny nøkkel her, ingen kodeduplisering.
+SOLUTION_CATEGORIES = {
+    "linsevaeske": {
+        "label": "Linsevæske",
+        "intro": "Sammenlign priser på linsevæske fra Lenson, Lensway og Extra Optical. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
+    },
+    "oyedraper": {
+        "label": "Øyedråper",
+        "intro": "Sammenlign priser på øyedråper for tørre øyne fra Lenson og Lensway. Vi viser pris per 100 ml, slik at ulike flaskestørrelser er sammenlignbare.",
+    },
+}
+
+
 def render_solution_product_page(product: dict, now: datetime | None = None) -> str:
-    """Linsevæske o.l. -- egen produkttype med annen datamodell enn
-    kontaktlinser (size_ml/solution_type i stedet for category_slug/specs),
-    men samme pris-/tilbudslogikk (reconcile_product, _retailer_badge_html
-    osv. er delt kode uendret fra kontaktlinse-sidene)."""
+    """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
+    kontaktlinser (size_ml/solution_type/solution_category i stedet for
+    category_slug/specs), men samme pris-/tilbudslogikk (reconcile_product,
+    _retailer_badge_html osv. er delt kode uendret fra kontaktlinse-sidene)."""
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
     long_description = product.get("long_description", product.get("description", ""))
+    cat_slug = product["solution_category"]
+    cat = SOLUTION_CATEGORIES[cat_slug]
+    base_url_path = f"/{cat_slug}/{product['brand_slug']}/{product['slug']}/"
 
     best_band = ""
     if best:
@@ -1901,7 +1922,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} – billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
-<link rel="canonical" href="{BASE_URL}/linsevaeske/{product["brand_slug"]}/{product["slug"]}/">
+<link rel="canonical" href="{BASE_URL}{base_url_path}">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -1915,7 +1936,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 <div class="wrap">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
-    <a href="/linsevaeske/">Linsevæske</a> ›
+    <a href="/{cat_slug}/">{escape(cat["label"])}</a> ›
     {escape(product["name"])}
   </p>
   <div class="hero">
@@ -1941,7 +1962,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   <p class="disclosure">
     kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
-    hvilken linsevæske som passer for dine kontaktlinser.
+    hva som passer for deg og dine kontaktlinser.
   </p>
 </div>
 {render_footer()}
@@ -1951,7 +1972,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 </html>"""
 
 
-def render_solution_category_page(products: list[dict], now: datetime | None = None) -> str:
+def render_solution_category_page(solution_category: str, products: list[dict], now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
     rows = []
@@ -1970,7 +1991,7 @@ def render_solution_category_page(products: list[dict], now: datetime | None = N
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
-        href = f'/linsevaeske/{p["brand_slug"]}/{p["slug"]}/'
+        href = f'/{solution_category}/{p["brand_slug"]}/{p["slug"]}/'
         size_label = f'{p["size_ml"]} ml' if p.get("size_ml") else ""
         meta = escape(p["brand_label"]) + (f" · {escape(size_label)}" if size_label else "")
         return f"""<a class="product-card" href="{escape(href)}">
@@ -1983,9 +2004,10 @@ def render_solution_category_page(products: list[dict], now: datetime | None = N
 </a>"""
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
+    cat = SOLUTION_CATEGORIES[solution_category]
 
     schema_items = ",\n      ".join(
-        f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/linsevaeske/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
+        f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/{solution_category}/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
         for i, p in enumerate(products)
     )
     schema_json = f"""{{
@@ -1993,13 +2015,11 @@ def render_solution_category_page(products: list[dict], now: datetime | None = N
   "@graph": [
     {{"@type": "BreadcrumbList", "itemListElement": [
       {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
-      {{"@type": "ListItem", "position": 2, "name": "Linsevæske", "item": "{BASE_URL}/linsevaeske/"}}
+      {{"@type": "ListItem", "position": 2, "name": "{escape(cat["label"])}", "item": "{BASE_URL}/{solution_category}/"}}
     ]}},
     {{"@type": "ItemList", "itemListElement": [{schema_items}]}}
   ]
 }}"""
-
-    intro = "Sammenlign priser på linsevæske fra Lenson, Lensway og Extra Optical. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare."
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -2007,9 +2027,9 @@ def render_solution_category_page(products: list[dict], now: datetime | None = N
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linsevæske – sammenlign priser | kontaktlinser.no</title>
-<meta name="description" content="{escape(intro)}">
-<link rel="canonical" href="{BASE_URL}/linsevaeske/">
+<title>{escape(cat["label"])} – sammenlign priser | kontaktlinser.no</title>
+<meta name="description" content="{escape(cat["intro"])}">
+<link rel="canonical" href="{BASE_URL}/{solution_category}/">
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -2017,12 +2037,12 @@ def render_solution_category_page(products: list[dict], now: datetime | None = N
 <body>
 {TOPBAR_HTML}
 <div class="wrap">
-  <p class="breadcrumb"><a href="/">Hjem</a> › Linsevæske</p>
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(cat["label"])}</p>
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Tilbehør</div>
-      <h1>Linsevæske</h1>
-      <p>{escape(intro)}</p>
+      <h1>{escape(cat["label"])}</h1>
+      <p>{escape(cat["intro"])}</p>
     </div>
   </div>
 

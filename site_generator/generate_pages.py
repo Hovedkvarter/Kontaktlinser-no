@@ -76,16 +76,20 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         if best:
             record_price(price_history, product["id"], today, best["total"], best["retailer"])
 
+        cat_slug = product["solution_category"]
         html = render_solution_product_page(product, now)
-        out_path = BUILD_DIR / "linsevaeske" / product["brand_slug"] / product["slug"] / "index.html"
+        out_path = BUILD_DIR / cat_slug / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         solutions_written.append(product)
-        print(f"  linsevæske -> /linsevaeske/{product['brand_slug']}/{product['slug']}/")
+        print(f"  {cat_slug} -> /{cat_slug}/{product['brand_slug']}/{product['slug']}/")
 
     save_history(price_history)
 
-    write_file(BUILD_DIR / "linsevaeske" / "index.html", render_solution_category_page(solution_products, now))
-    print("  linsevæske -> /linsevaeske/")
+    solution_categories = sorted({p["solution_category"] for p in solution_products})
+    for cat_slug in solution_categories:
+        products_in_cat = [p for p in solution_products if p["solution_category"] == cat_slug]
+        write_file(BUILD_DIR / cat_slug / "index.html", render_solution_category_page(cat_slug, products_in_cat, now))
+        print(f"  {cat_slug} -> /{cat_slug}/")
 
     for category_slug, category in catalog["categories"].items():
         products_in_category = [p for p in lens_products if p["category_slug"] == category_slug]
@@ -136,12 +140,14 @@ def update_site_content(catalog: dict, now: datetime) -> None:
     today = now.date().isoformat()
     lens_products = [p for p in catalog["products"] if "category_slug" in p]
     solution_products = [p for p in catalog["products"] if "category_slug" not in p]
+    solution_categories = sorted({p["solution_category"] for p in solution_products})
     site_content = {
         "static_pages": [
             {"path": "/", "lastmod": today},
             {"path": "/personvern/", "lastmod": today},
             {"path": "/om-oss/", "lastmod": today},
-            {"path": "/linsevaeske/", "lastmod": today},
+        ] + [
+            {"path": f"/{cat_slug}/", "lastmod": today} for cat_slug in solution_categories
         ],
         "categories": [
             {"slug": slug, "lastmod": today} for slug in catalog["categories"].keys()
@@ -160,7 +166,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
             for p in lens_products
         ],
         "solutions": [
-            {"brand_slug": p["brand_slug"], "slug": p["slug"], "lastmod": today}
+            {"solution_category": p["solution_category"], "brand_slug": p["brand_slug"], "slug": p["slug"], "lastmod": today}
             for p in solution_products
         ],
     }
