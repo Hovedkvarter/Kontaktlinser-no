@@ -1115,6 +1115,14 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         render_category_card(slug, category) for slug, category in catalog["categories"].items()
     )
 
+    hero_category_pills_html = "\n".join(
+        f'''<a class="hero-pill" href="/kontaktlinser/{escape(slug)}/">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{category_icons.get(slug, "")}</svg>
+  {escape(category["label"])}
+</a>'''
+        for slug, category in catalog["categories"].items()
+    )
+
     guide_cards_html = "\n".join(
         f"""<a class="guide-mini-card" href="/guide/{escape(slug)}/">
   <div class="guide-card-title">{escape(g["title"])}</div>
@@ -1152,9 +1160,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .hero-photo-credit {{ grid-area: credit; font-size: 0.66rem; color: var(--muted); margin: -10px 0 0; text-align: right; }}
 .hero-lead {{ max-width: 560px; }}
 .hero-lead p {{ margin: 0; color: var(--muted); font-size: 0.92rem; }}
-.hero-actions {{ margin-top: 16px; }}
-.btn-primary {{ display: inline-block; background: var(--ink); color: white; font-weight: 600; font-size: 0.88rem; text-decoration: none; padding: 11px 20px; border-radius: 24px; }}
-.btn-primary:hover {{ background: var(--aqua); }}
+.hero-category-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }}
+.hero-pill {{ display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px 9px 14px; border-radius: 24px; border: 1px solid var(--border); background: white; color: var(--ink); text-decoration: none; font-size: 0.84rem; font-weight: 600; box-shadow: var(--card-shadow); transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s; }}
+.hero-pill svg {{ width: 15px; height: 15px; flex-shrink: 0; color: var(--aqua); }}
+.hero-pill:hover {{ border-color: var(--aqua); background: var(--aqua-tint); box-shadow: 0 2px 8px rgba(46, 196, 214, 0.18); }}
 .trust-strip {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 40px 0 0; box-shadow: var(--card-shadow); }}
 .trust-item {{ font-size: 0.78rem; color: var(--muted); }}
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }}
@@ -1240,8 +1249,8 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       </div>
       <div class="hero-lead">
         <p>Kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk eller velg en linse under for å se alle tilbud.</p>
-        <div class="hero-actions">
-          <a href="#merker" class="btn-primary">Se alle merker</a>
+        <div class="hero-category-pills">
+          {hero_category_pills_html}
         </div>
       </div>
     </div>

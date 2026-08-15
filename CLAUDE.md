@@ -771,6 +771,23 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   disclosure-avsnitt på produkt-/kategori-/private label-sider, llms.txt)
   -- IKKE endret midt i setning (f.eks. "Nei, kontaktlinser.no er
   verken..." i én FAQ-post) eller i URL-er/e-post/domenenavn-referanser.
+- **"Se alle merker"-knappen byttet ut med kategori-piller (2026-08-15):**
+  brukeren påpekte at knappen (lenket til `#merker`, seksjonen rett
+  under) var overflødig -- den "scroller bare litt til". Byttet ut med
+  fem kategori-snarveier (Dagslinser/Månedslinser/Toriske linser/
+  Fargede linser/Multifokale linser) som piller med ikon, siden det gir
+  en reelt ANNEN inngang enn søkefeltet (søk = "jeg vet navnet", piller
+  = "jeg vet ikke navnet, men vet linsetypen") -- kategoriene lå
+  tidligere lenger ned på siden, så dette gjør dem faktisk mer synlige,
+  i motsetning til den gamle knappen som pekte på noe som uansett var
+  synlig. Gjenbruker samme `category_icons`-SVG-set som allerede brukes
+  i Kategorier-seksjonen (visuell konsistens, ingen nytt ikonsett).
+  Egen `.hero-pill`-stil (hvit bunn, aqua-kant + tint på hover, samme
+  `--card-shadow` som resten av kortene) -- ikke gjenbruk av den
+  eksisterende `.chip`-stilen (brukt til filter-knapper på merke-/
+  kategorisider), siden piller i heroen er lenker til nye sider, ikke
+  et filter-UI, og fortjener litt mer "hero-verdig" polish. Fjernet
+  `.hero-actions`/`.btn-primary` CSS som ble død kode etter dette.
 
 ## Arbeidsspråk og autorisasjon
 
