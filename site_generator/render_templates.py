@@ -390,7 +390,7 @@ def render_footer() -> str:
     </div>
   </div>
   <p class="footer-disclosure">
-    kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
+    Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
     automatisk fra forhandlernes egne nettsider hver 6. time og sorterer alltid
     etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
     lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
@@ -684,7 +684,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -1142,16 +1142,15 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .hero {{
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-areas: "heading" "search" "media" "credit" "lead";
+  grid-template-areas: "content" "media" "credit";
   gap: 16px;
   padding: 8px 0 24px;
 }}
-.hero-heading {{ grid-area: heading; }}
-.search-section {{ grid-area: search; }}
+.hero-content {{ grid-area: content; display: flex; flex-direction: column; gap: 16px; }}
 .hero-media {{ grid-area: media; border-radius: 18px; overflow: hidden; max-height: 170px; box-shadow: var(--card-shadow); }}
 .hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
 .hero-photo-credit {{ grid-area: credit; font-size: 0.66rem; color: var(--muted); margin: -10px 0 0; text-align: right; }}
-.hero-lead {{ grid-area: lead; max-width: 560px; }}
+.hero-lead {{ max-width: 560px; }}
 .hero-lead p {{ margin: 0; color: var(--muted); font-size: 0.92rem; }}
 .hero-actions {{ margin-top: 16px; }}
 .btn-primary {{ display: inline-block; background: var(--ink); color: white; font-weight: 600; font-size: 0.88rem; text-decoration: none; padding: 11px 20px; border-radius: 24px; }}
@@ -1161,8 +1160,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }}
 .search-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 10px; }}
 .search-row {{ position: relative; }}
-.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); }}
-.search-input:focus {{ outline: none; border-color: var(--aqua); }}
+.search-icon {{ position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }}
+.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 20px 16px 48px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
+.search-input:focus {{ outline: none; border-color: var(--aqua); box-shadow: 0 0 0 4px var(--aqua-tint); }}
+.search-row:focus-within .search-icon {{ color: var(--aqua); }}
 .search-suggestions {{ display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }}
 .search-suggestion {{ display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }}
 .search-suggestion:last-child {{ border-bottom: none; }}
@@ -1203,19 +1204,19 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 @media (min-width: 700px) {{
   .hero {{
     grid-template-columns: 1fr 42%;
-    grid-template-areas: "heading media" "lead media" "credit credit" "search search";
+    grid-template-areas: "content media" "content credit";
     align-items: start;
     gap: 8px 32px;
   }}
   .hero-media {{ max-height: none; aspect-ratio: 4 / 3; }}
   .hero-photo-credit {{ margin-top: -22px; }}
-  .hero-lead {{ margin-top: 8px; }}
-  .search-section {{ margin-top: 24px; }}
 }}
 @media (min-width: 1024px) {{
   .lens-grid {{ grid-template-columns: repeat(3, 1fr); }}
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
   .category-grid {{ grid-template-columns: repeat(5, 1fr); }}
+  .search-input {{ padding: 18px 24px 18px 52px; font-size: 1.15rem; }}
+  .search-icon {{ left: 22px; width: 22px; height: 22px; }}
 }}
 </style>
 </head>
@@ -1223,28 +1224,31 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <div class="hero">
-    <div class="hero-heading hero-copy">
-      <div class="kicker">Prissammenligning</div>
-      <h1>Finn billigste kontaktlinser</h1>
-    </div>
-    <div class="search-section">
-      <h2>Søk etter linse eller merke</h2>
-      <div class="search-row">
-        <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
-        <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
-        <div class="search-suggestions" id="search-suggestions"></div>
+    <div class="hero-content">
+      <div class="hero-heading hero-copy">
+        <div class="kicker">Prissammenligning</div>
+        <h1>Finn billigste kontaktlinser</h1>
+      </div>
+      <div class="search-section">
+        <h2>Søk etter linse eller merke</h2>
+        <div class="search-row">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+          <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+          <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
+          <div class="search-suggestions" id="search-suggestions"></div>
+        </div>
+      </div>
+      <div class="hero-lead">
+        <p>Kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk eller velg en linse under for å se alle tilbud.</p>
+        <div class="hero-actions">
+          <a href="#merker" class="btn-primary">Se alle merker</a>
+        </div>
       </div>
     </div>
     <div class="hero-media">
       <img src="/static/hero-eye.jpg" alt="" loading="eager">
     </div>
     <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
-    <div class="hero-lead">
-      <p>kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk eller velg en linse under for å se alle tilbud.</p>
-      <div class="hero-actions">
-        <a href="#merker" class="btn-primary">Se alle merker</a>
-      </div>
-    </div>
   </div>
 
   <div class="section-header" id="merker">
@@ -1488,7 +1492,7 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
 HOME_FAQ = [
     {
         "question": "Hvordan fungerer kontaktlinser.no?",
-        "answer": "kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikkers egne nettsider og feeds hver 6. time, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
+        "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikkers egne nettsider og feeds hver 6. time, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
     },
     {
         "question": "Koster det mer å kjøpe via en prissammenligningsside?",
@@ -2037,7 +2041,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -2145,7 +2149,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
   <p class="disclosure">
-    kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
+    Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
@@ -2242,7 +2246,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
   <p class="disclosure">
     Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
     via lenkene på produktsidene, men det påvirker ikke prisen du betaler
-    eller rangeringen av produkter eller tilbud. kontaktlinser.no er en
+    eller rangeringen av produkter eller tilbud. Kontaktlinser.no er en
     uavhengig prissammenligningstjeneste, ikke en forhandler.
   </p>
 </div>
@@ -2383,7 +2387,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
 
   <div class="private-label-caveat">
-    <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
+    <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
   </div>
 
   <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
@@ -2391,7 +2395,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
     provisjon når du handler via lenkene, men det påvirker ikke prisen du
-    betaler eller rekkefølgen på tilbudene. kontaktlinser.no er en uavhengig
+    betaler eller rekkefølgen på tilbudene. Kontaktlinser.no er en uavhengig
     prissammenligningstjeneste, ikke en forhandler.
   </p>
 </div>
@@ -2508,7 +2512,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </div>
 
   <div class="private-label-caveat">
-    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
+    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
   </div>
 
   <p class="disclosure">
@@ -2516,7 +2520,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     provisjon når du handler via lenkene, men det påvirker ikke prisen du
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
-    kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
+    Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med {escape(chain)}.
   </p>
 </div>
@@ -2589,7 +2593,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
   {sections_html}
   <p class="disclosure">
     Koblingene over er satt sammen basert på tilgjengelig informasjon om
-    produsent og produktspesifikasjoner. kontaktlinser.no har ingen avtale
+    produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale
     med optikerkjedene nevnt her og kan ikke garantere at hver kobling
     stemmer i alle tilfeller. Bekreft alltid med din optiker før du bytter
     mellom disse navnene.

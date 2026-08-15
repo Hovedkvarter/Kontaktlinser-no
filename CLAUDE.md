@@ -743,6 +743,34 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     breakpointene (560/640/700px) er rørt. Brukeren var eksplisitt på
     at mobil/brukervennlighet er viktigst -- denne endringen legger kun
     TIL et nytt lag for store skjermer.
+- **Forsidens hero-gap fikset + søkefelt mer fremtredende + "Kontaktlinser.no"
+  kapitalisert i løpende tekst (2026-08-15):** brukeren viste et skjermbilde
+  fra PC av forsiden -- pekte på et stort tomrom mellom H1 og hero-lead-
+  avsnittet. Undersøkte og fant rotårsaken: `.hero`s grid-template-areas
+  ved >=700px var `"heading media" "lead media" "credit credit" "search
+  search"` -- heading og lead delte rader med det høye hero-bildet
+  (`media` spenner over to rader via samme navn i begge), så heading sin
+  rad ble auto-strukket til bildets høyde, med tomrom under. **Verre:**
+  søkefeltet lå i en HELT EGEN rad nederst, under selve bildet -- usynlig
+  i det synlige området på PC. Dette var trolig hele årsaken til at
+  brukeren samtidig spurte om søkefeltet kunne vært mer fremtredende.
+  Fikset ved å pakke heading+search+lead inn i en ny `.hero-content`
+  wrapper (flex-column) som er ÉN grid-item (area "content", spenner
+  begge rader ved siden av bildet) -- unngår rad-delingen som skapte
+  tomrommet, og holder søket rett under H1 på alle skjermstørrelser, ikke
+  bare mobil. La også til et forstørrelsesglass-ikon i søkefeltet, en
+  aqua-glød på fokus (`box-shadow` + `--aqua-tint`), og litt større
+  padding/skrift ved >=1024px.
+  I samme melding pekte brukeren (for andre gang) på at "kontaktlinser.no"
+  med liten k så rart ut -- denne gangen i selve brødteksten på siden
+  ("kontaktlinser.no er en uavhengig..."), ikke bare i Googles SERP-
+  visning som sist (der jeg anbefalte å la det være). Dette er en annen,
+  mer berettiget sak: som første ord i en SETNING bør det ha stor
+  forbokstav uansett merkevare-stil. Kapitalisert til "Kontaktlinser.no"
+  alle steder det står setningsinnledende (footer, hero-lead, FAQ-svar,
+  disclosure-avsnitt på produkt-/kategori-/private label-sider, llms.txt)
+  -- IKKE endret midt i setning (f.eks. "Nei, kontaktlinser.no er
+  verken..." i én FAQ-post) eller i URL-er/e-post/domenenavn-referanser.
 
 ## Arbeidsspråk og autorisasjon
 
