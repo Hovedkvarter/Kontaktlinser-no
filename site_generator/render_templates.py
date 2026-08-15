@@ -33,6 +33,16 @@ SHARED_STYLE = """
 body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.5; }
 a { color: inherit; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+/* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
+   store skjermer -- kun grid-/liste-/pristabellsider trenger mer bredde.
+   wrap-wide: forside/kategori/merke-oversikter. wrap-product: produkt-
+   /pristabellsider. Se .lens-grid/.brand-grid/.category-grid for
+   tilhørende kolonneøkning ved samme breakpoint. */
+@media (min-width: 1024px) {
+  .wrap-wide { max-width: 1200px; }
+  .wrap-product { max-width: 1040px; }
+  .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
+}
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; max-width: 760px; margin: 0 auto; flex-wrap: wrap; }
 .topbar-logo { display: flex; align-items: center; text-decoration: none; }
 .topbar-logo img { height: 30px; width: auto; display: block; mix-blend-mode: multiply; }
@@ -770,6 +780,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-product-image {{ width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; }} }}
+@media (min-width: 1024px) {{ .hero-product-image {{ width: 340px; height: 340px; border-radius: 28px; font-size: 4rem; }} }}
 .price-history {{ margin-top: 28px; }}
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
@@ -784,7 +795,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-product">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
     <a href="/kontaktlinser/{escape(product["category_slug"])}/">{escape(categories[product["category_slug"]]["label"])}</a> ›
@@ -904,7 +915,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
   <div class="hero">
     <div class="brand-hero-row">
@@ -1199,11 +1210,16 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   .hero-lead {{ margin-top: 8px; }}
   .search-section {{ margin-top: 24px; }}
 }}
+@media (min-width: 1024px) {{
+  .lens-grid {{ grid-template-columns: repeat(3, 1fr); }}
+  .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
+  .category-grid {{ grid-template-columns: repeat(5, 1fr); }}
+}}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <div class="hero">
     <div class="hero-heading hero-copy">
       <div class="kicker">Prissammenligning</div>
@@ -1903,7 +1919,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(category["label"])}</p>
   <div class="hero">
     <div class="hero-copy">
@@ -2099,7 +2115,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-product">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
     <a href="/{cat_slug}/">{escape(cat["label"])}</a> ›
@@ -2203,7 +2219,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(cat["label"])}</p>
   <div class="hero">
     <div class="hero-copy">
@@ -2333,7 +2349,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(subbrand)}</p>
   <div class="hero">
     <div class="brand-hero-row">
@@ -2464,7 +2480,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-product">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
     <a href="/private-label/">Optikerkjedenes egne merker</a> ›
@@ -2559,7 +2575,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › Optikerkjedenes egne merker</p>
   <div class="hero">
     <div class="hero-copy">

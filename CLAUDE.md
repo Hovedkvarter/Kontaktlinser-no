@@ -716,6 +716,33 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   i originalen men er to separate merker i vår katalog). Resten av
   merkene følger i uendret rekkefølge (etter antall produkter). Se
   `PINNED_BRAND_SLUGS` i `render_home_page()`.
+- **Desktop-breddeoppgradering, nytt 1024px-breakpoint (2026-08-15):**
+  brukeren observerte at siden var bygget for gamle skjermbredder (faktisk
+  `max-width: 760px` på ALLE sider -- enda smalere enn brukeren selv
+  anslo). Diskutert flere layoutmodeller (sidebar-filtrering, dashboard-
+  grid, sentrert fokusert produktside) før noe ble bygget -- landet på en
+  moderat, inkrementell løsning fremfor en full omlegging:
+  - To nye containerklasser i `SHARED_STYLE`, aktive kun ved
+    `min-width: 1024px`: `.wrap-wide` (1200px, for forside/kategori/
+    merke-/private label-oversikter) og `.wrap-product` (1040px, for
+    produkt-/pristabellsider). Tekstsider (guider, om oss, personvern,
+    404) er BEVISST uendret på 760px -- ingen grunn til brede
+    leselinjer der.
+    **NB:** ikke bare bredere -- kolonneantallet i `.lens-grid`
+    (2->3), `.brand-grid` (3->4) og `.category-grid` (3->5) økes ved
+    samme breakpoint, ellers ville kortene bare blitt unaturlig
+    strukket ut med tomrom inni seg i stedet for flere kort per rad.
+    `.topbar`/`.footer-inner`/`.footer-disclosure`/`.footer-bottom`
+    (delt på alle sider) widened til 1200px samtidig, for visuell
+    konsistens med innholdet under -- selv på tekstsider, siden en
+    boksete topbar over et bredt forside ville sett rart ut.
+  - `.hero-product-image` (produktside-bildet) økt fra 240px til 340px
+    ved 1024px.
+  - Mobil er UENDRET -- alle disse reglene er strengt inni
+    `@media (min-width: 1024px)`, ingen av de eksisterende mobil-
+    breakpointene (560/640/700px) er rørt. Brukeren var eksplisitt på
+    at mobil/brukervennlighet er viktigst -- denne endringen legger kun
+    TIL et nytt lag for store skjermer.
 
 ## Arbeidsspråk og autorisasjon
 
