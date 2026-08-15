@@ -98,6 +98,16 @@ function __loadGTM() {
 body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.5; }
 a { color: inherit; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
+/* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
+   store skjermer -- kun grid-/liste-/pristabellsider trenger mer bredde.
+   wrap-wide: forside/kategori/merke-oversikter. wrap-product: produkt-
+   /pristabellsider. Se .lens-grid/.brand-grid/.category-grid for
+   tilhørende kolonneøkning ved samme breakpoint. */
+@media (min-width: 1024px) {
+  .wrap-wide { max-width: 1200px; }
+  .wrap-product { max-width: 1040px; }
+  .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
+}
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; max-width: 760px; margin: 0 auto; flex-wrap: wrap; }
 .topbar-logo { display: flex; align-items: center; text-decoration: none; }
 .topbar-logo img { height: 30px; width: auto; display: block; mix-blend-mode: multiply; }
@@ -210,6 +220,7 @@ a { color: inherit; }
 .hero-product-image { width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 340px; height: 340px; border-radius: 28px; font-size: 4rem; } }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
@@ -233,7 +244,7 @@ a { color: inherit; }
     <a href="/guider/">Guider</a>
   </nav>
 </div>
-<div class="wrap">
+<div class="wrap wrap-product">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
     <a href="/kontaktlinser/dagslinser/">Dagslinser</a> ›
