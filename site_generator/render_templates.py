@@ -2501,6 +2501,278 @@ brillestyrken din.</p>
             },
         ],
     },
+    "hva-koster-kontaktlinser": {
+        "title": "Hva koster kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor det ikke finnes ett fast svar på hva kontaktlinser koster, og hva som faktisk avgjør prisen.",
+        "body_html": """
+<p>Det finnes ikke ett fast svar – prisen på kontaktlinser varierer mye ut fra
+linsetype, merke, pakningsstørrelse og hvilken forhandler du velger. To ulike
+kontaktlinser kan koste svært forskjellig selv om de dekker samme synsbehov.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som påvirker prisen</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li><strong>Merke og teknologi</strong> – nyere materialer (f.eks. silikonhydrogel) koster
+  ofte mer enn eldre</li>
+  <li><strong>Linsetype</strong> – dagslinser koster mer per linse enn månedslinser, men kan
+  likevel lønne seg avhengig av brukshyppighet</li>
+  <li><strong>Pakningsstørrelse</strong> – større pakninger har ofte (men ikke alltid) lavere
+  pris per linse</li>
+  <li><strong>Forhandler</strong> – prisene varierer mellom butikker og endrer seg over tid</li>
+</ul>
+
+<p style="margin-top:16px;">Den mest pålitelige måten å finne riktig pris for akkurat dine linser er å søke dem
+opp direkte – bruk søkefeltet på <a href="/">forsiden</a> for å sammenligne
+oppdaterte priser fra norske nettbutikker.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor er det ikke ett fast svar på hva kontaktlinser koster?",
+                "answer": "Prisen varierer mye ut fra linsetype, merke, pakningsstørrelse og forhandler. To ulike linser kan koste svært forskjellig selv om de dekker samme synsbehov.",
+            },
+            {
+                "question": "Hvordan finner jeg riktig pris for akkurat mine linser?",
+                "answer": "Søk opp navnet fra esken din på forsiden av kontaktlinser.no for å se oppdaterte priser fra norske nettbutikker, sortert etter lavest totalpris.",
+            },
+        ],
+    },
+    "pakningsstorrelse-30-vs-90": {
+        "title": "30 vs. 90-pakning – hva lønner seg?",
+        "updated": "2026-08-16",
+        "description": "Er større pakninger alltid billigst per linse? Slik vurderer du pakningsstørrelse riktig.",
+        "body_html": """
+<p>Større pakninger har ofte lavere pris per linse, siden mange produsenter og
+forhandlere gir en viss mengderabatt – men <strong>ikke alltid</strong>. Det lønner seg å
+faktisk sjekke pris per linse for pakningsstørrelsene du vurderer, i stedet for å anta.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ting å vurdere utover prisen</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>En stor pakning krever høyere engangsutlegg</li>
+  <li>Hvis styrken din endrer seg, kan du sitte igjen med ubrukte linser</li>
+  <li>Sjekk holdbarhetsdato hvis du kjøper en stor pakning du bruker sjelden</li>
+</ul>
+
+<p style="margin-top:16px;">Se vår <a href="/guide/pris-per-linse-slik-sammenligner-du/">guide om å sammenligne
+pris per linse</a> for hvordan du regner ut det reelle sammenligningsgrunnlaget.</p>
+""",
+        "faq": [
+            {
+                "question": "Er 90-pakning alltid billigere per linse enn 30-pakning?",
+                "answer": "Ofte, men ikke alltid. Det lønner seg å sjekke pris per linse direkte for produktene du vurderer, i stedet for å anta at større pakning automatisk er billigst.",
+            },
+            {
+                "question": "Hva bør jeg tenke på før jeg kjøper en stor pakning?",
+                "answer": "Høyere engangsutlegg, at styrken din kan endre seg over tid, og holdbarhetsdato hvis du bruker linser sjelden.",
+            },
+        ],
+    },
+    "pris-per-linse-slik-sammenligner-du": {
+        "title": "Pris per linse – slik sammenligner du riktig",
+        "updated": "2026-08-16",
+        "description": "Hvorfor du bør se på pris per linse i stedet for kun pakningspris, med et enkelt regneeksempel.",
+        "body_html": """
+<p>Når du sammenligner kontaktlinsepriser – spesielt på tvers av ulike pakningsstørrelser
+eller produkter – gir pakningsprisen alene et misvisende bilde. Del alltid totalprisen på
+antall linser i pakningen for en reell sammenligning.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>30-pakning til 300 kr = 10 kr per linse</li>
+  <li>90-pakning til 750 kr = 8,33 kr per linse</li>
+</ul>
+<p style="font-size:0.92rem;line-height:1.7;">Selv om 90-pakningen koster mer totalt, er den billigst per linse i dette eksempelet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Omtrentlig månedskostnad</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Gang pris per linse med hvor mange du faktisk bruker per måned. Dette varierer mye
+mellom dagslinser (én linse per brukt dag) og månedslinser (typisk to linser per måned,
+én per øye) – se vår <a href="/guide/manedslinser-vs-dagslinser/">guide om månedslinser
+vs. dagslinser</a> for brukshyppighet.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor bør jeg se på pris per linse i stedet for pakningsprisen?",
+                "answer": "Fordi det gir et reelt sammenligningsgrunnlag på tvers av ulike pakningsstørrelser og produkter – pakningsprisen alene kan gi et misvisende bilde av hva som faktisk lønner seg.",
+            },
+            {
+                "question": "Hvordan regner jeg ut omtrentlig månedskostnad?",
+                "answer": "Gang pris per linse med hvor mange linser du faktisk bruker per måned – dette varierer mye mellom dagslinser og månedslinser.",
+            },
+        ],
+    },
+    "hvorfor-varierer-prisene-mellom-butikkene": {
+        "title": "Hvorfor varierer prisene på kontaktlinser mellom butikkene?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor samme kontaktlinse kan koste ulikt hos forskjellige norske nettbutikker.",
+        "body_html": """
+<p>Samme kontaktlinse kan koste ulikt fra butikk til butikk, av flere grunner:</p>
+
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Ulike innkjøpsavtaler og volum med produsenten</li>
+  <li>Ulike driftskostnader og fraktpolitikk</li>
+  <li>Tidsbegrensede kampanjer og tilbud</li>
+  <li>Hvor ofte den enkelte butikken oppdaterer sine egne priser</li>
+</ul>
+
+<p style="margin-top:16px;">Dette er nettopp derfor det lønner seg å sammenligne på tvers av butikker i stedet for
+å handle hos den første man kommer over. Prisene kan også endre seg fra dag til dag – vi
+henter oppdaterte priser hver 6. time.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor koster samme kontaktlinse ulikt hos forskjellige butikker?",
+                "answer": "Ulike innkjøpsavtaler, driftskostnader, fraktpolitikk og tidsbegrensede kampanjer gjør at prisen på samme linse kan variere mellom forhandlere.",
+            },
+            {
+                "question": "Hvor ofte endrer prisene seg?",
+                "answer": "Prisene kan endre seg fra dag til dag. Kontaktlinser.no henter oppdaterte priser fra forhandlerne hver 6. time.",
+            },
+        ],
+    },
+    "hvordan-kontaktlinser-no-beregner-totalpris": {
+        "title": "Hvordan Kontaktlinser.no beregner totalpris",
+        "updated": "2026-08-16",
+        "description": "Hvorfor vi alltid sorterer etter totalpris (produktpris + frakt), og hvorfor det kan gi et annet resultat enn produktpris alene.",
+        "body_html": """
+<p>Kontaktlinser.no sorterer alltid tilbud etter <strong>totalpris</strong> –
+produktpris pluss frakt – ikke produktprisen alene. Det er en bevisst forskjell fra å bare
+sammenligne prisene som står på hver butikks egen produktside.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Butikk A: produktpris 250 kr + frakt 79 kr = <strong>329 kr</strong> totalt</li>
+  <li>Butikk B: produktpris 265 kr + gratis frakt = <strong>265 kr</strong> totalt</li>
+</ul>
+<p style="font-size:0.92rem;line-height:1.7;">Selv om Butikk A har lavest produktpris, er Butikk B faktisk billigst når frakt regnes
+med. Ser du kun på produktprisen direkte hos hver butikk, kan du lett ende opp med det
+dyreste alternativet uten å vite det.</p>
+
+<p style="margin-top:16px;">Priser eldre enn 24 timer, eller uten bekreftet lagerstatus, vises fortsatt hos oss,
+men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. time.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor sorterer dere etter totalpris og ikke bare produktpris?",
+                "answer": "Fordi frakt er en reell del av det du faktisk betaler, og kan endre hvilken butikk som egentlig er billigst – en lav produktpris med høy frakt kan ende opp dyrere enn en høyere produktpris med gratis frakt.",
+            },
+            {
+                "question": "Hvor ofte oppdateres prisene?",
+                "answer": "Vi henter oppdaterte priser fra forhandlerne hver 6. time.",
+            },
+        ],
+    },
+    "kontaktlinseabonnement-vs-kjope-selv": {
+        "title": "Kontaktlinseabonnement eller kjøpe selv – hva lønner seg?",
+        "updated": "2026-08-16",
+        "description": "Fordeler og ulemper ved abonnement på kontaktlinser sammenlignet med å bestille selv hver gang.",
+        "body_html": """
+<p>Flere forhandlere tilbyr abonnement/fast levering av kontaktlinser, noen ganger med
+rabatt. Om det lønner seg avhenger av hva du prioriterer.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med abonnement</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Slipper å huske å bestille på nytt</li>
+  <li>Kan gi en fast rabatt hos enkelte forhandlere</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør vite</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Et abonnement binder deg til én forhandlers pris, mens priser generelt varierer
+mellom butikker og over tid. Abonnementsprisen er derfor ikke nødvendigvis den laveste
+tilgjengelige til enhver tid. Sjekk gjerne jevnlig om abonnementsprisen din fortsatt er
+konkurransedyktig ved å sammenligne hos oss.</p>
+""",
+        "faq": [
+            {
+                "question": "Er abonnement alltid billigere enn å kjøpe selv?",
+                "answer": "Ikke nødvendigvis. Et abonnement binder deg til én forhandlers pris, som ikke alltid er den laveste tilgjengelige til enhver tid – det avhenger av rabatten og hvordan prisene beveger seg over tid.",
+            },
+            {
+                "question": "Kan jeg si opp et linseabonnement når jeg vil?",
+                "answer": "Det varierer mellom forhandlere – sjekk vilkårene hos den aktuelle butikken. Kontaktlinser.no har ingen avtale med forhandlerne om dette.",
+            },
+        ],
+    },
+    "hvordan-kjope-kontaktlinser-pa-nett": {
+        "title": "Hvordan kjøpe kontaktlinser på nett",
+        "updated": "2026-08-16",
+        "description": "Stegene for å bestille kontaktlinser trygt på nett, fra resept til fullført kjøp hos forhandler.",
+        "body_html": """
+<p>Å bestille kontaktlinser på nett er enkelt når du vet hva du trenger:</p>
+
+<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.9;">
+  <li>Ha en gyldig resept fra optiker eller øyelege (styrke, BC, DIA, og ev. CYL/AXIS/ADD
+  – se vår <a href="/guide/forsta-kontaktlinseresepten/">guide om å lese resepten din</a>)</li>
+  <li>Finn riktig produkt – søk opp navnet fra esken din på <a href="/">forsiden</a> vår</li>
+  <li>Sammenlign totalpris hos norske forhandlere</li>
+  <li>Velg forhandler og fullfør kjøpet hos dem</li>
+</ol>
+
+<p style="margin-top:16px;">Kontaktlinser.no selger ikke kontaktlinser selv – vi sammenligner priser og sender deg
+videre til forhandleren, som håndterer selve kjøpet, betaling, levering og eventuell
+retur.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva trenger jeg for å bestille kontaktlinser på nett?",
+                "answer": "En gyldig resept fra optiker eller øyelege med styrke, BC og DIA (og ev. CYL, AXIS eller ADD avhengig av linsetype).",
+            },
+            {
+                "question": "Fullfører jeg kjøpet hos Kontaktlinser.no?",
+                "answer": "Nei. Vi sammenligner priser og sender deg videre til forhandleren du velger, som håndterer selve kjøpet, betaling og levering.",
+            },
+        ],
+    },
+    "kan-man-kjope-kontaktlinser-uten-resept": {
+        "title": "Kan man kjøpe kontaktlinser uten resept?",
+        "updated": "2026-08-16",
+        "description": "Kontaktlinser regnes som medisinsk utstyr i Norge og krever gyldig resept, også uten styrke.",
+        "body_html": """
+<p><strong>Nei.</strong> Kontaktlinser regnes som medisinsk utstyr i Norge, og krever
+gyldig resept/tilpasning fra optiker eller øyelege – dette gjelder også linser uten
+styrke, som fargede kosmetiske linser.</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">Seriøse forhandlere ber om resept-informasjon ved bestilling. Kjøp fra useriøse
+kilder som ikke krever dette frarådes – det øker risikoen for feil passform eller styrke,
+og dermed for øyeirritasjon eller -skade.</p>
+""",
+        "faq": [
+            {
+                "question": "Må jeg ha resept for linser uten styrke?",
+                "answer": "Ja. Selv fargede kosmetiske linser uten synskorreksjon regnes som medisinsk utstyr og krever gyldig tilpasning hos optiker.",
+            },
+            {
+                "question": "Hva bør jeg tenke hvis en nettbutikk ikke spør om resept?",
+                "answer": "Det er et varselstegn. Unngå forhandlere som ikke krever resept-informasjon ved bestilling.",
+            },
+        ],
+    },
+    "kan-jeg-bytte-kontaktlinsemerke-selv": {
+        "title": "Kan jeg bytte kontaktlinsemerke selv?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor det ikke anbefales å bytte til et «tilsvarende» kontaktlinsemerke på egen hånd, selv med lik styrke.",
+        "body_html": """
+<p>Det anbefales <strong>ikke</strong> å bytte til et annet merke helt på egen hånd, selv
+om styrken (PWR/SPH) er den samme. Ulike merker kan ha ulik BC, DIA, materiale og
+linsedesign – alt dette påvirker hvordan linsen faktisk sitter og føles, ikke bare
+styrken.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Unntaket: private label</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Hvis det er snakk om nøyaktig samme fysiske linse solgt under et annet navn (f.eks. en
+optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – se vår
+<a href="/private-label/">oversikt over optikerkjedenes egne merker</a>.</p>
+
+<p style="margin-top:16px;">Vurderer du et helt annet produkt, ta det opp med optikeren din først.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg bytte til et billigere merke med samme styrke?",
+                "answer": "Ikke uten å sjekke med optiker først. BC, DIA og materiale kan variere mellom merker selv ved lik styrke, og påvirker hvordan linsen faktisk sitter.",
+            },
+            {
+                "question": "Er det trygt å bytte til en private label-versjon av linsen min?",
+                "answer": "Ja, hvis det er nøyaktig samme fysiske linse solgt under et annet navn – se vår oversikt over optikerkjedenes egne merker. Det er noe annet enn å bytte til et faktisk ulikt produkt.",
+            },
+        ],
+    },
 }
 
 
@@ -2758,6 +3030,42 @@ GUIDE_ICONS = {
     "samme-styrke-briller-og-linser": {
         "color": "amber",
         "svg": '<circle cx="7" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17" cy="13" r="3.6" stroke="none" fill="currentColor" opacity="0.35"/><path d="M10.6 13h2.8M2.8 12l1-3M21.2 12l-1-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+    },
+    "hva-koster-kontaktlinser": {
+        "color": "mint",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.18"/><path d="M12 6.5v11M9 9.2c0-1 1-1.7 3-1.7s3 .8 3 1.9c0 2.6-6 1.2-6 3.8 0 1.1 1.3 1.9 3 1.9s3-.7 3-1.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>',
+    },
+    "pakningsstorrelse-30-vs-90": {
+        "color": "amber",
+        "svg": '<rect x="3" y="8" width="7" height="10" rx="1.5" fill="currentColor" opacity="0.3"/><rect x="12" y="5" width="9" height="13" rx="1.5" fill="currentColor" opacity="0.6"/>',
+    },
+    "pris-per-linse-slik-sammenligner-du": {
+        "color": "sky",
+        "svg": '<circle cx="9" cy="9" r="5" fill="currentColor" opacity="0.3"/><circle cx="15" cy="15" r="5" fill="currentColor" opacity="0.6"/><path d="M12 12h.01" stroke="currentColor" stroke-width="0"/>',
+    },
+    "hvorfor-varierer-prisene-mellom-butikkene": {
+        "color": "coral",
+        "svg": '<path d="M4 18l4-6 4 3 4-8 4 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    },
+    "hvordan-kontaktlinser-no-beregner-totalpris": {
+        "color": "lavender",
+        "svg": '<rect x="4" y="5" width="16" height="14" rx="2" fill="currentColor" opacity="0.16"/><path d="M8 10h8M8 13h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+    },
+    "kontaktlinseabonnement-vs-kjope-selv": {
+        "color": "aqua",
+        "svg": '<path d="M17 5a7 7 0 1 0 3 5.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M17 2v4h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    },
+    "hvordan-kjope-kontaktlinser-pa-nett": {
+        "color": "mint",
+        "svg": '<rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 8h8M8 12h8M8 16h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>',
+    },
+    "kan-man-kjope-kontaktlinser-uten-resept": {
+        "color": "coral",
+        "svg": '<rect x="5" y="3" width="14" height="18" rx="2" fill="currentColor" opacity="0.16"/><path d="M8 8h8M8 12h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="16" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M13.5 18.5l5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    },
+    "kan-jeg-bytte-kontaktlinsemerke-selv": {
+        "color": "amber",
+        "svg": '<path d="M7 7h10l-3-3M17 17H7l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
     },
 }
 
