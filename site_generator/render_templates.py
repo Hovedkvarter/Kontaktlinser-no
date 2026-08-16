@@ -2056,6 +2056,305 @@ oppfølgingen er individuelt tilpasset den medisinske tilstanden.</p>
             },
         ],
     },
+    "kontaktlinser-med-astigmatisme": {
+        "title": "Toriske linser og astigmatisme",
+        "updated": "2026-08-16",
+        "description": "Hva astigmatisme er, hvorfor det krever toriske linser, og hvorfor disse er litt mer krevende å tilpasse enn vanlige linser.",
+        "body_html": """
+<p>Astigmatisme betyr at hornhinnen har en litt uregelmessig, ovalformet krumning i
+stedet for å være jevnt rund. Det gjør at syn kan bli uskarpt eller forvrengt på både
+nært og langt hold – ikke bare det ene, som ved vanlig nær- eller langsynthet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva er toriske linser?</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Toriske linser er kontaktlinser spesialformet for å korrigere astigmatisme. I motsetning
+til en vanlig sfærisk linse (som har lik styrke i alle retninger og kan rotere fritt uten
+at det merkes) må en torisk linse ha ulik styrke i ulike retninger, og den må ligge stabilt
+i riktig posisjon for å virke. Linsene er derfor bygget med en litt tyngre nedre kant eller
+tynnsoner som gjør at de "retter seg selv opp" på øyet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Fordi linsen må stå riktig vei, trenger optikeren mer presis informasjon fra
+synsundersøkelsen (styrke, sylinderkorreksjon og aksen den skal ligge i) enn ved en vanlig
+sfærisk linse. Noen få prøver seg frem til beste passform, spesielt ved høyere grad av
+astigmatisme.</p>
+
+<p style="margin-top:16px;">Se vår <a href="/kontaktlinser/toriske-linser/">oversikt over toriske linser</a>
+for å sammenligne priser på tvers av merker.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er forskjellen på en vanlig og en torisk linse?",
+                "answer": "En vanlig sfærisk linse har lik styrke i alle retninger og kan rotere fritt. En torisk linse (for astigmatisme) har ulik styrke i ulike retninger og må ligge stabilt i riktig posisjon for å korrigere synet riktig.",
+            },
+            {
+                "question": "Hvorfor tar det litt lengre tid å tilpasse toriske linser?",
+                "answer": "Fordi linsen må ligge riktig vei på øyet, trengs mer presis informasjon fra synsundersøkelsen (sylinderstyrke og akse), og noen få prøver seg frem til beste passform.",
+            },
+        ],
+    },
+    "multifokale-kontaktlinser": {
+        "title": "Multifokale kontaktlinser ved alderssyn",
+        "updated": "2026-08-16",
+        "description": "Hvordan multifokale kontaktlinser fungerer ved alderssyn (presbyopi), og hvor lang tilvenning man kan forvente.",
+        "body_html": """
+<p>Alderssyn (presbyopi) er en naturlig, aldersrelatert svekkelse av øyets evne til å
+stille skarpt på nært hold, som de fleste merker fra rundt 40–45-årsalderen.
+Multifokale kontaktlinser er laget for å korrigere dette.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
+<p style="font-size:0.92rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
+multifokale linser flere styrkesoner tilgjengelig samtidig (for nært, mellomdistanse og
+langt hold). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på –
+dette kalles simultanvisjon.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tilvenning</h2>
+<p style="font-size:0.92rem;line-height:1.7;">De fleste bruker 1–2 uker på å venne seg til multifokale linser. Ulike design (f.eks.
+med skarpeste sone sentrert for nær- eller langsyn) passer ulikt fra person til person –
+dette er noe optikeren hjelper deg å finne fram til.</p>
+
+<p style="margin-top:16px;">Se vår <a href="/kontaktlinser/multifokale-linser/">oversikt over multifokale linser</a>
+for å sammenligne priser.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvordan fungerer multifokale kontaktlinser?",
+                "answer": "De har flere styrkesoner tilgjengelig samtidig (nært, mellomdistanse, langt hold), og hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på (simultanvisjon).",
+            },
+            {
+                "question": "Hvor lang tid tar det å venne seg til multifokale linser?",
+                "answer": "Vanligvis 1–2 uker, men det varierer fra person til person. Ulike linsedesign passer ulikt, og optikeren hjelper deg å finne riktig type.",
+            },
+        ],
+    },
+    "kan-man-sove-med-kontaktlinser": {
+        "title": "Kan man sove med kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor de fleste kontaktlinser ikke bør brukes under søvn, og hvilke unntak som finnes.",
+        "body_html": """
+<p>Med de fleste vanlige dags- og månedslinser: <strong>nei</strong>, du bør ikke sove med
+linsene i. Et lukket øyelokk reduserer i seg selv oksygentilførselen til hornhinnen, og en
+linse oppå gjør dette enda mindre. Å sove med linser er også forbundet med vesentlig
+høyere risiko for øyeinfeksjon.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Finnes det unntak?</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Enkelte linsetyper er spesielt godkjent for kontinuerlig bruk (såkalt "extended wear"),
+der man kan sove med linsene i over flere døgn. Dette gjelder kun spesifikke,
+godkjente linser, og kun etter at en øyelege eller optiker har vurdert og godkjent
+akkurat det for deg – ikke noe man velger selv som standard.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis det skjer ved et uhell</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Har du sovnet med vanlige linser i, ta dem ut så snart du våkner og gi øynene en pause.
+Ta kontakt med optiker eller øyelege hvis du merker rødhet, smerte eller uklart syn
+etterpå.</p>
+""",
+        "faq": [
+            {
+                "question": "Bør jeg sove med kontaktlinsene mine?",
+                "answer": "Nei, ikke med vanlige dags- eller månedslinser. Det reduserer oksygentilførselen til hornhinnen og øker risikoen for øyeinfeksjon vesentlig.",
+            },
+            {
+                "question": "Finnes det linser man kan sove med?",
+                "answer": "Ja, enkelte linser er spesielt godkjent for kontinuerlig bruk over flere døgn, men kun etter at en øyelege eller optiker har vurdert og godkjent nettopp det for deg.",
+            },
+        ],
+    },
+    "kan-man-dusje-med-kontaktlinser": {
+        "title": "Kan man dusje, bade eller svømme med kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor vann og kontaktlinser bør unngås sammen, og hva du bør gjøre hvis linsene blir våte.",
+        "body_html": """
+<p>Det anbefales å unngå at kontaktlinsene kommer i kontakt med vann – enten det er
+dusjvann, bassengvann eller vann fra sjø/innsjø. Vann kan inneholde mikroorganismer
+(blant annet Acanthamoeba) som kan sette seg fast under linsen og forårsake alvorlige,
+vanskelig behandlebare øyeinfeksjoner.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis linsene blir våte</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li><strong>Dagslinser:</strong> kast dem og sett inn et nytt, rent par</li>
+  <li><strong>Gjenbrukbare linser:</strong> rengjør og desinfiser dem grundig med linsevæske
+  før de brukes igjen – skyll dem aldri bare med vann</li>
+</ul>
+
+<p style="margin-top:16px;">Skal du svømme og ønsker klart syn i vannet, er tettsittende svømmebriller et tryggere
+alternativ enn å beholde kontaktlinsene i.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg dusje med kontaktlinsene på?",
+                "answer": "Det anbefales å unngå det. Vann kan inneholde mikroorganismer som kan sette seg fast under linsen og gi alvorlige øyeinfeksjoner.",
+            },
+            {
+                "question": "Hva bør jeg gjøre hvis linsene blir våte?",
+                "answer": "Dagslinser bør kastes og byttes med et nytt par. Gjenbrukbare linser bør rengjøres og desinfiseres grundig med linsevæske før de brukes igjen – skyll dem aldri bare med vann.",
+            },
+        ],
+    },
+    "kontaktlinser-og-torre-oyne": {
+        "title": "Kontaktlinser og tørre øyne",
+        "updated": "2026-08-16",
+        "description": "Hvorfor kontaktlinser kan gi tørre øyne, og hva som kan hjelpe – fra linsevalg til øyedråper.",
+        "body_html": """
+<p>Tørre øyne er en av de vanligste plagene blant kontaktlinsebrukere. Linsen kan påvirke
+hvordan tårefilmen fordeler seg over øyet, og lange dager foran skjerm (der man blunker
+sjeldnere) forsterker ofte problemet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva kan hjelpe</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Moderne silikonhydrogel-linser er ofte mer komfortable ved tørre øyne enn eldre
+  materialer – se vår <a href="/guide/kontaktlinsens-materiale/">guide om linsematerialer</a></li>
+  <li>Bruk kun øyedråper/fukterdråper beregnet for bruk sammen med kontaktlinser –
+  ikke alle øyedråper er trygge å bruke med linsen i</li>
+  <li>Kortere brukstid enkelte dager, med bevisste pauser fra linser</li>
+  <li>Husk å blunke bevisst oftere ved lengre skjermøkter</li>
+</ul>
+
+<p style="margin-top:16px;">Vedvarer plagene, kan det tyde på feil linsetype eller passform – ta det opp med
+optikeren din. Vi sammenligner også priser på <a href="/oyedraper/">øyedråper</a> fra
+flere norske nettbutikker.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor blir øynene tørre av kontaktlinser?",
+                "answer": "Linsen kan påvirke hvordan tårefilmen fordeler seg over øyet, og redusert blunkefrekvens ved skjermbruk forsterker ofte problemet.",
+            },
+            {
+                "question": "Kan jeg bruke vanlige øyedråper med linsene i?",
+                "answer": "Ikke alle øyedråper er trygge å bruke med kontaktlinser i øyet. Bruk kun fukterdråper som er spesifikt beregnet for bruk sammen med kontaktlinser.",
+            },
+        ],
+    },
+    "bc-og-dia-forklart": {
+        "title": "BC og DIA forklart – kontaktlinsens mål",
+        "updated": "2026-08-16",
+        "description": "Hva base-kurve (BC) og diameter (DIA) betyr på en kontaktlinseeske, og hvorfor de må stemme nøyaktig med resepten din.",
+        "body_html": """
+<p>På enhver kontaktlinseeske står det gjerne to mål i tillegg til styrken: BC og DIA.
+Begge handler om hvordan linsen passer øyet ditt fysisk, ikke om synsstyrken.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">BC – base-kurve</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Krumningsradiusen på baksiden av linsen, målt i millimeter. Den må passe krumningen på
+din egen hornhinne: for flat BC gjør at linsen sitter løst og beveger seg for mye, for
+brant BC gjør at linsen sitter for stramt og kan gi ubehag eller redusert
+oksygentilførsel.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">DIA – diameter</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Linsens totale bredde fra kant til kant, også i millimeter. Feil diameter påvirker
+hvordan linsen sentrerer seg og hvor mye av øyet den dekker.</p>
+
+<p style="margin-top:16px;">Begge verdiene fastsettes av optikeren din under synsundersøkelsen/linsetilpasningen,
+og skal alltid stemme nøyaktig med det som står på resepten din – ikke noe man bytter ut
+etter eget skjønn.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva betyr BC på en kontaktlinseeske?",
+                "answer": "BC (base-kurve) er krumningsradiusen på baksiden av linsen i millimeter, og må passe krumningen på din egen hornhinne.",
+            },
+            {
+                "question": "Hva betyr DIA?",
+                "answer": "DIA (diameter) er linsens totale bredde fra kant til kant, som påvirker hvordan linsen sentrerer seg og hvor mye av øyet den dekker.",
+            },
+            {
+                "question": "Kan jeg velge en annen BC eller DIA enn det som står på resepten min?",
+                "answer": "Nei. Begge verdiene er fastsatt av optikeren din ut fra din egen øyeform, og skal alltid stemme nøyaktig med resepten.",
+            },
+        ],
+    },
+    "hvor-lenge-kan-man-bruke-kontaktlinser": {
+        "title": "Hvor lenge kan man bruke kontaktlinser om dagen?",
+        "updated": "2026-08-16",
+        "description": "Retningslinjer for daglig brukstid for kontaktlinser, og tegn på at du bør ta dem ut tidligere.",
+        "body_html": """
+<p>De fleste tåler myke kontaktlinser komfortabelt i rundt 12–14 timer sammenhengende, men
+den nøyaktige grensen avhenger av linsetype, materiale og hva optikeren din har godkjent
+for akkurat dine linser – følg alltid den anbefalingen fremfor et generelt tall.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tegn på at du bør ta ut linsene tidligere</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Tørrhet eller irritasjon</li>
+  <li>Rødhet</li>
+  <li>Uklart syn</li>
+  <li>Generelt ubehag</li>
+</ul>
+
+<p style="margin-top:16px;">Gi gjerne øynene linsefri tid når du kan, for eksempel om kvelden hjemme. Uansett
+brukstid gjelder samme regel: vanlige linser er ikke ment for sammenhengende bruk døgnet
+rundt – se vår <a href="/guide/kan-man-sove-med-kontaktlinser/">guide om å sove med
+kontaktlinser</a>.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvor mange timer om dagen kan jeg bruke kontaktlinser?",
+                "answer": "De fleste tåler myke linser komfortabelt i rundt 12–14 timer, men følg alltid optikerens spesifikke anbefaling for akkurat dine linser fremfor et generelt tall.",
+            },
+            {
+                "question": "Hva er tegn på at jeg bør ta ut linsene tidligere enn planlagt?",
+                "answer": "Tørrhet, irritasjon, rødhet, uklart syn eller generelt ubehag er alle tegn på at du bør ta ut linsene og gi øynene en pause.",
+            },
+        ],
+    },
+    "sph-cyl-axis-forklart": {
+        "title": "SPH, CYL og AXIS forklart",
+        "updated": "2026-08-16",
+        "description": "Hva SPH (styrke), CYL og AXIS betyr på en kontaktlinseresept, og hvordan de skiller seg fra BC og DIA.",
+        "body_html": """
+<p>Mens BC og DIA handler om hvordan linsen passer øyet fysisk, handler SPH, CYL og AXIS
+om selve synskorreksjonen – linsens faktiske styrke.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">SPH (sfære, ofte "PWR" på pakningen)</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Grunnstyrken som korrigerer nær- eller langsynthet, oppgitt i dioptrier. Negativt tall
+betyr nærsynthet, positivt tall betyr langsynthet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">CYL (sylinder) og AXIS</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Disse to brukes sammen, og gjelder kun toriske linser for astigmatisme. CYL angir hvor
+mye ekstra styrke som trengs for å korrigere astigmatismen. AXIS angir i hvilken retning
+(0–180 grader) denne korreksjonen skal ligge, slik at linsen fungerer riktig når den sitter
+stabilt på øyet.</p>
+
+<p style="margin-top:16px;">Alle verdiene kommer fra synsundersøkelsen din, og skal stemme nøyaktig med det som
+står på pakningen du bestiller – se også vår <a href="/guide/bc-og-dia-forklart/">guide
+om BC og DIA</a>.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er SPH på en kontaktlinseresept?",
+                "answer": "SPH (sfære, ofte kalt PWR på pakningen) er grunnstyrken som korrigerer nær- eller langsynthet, oppgitt i dioptrier.",
+            },
+            {
+                "question": "Hva betyr CYL og AXIS?",
+                "answer": "CYL og AXIS brukes sammen og gjelder kun toriske linser for astigmatisme. CYL angir styrken på astigmatisme-korreksjonen, AXIS angir hvilken retning den skal ligge i.",
+            },
+        ],
+    },
+    "samme-styrke-briller-og-linser": {
+        "title": "Kan jeg bruke samme styrke på kontaktlinser som på briller?",
+        "updated": "2026-08-16",
+        "description": "Hvorfor brillestyrken din vanligvis ikke kan brukes direkte på kontaktlinser, og hvorfor en egen synsundersøkelse trengs.",
+        "body_html": """
+<p>Vanligvis <strong>nei</strong> – ikke direkte. Briller sitter omtrent 12 mm fra øyet,
+mens kontaktlinser ligger rett på hornhinnen. Denne avstanden (kalt vertexavstand)
+påvirker hvor sterk korreksjonen faktisk oppleves, spesielt ved høyere styrker (grovt sett
+fra rundt ±4,00 dioptrier og oppover blir forskjellen merkbar).</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kontaktlinseresept er mer enn bare styrke</h2>
+<p style="font-size:0.92rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår <a href="/guide/bc-og-dia-forklart/">guide
+om BC og DIA</a>) – mål som en brilleresepten ikke har. Dette krever en egen
+synsundersøkelse/linsetilpasning, ikke bare et gjenbruk av brilletallene.</p>
+
+<p style="margin-top:16px;">Kort sagt: bruk alltid en resept som er satt opp spesifikt for kontaktlinser, ikke
+brillestyrken din.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg bare bruke brillestyrken min på kontaktlinser?",
+                "answer": "Vanligvis ikke direkte. Avstanden mellom brilleglass og øye (vertexavstand) gjør at effektiv styrke ofte må justeres, spesielt ved høyere styrker. Kontaktlinser trenger også BC og DIA, som ikke finnes på en brillereseptet.",
+            },
+            {
+                "question": "Hvorfor trengs en egen synsundersøkelse for kontaktlinser?",
+                "answer": "Fordi en optiker da måler hornhinnens krumning (for riktig BC) og bekrefter riktig passform – ikke bare styrken, slik en vanlig synsundersøkelse for briller gjør.",
+            },
+        ],
+    },
 }
 
 
@@ -2257,6 +2556,42 @@ GUIDE_ICONS = {
     "terapeutiske-kontaktlinser": {
         "color": "coral",
         "svg": '<circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7.5v9M7.5 12h9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>',
+    },
+    "kontaktlinser-med-astigmatisme": {
+        "color": "sky",
+        "svg": '<ellipse cx="12" cy="12" rx="9" ry="5.5" fill="currentColor" opacity="0.3" transform="rotate(-20 12 12)"/><ellipse cx="12" cy="12" rx="4.5" ry="2.8" fill="currentColor" transform="rotate(-20 12 12)"/>',
+    },
+    "multifokale-kontaktlinser": {
+        "color": "amber",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.22"/><circle cx="12" cy="12" r="6" fill="currentColor" opacity="0.45"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+    },
+    "kan-man-sove-med-kontaktlinser": {
+        "color": "lavender",
+        "svg": '<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"/>',
+    },
+    "kan-man-dusje-med-kontaktlinser": {
+        "color": "sky",
+        "svg": '<path d="M12 3s6.5 7.5 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10.5 12 3 12 3z" fill="currentColor" opacity="0.85"/><path d="M4 20c1.5-1 2.5-1 4 0s2.5 1 4 0 2.5-1 4 0 2.5 1 4 0" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    },
+    "kontaktlinser-og-torre-oyne": {
+        "color": "coral",
+        "svg": '<path d="M2 13s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" fill="currentColor" opacity="0.35"/><path d="M12 9s2.6 3 2.6 4.6a2.6 2.6 0 1 1-5.2 0C9.4 12 12 9 12 9z" fill="currentColor"/>',
+    },
+    "bc-og-dia-forklart": {
+        "color": "mint",
+        "svg": '<rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor" opacity="0.25"/><path d="M6 10v4M10 10v4M14 10v4M18 10v4" stroke="currentColor" stroke-width="1.4"/>',
+    },
+    "hvor-lenge-kan-man-bruke-kontaktlinser": {
+        "color": "aqua",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7.5v5l3 1.8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    },
+    "sph-cyl-axis-forklart": {
+        "color": "coral",
+        "svg": '<rect x="5" y="3" width="14" height="18" rx="2" fill="currentColor" opacity="0.18"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    },
+    "samme-styrke-briller-og-linser": {
+        "color": "amber",
+        "svg": '<circle cx="7" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="17" cy="13" r="3.6" stroke="none" fill="currentColor" opacity="0.35"/><path d="M10.6 13h2.8M2.8 12l1-3M21.2 12l-1-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
     },
 }
 
