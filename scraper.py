@@ -68,7 +68,7 @@ from urllib.parse import urljoin
 import requests
 from bs4 import BeautifulSoup
 
-from offer import Offer, mark_staleness
+from offer import Offer, mark_staleness, compute_shipping_nok
 
 MIN_DELAY_SECONDS = 3.0  # minimum tid mellom requests til samme domene
 USER_AGENT = "kontaktlinser.no-prisbot/1.0 (+https://kontaktlinser.no/om-prisboten)"
@@ -335,7 +335,7 @@ def scrape_product(
         source="scraper",
         network="scrape",
         price_nok=price,
-        shipping_nok=0.0,  # legg til egen selector hvis frakt vises separat
+        shipping_nok=compute_shipping_nok(price, sc.get("shipping")),
         url=urljoin(base_url, display_path),
         in_stock=in_stock,
         checked_at=datetime.now(timezone.utc).isoformat(),

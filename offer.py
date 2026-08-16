@@ -48,6 +48,23 @@ def mark_staleness(offer: Offer) -> Offer:
     return offer
 
 
+def compute_shipping_nok(price_nok: float, shipping_cfg: dict | None) -> float:
+    """Regner ut fraktkostnad ut fra forhandlerens egen, verifiserte
+    fri-frakt-grense og gebyr (shipping_cfg = {"free_over": <NOK eller None>,
+    "fee_nok": <NOK>} i sources_config.json). free_over=None betyr at
+    forhandleren aldri tilbyr gratis frakt på enkeltbestillinger (f.eks.
+    Synsam, 39 kr uansett beløp) -- IKKE det samme som fee_nok=0. Mangler
+    shipping_cfg helt (forhandlerens fraktpolicy ikke undersøkt/bekreftet
+    ennå), returneres 0.0 som en trygg, eksplisitt "ukjent"-standard --
+    ALDRI gjett et gebyr uten kilde."""
+    if not shipping_cfg:
+        return 0.0
+    free_over = shipping_cfg.get("free_over")
+    if free_over is not None and price_nok >= free_over:
+        return 0.0
+    return shipping_cfg.get("fee_nok", 0.0)
+
+
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
 

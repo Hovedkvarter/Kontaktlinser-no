@@ -8,8 +8,10 @@
     "scraper_config": {
       "base_url": "https://www.interoptik.no",
       "price_selector": ".price-big",
-      "product_url_pattern": "/kontaktlinser/{slug}/"
+      "product_url_pattern": "/kontaktlinser/{slug}/",
+      "shipping": {"free_over": 0, "fee_nok": 0}
     },
+    "$shipping_comment": "Alltid gratis frakt, ingen grense -- bekreftet direkte sitert fra kjøpsvilkår (interoptik.no/om-oss/personvern/kjops--og-leveransevilkar) 2026-08-16.",
     "brand_overrides": {}
   },
 
@@ -19,6 +21,8 @@
     "default_source": "affiliate_feed",
     "network": "adtraction",
     "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1123997289&asid=2102229792&gsh=1&pfid=1650&gt=0",
+    "shipping": {"free_over": 900, "fee_nok": 45},
+    "$shipping_comment": "Gratis frakt over 900 kr, ellers 45 kr -- FOR KONTAKTLINSER, bekreftet direkte på en faktisk linse-produktside 2026-08-16 ('Frakt 45,- eller fri frakt over 900,-'). Extra Optical sin generelle 'frakt-og-levering'-side (extraoptical.no/kundeservice/frakt-og-levering) oppgir et ANNET tall (49 kr/gratis over 600 kr) -- den siden gjelder BRILLER (nevner 'produksjonsordre', slipe/montere glass), ikke kontaktlinser. Brukte feilaktig briller-tallet først, rettet etter at brukeren viste et skjermbilde av den faktiske linse-produktsiden. Lærdom: sjekk alltid det linse-spesifikke tallet direkte på en linse-produktside, ikke bare en generell fraktvilkår-side, hos forhandlere som også selger briller. NB: verdiene er hardkodet direkte i map_adtraction_row() i ingest_feed.py (feeden selv leverer ingen fraktdata), ikke lest fra dette feltet -- dette 'shipping'-feltet er kun dokumentasjon av samme tall, hold dem i sync manuelt hvis policyen endres.",
     "brand_overrides": {}
   },
 
@@ -31,8 +35,10 @@
       "price_source": "embedded_json",
       "embedded_json_pattern": "var universalAnalyticsInfo = '(.*?)';",
       "embedded_json_price_path": ["productInformation", 0, "price"],
-      "product_url_pattern": "/{slug}"
+      "product_url_pattern": "/{slug}",
+      "shipping": {"free_over": 1199, "fee_nok": 50}
     },
+    "$shipping_comment": "Ingen offentlig oppgitt grense i kjøpsvilkårene (kun 'frakt vises i kassen') -- gebyret (50 kr) er bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Grensen på 1199 kr er overført fra Lenson (samme selskap/plattform/LensGroup, identisk gebyr ved identisk ordreverdi) siden Lensway ikke oppgir tallet selv -- noe lavere sikkerhet enn Lensons egen eksplisitte banner, men ikke gjettet fra tredjepart.",
     "brand_overrides": {}
   },
 
@@ -45,8 +51,10 @@
       "price_source": "embedded_json",
       "embedded_json_pattern": "var universalAnalyticsInfo = '(.*?)';",
       "embedded_json_price_path": ["productInformation", 0, "price"],
-      "product_url_pattern": "/no/{slug}"
+      "product_url_pattern": "/no/{slug}",
+      "shipping": {"free_over": 1199, "fee_nok": 50}
     },
+    "$shipping_comment": "Bekreftet direkte -- eksplisitt banner i kassen 'Kjøp for minst 1199 kr for å få fri frakt', og 50 kr-gebyret bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Et tidligere tredjeparts-rykte om '799 kr' var feil -- det var faktisk en produktpris før rabatt, ikke en fraktgrense.",
     "brand_overrides": {}
   },
 
@@ -69,8 +77,10 @@
     "scraper_config": {
       "base_url": "https://www.lensit.no",
       "price_source": "shopify_variant_json",
-      "product_url_pattern": "/products/{slug}"
+      "product_url_pattern": "/products/{slug}",
+      "shipping": {"free_over": 0, "fee_nok": 0}
     },
+    "$shipping_comment": "Hevdet alltid gratis frakt ('Fri frakt, sendes fra lager i Norge', gjentatt markedsføringstekst på lensit.no/pages/om-lensit og /pages/hvorfor-lensit) -- IKKE nevnt i selve kjøpsvilkårene, kun i markedsføring, så lavere sikkerhet enn Interoptik. Ikke live-testet i kassen (2026-08-16) -- verdt å dobbeltsjekke senere hvis det er tvil.",
     "brand_overrides": {}
   },
 
@@ -96,8 +106,10 @@
       "price_source": "embedded_json",
       "embedded_json_pattern": "<script id=\"__NEXT_DATA__\" type=\"application/json\">(.*?)</script>",
       "embedded_json_price_path": ["props", "pageProps", "productPage", "article", "price", "unit", "ordinaryPrice"],
-      "product_url_pattern": "/{slug}"
+      "product_url_pattern": "/{slug}",
+      "shipping": {"free_over": null, "fee_nok": 39}
     },
+    "$shipping_comment": "INGEN fri-frakt-grense for enkeltbestillinger -- 39 kr gjelder alltid, uansett beløp (kun linseabonnement har gratis frakt, som vi ikke skraper/følger). Bekreftet direkte sitert fra kjøpsvilkår (synsam.no/kjøps-og-leveransevilkår) 2026-08-16. free_over=null er bevisst, ikke en glipp -- betyr 'aldri gratis', se compute_shipping_nok() i offer.py.",
     "brand_overrides": {}
   },
 
@@ -108,8 +120,10 @@
     "scraper_config": {
       "base_url": "https://www.brilleland.no",
       "price_selector": ".price-big",
-      "product_url_pattern": "/kontaktlinser/{slug}/"
+      "product_url_pattern": "/kontaktlinser/{slug}/",
+      "shipping": {"free_over": 1000, "fee_nok": 59}
     },
+    "$shipping_comment": "Gratis frakt over 1000 kr, ellers 59 kr (Posten). Bekreftet direkte sitert fra kjøpsvilkår (brilleland.no/personvernerklaring/kjops--og-leveransevilkar) 2026-08-16.",
     "brand_overrides": {}
   },
 
@@ -119,8 +133,10 @@
     "default_source": "scraper",
     "scraper_config": {
       "base_url": "https://www.coptikk.no",
-      "price_source": "listing_page"
+      "price_source": "listing_page",
+      "shipping": {"free_over": 500, "fee_nok": 50}
     },
+    "$shipping_comment": "Gratis frakt over 500 kr, ellers 50 kr. Bekreftet direkte sitert fra produktside (coptikk.no/linsebutikk) 2026-08-16.",
     "brand_overrides": {}
   },
 

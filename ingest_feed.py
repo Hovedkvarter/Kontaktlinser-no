@@ -26,7 +26,7 @@ import re
 
 import requests
 
-from offer import Offer, mark_staleness
+from offer import Offer, mark_staleness, compute_shipping_nok
 
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
@@ -57,13 +57,21 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> Optional[Off
         return None
 
     try:
+        price_nok = float(price_match.group().replace(",", "."))
         return mark_staleness(Offer(
             retailer="Extra Optical",
             brand="",  # settes av build_catalog.py fra products_meta etter matching
             source="affiliate_feed",
             network="adtraction",
-            price_nok=float(price_match.group().replace(",", ".")),
-            shipping_nok=0.0,  # feeden har ikke fraktdata -- shipping-kolonnen er alltid tom (bekreftet 2026-08-12), fri frakt antatt
+            price_nok=price_nok,
+            # Feeden har ikke fraktdata (shipping-kolonnen er alltid tom, bekreftet
+            # 2026-08-12). VIKTIG: Extra Optical har ULIK fraktpolicy for briller
+            # (frakt-og-levering-siden sier 49 kr/gratis over 600 kr) og kontaktlinser
+            # (bekreftet direkte på en faktisk linse-produktside 2026-08-16: "Frakt 45,-
+            # eller fri frakt over 900,-") -- brukte feilaktig briller-tallet først,
+            # rettet til de linse-spesifikke tallene under. Regnes ut her siden feeden
+            # selv ikke leverer fraktdata.
+            shipping_nok=compute_shipping_nok(price_nok, {"free_over": 900, "fee_nok": 45}),
             url=row["link"],
             in_stock=row.get("availability") == "in_stock",
             checked_at=datetime.now(timezone.utc).isoformat(),
