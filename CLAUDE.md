@@ -1087,6 +1087,18 @@ forhandler og omsorterer -- siden fri-frakt-grensene varierer så mye (500-1199 
 hvem som er billigst endre seg avhengig av bestillingsstørrelse. Bruker samme
 shipping-config, bygger direkte videre på dagens arbeid.
 
+## Selvstendig kveldsarbeid: "selges også som" på produktsider (2026-08-16)
+
+Brukeren logget av for kvelden og ba meg fortsette med noe trygt/lavrisiko selv. To ting:
+1. Sjekket at CTA-knappeteksten er konsistent overalt ("Se hos {forhandler}") og aldri
+   antyder at vi selger noe selv -- ingen funn, allerede riktig, ingen endring nødvendig.
+2. La til en "Selges også under andre navn"-seksjon på selve produktsiden (29 av 139
+   produkter har minst ett kjent private label-alias) -- private-label-siden lenket
+   allerede til det ekte produktet, men ikke omvendt. Ny `aliases_by_product_id`
+   i `generate_pages.py` (motsatt gruppering av `private_labels.json`), sendt som ny
+   valgfri parameter til `render_product_page()`. Kun eksisterende, verifiserte data
+   brukt -- ingen ny research.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
