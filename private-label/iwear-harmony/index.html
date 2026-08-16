@@ -28,7 +28,61 @@ function __loadGTM() {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "iWear Harmony (Brilleland) er egentlig MyDay 30-pack",
-  "about": {"@type": "Product", "name": "MyDay 30-pack", "brand": {"@type": "Brand", "name": "MyDay"}},
+  "about": {"@type": "Product", "name": "MyDay 30-pack", "brand": {"@type": "Brand", "name": "MyDay"}, "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "NOK",
+      "lowPrice": 283.0,
+      "highPrice": 359.0,
+      "offerCount": 6,
+      "offers": [{
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Brilleland"},
+          "price": 283.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.brilleland.no/kontaktlinser/myday_daily_disposable/myday-daily-disposable/",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Interoptik"},
+          "price": 325.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.interoptik.no/kontaktlinser/myday/myday-sphere-30-pack2/",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Lenson"},
+          "price": 339.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.lenson.com/no/myday-daily-disposable-lens-3564",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Lensway"},
+          "price": 339.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.lensway.no/myday-daily-disposable-lens-3564",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Synsam"},
+          "price": 341.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.synsam.no/myday-daily-disposable-30-stk-pk-1",
+          "availability": "https://schema.org/InStock"
+        },
+        {
+          "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Lensit"},
+          "price": 359.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.lensit.no/products/myday-daily-disposable-myday-23592732",
+          "availability": "https://schema.org/InStock"
+        }]
+    }},
   "mainEntityOfPage": "https://kontaktlinser.no/private-label/iwear-harmony/"
 }</script>
 <style>
@@ -196,7 +250,7 @@ a { color: inherit; }
     <div class="offer-card is-lowest">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/brilleland.svg" alt="Brilleland" loading="lazy"><span style="position:absolute;left:-9999px;">Brilleland</span> <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">283 kr</div>
@@ -207,7 +261,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">325 kr</div>
@@ -218,7 +272,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">339 kr</div>
@@ -229,7 +283,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">339 kr</div>
@@ -240,7 +294,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">341 kr</div>
@@ -251,7 +305,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-total">359 kr</div>
