@@ -1014,6 +1014,34 @@ katalogen faktisk skal plukke opp den nye kategoriseringen -- glemte dette selv 
 denne økten (kjørte kun `generate_pages.py` på en utdatert `catalog_live.json`, guidene
 ble ikke bygget før feilen ble oppdaget og `build_catalog.py` kjørt på nytt).
 
+## Resept-splitt og "Kjøp og priser"-gruppe (2026-08-16, samme dag)
+
+Etter en mer gjennomarbeidet strukturplan fra brukeren (5-grens guide-tre: Kontaktlinser /
+Forstå resepten / Bruk & vedlikehold / Vanlige problemer / Kjøp & priser):
+
+- **Splittet resept-guidene**: de 2 kombinerte guidene (bc-og-dia-forklart,
+  sph-cyl-axis-forklart) erstattet med 6 fokuserte enkeltsider (BC, DIA, PWR/SPH, CYL,
+  AXIS, ADD -- ADD var en reell mangel, lagt til nytt) + en illustrert hub-side
+  `forsta-kontaktlinseresepten` med en klikkbar eksempelresept. Begrunnelse: dette er
+  oppslags-søk ("hva betyr ADD"), ikke lesesøk -- én fokusert side per begrep gir renere
+  direkte-svar for Google/AI-uthevede utdrag. Trygt å gjøre uten redirects siden de to
+  originalene var timer gamle.
+- **9 nye guider i "Kjøp og priser"**: Hva koster kontaktlinser, 30 vs. 90-pakning, pris
+  per linse, hvorfor prisene varierer, hvordan totalpris beregnes (med illustrert
+  frakt-eksempel), abonnement vs. kjøpe selv, hvordan kjøpe på nett, uten resept, bytte
+  merke selv. Forankret i sidens egne, ekte prisdata/metodikk der mulig -- ingen
+  fabrikerte kronebeløp presentert som reelle priser.
+
+Totalt **37 guider** nå. `GUIDE_ICONS` følger samme mønster: 6 faste aksentfarger
+(aqua/mint/coral/amber/lavender/sky) rullert, fylte SVG-ikoner, egen-tegnet.
+
+**Fortsatt IKKE bygget, bevisst i vente**: "Vanlige problemer"-gruppen (linse sitter
+fast, uklart syn, svir/rødhet -- helseadjaente, trenger «oppsøk optiker»-varsler),
+kjøpshjelp-verktøyet i sin fulle, dynamiske form (slå opp egne tall → få produktforslag --
+hub-siden over er en forenklet, statisk versjon av dette), og produsent-sider (CooperVision
+osv., atskilt fra merke-sider). Se også de tre pastede spørsmålslistene (34+25+100
+spørsmål) fra tidligere samme dag -- fortsatt ikke dedupliserte i et samlet regneark.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
