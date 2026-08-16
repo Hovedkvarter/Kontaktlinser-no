@@ -916,6 +916,65 @@ Googles egen dokumentasjon bekrefter regelen eksplisitt --
 https://developers.google.com/search/docs/appearance/structured-data/product-snippet
 ("You only need to provide one of review, aggregateRating, and offers").
 
+## Domenehistorikk og gjenoppretting av gammel SEO-verdi (2026-08-16)
+
+Brukeren husket at kontaktlinser.no "traff godt på SEO" for flere år siden. Undersøkt
+via Wayback Machine (web.archive.org): domenet er IKKE nytt i Googles øyne -- det var en
+aktiv, live prissammenligningsside for kontaktlinser siden minst **2010**, under samme
+konsept ("Norges største prissammenligningsside for kontaktlinser"), og ble crawlet med
+normal 200-status helt til **februar 2026** (enkeltsider) / **april 2025**
+(forsiden/301-kjeden). Den nye statiske siden (dette repoet) har sin første commit
+**2026-08-10** -- byttet skjedde altså bare noen dager/uker før denne oppdagelsen, ikke
+år tidligere. Det betyr Google har hatt svært lite tid til å "glemme" de gamle URL-ene,
+noe som gjør gjenoppretting av gammel søkekraft mer lovende enn normalt for en
+sidemigrering.
+
+**DNS-sjekk utført** (`nslookup` direkte mot domenet): ingen Cloudflare foran i dag --
+navnetjenere er `ns1/ns2/ns3.hyp.net` (Domeneshop), DNS peker rett på GitHub Pages sine
+IP-er. Domenet har AKTIV e-post: MX → `mx.domeneshop.no`, SPF
+(`v=spf1 include:_spf.domeneshop.no ~all`), DMARC (`p=quarantine`,
+`rua=mailto:dmarc@domeneshop.no`). Bruker `*@kontaktlinser.no` som videresender til en
+annen adresse -- videresendingen er en tjeneste hos Domeneshop knyttet til MX-oppføringen,
+IKKE til hvem som er navnetjener, så den skal fortsette å fungere uendret så lenge
+MX/SPF/DMARC kopieres korrekt inn i Cloudflare ved en eventuell fremtidig DNS-flytting.
+
+**Plan for ekte 301-er (Cloudflare) -- IKKE utført ennå, avventer bevisst brukerens
+navnetjener-bytte hos Domeneshop:** GitHub Pages kan ikke servere `.aspx` som en
+fungerende redirect (se eksisterende `LEGACY_REDIRECTS`-kommentar i
+`render_templates.py`) -- eneste vei til ekte server-side 301 er å legge domenet bak
+Cloudflare (gratis nivå, proxy-modus, SSL-modus MÅ settes til "Full" ikke "Flexible" for
+å unngå en redirect-løkke mot GitHub Pages) og bruke Bulk/Redirect Rules der. Full
+kartlegging av gamle→nye URL-er er allerede bygget (se under) og kan gjenbrukes direkte
+når DNS-byttet skjer.
+
+**Umiddelbar, risikofri delvis-fiks levert i dag:** en systematisk gjennomgang av
+Wayback Machine sitt CDX-arkiv for hele det gamle domenet ga 239 unike gamle
+innholds-URL-er (ekskl. bilder/CSS/ASP.NET-systemfiler/CMS-admin), kryssjekket
+programmatisk mot dagens katalog/merker/private-label/guider -- se metodikk og bevisste
+skjønnsvurderinger (pakningsstørrelse-standardvalg, PureVision2-HD-forvirringen,
+Biofinity XR-id-4244-saken, m.m.) i agent-loggen. Dette utvidet den allerede
+eksisterende `LEGACY_REDIRECTS`-ordboken i `render_templates.py` fra 10 til 237
+oppføringer -- fortsatt kun en klientsidevis JS-omdirigering fra 404-siden (siden ekte
+301 krever Cloudflare), men en STRIKT forbedring uten noen DNS-risiko: reelle besøkende
+og crawlere som følger gamle lenker havner nå på riktig side i stedet for en blindvei,
+for 237 av 239 kartlagte URL-er (1 ekskludert med vilje -- gammelt partner-innloggingspanel
+uten offentlig innholdsverdi, bedre som ekte 404).
+
+**Nye guide-sider bygget fra gammelt "Spørsmål og svar"/"Infosider"-innhold
+(2026-08-16):** brukeren pekte på at nettopp denne seksjonen historisk traff godt på
+SEO. I stedet for å la disse gamle URL-ene falle tilbake til en generisk guide-oversikt,
+er det bygget 11 nye, egenskrevne (ikke kopierte) guide-sider i `GUIDE_CONTENT`:
+`kontaktlinser-for-barn`, `harde-eller-myke-linser`, `hvordan-bruke-kontaktlinser`,
+`hvorfor-bruke-kontaktlinser`, `vedlikehold-av-kontaktlinser`,
+`reising-med-kontaktlinser`, `kosmetiske-kontaktlinser`, `kontaktlinsens-materiale`,
+`korrigerende-kontaktlinser`, `produksjon-av-kontaktlinser`, `kontaktlinsens-historie`,
+`terapeutiske-kontaktlinser`. Innholdet holder seg til godt etablerte, generelle fakta
+(bl.a. Wichterle 1961, CE-merking, "topping off"-advarsel) og henviser konsekvent til
+optiker/øyelege for alt individuelt -- ingen spesifikke medisinske råd. Hver guide er
+koblet inn i minst én kategoris `guides`-liste i `products_meta.json` (ellers bygges den
+ikke -- se `guide_slugs`-logikken i `generate_pages.py`). `LEGACY_REDIRECTS`-oppføringene
+for disse emnene peker nå til de nye dedikerte sidene i stedet for `/guider/`-oversikten.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

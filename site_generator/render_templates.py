@@ -341,23 +341,259 @@ FOOTER_BRANDS = [
     ("ultra", "ULTRA"),
 ]
 
-# Gamle, fortsatt Google-indekserte URL-er fra forrige versjon av siden
-# (funnet via "site:kontaktlinser.no" 2026-08-11). GitHub Pages kan ikke
-# servere .aspx som HTML (bekreftet: mime-db mangler .aspx, serveres som
-# application/octet-stream - se CLAUDE.md) - derfor ingen ekte 301, kun en
-# klientsidevis omdirigering fra 404-siden (se render_404_page). Nøklene MÅ
-# være små bokstaver (matches mot location.pathname.toLowerCase() i JS-en).
+# Gamle, fortsatt Google-indekserte URL-er fra forrige versjon av siden.
+# Opprinnelig (2026-08-11) kun 10 stk funnet via "site:kontaktlinser.no".
+# Utvidet til full dekning (2026-08-16) via en systematisk gjennomgang av
+# Wayback Machine sitt CDX-arkiv for hele det gamle domenet (239 unike
+# innholds-URL-er med status 200, ekskl. bilder/CSS/ASP.NET-systemfiler),
+# kryssjekket mot dagens katalog/merker/private-label/guider -- se
+# CLAUDE.md for metodikk og bevisste skjønnsvurderinger (f.eks. hvorfor
+# enkelte gamle produkter peker til merke-siden i stedet for et konkret
+# produkt, når riktig pakningsstørrelse/variant ikke kunne bekreftes).
+# GitHub Pages kan ikke servere .aspx som HTML (bekreftet: mime-db mangler
+# .aspx, serveres som application/octet-stream) - derfor ingen ekte
+# server-side 301 her, kun en klientsidevis omdirigering fra 404-siden (se
+# render_404_page). Ekte 301-er via Cloudflare er en egen, separat plan.
+# Nøklene MÅ være små bokstaver (matches mot location.pathname.toLowerCase()
+# i JS-en).
 LEGACY_REDIRECTS = {
-    "/infosider/vedlikehold_av_linser/vedlikehold_av_kontaktlinsene.aspx": "/guider/",
+    "/1-day_acuvue_for_astigmatism.aspx": "/merke/acuvue/",
+    "/annonse.aspx": "/",
+    "/daysoft_uv.aspx": "/kontaktlinser/dagslinser/",
+    "/fargelinser-bla.aspx": "/kontaktlinser/fargede-linser/",
+    "/fargelinser-brune.aspx": "/kontaktlinser/fargede-linser/",
+    "/fargelinser-gronne.aspx": "/kontaktlinser/fargede-linser/",
+    "/fargelinser-rode.aspx": "/kontaktlinser/fargede-linser/",
+    "/fargelinser-svarte.aspx": "/kontaktlinser/fargede-linser/",
+    "/fargelinser-uten-styrke.aspx": "/kontaktlinser/fargede-linser/",
+    "/infosider/for_barn.aspx": "/guide/kontaktlinser-for-barn/",
+    "/infosider/harde_eller_myke_linser.aspx": "/guide/harde-eller-myke-linser/",
+    "/infosider/hvordan.aspx": "/guide/hvordan-bruke-kontaktlinser/",
+    "/infosider/hvorfor.aspx": "/guide/hvorfor-bruke-kontaktlinser/",
+    "/infosider/kontaktlinsens_materiale.aspx": "/guide/kontaktlinsens-materiale/",
+    "/infosider/korrigerende_kontaktlinser.aspx": "/guide/korrigerende-kontaktlinser/",
+    "/infosider/kosmetiske_kontaktlinser.aspx": "/guide/kosmetiske-kontaktlinser/",
+    "/infosider/produksjon_av_kontaktlinser.aspx": "/guide/produksjon-av-kontaktlinser/",
+    "/infosider/reising_med_kontaktlinser.aspx": "/guide/reising-med-kontaktlinser/",
+    "/infosider/terapeutiske_kontaktlinser.aspx": "/guide/terapeutiske-kontaktlinser/",
+    "/infosider/vedlikehold_av_linser.aspx": "/guide/vedlikehold-av-kontaktlinser/",
+    "/infosider/vedlikehold_av_linser/vedlikehold_av_kontaktlinsene.aspx": "/guide/vedlikehold-av-kontaktlinser/",
+    "/kontaktlinser/bifokale_linser.aspx": "/kontaktlinser/multifokale-linser/",
     "/kontaktlinser/dagslinser.aspx": "/kontaktlinser/dagslinser/",
-    "/kontaktlinser/fargede_linser.aspx": "/kontaktlinser/fargede-linser/",
-    "/infosider/reising_med_kontaktlinser.aspx": "/guider/",
-    "/infosider/vedlikehold_av_linser.aspx": "/guider/",
-    "/infosider/kosmetiske_kontaktlinser.aspx": "/kontaktlinser/fargede-linser/",
-    "/infosider/harde_eller_myke_linser.aspx": "/guide/hvordan-velge-kontaktlinser/",
-    "/infosider/hvordan.aspx": "/guide/hvordan-velge-kontaktlinser/",
     "/kontaktlinser/dagslinser/linser.aspx": "/kontaktlinser/dagslinser/",
-    "/infosider/produksjon_av_kontaktlinser.aspx": "/guider/",
+    "/kontaktlinser/dognet_rundt_linser.aspx": "/",
+    "/kontaktlinser/fargede_linser.aspx": "/kontaktlinser/fargede-linser/",
+    "/kontaktlinser/fargede_linser/fargelinser.aspx": "/kontaktlinser/fargede-linser/",
+    "/kontaktlinser/fargede_linser/gule_kontaktlinser.aspx": "/kontaktlinser/fargede-linser/",
+    "/kontaktlinser/fargede_linser/svarte_kontaktlinser.aspx": "/kontaktlinser/fargede-linser/",
+    "/kontaktlinser/langtidslinser.aspx": "/",
+    "/kontaktlinser/linsevaeske_tilbehor.aspx": "/linsevaeske/",
+    "/kontaktlinser/manedslinser.aspx": "/kontaktlinser/manedslinser/",
+    "/kontaktlinser/progressive_linser.aspx": "/kontaktlinser/multifokale-linser/",
+    "/kontaktlinser/toriske_linser.aspx": "/kontaktlinser/toriske-linser/",
+    "/kontaktlinser/ukelinser.aspx": "/",
+    "/kontaktlinser_.aspx": "/",
+    "/leverandorer/alcon.aspx": "/",
+    "/leverandorer/amo.aspx": "/",
+    "/leverandorer/barnaux_healthcare.aspx": "/",
+    "/leverandorer/bausch_and_lomb.aspx": "/",
+    "/leverandorer/ciba_vision.aspx": "/",
+    "/leverandorer/cl_tinters.aspx": "/",
+    "/leverandorer/clearlab.aspx": "/",
+    "/leverandorer/clearly_contacts.aspx": "/",
+    "/leverandorer/comfort.aspx": "/",
+    "/leverandorer/consol.aspx": "/",
+    "/leverandorer/coopervision.aspx": "/",
+    "/leverandorer/eyemed-technologies.aspx": "/",
+    "/leverandorer/johnson_and_johnson.aspx": "/",
+    "/leverandorer/lensway.aspx": "/",
+    "/leverandorer/ocular_sciences.aspx": "/",
+    "/leverandorer/provis_limited.aspx": "/",
+    "/leverandorer/soleko.aspx": "/",
+    "/leverandorer/yourlenses.aspx": "/",
+    "/produkt/1-day-acuvue-moist-multifocal.aspx": "/kontaktlinser/acuvue/moist-multifocal-30-pack/",
+    "/produkt/1-day_acuvue.aspx": "/merke/acuvue/",
+    "/produkt/1-day_acuvue_for_astigmatism.aspx": "/merke/acuvue/",
+    "/produkt/1-day_acuvue_moist.aspx": "/kontaktlinser/acuvue/moist-30-pack/",
+    "/produkt/1-day_acuvue_moist_for_astigmatism.aspx": "/kontaktlinser/acuvue/moist-astigmatism-30-pack/",
+    "/produkt/1-day_acuvue_trueye.aspx": "/merke/acuvue/",
+    "/produkt/acuvue.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_2.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_2_colours_enhancers.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_2_colours_opaque.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_advance.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_advance_for_astigmatism.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_bifocal.aspx": "/merke/acuvue/",
+    "/produkt/acuvue_oasys.aspx": "/kontaktlinser/acuvue/oasys-6-pack/",
+    "/produkt/acuvue_oasys_for_astigmatism.aspx": "/kontaktlinser/acuvue/oasys-astigmatism-6-pack/",
+    "/produkt/adore_bi-tone.aspx": "/kontaktlinser/adore/bi-tone-2-pack/",
+    "/produkt/adore_dare.aspx": "/kontaktlinser/adore/dare-2-pack/",
+    "/produkt/adore_tri-tone.aspx": "/merke/adore/",
+    "/produkt/air-optix-colors.aspx": "/kontaktlinser/air-optix/colors-2-pack/",
+    "/produkt/air-optix-ex.aspx": "/merke/air-optix/",
+    "/produkt/air-optix-plus-hydraglyde.aspx": "/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/",
+    "/produkt/air_optix.aspx": "/merke/air-optix/",
+    "/produkt/air_optix_aqua.aspx": "/merke/air-optix/",
+    "/produkt/air_optix_aqua_multifocal.aspx": "/merke/air-optix/",
+    "/produkt/air_optix_for_astigmatism.aspx": "/merke/air-optix/",
+    "/produkt/air_optix_night_and_day.aspx": "/merke/air-optix/",
+    "/produkt/air_optix_nightandday_aqua.aspx": "/kontaktlinser/air-optix/night-day-aqua-6-pack/",
+    "/produkt/aosept.aspx": "/linsevaeske/",
+    "/produkt/aquify.aspx": "/linsevaeske/",
+    "/produkt/avaira-toric.aspx": "/merke/avaira/",
+    "/produkt/avaira_kontaktlinser.aspx": "/merke/avaira/",
+    "/produkt/biocolor_55.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/biofinity-multifocal.aspx": "/kontaktlinser/biofinity/biofinity-multifocal-6-pack/",
+    "/produkt/biofinity-xr.aspx": "/merke/biofinity/",
+    "/produkt/biofinity.aspx": "/kontaktlinser/biofinity/biofinity-6-pack/",
+    "/produkt/biofinity_toric.aspx": "/kontaktlinser/biofinity/biofinity-toric-6-pack/",
+    "/produkt/bioflex.aspx": "/",
+    "/produkt/bioflex_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/biomedics-1day-extra-toric.aspx": "/kontaktlinser/biomedics/biomedics-1-day-xtra-toric-30-pack/",
+    "/produkt/biomedics-1day-extra.aspx": "/kontaktlinser/biomedics/biomedics-1-day-xtra-30-pack/",
+    "/produkt/biomedics_1-day.aspx": "/merke/biomedics/",
+    "/produkt/biomedics_1_day_toric.aspx": "/merke/biomedics/",
+    "/produkt/biomedics_55_evolution.aspx": "/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/",
+    "/produkt/biomedics_55_evolution_color.aspx": "/merke/biomedics/",
+    "/produkt/biomedics_toric.aspx": "/kontaktlinser/biomedics/biomedics-toric-6-pack/",
+    "/produkt/biotrue-oneday.aspx": "/kontaktlinser/biotrue/biotrue-oneday-30-pack/",
+    "/produkt/biotrue_oneday_for_presbyopia.aspx": "/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/",
+    "/produkt/blic_dag.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/blink.aspx": "/oyedraper/",
+    "/produkt/cibasoft.aspx": "/",
+    "/produkt/cibasoft_visitint.aspx": "/",
+    "/produkt/classic_kontaktlinser.aspx": "/",
+    "/produkt/clear58.aspx": "/",
+    "/produkt/clear_1-day.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/clear_38.aspx": "/",
+    "/produkt/clear_55a.aspx": "/",
+    "/produkt/clear_all-day.aspx": "/",
+    "/produkt/clearly_colors.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/clearly_colors_special_effects.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/clens_100.aspx": "/linsevaeske/",
+    "/produkt/contact_30_day.aspx": "/kontaktlinser/manedslinser/",
+    "/produkt/crazy_lenses.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/dailies-aquacomfort-plus-multifocal.aspx": "/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/",
+    "/produkt/dailies-aquacomfort-plus-toric.aspx": "/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/",
+    "/produkt/dailies-total-1-multifocal.aspx": "/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/",
+    "/produkt/dailies-total-1-multifocal/dailies-aquacomfort-plus-spheric.aspx": "/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/",
+    "/produkt/dailies-total1.aspx": "/kontaktlinser/dailies/dailies-total1-30-pack/",
+    "/produkt/dailies_aqua_comfort_plus.aspx": "/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/",
+    "/produkt/daysoft_uv_58.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/easysept.aspx": "/linsevaeske/easysept/easysept-120-ml/",
+    "/produkt/easyvision_adan_opteyes.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_all_day.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_all_day_all_night.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_aspheric_all_day.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_colors.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_elite_oneday.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_oneday.aspx": "/merke/easyvision/",
+    "/produkt/easyvision_varifocal.aspx": "/merke/easyvision/",
+    "/produkt/expressions_accent.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/expressions_colors.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/extend.aspx": "/",
+    "/produkt/eye_q_24.aspx": "/private-label/eyeq-24/",
+    "/produkt/eye_q_one-day.aspx": "/merke/eyeq/",
+    "/produkt/eye_q_premium.aspx": "/private-label/eyeq-premium/",
+    "/produkt/eye_q_premium_2.aspx": "/merke/eyeq/",
+    "/produkt/eye_q_toric.aspx": "/merke/eyeq/",
+    "/produkt/eyecare_30.aspx": "/",
+    "/produkt/eyes4u_dagslinser.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/focus_dailies.aspx": "/kontaktlinser/dailies/focus-dailies-30-pack/",
+    "/produkt/focus_dailies_all_day.aspx": "/merke/dailies/",
+    "/produkt/focus_dailies_progressives.aspx": "/merke/dailies/",
+    "/produkt/focus_dailies_toric.aspx": "/merke/dailies/",
+    "/produkt/focus_monthly.aspx": "/kontaktlinser/manedslinser/",
+    "/produkt/focus_monthly_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/focus_progressives.aspx": "/kontaktlinser/multifokale-linser/",
+    "/produkt/focus_softcolors.aspx": "/kontaktlinser/fargede-linser/",
+    "/produkt/focus_toric_visitint.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/focus_visitint.aspx": "/",
+    "/produkt/frequency_1_day.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/frequency_1_day_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/frequency_38.aspx": "/",
+    "/produkt/frequency_55.aspx": "/",
+    "/produkt/frequency_55_ab.aspx": "/",
+    "/produkt/frequency_58_uv.aspx": "/",
+    "/produkt/frequency_xc.aspx": "/",
+    "/produkt/frequency_xcel_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/frequency_xcel_toric_xr.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/freshcare_dailies.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/freshlook_colorblends.aspx": "/merke/freshlook/",
+    "/produkt/freshlook_colors.aspx": "/merke/freshlook/",
+    "/produkt/freshlook_dimensions.aspx": "/merke/freshlook/",
+    "/produkt/freshlook_one-day.aspx": "/kontaktlinser/freshlook/freshlook-oneday-30-pack/",
+    "/produkt/freshlook_radiance.aspx": "/merke/freshlook/",
+    "/produkt/iwear_1_day.aspx": "/merke/iwear/",
+    "/produkt/iwear_dd_supreme_1_day.aspx": "/merke/iwear/",
+    "/produkt/iwear_dr_color.aspx": "/merke/iwear/",
+    "/produkt/iwear_xr_supreme.aspx": "/merke/iwear/",
+    "/produkt/iwear_xr_supreme_toric.aspx": "/merke/iwear/",
+    "/produkt/lensway_case.aspx": "/linsevaeske/",
+    "/produkt/lensway_hand_desinfection_spray.aspx": "/",
+    "/produkt/lensway_solution.aspx": "/linsevaeske/",
+    "/produkt/mediflex_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/myday-daily-disposable.aspx": "/kontaktlinser/myday/myday-30-pack/",
+    "/produkt/neoflex_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/opti-free_ampuller.aspx": "/linsevaeske/",
+    "/produkt/opti-free_express.aspx": "/linsevaeske/opti-free/express-120-ml/",
+    "/produkt/opti-free_express_norub.aspx": "/linsevaeske/",
+    "/produkt/opti-free_replenish.aspx": "/linsevaeske/",
+    "/produkt/opti-tears_free_rewetting_drops.aspx": "/oyedraper/",
+    "/produkt/optima_fw.aspx": "/",
+    "/produkt/precision_uv.aspx": "/",
+    "/produkt/proclear-multifocal-xr.aspx": "/kontaktlinser/proclear/multifocal-xr-3-pack/",
+    "/produkt/proclear-toric-xr.aspx": "/kontaktlinser/proclear/toric-xr-3-pack/",
+    "/produkt/proclear_1-day_multifocal.aspx": "/kontaktlinser/proclear/1-day-multifocal-30-pack/",
+    "/produkt/proclear_1_day.aspx": "/kontaktlinser/proclear/1-day-30-pack/",
+    "/produkt/proclear_compatibles.aspx": "/merke/proclear/",
+    "/produkt/proclear_compatibles_toric.aspx": "/merke/proclear/",
+    "/produkt/proclear_ep.aspx": "/merke/proclear/",
+    "/produkt/proclear_multifocal.aspx": "/kontaktlinser/proclear/multifocal-6-pack/",
+    "/produkt/proclear_sphere.aspx": "/kontaktlinser/proclear/proclear-sphere-6-pack/",
+    "/produkt/proclear_toric.aspx": "/kontaktlinser/proclear/proclear-toric-6-pack/",
+    "/produkt/proclear_xc.aspx": "/merke/proclear/",
+    "/produkt/procon_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/purevision-2-hd-for-astigmatism.aspx": "/kontaktlinser/purevision/purevision2-for-astigmatism-6-pack/",
+    "/produkt/purevision-2-hd.aspx": "/kontaktlinser/purevision/purevision2-6-pack/",
+    "/produkt/purevision-2-multifocal.aspx": "/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/",
+    "/produkt/purevision.aspx": "/kontaktlinser/purevision/purevision-6-pack/",
+    "/produkt/purevision_multifocal.aspx": "/kontaktlinser/purevision/purevision-multifocal-6-pack/",
+    "/produkt/purevision_toric.aspx": "/merke/purevision/",
+    "/produkt/queens-trilogy.aspx": "/",
+    "/produkt/queens-twins.aspx": "/",
+    "/produkt/renu_flight_pack.aspx": "/linsevaeske/",
+    "/produkt/renu_multi-purpose.aspx": "/linsevaeske/renu/renu-multi-purpose-60-ml/",
+    "/produkt/renu_onthego.aspx": "/linsevaeske/",
+    "/produkt/s-75.aspx": "/",
+    "/produkt/seequence.aspx": "/",
+    "/produkt/soflens-natural-colors.aspx": "/merke/soflens/",
+    "/produkt/soflens_38.aspx": "/kontaktlinser/soflens/38-6-pack/",
+    "/produkt/soflens_59.aspx": "/kontaktlinser/soflens/soflens-59-6-pack/",
+    "/produkt/soflens_66.aspx": "/merke/soflens/",
+    "/produkt/soflens_daily_disposable.aspx": "/kontaktlinser/soflens/soflens-daily-disposable-30-pack/",
+    "/produkt/soflens_daily_disposable_for_astigmatism.aspx": "/kontaktlinser/soflens/daily-disposable-for-astigmatism-30-pack/",
+    "/produkt/soflens_multifocal.aspx": "/kontaktlinser/soflens/multifocal-6-pack/",
+    "/produkt/soflens_natural_colors.aspx": "/merke/soflens/",
+    "/produkt/soflens_one_day.aspx": "/merke/soflens/",
+    "/produkt/soflens_toric.aspx": "/kontaktlinser/soflens/soflens-toric-6-pack/",
+    "/produkt/solo_care_aqua.aspx": "/linsevaeske/solocare/solocare-aqua-360-ml/",
+    "/produkt/solo_care_soft.aspx": "/linsevaeske/",
+    "/produkt/standard_lens.aspx": "/",
+    "/produkt/standard_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/produkt/surevue.aspx": "/",
+    "/produkt/synolens_oneday.aspx": "/kontaktlinser/dagslinser/",
+    "/produkt/systane.aspx": "/oyedraper/",
+    "/produkt/ultraflex_toric.aspx": "/kontaktlinser/toriske-linser/",
+    "/search.aspx": "/",
+    "/sitemap.aspx": "/",
+    "/sporsmal_og_svar/anbefalte-websider.aspx": "/",
+    "/sporsmal_og_svar/konsernsider.aspx": "/",
+    "/sporsmal_og_svar/kontakt_oss.aspx": "/om-oss/",
+    "/sporsmal_og_svar/kontaktlinsens_historie.aspx": "/guide/kontaktlinsens-historie/",
+    "/sporsmal_og_svar/kontaktlinser_faq.aspx": "/",
+    "/sporsmal_og_svar/om_kontaktlinser_no.aspx": "/om-oss/",
+    "/sporsmal_og_svar/om_kontaktlinser_no/yourlenses.aspx": "/",
 }
 
 
@@ -1432,6 +1668,386 @@ spesifikke linsen du bestiller.</p>
             },
         ],
     },
+    "kontaktlinser-for-barn": {
+        "title": "Kontaktlinser for barn",
+        "description": "Er barn for unge for kontaktlinser? Hva som faktisk avgjør om et barn er klar, og hvorfor dagslinser ofte anbefales som førstevalg.",
+        "body_html": """
+<p>Det finnes ingen fast minstealder for kontaktlinser. Optikere vurderer i stedet
+<strong>modenhet</strong> – om barnet klarer å følge en hygienerutine selv (vaske hender,
+sette inn/ta ut linsen riktig, ikke sove med linsen inne) – fremfor et bestemt årstall.
+Mange barn ned i 8–10-årsalderen fungerer fint med linser, mens andre bør vente.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor dagslinser ofte anbefales til barn</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske å huske på</li>
+  <li>Lavere konsekvens hvis en linse mistes eller glemmes en dag</li>
+  <li>Lavere infeksjonsrisiko enn linser som gjenbrukes over tid</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myopikontroll</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Enkelte dagslinser er i dag også godkjent spesifikt for å bremse utvikling av
+nærsynthet (myopikontroll) hos barn og unge. Dette er noe en optiker eller øyelege
+vurderer og følger opp individuelt, ikke noe man velger selv.</p>
+
+<p style="margin-top:24px;">Uansett alder: en synsundersøkelse hos optiker er alltid første steg, og barnet bør
+følges opp jevnlig så lenge det bruker linser.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvor gammelt må et barn være for å bruke kontaktlinser?",
+                "answer": "Det finnes ingen fast minstealder. Optikere vurderer i stedet om barnet er modent nok til å følge hygienerutinen selv, ikke et bestemt årstall. Mange fungerer fint fra 8–10-årsalderen, mens andre bør vente.",
+            },
+            {
+                "question": "Hvorfor anbefales ofte dagslinser til barn?",
+                "answer": "Dagslinser krever ingen rengjøring eller oppbevaringsvæske, gir lavere konsekvens hvis en linse mistes en dag, og har lavere infeksjonsrisiko enn linser som gjenbrukes over tid.",
+            },
+        ],
+    },
+    "harde-eller-myke-linser": {
+        "title": "Harde eller myke linser",
+        "description": "Forskjellen på myke og harde (gassgjennomtrengelige) kontaktlinser, og hvorfor de aller fleste i dag bruker myke linser.",
+        "body_html": """
+<p>De aller fleste kontaktlinser som selges i dag – og alt vi sammenligner priser på her
+på kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikonhydrogel).
+Harde (gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag først og
+fremst til spesielle synsforhold.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myke linser</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Komfortable fra første stund, kort tilvenningstid</li>
+  <li>Ligger tett mot øyet – mindre risiko for at rusk kommer under linsen</li>
+  <li>Bredt utvalg av dags-, ukes- og månedslinser</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Harde linser</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Kan gi skarpere syn ved uregelmessig hornhinne (f.eks. keratokonus) eller svært
+  høy astigmatisme</li>
+  <li>Lengre tilvenningstid enn myke linser</li>
+  <li>Krever tilpasning og oppfølging hos spesialisert optiker/øyelege</li>
+</ul>
+
+<p style="margin-top:24px;">Hvilken type som passer avgjøres av synsforholdene dine, ikke personlig preferanse
+alene – dette er noe optikeren vurderer ved synsundersøkelsen.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er vanligst i dag, harde eller myke linser?",
+                "answer": "De aller fleste bruker myke linser (hydrogel eller silikonhydrogel) i dag. Harde (gassgjennomtrengelige) linser brukes først og fremst ved spesielle synsforhold, som uregelmessig hornhinne eller svært høy astigmatisme.",
+            },
+            {
+                "question": "Er harde linser bedre enn myke?",
+                "answer": "Ikke generelt – de kan gi skarpere syn ved bestemte tilstander som keratokonus, men krever lengre tilvenning. Hvilken type som passer avgjøres av synsforholdene dine, vurdert av en optiker.",
+            },
+        ],
+    },
+    "hvordan-bruke-kontaktlinser": {
+        "title": "Hvordan sette inn og ta ut kontaktlinser",
+        "description": "Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.",
+        "body_html": """
+<p>God hygiene er viktigere enn selve teknikken. Vask og tørk hendene grundig før du
+tar i linsene, hver eneste gang.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Sette inn linsen</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Sjekk at linsen ikke er vrengt (skal danne en jevn skål, ikke ha kant som vipper ut)</li>
+  <li>Trekk nedre øyelokk forsiktig ned, og hold gjerne øvre øyelokk oppe med den andre
+  hånden</li>
+  <li>Se oppover eller rett frem, og plasser linsen forsiktig på det hvite av øyet</li>
+  <li>Se ned/blunk rolig – linsen finner selv rett posisjon på hornhinnen</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ta ut linsen</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Se oppover, trekk nedre øyelokk ned</li>
+  <li>Klyp linsen forsiktig med tommel og pekefinger, eller skyv den nedover mot det
+  hvite av øyet før du løfter den av</li>
+  <li>Aldri bruk negler direkte mot hornhinnen</li>
+</ul>
+
+<p style="margin-top:24px;">Sliter du med å få det til, er det helt normalt de første gangene – optikeren som
+tilpasset linsene dine viser deg gjerne teknikken på nytt.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er viktigst å huske før man setter inn kontaktlinser?",
+                "answer": "Vask og tørk hendene grundig først, hver eneste gang – god hygiene er viktigere enn selve innsettingsteknikken.",
+            },
+            {
+                "question": "Hvordan vet jeg om linsen er vrengt?",
+                "answer": "En riktig vendt linse danner en jevn skål. Er den vrengt, vipper kanten utover i stedet for å bøye jevnt innover.",
+            },
+        ],
+    },
+    "hvorfor-bruke-kontaktlinser": {
+        "title": "Hvorfor bruke kontaktlinser fremfor briller",
+        "description": "Fordelene ved kontaktlinser sammenlignet med briller, og hva som taler for å kombinere begge deler.",
+        "body_html": """
+<p>Kontaktlinser og briller løser samme grunnleggende behov – korrigert syn – men passer
+ulikt avhengig av livsstil og situasjon. Mange kombinerer begge deler.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med kontaktlinser</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Fullt, uforstyrret synsfelt – ingen brillestang eller kant i synsranden</li>
+  <li>Dugger ikke ved temperaturskifte, regn eller bruk av munnbind/hjelm</li>
+  <li>Praktisk ved sport og fysisk aktivitet</li>
+  <li>Kan kombineres med vanlige solbriller uten styrke</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som taler for briller</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Ingen daglig hygienerutine eller berøring av øyet</li>
+  <li>Kan være bedre egnet ved svært tørre øyne eller enkelte øyetilstander</li>
+</ul>
+
+<p style="margin-top:24px;">Det er ikke enten/eller – mange bruker linser i aktive perioder av dagen og briller
+resten av tiden.</p>
+""",
+        "faq": [
+            {
+                "question": "Er kontaktlinser bedre enn briller?",
+                "answer": "Ikke nødvendigvis bedre, men annerledes – linser gir et fullt synsfelt uten brillestang eller dugging, mens briller krever ingen daglig hygienerutine. Mange bruker begge deler avhengig av situasjon.",
+            },
+        ],
+    },
+    "vedlikehold-av-kontaktlinser": {
+        "title": "Vedlikehold av kontaktlinser",
+        "description": "Riktig rengjøring og oppbevaring av kontaktlinser som gjenbrukes, og de vanligste feilene å unngå.",
+        "body_html": """
+<p>Dagslinser kastes etter én dag og trenger ikke rengjøring. Bruker du ukes- eller
+månedslinser, er riktig vedlikehold avgjørende for øyehelsen – ikke bare for at linsen
+skal vare lenge.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Grunnregler</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Bruk alltid <strong>fersk</strong> linsevæske – fyll aldri på gammel væske i etuiet
+  («topping off»), skift den helt hver gang</li>
+  <li>Følg optikerens anbefalte gni-og-skyll-rutine hvis væsken tilsier det, selv om
+  enkelte væsker markedsføres som "no-rub"</li>
+  <li>Skift oppbevaringsetui jevnlig (følg produsentens anbefaling, ofte hver 1.–3. måned)</li>
+  <li>Bruk aldri springvann eller spytt på linsene – det kan tilføre mikroorganismer
+  linsevæsken ikke er laget for å drepe</li>
+  <li>Følg byttefrekvensen linsen faktisk er godkjent for, selv om den fortsatt føles
+  komfortabel</li>
+</ul>
+
+<p style="margin-top:24px;">Vi sammenligner priser på linsevæske fra flere norske nettbutikker – se
+<a href="/">forsiden</a> for å søke opp den du bruker.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg fylle på gammel linsevæske i etuiet?",
+                "answer": "Nei. Bruk alltid fersk væske og skift den helt hver gang – å fylle på gammel væske («topping off») reduserer den desinfiserende effekten betraktelig.",
+            },
+            {
+                "question": "Hvor ofte bør jeg skifte oppbevaringsetui?",
+                "answer": "Følg produsentens anbefaling for linsevæsken din, ofte hver 1.–3. måned. Et gammelt etui kan huse bakterier selv om det ser rent ut.",
+            },
+        ],
+    },
+    "reising-med-kontaktlinser": {
+        "title": "Reising med kontaktlinser",
+        "description": "Praktiske tips for å bruke kontaktlinser på reise, fra flyturens tørre kabinluft til væskeregler i håndbagasjen.",
+        "body_html": """
+<p>Kontaktlinser er praktiske på reise, men noen få forberedelser gjør det enklere.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Før avreise</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Pakk nok linser og eventuell linsevæske til hele reisen – ikke alle merker er
+  tilgjengelige overalt</li>
+  <li>Ta med briller som backup, i tilfelle irritasjon eller tørre øyne underveis</li>
+  <li>Linsevæske i håndbagasje må følge vanlige væskeregler (beholdere under 100 ml)</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Underveis</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
+  flyvninger – ha øyedråper eller briller tilgjengelig</li>
+  <li>Dagslinser er ofte praktiske på reise, siden du slipper å ha med etui og
+  oppbevaringsvæske</li>
+</ul>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg ha linsevæske i håndbagasjen?",
+                "answer": "Ja, men den må følge vanlige væskeregler for håndbagasje (beholdere under 100 ml). Vurder heller reisestørrelser eller dagslinser hvis du vil unngå væske helt.",
+            },
+            {
+                "question": "Hvorfor blir kontaktlinser mer ukomfortable på fly?",
+                "answer": "Kabinluft er svært tørr, noe som kan gjøre linser mindre behagelige på lange flyvninger. Øyedråper eller en pause med briller kan hjelpe.",
+            },
+        ],
+    },
+    "kosmetiske-kontaktlinser": {
+        "title": "Kosmetiske og fargede kontaktlinser",
+        "description": "Fargede kontaktlinser er reseptvare på lik linje med andre linser, selv uten styrke. Slik velger du dem trygt.",
+        "body_html": """
+<p>Fargede og kosmetiske kontaktlinser er kontaktlinser på lik linje med alle andre –
+også de <strong>uten styrke</strong> som kun endrer øyefargen. De regnes som medisinsk
+utstyr og krever samme tilpasning og hygiene som synskorrigerende linser.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kjøp alltid fra seriøse forhandlere</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Ukvalifiserte "festivallinser" eller kostymelinser kjøpt uten tilpasning (f.eks. fra
+useriøse utenlandske nettbutikker) har vesentlig høyere risiko for feil passform og
+øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr.</p>
+
+<p style="margin-top:16px;">Samme regler som for vanlige linser gjelder: synsundersøkelse/tilpasning hos optiker
+først, og samme hygienerutiner ved bruk.</p>
+""",
+        "faq": [
+            {
+                "question": "Trenger jeg resept for fargede kontaktlinser uten styrke?",
+                "answer": "Ja. Fargede linser regnes som medisinsk utstyr uansett styrke, og krever samme tilpasning hos optiker som synskorrigerende linser.",
+            },
+            {
+                "question": "Er det trygt å kjøpe billige kostymelinser uten tilpasning?",
+                "answer": "Nei, det frarådes. Linser kjøpt uten tilpasning fra useriøse kilder har vesentlig høyere risiko for feil passform og øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr.",
+            },
+        ],
+    },
+    "kontaktlinsens-materiale": {
+        "title": "Kontaktlinsens materiale",
+        "description": "Forskjellen på silikonhydrogel og vanlig hydrogel, og hvorfor materialet påvirker komfort og øyehelse.",
+        "body_html": """
+<p>Materialet en linse er laget av avgjør blant annet hvor mye oksygen som slipper
+gjennom til hornhinnen – noe hornhinnen er avhengig av siden den ikke har egne
+blodårer.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
+her). Slipper gjennom vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan
+gi bedre komfort ved lange dager med linser i.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlig hydrogel</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Eldre, men fortsatt i bruk i enkelte linser. Har typisk høyere vanninnhold, som for
+noen kan oppleves annerledes komfortabelt enn silikonhydrogel, spesielt tidlig i
+brukstiden.</p>
+
+<p style="margin-top:16px;">Materiale og vanninnhold står oppgitt under spesifikasjoner på hver produktside her
+på kontaktlinser.no.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er forskjellen på silikonhydrogel og vanlig hydrogel?",
+                "answer": "Silikonhydrogel slipper gjennom vesentlig mer oksygen til hornhinnen enn eldre hydrogel-materialer, noe som kan gi bedre komfort ved lange dager med linser i. Vanlig hydrogel har ofte høyere vanninnhold.",
+            },
+        ],
+    },
+    "korrigerende-kontaktlinser": {
+        "title": "Korrigerende kontaktlinser ved astigmatisme og alderssyn",
+        "description": "Hvordan toriske linser korrigerer astigmatisme, og hvordan multifokale linser korrigerer alderssyn.",
+        "body_html": """
+<p>Enkel nærsynthet eller langsynthet korrigeres med sfæriske linser. To vanlige
+synsforhold krever egne, mer avanserte linsetyper.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Toriske linser (astigmatisme)</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Ved astigmatisme (skjev hornhinne) må linsen ha ulik styrke i ulike retninger, og
+ligge stabilt uten å rotere i øyet. Toriske linser er formet spesielt for dette, og
+krever en mer nøyaktig tilpasning enn vanlige sfæriske linser.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Multifokale/progressive linser (alderssyn)</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Fra rundt 40–45-årsalderen svekkes øyets evne til å stille skarpt på nært hold.
+Multifokale linser har flere styrkesoner i samme linse (typisk for nært, mellomdistanse
+og langt hold), og kan kreve en kort tilvenningsperiode før hjernen lærer å bruke sonene
+riktig.</p>
+
+<p style="margin-top:16px;">Begge typer krever en presis resept fra optiker – dette er ikke noe man kan
+tilnærme seg med en vanlig sfærisk styrke.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvorfor kan jeg ikke bruke vanlige linser ved astigmatisme?",
+                "answer": "Ved astigmatisme må linsen ha ulik styrke i ulike retninger og ligge stabilt uten å rotere i øyet. Det krever toriske linser, formet spesielt for dette, med en mer nøyaktig tilpasning enn sfæriske linser.",
+            },
+            {
+                "question": "Må jeg venne meg til multifokale linser?",
+                "answer": "Ofte ja. Multifokale linser har flere styrkesoner i samme linse, og det kan ta en kort tilvenningsperiode før hjernen lærer å bruke sonene riktig.",
+            },
+        ],
+    },
+    "produksjon-av-kontaktlinser": {
+        "title": "Slik produseres kontaktlinser",
+        "description": "Kort om hvordan moderne myke kontaktlinser produseres, kvalitetssikres og reguleres som medisinsk utstyr.",
+        "body_html": """
+<p>De fleste moderne myke kontaktlinser produseres ved <strong>støping</strong>: flytende
+linsemateriale sprøytes inn i presise plastformer som gir linsen riktig krumning,
+diameter og styrke, før den herdes og bearbeides ferdig i sterile lokaler.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kvalitetskontroll og regulering</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Hver linse kontrolleres for riktig form og styrke før pakking</li>
+  <li>Linsene pakkes i steril saltvannsløsning i forseglet emballasje</li>
+  <li>Kontaktlinser regnes som medisinsk utstyr i EU/EØS og skal være CE-merket</li>
+</ul>
+
+<p style="margin-top:16px;">Denne strenge produksjons- og kvalitetskontrollen er en av grunnene til at det lønner
+seg å kjøpe linser fra forhandlere som følger regelverket, ikke uregulerte kilder.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvordan lages myke kontaktlinser?",
+                "answer": "De fleste produseres ved støping: flytende linsemateriale sprøytes inn i presise plastformer som gir riktig krumning, diameter og styrke, før linsen herdes, kontrolleres og pakkes i steril saltvannsløsning.",
+            },
+        ],
+    },
+    "kontaktlinsens-historie": {
+        "title": "Kontaktlinsens historie",
+        "description": "Fra Leonardo da Vincis tidlige skisser til moderne dagslinser – en kort historikk om kontaktlinsens utvikling.",
+        "body_html": """
+<p>Ideen om en linse som ligger direkte på øyet er overraskende gammel, men det tok
+århundrer før teknologien fantes for å faktisk lage den.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fra idé til glasslinse</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Leonardo da Vinci skisserte konsepter som kan minne om kontaktlinser allerede rundt
+1508, men dette var teoretiske tegninger, ikke noe som kunne brukes. De første reelle
+kontaktlinsene – tunge glasslinser som dekket hele det synlige øyet (skleralinser) –
+kom først på slutten av 1800-tallet, og var langt fra komfortable ved dagens
+standard.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Plast og den moderne myke linsen</h2>
+<p style="font-size:0.92rem;line-height:1.7;">Lettere plastlinser kom på 1930–40-tallet. Det virkelig store gjennombruddet kom i
+1961, da den tsjekkiske kjemikeren Otto Wichterle utviklet den første myke
+hydrogel-kontaktlinsen – materialet som fortsatt ligger til grunn for de fleste linser
+som selges i dag. Dagslinser (til engangsbruk) ble vanlig fra 1990-tallet og utover, og
+er i dag et av de mest brukte alternativene.</p>
+""",
+        "faq": [
+            {
+                "question": "Hvem oppfant den moderne myke kontaktlinsen?",
+                "answer": "Den tsjekkiske kjemikeren Otto Wichterle utviklet den første myke hydrogel-kontaktlinsen i 1961 – materialet som fortsatt ligger til grunn for de fleste linser som selges i dag.",
+            },
+        ],
+    },
+    "terapeutiske-kontaktlinser": {
+        "title": "Terapeutiske kontaktlinser (bandasjelinser)",
+        "description": "Terapeutiske kontaktlinser brukes til å beskytte eller behandle øyet medisinsk, ikke til synskorrigering, og forskrives av øyelege.",
+        "body_html": """
+<p>Terapeutiske kontaktlinser (ofte kalt bandasjelinser) har et annet formål enn vanlige
+kontaktlinser: de brukes ikke primært for å korrigere synet, men for å beskytte eller
+behandle selve øyet.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige bruksområder</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Beskytte hornhinnens overflate mens den gror etter skade, betennelse eller kirurgi</li>
+  <li>Lindre smerte ved enkelte hornhinnetilstander</li>
+  <li>Holde en ustabil hornhinneoverflate på plass under tilheling</li>
+</ul>
+
+<p style="margin-top:16px;">Terapeutiske linser forskrives og følges opp av <strong>øyelege</strong>, ikke valgt
+selv slik man kan velge synskorrigerende linser hos optiker. Bruken, varigheten og
+oppfølgingen er individuelt tilpasset den medisinske tilstanden.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er en terapeutisk kontaktlinse (bandasjelinse)?",
+                "answer": "En linse som brukes til å beskytte eller behandle øyet medisinsk – for eksempel for å beskytte hornhinnen under tilheling etter skade eller kirurgi – ikke primært for å korrigere synet.",
+            },
+            {
+                "question": "Kan jeg velge terapeutiske linser selv?",
+                "answer": "Nei. Terapeutiske linser forskrives og følges opp av øyelege ut fra en medisinsk vurdering, ikke valgt selv slik man velger synskorrigerende linser hos optiker.",
+            },
+        ],
+    },
 }
 
 
@@ -1573,7 +2189,7 @@ def render_guides_index_page() -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guider – kontaktlinser.no</title>
-<meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, og forskjellen på dagslinser og månedslinser.">
+<meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.">
 <link rel="canonical" href="{BASE_URL}/guider/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
@@ -1673,7 +2289,7 @@ def render_404_page() -> str:
     hvis siden noensinne skulle bli lenket til eller crawlet direkte.
 
     Kjører også en klientsidevis oppslag mot LEGACY_REDIRECTS helt øverst i
-    <head> (før noe annet), for de ti gamle .aspx-URL-ene fra forrige
+    <head> (før noe annet), for de 237 gamle .aspx-URL-ene fra forrige
     versjon av siden - .aspx kan ikke serveres som en fungerende HTML-
     omdirigering på GitHub Pages (se kommentar ved LEGACY_REDIRECTS), så
     dette er en bevisst nest-best løsning: browser mottar 404, men ekte
