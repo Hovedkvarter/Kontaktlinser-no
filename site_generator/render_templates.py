@@ -2203,14 +2203,35 @@ def render_guide_page(slug: str) -> str | None:
 </html>"""
 
 
+GUIDE_ICONS = {
+    "manedslinser-vs-dagslinser": '<circle cx="7" cy="8" r="1.8"/><circle cx="12" cy="8" r="1.8"/><circle cx="17" cy="8" r="1.8"/><circle cx="7" cy="16" r="1.8"/><circle cx="12" cy="16" r="1.8"/><circle cx="17" cy="16" r="1.8"/>',
+    "hvordan-velge-kontaktlinser": '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+    "kontaktlinser-for-barn": '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke-linecap="round"/>',
+    "harde-eller-myke-linser": '<circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/>',
+    "hvordan-bruke-kontaktlinser": '<rect x="10" y="3" width="4" height="11" rx="2"/><ellipse cx="12" cy="18" rx="6" ry="3"/>',
+    "hvorfor-bruke-kontaktlinser": '<circle cx="7" cy="13" r="3.2"/><circle cx="17" cy="13" r="3.2"/><path d="M10.2 13h3.6M3 12l1-3M21 12l-1-3" stroke-linecap="round"/>',
+    "vedlikehold-av-kontaktlinser": '<rect x="3" y="8" width="18" height="10" rx="3"/><circle cx="8.5" cy="13" r="2.2"/><circle cx="15.5" cy="13" r="2.2"/>',
+    "reising-med-kontaktlinser": '<path d="M3 12l18-8-8 18-2-8-8-2z" stroke-linejoin="round"/>',
+    "kosmetiske-kontaktlinser": '<circle cx="11" cy="13" r="5"/><path d="M18 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/>',
+    "kontaktlinsens-materiale": '<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>',
+    "korrigerende-kontaktlinser": '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3" stroke-linecap="round"/>',
+    "produksjon-av-kontaktlinser": '<circle cx="12" cy="12" r="3"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6" stroke-linecap="round"/>',
+    "kontaktlinsens-historie": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/>',
+    "terapeutiske-kontaktlinser": '<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8" stroke-linecap="round"/>',
+}
+
+
 def render_guides_index_page() -> str:
-    cards_html = "\n".join(
-        f"""<a class="guide-card" href="/guide/{escape(slug)}/">
-  <div class="guide-card-title">{escape(g["title"])}</div>
-  <div class="guide-card-desc">{escape(g["description"])}</div>
+    def render_guide_card(slug: str, g: dict) -> str:
+        icon = GUIDE_ICONS.get(slug, "")
+        return f"""<a class="guide-tile" href="/guide/{escape(slug)}/">
+  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true">{icon}</svg></div>
+  <div class="guide-tile-title">{escape(g["title"])}</div>
+  <div class="guide-tile-desc">{escape(g["description"])}</div>
+  <div class="guide-tile-link">Les guiden →</div>
 </a>"""
-        for slug, g in GUIDE_CONTENT.items()
-    )
+
+    cards_html = "\n".join(render_guide_card(slug, g) for slug, g in GUIDE_CONTENT.items())
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -2223,24 +2244,32 @@ def render_guides_index_page() -> str:
 <link rel="canonical" href="{BASE_URL}/guider/">
 {FONT_LINKS}
 <style>{SHARED_STYLE}
-.guide-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 10px; }}
-.guide-card:hover {{ border-color: var(--aqua); }}
-.guide-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }}
-.guide-card-desc {{ font-size: 0.86rem; color: var(--muted); }}
+.guide-grid {{ display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }}
+.guide-tile {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }}
+.guide-tile:hover {{ border-color: var(--aqua); }}
+.guide-tile-icon {{ width: 56px; height: 56px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }}
+.guide-tile-icon svg {{ width: 26px; height: 26px; }}
+.guide-tile-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }}
+.guide-tile-desc {{ font-size: 0.86rem; color: var(--muted); line-height: 1.5; }}
+.guide-tile-link {{ font-size: 0.86rem; font-weight: 600; color: var(--aqua); margin-top: 12px; }}
+@media (min-width: 640px) {{ .guide-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
+@media (min-width: 900px) {{ .guide-grid {{ grid-template-columns: repeat(4, 1fr); }} }}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
-<div class="wrap">
+<div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Guider</div>
-      <h1>Guider</h1>
-      <p>Kort og saklig hjelp til å velge riktig kontaktlinse.</p>
+      <h1>Alt om kontaktlinser – enkelt forklart</h1>
+      <p>Praktiske råd som hjelper deg å ta gode valg, bruke linsene riktig og ta vare på øynene dine.</p>
     </div>
   </div>
+  <div class="guide-grid">
   {cards_html}
+  </div>
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
