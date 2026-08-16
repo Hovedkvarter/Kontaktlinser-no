@@ -725,12 +725,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     long_description = product.get("long_description", product["description"])
 
-    schema_json = f"""{{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "{escape(product["name"])}",
-  "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},{f' "image": "{escape(image_url)}",' if image_url else ""}
+    offers_schema = ""
+    if in_stock_offers:
+        offers_schema = f''',
   "offers": {{
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -738,8 +735,16 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     "highPrice": {high_price},
     "offerCount": {len(in_stock_offers)},
     "offers": [{schema_offers}]
-  }}{schema_props}
+  }}'''
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{escape(product["name"])}",
+  "description": "{escape(long_description)}",
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{offers_schema}{schema_props}
 }}"""
+    schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
     specs_html = ""
     if specs:
@@ -765,7 +770,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
 {FONT_LINKS}
-<script type="application/ld+json">{schema_json}</script>
+{schema_json_html}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .specs {{ margin-top: 32px; }}
@@ -2058,12 +2063,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     low_price = min((o["total"] for o in in_stock_offers), default=0)
     high_price = max((o["total"] for o in in_stock_offers), default=0)
 
-    schema_json = f"""{{
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "{escape(product["name"])}",
-  "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}},{f' "image": "{escape(image_url)}",' if image_url else ""}
+    offers_schema = ""
+    if in_stock_offers:
+        offers_schema = f''',
   "offers": {{
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -2071,8 +2073,16 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     "highPrice": {high_price},
     "offerCount": {len(in_stock_offers)},
     "offers": [{schema_offers}]
-  }}
+  }}'''
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{escape(product["name"])}",
+  "description": "{escape(long_description)}",
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{offers_schema}
 }}"""
+    schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -2084,7 +2094,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
 {FONT_LINKS}
-<script type="application/ld+json">{schema_json}</script>
+{schema_json_html}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
@@ -2415,6 +2425,28 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     best = next((o for o in offers if o["is_lowest"]), None)
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
 
+    in_stock_offers = [o for o in offers if o["in_stock"]]
+    about_offers_schema = ""
+    if in_stock_offers:
+        schema_offers = ",\n        ".join(f'''{{
+          "@type": "Offer",
+          "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
+          "price": {o["total"]},
+          "priceCurrency": "NOK",
+          "url": "{escape(o["url"])}",
+          "availability": "https://schema.org/InStock"
+        }}''' for o in in_stock_offers)
+        low_price = min(o["total"] for o in in_stock_offers)
+        high_price = max(o["total"] for o in in_stock_offers)
+        about_offers_schema = f''', "offers": {{
+      "@type": "AggregateOffer",
+      "priceCurrency": "NOK",
+      "lowPrice": {low_price},
+      "highPrice": {high_price},
+      "offerCount": {len(in_stock_offers)},
+      "offers": [{schema_offers}]
+    }}'''
+
     real_name = real_product["name"]
     real_brand = real_product["brand_label"]
     chain = label["chain"]
@@ -2433,11 +2465,12 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   <div class="price">{_fmt_kr(best["total"])}</div>
 </a>"""
 
+    about_type = "Product" if in_stock_offers else "Thing"
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "{escape(private_name)} ({escape(chain)}) er egentlig {escape(real_name)}",
-  "about": {{"@type": "Product", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}}},
+  "about": {{"@type": "{about_type}", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}{about_offers_schema}}},
   "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"
 }}"""
 
