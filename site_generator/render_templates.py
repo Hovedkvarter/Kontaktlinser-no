@@ -36,7 +36,7 @@ a { color: inherit; }
 /* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
    store skjermer -- kun grid-/liste-/pristabellsider trenger mer bredde.
    wrap-wide: forside/kategori/merke-oversikter. wrap-product: produkt-
-   /pristabellsider. Se .lens-grid/.brand-grid/.category-grid for
+   /pristabellsider. Se .brand-grid/.category-grid for
    tilhørende kolonneøkning ved samme breakpoint. */
 @media (min-width: 1024px) {
   .wrap-wide { max-width: 1200px; }
@@ -980,42 +980,35 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
-    def render_private_label_search_item(label: dict) -> str:
-        search_key = f'{label["name"]} {label["chain"]}'.lower()
-        href = f'/private-label/{label["slug"]}/'
-        return f"""<a class="product-card" href="{escape(href)}" data-search="{escape(search_key)}">
-  <div class="product-thumb">{escape(label["chain"][:2].upper())}</div>
-  <div class="product-main">
-    <div class="product-name">{escape(label["name"])}</div>
-    <div class="product-meta">{escape(label["chain"])} sitt eget merke</div>
-  </div>
-</a>"""
+    # Søkeindeksen (under) driver kun søkeforslag-dropdownen -- forsiden
+    # viser IKKE lenger et fullt produktgrid (fjernet 2026-08-15). Data
+    # sendes som skjult JSON i stedet for synlige kort, slik at søket
+    # fortsatt dekker alt uten at forsidens HTML/DOM må inneholde hvert
+    # eneste produkt (dårlig for sidevekt og for topisk SEO-fokus).
+    def build_search_entry(p: dict) -> dict:
+        return {
+            "name": p["name"],
+            "meta": p["brand_label"],
+            "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
+            "image": pick_product_image(p["offers"]),
+            "search": f'{p["name"]} {p["brand_label"]}'.lower(),
+        }
 
-    private_label_search_html = "\n".join(render_private_label_search_item(l) for l in (private_labels or []))
+    def build_private_label_search_entry(label: dict) -> dict:
+        return {
+            "name": label["name"],
+            "meta": f'{label["chain"]} sitt eget merke',
+            "href": f'/private-label/{label["slug"]}/',
+            "image": None,
+            "search": f'{label["name"]} {label["chain"]}'.lower(),
+        }
 
-    def render_lens_card(p: dict) -> str:
-        offers = reconcile_product(p["offers"], now)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
-        image_url = pick_product_image(p["offers"])
-        thumb = f'<img src="{escape(image_url)}" alt="{escape(p["name"])}" loading="lazy">' if image_url \
-            else escape(p["brand_label"][:2].upper())
-        price_block = (
-            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
-            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
-        )
-        href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
-        search_key = f'{p["name"]} {p["brand_label"]}'.lower()
-        return f"""<a class="product-card" href="{escape(href)}" data-search="{escape(search_key)}">
-  <div class="product-thumb">{thumb}</div>
-  <div class="product-main">
-    <div class="product-name">{escape(p["name"])}</div>
-    <div class="product-meta">{escape(p["brand_label"])}</div>
-  </div>
-  <div class="product-price-col">{price_block}</div>
-</a>"""
-
-    lens_cards_html = "\n".join(render_lens_card(p) for p in catalog["products"])
+    search_index_json = json.dumps(
+        [build_search_entry(p) for p in catalog["products"]], ensure_ascii=False
+    ).replace("</", "<\\/")
+    private_label_search_index_json = json.dumps(
+        [build_private_label_search_entry(l) for l in (private_labels or [])], ensure_ascii=False
+    ).replace("</", "<\\/")
 
     def render_category_card(slug: str, category: dict) -> str:
         count = sum(1 for p in catalog["products"] if p["category_slug"] == slug)
@@ -1197,9 +1190,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
-.lens-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
-.lens-grid .product-card {{ margin-bottom: 0; }}
-.no-results {{ display: none; font-size: 0.85rem; color: var(--muted); padding: 8px 2px; }}
 .guide-mini-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; }}
 .guide-mini-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--card-shadow); }}
 .guide-mini-card:hover {{ border-color: var(--aqua); }}
@@ -1209,7 +1199,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
 .faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
-@media (min-width: 640px) {{ .lens-grid {{ grid-template-columns: 1fr 1fr; }} .category-grid {{ grid-template-columns: repeat(3, 1fr); }} .guide-mini-grid {{ grid-template-columns: 1fr 1fr; }} }}
+@media (min-width: 640px) {{ .category-grid {{ grid-template-columns: repeat(3, 1fr); }} .guide-mini-grid {{ grid-template-columns: 1fr 1fr; }} }}
 @media (min-width: 700px) {{
   .hero {{
     grid-template-columns: 1fr 42%;
@@ -1221,7 +1211,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   .hero-photo-credit {{ margin-top: -22px; }}
 }}
 @media (min-width: 1024px) {{
-  .lens-grid {{ grid-template-columns: repeat(3, 1fr); }}
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
   .category-grid {{ grid-template-columns: repeat(5, 1fr); }}
   .search-input {{ padding: 18px 24px 18px 52px; font-size: 1.15rem; }}
@@ -1248,7 +1237,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         </div>
       </div>
       <div class="hero-lead">
-        <p>Kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk eller velg en linse under for å se alle tilbud.</p>
+        <p>Kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk, eller velg en kategori under.</p>
         <div class="hero-category-pills">
           {hero_category_pills_html}
         </div>
@@ -1275,18 +1264,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 
   <div class="section-header">
-    <h2 id="lens-grid-heading">Alle linser</h2>
-  </div>
-  <div id="lens-grid" class="lens-grid">
-    {lens_cards_html}
-  </div>
-  <p class="no-results" id="no-results">Ingen linser matcher søket ditt. Prøv et annet merke, eller se en kategori over.</p>
-
-  <div id="private-label-search-data" hidden aria-hidden="true">
-    {private_label_search_html}
-  </div>
-
-  <div class="section-header">
     <h2>Guider</h2>
   </div>
   <div class="guide-mini-grid">
@@ -1303,23 +1280,20 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   {home_faq_html}
 </div>
 
+<script type="application/json" id="product-search-data">{search_index_json}</script>
+<script type="application/json" id="private-label-search-data">{private_label_search_index_json}</script>
 <script>
-  // Progressiv forbedring: alle linsekort finnes allerede i DOM-en over og
-  // fungerer som vanlige lenker uten JS. Dette skjuler/viser dem basert på
-  // søketekst -- bygger dem aldri fra scratch. Hurtiglinkene i dropdownen
-  // under søkefeltet er samme kort gjenbrukt (klonet fra DOM-en), ikke en
-  // egen datakilde.
+  // Søket kjører mot en liten skjult JSON-indeks (under), ikke mot synlige
+  // produktkort -- forsiden viser bevisst IKKE lenger alle {n_products}
+  // linsene (fjernet 2026-08-15, se CLAUDE.md): en forside stappet full av
+  // hvert eneste produkt utvannet det topiske fokuset for SEO/AI-sitering
+  // og konkurrerte med egne kategori-/merkesider om de samme søkene.
+  // Kategoriene og merkene under er nå den reelle "se alt"-inngangen.
   const searchInput = document.getElementById('lens-search');
-  const grid = document.getElementById('lens-grid');
-  const cards = Array.from(grid.querySelectorAll('.product-card'));
-  const noResults = document.getElementById('no-results');
   const suggestions = document.getElementById('search-suggestions');
-  // Optikerkjedenes egne merkenavn (f.eks. "iWear Oxygen") er ikke egne
-  // katalogprodukter -- de er kun søkbare via forslagsboksen under
-  // søkefeltet, ikke i "Alle linser"-rutenettet, siden de peker til
-  // samme fysiske vare som allerede vises der under sitt ekte navn.
-  const privateLabelCards = Array.from(document.querySelectorAll('#private-label-search-data .product-card'));
-  const allSearchable = cards.concat(privateLabelCards);
+  const productData = JSON.parse(document.getElementById('product-search-data').textContent);
+  const privateLabelData = JSON.parse(document.getElementById('private-label-search-data').textContent);
+  const allSearchable = productData.concat(privateLabelData);
 
   function renderSuggestions(q) {{
     if (!q) {{
@@ -1327,33 +1301,25 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       suggestions.innerHTML = '';
       return;
     }}
-    const matches = allSearchable.filter(card => card.dataset.search.includes(q)).slice(0, 8);
+    const matches = allSearchable.filter(item => item.search.includes(q)).slice(0, 8);
     if (matches.length === 0) {{
       suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
       suggestions.style.display = 'block';
       return;
     }}
-    suggestions.innerHTML = matches.map(card => {{
-      const thumbHtml = card.querySelector('.product-thumb').outerHTML;
-      const name = card.querySelector('.product-name').textContent;
-      const meta = card.querySelector('.product-meta').textContent;
-      return `<a class="search-suggestion" href="${{card.getAttribute('href')}}">${{thumbHtml}}` +
-        `<div><div class="search-suggestion-name">${{name}}</div>` +
-        `<div class="search-suggestion-meta">${{meta}}</div></div></a>`;
+    suggestions.innerHTML = matches.map(item => {{
+      const thumbHtml = item.image
+        ? `<div class="product-thumb"><img src="${{item.image}}" alt="" loading="lazy"></div>`
+        : `<div class="product-thumb">${{item.meta.slice(0, 2).toUpperCase()}}</div>`;
+      return `<a class="search-suggestion" href="${{item.href}}">${{thumbHtml}}` +
+        `<div><div class="search-suggestion-name">${{item.name}}</div>` +
+        `<div class="search-suggestion-meta">${{item.meta}}</div></div></a>`;
     }}).join('');
     suggestions.style.display = 'block';
   }}
 
   searchInput.addEventListener('input', () => {{
-    const q = searchInput.value.trim().toLowerCase();
-    renderSuggestions(q);
-    let visible = 0;
-    cards.forEach(card => {{
-      const show = q === '' || card.dataset.search.includes(q);
-      card.style.display = show ? '' : 'none';
-      if (show) visible++;
-    }});
-    noResults.style.display = visible === 0 ? 'block' : 'none';
+    renderSuggestions(searchInput.value.trim().toLowerCase());
   }});
 
   searchInput.addEventListener('focus', () => {{

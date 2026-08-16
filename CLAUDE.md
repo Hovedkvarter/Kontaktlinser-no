@@ -788,6 +788,35 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   kategorisider), siden piller i heroen er lenker til nye sider, ikke
   et filter-UI, og fortjener litt mer "hero-verdig" polish. Fjernet
   `.hero-actions`/`.btn-primary` CSS som ble død kode etter dette.
+- **Fjernet "Alle linser"-gridden fra forsiden, søk kjører nå mot skjult
+  JSON i stedet for synlige kort (2026-08-15):** brukeren spurte om det
+  var en fordel å liste alle 103 produktene på forsiden -- svarte at det
+  ga bedre crawl-dekning, men kostet topisk SEO-fokus (forsiden
+  konkurrerer med egne kategori-/merkesider om de samme søkene,
+  "keyword cannibalization") og skalerer dårlig etter hvert som
+  katalogen vokser. Brukeren presiserte at SEO/AI-treff er høyeste
+  prioritet, og ba meg sette i gang.
+  - Fjernet `<h2>Alle linser</h2>` + `#lens-grid` + `#no-results` helt
+    fra forsiden. Indeksering er ikke svekket -- `sitemap-produkter.xml`
+    lister allerede alle produkter uavhengig av forside-lenker, og
+    kategori-/merkesidene gir topisk relevante interne lenker dit
+    (bedre for AI-sitering også: strukturerte engines foretrekker sider
+    med ett klart formål, ikke en forside som prøver å være alt).
+  - Søkeforslag-dropdownen (autocomplete under søkefeltet) beholdt
+    UENDRET brukeropplevelse, men datakilden byttet fra synlige
+    `.product-card`-elementer (klonet fra DOM-en) til to skjulte
+    `<script type="application/json">`-øyer (`#product-search-data`,
+    `#private-label-search-data`) -- `build_search_entry()`/
+    `build_private_label_search_entry()` i `render_home_page()` bygger
+    disse. JSON escapes `</` -> `<\/` for å unngå at et produktnavn med
+    den sekvensen kunne brutt ut av script-taggen (usannsynlig, men
+    billig å beskytte mot). Reduserer forsidens DOM/HTML-vekt betydelig
+    siden 103 fulle produktkort (bilde+navn+merke+pris+lenke hver) ikke
+    lenger rendres, bare en kompakt JSON-liste (navn+merke+bilde+lenke).
+  - Rettet en bieffekt: hero-lead-teksten sa "søk eller velg en linse
+    under" -- ga ikke lenger mening uten linse-gridden. Endret til
+    "søk, eller velg en kategori under" (kategori-pillene fra forrige
+    endring dekker nå den funksjonen).
 
 ## Arbeidsspråk og autorisasjon
 
