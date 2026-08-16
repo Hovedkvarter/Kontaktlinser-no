@@ -883,6 +883,39 @@ før filen ble tatt i bruk. Fant også at fila har BLANDET formattering
 utfoldet over tre linjer) fra tidligere økter -- scriptet måtte håndtere
 begge for å sette komma riktig.
 
+## Fiks: ugyldig Product-strukturert-data (2026-08-16)
+
+Google Search Console meldte en kritisk feil ("«offers», «review» eller
+«aggregateRating» må angis") på 38 sider, oppdaget av brukeren via et
+skjermbilde. To separate bugs i `render_templates.py`:
+
+1. **Private label-sidene** (`render_private_label_page()`) markerte
+   `"about"` som `@type: Product` uten NOEN av de tre feltene i det hele
+   tatt -- siden viste allerede ekte tilbudsdata for det virkelige
+   produktet (`offer_cards_html`), men denne dataen var aldri lagt inn i
+   JSON-LD-en. Fikset ved å gjenbruke samme utregnede `offers`-liste og
+   legge en ekte `AggregateOffer` inn i `about`. Hvis det virkelige
+   produktet en dag skulle ha null tilbud, faller `about`-typen tilbake
+   til `Thing` i stedet for `Product` (unngår samme fallgruve som pkt. 2
+   under) -- ikke observert i praksis ennå, siden ingen private label pr.
+   nå peker til et nulltilbud-produkt.
+2. **To Precision7-produkter uten reelle tilbud**
+   (`precision7-6pk`, `precision7-astigmatism-6pk`) fikk en ugyldig
+   `AggregateOffer` med `lowPrice`/`highPrice`/`offerCount` = 0 og tom
+   `offers: []`. Google teller ikke det som "angitt". **Viktig:** å bare
+   fjerne selve `offers`-nøkkelen er IKKE nok -- Product-typen krever
+   fortsatt minst ett av `offers`/`review`/`aggregateRating`, og vi har
+   ingen anmeldelser/rating å falle tilbake på. Riktig fiks er derfor å
+   utelate HELE `<script type="application/ld+json">`-blokken for
+   produkter uten reelle tilbud (`schema_json_html`-variabelen i
+   `render_product_page()` og `render_solution_product_page()`).
+
+Verifisert lokalt før push: kun de 2 forventede produktsidene mangler nå
+JSON-LD, og alle 47 private label-sider har gyldig `offers`. Referanse:
+Googles egen dokumentasjon bekrefter regelen eksplisitt --
+https://developers.google.com/search/docs/appearance/structured-data/product-snippet
+("You only need to provide one of review, aggregateRating, and offers").
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
