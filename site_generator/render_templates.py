@@ -878,7 +878,7 @@ def _render_price_history_chart(history: list[dict]) -> str:
   </div>"""
 
 
-def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None) -> str:
+def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
@@ -1002,6 +1002,22 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     price_history_html = _render_price_history_chart(price_history or [])
 
+    aliases_html = ""
+    if aliases:
+        alias_rows = "\n    ".join(
+            f'<li><a href="/private-label/{escape(a["slug"])}/">{escape(a["name"])}</a> hos {escape(a["chain"])}</li>'
+            for a in aliases
+        )
+        n = len(aliases)
+        chains_word = "kjede" if n == 1 else "kjeder"
+        aliases_html = f"""<div class="aliases-note">
+    <strong>Selges også under andre navn:</strong> {escape(product["name"])} pakkes om og selges under eget varenavn hos {n} optiker{chains_word}:
+    <ul>
+    {alias_rows}
+    </ul>
+    <a href="/private-label/">Om optikerkjedenes egne merker →</a>
+  </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -1015,6 +1031,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {schema_json_html}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
+.aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
+.aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
+.aliases-note a {{ color: var(--aqua); text-decoration: none; font-weight: 600; }}
+.aliases-note a:hover {{ text-decoration: underline; }}
 .specs {{ margin-top: 32px; }}
 .specs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
 .specs-table {{ background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }}
@@ -1074,6 +1094,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </p>
   {price_history_html}
   {specs_html}
+  {aliases_html}
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}

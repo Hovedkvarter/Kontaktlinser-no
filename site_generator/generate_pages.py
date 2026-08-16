@@ -50,6 +50,14 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
 
     private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"] if PRIVATE_LABELS_PATH.exists() else []
 
+    # Motsatt retning av private_labels.json sin vanlige bruk: her grupperer vi
+    # etter det EKTE produktet, slik at produktsiden kan vise "selges også som"
+    # -- private-label-siden lenker allerede den andre veien (til det ekte
+    # produktet), men ikke omvendt før nå.
+    aliases_by_product_id: dict[str, list[dict]] = {}
+    for label in private_labels:
+        aliases_by_product_id.setdefault(label["real_product_id"], []).append(label)
+
     home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
@@ -66,7 +74,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         if best:
             record_price(price_history, product["id"], today, best["total"], best["retailer"])
 
-        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now)
+        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []))
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)
