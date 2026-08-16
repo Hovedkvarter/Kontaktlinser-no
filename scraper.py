@@ -284,6 +284,7 @@ def scrape_product(
         path = sc["product_url_pattern"].format(slug=slug)
 
     if not robots_allows(base_url, path):
+        print(f"    [debug] {retailer}/{slug}: robots.txt tillater ikke {path} (eller kunne ikke hentes)")
         return None  # respekter robots.txt uten unntak
 
     _rate_limiter.wait(base_url, min_delay=sc.get("crawl_delay_seconds"))
@@ -295,7 +296,9 @@ def scrape_product(
             timeout=10,
         )
         resp.raise_for_status()
-    except requests.RequestException:
+    except requests.RequestException as e:
+        status = getattr(getattr(e, "response", None), "status_code", None)
+        print(f"    [debug] {retailer}/{slug}: hente-feil ({status or e.__class__.__name__})")
         return None
 
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -308,10 +311,13 @@ def scrape_product(
     elif price_source == "listing_page":
         result = _find_offer_in_listing_page(soup, "/" + slug.lstrip("/"))
         if result is None:
+            print(f"    [debug] {retailer}/{slug}: status={resp.status_code} len={len(resp.text)} -- produkt ikke funnet i listen")
             return None  # produktet ble ikke funnet i listen -- gjett aldri
         price, in_stock = result
     else:
         price = _find_price_in_dom(sc, soup)
+        if price is None:
+            print(f"    [debug] {retailer}/{slug}: status={resp.status_code} len={len(resp.text)} price_selector={sc.get('price_selector')!r} -- ingen treff")
     if price is None:
         return None  # ikke publiser en pris vi ikke faktisk fant
 
