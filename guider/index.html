@@ -29,6 +29,8 @@ function __loadGTM() {
   --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
   --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #7C8A9E; --muted-bg: #ECEFF3;
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
+  --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
+  --lavender: #8B7FD6; --lavender-tint: #EEEBFA; --sky: #4F8FE8; --sky-tint: #E8F0FC;
 }
 * { box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) {
@@ -146,16 +148,18 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
 
+
 .guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
 .guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
 .guide-tile:hover { border-color: var(--aqua); }
-.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-.guide-tile-icon svg { width: 26px; height: 26px; }
+.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.guide-tile-icon svg { width: 28px; height: 28px; }
 .guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
 .guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
 .guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--aqua); margin-top: 12px; }
 @media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
+
 </style>
 </head>
 <body>
@@ -180,85 +184,85 @@ a { color: inherit; }
   </div>
   <div class="guide-grid">
   <a class="guide-tile" href="/guide/manedslinser-vs-dagslinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="8" r="1.8"/><circle cx="12" cy="8" r="1.8"/><circle cx="17" cy="8" r="1.8"/><circle cx="7" cy="16" r="1.8"/><circle cx="12" cy="16" r="1.8"/><circle cx="17" cy="16" r="1.8"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--amber-tint);color:var(--amber);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="3" fill="currentColor" opacity="0.18"/><circle cx="8" cy="10.5" r="1.7" fill="currentColor"/><circle cx="12" cy="10.5" r="1.7" fill="currentColor"/><circle cx="16" cy="10.5" r="1.7" fill="currentColor"/><circle cx="8" cy="15" r="1.7" fill="currentColor"/><circle cx="12" cy="15" r="1.7" fill="currentColor"/><circle cx="16" cy="15" r="1.7" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Månedslinser vs. dagslinser – hva passer deg?</div>
   <div class="guide-tile-desc">Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/hvordan-velge-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--aqua-tint);color:var(--aqua);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="white"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Hvordan velge kontaktlinser</div>
   <div class="guide-tile-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/kontaktlinser-for-barn/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke-linecap="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--coral-tint);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="9" r="4.5" fill="currentColor"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8" fill="currentColor" opacity="0.5"/></svg></div>
   <div class="guide-tile-title">Kontaktlinser for barn</div>
   <div class="guide-tile-desc">Er barn for unge for kontaktlinser? Hva som faktisk avgjør om et barn er klar, og hvorfor dagslinser ofte anbefales som førstevalg.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/harde-eller-myke-linser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--mint-tint);color:var(--mint);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="12" r="6" fill="currentColor" opacity="0.75"/><circle cx="15" cy="12" r="6" fill="currentColor" opacity="0.45"/></svg></div>
   <div class="guide-tile-title">Harde eller myke linser</div>
   <div class="guide-tile-desc">Forskjellen på myke og harde (gassgjennomtrengelige) kontaktlinser, og hvorfor de aller fleste i dag bruker myke linser.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/hvordan-bruke-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><rect x="10" y="3" width="4" height="11" rx="2"/><ellipse cx="12" cy="18" rx="6" ry="3"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--sky-tint);color:var(--sky);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="10" y="2" width="4" height="12" rx="2" fill="currentColor"/><ellipse cx="12" cy="18" rx="7" ry="3.3" fill="currentColor" opacity="0.5"/></svg></div>
   <div class="guide-tile-title">Hvordan sette inn og ta ut kontaktlinser</div>
   <div class="guide-tile-desc">Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/hvorfor-bruke-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="7" cy="13" r="3.2"/><circle cx="17" cy="13" r="3.2"/><path d="M10.2 13h3.6M3 12l1-3M21 12l-1-3" stroke-linecap="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--lavender-tint);color:var(--lavender);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="7" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="17" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M11 13h2M2.5 12l1-3M21.5 12l-1-3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div>
   <div class="guide-tile-title">Hvorfor bruke kontaktlinser fremfor briller</div>
   <div class="guide-tile-desc">Fordelene ved kontaktlinser sammenlignet med briller, og hva som taler for å kombinere begge deler.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/vedlikehold-av-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="8" width="18" height="10" rx="3"/><circle cx="8.5" cy="13" r="2.2"/><circle cx="15.5" cy="13" r="2.2"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--aqua-tint);color:var(--aqua);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="4" fill="currentColor"/><circle cx="8.5" cy="13" r="2.5" fill="white"/><circle cx="15.5" cy="13" r="2.5" fill="white"/></svg></div>
   <div class="guide-tile-title">Vedlikehold av kontaktlinser</div>
   <div class="guide-tile-desc">Riktig rengjøring og oppbevaring av kontaktlinser som gjenbrukes, og de vanligste feilene å unngå.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/reising-med-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><path d="M3 12l18-8-8 18-2-8-8-2z" stroke-linejoin="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--sky-tint);color:var(--sky);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12l18-8-8 18-2-8-8-2z" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Reising med kontaktlinser</div>
   <div class="guide-tile-desc">Praktiske tips for å bruke kontaktlinser på reise, fra flyturens tørre kabinluft til væskeregler i håndbagasjen.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/kosmetiske-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="11" cy="13" r="5"/><path d="M18 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--coral-tint);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="13" r="5.5" fill="currentColor"/><path d="M18 4l1.2 2.4 2.3 1.2-2.3 1.2L18 11l-1.2-2.2-2.3-1.2 2.3-1.2z" fill="currentColor" opacity="0.6"/></svg></div>
   <div class="guide-tile-title">Kosmetiske og fargede kontaktlinser</div>
   <div class="guide-tile-desc">Fargede kontaktlinser er reseptvare på lik linje med andre linser, selv uten styrke. Slik velger du dem trygt.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/kontaktlinsens-materiale/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--mint-tint);color:var(--mint);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3s6.5 7.5 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10.5 12 3 12 3z" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Kontaktlinsens materiale</div>
   <div class="guide-tile-desc">Forskjellen på silikonhydrogel og vanlig hydrogel, og hvorfor materialet påvirker komfort og øyehelse.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/korrigerende-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/><path d="M12 2v3M12 19v3" stroke-linecap="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--lavender-tint);color:var(--lavender);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="currentColor" opacity="0.32"/><circle cx="12" cy="12" r="4.2" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Korrigerende kontaktlinser ved astigmatisme og alderssyn</div>
   <div class="guide-tile-desc">Hvordan toriske linser korrigerer astigmatisme, og hvordan multifokale linser korrigerer alderssyn.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/produksjon-av-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.4 5.6l-1.7 1.7M7.3 16.7l-1.7 1.7M18.4 18.4l-1.7-1.7M7.3 7.3 5.6 5.6" stroke-linecap="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--amber-tint);color:var(--amber);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><circle cx="12" cy="4" r="1.6" fill="currentColor"/><circle cx="12" cy="20" r="1.6" fill="currentColor"/><circle cx="4" cy="12" r="1.6" fill="currentColor"/><circle cx="20" cy="12" r="1.6" fill="currentColor"/><circle cx="6.3" cy="6.3" r="1.4" fill="currentColor"/><circle cx="17.7" cy="17.7" r="1.4" fill="currentColor"/><circle cx="6.3" cy="17.7" r="1.4" fill="currentColor"/><circle cx="17.7" cy="6.3" r="1.4" fill="currentColor"/></svg></div>
   <div class="guide-tile-title">Slik produseres kontaktlinser</div>
   <div class="guide-tile-desc">Kort om hvordan moderne myke kontaktlinser produseres, kvalitetssikres og reguleres som medisinsk utstyr.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/kontaktlinsens-historie/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--mint-tint);color:var(--mint);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7v5l3.2 2" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
   <div class="guide-tile-title">Kontaktlinsens historie</div>
   <div class="guide-tile-desc">Fra Leonardo da Vincis tidlige skisser til moderne dagslinser – en kort historikk om kontaktlinsens utvikling.</div>
   <div class="guide-tile-link">Les guiden →</div>
 </a>
 <a class="guide-tile" href="/guide/terapeutiske-kontaktlinser/">
-  <div class="guide-tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8" stroke-linecap="round"/></svg></div>
+  <div class="guide-tile-icon" style="background:var(--coral-tint);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7.5v9M7.5 12h9" stroke="white" stroke-width="2.2" stroke-linecap="round"/></svg></div>
   <div class="guide-tile-title">Terapeutiske kontaktlinser (bandasjelinser)</div>
   <div class="guide-tile-desc">Terapeutiske kontaktlinser brukes til å beskytte eller behandle øyet medisinsk, ikke til synskorrigering, og forskrives av øyelege.</div>
   <div class="guide-tile-link">Les guiden →</div>
