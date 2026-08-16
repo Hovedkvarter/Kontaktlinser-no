@@ -975,6 +975,45 @@ koblet inn i minst én kategoris `guides`-liste i `products_meta.json` (ellers b
 ikke -- se `guide_slugs`-logikken i `generate_pages.py`). `LEGACY_REDIRECTS`-oppføringene
 for disse emnene peker nå til de nye dedikerte sidene i stedet for `/guider/`-oversikten.
 
+## Utvidet guide-bibliotek (2026-08-16, samme dag som resten av SEO-runden over)
+
+Etter de 12 første nye guidene ba brukeren om enda flere, med tre påfølgende pastede
+AI-genererte spørsmålslister (34, 25 og 100 spørsmål — betydelig overlapp seg imellom og
+med allerede bygget innhold). Endte med å bygge **9 til** (totalt 23 guider):
+Toriske linser og astigmatisme, Multifokale kontaktlinser ved alderssyn, Kan man sove med
+kontaktlinser?, Kan man dusje/bade/svømme med kontaktlinser?, Kontaktlinser og tørre øyne,
+BC og DIA forklart, Hvor lenge kan man bruke kontaktlinser om dagen?, SPH/CYL/AXIS
+forklart, Samme styrke på briller som linser?
+
+**Bevisst IKKE bygget** (satt på vent, ikke avvist): resten av de tre listene. Mange
+elementer er allerede dekket av eksisterende funksjoner, ikke bare innhold —
+"hvilke linser er egentlig samme linse med forskjellig navn" er allerede løst av
+`/private-label/`-seksjonen, "hvor er linsene mine billigst" er selve kjernefunksjonen.
+En bruker foreslo også en tre-lags struktur (store guider / korte spørsmål-og-svar /
+"kjøpshjelp" — et oppslagsverktøy som kobler BC/DIA/CYL/AXIS-tall direkte til produkt +
+pris). Kjøpshjelp-idéen er genuint god og bør vurderes som egen funksjon senere, IKKE bare
+enda et sett statiske sider. Advarte eksplisitt mot å bygge 30-50 separate tynne
+spørsmål-og-svar-sider (tynt-innhold-risiko) -- fortsetter heller å legge korte spørsmål
+inn som FAQ-schema i relevante guider, samme mønster som allerede etablert.
+
+**Viktig hendelse:** en av de pastede AI-kritikkene siterte spesifikke "gamle/språklig
+svake" fraser fra angivelig eksisterende sideinnhold (f.eks. "Det seneste er dog linser
+laget av silikonhydrogel...", "behandling og forvaltning av ikke-refraktiv lidelser").
+Verifiserte direkte mot live sider (`/guide/hvordan-bruke-kontaktlinser/`,
+`/guide/terapeutiske-kontaktlinser/`) -- **ingen av frasene finnes noe sted**. Tredje
+fabrikerte AI-sitat om kontaktlinser.no denne økten (etter Prisjakt-partnerprogram-saken
+og en tidligere "alle nettbutikker"-påstand) -- ren konsistent grunn til alltid å
+verifisere spesifikke sitat-påstander mot faktisk sideinnhold før de tas videre.
+
+**Husk ved fremtidige guide-tillegg:** `guide_slugs` i `generate_pages.py` leses fra
+`catalog["categories"]`, som kommer fra `site_generator/catalog_live.json` -- IKKE direkte
+fra `products_meta.json`. En ny guide må derfor legges til i `GUIDE_CONTENT` (og
+`GUIDE_ICONS`) i `render_templates.py` OG i minst én kategoris `"guides"`-liste i
+`products_meta.json`, og **`build_catalog.py` må kjøres før `generate_pages.py`** for at
+katalogen faktisk skal plukke opp den nye kategoriseringen -- glemte dette selv midt i
+denne økten (kjørte kun `generate_pages.py` på en utdatert `catalog_live.json`, guidene
+ble ikke bygget før feilen ble oppdaget og `build_catalog.py` kjørt på nytt).
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
