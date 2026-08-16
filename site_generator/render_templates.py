@@ -799,7 +799,11 @@ def render_offer_card(o: dict, retailer: str) -> str:
     )
     css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if (o["is_stale"] or not o["in_stock"]) else "")
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
-    shipping_text = f'+ {_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
+    # Viser regnestykket (produktpris + frakt), ikke bare fraktbeløpet alene --
+    # "+ 50 kr frakt" under en pris som ALLEREDE inkluderer frakten leses lett
+    # som at 50 kr kommer i tillegg, ikke at det er en del av tallet over.
+    price_part = f"{o['price_nok']:,.0f}".replace(",", " ")
+    shipping_text = f'({price_part} + {_fmt_kr(o["shipping_nok"])} i frakt)' if o["shipping_nok"] > 0 else "Fri frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
 
     return f"""<div class="{css_class}">
