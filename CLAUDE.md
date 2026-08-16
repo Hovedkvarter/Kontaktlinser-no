@@ -818,6 +818,71 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     "søk, eller velg en kategori under" (kategori-pillene fra forrige
     endring dekker nå den funksjonen).
 
+## To nye forhandlere: Coptikk og Krogh Optikk (2026-08-16)
+
+Brukeren spurte om vi hadde sjekket lovligheten av å skrape flere navngitte
+forhandlere. Synsam/Interoptik/Brilleland var allerede integrert -- **viktig
+korreksjon underveis: Specsavers er IKKE faktisk skrapet**, til tross for at
+den nevnes i UI-tekst andre steder -- `sources_config.json` har den satt til
+"scraper", men den er reelt BLOKKERT av en Cloudflare-utfordring (se egen
+`$comment` der). Private label-sidene for Specsavers (Easyvision) fungerer
+likevel, siden de gjenbruker priser fra ANDRE forhandlere av samme fysiske
+produkt, ikke fra Specsavers selv.
+
+**Krogh Optikk**: robots.txt blokkerer kun `/craft/` (admin), ingen
+anti-skraping-klausul i kjøpsbetingelsene. Server-rendrer prisen direkte i
+HTML (`class="price-tag"`) -- standard CSS-selector-oppsett, samme mønster
+som Interoptik/Brilleland. 39 av 103 produkter matchet og lagt til i
+`products_meta.json` (`retailer: "kroghoptikk"`).
+
+**Coptikk**: robots.txt tomt, ingen anti-skraping-klausul. Første forsøk
+brukte et JSON-API-endepunkt (`/api/product/getproductitem?articleNumber=`)
+som fungerte i én naturlig nettleser-sidelast, men ga KONSEKVENT 500-feil
+ved isolerte kall (testet flere ganger, også etter ventetid -- ikke
+rate-limiting). Siden produksjonsskraperen gjør akkurat den typen isolerte
+`requests.get()`-kall, ble denne tilnærmingen forkastet FØR noe ble lagt til
+i `products_meta.json` -- ingenting upålitelig ble sendt til produksjon.
+Pivotert i stedet til en ny, verifisert stabil metode: kategori-LISTE-sidene
+(f.eks. `/linsebutikk/manedslinser`) ER fullt server-rendret med schema.org
+Product/Offer-mikrodata (pris, lagerstatus, URL) per produkt i listen. Ny
+`price_source: "listing_page"` i `scraper.py` henter listesiden i stedet for
+produktsiden, og matcher riktig produkt på dets egen URL-sti (aldri på
+posisjon/rekkefølge i listen) -- se `_find_offer_in_listing_page()`. slug i
+scrape_targets for Coptikk er derfor produktets EGEN fulle URL-sti, ikke et
+artikkelnummer. **Kjent begrensning:** listesidene er paginert (flere sider
+per kategori) -- scraperen henter kun side 1, så et produkt som havner på
+side 2/3 gir en trygg "ingen data funnet"-feil (ikke en feil pris), men
+ingen tilbud vises for det produktet. Ikke undersøkt hvor mange av de 34
+matchede produktene dette faktisk rammer -- følg med i byggeloggen.
+34 av 103 produkter matchet og lagt til (`retailer: "coptikk"`).
+
+Begge forhandlernes matching ble gjort av en agent som krysset hele
+produktsortimentet mot vår katalog (kun høy-sikkerhet-treff på merke OG
+pakningsstørrelse) -- flere tvilstilfeller ble bevisst hoppet over i stedet
+for gjettet, bl.a. Coptikks Biofinity Multifocal "D" (avstandssyn) vs. "N"
+(nærsyn)-todeling som ikke finnes i vår katalog, og et Krogh Optikk-produkt
+der listesidens navn ("...for Astigmatism") ikke stemte med selve
+produktsidens egen tittel ("Air Optix Aqua", et annet produkt) -- ekskludert
+som en reell uoverensstemmelse, ikke et falskt positivt treff.
+
+**Viktig lærdom om JSON-redigering i stor skala:** Et første forsøk på å
+legge til 39 nye scrape_targets brukte PowerShell sin
+`ConvertFrom-Json | ... | ConvertTo-Json`-rundtur -- dette KORRUMPERTE alle
+norske tegn i hele filen til mojibake ("Ã¸" i stedet for "ø" osv.), trolig
+fordi `Get-Content -Raw` uten eksplisitt `-Encoding utf8` på LESE-siden
+tolket filen feil, uavhengig av at skrive-siden hadde riktig encoding.
+Diffen var også 9000+ linjer (hele filen omformatert) i stedet for de
+faktiske ~150 linjene som endret seg -- et tydelig varseltegn i seg selv.
+Reverte umiddelbart (filen var ikke committet ennå) og brukte i stedet et
+target `awk`-script som kun setter inn tekst på nøyaktig riktig sted, uten å
+parse/reserialisere hele JSON-strukturen -- verifisert med eksakt
+tegn-telling av æøå før/etter (skal være uendret) og en påfølgende
+PowerShell `ConvertFrom-Json`-parse (kun for VALIDERING, ikke omskriving)
+før filen ble tatt i bruk. Fant også at fila har BLANDET formattering
+(noen scrape_targets-oppføringer er kompakte enlinjers-objekter, andre er
+utfoldet over tre linjer) fra tidligere økter -- scriptet måtte håndtere
+begge for å sette komma riktig.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

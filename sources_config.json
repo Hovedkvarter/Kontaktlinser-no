@@ -111,5 +111,28 @@
       "product_url_pattern": "/kontaktlinser/{slug}/"
     },
     "brand_overrides": {}
+  },
+
+  "coptikk": {
+    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. robots.txt er tomt (kun sitemap, ingen disallow), kjøpsvilkår har ingen anti-skraping-klausul -- sjekket 2026-08-16. Litium-plattform: prisen finnes ALDRI i server-rendret HTML på selve produktsiden (bekreftet -- class=\"price\" er fraværende i rå-respons, kun injisert av JS etter sidelast via et JSON-API). FORSØKTE FØRST å hente prisen direkte fra det API-et (/api/product/getproductitem?articleNumber={id}) -- fungerte i én natulig nettleser-sidelast, men ga konsekvent 500-feil ved isolerte kall utenfor en ordinær nettleser-økt (testet flere ganger, også etter ventetid -- ikke rate-limiting). Siden produksjonsskraperen gjør nøyaktig den typen isolerte kall (ren requests.get(), ingen browser-sesjon), ble API-tilnærmingen forkastet som upålitelig FØR noe ble lagt til products_meta.json. Løsning: kategori-LISTE-sidene (f.eks. /linsebutikk/manedslinser) ER fullt server-rendret med schema.org Product/Offer-mikrodata (pris+lagerstatus+URL) for hvert produkt i listen -- bekreftet stabil ved gjentatt testing. price_source=listing_page henter derfor listesiden i stedet for produktsiden, og matcher riktig produkt på dets egen URL-sti. slug i scrape_targets er derfor produktets EGEN fulle URL-sti (f.eks. 'linsebutikk/manedslinser/biofinity-energys-6-linser'), IKKE et artikkelnummer -- se _find_offer_in_listing_page() i scraper.py.",
+    "display_name": "Coptikk",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.coptikk.no",
+      "price_source": "listing_page"
+    },
+    "brand_overrides": {}
+  },
+
+  "kroghoptikk": {
+    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. robots.txt blokkerer kun /craft/ (admin-panelet til Craft CMS) -- ingen disallow på produktsider. Kjøps-/leveringsvilkår har ingen anti-skraping-klausul -- sjekket 2026-08-16. Server-rendrer prisen direkte i HTML-en (bekreftet -- class=\"price-tag\" finnes i rå-respons, ingen JS-triks nødvendig, som Interoptik/Brilleland). URL-strukturen er /linser/{kategori}/{produkt} -- slug må derfor inneholde hele stien fra kategori-segmentet (samme mønster som Interoptik). Ingen 'utsolgt'-indikator funnet ved verifisering av et produkt på lager -- stock_selector utelatt inntil videre, som de andre CSS-selector-forhandlerne.",
+    "display_name": "Krogh Optikk",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://kroghoptikk.no",
+      "price_selector": ".price-tag",
+      "product_url_pattern": "/linser/{slug}"
+    },
+    "brand_overrides": {}
   }
 }

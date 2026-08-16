@@ -30,6 +30,23 @@ To hente-moduser, valgt via price_source i scraper_config (default "css"):
                           "public_title"/"title") som skal hentes -- finnes
                           ingen variant med akkurat den tittelen, hentes
                           INGEN pris, det gjettes aldri på nærmeste treff.
+  "listing_page"       - for forhandlere (Coptikk) der selve produktsiden
+                          ALDRI server-rendrer pris (kun via et JSON-API-kall
+                          etter sidelast -- bekreftet ustabilt/500-feil ved
+                          isolerte kall utenfor en ordinær nettleser-økt,
+                          2026-08-16, IKKE brukt her av den grunn), MEN
+                          kategori-LISTE-sidene ("alle månedslinser" osv.) ER
+                          fullt server-rendret med schema.org Product/Offer-
+                          mikrodata (pris + lagerstatus + URL) for hvert
+                          produkt i listen. slug er her produktets EGEN
+                          fulle URL-sti (f.eks.
+                          "linsebutikk/manedslinser/biofinity-energys-6-linser"
+                          -- IKKE et artikkelnummer). Scraperen henter i
+                          stedet listesiden (siste stinivå strippet av slug)
+                          og plukker ut riktig produkt sin pris/lagerstatus
+                          ved å matche på slug sin fulle sti mot
+                          itemprop="url" i mikrodataen -- se
+                          _find_offer_in_listing_page().
 
 To regler som IKKE er valgfrie:
 1. Sjekk robots.txt før hver kjøring mot en gitt forhandler. Er stien disallowed,
@@ -159,35 +176,112 @@ def _find_price_in_shopify_variants(resp_text: str, expected_variant: str | None
     return None  # ingen variant matchet forventet pakningsstørrelse
 
 
+def _resolve_json_path(value, path: list[str]):
+    """Navigerer value[path[0]][path[1]]... -- returnerer None hvis en nøkkel
+    mangler underveis, i stedet for å kaste. Delt av pris- og lagerstatus-
+    oppslag i embedded_json-modus, som begge leser fra samme JSON-blob."""
+    for key in path:
+        try:
+            value = value[key]
+        except (KeyError, IndexError, TypeError):
+            return None
+    return value
+
+
+def _parse_embedded_json(sc: dict, resp_text: str):
+    """Plukker ut og parser JSON-blobben embedded_json_pattern peker på.
+    Returnerer None ved treff-/parse-feil, ellers det parsede objektet."""
+    m = re.search(sc["embedded_json_pattern"], resp_text, re.S)
+    if not m:
+        return None
+    try:
+        return json.loads(m.group(1))
+    except json.JSONDecodeError:
+        return None
+
+
 def _find_price_in_embedded_json(sc: dict, resp_text: str) -> float | None:
     """Enkelte forhandlere (Lenson/Lensway) er React-apper der prisen ALDRI
     finnes i server-rendret DOM -- CSS-selectorer treffer ingenting uansett
     hvor riktige de er. Prisen ligger derimot ferdig utregnet (rabatt
     inkludert) som en JSON-blob i en <script>-tag, ment for deres egen
-    analytics -- den blobben er til stede uten at JS kjøres."""
-    m = re.search(sc["embedded_json_pattern"], resp_text, re.S)
-    if not m:
+    analytics -- den blobben er til stede uten at JS kjøres.
+    Samme mekanisme kan i prinsippet også dekke forhandlere der prisen ligger i et
+    eget JSON-API-endepunkt i stedet for i en <script>-tag på produktsiden --
+    da er embedded_json_pattern satt til "(.*)" (fanger hele respons-teksten
+    som gruppe 1, siden hele responsen ALLEREDE er ren JSON)."""
+    value = _parse_embedded_json(sc, resp_text)
+    if value is None:
         return None
-    try:
-        value = json.loads(m.group(1))
-    except json.JSONDecodeError:
-        return None
-    for key in sc["embedded_json_price_path"]:
-        try:
-            value = value[key]
-        except (KeyError, IndexError, TypeError):
-            return None
+    value = _resolve_json_path(value, sc["embedded_json_price_path"])
     return float(value) if isinstance(value, int | float) else None
 
 
-def scrape_product(retailer: str, brand: str, slug: str, cfg: dict, expected_variant: str | None = None) -> Offer | None:
+def _find_stock_in_embedded_json(sc: dict, resp_text: str) -> bool:
+    """Leser lagerstatus fra samme JSON-blob som prisen, når forhandleren
+    faktisk oppgir et eget felt for det (embedded_json_stock_path er da
+    satt i sources_config.json). Default True (antatt på lager) hvis feltet
+    ikke er konfigurert -- matcher de andre embedded_json-forhandlerne, der
+    ingen pålitelig lagerstatus-indikator ble funnet ved verifisering."""
+    path = sc.get("embedded_json_stock_path")
+    if not path:
+        return True
+    value = _parse_embedded_json(sc, resp_text)
+    if value is None:
+        return True
+    value = _resolve_json_path(value, path)
+    return value if isinstance(value, bool) else True
+
+
+def _find_offer_in_listing_page(soup: BeautifulSoup, product_path: str) -> tuple[float, bool] | None:
+    """Coptikk (og trolig andre Litium-baserte sider) rendrer ALDRI pris på
+    selve produktsiden -- kun via et JSON-API-kall etter sidelast, som viste
+    seg ustabilt (500-feil) ved isolerte kall utenfor en ordinær nettleser-
+    økt. Kategori-LISTE-sidene er derimot fullt server-rendret med
+    schema.org Product/Offer-mikrodata for hvert produkt i listen -- så vi
+    henter listesiden i stedet, og finner riktig produkt ved å matche
+    product_path mot det produktkortet sin egen itemprop="url"-lenke, i
+    stedet for å anta en bestemt rekkefølge eller posisjon i listen."""
+    for wrapper in soup.select('[itemtype="http://schema.org/Product"]'):
+        url_el = wrapper.select_one('[itemprop="url"]')
+        if url_el is None:
+            continue
+        href = (url_el.get("href") or "").rstrip("/")
+        if href != product_path.rstrip("/"):
+            continue
+        price_el = wrapper.select_one(".price")
+        if price_el is None:
+            return None
+        price_text = price_el.get_text(strip=True).replace(".", "").replace(",", ".")
+        try:
+            price = float("".join(c for c in price_text if c.isdigit() or c == "."))
+        except ValueError:
+            return None
+        avail_el = wrapper.select_one('[itemprop="availability"]')
+        in_stock = "instock" in (avail_el.get("href") or "").lower() if avail_el else True
+        return price, in_stock
+    return None  # produktet finnes ikke i denne listen -- gjett aldri
+
+
+def scrape_product(
+    retailer: str, brand: str, slug: str, cfg: dict,
+    expected_variant: str | None = None,
+) -> Offer | None:
     """Henter én produktside og returnerer en Offer, eller None hvis siden
     ikke kan hentes, ikke er tillatt av robots.txt, eller mangler forventede felt.
     expected_variant brukes kun når price_source er "shopify_variant_json" --
-    se scraper.py sin docstring."""
+    se scraper.py sin docstring.
+    Når price_source er "listing_page" er slug produktets EGEN fulle URL-sti
+    (ikke noe som formateres inn i product_url_pattern) -- vi henter i
+    stedet kategori-listesiden ett stinivå opp og matcher riktig produkt der."""
     sc = cfg["scraper_config"]
     base_url = sc["base_url"]
-    path = sc["product_url_pattern"].format(slug=slug)
+    price_source = sc.get("price_source")
+
+    if price_source == "listing_page":
+        path = "/" + slug.rsplit("/", 1)[0].lstrip("/")
+    else:
+        path = sc["product_url_pattern"].format(slug=slug)
 
     if not robots_allows(base_url, path):
         return None  # respekter robots.txt uten unntak
@@ -206,19 +300,28 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict, expected_var
 
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    if sc.get("price_source") == "shopify_variant_json":
+    in_stock = True
+    if price_source == "shopify_variant_json":
         price = _find_price_in_shopify_variants(resp.text, expected_variant)
-    elif sc.get("price_source") == "embedded_json":
+    elif price_source == "embedded_json":
         price = _find_price_in_embedded_json(sc, resp.text)
+    elif price_source == "listing_page":
+        result = _find_offer_in_listing_page(soup, "/" + slug.lstrip("/"))
+        if result is None:
+            return None  # produktet ble ikke funnet i listen -- gjett aldri
+        price, in_stock = result
     else:
         price = _find_price_in_dom(sc, soup)
     if price is None:
         return None  # ikke publiser en pris vi ikke faktisk fant
 
     stock_el = soup.select_one(sc["stock_selector"]) if sc.get("stock_selector") else None
-    in_stock = True
     if stock_el is not None:
         in_stock = "utsolgt" not in stock_el.get_text(strip=True).lower()
+    elif price_source == "embedded_json":
+        in_stock = _find_stock_in_embedded_json(sc, resp.text)
+
+    display_path = ("/" + slug.lstrip("/")) if price_source == "listing_page" else path
 
     return mark_staleness(Offer(
         retailer=cfg.get("display_name", retailer),
@@ -227,7 +330,7 @@ def scrape_product(retailer: str, brand: str, slug: str, cfg: dict, expected_var
         network="scrape",
         price_nok=price,
         shipping_nok=0.0,  # legg til egen selector hvis frakt vises separat
-        url=urljoin(base_url, path),
+        url=urljoin(base_url, display_path),
         in_stock=in_stock,
         checked_at=datetime.now(timezone.utc).isoformat(),
     ))

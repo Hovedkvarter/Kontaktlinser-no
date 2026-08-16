@@ -125,6 +125,14 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/acuvue-oasys"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/acuvue-oasys"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/acuvue-oasys-6-linser"
         }
       ]
     },
@@ -242,6 +250,10 @@
         {
           "retailer": "brilleland",
           "slug": "biofinity/biofinity"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-6-linser"
         }
       ]
     },
@@ -305,6 +317,10 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-moist-30-pack2"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-30-linser"
         }
       ]
     },
@@ -372,6 +388,14 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/acuvue-oasys-max-1-day"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-max-1-day"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-30-linser"
         }
       ]
     },
@@ -439,6 +463,14 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-oasys-30-pack2"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-1-day-2"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-30-linser"
         }
       ]
     },
@@ -510,6 +542,14 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/acuvue-oasys-for-astigmatism"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/acuvue-oasys-for-astigmatism"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/acuvue-oasys-for-astigmatism-6-linser"
         }
       ]
     },
@@ -581,6 +621,10 @@
         {
           "retailer": "brilleland",
           "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-for-astigmatism-30-linser"
         }
       ]
     },
@@ -656,6 +700,10 @@
         {
           "retailer": "brilleland",
           "slug": "iwear/iwear-oxygen-astigmatism-6-pack"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-toric-6-linser"
         }
       ]
     },
@@ -707,6 +755,10 @@
           "retailer": "lensit",
           "slug": "air-optix-colors-aoa286142",
           "variant": "2"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/fargelinser/air-optix-colors-2-linser"
         }
       ]
     },
@@ -874,6 +926,10 @@
           "retailer": "lensit",
           "slug": "acuvue-oasys-multifocal",
           "variant": "6"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser"
         }
       ]
     },
@@ -1000,6 +1056,10 @@
         {
           "retailer": "brilleland",
           "slug": "biofinty-energys/biofinty-energys"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-energys-6-linser"
         }
       ]
     },
@@ -1038,7 +1098,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-xr-6-linser"
+        }
+      ]
     },
     {
       "id": "avaira-vitality-6pk",
@@ -1100,6 +1165,10 @@
         {
           "retailer": "brilleland",
           "slug": "avaira2/avaira"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/manedslinser/avaira-vitality-6-linser"
         }
       ]
     },
@@ -1151,6 +1220,10 @@
         {
           "retailer": "synsam",
           "slug": "avaira-vitality-toric-6-stk-pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/manedslinser/avaira-vitality-toric-6-linser"
         }
       ]
     },
@@ -1505,6 +1578,10 @@
         {
           "retailer": "brilleland",
           "slug": "clariti-1-day-8855a282/clariti-1-day-toric"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/toriske-linser/clariti-1-day-toric-30-linser"
         }
       ]
     },
@@ -1560,6 +1637,14 @@
         {
           "retailer": "synsam",
           "slug": "air-optix-plus-hydraglyde-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/air-optix-plus-hydraglide"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/air-optix-plus-hydraglyde-6-linser"
         }
       ]
     },
@@ -1607,6 +1692,14 @@
         {
           "retailer": "synsam",
           "slug": "air-optix-plus-hydraglyde-multifocal-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/air-optix-multifocal"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/air-optix-plus-hydraglyde-multifocal-6-linser"
         }
       ]
     },
@@ -1670,6 +1763,10 @@
         {
           "retailer": "synsam",
           "slug": "air-optix-plus-hydraglyde-for-astigmatism-6-stk-pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/air-optix-plus-hydraglyde-astigmatism-6-linser"
         }
       ]
     },
@@ -1729,6 +1826,10 @@
         {
           "retailer": "brilleland",
           "slug": "dailies/dailies-total-1-30-pack2"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-total1-30pk"
         }
       ]
     },
@@ -1784,6 +1885,10 @@
         {
           "retailer": "brilleland",
           "slug": "dailies/dailies-total-1-multifocal-30-pack2"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-total1-multifocal"
         }
       ]
     },
@@ -1835,6 +1940,10 @@
         {
           "retailer": "brilleland",
           "slug": "dailies/dailies-total1-for-astigmatism-30-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-total1-for-astigmatism"
         }
       ]
     },
@@ -1898,6 +2007,10 @@
         {
           "retailer": "brilleland",
           "slug": "dailies/dailies-aquacomfort-plus-30-pack-6d5743ac"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus"
         }
       ]
     },
@@ -1941,6 +2054,10 @@
         {
           "retailer": "interoptik",
           "slug": "total30/total30-6-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/total30"
         }
       ]
     },
@@ -1996,6 +2113,10 @@
         {
           "retailer": "interoptik",
           "slug": "precision/precision1-30-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/precision1-2"
         }
       ]
     },
@@ -2043,6 +2164,10 @@
         {
           "retailer": "interoptik",
           "slug": "precision/precision1-for-astigmatism-30-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/precision1-for-astigmatism-3"
         }
       ]
     },
@@ -2247,6 +2372,10 @@
         {
           "retailer": "synsam",
           "slug": "purevision-2-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/purevision2-hd"
         }
       ]
     },
@@ -2298,6 +2427,10 @@
         {
           "retailer": "synsam",
           "slug": "biotrue-oneday-30-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/biotrue-oneday"
         }
       ]
     },
@@ -2357,6 +2490,10 @@
         {
           "retailer": "synsam",
           "slug": "ultra-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/ultra"
         }
       ]
     },
@@ -2467,6 +2604,10 @@
         {
           "retailer": "synsam",
           "slug": "air-optix-night-och-day-aqua-6-stk-pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/air-optix-night-and-day-6-linser"
         }
       ]
     },
@@ -2592,6 +2733,10 @@
           "retailer": "lensit",
           "slug": "purevision-2hd-for-astigmatism-2",
           "variant": "6"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/purevision2-for-astigmatisme"
         }
       ]
     },
@@ -2643,6 +2788,10 @@
         {
           "retailer": "synsam",
           "slug": "purevision-2-for-presbyopia-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dognlinser/purevision2-for-presbyopia"
         }
       ]
     },
@@ -2694,6 +2843,10 @@
         {
           "retailer": "synsam",
           "slug": "biotrue-oneday-for-astigmatism-30-stk-pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/toriske-linser/biotrue-oneday-astigmatism-30-linser"
         }
       ]
     },
@@ -2745,6 +2898,14 @@
         {
           "retailer": "synsam",
           "slug": "biotrue-oneday-for-presbyopia-30-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/biotruee-oneday-for-presbyopia"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/progressive-linser/biotrue-oneday-presbyopia-30-linser"
         }
       ]
     },
@@ -2835,6 +2996,10 @@
         {
           "retailer": "synsam",
           "slug": "ultra-for-astigmatism-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/ultra-astigmatism"
         }
       ]
     },
@@ -2886,6 +3051,10 @@
         {
           "retailer": "synsam",
           "slug": "ultra-for-presbyopia-6-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/ultra-presbyopia"
         }
       ]
     },
@@ -2968,6 +3137,10 @@
         {
           "retailer": "interoptik",
           "slug": "biomedics/biomedics-1-day-extra-toric"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/toriske-linser/biomedics-1-day-extra-toric-30-linser"
         }
       ]
     },
@@ -3019,6 +3192,10 @@
         {
           "retailer": "synsam",
           "slug": "biomedics-toric-6-stk-pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/toriske-linser/biomedics-toric-6-linser"
         }
       ]
     },
@@ -3062,6 +3239,10 @@
         {
           "retailer": "interoptik",
           "slug": "total30/total30-multifocal-6-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/total30-mulitfocal"
         }
       ]
     },
@@ -3105,6 +3286,10 @@
         {
           "retailer": "interoptik",
           "slug": "total30/total30-for-astigmastism-6-pack"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "manedslinser/total30-astigmatism"
         }
       ]
     },
@@ -3277,7 +3462,11 @@
         {"retailer": "lenson", "slug": "1-day-acuvue-moist-lens-306"},
         {"retailer": "lensway", "slug": "1-day-acuvue-moist-lens-306"},
         {"retailer": "interoptik", "slug": "acuvue/1-day-acuvue-moist-90-pack2"},
-        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-90-pack2"}
+        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-90-pack2"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-90-linser"
+        }
       ]
     },
     {
@@ -3304,7 +3493,11 @@
         {"retailer": "lenson", "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"},
         {"retailer": "lensway", "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"},
         {"retailer": "interoptik", "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"},
-        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"}
+        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-for-astigmatism-90-linser"
+        }
       ]
     },
     {
@@ -3328,7 +3521,15 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"}
+        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-1-day-90pk"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-90-linser"
+        }
       ]
     },
     {
@@ -3352,7 +3553,15 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "acuvue-oasys-max-1-day-lens-9770"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-max-1-day-lens-9770"}
+        {"retailer": "lensway", "slug": "acuvue-oasys-max-1-day-lens-9770"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-max-1-day-2"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-90-linser"
+        }
       ]
     },
     {
@@ -3393,7 +3602,11 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "biotrue-oneday-lens-2063"},
         {"retailer": "lensway", "slug": "biotrue-oneday-lens-2063"},
-        {"retailer": "synsam", "slug": "biotrue-oneday-90-stk-pk"}
+        {"retailer": "synsam", "slug": "biotrue-oneday-90-stk-pk"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/biotrue-oneday-90pk"
+        }
       ]
     },
     {
@@ -3412,7 +3625,11 @@
         ["Linsetype", "Multifokal"]
       ],
       "scrape_targets": [
-        {"retailer": "synsam", "slug": "biotrue-oneday-for-presbyopia-90-stk-pk"}
+        {"retailer": "synsam", "slug": "biotrue-oneday-for-presbyopia-90-stk-pk"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/progressive-linser/biotrue-oneday-presbyopia-90-linser"
+        }
       ]
     },
     {
@@ -3459,7 +3676,11 @@
         {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-lens-362"},
         {"retailer": "interoptik", "slug": "dailies/dailies-aquacomfort-plus-90-pack"},
         {"retailer": "brilleland", "slug": "dailies/dailies-aquacomfort-plus-90-pack"},
-        {"retailer": "synsam", "slug": "dailies-aquacomfort-plus-90-stk-pk"}
+        {"retailer": "synsam", "slug": "dailies-aquacomfort-plus-90-stk-pk"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus-90pk"
+        }
       ]
     },
     {
@@ -3483,7 +3704,11 @@
         {"retailer": "lenson", "slug": "dailies-total1-lens-1881"},
         {"retailer": "lensway", "slug": "dailies-total1-lens-1881"},
         {"retailer": "interoptik", "slug": "dailies/dailies-total-1-90-pack2"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-90-pack2"}
+        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-90-pack2"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-total1"
+        }
       ]
     },
     {
@@ -3505,7 +3730,11 @@
         {"retailer": "lenson", "slug": "dailies-total1-for-astigmatism-lens-9609"},
         {"retailer": "lensway", "slug": "dailies-total1-for-astigmatism-lens-9609"},
         {"retailer": "interoptik", "slug": "dailies/dailies-total1-for-astigmatism-90-pack"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total1-for-astigmatism-90-pack"}
+        {"retailer": "brilleland", "slug": "dailies/dailies-total1-for-astigmatism-90-pack"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dailies-total1-for-astigmatism-2"
+        }
       ]
     },
     {
@@ -3528,7 +3757,11 @@
         {"retailer": "lenson", "slug": "dailies-total1-multifocal-lens-6072"},
         {"retailer": "lensway", "slug": "dailies-total1-multifocal-lens-6072"},
         {"retailer": "interoptik", "slug": "dailies/dailies-total-1-multifocal-90-pack2"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-multifocal-90-pack2"}
+        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-multifocal-90-pack2"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-total1-multifocal-90pk"
+        }
       ]
     },
     {
@@ -3597,7 +3830,11 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "precision1-lens-8468"},
         {"retailer": "lensway", "slug": "precision1-lens-8468"},
-        {"retailer": "interoptik", "slug": "precision/precision1-90-pack"}
+        {"retailer": "interoptik", "slug": "precision/precision1-90-pack"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/precision1"
+        }
       ]
     },
     {
@@ -3618,7 +3855,11 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "precision1-for-astigmatism-lens-8470"},
         {"retailer": "lensway", "slug": "precision1-for-astigmatism-lens-8470"},
-        {"retailer": "interoptik", "slug": "precision/precision1-for-astigmatism-90-pack"}
+        {"retailer": "interoptik", "slug": "precision/precision1-for-astigmatism-90-pack"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/precision1-for-astigmatism"
+        }
       ]
     },
     {
@@ -3639,7 +3880,11 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "soflens-daily-disposable-lens-83"},
         {"retailer": "lensway", "slug": "soflens-daily-disposable-lens-83"},
-        {"retailer": "synsam", "slug": "soflens-daily-disposable-90-stk-pk"}
+        {"retailer": "synsam", "slug": "soflens-daily-disposable-90-stk-pk"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/soflens-daily-disposable"
+        }
       ]
     },
     {
@@ -3678,7 +3923,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5752"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5752"}
+        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5752"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-multifocal-30-linser"
+        }
       ]
     },
     {
@@ -3698,7 +3947,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5753"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5753"}
+        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5753"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-multifocal-90-linser"
+        }
       ]
     },
     {
@@ -3717,7 +3970,15 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"}
+        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-1-day-for-astigmatisme"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-30-linser"
+        }
       ]
     },
     {
@@ -3736,7 +3997,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"}
+        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-90-linser"
+        }
       ]
     },
     {
@@ -3773,7 +4038,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "biofinity-xr-toric-lens-8745"},
-        {"retailer": "lensway", "slug": "biofinity-xr-toric-lens-8745"}
+        {"retailer": "lensway", "slug": "biofinity-xr-toric-lens-8745"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-xr-toric-3-linser"
+        }
       ]
     },
     {
@@ -3796,7 +4065,11 @@
       "scrape_targets": [
         {"retailer": "lenson", "slug": "biofinity-xr-lens-4244"},
         {"retailer": "lensway", "slug": "biofinity-xr-lens-4244"},
-        {"retailer": "lensit", "slug": "biofinity-xr-1", "variant": "3"}
+        {"retailer": "lensit", "slug": "biofinity-xr-1", "variant": "3"},
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dognlinser/biofinity-xr-3-linser"
+        }
       ]
     },
     {
@@ -3838,7 +4111,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"}
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus-multifocal"
+        }
       ]
     },
     {
@@ -3858,7 +4135,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"}
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus-multifocal-2"
+        }
       ]
     },
     {
@@ -3878,7 +4159,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-3978"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-3978"}
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-3978"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus-toric"
+        }
       ]
     },
     {
@@ -3898,7 +4183,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-6465"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-6465"}
+        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-6465"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/dailies-aquacomfort-plus-toric-2"
+        }
       ]
     },
     {
@@ -4109,7 +4398,11 @@
       ],
       "scrape_targets": [
         {"retailer": "lenson", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"},
-        {"retailer": "lensway", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"}
+        {"retailer": "lensway", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"},
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/soflens-daily-disposable-for-astigmatism"
+        }
       ]
     },
     {
