@@ -1581,6 +1581,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 GUIDE_CONTENT = {
     "manedslinser-vs-dagslinser": {
         "title": "Månedslinser vs. dagslinser – hva passer deg?",
+        "updated": "2026-08-10",
         "description": "Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.",
         "body_html": """
 <p>Det korte svaret: bruker du linser <strong>sjeldnere enn 4–5 dager i uken</strong>, kommer
@@ -1625,6 +1626,7 @@ akkurat din linse og resept – det er ikke bare et prisspørsmål, men avgjøre
     },
     "hvordan-velge-kontaktlinser": {
         "title": "Hvordan velge kontaktlinser",
+        "updated": "2026-08-10",
         "description": "En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.",
         "body_html": """
 <p>Kontaktlinser er reseptvare, også de uten styrke (f.eks. fargede linser). Første steg er
@@ -1670,6 +1672,7 @@ spesifikke linsen du bestiller.</p>
     },
     "kontaktlinser-for-barn": {
         "title": "Kontaktlinser for barn",
+        "updated": "2026-08-16",
         "description": "Er barn for unge for kontaktlinser? Hva som faktisk avgjør om et barn er klar, og hvorfor dagslinser ofte anbefales som førstevalg.",
         "body_html": """
 <p>Det finnes ingen fast minstealder for kontaktlinser. Optikere vurderer i stedet
@@ -1705,6 +1708,7 @@ følges opp jevnlig så lenge det bruker linser.</p>
     },
     "harde-eller-myke-linser": {
         "title": "Harde eller myke linser",
+        "updated": "2026-08-16",
         "description": "Forskjellen på myke og harde (gassgjennomtrengelige) kontaktlinser, og hvorfor de aller fleste i dag bruker myke linser.",
         "body_html": """
 <p>De aller fleste kontaktlinser som selges i dag – og alt vi sammenligner priser på her
@@ -1743,6 +1747,7 @@ alene – dette er noe optikeren vurderer ved synsundersøkelsen.</p>
     },
     "hvordan-bruke-kontaktlinser": {
         "title": "Hvordan sette inn og ta ut kontaktlinser",
+        "updated": "2026-08-16",
         "description": "Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.",
         "body_html": """
 <p>God hygiene er viktigere enn selve teknikken. Vask og tørk hendene grundig før du
@@ -1781,6 +1786,7 @@ tilpasset linsene dine viser deg gjerne teknikken på nytt.</p>
     },
     "hvorfor-bruke-kontaktlinser": {
         "title": "Hvorfor bruke kontaktlinser fremfor briller",
+        "updated": "2026-08-16",
         "description": "Fordelene ved kontaktlinser sammenlignet med briller, og hva som taler for å kombinere begge deler.",
         "body_html": """
 <p>Kontaktlinser og briller løser samme grunnleggende behov – korrigert syn – men passer
@@ -1812,6 +1818,7 @@ resten av tiden.</p>
     },
     "vedlikehold-av-kontaktlinser": {
         "title": "Vedlikehold av kontaktlinser",
+        "updated": "2026-08-16",
         "description": "Riktig rengjøring og oppbevaring av kontaktlinser som gjenbrukes, og de vanligste feilene å unngå.",
         "body_html": """
 <p>Dagslinser kastes etter én dag og trenger ikke rengjøring. Bruker du ukes- eller
@@ -1847,6 +1854,7 @@ skal vare lenge.</p>
     },
     "reising-med-kontaktlinser": {
         "title": "Reising med kontaktlinser",
+        "updated": "2026-08-16",
         "description": "Praktiske tips for å bruke kontaktlinser på reise, fra flyturens tørre kabinluft til væskeregler i håndbagasjen.",
         "body_html": """
 <p>Kontaktlinser er praktiske på reise, men noen få forberedelser gjør det enklere.</p>
@@ -1880,6 +1888,7 @@ skal vare lenge.</p>
     },
     "kosmetiske-kontaktlinser": {
         "title": "Kosmetiske og fargede kontaktlinser",
+        "updated": "2026-08-16",
         "description": "Fargede kontaktlinser er reseptvare på lik linje med andre linser, selv uten styrke. Slik velger du dem trygt.",
         "body_html": """
 <p>Fargede og kosmetiske kontaktlinser er kontaktlinser på lik linje med alle andre –
@@ -1907,6 +1916,7 @@ først, og samme hygienerutiner ved bruk.</p>
     },
     "kontaktlinsens-materiale": {
         "title": "Kontaktlinsens materiale",
+        "updated": "2026-08-16",
         "description": "Forskjellen på silikonhydrogel og vanlig hydrogel, og hvorfor materialet påvirker komfort og øyehelse.",
         "body_html": """
 <p>Materialet en linse er laget av avgjør blant annet hvor mye oksygen som slipper
@@ -1935,6 +1945,7 @@ på kontaktlinser.no.</p>
     },
     "korrigerende-kontaktlinser": {
         "title": "Korrigerende kontaktlinser ved astigmatisme og alderssyn",
+        "updated": "2026-08-16",
         "description": "Hvordan toriske linser korrigerer astigmatisme, og hvordan multifokale linser korrigerer alderssyn.",
         "body_html": """
 <p>Enkel nærsynthet eller langsynthet korrigeres med sfæriske linser. To vanlige
@@ -1967,6 +1978,7 @@ tilnærme seg med en vanlig sfærisk styrke.</p>
     },
     "produksjon-av-kontaktlinser": {
         "title": "Slik produseres kontaktlinser",
+        "updated": "2026-08-16",
         "description": "Kort om hvordan moderne myke kontaktlinser produseres, kvalitetssikres og reguleres som medisinsk utstyr.",
         "body_html": """
 <p>De fleste moderne myke kontaktlinser produseres ved <strong>støping</strong>: flytende
@@ -1992,6 +2004,7 @@ seg å kjøpe linser fra forhandlere som følger regelverket, ikke uregulerte ki
     },
     "kontaktlinsens-historie": {
         "title": "Kontaktlinsens historie",
+        "updated": "2026-08-16",
         "description": "Fra Leonardo da Vincis tidlige skisser til moderne dagslinser – en kort historikk om kontaktlinsens utvikling.",
         "body_html": """
 <p>Ideen om en linse som ligger direkte på øyet er overraskende gammel, men det tok
@@ -2020,6 +2033,7 @@ er i dag et av de mest brukte alternativene.</p>
     },
     "terapeutiske-kontaktlinser": {
         "title": "Terapeutiske kontaktlinser (bandasjelinser)",
+        "updated": "2026-08-16",
         "description": "Terapeutiske kontaktlinser brukes til å beskytte eller behandle øyet medisinsk, ikke til synskorrigering, og forskrives av øyelege.",
         "body_html": """
 <p>Terapeutiske kontaktlinser (ofte kalt bandasjelinser) har et annet formål enn vanlige
@@ -2132,6 +2146,19 @@ def render_guide_page(slug: str) -> str | None:
 
     faq_html, faq_schema = _render_faq_block(guide.get("faq", []))
 
+    updated_iso = guide["updated"]
+    updated_display = datetime.strptime(updated_iso, "%Y-%m-%d").strftime("%d.%m.%Y")
+    article_schema = f"""<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{escape(guide["title"])}",
+  "description": "{escape(guide["description"])}",
+  "author": {{"@type": "Organization", "name": "kontaktlinser.no"}},
+  "publisher": {{"@type": "Organization", "name": "kontaktlinser.no"}},
+  "datePublished": "{updated_iso}",
+  "dateModified": "{updated_iso}"
+}}</script>"""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -2143,12 +2170,14 @@ def render_guide_page(slug: str) -> str | None:
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
 {FONT_LINKS}
 {faq_schema}
+{article_schema}
 <style>{SHARED_STYLE}
 .faq-section {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }}
 .faq-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }}
 .faq-item {{ margin-bottom: 18px; }}
 .faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
 .faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
+.guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
 </style>
 </head>
 <body>
@@ -2159,6 +2188,7 @@ def render_guide_page(slug: str) -> str | None:
     <div class="hero-copy">
       <div class="kicker">Guide</div>
       <h1>{escape(guide["title"])}</h1>
+      <p class="guide-byline">Kvalitetssikret av kontaktlinser.no · Sist oppdatert {updated_display}</p>
     </div>
   </div>
   <div style="max-width:640px;">
