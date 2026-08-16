@@ -42,16 +42,36 @@
           "title": "Kontaktlinser og tørre øyne"
         },
         {
-          "slug": "bc-og-dia-forklart",
-          "title": "BC og DIA forklart – kontaktlinsens mål"
+          "slug": "forsta-kontaktlinseresepten",
+          "title": "Slik leser du kontaktlinseresepten din"
+        },
+        {
+          "slug": "bc-forklart",
+          "title": "Hva betyr BC på kontaktlinser?"
+        },
+        {
+          "slug": "dia-forklart",
+          "title": "Hva betyr DIA på kontaktlinser?"
+        },
+        {
+          "slug": "pwr-sph-forklart",
+          "title": "Hva betyr PWR og SPH på kontaktlinser?"
+        },
+        {
+          "slug": "cyl-forklart",
+          "title": "Hva betyr CYL på kontaktlinser?"
+        },
+        {
+          "slug": "axis-forklart",
+          "title": "Hva betyr AXIS på kontaktlinser?"
+        },
+        {
+          "slug": "add-forklart",
+          "title": "Hva betyr ADD på kontaktlinser?"
         },
         {
           "slug": "hvor-lenge-kan-man-bruke-kontaktlinser",
           "title": "Hvor lenge kan man bruke kontaktlinser om dagen?"
-        },
-        {
-          "slug": "sph-cyl-axis-forklart",
-          "title": "SPH, CYL og AXIS forklart"
         },
         {
           "slug": "samme-styrke-briller-og-linser",
@@ -128,6 +148,14 @@
         {
           "slug": "kontaktlinser-med-astigmatisme",
           "title": "Toriske linser og astigmatisme"
+        },
+        {
+          "slug": "cyl-forklart",
+          "title": "Hva betyr CYL på kontaktlinser?"
+        },
+        {
+          "slug": "axis-forklart",
+          "title": "Hva betyr AXIS på kontaktlinser?"
         }
       ]
     },
@@ -164,6 +192,10 @@
         {
           "slug": "multifokale-kontaktlinser",
           "title": "Multifokale kontaktlinser ved alderssyn"
+        },
+        {
+          "slug": "add-forklart",
+          "title": "Hva betyr ADD på kontaktlinser?"
         }
       ]
     }

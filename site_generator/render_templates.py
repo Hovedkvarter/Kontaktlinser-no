@@ -2223,27 +2223,74 @@ flere norske nettbutikker.</p>
             },
         ],
     },
-    "bc-og-dia-forklart": {
-        "title": "BC og DIA forklart – kontaktlinsens mål",
+    "forsta-kontaktlinseresepten": {
+        "title": "Slik leser du kontaktlinseresepten din",
         "updated": "2026-08-16",
-        "description": "Hva base-kurve (BC) og diameter (DIA) betyr på en kontaktlinseeske, og hvorfor de må stemme nøyaktig med resepten din.",
+        "description": "En illustrert forklaring av forkortelsene på en kontaktlinseresept – PWR, BC, DIA, CYL, AXIS og ADD.",
         "body_html": """
-<p>På enhver kontaktlinseeske står det gjerne to mål i tillegg til styrken: BC og DIA.
-Begge handler om hvordan linsen passer øyet ditt fysisk, ikke om synsstyrken.</p>
+<p>Kontaktlinseesken eller resepten din viser gjerne flere tall og forkortelser. Under er
+et eksempel – trykk på en verdi for å få den forklart:</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">BC – base-kurve</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Krumningsradiusen på baksiden av linsen, målt i millimeter. Den må passe krumningen på
-din egen hornhinne: for flat BC gjør at linsen sitter løst og beveger seg for mye, for
-brant BC gjør at linsen sitter for stramt og kan gi ubehag eller redusert
-oksygentilførsel.</p>
+<style>
+.rx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+.rx-cell { display: block; text-decoration: none; background: var(--aqua-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 8px; text-align: center; }
+.rx-cell:hover { border-color: var(--aqua); }
+.rx-cell-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--muted); }
+.rx-cell-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); margin-top: 2px; }
+@media (max-width: 480px) { .rx-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+<div class="rx-grid">
+  <a class="rx-cell" href="/guide/pwr-sph-forklart/"><div class="rx-cell-label">PWR</div><div class="rx-cell-value">-2.50</div></a>
+  <a class="rx-cell" href="/guide/bc-forklart/"><div class="rx-cell-label">BC</div><div class="rx-cell-value">8.6</div></a>
+  <a class="rx-cell" href="/guide/dia-forklart/"><div class="rx-cell-label">DIA</div><div class="rx-cell-value">14.2</div></a>
+  <a class="rx-cell" href="/guide/cyl-forklart/"><div class="rx-cell-label">CYL</div><div class="rx-cell-value">-1.25</div></a>
+  <a class="rx-cell" href="/guide/axis-forklart/"><div class="rx-cell-label">AXIS</div><div class="rx-cell-value">90</div></a>
+  <a class="rx-cell" href="/guide/add-forklart/"><div class="rx-cell-label">ADD</div><div class="rx-cell-value">+1.50</div></a>
+</div>
+<p style="font-size:0.82rem;color:var(--muted);margin-top:-8px;">Eksempelet er kun illustrativt, ikke en reell resept. Ikke alle linser har alle
+verdiene: CYL og AXIS gjelder kun toriske linser (astigmatisme), ADD gjelder kun
+multifokale linser (alderssyn).</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">DIA – diameter</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Linsens totale bredde fra kant til kant, også i millimeter. Feil diameter påvirker
-hvordan linsen sentrerer seg og hvor mye av øyet den dekker.</p>
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kort om hver verdi</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.9;">
+  <li><strong>PWR/SPH</strong> – grunnstyrken, korrigerer nær- eller langsynthet</li>
+  <li><strong>BC</strong> – base-kurve, hvor krum linsen er (må passe hornhinnen din)</li>
+  <li><strong>DIA</strong> – diameter, linsens bredde fra kant til kant</li>
+  <li><strong>CYL</strong> – ekstra styrke som korrigerer astigmatisme (kun toriske linser)</li>
+  <li><strong>AXIS</strong> – retningen astigmatisme-korreksjonen skal ligge i</li>
+  <li><strong>ADD</strong> – tilleggsstyrke for nærsyn ved alderssyn (kun multifokale linser)</li>
+</ul>
 
-<p style="margin-top:16px;">Begge verdiene fastsettes av optikeren din under synsundersøkelsen/linsetilpasningen,
-og skal alltid stemme nøyaktig med det som står på resepten din – ikke noe man bytter ut
-etter eget skjønn.</p>
+<p style="margin-top:16px;">Alle verdiene fastsettes av optikeren din under synsundersøkelsen, og skal alltid
+stemme nøyaktig med det du bestiller – se også <a href="/guide/samme-styrke-briller-og-linser/">hvorfor
+en brilleresept ikke er det samme som en kontaktlinseresept</a>.</p>
+""",
+        "faq": [
+            {
+                "question": "Må kontaktlinsene mine ha alle disse verdiene?",
+                "answer": "Nei. CYL og AXIS gjelder kun toriske linser for astigmatisme, og ADD gjelder kun multifokale linser for alderssyn. De fleste trenger bare PWR/SPH, BC og DIA.",
+            },
+            {
+                "question": "Hvor finner jeg disse verdiene for mine egne linser?",
+                "answer": "De står på resepten din fra synsundersøkelsen hos optiker, og på esken til linsene du allerede bruker.",
+            },
+        ],
+    },
+    "bc-forklart": {
+        "title": "Hva betyr BC på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "BC (base-kurve) er krumningen på baksiden av kontaktlinsen, og må passe formen på din egen hornhinne.",
+        "body_html": """
+<p>BC står for base-kurve – krumningsradiusen på baksiden av linsen, målt i millimeter
+(typisk mellom 8,3 og 9,0 for myke linser).</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">BC må passe krumningen på din egen hornhinne. En for flat BC gjør at linsen sitter
+løst og beveger seg for mye på øyet. En for brant (stram) BC gjør at linsen sitter for
+tett, noe som kan gi ubehag eller redusert oksygentilførsel til hornhinnen.</p>
+
+<p style="margin-top:16px;">BC fastsettes av optikeren din under synsundersøkelsen/linsetilpasningen, og skal
+alltid stemme nøyaktig med det som står på resepten din – se også vår
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
 """,
         "faq": [
             {
@@ -2251,12 +2298,143 @@ etter eget skjønn.</p>
                 "answer": "BC (base-kurve) er krumningsradiusen på baksiden av linsen i millimeter, og må passe krumningen på din egen hornhinne.",
             },
             {
-                "question": "Hva betyr DIA?",
-                "answer": "DIA (diameter) er linsens totale bredde fra kant til kant, som påvirker hvordan linsen sentrerer seg og hvor mye av øyet den dekker.",
+                "question": "Hva skjer hvis BC-verdien er feil?",
+                "answer": "For flat BC gjør at linsen sitter løst og beveger seg for mye. For brant BC gjør at linsen sitter for stramt, noe som kan gi ubehag eller redusert oksygentilførsel.",
+            },
+        ],
+    },
+    "dia-forklart": {
+        "title": "Hva betyr DIA på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "DIA (diameter) er kontaktlinsens totale bredde fra kant til kant, og påvirker hvordan linsen sentrerer seg på øyet.",
+        "body_html": """
+<p>DIA står for diameter – linsens totale bredde fra kant til kant, målt i millimeter
+(typisk mellom 13,5 og 14,5 for myke linser).</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">Feil diameter påvirker hvordan linsen sentrerer seg på øyet og hvor mye av
+hornhinnen den dekker. Sammen med BC (base-kurve) avgjør DIA hvor godt linsen passer
+øyeformen din.</p>
+
+<p style="margin-top:16px;">DIA fastsettes av optikeren din under synsundersøkelsen, og skal alltid stemme
+nøyaktig med resepten din – se også vår
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva betyr DIA på en kontaktlinseeske?",
+                "answer": "DIA (diameter) er linsens totale bredde fra kant til kant i millimeter, som påvirker hvordan linsen sentrerer seg og hvor mye av øyet den dekker.",
             },
             {
-                "question": "Kan jeg velge en annen BC eller DIA enn det som står på resepten min?",
-                "answer": "Nei. Begge verdiene er fastsatt av optikeren din ut fra din egen øyeform, og skal alltid stemme nøyaktig med resepten.",
+                "question": "Kan jeg velge en annen DIA enn det som står på resepten min?",
+                "answer": "Nei. DIA er fastsatt av optikeren din ut fra din egen øyeform, og skal alltid stemme nøyaktig med resepten.",
+            },
+        ],
+    },
+    "pwr-sph-forklart": {
+        "title": "Hva betyr PWR og SPH på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "PWR (eller SPH) er grunnstyrken på en kontaktlinse, som korrigerer nær- eller langsynthet.",
+        "body_html": """
+<p>PWR (power) og SPH (sfære) er to navn på det samme: grunnstyrken til linsen, oppgitt i
+dioptrier (D). Ulike produsenter bruker ulik forkortelse på pakningen.</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">Et <strong>negativt tall</strong> (f.eks. -2,50) betyr at linsen korrigerer
+nærsynthet. Et <strong>positivt tall</strong> (f.eks. +1,50) betyr at den korrigerer
+langsynthet. Jo høyere tall, jo sterkere korreksjon.</p>
+
+<p style="margin-top:16px;">PWR/SPH fastsettes av optikeren din under synsundersøkelsen – se også vår
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva er forskjellen på PWR og SPH?",
+                "answer": "Ingen – det er to ulike navn for det samme: linsens grunnstyrke i dioptrier. Ulike produsenter bruker ulik forkortelse på pakningen.",
+            },
+            {
+                "question": "Hva betyr et negativt tall på kontaktlinsestyrken?",
+                "answer": "Et negativt tall betyr at linsen korrigerer nærsynthet. Et positivt tall betyr at den korrigerer langsynthet.",
+            },
+        ],
+    },
+    "cyl-forklart": {
+        "title": "Hva betyr CYL på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "CYL (sylinder) angir styrken på astigmatisme-korreksjonen i en torisk kontaktlinse.",
+        "body_html": """
+<p>CYL står for sylinder, og angir hvor mye ekstra styrke som trengs for å korrigere
+astigmatisme (skjev hornhinne). Verdien gjelder kun toriske linser – har du ikke
+astigmatisme, har resepten din normalt ingen CYL-verdi.</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">CYL brukes alltid sammen med en <a href="/guide/axis-forklart/">AXIS-verdi</a>,
+som angir i hvilken retning korreksjonen skal ligge. De to henger sammen og må begge
+stemme for at linsen skal fungere riktig.</p>
+
+<p style="margin-top:16px;">Se vår <a href="/guide/kontaktlinser-med-astigmatisme/">guide om toriske linser og
+astigmatisme</a> for mer om hvordan dette fungerer i praksis.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva betyr CYL på en kontaktlinseresept?",
+                "answer": "CYL (sylinder) angir hvor mye ekstra styrke som trengs for å korrigere astigmatisme. Verdien gjelder kun toriske linser.",
+            },
+            {
+                "question": "Kan jeg ha en CYL-verdi uten AXIS?",
+                "answer": "Nei, CYL og AXIS brukes alltid sammen – AXIS angir retningen CYL-korreksjonen skal ligge i.",
+            },
+        ],
+    },
+    "axis-forklart": {
+        "title": "Hva betyr AXIS på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "AXIS angir i hvilken retning astigmatisme-korreksjonen i en torisk kontaktlinse skal ligge.",
+        "body_html": """
+<p>AXIS (også skrevet AX) angir i hvilken retning, oppgitt i grader fra 0 til 180,
+astigmatisme-korreksjonen i linsen skal ligge. Verdien brukes alltid sammen med
+<a href="/guide/cyl-forklart/">CYL</a>, og gjelder kun toriske linser.</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">Toriske linser er formet for å ligge stabilt i én bestemt retning på øyet (i
+motsetning til vanlige linser, som kan rotere fritt uten at det merkes). AXIS forteller
+linsen nøyaktig hvilken retning den skal stå i for at korreksjonen skal fungere riktig.</p>
+
+<p style="margin-top:16px;">Se vår <a href="/guide/kontaktlinser-med-astigmatisme/">guide om toriske linser og
+astigmatisme</a> for mer om hvorfor dette er litt mer krevende å tilpasse enn vanlige
+linser.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva betyr AXIS på en kontaktlinseresept?",
+                "answer": "AXIS angir i hvilken retning (0–180 grader) astigmatisme-korreksjonen i linsen skal ligge. Brukes alltid sammen med CYL, og gjelder kun toriske linser.",
+            },
+            {
+                "question": "Hvorfor er AXIS viktig for toriske linser?",
+                "answer": "Toriske linser må ligge stabilt i riktig retning på øyet for at korreksjonen skal fungere. AXIS forteller linsen nøyaktig hvilken retning det er.",
+            },
+        ],
+    },
+    "add-forklart": {
+        "title": "Hva betyr ADD på kontaktlinser?",
+        "updated": "2026-08-16",
+        "description": "ADD er tilleggsstyrken for nærsyn i en multifokal kontaktlinse, brukt til å korrigere alderssyn.",
+        "body_html": """
+<p>ADD (addisjon/tillegg) er en ekstra styrkeverdi som legges til grunnstyrken
+(<a href="/guide/pwr-sph-forklart/">PWR/SPH</a>) for å korrigere alderssyn (presbyopi).
+Verdien gjelder kun multifokale/progressive kontaktlinser.</p>
+
+<p style="font-size:0.92rem;line-height:1.7;">ADD oppgis alltid som et positivt tall (f.eks. +1,50), og angir hvor mye ekstra
+styrke øyet trenger for å se skarpt på nært hold, i tillegg til grunnkorreksjonen for
+langt hold.</p>
+
+<p style="margin-top:16px;">Se vår <a href="/guide/multifokale-kontaktlinser/">guide om multifokale kontaktlinser
+ved alderssyn</a> for mer om hvordan disse linsene fungerer.</p>
+""",
+        "faq": [
+            {
+                "question": "Hva betyr ADD på en kontaktlinseresept?",
+                "answer": "ADD er en ekstra styrkeverdi som legges til grunnstyrken for å korrigere alderssyn (presbyopi). Gjelder kun multifokale/progressive kontaktlinser.",
+            },
+            {
+                "question": "Hvorfor er ADD alltid et positivt tall?",
+                "answer": "Fordi det angir hvor mye ekstra pluss-styrke øyet trenger for å se skarpt på nært hold, uavhengig av om grunnstyrken (PWR/SPH) i seg selv er positiv eller negativ.",
             },
         ],
     },
@@ -2293,39 +2471,6 @@ kontaktlinser</a>.</p>
             },
         ],
     },
-    "sph-cyl-axis-forklart": {
-        "title": "SPH, CYL og AXIS forklart",
-        "updated": "2026-08-16",
-        "description": "Hva SPH (styrke), CYL og AXIS betyr på en kontaktlinseresept, og hvordan de skiller seg fra BC og DIA.",
-        "body_html": """
-<p>Mens BC og DIA handler om hvordan linsen passer øyet fysisk, handler SPH, CYL og AXIS
-om selve synskorreksjonen – linsens faktiske styrke.</p>
-
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">SPH (sfære, ofte "PWR" på pakningen)</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Grunnstyrken som korrigerer nær- eller langsynthet, oppgitt i dioptrier. Negativt tall
-betyr nærsynthet, positivt tall betyr langsynthet.</p>
-
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">CYL (sylinder) og AXIS</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Disse to brukes sammen, og gjelder kun toriske linser for astigmatisme. CYL angir hvor
-mye ekstra styrke som trengs for å korrigere astigmatismen. AXIS angir i hvilken retning
-(0–180 grader) denne korreksjonen skal ligge, slik at linsen fungerer riktig når den sitter
-stabilt på øyet.</p>
-
-<p style="margin-top:16px;">Alle verdiene kommer fra synsundersøkelsen din, og skal stemme nøyaktig med det som
-står på pakningen du bestiller – se også vår <a href="/guide/bc-og-dia-forklart/">guide
-om BC og DIA</a>.</p>
-""",
-        "faq": [
-            {
-                "question": "Hva er SPH på en kontaktlinseresept?",
-                "answer": "SPH (sfære, ofte kalt PWR på pakningen) er grunnstyrken som korrigerer nær- eller langsynthet, oppgitt i dioptrier.",
-            },
-            {
-                "question": "Hva betyr CYL og AXIS?",
-                "answer": "CYL og AXIS brukes sammen og gjelder kun toriske linser for astigmatisme. CYL angir styrken på astigmatisme-korreksjonen, AXIS angir hvilken retning den skal ligge i.",
-            },
-        ],
-    },
     "samme-styrke-briller-og-linser": {
         "title": "Kan jeg bruke samme styrke på kontaktlinser som på briller?",
         "updated": "2026-08-16",
@@ -2337,9 +2482,10 @@ påvirker hvor sterk korreksjonen faktisk oppleves, spesielt ved høyere styrker
 fra rundt ±4,00 dioptrier og oppover blir forskjellen merkbar).</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kontaktlinseresept er mer enn bare styrke</h2>
-<p style="font-size:0.92rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår <a href="/guide/bc-og-dia-forklart/">guide
-om BC og DIA</a>) – mål som en brilleresepten ikke har. Dette krever en egen
-synsundersøkelse/linsetilpasning, ikke bare et gjenbruk av brilletallene.</p>
+<p style="font-size:0.92rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>)
+– mål som en brilleresept ikke har. Dette krever en egen synsundersøkelse/linsetilpasning,
+ikke bare et gjenbruk av brilletallene.</p>
 
 <p style="margin-top:16px;">Kort sagt: bruk alltid en resept som er satt opp spesifikt for kontaktlinser, ikke
 brillestyrken din.</p>
@@ -2577,17 +2723,37 @@ GUIDE_ICONS = {
         "color": "coral",
         "svg": '<path d="M2 13s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z" fill="currentColor" opacity="0.35"/><path d="M12 9s2.6 3 2.6 4.6a2.6 2.6 0 1 1-5.2 0C9.4 12 12 9 12 9z" fill="currentColor"/>',
     },
-    "bc-og-dia-forklart": {
+    "forsta-kontaktlinseresepten": {
+        "color": "mint",
+        "svg": '<rect x="5" y="3" width="14" height="18" rx="2" fill="currentColor" opacity="0.18"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    },
+    "bc-forklart": {
         "color": "mint",
         "svg": '<rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor" opacity="0.25"/><path d="M6 10v4M10 10v4M14 10v4M18 10v4" stroke="currentColor" stroke-width="1.4"/>',
+    },
+    "dia-forklart": {
+        "color": "sky",
+        "svg": '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    },
+    "pwr-sph-forklart": {
+        "color": "amber",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.18"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    },
+    "cyl-forklart": {
+        "color": "coral",
+        "svg": '<ellipse cx="12" cy="12" rx="9" ry="5" fill="currentColor" opacity="0.3"/><ellipse cx="12" cy="12" rx="9" ry="5" fill="none" stroke="currentColor" stroke-width="1.4"/>',
+    },
+    "axis-forklart": {
+        "color": "lavender",
+        "svg": '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.4"/><path d="M12 3v18M4.5 6.5l15 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    },
+    "add-forklart": {
+        "color": "aqua",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.18"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
     },
     "hvor-lenge-kan-man-bruke-kontaktlinser": {
         "color": "aqua",
         "svg": '<circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7.5v5l3 1.8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
-    },
-    "sph-cyl-axis-forklart": {
-        "color": "coral",
-        "svg": '<rect x="5" y="3" width="14" height="18" rx="2" fill="currentColor" opacity="0.18"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     },
     "samme-styrke-briller-og-linser": {
         "color": "amber",
