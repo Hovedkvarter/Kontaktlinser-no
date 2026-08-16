@@ -1042,6 +1042,51 @@ hub-siden over er en forenklet, statisk versjon av dette), og produsent-sider (C
 osv., atskilt fra merke-sider). Se også de tre pastede spørsmålslistene (34+25+100
 spørsmål) fra tidligere samme dag -- fortsatt ikke dedupliserte i et samlet regneark.
 
+## Ekte fraktberegning innført (2026-08-16, samme dag)
+
+Brukeren spurte "vi sier vi har med frakt i prisene, men har vi det?" -- svaret var nei:
+`shipping_nok` var hardkodet til `0.0` for absolutt alle tilbud fra alle 8 forhandlere,
+til tross for at footer-disclosure og flere guider hevdet "totalpris inkl. frakt".
+
+**Undersøkelsen** (kjøpsvilkår-sider + live i kassen for Lenson/Lensway, som ikke oppgir
+tall offentlig) fant reell fraktpolicy for alle 8:
+- Interoptik, Lensit: alltid gratis
+- Synsam: 39 kr ALLTID for enkeltkjøp -- ingen fri-frakt-grense finnes i det hele tatt
+- Extra Optical: gratis over 900 kr, ellers 45 kr
+- Coptikk: gratis over 500 kr, ellers 50 kr
+- Lenson: gratis over 1199 kr, ellers 50 kr (eksplisitt banner i kassen)
+- Lensway: samme gebyr (50 kr) ved samme ordreverdi som Lenson -- grense antatt lik
+  (1199 kr) siden de deler plattform/selskap, men ikke bekreftet like eksplisitt
+
+**Kritisk fallgruve funnet og rettet midt i arbeidet:** Extra Optical har ULIK
+fraktpolicy for briller og kontaktlinser. Brukte først feil tall (49 kr/gratis over
+600 kr) fra deres generelle "frakt og levering"-side -- den siden er faktisk om
+BRILLER ("produksjonsordre", sliping/montering av glass). Brukeren viste et
+skjermbilde av riktig tall direkte fra en linse-produktside (45 kr/gratis over 900 kr),
+og det ble rettet. Gikk deretter og bekreftet Interoptik/Brilleland/Synsam direkte på
+ekte linse-produktsider for å utelukke samme avvik der -- alle tre stemte med det som
+allerede var konfigurert. **Lærdom for fremtidige forhandlere:** en generell
+frakt-/kjøpsvilkår-side holder ikke alene hos en forhandler som selger flere
+produktkategorier -- sjekk alltid det produktkategori-spesifikke tallet direkte.
+
+**Teknisk implementasjon:** ny delt `compute_shipping_nok(price_nok, shipping_cfg)` i
+`offer.py`, brukt av `scraper.py` (leser `shipping`-config fra `sources_config.json`
+sin `scraper_config`) og `ingest_feed.py` (Extra Optical sin Adtraction-feed har ingen
+fraktdata selv, tallene er hardkodet direkte i `map_adtraction_row()`, med
+`sources_config.json` sitt `shipping`-felt kun som dokumentasjon av samme tall --
+IKKE lest derfra, hold i sync manuelt ved endring). `shipping_cfg.free_over = null`
+betyr bevisst "aldri gratis" (Synsam), ikke det samme som `fee_nok = 0`.
+
+Bekreftet konkret effekt live: Biofinity 6-pack hadde tre forhandlere med identisk
+produktpris (331 kr) -- alle viste tidligere "laveste pris" samtidig. Nå vinner kun
+Lensit (gratis frakt), Lenson/Lensway havner korrekt på 381 kr.
+
+**Neste steg, ikke bygget ennå:** et antall-felt på produktsider der bruker oppgir hvor
+mange esker de trenger, som regner `(produktpris × antall) + frakt` dynamisk per
+forhandler og omsorterer -- siden fri-frakt-grensene varierer så mye (500-1199 kr) kan
+hvem som er billigst endre seg avhengig av bestillingsstørrelse. Bruker samme
+shipping-config, bygger direkte videre på dagens arbeid.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
