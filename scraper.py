@@ -339,6 +339,7 @@ def scrape_product(
         url=urljoin(base_url, display_path),
         in_stock=in_stock,
         checked_at=datetime.now(timezone.utc).isoformat(),
+        shipping_policy=sc.get("shipping"),
     ))
 
 

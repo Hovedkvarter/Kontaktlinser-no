@@ -72,6 +72,7 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> Optional[Off
             # rettet til de linse-spesifikke tallene under. Regnes ut her siden feeden
             # selv ikke leverer fraktdata.
             shipping_nok=compute_shipping_nok(price_nok, {"free_over": 900, "fee_nok": 45}),
+            shipping_policy={"free_over": 900, "fee_nok": 45},
             url=row["link"],
             in_stock=row.get("availability") == "in_stock",
             checked_at=datetime.now(timezone.utc).isoformat(),

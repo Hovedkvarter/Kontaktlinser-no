@@ -39,6 +39,13 @@ class Offer:
     # tilbud uten bekreftet product_id skal ALDRI limes til et produkt basert
     # på gjetning (f.eks. "det er det eneste Acuvue-produktet i feeden").
     product_id: str | None = None
+    # Rå fraktpolicy ({"free_over": <NOK eller None>, "fee_nok": <NOK>}), IKKE
+    # bare det ferdigberegnede shipping_nok-tallet for én pakning. Trengs for
+    # å kunne regne ut riktig frakt ved et vilkårlig antall pakninger (f.eks.
+    # antall-kalkulatoren på produktsiden) -- shipping_nok alene forteller
+    # ikke om en forhandler har en fri-frakt-grense eller ikke. None betyr
+    # ukjent policy, samme "vis ingenting vi ikke vet"-prinsipp som ellers.
+    shipping_policy: dict | None = None
 
 
 def mark_staleness(offer: Offer) -> Offer:

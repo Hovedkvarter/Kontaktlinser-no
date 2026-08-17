@@ -63,7 +63,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -86,7 +88,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -799,11 +801,12 @@ def render_offer_card(o: dict, retailer: str) -> str:
     )
     css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if (o["is_stale"] or not o["in_stock"]) else "")
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
-    # Viser regnestykket (produktpris + frakt), ikke bare fraktbeløpet alene --
-    # "+ 50 kr frakt" under en pris som ALLEREDE inkluderer frakten leses lett
-    # som at 50 kr kommer i tillegg, ikke at det er en del av tallet over.
-    price_part = f"{o['price_nok']:,.0f}".replace(",", " ")
-    shipping_text = f'({price_part} + {_fmt_kr(o["shipping_nok"])} i frakt)' if o["shipping_nok"] > 0 else "Fri frakt"
+    # Produktprisen er hovedtallet (stort), frakt en egen liten linje over --
+    # samme mønster som Prisjakt/Klarna bruker, som er det norske brukere er
+    # vant til å lese. Totalsummen vises fortsatt, men nedtonet, slik at
+    # "Lavest pris"-merket (som ALLTID er totalpris-basert, se reconcile())
+    # kan etterprøves av brukeren uten at vi skjuler noe.
+    shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
 
     return f"""<div class="{css_class}">
@@ -812,8 +815,9 @@ def render_offer_card(o: dict, retailer: str) -> str:
     {status_note}
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">{_fmt_kr(o["total"])}</div>
-    <div class="offer-breakdown">{escape(shipping_text)}</div>
+    <div class="offer-shipping">{escape(shipping_text)}</div>
+    <div class="offer-total">{_fmt_kr(o["price_nok"])}</div>
+    <div class="offer-breakdown">Totalt {_fmt_kr(o["total"])}</div>
     <a class="cta" href="{escape(o["url"])}" rel="{rel}">Se hos {escape(retailer)}</a>
   </div>
 </div>"""
@@ -936,26 +940,41 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
   </div>
-  <div class="price">{_fmt_kr(best["total"])}</div>
+  <div class="price-group">
+    <div class="price">{_fmt_kr(best["total"])}</div>
+    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+  </div>
 </a>"""
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
+    # "price" er produktprisen alene, ikke fraktinkludert totalsum -- ellers
+    # ser vi kunstig dyrere ut enn konkurrenter i Googles eget SERP-utdrag,
+    # som typisk viser ex-frakt-priser. Selve fraktkostnaden ligger separat i
+    # shippingDetails i stedet, slik schema.org faktisk er ment å brukes.
+    # Vår EGEN "Lavest pris"-rangering (reconcile()) er upåvirket av dette og
+    # forblir totalpris-basert -- kun denne strukturerte dataen endres.
     schema_offers = ",\n      ".join(f'''{{
         "@type": "Offer",
         "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
-        "price": {o["total"]},
+        "price": {o["price_nok"]},
         "priceCurrency": "NOK",
         "url": "{escape(o["url"])}",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {{
+          "@type": "OfferShippingDetails",
+          "shippingRate": {{"@type": "MonetaryAmount", "value": {o["shipping_nok"]}, "currency": "NOK"}},
+          "shippingDestination": {{"@type": "DefinedRegion", "addressCountry": "NO"}}
+        }}
       }}''' for o in in_stock_offers)
 
-    low_price = min((o["total"] for o in in_stock_offers), default=0)
-    high_price = max((o["total"] for o in in_stock_offers), default=0)
+    low_price = min((o["price_nok"] for o in in_stock_offers), default=0)
+    high_price = max((o["price_nok"] for o in in_stock_offers), default=0)
 
     specs = product.get("specs", [])
     schema_props = ""
@@ -3588,12 +3607,16 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
   </div>
-  <div class="price">{_fmt_kr(best["total"])}</div>
+  <div class="price-group">
+    <div class="price">{_fmt_kr(best["total"])}</div>
+    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+  </div>
 </a>"""
 
     size_ml = product.get("size_ml")
@@ -3612,13 +3635,18 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     schema_offers = ",\n      ".join(f'''{{
         "@type": "Offer",
         "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
-        "price": {o["total"]},
+        "price": {o["price_nok"]},
         "priceCurrency": "NOK",
         "url": "{escape(o["url"])}",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {{
+          "@type": "OfferShippingDetails",
+          "shippingRate": {{"@type": "MonetaryAmount", "value": {o["shipping_nok"]}, "currency": "NOK"}},
+          "shippingDestination": {{"@type": "DefinedRegion", "addressCountry": "NO"}}
+        }}
       }}''' for o in in_stock_offers)
-    low_price = min((o["total"] for o in in_stock_offers), default=0)
-    high_price = max((o["total"] for o in in_stock_offers), default=0)
+    low_price = min((o["price_nok"] for o in in_stock_offers), default=0)
+    high_price = max((o["price_nok"] for o in in_stock_offers), default=0)
 
     offers_schema = ""
     if in_stock_offers:
@@ -3988,13 +4016,18 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         schema_offers = ",\n        ".join(f'''{{
           "@type": "Offer",
           "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
-          "price": {o["total"]},
+          "price": {o["price_nok"]},
           "priceCurrency": "NOK",
           "url": "{escape(o["url"])}",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {{
+            "@type": "OfferShippingDetails",
+            "shippingRate": {{"@type": "MonetaryAmount", "value": {o["shipping_nok"]}, "currency": "NOK"}},
+            "shippingDestination": {{"@type": "DefinedRegion", "addressCountry": "NO"}}
+          }}
         }}''' for o in in_stock_offers)
-        low_price = min(o["total"] for o in in_stock_offers)
-        high_price = max(o["total"] for o in in_stock_offers)
+        low_price = min(o["price_nok"] for o in in_stock_offers)
+        high_price = max(o["price_nok"] for o in in_stock_offers)
         about_offers_schema = f''', "offers": {{
       "@type": "AggregateOffer",
       "priceCurrency": "NOK",
@@ -4014,12 +4047,16 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
   </div>
-  <div class="price">{_fmt_kr(best["total"])}</div>
+  <div class="price-group">
+    <div class="price">{_fmt_kr(best["total"])}</div>
+    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+  </div>
 </a>"""
 
     about_type = "Product" if in_stock_offers else "Thing"
