@@ -263,6 +263,19 @@ a { color: inherit; }
 .pack-size-callout { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }
 .pack-size-callout:hover { border-color: var(--aqua); }
 .pack-size-callout-arrow { color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }
+.bulk-pricing { margin-top: 28px; }
+.bulk-pricing h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
+.bulk-intro { font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
+.bulk-qty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.bulk-qty-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+.bulk-qty-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+.bulk-qty-price { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.25rem; color: var(--ink); }
+.bulk-qty-note { font-size: 0.76rem; color: var(--muted); margin-top: 4px; }
+.bulk-custom { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
+.bulk-custom label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+.bulk-custom-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+#bulk-qty-input { width: 70px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; }
+.bulk-custom-result { font-size: 0.9rem; font-weight: 600; color: var(--mint); }
 .hero-product-image { width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; } }
@@ -364,7 +377,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>45 kr frakt</div>
@@ -388,6 +401,67 @@ a { color: inherit; }
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
+  <div class="bulk-pricing">
+    <h2>Kjøper du flere esker?</h2>
+    <p class="bulk-intro">Totalpris (produktpris + frakt) hvis du kjøper flere esker samtidig hos samme forhandler. Fri frakt-grenser regnes ut på nytt for hvert antall, siden en grense som ikke nås ved 1 eske ofte nås ved flere.</p>
+    <div class="bulk-qty-grid">
+      <div class="bulk-qty-card">
+      <div class="bulk-qty-label">2 esker</div>
+      <div class="bulk-qty-price">602 kr</div>
+      <div class="bulk-qty-note">Billigst hos Lensit, totalt inkl. frakt</div>
+    </div><div class="bulk-qty-card">
+      <div class="bulk-qty-label">4 esker</div>
+      <div class="bulk-qty-price">1 204 kr</div>
+      <div class="bulk-qty-note">Billigst hos Lensit, totalt inkl. frakt</div>
+    </div><div class="bulk-qty-card">
+      <div class="bulk-qty-label">10 esker</div>
+      <div class="bulk-qty-price">2 990 kr</div>
+      <div class="bulk-qty-note">Billigst hos Lenson, totalt inkl. frakt</div>
+    </div>
+    </div>
+    <div class="bulk-custom">
+      <label for="bulk-qty-input">Eller velg selv antall esker:</label>
+      <div class="bulk-custom-row">
+        <input type="number" id="bulk-qty-input" min="1" max="50" value="1" inputmode="numeric">
+        <div id="bulk-custom-result" class="bulk-custom-result"></div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="bulk-offers-data">[{"retailer": "Lensit", "price_nok": 301.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}}, {"retailer": "Interoptik", "price_nok": 325.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}}, {"retailer": "Lenson", "price_nok": 299.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}}, {"retailer": "Lensway", "price_nok": 314.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}}, {"retailer": "Extra Optical", "price_nok": 325.0, "shipping_policy": {"free_over": 900, "fee_nok": 45}}, {"retailer": "Coptikk", "price_nok": 359.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}}]</script>
+  <script>
+(function () {
+  var dataEl = document.getElementById('bulk-offers-data');
+  if (!dataEl) return;
+  var data = JSON.parse(dataEl.textContent);
+  var input = document.getElementById('bulk-qty-input');
+  var result = document.getElementById('bulk-custom-result');
+  function computeShipping(productTotal, policy) {
+    if (!policy) return 0;
+    var freeOver = policy.free_over;
+    if (freeOver !== null && freeOver !== undefined && productTotal >= freeOver) return 0;
+    return policy.fee_nok || 0;
+  }
+  function fmtKr(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
+  }
+  function update() {
+    var qty = parseInt(input.value, 10);
+    if (!qty || qty < 1) { result.textContent = ''; return; }
+    var best = null, bestTotal = Infinity;
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      var productTotal = o.price_nok * qty;
+      var total = productTotal + computeShipping(productTotal, o.shipping_policy);
+      if (total < bestTotal) { bestTotal = total; best = o; }
+    }
+    if (best) {
+      result.textContent = qty + (qty === 1 ? ' eske' : ' esker') + ': billigst hos ' + best.retailer + ' for ' + fmtKr(bestTotal) + ' totalt inkl. frakt';
+    }
+  }
+  input.addEventListener('input', update);
+  update();
+})();
+</script>
   
   <div class="specs">
     <h2>Spesifikasjoner</h2>
