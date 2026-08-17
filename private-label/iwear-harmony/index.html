@@ -88,6 +88,19 @@ function __loadGTM() {
         },
         {
           "@type": "Offer",
+          "seller": {"@type": "Organization", "name": "Synsam"},
+          "price": 341.0,
+          "priceCurrency": "NOK",
+          "url": "https://www.synsam.no/myday-daily-disposable-30-stk-pk-1",
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
+        },
+        {
+          "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lenson"},
           "price": 339.0,
           "priceCurrency": "NOK",
@@ -96,19 +109,6 @@ function __loadGTM() {
           "shippingDetails": {
             "@type": "OfferShippingDetails",
             "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
-            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
-          }
-        },
-        {
-          "@type": "Offer",
-          "seller": {"@type": "Organization", "name": "Synsam"},
-          "price": 350.0,
-          "priceCurrency": "NOK",
-          "url": "https://www.synsam.no/myday-daily-disposable-30-stk-pk-1",
-          "availability": "https://schema.org/InStock",
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
             "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
           }
         }]
@@ -329,22 +329,22 @@ a { color: inherit; }
 </div>
 <div class="offer-card">
   <div class="offer-main">
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
+    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+  </div>
+  <div class="offer-price-col">
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>39 kr frakt</div>
+    <a class="price-pill" href="https://www.synsam.no/myday-daily-disposable-30-stk-pk-1" rel="nofollow" aria-label="Se hos Synsam, 341 kr">341 kr</a>
+  </div>
+</div>
+<div class="offer-card">
+  <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>50 kr frakt</div>
     <a class="price-pill" href="https://www.lenson.com/no/myday-daily-disposable-lens-3564" rel="nofollow" aria-label="Se hos Lenson, 339 kr">339 kr</a>
-  </div>
-</div>
-<div class="offer-card">
-  <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
-  </div>
-  <div class="offer-price-col">
-    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>39 kr frakt</div>
-    <a class="price-pill" href="https://www.synsam.no/myday-daily-disposable-30-stk-pk-1" rel="nofollow" aria-label="Se hos Synsam, 350 kr">350 kr</a>
   </div>
 </div>
   </div>
