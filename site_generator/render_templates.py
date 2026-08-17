@@ -2933,6 +2933,139 @@ optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – s
             },
         ],
     },
+    "linse-sitter-fast-i-oyet": {
+        "title": "Linsen sitter fast i øyet – hva gjør du?",
+        "updated": "2026-08-17",
+        "description": "Slik løsner du en kontaktlinse som kjennes fastsittende trygt, og når du bør oppsøke optiker med det samme.",
+        "body_html": """
+<p>Kjennes linsen "fastlåst" i øyet, har den som regel bare tørket litt ut eller flyttet seg
+til et annet sted i øyet enn du er vant til å finne den. Det er ikke farlig i seg selv, men
+det finnes en riktig og en gal måte å håndtere det på.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn vanlig, eller øyet er tørt</li>
+  <li>Linsen har gled opp under det øvre øyelokket</li>
+  <li>Du blunker mye og stresser, som gjør det vanskeligere å kjenne hvor linsen faktisk er</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Slik gjør du det trygt</h2>
+<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Vask hendene grundig først</li>
+  <li>Fukt øyet med linsevæske eller øyedråper laget for bruk med kontaktlinser</li>
+  <li>Lukk øyet og masser forsiktig på det lukkede øyelokket i noen sekunder</li>
+  <li>Blunk rolig mens du ser opp, ned og til siden – linsen glir ofte tilbake av seg selv</li>
+</ol>
+
+<div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
+<strong>Ikke gni hardt i øyet, og bruk aldri pinsett, nål eller andre spisse gjenstander</strong> for å
+få tak i linsen. Løsner den ikke etter noen forsøk, eller du kjenner smerte eller ser
+rødhet, bør du oppsøke optiker, øyelege eller legevakt samme dag – ikke vent og se an.
+</div>
+
+<p style="margin-top:16px;">Er du usikker på om linsen faktisk er ute av øyet, kan optikeren enkelt sjekke dette med
+en lampe – det er ikke noe å kvie seg for å spørre om.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan linsen forsvinne bak i øyet?",
+                "answer": "Nei, det er anatomisk umulig. Slimhinnen (konjunktiva) danner en sammenhengende, lukket lomme rundt selve øyeeplet, så en kontaktlinse kan aldri havne bak øyet.",
+            },
+            {
+                "question": "Hvor lenge kan jeg prøve selv før jeg oppsøker optiker?",
+                "answer": "Noen få forsiktige forsøk med fukt og massering er greit. Kjenner du smerte, ser rødhet, eller linsen ikke løsner, bør du oppsøke optiker eller legevakt samme dag i stedet for å fortsette å prøve selv.",
+            },
+        ],
+    },
+    "uklart-syn-med-kontaktlinser": {
+        "title": "Uklart eller tåkete syn med kontaktlinser – vanlige årsaker",
+        "updated": "2026-08-17",
+        "description": "De vanligste, ufarlige årsakene til at synet blir uklart med kontaktlinser i, og hvilke tegn du bør ta på alvor.",
+        "body_html": """
+<p>Plutselig uklart syn med linsene i er sjelden alvorlig, og skyldes som regel noe enkelt
+og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på alvor.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, ufarlige årsaker</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Skitten linse, eller avleiringer (protein/fett fra tårevæsken) på overflaten</li>
+  <li>Linsen ligger vrengt (inni ut)</li>
+  <li><a href="/guide/kontaktlinser-og-torre-oyne/">Tørre øyne</a></li>
+  <li>Linsen er brukt lenger enn anbefalt bytteintervall</li>
+  <li>Styrken stemmer ikke lenger – synet endrer seg gradvis over tid for de fleste</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Enkle ting å sjekke først</h2>
+<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Blunk noen ganger, og bruk fukterdråper beregnet for kontaktlinser</li>
+  <li>Ta ut linsen, sjekk at den ikke er vrengt, rengjør og sett den inn på nytt</li>
+  <li>Bytt til en ny linse hvis den nærmer seg slutten av byttesyklusen</li>
+</ol>
+
+<div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
+Kommer det uklare synet <strong>plutselig, sammen med smerte, rødhet, lysfølsomhet eller
+sekret</strong>, kan det være tegn på en øyeinfeksjon eller annen tilstand som trenger rask
+behandling. Ta av linsen og oppsøk optiker eller lege samme dag.
+</div>
+
+<p style="margin-top:16px;">Har synet endret seg gradvis over lengre tid uten andre symptomer, er det oftest bare
+tegn på at det er på tide med en ny synsundersøkelse.</p>
+""",
+        "faq": [
+            {
+                "question": "Er tåkete syn med kontaktlinser farlig?",
+                "answer": "Som regel ikke – oftest skyldes det en skitten eller feilvendt linse. Men kommer det plutselig sammen med smerte, rødhet eller lysfølsomhet, bør du oppsøke optiker eller lege samme dag.",
+            },
+            {
+                "question": "Hvorfor blir linsen skitten så fort?",
+                "answer": "Protein og fett fra tårevæsken legger seg naturlig på linseoverflaten over tid. Daglinser byttes derfor hver dag, mens måneds- og ukelinser trenger grundig rengjøring med linsevæske underveis.",
+            },
+        ],
+    },
+    "rode-oyne-og-svie-med-kontaktlinser": {
+        "title": "Røde øyne og svie med kontaktlinser – når bør du oppsøke optiker?",
+        "updated": "2026-08-17",
+        "description": "Vanlige, mildere årsaker til røde og sviende øyne med kontaktlinser, og de varseltegnene som betyr at du bør oppsøke optiker samme dag.",
+        "body_html": """
+<p>Lett rødhet og svie er ganske vanlig blant kontaktlinsebrukere og som regel ufarlig. Som
+linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør handle raskt.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, mildere årsaker</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>For lang brukstid i løpet av dagen</li>
+  <li>Tørt inneklima eller lange skjermøkter</li>
+  <li>Lett irritasjon fra en avleiring på linsekanten</li>
+  <li>Allergi (pollen, støv) som forsterkes av linsebruk</li>
+</ul>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør gjøre</h2>
+<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+  <li>Ta av linsen med en gang du kjenner ubehag</li>
+  <li>Gi øyet en pause – ikke sett inn en ny linse samme dag hvis irritasjonen ikke er helt borte</li>
+  <li>Bruk fukterdråper beregnet for kontaktlinser om det hjelper</li>
+</ol>
+
+<div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
+<strong>Oppsøk optiker, lege eller legevakt samme dag</strong> hvis du i tillegg opplever smerte
+(ikke bare ubehag), kraftig rødhet, lysfølsomhet, sekret, eller følelsen av at noe fortsatt
+er i øyet etter at linsen er tatt av. Dette kan være tegn på en øyeinfeksjon, som ubehandlet
+kan bli alvorlig. Tommelfingerregelen er enkel: er du i tvil, ta linsen ut.
+</div>
+
+<p style="margin-top:16px;">Sov aldri med linser som ikke er godkjent for det, bruk aldri springvann eller spytt på
+en linse, og hold deg til anbefalt bytteintervall for linse og væske – det reduserer
+risikoen for at dette oppstår i utgangspunktet.</p>
+""",
+        "faq": [
+            {
+                "question": "Kan jeg bare vente på at rødheten går over?",
+                "answer": "Ved mild, kortvarig rødhet uten smerte, ja – ta av linsen og gi øyet en pause. Vedvarer rødheten mer enn en dag, eller kommer det sammen med smerte, lysfølsomhet eller sekret, bør du oppsøke optiker eller lege i stedet for å vente.",
+            },
+            {
+                "question": "Hvorfor tas rødhet med kontaktlinser mer alvorlig enn vanlig rødhet i øyet?",
+                "answer": "Fordi en linse i øyet i sjeldne tilfeller kan bidra til bakterielle infeksjoner som trenger rask behandling. De aller fleste tilfeller er ufarlige, men det er verdt å kjenne igjen varseltegnene tidlig.",
+            },
+        ],
+    },
 }
 
 
@@ -3226,6 +3359,18 @@ GUIDE_ICONS = {
     "kan-jeg-bytte-kontaktlinsemerke-selv": {
         "color": "amber",
         "svg": '<path d="M7 7h10l-3-3M17 17H7l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
+    },
+    "linse-sitter-fast-i-oyet": {
+        "color": "coral",
+        "svg": '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" fill="currentColor" opacity="0.85"/><circle cx="12" cy="12" r="3.2" fill="white"/><circle cx="18" cy="6" r="4.2" fill="currentColor"/><rect x="17.3" y="3.6" width="1.4" height="3.2" rx="0.7" fill="white"/><circle cx="18" cy="8.2" r="0.8" fill="white"/>',
+    },
+    "uklart-syn-med-kontaktlinser": {
+        "color": "sky",
+        "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.15"/><circle cx="12" cy="12" r="6" fill="currentColor" opacity="0.35"/><circle cx="12" cy="12" r="3" fill="currentColor"/>',
+    },
+    "rode-oyne-og-svie-med-kontaktlinser": {
+        "color": "amber",
+        "svg": '<circle cx="12" cy="12" r="5" fill="currentColor"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     },
 }
 
