@@ -34,8 +34,8 @@ function __loadGTM() {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
     "lowPrice": 797.0,
-    "highPrice": 797.0,
-    "offerCount": 1,
+    "highPrice": 1129.0,
+    "offerCount": 2,
     "offers": [{
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Synsam"},
@@ -46,6 +46,19 @@ function __loadGTM() {
         "shippingDetails": {
           "@type": "OfferShippingDetails",
           "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
+      },
+      {
+        "@type": "Offer",
+        "seller": {"@type": "Organization", "name": "Coptikk"},
+        "price": 1129.0,
+        "priceCurrency": "NOK",
+        "url": "https://www.coptikk.no/linsebutikk/progressive-linser/biotrue-oneday-presbyopia-90-linser",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
           "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
         }
       }]
@@ -256,7 +269,7 @@ a { color: inherit; }
     </div>
   </div>
   <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Biotrue ONEday for Presbyopia 90-pack</strong> fra 1 norske nettbutikker. Laveste pris akkurat nå er <strong>836 kr</strong> hos Synsam. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>Biotrue ONEday for Presbyopia 90-pack</strong> fra 2 norske nettbutikker. Laveste pris akkurat nå er <strong>836 kr</strong> hos Synsam. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>
   <a class="best-price-band" href="https://www.synsam.no/biotrue-oneday-for-presbyopia-90-stk-pk" rel="nofollow">
   <div class="label-group">
@@ -286,6 +299,16 @@ a { color: inherit; }
     <a class="price-pill" href="https://www.synsam.no/biotrue-oneday-for-presbyopia-90-stk-pk" rel="nofollow" aria-label="Se hos Synsam, 797 kr">797 kr</a>
   </div>
 </div>
+<div class="offer-card">
+  <div class="offer-main">
+    <div class="offer-retailer">Coptikk </div>
+    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+  </div>
+  <div class="offer-price-col">
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>Gratis frakt</div>
+    <a class="price-pill" href="https://www.coptikk.no/linsebutikk/progressive-linser/biotrue-oneday-presbyopia-90-linser" rel="nofollow" aria-label="Se hos Coptikk, 1 129 kr">1 129 kr</a>
+  </div>
+</div>
   </div>
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
@@ -293,7 +316,67 @@ a { color: inherit; }
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
-  
+  <div class="bulk-pricing">
+    <h2>Kjøper du flere esker?</h2>
+    <p class="bulk-intro">Totalpris (produktpris + frakt) hvis du kjøper flere esker samtidig hos samme forhandler. Fri frakt-grenser regnes ut på nytt for hvert antall, siden en grense som ikke nås ved 1 eske ofte nås ved flere.</p>
+    <div class="bulk-qty-grid">
+      <div class="bulk-qty-card">
+      <div class="bulk-qty-label">2 esker</div>
+      <div class="bulk-qty-price">1 633 kr</div>
+      <div class="bulk-qty-note">Billigst hos Synsam, totalt inkl. frakt</div>
+    </div><div class="bulk-qty-card">
+      <div class="bulk-qty-label">4 esker</div>
+      <div class="bulk-qty-price">3 227 kr</div>
+      <div class="bulk-qty-note">Billigst hos Synsam, totalt inkl. frakt</div>
+    </div><div class="bulk-qty-card">
+      <div class="bulk-qty-label">10 esker</div>
+      <div class="bulk-qty-price">8 009 kr</div>
+      <div class="bulk-qty-note">Billigst hos Synsam, totalt inkl. frakt</div>
+    </div>
+    </div>
+    <div class="bulk-custom">
+      <label for="bulk-qty-input">Eller velg selv antall esker:</label>
+      <div class="bulk-custom-row">
+        <input type="number" id="bulk-qty-input" min="1" max="50" value="1" inputmode="numeric">
+        <div id="bulk-custom-result" class="bulk-custom-result"></div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="bulk-offers-data">[{"retailer": "Synsam", "price_nok": 797.0, "shipping_policy": {"free_over": null, "fee_nok": 39}}, {"retailer": "Coptikk", "price_nok": 1129.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}}]</script>
+  <script>
+(function () {
+  var dataEl = document.getElementById('bulk-offers-data');
+  if (!dataEl) return;
+  var data = JSON.parse(dataEl.textContent);
+  var input = document.getElementById('bulk-qty-input');
+  var result = document.getElementById('bulk-custom-result');
+  function computeShipping(productTotal, policy) {
+    if (!policy) return 0;
+    var freeOver = policy.free_over;
+    if (freeOver !== null && freeOver !== undefined && productTotal >= freeOver) return 0;
+    return policy.fee_nok || 0;
+  }
+  function fmtKr(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
+  }
+  function update() {
+    var qty = parseInt(input.value, 10);
+    if (!qty || qty < 1) { result.textContent = ''; return; }
+    var best = null, bestTotal = Infinity;
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      var productTotal = o.price_nok * qty;
+      var total = productTotal + computeShipping(productTotal, o.shipping_policy);
+      if (total < bestTotal) { bestTotal = total; best = o; }
+    }
+    if (best) {
+      result.textContent = qty + (qty === 1 ? ' eske' : ' esker') + ': billigst hos ' + best.retailer + ' for ' + fmtKr(bestTotal) + ' totalt inkl. frakt';
+    }
+  }
+  input.addEventListener('input', update);
+  update();
+})();
+</script>
   
   <div class="specs">
     <h2>Spesifikasjoner</h2>
