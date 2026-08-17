@@ -940,7 +940,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
+        best_price_note = (
+            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
+            else "Fri frakt"
+        )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
     <div class="label">Laveste totalpris</div>
@@ -948,7 +951,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>
   <div class="price-group">
     <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+    <div class="price-note">{escape(best_price_note)}</div>
   </div>
 </a>"""
 
@@ -3607,7 +3610,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
+        best_price_note = (
+            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
+            else "Fri frakt"
+        )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
     <div class="label">Laveste totalpris</div>
@@ -3615,7 +3621,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   </div>
   <div class="price-group">
     <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+    <div class="price-note">{escape(best_price_note)}</div>
   </div>
 </a>"""
 
@@ -4047,7 +4053,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_shipping_note = f'+ {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0 else "fri frakt"
+        best_price_note = (
+            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
+            else "Fri frakt"
+        )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
     <div class="label">Laveste totalpris</div>
@@ -4055,7 +4064,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </div>
   <div class="price-group">
     <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{_fmt_kr(best["price_nok"])} {escape(best_shipping_note)}</div>
+    <div class="price-note">{escape(best_price_note)}</div>
   </div>
 </a>"""
 
