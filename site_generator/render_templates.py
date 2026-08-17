@@ -88,7 +88,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -803,9 +803,12 @@ def render_offer_card(o: dict, retailer: str) -> str:
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
     # Produktprisen er hovedtallet (stort), frakt en egen liten linje over --
     # samme mønster som Prisjakt/Klarna bruker, som er det norske brukere er
-    # vant til å lese. Totalsummen vises fortsatt, men nedtonet, slik at
-    # "Lavest pris"-merket (som ALLTID er totalpris-basert, se reconcile())
-    # kan etterprøves av brukeren uten at vi skjuler noe.
+    # vant til å lese. Vi dropper en egen "Totalt X kr"-linje per rad (var
+    # opplevd som støy -- tre tall stablet oppå hverandre på hvert kort);
+    # seksjonsoverskriften over lista sier allerede at den er sortert etter
+    # totalpris, og toppbanneret viser vinnerens totalsum -- "Lavest pris"-
+    # merket (ALLTID totalpris-basert, se reconcile()) er dermed fortsatt
+    # etterprøvbart uten at hvert enkelt kort må gjenta regnestykket.
     shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
 
@@ -817,7 +820,6 @@ def render_offer_card(o: dict, retailer: str) -> str:
   <div class="offer-price-col">
     <div class="offer-shipping">{escape(shipping_text)}</div>
     <div class="offer-total">{_fmt_kr(o["price_nok"])}</div>
-    <div class="offer-breakdown">Totalt {_fmt_kr(o["total"])}</div>
     <a class="cta" href="{escape(o["url"])}" rel="{rel}">Se hos {escape(retailer)}</a>
   </div>
 </div>"""
@@ -4111,7 +4113,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     </div>
   </div>
 
-  <h2>Sammenlign priser på {escape(real_name)}</h2>
+  <h2>Sammenlign priser på {escape(real_name)}, sortert etter total pris</h2>
   {best_band}
   <div class="offers">
     {offer_cards_html}
