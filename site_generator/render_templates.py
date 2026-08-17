@@ -18,6 +18,8 @@ import json
 from datetime import datetime, timezone
 from html import escape
 
+from offer import compute_shipping_nok
+
 BASE_URL = "https://kontaktlinser.no"
 
 SHARED_STYLE = """
@@ -831,6 +833,94 @@ def render_offer_card(o: dict, retailer: str) -> str:
 </div>"""
 
 
+_BULK_CALC_SCRIPT = r"""<script>
+(function () {
+  var dataEl = document.getElementById('bulk-offers-data');
+  if (!dataEl) return;
+  var data = JSON.parse(dataEl.textContent);
+  var input = document.getElementById('bulk-qty-input');
+  var result = document.getElementById('bulk-custom-result');
+  function computeShipping(productTotal, policy) {
+    if (!policy) return 0;
+    var freeOver = policy.free_over;
+    if (freeOver !== null && freeOver !== undefined && productTotal >= freeOver) return 0;
+    return policy.fee_nok || 0;
+  }
+  function fmtKr(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
+  }
+  function update() {
+    var qty = parseInt(input.value, 10);
+    if (!qty || qty < 1) { result.textContent = ''; return; }
+    var best = null, bestTotal = Infinity;
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      var productTotal = o.price_nok * qty;
+      var total = productTotal + computeShipping(productTotal, o.shipping_policy);
+      if (total < bestTotal) { bestTotal = total; best = o; }
+    }
+    if (best) {
+      result.textContent = qty + (qty === 1 ? ' eske' : ' esker') + ': billigst hos ' + best.retailer + ' for ' + fmtKr(bestTotal) + ' totalt inkl. frakt';
+    }
+  }
+  input.addEventListener('input', update);
+  update();
+})();
+</script>"""
+
+
+def render_bulk_pricing(offers: list[dict]) -> str:
+    """Statisk, crawlbar antalls-sammenligning (2/4/10 esker) pluss et
+    JS-drevet felt for et vilkårlig antall. Mange AI-crawlere (GPTBot,
+    ClaudeBot, PerplexityBot m.fl.) kjører ikke JavaScript -- derfor MÅ
+    2/4/10-eksemplene finnes som ekte, ferdig-rendret HTML-tekst, ikke bare
+    bygges av scriptet under.
+
+    Fraktkostnaden må regnes på nytt per antall (compute_shipping_nok), ikke
+    bare multipliseres med shipping_nok for én eske -- en fri-frakt-grense
+    som ikke er nådd ved 1 eske kan fint være nådd ved 4, og det gir en helt
+    annen vinner enn ved enkeltkjøp."""
+    eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+    if len(eligible) < 2:
+        return ""  # ingen reell sammenligning å vise med 0-1 tilbud
+
+    def total_for_qty(o: dict, qty: int) -> float:
+        product_total = o["price_nok"] * qty
+        return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
+
+    qty_cards = []
+    for qty in (2, 4, 10):
+        best_o = min(eligible, key=lambda o: total_for_qty(o, qty))
+        qty_cards.append(f"""<div class="bulk-qty-card">
+      <div class="bulk-qty-label">{qty} esker</div>
+      <div class="bulk-qty-price">{_fmt_kr(total_for_qty(best_o, qty))}</div>
+      <div class="bulk-qty-note">Billigst hos {escape(best_o["retailer"])}, totalt inkl. frakt</div>
+    </div>""")
+
+    calc_offers = [
+        {"retailer": o["retailer"], "price_nok": o["price_nok"], "shipping_policy": o.get("shipping_policy")}
+        for o in eligible
+    ]
+    calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
+
+    return f"""<div class="bulk-pricing">
+    <h2>Kjøper du flere esker?</h2>
+    <p class="bulk-intro">Totalpris (produktpris + frakt) hvis du kjøper flere esker samtidig hos samme forhandler. Fri frakt-grenser regnes ut på nytt for hvert antall, siden en grense som ikke nås ved 1 eske ofte nås ved flere.</p>
+    <div class="bulk-qty-grid">
+      {"".join(qty_cards)}
+    </div>
+    <div class="bulk-custom">
+      <label for="bulk-qty-input">Eller velg selv antall esker:</label>
+      <div class="bulk-custom-row">
+        <input type="number" id="bulk-qty-input" min="1" max="50" value="1" inputmode="numeric">
+        <div id="bulk-custom-result" class="bulk-custom-result"></div>
+      </div>
+    </div>
+  </div>
+  <script type="application/json" id="bulk-offers-data">{calc_offers_json}</script>
+  {_BULK_CALC_SCRIPT}"""
+
+
 def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     """Plukker ut ('produkt-stamme', pakningsstørrelse) fra en id som slutter
     på f.eks. '-30pk' eller '-3pk'. Brukes til å finne søsken i andre
@@ -1031,6 +1121,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
 
     price_history_html = _render_price_history_chart(price_history or [])
+    bulk_pricing_html = render_bulk_pricing(offers)
 
     aliases_html = ""
     if aliases:
@@ -1076,6 +1167,19 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
 .pack-size-callout:hover {{ border-color: var(--aqua); }}
 .pack-size-callout-arrow {{ color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }}
+.bulk-pricing {{ margin-top: 28px; }}
+.bulk-pricing h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
+.bulk-intro {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }}
+.bulk-qty-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }}
+.bulk-qty-card {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }}
+.bulk-qty-label {{ font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }}
+.bulk-qty-price {{ font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.25rem; color: var(--ink); }}
+.bulk-qty-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 4px; }}
+.bulk-custom {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }}
+.bulk-custom label {{ display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }}
+.bulk-custom-row {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
+#bulk-qty-input {{ width: 70px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; }}
+.bulk-custom-result {{ font-size: 0.9rem; font-weight: 600; color: var(--mint); }}
 .hero-product-image {{ width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; }} }}
@@ -1122,6 +1226,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
+  {bulk_pricing_html}
   {price_history_html}
   {specs_html}
   {aliases_html}
