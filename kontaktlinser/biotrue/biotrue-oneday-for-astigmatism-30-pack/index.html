@@ -34,7 +34,7 @@ function __loadGTM() {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
     "lowPrice": 298.0,
-    "highPrice": 419.0,
+    "highPrice": 388.0,
     "offerCount": 6,
     "offers": [{
         "@type": "Offer",
@@ -42,23 +42,38 @@ function __loadGTM() {
         "price": 298.0,
         "priceCurrency": "NOK",
         "url": "https://www.lensit.no/products/biotrue-oneday-for-astigmatism",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lenson"},
-        "price": 348.0,
+        "price": 298.0,
         "priceCurrency": "NOK",
         "url": "https://www.lenson.com/no/biotrue-oneday-for-astigmatism-lens-7067",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Synsam"},
-        "price": 352.0,
+        "price": 313.0,
         "priceCurrency": "NOK",
         "url": "https://www.synsam.no/biotrue-oneday-for-astigmatism-30-stk-pk",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
@@ -66,23 +81,38 @@ function __loadGTM() {
         "price": 388.0,
         "priceCurrency": "NOK",
         "url": "https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-astigmatism/",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lensway"},
-        "price": 389.0,
+        "price": 339.0,
         "priceCurrency": "NOK",
         "url": "https://www.lensway.no/biotrue-oneday-for-astigmatism-lens-7067",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Coptikk"},
-        "price": 419.0,
+        "price": 369.0,
         "priceCurrency": "NOK",
         "url": "https://www.coptikk.no/linsebutikk/toriske-linser/biotrue-oneday-astigmatism-30-linser",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       }]
   },
   "additionalProperty": [{"@type": "PropertyValue", "name": "Materiale", "value": "Nesofilcon A (Hypergel)"},
@@ -133,7 +163,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -156,7 +188,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -277,10 +309,13 @@ a { color: inherit; }
 </section>
   <a class="best-price-band" href="https://www.lensit.no/products/biotrue-oneday-for-astigmatism" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span></div>
   </div>
-  <div class="price">298 kr</div>
+  <div class="price-group">
+    <div class="price">298 kr</div>
+    <div class="price-note">298 kr fri frakt</div>
+  </div>
 </a>
   
   <div class="offers">
@@ -291,8 +326,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">298 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 298 kr</div>
     <a class="cta" href="https://www.lensit.no/products/biotrue-oneday-for-astigmatism" rel="nofollow">Se hos Lensit</a>
   </div>
 </div>
@@ -302,8 +338,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">348 kr</div>
-    <div class="offer-breakdown">(298 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">298 kr</div>
+    <div class="offer-breakdown">Totalt 348 kr</div>
     <a class="cta" href="https://www.lenson.com/no/biotrue-oneday-for-astigmatism-lens-7067" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -313,8 +350,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">352 kr</div>
-    <div class="offer-breakdown">(313 + 39 kr i frakt)</div>
+    <div class="offer-shipping">39 kr frakt</div>
+    <div class="offer-total">313 kr</div>
+    <div class="offer-breakdown">Totalt 352 kr</div>
     <a class="cta" href="https://www.synsam.no/biotrue-oneday-for-astigmatism-30-stk-pk" rel="nofollow">Se hos Synsam</a>
   </div>
 </div>
@@ -324,8 +362,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">388 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 388 kr</div>
     <a class="cta" href="https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-astigmatism/" rel="nofollow">Se hos Interoptik</a>
   </div>
 </div>
@@ -335,8 +374,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">389 kr</div>
-    <div class="offer-breakdown">(339 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">339 kr</div>
+    <div class="offer-breakdown">Totalt 389 kr</div>
     <a class="cta" href="https://www.lensway.no/biotrue-oneday-for-astigmatism-lens-7067" rel="nofollow">Se hos Lensway</a>
   </div>
 </div>
@@ -346,8 +386,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">419 kr</div>
-    <div class="offer-breakdown">(369 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">369 kr</div>
+    <div class="offer-breakdown">Totalt 419 kr</div>
     <a class="cta" href="https://www.coptikk.no/linsebutikk/toriske-linser/biotrue-oneday-astigmatism-30-linser" rel="nofollow">Se hos Coptikk</a>
   </div>
 </div>

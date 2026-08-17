@@ -32,7 +32,7 @@ function __loadGTM() {
       "@type": "AggregateOffer",
       "priceCurrency": "NOK",
       "lowPrice": 387.0,
-      "highPrice": 808.0,
+      "highPrice": 749.0,
       "offerCount": 6,
       "offers": [{
           "@type": "Offer",
@@ -40,47 +40,77 @@ function __loadGTM() {
           "price": 387.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensit.no/products/biofinity-energys-2",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lenson"},
-          "price": 437.0,
+          "price": 387.0,
           "priceCurrency": "NOK",
           "url": "https://www.lenson.com/no/biofinity-energys-lens-6731",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lensway"},
-          "price": 474.0,
+          "price": 424.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensway.no/biofinity-energys-lens-6731",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Synsam"},
-          "price": 509.0,
+          "price": 470.0,
           "priceCurrency": "NOK",
           "url": "https://www.synsam.no/biofinity-energys-6-stk-pk",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Coptikk"},
-          "price": 549.0,
+          "price": 499.0,
           "priceCurrency": "NOK",
           "url": "https://www.coptikk.no/linsebutikk/dognlinser/biofinity-energys-6-linser",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Brilleland"},
-          "price": 808.0,
+          "price": 749.0,
           "priceCurrency": "NOK",
           "url": "https://www.brilleland.no/kontaktlinser/biofinty-energys/biofinty-energys/",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 59, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         }]
     }},
   "mainEntityOfPage": "https://kontaktlinser.no/private-label/eyeq-digital-focus/"
@@ -128,7 +158,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -151,7 +183,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -243,10 +275,13 @@ a { color: inherit; }
   <h2>Sammenlign priser på Biofinity Energys 6-pack</h2>
   <a class="best-price-band" href="https://www.lensit.no/products/biofinity-energys-2" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span></div>
   </div>
-  <div class="price">387 kr</div>
+  <div class="price-group">
+    <div class="price">387 kr</div>
+    <div class="price-note">387 kr fri frakt</div>
+  </div>
 </a>
   <div class="offers">
     <div class="offer-card is-lowest">
@@ -255,8 +290,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">387 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 387 kr</div>
     <a class="cta" href="https://www.lensit.no/products/biofinity-energys-2" rel="nofollow">Se hos Lensit</a>
   </div>
 </div>
@@ -266,8 +302,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">437 kr</div>
-    <div class="offer-breakdown">(387 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">387 kr</div>
+    <div class="offer-breakdown">Totalt 437 kr</div>
     <a class="cta" href="https://www.lenson.com/no/biofinity-energys-lens-6731" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -277,8 +314,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">474 kr</div>
-    <div class="offer-breakdown">(424 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">424 kr</div>
+    <div class="offer-breakdown">Totalt 474 kr</div>
     <a class="cta" href="https://www.lensway.no/biofinity-energys-lens-6731" rel="nofollow">Se hos Lensway</a>
   </div>
 </div>
@@ -288,8 +326,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">509 kr</div>
-    <div class="offer-breakdown">(470 + 39 kr i frakt)</div>
+    <div class="offer-shipping">39 kr frakt</div>
+    <div class="offer-total">470 kr</div>
+    <div class="offer-breakdown">Totalt 509 kr</div>
     <a class="cta" href="https://www.synsam.no/biofinity-energys-6-stk-pk" rel="nofollow">Se hos Synsam</a>
   </div>
 </div>
@@ -299,8 +338,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">549 kr</div>
-    <div class="offer-breakdown">(499 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">499 kr</div>
+    <div class="offer-breakdown">Totalt 549 kr</div>
     <a class="cta" href="https://www.coptikk.no/linsebutikk/dognlinser/biofinity-energys-6-linser" rel="nofollow">Se hos Coptikk</a>
   </div>
 </div>
@@ -310,8 +350,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">808 kr</div>
-    <div class="offer-breakdown">(749 + 59 kr i frakt)</div>
+    <div class="offer-shipping">59 kr frakt</div>
+    <div class="offer-total">749 kr</div>
+    <div class="offer-breakdown">Totalt 808 kr</div>
     <a class="cta" href="https://www.brilleland.no/kontaktlinser/biofinty-energys/biofinty-energys/" rel="nofollow">Se hos Brilleland</a>
   </div>
 </div>

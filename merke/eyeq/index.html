@@ -96,7 +96,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -119,7 +121,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -226,7 +228,7 @@ a { color: inherit; }
     <div class="product-name">EyeQ One-Day Classic</div>
     <div class="product-meta">= Biomedics 1Day Extra 30-pack · Dagslinser</div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">139 kr</div><div class="retailer-count">6 forhandlere</div></div>
+  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">139 kr</div><div class="retailer-count">5 forhandlere</div></div>
 </a>
 <a class="product-card" href="/private-label/eyeq-24-xr/" data-category="manedslinser">
   <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/c/o/cooperv_1.jpg" alt="EyeQ 24 XR" loading="lazy"></div>

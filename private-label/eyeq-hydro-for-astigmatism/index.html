@@ -31,16 +31,21 @@ function __loadGTM() {
   "about": {"@type": "Product", "name": "Air Optix HydraGlyde for Astigmatism 6-pack", "brand": {"@type": "Brand", "name": "Air Optix"}, "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "NOK",
-      "lowPrice": 566.0,
-      "highPrice": 790.0,
+      "lowPrice": 527.0,
+      "highPrice": 745.0,
       "offerCount": 6,
       "offers": [{
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Synsam"},
-          "price": 566.0,
+          "price": 527.0,
           "priceCurrency": "NOK",
           "url": "https://www.synsam.no/air-optix-plus-hydraglyde-for-astigmatism-6-stk-pk",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
@@ -48,15 +53,25 @@ function __loadGTM() {
           "price": 576.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensit.no/products/air-optix-hydraglyde-for-astigmatism",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lenson"},
-          "price": 625.0,
+          "price": 575.0,
           "priceCurrency": "NOK",
           "url": "https://www.lenson.com/no/air-optix-hydraglyde-for-astigmatism-lens-7691",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
@@ -64,23 +79,38 @@ function __loadGTM() {
           "price": 699.0,
           "priceCurrency": "NOK",
           "url": "https://www.coptikk.no/linsebutikk/dognlinser/air-optix-plus-hydraglyde-astigmatism-6-linser",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lensway"},
-          "price": 704.0,
+          "price": 654.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensway.no/air-optix-hydraglyde-for-astigmatism-lens-7691",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Extra Optical"},
-          "price": 790.0,
+          "price": 745.0,
           "priceCurrency": "NOK",
           "url": "https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Air+Optix+Astigmatism+6+stk&amp;url=https://extraoptical.no/air-optix-astigmatism-6-stk",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 45, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         }]
     }},
   "mainEntityOfPage": "https://kontaktlinser.no/private-label/eyeq-hydro-for-astigmatism/"
@@ -128,7 +158,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -151,7 +183,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -243,10 +275,13 @@ a { color: inherit; }
   <h2>Sammenlign priser på Air Optix HydraGlyde for Astigmatism 6-pack</h2>
   <a class="best-price-band" href="https://www.synsam.no/air-optix-plus-hydraglyde-for-astigmatism-6-stk-pk" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span></div>
   </div>
-  <div class="price">566 kr</div>
+  <div class="price-group">
+    <div class="price">566 kr</div>
+    <div class="price-note">527 kr + 39 kr frakt</div>
+  </div>
 </a>
   <div class="offers">
     <div class="offer-card is-lowest">
@@ -255,8 +290,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">566 kr</div>
-    <div class="offer-breakdown">(527 + 39 kr i frakt)</div>
+    <div class="offer-shipping">39 kr frakt</div>
+    <div class="offer-total">527 kr</div>
+    <div class="offer-breakdown">Totalt 566 kr</div>
     <a class="cta" href="https://www.synsam.no/air-optix-plus-hydraglyde-for-astigmatism-6-stk-pk" rel="nofollow">Se hos Synsam</a>
   </div>
 </div>
@@ -266,8 +302,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">576 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 576 kr</div>
     <a class="cta" href="https://www.lensit.no/products/air-optix-hydraglyde-for-astigmatism" rel="nofollow">Se hos Lensit</a>
   </div>
 </div>
@@ -277,8 +314,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">625 kr</div>
-    <div class="offer-breakdown">(575 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">575 kr</div>
+    <div class="offer-breakdown">Totalt 625 kr</div>
     <a class="cta" href="https://www.lenson.com/no/air-optix-hydraglyde-for-astigmatism-lens-7691" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -288,8 +326,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">699 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 699 kr</div>
     <a class="cta" href="https://www.coptikk.no/linsebutikk/dognlinser/air-optix-plus-hydraglyde-astigmatism-6-linser" rel="nofollow">Se hos Coptikk</a>
   </div>
 </div>
@@ -299,8 +338,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">704 kr</div>
-    <div class="offer-breakdown">(654 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">654 kr</div>
+    <div class="offer-breakdown">Totalt 704 kr</div>
     <a class="cta" href="https://www.lensway.no/air-optix-hydraglyde-for-astigmatism-lens-7691" rel="nofollow">Se hos Lensway</a>
   </div>
 </div>
@@ -310,8 +350,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">790 kr</div>
-    <div class="offer-breakdown">(745 + 45 kr i frakt)</div>
+    <div class="offer-shipping">45 kr frakt</div>
+    <div class="offer-total">745 kr</div>
+    <div class="offer-breakdown">Totalt 790 kr</div>
     <a class="cta" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Air+Optix+Astigmatism+6+stk&amp;url=https://extraoptical.no/air-optix-astigmatism-6-stk" rel="sponsored nofollow">Se hos Extra Optical</a>
   </div>
 </div>

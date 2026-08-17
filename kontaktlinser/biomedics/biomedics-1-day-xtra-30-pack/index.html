@@ -34,15 +34,20 @@ function __loadGTM() {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
     "lowPrice": 139.0,
-    "highPrice": 263.0,
-    "offerCount": 6,
+    "highPrice": 186.0,
+    "offerCount": 5,
     "offers": [{
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Interoptik"},
         "price": 139.0,
         "priceCurrency": "NOK",
         "url": "https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-30-pack2/",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
@@ -50,39 +55,51 @@ function __loadGTM() {
         "price": 184.0,
         "priceCurrency": "NOK",
         "url": "https://www.lensit.no/products/biomedics-1day-extra-b1dx987654321",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lenson"},
-        "price": 218.0,
+        "price": 168.0,
         "priceCurrency": "NOK",
         "url": "https://www.lenson.com/no/biomedics-1-day-xtra-lens-1991",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Extra Optical"},
-        "price": 220.0,
+        "price": 175.0,
         "priceCurrency": "NOK",
         "url": "https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Biomedics+1+day+Extra+30+stk&amp;url=https://extraoptical.no/biomedics-1-day-extra-30-stk",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 45, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lensway"},
-        "price": 236.0,
+        "price": 186.0,
         "priceCurrency": "NOK",
         "url": "https://www.lensway.no/biomedics-1-day-xtra-lens-1991",
-        "availability": "https://schema.org/InStock"
-      },
-      {
-        "@type": "Offer",
-        "seller": {"@type": "Organization", "name": "Synsam"},
-        "price": 263.0,
-        "priceCurrency": "NOK",
-        "url": "https://www.synsam.no/biomedics-1-day-extra-30-stk-pk-1",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       }]
   },
   "additionalProperty": [{"@type": "PropertyValue", "name": "Brukstid", "value": "Dagslinse"},
@@ -131,7 +148,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -154,7 +173,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -271,14 +290,17 @@ a { color: inherit; }
     </div>
   </div>
   <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Biomedics 1Day Extra 30-pack</strong> fra 6 norske nettbutikker. Laveste pris akkurat nå er <strong>139 kr</strong> hos Interoptik. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>Biomedics 1Day Extra 30-pack</strong> fra 5 norske nettbutikker. Laveste pris akkurat nå er <strong>139 kr</strong> hos Interoptik. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>
   <a class="best-price-band" href="https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-30-pack2/" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span></div>
   </div>
-  <div class="price">139 kr</div>
+  <div class="price-group">
+    <div class="price">139 kr</div>
+    <div class="price-note">139 kr fri frakt</div>
+  </div>
 </a>
   <a class="pack-size-callout" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-90-pack/">
   <div class="pack-size-callout-text">
@@ -294,8 +316,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">139 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 139 kr</div>
     <a class="cta" href="https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-30-pack2/" rel="nofollow">Se hos Interoptik</a>
   </div>
 </div>
@@ -305,8 +328,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">184 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 184 kr</div>
     <a class="cta" href="https://www.lensit.no/products/biomedics-1day-extra-b1dx987654321" rel="nofollow">Se hos Lensit</a>
   </div>
 </div>
@@ -316,8 +340,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">218 kr</div>
-    <div class="offer-breakdown">(168 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">168 kr</div>
+    <div class="offer-breakdown">Totalt 218 kr</div>
     <a class="cta" href="https://www.lenson.com/no/biomedics-1-day-xtra-lens-1991" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -327,8 +352,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">220 kr</div>
-    <div class="offer-breakdown">(175 + 45 kr i frakt)</div>
+    <div class="offer-shipping">45 kr frakt</div>
+    <div class="offer-total">175 kr</div>
+    <div class="offer-breakdown">Totalt 220 kr</div>
     <a class="cta" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Biomedics+1+day+Extra+30+stk&amp;url=https://extraoptical.no/biomedics-1-day-extra-30-stk" rel="sponsored nofollow">Se hos Extra Optical</a>
   </div>
 </div>
@@ -338,20 +364,10 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">236 kr</div>
-    <div class="offer-breakdown">(186 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">186 kr</div>
+    <div class="offer-breakdown">Totalt 236 kr</div>
     <a class="cta" href="https://www.lensway.no/biomedics-1-day-xtra-lens-1991" rel="nofollow">Se hos Lensway</a>
-  </div>
-</div>
-<div class="offer-card">
-  <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
-  </div>
-  <div class="offer-price-col">
-    <div class="offer-total">263 kr</div>
-    <div class="offer-breakdown">(224 + 39 kr i frakt)</div>
-    <a class="cta" href="https://www.synsam.no/biomedics-1-day-extra-30-stk-pk-1" rel="nofollow">Se hos Synsam</a>
   </div>
 </div>
   </div>

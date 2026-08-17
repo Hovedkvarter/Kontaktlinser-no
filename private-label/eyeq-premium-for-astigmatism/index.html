@@ -31,16 +31,21 @@ function __loadGTM() {
   "about": {"@type": "Product", "name": "Proclear Toric 6-pack", "brand": {"@type": "Brand", "name": "Proclear"}, "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "NOK",
-      "lowPrice": 418.0,
+      "lowPrice": 368.0,
       "highPrice": 725.0,
       "offerCount": 5,
       "offers": [{
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lenson"},
-          "price": 418.0,
+          "price": 368.0,
           "priceCurrency": "NOK",
           "url": "https://www.lenson.com/no/proclear-toric-lens-224",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
@@ -48,23 +53,38 @@ function __loadGTM() {
           "price": 448.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensit.no/products/proclear-toric-prd22992034",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Lensway"},
-          "price": 559.0,
+          "price": 509.0,
           "priceCurrency": "NOK",
           "url": "https://www.lensway.no/proclear-toric-lens-224",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
           "seller": {"@type": "Organization", "name": "Extra Optical"},
-          "price": 620.0,
+          "price": 575.0,
           "priceCurrency": "NOK",
           "url": "https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Proclear+Toric+6+stk&amp;url=https://extraoptical.no/proclear-toric-6-stk",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 45, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         },
         {
           "@type": "Offer",
@@ -72,7 +92,12 @@ function __loadGTM() {
           "price": 725.0,
           "priceCurrency": "NOK",
           "url": "https://www.interoptik.no/kontaktlinser/proclear/proclear-toric/",
-          "availability": "https://schema.org/InStock"
+          "availability": "https://schema.org/InStock",
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {"@type": "MonetaryAmount", "value": 0.0, "currency": "NOK"},
+            "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+          }
         }]
     }},
   "mainEntityOfPage": "https://kontaktlinser.no/private-label/eyeq-premium-for-astigmatism/"
@@ -120,7 +145,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -143,7 +170,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -235,10 +262,13 @@ a { color: inherit; }
   <h2>Sammenlign priser på Proclear Toric 6-pack</h2>
   <a class="best-price-band" href="https://www.lenson.com/no/proclear-toric-lens-224" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span></div>
   </div>
-  <div class="price">418 kr</div>
+  <div class="price-group">
+    <div class="price">418 kr</div>
+    <div class="price-note">368 kr + 50 kr frakt</div>
+  </div>
 </a>
   <div class="offers">
     <div class="offer-card is-lowest">
@@ -247,8 +277,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">418 kr</div>
-    <div class="offer-breakdown">(368 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">368 kr</div>
+    <div class="offer-breakdown">Totalt 418 kr</div>
     <a class="cta" href="https://www.lenson.com/no/proclear-toric-lens-224" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -258,8 +289,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">448 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 448 kr</div>
     <a class="cta" href="https://www.lensit.no/products/proclear-toric-prd22992034" rel="nofollow">Se hos Lensit</a>
   </div>
 </div>
@@ -269,8 +301,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">559 kr</div>
-    <div class="offer-breakdown">(509 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">509 kr</div>
+    <div class="offer-breakdown">Totalt 559 kr</div>
     <a class="cta" href="https://www.lensway.no/proclear-toric-lens-224" rel="nofollow">Se hos Lensway</a>
   </div>
 </div>
@@ -280,8 +313,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">620 kr</div>
-    <div class="offer-breakdown">(575 + 45 kr i frakt)</div>
+    <div class="offer-shipping">45 kr frakt</div>
+    <div class="offer-total">575 kr</div>
+    <div class="offer-breakdown">Totalt 620 kr</div>
     <a class="cta" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Proclear+Toric+6+stk&amp;url=https://extraoptical.no/proclear-toric-6-stk" rel="sponsored nofollow">Se hos Extra Optical</a>
   </div>
 </div>
@@ -291,8 +325,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
+    <div class="offer-shipping">Fri frakt</div>
     <div class="offer-total">725 kr</div>
-    <div class="offer-breakdown">Fri frakt</div>
+    <div class="offer-breakdown">Totalt 725 kr</div>
     <a class="cta" href="https://www.interoptik.no/kontaktlinser/proclear/proclear-toric/" rel="nofollow">Se hos Interoptik</a>
   </div>
 </div>

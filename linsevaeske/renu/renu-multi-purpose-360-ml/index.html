@@ -33,24 +33,34 @@ function __loadGTM() {
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
-    "lowPrice": 149.0,
-    "highPrice": 151.0,
+    "lowPrice": 99.0,
+    "highPrice": 101.0,
     "offerCount": 2,
     "offers": [{
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lenson"},
-        "price": 149.0,
+        "price": 99.0,
         "priceCurrency": "NOK",
         "url": "https://www.lenson.com/no/renu-multi-purpose-extra-102",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       },
       {
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lensway"},
-        "price": 151.0,
+        "price": 101.0,
         "priceCurrency": "NOK",
         "url": "https://www.lensway.no/renu-multi-purpose-extra-102",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 50, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
       }]
   }
 }</script>
@@ -97,7 +107,9 @@ a { color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+.best-price-band .price-group { text-align: right; }
 .best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
+.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
@@ -120,7 +132,7 @@ a { color: inherit; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
 .offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.offer-shipping, .offer-breakdown { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
 .offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
@@ -215,10 +227,13 @@ a { color: inherit; }
 </section>
   <a class="best-price-band" href="https://www.lenson.com/no/renu-multi-purpose-extra-102" rel="nofollow">
   <div class="label-group">
-    <div class="label">Laveste pris</div>
+    <div class="label">Laveste totalpris</div>
     <div class="retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span></div>
   </div>
-  <div class="price">149 kr</div>
+  <div class="price-group">
+    <div class="price">149 kr</div>
+    <div class="price-note">99 kr + 50 kr frakt</div>
+  </div>
 </a>
   <p class="price-per-unit">41 kr per 100 ml, ved laveste pris</p>
   
@@ -230,8 +245,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">149 kr</div>
-    <div class="offer-breakdown">(99 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">99 kr</div>
+    <div class="offer-breakdown">Totalt 149 kr</div>
     <a class="cta" href="https://www.lenson.com/no/renu-multi-purpose-extra-102" rel="nofollow">Se hos Lenson</a>
   </div>
 </div>
@@ -241,8 +257,9 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-total">151 kr</div>
-    <div class="offer-breakdown">(101 + 50 kr i frakt)</div>
+    <div class="offer-shipping">50 kr frakt</div>
+    <div class="offer-total">101 kr</div>
+    <div class="offer-breakdown">Totalt 151 kr</div>
     <a class="cta" href="https://www.lensway.no/renu-multi-purpose-extra-102" rel="nofollow">Se hos Lensway</a>
   </div>
 </div>
