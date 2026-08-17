@@ -14,6 +14,11 @@
       "date": "2026-08-16",
       "price": 262.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 262.0,
+      "store": "Lensit"
     }
   ],
   "acuvue-vita-6pk": [
@@ -31,6 +36,11 @@
       "date": "2026-08-16",
       "price": 479.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 474.0,
+      "store": "Lensway"
     }
   ],
   "biofinity-6pk": [
@@ -46,6 +56,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 331.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 331.0,
       "store": "Lensit"
     }
@@ -65,6 +80,11 @@
       "date": "2026-08-16",
       "price": 232.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 232.0,
+      "store": "Lensit"
     }
   ],
   "acuvue-oasys-max-1day-30pk": [
@@ -80,6 +100,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 344.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 344.0,
       "store": "Lensit"
     }
@@ -99,6 +124,11 @@
       "date": "2026-08-16",
       "price": 276.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 276.0,
+      "store": "Lensit"
     }
   ],
   "acuvue-oasys-astigmatism-6pk": [
@@ -114,6 +144,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 351.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 351.0,
       "store": "Lensit"
     }
@@ -133,6 +168,11 @@
       "date": "2026-08-16",
       "price": 297.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 297.0,
+      "store": "Lensit"
     }
   ],
   "biofinity-toric-6pk": [
@@ -148,6 +188,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 454.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 454.0,
       "store": "Lensit"
     }
@@ -167,6 +212,11 @@
       "date": "2026-08-16",
       "price": 292.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 292.0,
+      "store": "Lensit"
     }
   ],
   "adore-bi-tone-2pk": [
@@ -184,6 +234,11 @@
       "date": "2026-08-16",
       "price": 429.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 415.0,
+      "store": "Lensway"
     }
   ],
   "adore-dare-2pk": [
@@ -201,6 +256,11 @@
       "date": "2026-08-16",
       "price": 429.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 415.0,
+      "store": "Lensway"
     }
   ],
   "acuvue-oasys-multifocal-6pk": [
@@ -216,6 +276,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 499.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 499.0,
       "store": "Lenson"
     }
@@ -235,6 +300,11 @@
       "date": "2026-08-16",
       "price": 659.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 659.0,
+      "store": "Lensit"
     }
   ],
   "biofinity-energys-6pk": [
@@ -250,6 +320,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 387.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 387.0,
       "store": "Lensit"
     }
@@ -269,6 +344,11 @@
       "date": "2026-08-16",
       "price": 649.0,
       "store": "Coptikk"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 649.0,
+      "store": "Coptikk"
     }
   ],
   "avaira-vitality-6pk": [
@@ -284,6 +364,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 223.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 223.0,
       "store": "Lensit"
     }
@@ -303,6 +388,11 @@
       "date": "2026-08-16",
       "price": 373.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 373.0,
+      "store": "Lensit"
     }
   ],
   "myday-30pk": [
@@ -318,6 +408,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 325.0,
+      "store": "Interoptik"
+    },
+    {
+      "date": "2026-08-17",
       "price": 325.0,
       "store": "Interoptik"
     }
@@ -337,6 +432,11 @@
       "date": "2026-08-16",
       "price": 470.0,
       "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 470.0,
+      "store": "Extra Optical"
     }
   ],
   "myday-toric-30pk": [
@@ -352,6 +452,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 440.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 440.0,
       "store": "Extra Optical"
     }
@@ -371,6 +476,11 @@
       "date": "2026-08-16",
       "price": 224.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 224.0,
+      "store": "Lensit"
     }
   ],
   "proclear-toric-6pk": [
@@ -386,6 +496,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 418.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 418.0,
       "store": "Lenson"
     }
@@ -405,6 +520,11 @@
       "date": "2026-08-16",
       "price": 254.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 254.0,
+      "store": "Lensit"
     }
   ],
   "clariti-1day-toric-30pk": [
@@ -420,6 +540,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 387.0,
+      "store": "Brilleland"
+    },
+    {
+      "date": "2026-08-17",
       "price": 387.0,
       "store": "Brilleland"
     }
@@ -439,6 +564,11 @@
       "date": "2026-08-16",
       "price": 339.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 339.0,
+      "store": "Lensit"
     }
   ],
   "air-optix-hydraglyde-multifocal-6pk": [
@@ -454,6 +584,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 629.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 629.0,
       "store": "Lensit"
     }
@@ -473,6 +608,11 @@
       "date": "2026-08-16",
       "price": 566.0,
       "store": "Synsam"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 566.0,
+      "store": "Synsam"
     }
   ],
   "dailies-total1-30pk": [
@@ -488,6 +628,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 344.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 344.0,
       "store": "Lensit"
     }
@@ -507,6 +652,11 @@
       "date": "2026-08-16",
       "price": 469.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 469.0,
+      "store": "Lensit"
     }
   ],
   "dailies-total1-astigmatism-30pk": [
@@ -522,6 +672,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 489.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 489.0,
       "store": "Lensit"
     }
@@ -541,6 +696,11 @@
       "date": "2026-08-16",
       "price": 226.0,
       "store": "Interoptik"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 226.0,
+      "store": "Interoptik"
     }
   ],
   "total30-6pk": [
@@ -556,6 +716,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 494.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 494.0,
       "store": "Lensit"
     }
@@ -575,6 +740,11 @@
       "date": "2026-08-16",
       "price": 277.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 277.0,
+      "store": "Lensit"
     }
   ],
   "precision1-astigmatism-30pk": [
@@ -590,6 +760,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 329.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 329.0,
       "store": "Lensit"
     }
@@ -609,6 +784,11 @@
       "date": "2026-08-16",
       "price": 186.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 186.0,
+      "store": "Lensit"
     }
   ],
   "soflens-daily-disposable-30pk": [
@@ -624,6 +804,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 178.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 178.0,
       "store": "Lensit"
     }
@@ -643,6 +828,11 @@
       "date": "2026-08-16",
       "price": 448.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 448.0,
+      "store": "Lensit"
     }
   ],
   "purevision2-6pk": [
@@ -658,6 +848,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 337.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 337.0,
       "store": "Lensit"
     }
@@ -677,6 +872,11 @@
       "date": "2026-08-16",
       "price": 256.0,
       "store": "Interoptik"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 256.0,
+      "store": "Interoptik"
     }
   ],
   "ultra-6pk": [
@@ -692,6 +892,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 396.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 396.0,
       "store": "Lensit"
     }
@@ -711,6 +916,11 @@
       "date": "2026-08-16",
       "price": 206.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 206.0,
+      "store": "Lensit"
     }
   ],
   "air-optix-night-day-aqua-6pk": [
@@ -726,6 +936,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 676.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 676.0,
       "store": "Lensit"
     }
@@ -745,6 +960,11 @@
       "date": "2026-08-16",
       "price": 366.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 366.0,
+      "store": "Lensit"
     }
   ],
   "purevision-multifocal-6pk": [
@@ -760,6 +980,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 590.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 590.0,
       "store": "Extra Optical"
     }
@@ -779,6 +1004,11 @@
       "date": "2026-08-16",
       "price": 505.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 505.0,
+      "store": "Lensit"
     }
   ],
   "purevision2-presbyopia-6pk": [
@@ -794,6 +1024,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 607.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 607.0,
       "store": "Lensit"
     }
@@ -813,6 +1048,11 @@
       "date": "2026-08-16",
       "price": 298.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 298.0,
+      "store": "Lensit"
     }
   ],
   "biotrue-oneday-presbyopia-30pk": [
@@ -828,6 +1068,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 322.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 322.0,
       "store": "Lensit"
     }
@@ -847,6 +1092,11 @@
       "date": "2026-08-16",
       "price": 438.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 438.0,
+      "store": "Lensit"
     }
   ],
   "ultra-astigmatism-6pk": [
@@ -862,6 +1112,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 562.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 562.0,
       "store": "Lensit"
     }
@@ -881,6 +1136,11 @@
       "date": "2026-08-16",
       "price": 697.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 697.0,
+      "store": "Lensit"
     }
   ],
   "biomedics-1day-xtra-30pk": [
@@ -896,6 +1156,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 139.0,
+      "store": "Interoptik"
+    },
+    {
+      "date": "2026-08-17",
       "price": 139.0,
       "store": "Interoptik"
     }
@@ -915,6 +1180,11 @@
       "date": "2026-08-16",
       "price": 301.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 301.0,
+      "store": "Lensit"
     }
   ],
   "biomedics-toric-6pk": [
@@ -930,6 +1200,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 398.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 398.0,
       "store": "Lensit"
     }
@@ -949,6 +1224,11 @@
       "date": "2026-08-16",
       "price": 699.0,
       "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 699.0,
+      "store": "Lensit"
     }
   ],
   "total30-astigmatism-6pk": [
@@ -964,6 +1244,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 599.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 599.0,
       "store": "Lensit"
     }
@@ -1007,6 +1292,11 @@
       "date": "2026-08-16",
       "price": 249.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 249.0,
+      "store": "Lenson"
     }
   ],
   "focus-dailies-30pk": [
@@ -1022,6 +1312,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 282.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 282.0,
       "store": "Lensit"
     }
@@ -1041,6 +1336,11 @@
       "date": "2026-08-16",
       "price": 630.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 630.0,
+      "store": "Lenson"
     }
   ],
   "acuvue-moist-astigmatism-90pk": [
@@ -1056,6 +1356,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 769.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 769.0,
       "store": "Lenson"
     }
@@ -1075,6 +1380,11 @@
       "date": "2026-08-16",
       "price": 740.0,
       "store": "Lensway"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 800.0,
+      "store": "Extra Optical"
     }
   ],
   "acuvue-oasys-max-1day-90pk": [
@@ -1090,6 +1400,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 949.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 949.0,
       "store": "Lenson"
     }
@@ -1109,6 +1424,11 @@
       "date": "2026-08-16",
       "price": 414.0,
       "store": "Interoptik"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 414.0,
+      "store": "Interoptik"
     }
   ],
   "biotrue-oneday-90pk": [
@@ -1124,6 +1444,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 698.0,
+      "store": "Synsam"
+    },
+    {
+      "date": "2026-08-17",
       "price": 698.0,
       "store": "Synsam"
     }
@@ -1143,6 +1468,11 @@
       "date": "2026-08-16",
       "price": 836.0,
       "store": "Synsam"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 836.0,
+      "store": "Synsam"
     }
   ],
   "clariti-1day-90pk": [
@@ -1160,6 +1490,11 @@
       "date": "2026-08-16",
       "price": 685.0,
       "store": "Lensway"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 746.0,
+      "store": "Lensway"
     }
   ],
   "dailies-aquacomfort-plus-90pk": [
@@ -1175,6 +1510,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 578.0,
+      "store": "Synsam"
+    },
+    {
+      "date": "2026-08-17",
       "price": 578.0,
       "store": "Synsam"
     }
@@ -1194,6 +1534,11 @@
       "date": "2026-08-16",
       "price": 871.7,
       "store": "Brilleland"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 871.7,
+      "store": "Brilleland"
     }
   ],
   "dailies-total1-astigmatism-90pk": [
@@ -1209,6 +1554,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 1199.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 1199.0,
       "store": "Lenson"
     }
@@ -1228,6 +1578,11 @@
       "date": "2026-08-16",
       "price": 1139.4,
       "store": "Brilleland"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 1139.4,
+      "store": "Brilleland"
     }
   ],
   "focus-dailies-90pk": [
@@ -1245,6 +1600,11 @@
       "date": "2026-08-16",
       "price": 749.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 729.0,
+      "store": "Lensway"
     }
   ],
   "myday-90pk": [
@@ -1260,6 +1620,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 899.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 899.0,
       "store": "Lenson"
     }
@@ -1279,6 +1644,11 @@
       "date": "2026-08-16",
       "price": 743.0,
       "store": "Lensway"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 799.0,
+      "store": "Lenson"
     }
   ],
   "precision1-astigmatism-90pk": [
@@ -1294,6 +1664,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 955.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 955.0,
       "store": "Lenson"
     }
@@ -1313,6 +1688,11 @@
       "date": "2026-08-16",
       "price": 486.0,
       "store": "Synsam"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 486.0,
+      "store": "Synsam"
     }
   ],
   "ultra-oneday-90pk": [
@@ -1328,6 +1708,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 1149.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 1149.0,
       "store": "Lenson"
     }
@@ -1347,6 +1732,11 @@
       "date": "2026-08-16",
       "price": 330.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 330.0,
+      "store": "Lenson"
     }
   ],
   "acuvue-moist-multifocal-90pk": [
@@ -1362,6 +1752,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 777.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 777.0,
       "store": "Lenson"
     }
@@ -1381,6 +1776,11 @@
       "date": "2026-08-16",
       "price": 363.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 363.0,
+      "store": "Lenson"
     }
   ],
   "acuvue-oasys-1day-astigmatism-90pk": [
@@ -1398,6 +1798,11 @@
       "date": "2026-08-16",
       "price": 949.0,
       "store": "Lensway"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 969.0,
+      "store": "Lenson"
     }
   ],
   "biofinity-multifocal-toric-3pk": [
@@ -1413,6 +1818,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 1095.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 1095.0,
       "store": "Extra Optical"
     }
@@ -1432,6 +1842,11 @@
       "date": "2026-08-16",
       "price": 529.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 529.0,
+      "store": "Lenson"
     }
   ],
   "biofinity-xr-3pk": [
@@ -1447,6 +1862,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 222.0,
+      "store": "Lensit"
+    },
+    {
+      "date": "2026-08-17",
       "price": 222.0,
       "store": "Lensit"
     }
@@ -1466,6 +1886,11 @@
       "date": "2026-08-16",
       "price": 1199.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 1199.0,
+      "store": "Lenson"
     }
   ],
   "dailies-aquacomfort-plus-multifocal-30pk": [
@@ -1481,6 +1906,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 419.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 419.0,
       "store": "Lenson"
     }
@@ -1500,6 +1930,11 @@
       "date": "2026-08-16",
       "price": 1049.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 1049.0,
+      "store": "Lenson"
     }
   ],
   "dailies-aquacomfort-plus-toric-30pk": [
@@ -1515,6 +1950,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 338.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 338.0,
       "store": "Lenson"
     }
@@ -1534,6 +1974,11 @@
       "date": "2026-08-16",
       "price": 848.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 848.0,
+      "store": "Lenson"
     }
   ],
   "dailies-total1-180pk": [
@@ -1551,6 +1996,11 @@
       "date": "2026-08-16",
       "price": 1789.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 1784.0,
+      "store": "Lensway"
     }
   ],
   "focus-dailies-180pk": [
@@ -1566,6 +2016,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 1485.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 1485.0,
       "store": "Extra Optical"
     }
@@ -1585,6 +2040,11 @@
       "date": "2026-08-16",
       "price": 260.0,
       "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 253.0,
+      "store": "Lensway"
     }
   ],
   "proclear-1day-90pk": [
@@ -1600,6 +2060,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 587.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 587.0,
       "store": "Lenson"
     }
@@ -1619,6 +2084,11 @@
       "date": "2026-08-16",
       "price": 376.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 376.0,
+      "store": "Lenson"
     }
   ],
   "proclear-multifocal-6pk": [
@@ -1634,6 +2104,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 468.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 468.0,
       "store": "Lenson"
     }
@@ -1653,6 +2128,11 @@
       "date": "2026-08-16",
       "price": 940.0,
       "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 940.0,
+      "store": "Extra Optical"
     }
   ],
   "proclear-multifocal-xr-3pk": [
@@ -1668,6 +2148,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 940.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 940.0,
       "store": "Extra Optical"
     }
@@ -1687,6 +2172,11 @@
       "date": "2026-08-16",
       "price": 590.0,
       "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 590.0,
+      "store": "Extra Optical"
     }
   ],
   "soflens-38-6pk": [
@@ -1702,6 +2192,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 326.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 326.0,
       "store": "Lenson"
     }
@@ -1721,6 +2216,11 @@
       "date": "2026-08-16",
       "price": 334.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 334.0,
+      "store": "Lenson"
     }
   ],
   "soflens-multifocal-6pk": [
@@ -1736,6 +2236,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 573.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 573.0,
       "store": "Lenson"
     }
@@ -1755,6 +2260,11 @@
       "date": "2026-08-16",
       "price": 89.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 89.0,
+      "store": "Lenson"
     }
   ],
   "renu-multipurpose-240ml": [
@@ -1770,6 +2280,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 129.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 129.0,
       "store": "Lenson"
     }
@@ -1789,6 +2304,11 @@
       "date": "2026-08-16",
       "price": 149.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 149.0,
+      "store": "Lenson"
     }
   ],
   "optifree-puremoist-90ml": [
@@ -1804,6 +2324,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 120.0,
+      "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
       "price": 120.0,
       "store": "Extra Optical"
     }
@@ -1823,6 +2348,11 @@
       "date": "2026-08-16",
       "price": 179.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 179.0,
+      "store": "Lenson"
     }
   ],
   "optifree-express-355ml": [
@@ -1838,6 +2368,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 149.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 149.0,
       "store": "Lenson"
     }
@@ -1857,6 +2392,11 @@
       "date": "2026-08-16",
       "price": 110.0,
       "store": "Extra Optical"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 110.0,
+      "store": "Extra Optical"
     }
   ],
   "aosept-plus-360ml": [
@@ -1874,6 +2414,11 @@
       "date": "2026-08-16",
       "price": 209.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 202.0,
+      "store": "Lensway"
     }
   ],
   "easysept-360ml": [
@@ -1891,6 +2436,11 @@
       "date": "2026-08-16",
       "price": 199.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 194.0,
+      "store": "Lensway"
     }
   ],
   "easysept-120ml": [
@@ -1908,6 +2458,11 @@
       "date": "2026-08-16",
       "price": 135.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 134.0,
+      "store": "Lensway"
     }
   ],
   "solocare-aqua-360ml": [
@@ -1925,6 +2480,11 @@
       "date": "2026-08-16",
       "price": 165.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 160.0,
+      "store": "Lensway"
     }
   ],
   "biotrue-solution-300ml": [
@@ -1942,6 +2502,11 @@
       "date": "2026-08-16",
       "price": 179.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 177.0,
+      "store": "Lensway"
     }
   ],
   "everclear-refresh-250ml": [
@@ -1957,6 +2522,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 89.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 89.0,
       "store": "Lenson"
     }
@@ -1976,6 +2546,11 @@
       "date": "2026-08-16",
       "price": 189.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 189.0,
+      "store": "Lenson"
     }
   ],
   "oxysept-1step-300ml": [
@@ -1991,6 +2566,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 145.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 145.0,
       "store": "Lenson"
     }
@@ -2010,6 +2590,11 @@
       "date": "2026-08-16",
       "price": 95.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 95.0,
+      "store": "Lenson"
     }
   ],
   "acuvue-revitalens-300ml": [
@@ -2027,6 +2612,11 @@
       "date": "2026-08-16",
       "price": 119.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 119.0,
+      "store": "Lenson"
     }
   ],
   "systane-ultra-10ml": [
@@ -2037,6 +2627,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 179.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 179.0,
       "store": "Lenson"
     }
@@ -2051,6 +2646,11 @@
       "date": "2026-08-16",
       "price": 229.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 229.0,
+      "store": "Lenson"
     }
   ],
   "systane-hydration-10ml": [
@@ -2061,6 +2661,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 199.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 199.0,
       "store": "Lenson"
     }
@@ -2075,6 +2680,11 @@
       "date": "2026-08-16",
       "price": 279.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 270.0,
+      "store": "Lensway"
     }
   ],
   "hylo-gel-10ml": [
@@ -2087,6 +2697,11 @@
       "date": "2026-08-16",
       "price": 259.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 253.0,
+      "store": "Lensway"
     }
   ],
   "hylo-fresh-10ml": [
@@ -2099,6 +2714,11 @@
       "date": "2026-08-16",
       "price": 209.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 202.0,
+      "store": "Lensway"
     }
   ],
   "hylo-comod-10ml": [
@@ -2111,6 +2731,11 @@
       "date": "2026-08-16",
       "price": 259.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 253.0,
+      "store": "Lensway"
     }
   ],
   "hylo-dual-10ml": [
@@ -2123,6 +2748,11 @@
       "date": "2026-08-16",
       "price": 279.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 270.0,
+      "store": "Lensway"
     }
   ],
   "hylo-dual-intense-10ml": [
@@ -2135,6 +2765,11 @@
       "date": "2026-08-16",
       "price": 309.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 304.0,
+      "store": "Lensway"
     }
   ],
   "thealoz-duo-10ml": [
@@ -2145,6 +2780,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 229.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 229.0,
       "store": "Lenson"
     }
@@ -2159,6 +2799,11 @@
       "date": "2026-08-16",
       "price": 179.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 177.0,
+      "store": "Lensway"
     }
   ],
   "oxyal-trehalos-triple-action-10ml": [
@@ -2169,6 +2814,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 269.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 269.0,
       "store": "Lenson"
     }
@@ -2183,6 +2833,11 @@
       "date": "2026-08-16",
       "price": 259.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 259.0,
+      "store": "Lenson"
     }
   ],
   "tearsagain-10ml": [
@@ -2193,6 +2848,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 179.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 179.0,
       "store": "Lenson"
     }
@@ -2207,6 +2867,11 @@
       "date": "2026-08-16",
       "price": 229.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 229.0,
+      "store": "Lenson"
     }
   ],
   "tearsagain-sensitive-spray-10ml": [
@@ -2217,6 +2882,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 229.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 229.0,
       "store": "Lenson"
     }
@@ -2231,6 +2901,11 @@
       "date": "2026-08-16",
       "price": 229.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 219.0,
+      "store": "Lensway"
     }
   ],
   "eyz-protect-10ml": [
@@ -2243,6 +2918,11 @@
       "date": "2026-08-16",
       "price": 269.0,
       "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
+      "price": 269.0,
+      "store": "Lenson"
     }
   ],
   "add1-10ml": [
@@ -2253,6 +2933,11 @@
     },
     {
       "date": "2026-08-16",
+      "price": 239.0,
+      "store": "Lenson"
+    },
+    {
+      "date": "2026-08-17",
       "price": 239.0,
       "store": "Lenson"
     }
