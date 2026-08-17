@@ -69,7 +69,7 @@ a { color: inherit; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
-.product-card:hover, .offer-card a.cta:hover { border-color: var(--aqua); }
+.product-card:hover { border-color: var(--aqua); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
 .lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -86,12 +86,15 @@ a { color: inherit; }
 .brand-hero-logo.has-logo, .brand-hero-logo.has-logo-dark { width: 128px; border-radius: 14px; padding: 10px; }
 .brand-hero-logo.has-logo { background: white; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
-.offer-price-col, .product-price-col { text-align: right; flex-shrink: 0; }
-.offer-total, .price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
-.offer-shipping { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+.product-price-col { text-align: right; flex-shrink: 0; }
+.price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
-.cta { display: inline-block; margin-top: 6px; font-size: 0.78rem; font-weight: 600; text-decoration: none; border: 1px solid var(--aqua); color: var(--aqua); padding: 5px 12px; border-radius: 20px; }
-.offer-card.is-lowest .cta { background: var(--mint); border-color: var(--mint); color: white; }
+.offer-price-col { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.offer-shipping { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+.offer-shipping svg { width: 15px; height: 15px; color: var(--mint); flex-shrink: 0; }
+.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--aqua); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.price-pill:hover { opacity: 0.88; }
+.offer-card.is-lowest .price-pill { background: var(--mint); }
 .product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--aqua-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--aqua); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
@@ -793,6 +796,9 @@ def pick_product_image(offers: list[dict]) -> str | None:
     return None
 
 
+TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
+
+
 def render_offer_card(o: dict, retailer: str) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
@@ -809,8 +815,9 @@ def render_offer_card(o: dict, retailer: str) -> str:
     # totalpris, og toppbanneret viser vinnerens totalsum -- "Lavest pris"-
     # merket (ALLTID totalpris-basert, se reconcile()) er dermed fortsatt
     # etterprøvbart uten at hvert enkelt kort må gjenta regnestykket.
-    shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Fri frakt"
+    shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Gratis frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
+    price_label = f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
 
     return f"""<div class="{css_class}">
   <div class="offer-main">
@@ -818,9 +825,8 @@ def render_offer_card(o: dict, retailer: str) -> str:
     {status_note}
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping">{escape(shipping_text)}</div>
-    <div class="offer-total">{_fmt_kr(o["price_nok"])}</div>
-    <a class="cta" href="{escape(o["url"])}" rel="{rel}">Se hos {escape(retailer)}</a>
+    <div class="offer-shipping">{TRUCK_ICON_SVG}{escape(shipping_text)}</div>
+    <a class="price-pill" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}">{_fmt_kr(o["price_nok"])}</a>
   </div>
 </div>"""
 
@@ -944,7 +950,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
         best_price_note = (
             f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Fri frakt"
+            else "Gratis frakt"
         )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
@@ -3614,7 +3620,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
         best_price_note = (
             f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Fri frakt"
+            else "Gratis frakt"
         )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
@@ -4057,7 +4063,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
         best_price_note = (
             f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Fri frakt"
+            else "Gratis frakt"
         )
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
   <div class="label-group">
