@@ -861,8 +861,8 @@ MANUFACTURERS = {
         "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics"],
         "description_html": """
 <p>CooperVision ble stiftet i 1980 som en egen forretningsenhet under det som i dag heter
-The Cooper Companies, med hovedkontor i San Ramon, California. Selskapet er en av verdens
-største produsenter av myke kontaktlinser, og er særlig kjent for Aquaform Comfort
+The Cooper Companies, med hovedkontor i San Ramon, California. Selskapet er verdens
+tredje største produsent av myke kontaktlinser, og er særlig kjent for Aquaform Comfort
 Science-materialet som brukes i Biofinity-serien.</p>
 """,
     },
@@ -885,9 +885,9 @@ Dailies Total1 og Precision7 – markedets eneste linse godkjent for én ukes br
         "brand_slugs": ["purevision", "soflens", "biotrue", "ultra"],
         "description_html": """
 <p>Bausch + Lomb er et av bransjens eldste selskaper, grunnlagt i 1853 i Rochester, New
-York av John Jacob Bausch og Henry Lomb. Selskapet står bak MoistureSeal-teknologien i
-ULTRA-serien, og Biotrue-produktene er utviklet med utgangspunkt i egenskapene til
-kroppens egen tårefilm.</p>
+York av John Jacob Bausch og Henry Lomb. Selskapet regnes i dag som en av de fire største
+kontaktlinseprodusentene i verden, og står bak MoistureSeal-teknologien i ULTRA-serien –
+Biotrue-produktene er utviklet med utgangspunkt i egenskapene til kroppens egen tårefilm.</p>
 """,
     },
     "jnj-vision": {
