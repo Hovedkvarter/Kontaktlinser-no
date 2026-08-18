@@ -833,13 +833,19 @@ def render_offer_card(o: dict, retailer: str) -> str:
 </div>"""
 
 
-_BULK_CALC_SCRIPT = r"""<script>
+_QTY_CALC_SCRIPT = r"""<script>
 (function () {
-  var dataEl = document.getElementById('bulk-offers-data');
+  var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
-  var input = document.getElementById('bulk-qty-input');
-  var result = document.getElementById('bulk-custom-result');
+  var pills = document.querySelectorAll('.qty-pill');
+  var customRow = document.getElementById('qty-custom-row');
+  var customInput = document.getElementById('qty-custom-input');
+  var labelEl = document.getElementById('winner-label');
+  var retailerEl = document.getElementById('winner-retailer');
+  var shippingEl = document.getElementById('winner-shipping');
+  var pricePill = document.getElementById('winner-price-pill');
+
   function computeShipping(productTotal, policy) {
     if (!policy) return 0;
     var freeOver = policy.free_over;
@@ -849,76 +855,157 @@ _BULK_CALC_SCRIPT = r"""<script>
   function fmtKr(n) {
     return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
   }
-  function update() {
-    var qty = parseInt(input.value, 10);
-    if (!qty || qty < 1) { result.textContent = ''; return; }
-    var best = null, bestTotal = Infinity;
+  function shippingNote(shipping, policy) {
+    if (shipping <= 0) {
+      if (policy && policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
+      return 'Gratis frakt';
+    }
+    return fmtKr(shipping) + ' frakt';
+  }
+  function retailerBadge(o) {
+    if (!o.logo_file) return o.retailer;
+    var img = '<img class="retailer-logo" src="/static/logos/' + o.logo_file + '" alt="' + o.retailer + '" loading="lazy">';
+    var logo = o.logo_dark ? '<span class="retailer-logo-chip">' + img + '</span>' : img;
+    return logo + '<span style="position:absolute;left:-9999px;">' + o.retailer + '</span>';
+  }
+
+  function update(qty) {
+    if (!qty || qty < 1) return;
+    var best = null, bestTotal = Infinity, bestShipping = 0;
     for (var i = 0; i < data.length; i++) {
       var o = data[i];
       var productTotal = o.price_nok * qty;
-      var total = productTotal + computeShipping(productTotal, o.shipping_policy);
-      if (total < bestTotal) { bestTotal = total; best = o; }
+      var shipping = computeShipping(productTotal, o.shipping_policy);
+      var total = productTotal + shipping;
+      if (total < bestTotal) { bestTotal = total; best = o; bestShipping = shipping; }
     }
-    if (best) {
-      result.textContent = qty + (qty === 1 ? ' eske' : ' esker') + ': billigst hos ' + best.retailer + ' for ' + fmtKr(bestTotal) + ' totalt inkl. frakt';
-    }
+    if (!best) return;
+    labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
+    retailerEl.innerHTML = retailerBadge(best);
+    shippingEl.textContent = shippingNote(bestShipping, best.shipping_policy);
+    pricePill.textContent = fmtKr(bestTotal);
+    pricePill.setAttribute('href', best.url);
+    pricePill.setAttribute('rel', best.rel);
   }
-  input.addEventListener('input', update);
-  update();
+
+  for (var i = 0; i < pills.length; i++) {
+    pills[i].addEventListener('click', function (e) {
+      for (var j = 0; j < pills.length; j++) { pills[j].classList.remove('is-active'); }
+      e.currentTarget.classList.add('is-active');
+      var qty = e.currentTarget.getAttribute('data-qty');
+      if (qty === 'custom') {
+        customRow.hidden = false;
+        customInput.focus();
+        var v = parseInt(customInput.value, 10);
+        if (v) update(v);
+      } else {
+        customRow.hidden = true;
+        update(parseInt(qty, 10));
+      }
+    });
+  }
+  customInput.addEventListener('input', function () {
+    update(parseInt(customInput.value, 10));
+  });
 })();
 </script>"""
 
 
-def render_bulk_pricing(offers: list[dict]) -> str:
-    """Statisk, crawlbar antalls-sammenligning (2/4/10 esker) pluss et
-    JS-drevet felt for et vilkårlig antall. Mange AI-crawlere (GPTBot,
-    ClaudeBot, PerplexityBot m.fl.) kjører ikke JavaScript -- derfor MÅ
-    2/4/10-eksemplene finnes som ekte, ferdig-rendret HTML-tekst, ikke bare
-    bygges av scriptet under.
+def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
+    """Skiller mellom "alltid gratis frakt" og "gratis frakt fordi grensen
+    tilfeldigvis er nådd ved akkurat denne bestillingsstørrelsen" -- å si
+    "Gratis frakt" uten forbehold i det siste tilfellet er misvisende, siden
+    brukeren lett kan tro forhandleren alltid har fri frakt, ikke bare ved
+    dette antallet esker."""
+    if shipping_nok <= 0:
+        free_over = (shipping_policy or {}).get("free_over")
+        if free_over:
+            return f"Gratis frakt over {_fmt_kr(free_over)}"
+        return "Gratis frakt"
+    return f"{_fmt_kr(shipping_nok)} frakt"
 
-    Fraktkostnaden må regnes på nytt per antall (compute_shipping_nok), ikke
-    bare multipliseres med shipping_nok for én eske -- en fri-frakt-grense
-    som ikke er nådd ved 1 eske kan fint være nådd ved 4, og det gir en helt
-    annen vinner enn ved enkeltkjøp."""
+
+def render_winner_widget(best: dict, offers: list[dict]) -> str:
+    """Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
+    banneren: viser billigste totalpris for valgt antall esker, med en
+    kompakt antallsvelger (1/2/4/6/10/eget antall) som regner om vinneren
+    live via JS.
+
+    Standardtilstanden (1 eske) er ALLTID ekte, ferdig-rendret HTML, og det
+    samme er 2/4/10-eksemplene i den statiske oppsummeringen under velgeren
+    -- mange AI-crawlere (GPTBot, ClaudeBot, PerplexityBot m.fl.) kjører ikke
+    JavaScript, og skal likevel kunne lese disse tallene rett i kildekoden.
+
+    Fraktkostnaden regnes på nytt per antall (compute_shipping_nok), ikke
+    bare multiplisert med shipping_nok for én eske -- en fri-frakt-grense som
+    ikke er nådd ved 1 eske kan fint være nådd ved 4, og gir da en annen
+    vinner enn ved enkeltkjøp."""
+    if not best:
+        return ""
+
+    rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+    shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
+
+    winner_band = f"""<div class="winner-band">
+  <div class="label-group">
+    <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
+    <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
+    <div class="winner-shipping" id="winner-shipping">{escape(shipping_note)}</div>
+  </div>
+  <a class="price-pill is-winner" id="winner-price-pill" href="{escape(best["url"])}" rel="{rel}">{_fmt_kr(best["total"])}</a>
+</div>"""
+
     eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
     if len(eligible) < 2:
-        return ""  # ingen reell sammenligning å vise med 0-1 tilbud
+        return winner_band  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
 
     def total_for_qty(o: dict, qty: int) -> float:
         product_total = o["price_nok"] * qty
         return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
 
-    qty_cards = []
+    pills = "".join(
+        f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{qty}<span>{"eske" if qty == 1 else "esker"}</span></button>'
+        for qty in (1, 2, 4, 6, 10)
+    )
+    pills += '<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">Eget<span>antall</span></button>'
+
+    fallback_parts = []
     for qty in (2, 4, 10):
         best_o = min(eligible, key=lambda o: total_for_qty(o, qty))
-        qty_cards.append(f"""<div class="bulk-qty-card">
-      <div class="bulk-qty-label">{qty} esker</div>
-      <div class="bulk-qty-price">{_fmt_kr(total_for_qty(best_o, qty))}</div>
-      <div class="bulk-qty-note">Billigst hos {escape(best_o["retailer"])}, totalt inkl. frakt</div>
-    </div>""")
+        qty_shipping = compute_shipping_nok(best_o["price_nok"] * qty, best_o.get("shipping_policy"))
+        note = _shipping_note(qty_shipping, best_o.get("shipping_policy"))
+        fallback_parts.append(
+            f'Ved {qty} esker: billigst hos {escape(best_o["retailer"])} – {_fmt_kr(total_for_qty(best_o, qty))} totalt inkl. frakt ({note.lower()}).'
+        )
+    static_fallback_html = f'<p class="qty-static-fallback">{" ".join(fallback_parts)}</p>'
 
-    calc_offers = [
-        {"retailer": o["retailer"], "price_nok": o["price_nok"], "shipping_policy": o.get("shipping_policy")}
-        for o in eligible
-    ]
+    calc_offers = []
+    for o in eligible:
+        logo_entry = RETAILER_LOGOS.get(o["retailer"])
+        calc_offers.append({
+            "retailer": o["retailer"],
+            "price_nok": o["price_nok"],
+            "shipping_policy": o.get("shipping_policy"),
+            "url": o["url"],
+            "rel": "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow",
+            "logo_file": logo_entry[0] if logo_entry else None,
+            "logo_dark": logo_entry[1] if logo_entry else False,
+        })
     calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
 
-    return f"""<div class="bulk-pricing">
-    <h2>Kjøper du flere esker?</h2>
-    <p class="bulk-intro">Totalpris (produktpris + frakt) hvis du kjøper flere esker samtidig hos samme forhandler. Fri frakt-grenser regnes ut på nytt for hvert antall, siden en grense som ikke nås ved 1 eske ofte nås ved flere.</p>
-    <div class="bulk-qty-grid">
-      {"".join(qty_cards)}
+    qty_box = f"""<div class="qty-box">
+    <div class="qty-box-title">Hvor mange esker trenger du?</div>
+    <div class="qty-pills" id="qty-pills">{pills}</div>
+    <div class="qty-custom-row" id="qty-custom-row" hidden>
+      <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
     </div>
-    <div class="bulk-custom">
-      <label for="bulk-qty-input">Eller velg selv antall esker:</label>
-      <div class="bulk-custom-row">
-        <input type="number" id="bulk-qty-input" min="1" max="50" value="1" inputmode="numeric">
-        <div id="bulk-custom-result" class="bulk-custom-result"></div>
-      </div>
-    </div>
+    <p class="qty-tip">Tips: billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</p>
   </div>
-  <script type="application/json" id="bulk-offers-data">{calc_offers_json}</script>
-  {_BULK_CALC_SCRIPT}"""
+  {static_fallback_html}
+  <script type="application/json" id="qty-offers-data">{calc_offers_json}</script>
+  {_QTY_CALC_SCRIPT}"""
+
+    return winner_band + "\n" + qty_box
 
 
 def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
@@ -1035,23 +1122,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
 </section>"""
 
-    best_band = ""
-    if best:
-        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_price_note = (
-            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Gratis frakt"
-        )
-        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
-  <div class="label-group">
-    <div class="label">Laveste totalpris</div>
-    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
-  </div>
-  <div class="price-group">
-    <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{escape(best_price_note)}</div>
-  </div>
-</a>"""
+    best_band = render_winner_widget(best, offers)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     # "price" er produktprisen alene, ikke fraktinkludert totalsum -- ellers
@@ -1121,7 +1192,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
 
     price_history_html = _render_price_history_chart(price_history or [])
-    bulk_pricing_html = render_bulk_pricing(offers)
 
     aliases_html = ""
     if aliases:
@@ -1167,23 +1237,28 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
 .pack-size-callout:hover {{ border-color: var(--aqua); }}
 .pack-size-callout-arrow {{ color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }}
-.bulk-pricing {{ margin-top: 28px; }}
-.bulk-pricing h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
-.bulk-intro {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }}
-.bulk-qty-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }}
-.bulk-qty-card {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }}
-.bulk-qty-label {{ font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }}
-.bulk-qty-price {{ font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.25rem; color: var(--ink); }}
-.bulk-qty-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 4px; }}
-.bulk-custom {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }}
-.bulk-custom label {{ display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }}
-.bulk-custom-row {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }}
-#bulk-qty-input {{ width: 70px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; }}
-.bulk-custom-result {{ font-size: 0.9rem; font-weight: 600; color: var(--mint); }}
-.hero-product-image {{ width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }}
+.hero-product-image {{ width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--aqua); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
-@media (min-width: 640px) {{ .hero-product-image {{ width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; }} }}
-@media (min-width: 1024px) {{ .hero-product-image {{ width: 340px; height: 340px; border-radius: 28px; font-size: 4rem; }} }}
+@media (min-width: 640px) {{ .hero-product-image {{ width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; }} }}
+@media (min-width: 1024px) {{ .hero-product-image {{ width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; }} }}
+
+.winner-band {{ display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }}
+.winner-band .label {{ font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }}
+.winner-band .retailer {{ font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }}
+.winner-band .winner-shipping {{ font-size: 0.8rem; color: var(--muted); margin-top: 2px; }}
+.winner-band .price-pill {{ flex-shrink: 0; }}
+.price-pill.is-winner {{ background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }}
+.qty-box {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }}
+.qty-box-title {{ font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }}
+.qty-pills {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+.qty-pill {{ font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 0.85rem; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }}
+.qty-pill span {{ display: block; font-size: 0.68rem; color: var(--muted); }}
+.qty-pill.is-active {{ background: var(--aqua); border-color: var(--aqua); color: white; }}
+.qty-pill.is-active span {{ color: rgba(255,255,255,0.85); }}
+.qty-custom-row {{ margin-top: 10px; }}
+#qty-custom-input {{ width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
+.qty-tip {{ font-size: 0.78rem; color: var(--muted); margin: 12px 0 0; line-height: 1.5; }}
+.qty-static-fallback {{ font-size: 0.72rem; color: var(--muted); line-height: 1.6; margin: 4px 0 0; }}
 .price-history {{ margin-top: 28px; }}
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
@@ -1191,7 +1266,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-history-line {{ fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
 .price-history-dot {{ fill: var(--aqua); }}
 .price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
-.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
@@ -1226,7 +1301,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
-  {bulk_pricing_html}
   {price_history_html}
   {specs_html}
   {aliases_html}
