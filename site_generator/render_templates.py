@@ -3268,7 +3268,7 @@ det finnes en riktig og en gal måte å håndtere det på.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
-  <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn vanlig, eller øyet er tørt</li>
+  <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn de anbefalte ca. 8 timene mange eksperter fraråder å overskride, eller fordi øyet er tørt</li>
   <li>Linsen har gled opp under det øvre øyelokket</li>
   <li>Du blunker mye og stresser, som gjør det vanskeligere å kjenne hvor linsen faktisk er</li>
 </ul>
@@ -3359,7 +3359,7 @@ linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, mildere årsaker</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
-  <li>For lang brukstid i løpet av dagen</li>
+  <li>For lang brukstid i løpet av dagen – eksperter fraråder generelt mer enn ca. 8 timer sammenhengende bruk</li>
   <li>Tørt inneklima eller lange skjermøkter</li>
   <li>Lett irritasjon fra en avleiring på linsekanten</li>
   <li>Allergi (pollen, støv) som forsterkes av linsebruk</li>
@@ -3380,8 +3380,8 @@ kan bli alvorlig. Tommelfingerregelen er enkel: er du i tvil, ta linsen ut.
 </div>
 
 <p style="margin-top:16px;">Sov aldri med linser som ikke er godkjent for det, bruk aldri springvann eller spytt på
-en linse, og hold deg til anbefalt bytteintervall for linse og væske – det reduserer
-risikoen for at dette oppstår i utgangspunktet.</p>
+en linse, bytt linseetuiet hvert 3. måned, og hold deg til anbefalt bytteintervall for
+linse og væske – det reduserer risikoen for at dette oppstår i utgangspunktet.</p>
 
 <blockquote cite="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Bruker du kontaktlinser og merker symptomer på øyekatarr, bør du ta ut kontaktlinsene og raskt oppsøke lege.</p>
