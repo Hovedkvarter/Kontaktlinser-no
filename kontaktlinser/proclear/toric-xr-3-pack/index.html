@@ -205,6 +205,7 @@ a { color: inherit; }
 @media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
 @media (min-width: 1024px) { .hero-product-image { width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; } }
 
+
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 .winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
@@ -231,6 +232,7 @@ a { color: inherit; }
 .qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
 .qty-tip-icon { flex-shrink: 0; }
 .qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
+
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
@@ -286,13 +288,13 @@ a { color: inherit; }
   
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
-    <div class="offer-card is-lowest">
+    <div class="offer-card is-lowest" data-retailer="Extra Optical">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> <span class="lowest-tag">Lavest pris</span></div>
     <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>45 kr frakt</div>
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">45 kr frakt</span></div>
     <a class="price-pill" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Proclear+Toric+XR+3+stk&amp;url=https://extraoptical.no/proclear-toric-xr-3-stk" rel="sponsored nofollow" aria-label="Se hos Extra Optical, 545 kr">545 kr</a>
   </div>
 </div>
