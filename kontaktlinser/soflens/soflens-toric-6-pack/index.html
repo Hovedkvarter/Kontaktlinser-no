@@ -261,19 +261,24 @@ a { color: inherit; }
 .winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
 .winner-band .winner-shipping { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-.winner-band .price-pill { flex-shrink: 0; }
+.winner-price-group { text-align: right; flex-shrink: 0; }
+.winner-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 5px; }
 .price-pill.is-winner { background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }
 .qty-box { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 .qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
-.qty-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-.qty-pill { font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 0.85rem; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }
-.qty-pill span { display: block; font-size: 0.68rem; color: var(--muted); }
+.qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+@media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
+.qty-pill { font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 12px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }
+.qty-pill span { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); }
 .qty-pill.is-active { background: var(--aqua); border-color: var(--aqua); color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
+#qty-pill-custom { display: none; }
+@media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
-.qty-tip { font-size: 0.78rem; color: var(--muted); margin: 12px 0 0; line-height: 1.5; }
-.qty-static-fallback { font-size: 0.72rem; color: var(--muted); line-height: 1.6; margin: 4px 0 0; }
+.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
+.qty-tip-icon { flex-shrink: 0; }
+.qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
@@ -321,7 +326,10 @@ a { color: inherit; }
     <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span></div>
     <div class="winner-shipping" id="winner-shipping">Gratis frakt</div>
   </div>
-  <a class="price-pill is-winner" id="winner-price-pill" href="https://www.lensit.no/products/soflens-toric-2" rel="nofollow">448 kr</a>
+  <div class="winner-price-group">
+    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.lensit.no/products/soflens-toric-2" rel="nofollow">448 kr</a>
+    <div class="winner-price-note">Totalpris inkl. frakt</div>
+  </div>
 </div>
 <div class="qty-box">
     <div class="qty-box-title">Hvor mange esker trenger du?</div>
@@ -329,7 +337,7 @@ a { color: inherit; }
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
     </div>
-    <p class="qty-tip">Tips: billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</p>
+    <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   <p class="qty-static-fallback">Ved 2 esker: billigst hos Synsam – 877 kr totalt inkl. frakt (39 kr frakt). Ved 4 esker: billigst hos Synsam – 1 715 kr totalt inkl. frakt (39 kr frakt). Ved 10 esker: billigst hos Synsam – 4 229 kr totalt inkl. frakt (39 kr frakt).</p>
   <script type="application/json" id="qty-offers-data">[{"retailer": "Lensit", "price_nok": 448.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.lensit.no/products/soflens-toric-2", "rel": "nofollow", "logo_file": "lensit.svg", "logo_dark": false}, {"retailer": "Synsam", "price_nok": 419.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/soflens-toric-6-stk-pk", "rel": "nofollow", "logo_file": "synsam.svg", "logo_dark": false}, {"retailer": "Lenson", "price_nok": 447.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lenson.com/no/soflens-toric-lens-150", "rel": "nofollow", "logo_file": "lenson.svg", "logo_dark": false}, {"retailer": "Lensway", "price_nok": 509.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lensway.no/soflens-toric-lens-150", "rel": "nofollow", "logo_file": "lensway.svg", "logo_dark": false}, {"retailer": "Extra Optical", "price_nok": 645.0, "shipping_policy": {"free_over": 900, "fee_nok": 45}, "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Toric+for+Astigmatism+6+stk&url=https://extraoptical.no/soflens-toric-for-astigmatism-6-stk", "rel": "sponsored nofollow", "logo_file": "extraoptical.svg", "logo_dark": false}]</script>
@@ -415,7 +423,7 @@ a { color: inherit; }
     <div class="offer-card is-lowest">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>Gratis frakt</div>
@@ -425,7 +433,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>39 kr frakt</div>
@@ -435,7 +443,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>50 kr frakt</div>
@@ -445,7 +453,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>50 kr frakt</div>
@@ -455,7 +463,7 @@ a { color: inherit; }
 <div class="offer-card">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>45 kr frakt</div>
