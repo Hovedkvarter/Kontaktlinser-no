@@ -3290,7 +3290,12 @@ rødhet, bør du oppsøke optiker, øyelege eller legevakt samme dag – ikke ve
 <p style="margin-top:16px;">Er du usikker på om linsen faktisk er ute av øyet, kan optikeren enkelt sjekke dette med
 en lampe – det er ikke noe å kvie seg for å spørre om.</p>
 
-<p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Kilde: <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> anbefaler å kontakte lege dersom du har hatt ubehag over lengre tid, eller dersom øynene er røde eller såre.</p>
+<p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> gjelder denne enkle tommelfingerregelen for når du bør oppsøke lege:</p>
+
+<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+  <p style="margin:0;">Kontakt lege dersom du har hatt ubehag over lengre tid eller dersom øynene dine er røde eller såre.</p>
+  <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">NHI, Kontaktlinser</a></cite></footer>
+</blockquote>
 """,
         "faq": [
             {
@@ -3336,7 +3341,12 @@ behandling. Ta av linsen og oppsøk optiker eller lege samme dag.
 <p style="margin-top:16px;">Har synet endret seg gradvis over lengre tid uten andre symptomer, er det oftest bare
 tegn på at det er på tide med en ny synsundersøkelse.</p>
 
-<p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Kilde: <a href="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" target="_blank" rel="noopener">NHI sin veiviser for røde øyne</a> lister redusert syn som ett av flere varseltegn som krever rask legevurdering.</p>
+<p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">NHI sin veiviser for røde øyne lister opp konkrete varseltegn under overskriften «Tegn på alvorlig øyesykdom» – redusert syn er ett av dem:</p>
+
+<blockquote cite="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+  <p style="margin:0;">Redusert syn, lysskyhet.</p>
+  <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" target="_blank" rel="noopener">NHI, Rødt øye – veiviser</a></cite></footer>
+</blockquote>
 """,
         "faq": [
             {
