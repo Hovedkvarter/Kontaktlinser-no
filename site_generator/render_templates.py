@@ -23,6 +23,12 @@ from offer import compute_shipping_nok
 BASE_URL = "https://kontaktlinser.no"
 
 SHARED_STYLE = """
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/static/fonts/inter-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/inter-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/space-grotesk-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/space-grotesk-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/ibm-plex-mono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/ibm-plex-mono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
   --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
   --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #7C8A9E; --muted-bg: #ECEFF3;
@@ -75,7 +81,7 @@ a { color: inherit; }
 .hero-copy { position: relative; z-index: 1; max-width: 520px; }
 .hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
 .hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
-.hero-copy p { margin: 0; color: var(--muted); font-size: 0.92rem; }
+.hero-copy p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; text-decoration: none; color: inherit; }
 .best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
@@ -172,9 +178,13 @@ a { color: inherit; }
 # favicon-o.png er den oransje "O"-en (ring + ansiktssilhuett) beskåret ut
 # av static/logo.png, med hvit bakgrunn gjort gjennomsiktig - se historikk
 # 2026-08-11.
-FONT_LINKS = """<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+# Fontene er selv-hostet (static/fonts/, @font-face-regler i SHARED_STYLE)
+# i stedet for å lastes fra Google Fonts -- unngår to eksterne DNS-oppslag +
+# en render-blokkerende stylesheet-forespørsel per sidevisning (2026-08-18).
+# Kun "latin"-delmengden (U+0000-00FF m.fl.) er lastet ned -- dekker æøå
+# (innenfor U+0000-00FF) og all norsk tekst på siden, samme reelle
+# tegndekning siten allerede hadde via Google Fonts sin "latin"-delmengde.
+FONT_LINKS = """<link rel="preload" href="/static/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="/static/favicon-o.png">
 <link rel="apple-touch-icon" href="/static/favicon-o.png">"""
 
@@ -1475,7 +1485,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-history-line {{ fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
 .price-history-dot {{ fill: var(--aqua); }}
 .price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
-.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
@@ -2028,7 +2038,7 @@ dagslinser oftest billigst ut totalt sett, selv om prisen per linse er høyere. 
 linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Dagslinser</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske</li>
   <li>Praktisk til sport, reise eller sjelden bruk</li>
   <li>Lavere risiko for øyeinfeksjon siden linsen aldri gjenbrukes</li>
@@ -2036,7 +2046,7 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Månedslinser</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Samme par brukes i opptil 30 dager (følg optikerens anbefaling)</li>
   <li>Lavere kostnad per bruksdag ved daglig bruk</li>
   <li>Krever daglig rengjøring og riktig oppbevaringsvæske</li>
@@ -2073,7 +2083,7 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
 øynene dine tåler godt.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Det resepten din vanligvis avgjør</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Astigmatisme</strong> (skjev hornhinne) → toriske linser, formet for å ligge
   stabilt i en bestemt retning</li>
   <li><strong>Alderssyn</strong> (vansker med å se på nært hold fra ca. 40–45 år) →
@@ -2083,7 +2093,7 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Hvor ofte du bruker linser, se vår <a href="/guide/manedslinser-vs-dagslinser/">sammenligning
   av månedslinser og dagslinser</a></li>
   <li>Tørre øyne kan gjøre enkelte materialer (silikonhydrogel) mer behagelige enn andre</li>
@@ -2120,14 +2130,14 @@ sette inn/ta ut linsen riktig, ikke sove med linsen inne) – fremfor et bestemt
 Mange barn ned i 8–10-årsalderen fungerer fint med linser, mens andre bør vente.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor dagslinser ofte anbefales til barn</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske å huske på</li>
   <li>Lavere konsekvens hvis en linse mistes eller glemmes en dag</li>
   <li>Lavere infeksjonsrisiko enn linser som gjenbrukes over tid</li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myopikontroll</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Enkelte dagslinser er i dag også godkjent spesifikt for å bremse utvikling av
+<p style="font-size:1rem;line-height:1.7;">Enkelte dagslinser er i dag også godkjent spesifikt for å bremse utvikling av
 nærsynthet (myopikontroll) hos barn og unge. Dette er noe en optiker eller øyelege
 vurderer og følger opp individuelt, ikke noe man velger selv.</p>
 
@@ -2156,14 +2166,14 @@ Harde (gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag førs
 fremst til spesielle synsforhold.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myke linser</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Komfortable fra første stund, kort tilvenningstid</li>
   <li>Ligger tett mot øyet – mindre risiko for at rusk kommer under linsen</li>
   <li>Bredt utvalg av dags-, ukes- og månedslinser</li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Harde linser</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Kan gi skarpere syn ved uregelmessig hornhinne (f.eks. keratokonus) eller svært
   høy astigmatisme</li>
   <li>Lengre tilvenningstid enn myke linser</li>
@@ -2193,7 +2203,7 @@ alene – dette er noe optikeren vurderer ved synsundersøkelsen.</p>
 tar i linsene, hver eneste gang.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Sette inn linsen</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Sjekk at linsen ikke er vrengt (skal danne en jevn skål, ikke ha kant som vipper ut)</li>
   <li>Trekk nedre øyelokk forsiktig ned, og hold gjerne øvre øyelokk oppe med den andre
   hånden</li>
@@ -2202,7 +2212,7 @@ tar i linsene, hver eneste gang.</p>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ta ut linsen</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Se oppover, trekk nedre øyelokk ned</li>
   <li>Klyp linsen forsiktig med tommel og pekefinger, eller skyv den nedover mot det
   hvite av øyet før du løfter den av</li>
@@ -2232,7 +2242,7 @@ tilpasset linsene dine viser deg gjerne teknikken på nytt.</p>
 ulikt avhengig av livsstil og situasjon. Mange kombinerer begge deler.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med kontaktlinser</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Fullt, uforstyrret synsfelt – ingen brillestang eller kant i synsranden</li>
   <li>Dugger ikke ved temperaturskifte, regn eller bruk av munnbind/hjelm</li>
   <li>Praktisk ved sport og fysisk aktivitet</li>
@@ -2240,7 +2250,7 @@ ulikt avhengig av livsstil og situasjon. Mange kombinerer begge deler.</p>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som taler for briller</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ingen daglig hygienerutine eller berøring av øyet</li>
   <li>Kan være bedre egnet ved svært tørre øyne eller enkelte øyetilstander</li>
 </ul>
@@ -2265,7 +2275,7 @@ månedslinser, er riktig vedlikehold avgjørende for øyehelsen – ikke bare fo
 skal vare lenge.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Grunnregler</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Bruk alltid <strong>fersk</strong> linsevæske – fyll aldri på gammel væske i etuiet
   («topping off»), skift den helt hver gang</li>
   <li>Følg optikerens anbefalte gni-og-skyll-rutine hvis væsken tilsier det, selv om
@@ -2299,7 +2309,7 @@ skal vare lenge.</p>
 <p>Kontaktlinser er praktiske på reise, men noen få forberedelser gjør det enklere.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Før avreise</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Pakk nok linser og eventuell linsevæske til hele reisen – ikke alle merker er
   tilgjengelige overalt</li>
   <li>Ta med briller som backup, i tilfelle irritasjon eller tørre øyne underveis</li>
@@ -2307,7 +2317,7 @@ skal vare lenge.</p>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Underveis</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
   flyvninger – ha øyedråper eller briller tilgjengelig</li>
   <li>Dagslinser er ofte praktiske på reise, siden du slipper å ha med etui og
@@ -2335,7 +2345,7 @@ også de <strong>uten styrke</strong> som kun endrer øyefargen. De regnes som m
 utstyr og krever samme tilpasning og hygiene som synskorrigerende linser.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kjøp alltid fra seriøse forhandlere</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Ukvalifiserte "festivallinser" eller kostymelinser kjøpt uten tilpasning (f.eks. fra
+<p style="font-size:1rem;line-height:1.7;">Ukvalifiserte "festivallinser" eller kostymelinser kjøpt uten tilpasning (f.eks. fra
 useriøse utenlandske nettbutikker) har vesentlig høyere risiko for feil passform og
 øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr.</p>
 
@@ -2363,12 +2373,12 @@ gjennom til hornhinnen – noe hornhinnen er avhengig av siden den ikke har egne
 blodårer.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
+<p style="font-size:1rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
 her). Slipper gjennom vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan
 gi bedre komfort ved lange dager med linser i.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlig hydrogel</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Eldre, men fortsatt i bruk i enkelte linser. Har typisk høyere vanninnhold, som for
+<p style="font-size:1rem;line-height:1.7;">Eldre, men fortsatt i bruk i enkelte linser. Har typisk høyere vanninnhold, som for
 noen kan oppleves annerledes komfortabelt enn silikonhydrogel, spesielt tidlig i
 brukstiden.</p>
 
@@ -2391,12 +2401,12 @@ på kontaktlinser.no.</p>
 synsforhold krever egne, mer avanserte linsetyper.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Toriske linser (astigmatisme)</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Ved astigmatisme (skjev hornhinne) må linsen ha ulik styrke i ulike retninger, og
+<p style="font-size:1rem;line-height:1.7;">Ved astigmatisme (skjev hornhinne) må linsen ha ulik styrke i ulike retninger, og
 ligge stabilt uten å rotere i øyet. Toriske linser er formet spesielt for dette, og
 krever en mer nøyaktig tilpasning enn vanlige sfæriske linser.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Multifokale/progressive linser (alderssyn)</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Fra rundt 40–45-årsalderen svekkes øyets evne til å stille skarpt på nært hold.
+<p style="font-size:1rem;line-height:1.7;">Fra rundt 40–45-årsalderen svekkes øyets evne til å stille skarpt på nært hold.
 Multifokale linser har flere styrkesoner i samme linse (typisk for nært, mellomdistanse
 og langt hold), og kan kreve en kort tilvenningsperiode før hjernen lærer å bruke sonene
 riktig.</p>
@@ -2425,7 +2435,7 @@ linsemateriale sprøytes inn i presise plastformer som gir linsen riktig krumnin
 diameter og styrke, før den herdes og bearbeides ferdig i sterile lokaler.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kvalitetskontroll og regulering</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Hver linse kontrolleres for riktig form og styrke før pakking</li>
   <li>Linsene pakkes i steril saltvannsløsning i forseglet emballasje</li>
   <li>Kontaktlinser regnes som medisinsk utstyr i EU/EØS og skal være CE-merket</li>
@@ -2450,14 +2460,14 @@ seg å kjøpe linser fra forhandlere som følger regelverket, ikke uregulerte ki
 århundrer før teknologien fantes for å faktisk lage den.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fra idé til glasslinse</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Leonardo da Vinci skisserte konsepter som kan minne om kontaktlinser allerede rundt
+<p style="font-size:1rem;line-height:1.7;">Leonardo da Vinci skisserte konsepter som kan minne om kontaktlinser allerede rundt
 1508, men dette var teoretiske tegninger, ikke noe som kunne brukes. De første reelle
 kontaktlinsene – tunge glasslinser som dekket hele det synlige øyet (skleralinser) –
 kom først på slutten av 1800-tallet, og var langt fra komfortable ved dagens
 standard.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Plast og den moderne myke linsen</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Lettere plastlinser kom på 1930–40-tallet. Det virkelig store gjennombruddet kom i
+<p style="font-size:1rem;line-height:1.7;">Lettere plastlinser kom på 1930–40-tallet. Det virkelig store gjennombruddet kom i
 1961, da den tsjekkiske kjemikeren Otto Wichterle utviklet den første myke
 hydrogel-kontaktlinsen – materialet som fortsatt ligger til grunn for de fleste linser
 som selges i dag. Dagslinser (til engangsbruk) ble vanlig fra 1990-tallet og utover, og
@@ -2480,7 +2490,7 @@ kontaktlinser: de brukes ikke primært for å korrigere synet, men for å beskyt
 behandle selve øyet.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige bruksområder</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Beskytte hornhinnens overflate mens den gror etter skade, betennelse eller kirurgi</li>
   <li>Lindre smerte ved enkelte hornhinnetilstander</li>
   <li>Holde en ustabil hornhinneoverflate på plass under tilheling</li>
@@ -2511,14 +2521,14 @@ stedet for å være jevnt rund. Det gjør at syn kan bli uskarpt eller forvrengt
 nært og langt hold – ikke bare det ene, som ved vanlig nær- eller langsynthet.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva er toriske linser?</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Toriske linser er kontaktlinser spesialformet for å korrigere astigmatisme. I motsetning
+<p style="font-size:1rem;line-height:1.7;">Toriske linser er kontaktlinser spesialformet for å korrigere astigmatisme. I motsetning
 til en vanlig sfærisk linse (som har lik styrke i alle retninger og kan rotere fritt uten
 at det merkes) må en torisk linse ha ulik styrke i ulike retninger, og den må ligge stabilt
 i riktig posisjon for å virke. Linsene er derfor bygget med en litt tyngre nedre kant eller
 tynnsoner som gjør at de "retter seg selv opp" på øyet.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Fordi linsen må stå riktig vei, trenger optikeren mer presis informasjon fra
+<p style="font-size:1rem;line-height:1.7;">Fordi linsen må stå riktig vei, trenger optikeren mer presis informasjon fra
 synsundersøkelsen (styrke, sylinderkorreksjon og aksen den skal ligge i) enn ved en vanlig
 sfærisk linse. Noen få prøver seg frem til beste passform, spesielt ved høyere grad av
 astigmatisme.</p>
@@ -2547,13 +2557,13 @@ stille skarpt på nært hold, som de fleste merker fra rundt 40–45-årsalderen
 Multifokale kontaktlinser er laget for å korrigere dette.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
-<p style="font-size:0.92rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
+<p style="font-size:1rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
 multifokale linser flere styrkesoner tilgjengelig samtidig (for nært, mellomdistanse og
 langt hold). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på –
 dette kalles simultanvisjon.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tilvenning</h2>
-<p style="font-size:0.92rem;line-height:1.7;">De fleste bruker 1–2 uker på å venne seg til multifokale linser. Ulike design (f.eks.
+<p style="font-size:1rem;line-height:1.7;">De fleste bruker 1–2 uker på å venne seg til multifokale linser. Ulike design (f.eks.
 med skarpeste sone sentrert for nær- eller langsyn) passer ulikt fra person til person –
 dette er noe optikeren hjelper deg å finne fram til.</p>
 
@@ -2582,13 +2592,13 @@ linse oppå gjør dette enda mindre. Å sove med linser er også forbundet med v
 høyere risiko for øyeinfeksjon.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Finnes det unntak?</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Enkelte linsetyper er spesielt godkjent for kontinuerlig bruk (såkalt "extended wear"),
+<p style="font-size:1rem;line-height:1.7;">Enkelte linsetyper er spesielt godkjent for kontinuerlig bruk (såkalt "extended wear"),
 der man kan sove med linsene i over flere døgn. Dette gjelder kun spesifikke,
 godkjente linser, og kun etter at en øyelege eller optiker har vurdert og godkjent
 akkurat det for deg – ikke noe man velger selv som standard.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis det skjer ved et uhell</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Har du sovnet med vanlige linser i, ta dem ut så snart du våkner og gi øynene en pause.
+<p style="font-size:1rem;line-height:1.7;">Har du sovnet med vanlige linser i, ta dem ut så snart du våkner og gi øynene en pause.
 Ta kontakt med optiker eller øyelege hvis du merker rødhet, smerte eller uklart syn
 etterpå.</p>
 """,
@@ -2614,7 +2624,7 @@ dusjvann, bassengvann eller vann fra sjø/innsjø. Vann kan inneholde mikroorgan
 vanskelig behandlebare øyeinfeksjoner.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis linsene blir våte</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Dagslinser:</strong> kast dem og sett inn et nytt, rent par</li>
   <li><strong>Gjenbrukbare linser:</strong> rengjør og desinfiser dem grundig med linsevæske
   før de brukes igjen – skyll dem aldri bare med vann</li>
@@ -2644,7 +2654,7 @@ hvordan tårefilmen fordeler seg over øyet, og lange dager foran skjerm (der ma
 sjeldnere) forsterker ofte problemet.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva kan hjelpe</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Moderne silikonhydrogel-linser er ofte mer komfortable ved tørre øyne enn eldre
   materialer – se vår <a href="/guide/kontaktlinsens-materiale/">guide om linsematerialer</a></li>
   <li>Bruk kun øyedråper/fukterdråper beregnet for bruk sammen med kontaktlinser –
@@ -2697,7 +2707,7 @@ verdiene: CYL og AXIS gjelder kun toriske linser (astigmatisme), ADD gjelder kun
 multifokale linser (alderssyn).</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kort om hver verdi</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.9;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.9;">
   <li><strong>PWR/SPH</strong> – grunnstyrken, korrigerer nær- eller langsynthet</li>
   <li><strong>BC</strong> – base-kurve, hvor krum linsen er (må passe hornhinnen din)</li>
   <li><strong>DIA</strong> – diameter, linsens bredde fra kant til kant</li>
@@ -2729,7 +2739,7 @@ en brilleresept ikke er det samme som en kontaktlinseresept</a>.</p>
 <p>BC står for base-kurve – krumningsradiusen på baksiden av linsen, målt i millimeter
 (typisk mellom 8,3 og 9,0 for myke linser).</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">BC må passe krumningen på din egen hornhinne. En for flat BC gjør at linsen sitter
+<p style="font-size:1rem;line-height:1.7;">BC må passe krumningen på din egen hornhinne. En for flat BC gjør at linsen sitter
 løst og beveger seg for mye på øyet. En for brant (stram) BC gjør at linsen sitter for
 tett, noe som kan gi ubehag eller redusert oksygentilførsel til hornhinnen.</p>
 
@@ -2756,7 +2766,7 @@ alltid stemme nøyaktig med det som står på resepten din – se også vår
 <p>DIA står for diameter – linsens totale bredde fra kant til kant, målt i millimeter
 (typisk mellom 13,5 og 14,5 for myke linser).</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">Feil diameter påvirker hvordan linsen sentrerer seg på øyet og hvor mye av
+<p style="font-size:1rem;line-height:1.7;">Feil diameter påvirker hvordan linsen sentrerer seg på øyet og hvor mye av
 hornhinnen den dekker. Sammen med BC (base-kurve) avgjør DIA hvor godt linsen passer
 øyeformen din.</p>
 
@@ -2783,7 +2793,7 @@ nøyaktig med resepten din – se også vår
 <p>PWR (power) og SPH (sfære) er to navn på det samme: grunnstyrken til linsen, oppgitt i
 dioptrier (D). Ulike produsenter bruker ulik forkortelse på pakningen.</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">Et <strong>negativt tall</strong> (f.eks. -2,50) betyr at linsen korrigerer
+<p style="font-size:1rem;line-height:1.7;">Et <strong>negativt tall</strong> (f.eks. -2,50) betyr at linsen korrigerer
 nærsynthet. Et <strong>positivt tall</strong> (f.eks. +1,50) betyr at den korrigerer
 langsynthet. Jo høyere tall, jo sterkere korreksjon.</p>
 
@@ -2810,7 +2820,7 @@ langsynthet. Jo høyere tall, jo sterkere korreksjon.</p>
 astigmatisme (skjev hornhinne). Verdien gjelder kun toriske linser – har du ikke
 astigmatisme, har resepten din normalt ingen CYL-verdi.</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">CYL brukes alltid sammen med en <a href="/guide/axis-forklart/">AXIS-verdi</a>,
+<p style="font-size:1rem;line-height:1.7;">CYL brukes alltid sammen med en <a href="/guide/axis-forklart/">AXIS-verdi</a>,
 som angir i hvilken retning korreksjonen skal ligge. De to henger sammen og må begge
 stemme for at linsen skal fungere riktig.</p>
 
@@ -2837,7 +2847,7 @@ astigmatisme</a> for mer om hvordan dette fungerer i praksis.</p>
 astigmatisme-korreksjonen i linsen skal ligge. Verdien brukes alltid sammen med
 <a href="/guide/cyl-forklart/">CYL</a>, og gjelder kun toriske linser.</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">Toriske linser er formet for å ligge stabilt i én bestemt retning på øyet (i
+<p style="font-size:1rem;line-height:1.7;">Toriske linser er formet for å ligge stabilt i én bestemt retning på øyet (i
 motsetning til vanlige linser, som kan rotere fritt uten at det merkes). AXIS forteller
 linsen nøyaktig hvilken retning den skal stå i for at korreksjonen skal fungere riktig.</p>
 
@@ -2865,7 +2875,7 @@ linser.</p>
 (<a href="/guide/pwr-sph-forklart/">PWR/SPH</a>) for å korrigere alderssyn (presbyopi).
 Verdien gjelder kun multifokale/progressive kontaktlinser.</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">ADD oppgis alltid som et positivt tall (f.eks. +1,50), og angir hvor mye ekstra
+<p style="font-size:1rem;line-height:1.7;">ADD oppgis alltid som et positivt tall (f.eks. +1,50), og angir hvor mye ekstra
 styrke øyet trenger for å se skarpt på nært hold, i tillegg til grunnkorreksjonen for
 langt hold.</p>
 
@@ -2893,7 +2903,7 @@ den nøyaktige grensen avhenger av linsetype, materiale og hva optikeren din har
 for akkurat dine linser – følg alltid den anbefalingen fremfor et generelt tall.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tegn på at du bør ta ut linsene tidligere</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Tørrhet eller irritasjon</li>
   <li>Rødhet</li>
   <li>Uklart syn</li>
@@ -2927,7 +2937,7 @@ påvirker hvor sterk korreksjonen faktisk oppleves, spesielt ved høyere styrker
 fra rundt ±4,00 dioptrier og oppover blir forskjellen merkbar).</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kontaktlinseresept er mer enn bare styrke</h2>
-<p style="font-size:0.92rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår
+<p style="font-size:1rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår
 <a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>)
 – mål som en brilleresept ikke har. Dette krever en egen synsundersøkelse/linsetilpasning,
 ikke bare et gjenbruk av brilletallene.</p>
@@ -2956,7 +2966,7 @@ linsetype, merke, pakningsstørrelse og hvilken forhandler du velger. To ulike
 kontaktlinser kan koste svært forskjellig selv om de dekker samme synsbehov.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som påvirker prisen</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Merke og teknologi</strong> – nyere materialer (f.eks. silikonhydrogel) koster
   ofte mer enn eldre</li>
   <li><strong>Linsetype</strong> – dagslinser koster mer per linse enn månedslinser, men kan
@@ -2991,7 +3001,7 @@ forhandlere gir en viss mengderabatt – men <strong>ikke alltid</strong>. Det l
 faktisk sjekke pris per linse for pakningsstørrelsene du vurderer, i stedet for å anta.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ting å vurdere utover prisen</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>En stor pakning krever høyere engangsutlegg</li>
   <li>Hvis styrken din endrer seg, kan du sitte igjen med ubrukte linser</li>
   <li>Sjekk holdbarhetsdato hvis du kjøper en stor pakning du bruker sjelden</li>
@@ -3021,14 +3031,14 @@ eller produkter – gir pakningsprisen alene et misvisende bilde. Del alltid tot
 antall linser i pakningen for en reell sammenligning.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>30-pakning til 300 kr = 10 kr per linse</li>
   <li>90-pakning til 750 kr = 8,33 kr per linse</li>
 </ul>
-<p style="font-size:0.92rem;line-height:1.7;">Selv om 90-pakningen koster mer totalt, er den billigst per linse i dette eksempelet.</p>
+<p style="font-size:1rem;line-height:1.7;">Selv om 90-pakningen koster mer totalt, er den billigst per linse i dette eksempelet.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Omtrentlig månedskostnad</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Gang pris per linse med hvor mange du faktisk bruker per måned. Dette varierer mye
+<p style="font-size:1rem;line-height:1.7;">Gang pris per linse med hvor mange du faktisk bruker per måned. Dette varierer mye
 mellom dagslinser (én linse per brukt dag) og månedslinser (typisk to linser per måned,
 én per øye) – se vår <a href="/guide/manedslinser-vs-dagslinser/">guide om månedslinser
 vs. dagslinser</a> for brukshyppighet.</p>
@@ -3051,7 +3061,7 @@ vs. dagslinser</a> for brukshyppighet.</p>
         "body_html": """
 <p>Samme kontaktlinse kan koste ulikt fra butikk til butikk, av flere grunner:</p>
 
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ulike innkjøpsavtaler og volum med produsenten</li>
   <li>Ulike driftskostnader og fraktpolitikk</li>
   <li>Tidsbegrensede kampanjer og tilbud</li>
@@ -3083,11 +3093,11 @@ produktpris pluss frakt – ikke produktprisen alene. Det er en bevisst forskjel
 sammenligne prisene som står på hver butikks egen produktside.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Butikk A: produktpris 250 kr + frakt 79 kr = <strong>329 kr</strong> totalt</li>
   <li>Butikk B: produktpris 265 kr + gratis frakt = <strong>265 kr</strong> totalt</li>
 </ul>
-<p style="font-size:0.92rem;line-height:1.7;">Selv om Butikk A har lavest produktpris, er Butikk B faktisk billigst når frakt regnes
+<p style="font-size:1rem;line-height:1.7;">Selv om Butikk A har lavest produktpris, er Butikk B faktisk billigst når frakt regnes
 med. Ser du kun på produktprisen direkte hos hver butikk, kan du lett ende opp med det
 dyreste alternativet uten å vite det.</p>
 
@@ -3114,13 +3124,13 @@ men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. 
 rabatt. Om det lønner seg avhenger av hva du prioriterer.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med abonnement</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Slipper å huske å bestille på nytt</li>
   <li>Kan gi en fast rabatt hos enkelte forhandlere</li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør vite</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Et abonnement binder deg til én forhandlers pris, mens priser generelt varierer
+<p style="font-size:1rem;line-height:1.7;">Et abonnement binder deg til én forhandlers pris, mens priser generelt varierer
 mellom butikker og over tid. Abonnementsprisen er derfor ikke nødvendigvis den laveste
 tilgjengelige til enhver tid. Sjekk gjerne jevnlig om abonnementsprisen din fortsatt er
 konkurransedyktig ved å sammenligne hos oss.</p>
@@ -3143,7 +3153,7 @@ konkurransedyktig ved å sammenligne hos oss.</p>
         "body_html": """
 <p>Å bestille kontaktlinser på nett er enkelt når du vet hva du trenger:</p>
 
-<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.9;">
+<ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.9;">
   <li>Ha en gyldig resept fra optiker eller øyelege (styrke, BC, DIA, og ev. CYL/AXIS/ADD
   – se vår <a href="/guide/forsta-kontaktlinseresepten/">guide om å lese resepten din</a>)</li>
   <li>Finn riktig produkt – søk opp navnet fra esken din på <a href="/">forsiden</a> vår</li>
@@ -3175,7 +3185,7 @@ retur.</p>
 gyldig resept/tilpasning fra optiker eller øyelege – dette gjelder også linser uten
 styrke, som fargede kosmetiske linser.</p>
 
-<p style="font-size:0.92rem;line-height:1.7;">Seriøse forhandlere ber om resept-informasjon ved bestilling. Kjøp fra useriøse
+<p style="font-size:1rem;line-height:1.7;">Seriøse forhandlere ber om resept-informasjon ved bestilling. Kjøp fra useriøse
 kilder som ikke krever dette frarådes – det øker risikoen for feil passform eller styrke,
 og dermed for øyeirritasjon eller -skade.</p>
 """,
@@ -3201,7 +3211,7 @@ linsedesign – alt dette påvirker hvordan linsen faktisk sitter og føles, ikk
 styrken.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Unntaket: private label</h2>
-<p style="font-size:0.92rem;line-height:1.7;">Hvis det er snakk om nøyaktig samme fysiske linse solgt under et annet navn (f.eks. en
+<p style="font-size:1rem;line-height:1.7;">Hvis det er snakk om nøyaktig samme fysiske linse solgt under et annet navn (f.eks. en
 optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – se vår
 <a href="/private-label/">oversikt over optikerkjedenes egne merker</a>.</p>
 
@@ -3228,14 +3238,14 @@ til et annet sted i øyet enn du er vant til å finne den. Det er ikke farlig i 
 det finnes en riktig og en gal måte å håndtere det på.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn vanlig, eller øyet er tørt</li>
   <li>Linsen har gled opp under det øvre øyelokket</li>
   <li>Du blunker mye og stresser, som gjør det vanskeligere å kjenne hvor linsen faktisk er</li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Slik gjør du det trygt</h2>
-<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Vask hendene grundig først</li>
   <li>Fukt øyet med linsevæske eller øyedråper laget for bruk med kontaktlinser</li>
   <li>Lukk øyet og masser forsiktig på det lukkede øyelokket i noen sekunder</li>
@@ -3271,7 +3281,7 @@ en lampe – det er ikke noe å kvie seg for å spørre om.</p>
 og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på alvor.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, ufarlige årsaker</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Skitten linse, eller avleiringer (protein/fett fra tårevæsken) på overflaten</li>
   <li>Linsen ligger vrengt (inni ut)</li>
   <li><a href="/guide/kontaktlinser-og-torre-oyne/">Tørre øyne</a></li>
@@ -3280,7 +3290,7 @@ og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på al
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Enkle ting å sjekke først</h2>
-<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Blunk noen ganger, og bruk fukterdråper beregnet for kontaktlinser</li>
   <li>Ta ut linsen, sjekk at den ikke er vrengt, rengjør og sett den inn på nytt</li>
   <li>Bytt til en ny linse hvis den nærmer seg slutten av byttesyklusen</li>
@@ -3315,7 +3325,7 @@ tegn på at det er på tide med en ny synsundersøkelse.</p>
 linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør handle raskt.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, mildere årsaker</h2>
-<ul style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>For lang brukstid i løpet av dagen</li>
   <li>Tørt inneklima eller lange skjermøkter</li>
   <li>Lett irritasjon fra en avleiring på linsekanten</li>
@@ -3323,7 +3333,7 @@ linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør gjøre</h2>
-<ol style="padding-left:20px;color:var(--ink);font-size:0.92rem;line-height:1.7;">
+<ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ta av linsen med en gang du kjenner ubehag</li>
   <li>Gi øyet en pause – ikke sett inn en ny linse samme dag hvis irritasjonen ikke er helt borte</li>
   <li>Bruk fukterdråper beregnet for kontaktlinser om det hjelper</li>
@@ -4233,7 +4243,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
-.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
