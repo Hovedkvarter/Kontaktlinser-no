@@ -780,7 +780,7 @@ def render_footer() -> str:
     <a href="/om-oss/" rel="author">Om oss</a>
     <a href="/personvern/" rel="privacy-policy">Personvern og cookies</a>
     {_contact_email_link()}
-    <a href="https://www.facebook.com/kontaktlinser.no/" rel="me" target="_blank" aria-label="Kontaktlinser.no på Facebook">Facebook</a>
+    <a href="https://www.facebook.com/kontaktlinser.no/" rel="me noopener" target="_blank" aria-label="Kontaktlinser.no på Facebook">Facebook</a>
   </div>
 </footer>"""
 
