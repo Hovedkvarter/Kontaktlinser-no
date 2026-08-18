@@ -1530,6 +1530,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <table class="specs-table"><tbody>{rows}</tbody></table>
     <p class="specs-note">Veiledende tall, satt sammen fra forhandlernes egne spesifikasjoner og produsentens produktinformasjon. Bekreft alltid mot din synsresept og pakningsvedlegget før kjøp.</p>
   </div>"""
+    specs_html += manufacturer_link_html
 
     price_history_html = _render_price_history_chart(price_history or [])
 
@@ -1612,7 +1613,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
       <div class="kicker">{escape(product["brand_label"])}</div>
       <h1>{escape(product["name"])}</h1>
       <p>{escape(long_description)}</p>
-      {manufacturer_link_html}
     </div>
   </div>
   {ai_summary_html}
