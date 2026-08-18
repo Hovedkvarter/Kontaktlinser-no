@@ -1440,12 +1440,14 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     specs_html = ""
     if specs:
         rows = "\n".join(
-            f'<div class="spec-row"><span class="spec-label">{escape(label)}</span><span class="spec-value">{escape(value)}</span></div>'
+            f'<tr><th scope="row" class="spec-label">{escape(label)}</th><td class="spec-value">{escape(value)}</td></tr>'
             for label, value in specs
         )
+        # Ekte <table>-markup (ikke div-grid) -- lettere for AI-crawlere å
+        # trekke ut spesifikasjonene som strukturerte data, se GEO-revisjonen.
         specs_html = f"""<div class="specs">
     <h2>Spesifikasjoner</h2>
-    <div class="specs-table">{rows}</div>
+    <table class="specs-table"><tbody>{rows}</tbody></table>
     <p class="specs-note">Veiledende tall, satt sammen fra forhandlernes egne spesifikasjoner og produsentens produktinformasjon. Bekreft alltid mot din synsresept og pakningsvedlegget før kjøp.</p>
   </div>"""
 
@@ -1487,11 +1489,12 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .aliases-note a:hover {{ text-decoration: underline; }}
 .specs {{ margin-top: 32px; }}
 .specs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
-.specs-table {{ background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }}
-.spec-row {{ display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; font-size: 0.88rem; border-bottom: 1px solid var(--border); }}
-.spec-row:last-child {{ border-bottom: none; }}
-.spec-label {{ color: var(--muted); }}
-.spec-value {{ font-family: 'IBM Plex Mono', monospace; text-align: right; }}
+.specs-table {{ width: 100%; background: white; border: 1px solid var(--border); border-radius: 12px; border-collapse: collapse; overflow: hidden; font-size: 0.88rem; }}
+.specs-table tr {{ border-bottom: 1px solid var(--border); }}
+.specs-table tr:last-child {{ border-bottom: none; }}
+.specs-table th, .specs-table td {{ padding: 10px 16px; }}
+.spec-label {{ text-align: left; font-weight: 400; color: var(--muted); }}
+.spec-value {{ text-align: right; font-family: 'IBM Plex Mono', monospace; }}
 .specs-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }}
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
 .pack-size-callout:hover {{ border-color: var(--aqua); }}
