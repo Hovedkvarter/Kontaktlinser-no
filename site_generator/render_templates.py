@@ -807,6 +807,9 @@ BOX_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria
 # Blyant-ikon for "Eget antall"-pillen -- samme piktogram-språk, men signaliserer
 # at dette er en verdi brukeren selv skriver inn, ikke et fast antall esker.
 PENCIL_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>'
+# Pokal-ikon i vinner-boksen -- gir litt "stas"/humor til å være billigst, ikke
+# bare et nøkternt tall.
+TROPHY_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>'
 
 
 def render_offer_card(o: dict, retailer: str) -> str:
@@ -974,6 +977,9 @@ def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
 # nå"-widgeten ser identisk ut begge steder (se render_winner_widget).
 WINNER_WIDGET_STYLE = """
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.winner-trophy { width: 44px; height: 44px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.winner-trophy svg { width: 22px; height: 22px; color: var(--mint); }
 .winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
 .winner-band .winner-shipping { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
@@ -1024,10 +1030,13 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
     shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
 
     winner_band = f"""<div class="winner-band">
-  <div class="label-group">
-    <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
-    <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
-    <div class="winner-shipping" id="winner-shipping">{escape(shipping_note)}</div>
+  <div class="winner-left">
+    <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
+    <div class="label-group">
+      <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
+      <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
+      <div class="winner-shipping" id="winner-shipping">{escape(shipping_note)}</div>
+    </div>
   </div>
   <div class="winner-price-group">
     <a class="price-pill is-winner" id="winner-price-pill" href="{escape(best["url"])}" rel="{rel}">{_fmt_kr(best["total"])}</a>
