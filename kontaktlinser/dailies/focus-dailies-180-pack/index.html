@@ -202,23 +202,28 @@ a { color: inherit; }
 .pack-size-callout { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }
 .pack-size-callout:hover { border-color: var(--aqua); }
 .pack-size-callout-arrow { color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }
-.bulk-pricing { margin-top: 28px; }
-.bulk-pricing h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
-.bulk-intro { font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
-.bulk-qty-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 18px; }
-.bulk-qty-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
-.bulk-qty-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
-.bulk-qty-price { font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.25rem; color: var(--ink); }
-.bulk-qty-note { font-size: 0.76rem; color: var(--muted); margin-top: 4px; }
-.bulk-custom { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; }
-.bulk-custom label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
-.bulk-custom-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-#bulk-qty-input { width: 70px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.95rem; }
-.bulk-custom-result { font-size: 0.9rem; font-weight: 600; color: var(--mint); }
-.hero-product-image { width: 160px; height: 160px; border-radius: 20px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.2rem; color: var(--aqua); }
+.hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--aqua); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
-@media (min-width: 640px) { .hero-product-image { width: 240px; height: 240px; border-radius: 24px; font-size: 3.2rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 340px; height: 340px; border-radius: 28px; font-size: 4rem; } }
+@media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; } }
+
+.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
+.winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+.winner-band .winner-shipping { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.winner-band .price-pill { flex-shrink: 0; }
+.price-pill.is-winner { background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }
+.qty-box { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
+.qty-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.qty-pill { font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 0.85rem; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }
+.qty-pill span { display: block; font-size: 0.68rem; color: var(--muted); }
+.qty-pill.is-active { background: var(--aqua); border-color: var(--aqua); color: white; }
+.qty-pill.is-active span { color: rgba(255,255,255,0.85); }
+.qty-custom-row { margin-top: 10px; }
+#qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.qty-tip { font-size: 0.78rem; color: var(--muted); margin: 12px 0 0; line-height: 1.5; }
+.qty-static-fallback { font-size: 0.72rem; color: var(--muted); line-height: 1.6; margin: 4px 0 0; }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
@@ -226,7 +231,7 @@ a { color: inherit; }
 .price-history-line { fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .price-history-dot { fill: var(--aqua); }
 .price-history-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }
-.product-ai-summary { background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }
+.product-ai-summary { background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.88rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
 </style>
@@ -260,16 +265,14 @@ a { color: inherit; }
   <section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på <strong>Focus Dailies 180-pack</strong> fra 1 norske nettbutikker. Laveste pris akkurat nå er <strong>1 485 kr</strong> hos Extra Optical. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>
-  <a class="best-price-band" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Focus+Dailies+all+day+Comfort+180+st&amp;url=https://extraoptical.no/focus-dailies-all-day-comfort-180-stk" rel="sponsored nofollow">
+  <div class="winner-band">
   <div class="label-group">
-    <div class="label">Laveste totalpris</div>
-    <div class="retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span></div>
+    <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
+    <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span></div>
+    <div class="winner-shipping" id="winner-shipping">Gratis frakt over 900 kr</div>
   </div>
-  <div class="price-group">
-    <div class="price">1 485 kr</div>
-    <div class="price-note">Gratis frakt</div>
-  </div>
-</a>
+  <a class="price-pill is-winner" id="winner-price-pill" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Focus+Dailies+all+day+Comfort+180+st&amp;url=https://extraoptical.no/focus-dailies-all-day-comfort-180-stk" rel="sponsored nofollow">1 485 kr</a>
+</div>
   <a class="pack-size-callout" href="/kontaktlinser/dailies/focus-dailies-90-pack/">
   <div class="pack-size-callout-text">
     Finnes også i <strong>90-pakning</strong> — 8,10 kr/linse (2 % billigere per linse)
@@ -281,7 +284,7 @@ a { color: inherit; }
     <div class="offer-card is-lowest">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>Gratis frakt</div>
@@ -295,7 +298,6 @@ a { color: inherit; }
     betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
-  
   
   <div class="specs">
     <h2>Spesifikasjoner</h2>
