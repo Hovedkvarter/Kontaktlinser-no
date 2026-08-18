@@ -156,9 +156,24 @@ a { color: inherit; }
 .topbar-logo { display: flex; align-items: center; text-decoration: none; }
 .topbar-logo img { height: 30px; width: auto; display: block; mix-blend-mode: multiply; }
 @media (min-width: 640px) { .topbar-logo img { height: 32px; } }
-.topbar-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.topbar-nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .topbar-nav a { font-size: 0.86rem; font-weight: 600; text-decoration: none; color: var(--ink); }
 .topbar-nav a:hover { color: var(--aqua); }
+.nav-item { position: relative; }
+.nav-trigger { display: flex; align-items: center; gap: 4px; background: none; border: none; font-family: inherit; font-size: 0.86rem; font-weight: 600; color: var(--ink); cursor: pointer; padding: 8px 6px; }
+.nav-trigger:hover { color: var(--aqua); }
+.nav-caret { font-size: 0.65em; color: var(--muted); }
+.mega-menu { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(11, 37, 69, 0.12); padding: 16px; z-index: 50; opacity: 0; visibility: hidden; transition: opacity 0.15s ease, visibility 0s linear 0.15s; }
+.mega-menu-cols { display: flex; gap: 32px; }
+.mega-col { display: flex; flex-direction: column; gap: 2px; min-width: 170px; }
+.mega-col-title { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
+.mega-menu a { display: block; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 5px 0; }
+.mega-menu a:hover { color: var(--aqua); }
+.mega-see-all { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600; color: var(--aqua) !important; }
+@media (hover: hover) {
+  .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transition-delay: 0s; }
+}
+.nav-item.is-open .mega-menu { opacity: 1; visibility: visible; transition-delay: 0s; }
 .breadcrumb { font-size: 0.8rem; color: var(--muted); margin: 4px 0 20px; }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
@@ -298,13 +313,101 @@ a { color: inherit; }
 <div class="topbar">
   <a href="/" class="topbar-logo"><img src="/static/logo.png" alt="kontaktlinser.no" loading="eager"></a>
   <nav class="topbar-nav">
-    <a href="/#merker">Merker</a>
-    <a href="/#kategorier">Kategorier</a>
-    <a href="/linsevaeske/">Linsevæske</a>
-    <a href="/oyedraper/">Øyedråper</a>
-    <a href="/guider/">Guider</a>
+    <div class="nav-item">
+      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Kontaktlinser <span class="nav-caret">▾</span></button>
+      <div class="mega-menu">
+        <div class="mega-menu-cols">
+          <div class="mega-col">
+            <div class="mega-col-title">Type</div>
+            <a href="/kontaktlinser/dagslinser/">Dagslinser</a>
+            <a href="/kontaktlinser/manedslinser/">Månedslinser</a>
+            <a href="/kontaktlinser/toriske-linser/">Toriske linser</a>
+            <a href="/kontaktlinser/multifokale-linser/">Multifokale linser</a>
+            <a href="/kontaktlinser/fargede-linser/">Fargede linser</a>
+            <a href="/private-label/">Optikerkjedenes varemerker</a>
+          </div>
+          <div class="mega-col">
+            <div class="mega-col-title">Merke</div>
+            <a href="/merke/biofinity/">Biofinity</a>
+            <a href="/merke/acuvue/">Acuvue</a>
+            <a href="/merke/air-optix/">Air Optix</a>
+            <a href="/merke/dailies/">Dailies</a>
+            <a href="/merke/precision1/">Precision1</a>
+            <a href="/merke/biotrue/">Biotrue</a>
+          </div>
+        </div>
+        <a class="mega-see-all" href="/#kategorier">Se alle kontaktlinser →</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Merker <span class="nav-caret">▾</span></button>
+      <div class="mega-menu">
+        <div class="mega-col">
+          <a href="/merke/biofinity/">Biofinity</a>
+          <a href="/merke/acuvue/">Acuvue</a>
+          <a href="/merke/air-optix/">Air Optix</a>
+          <a href="/merke/dailies/">Dailies</a>
+          <a href="/merke/precision1/">Precision1</a>
+          <a href="/merke/biotrue/">Biotrue</a>
+          <a class="mega-see-all" href="/#merker">Se alle merker →</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Tilbehør <span class="nav-caret">▾</span></button>
+      <div class="mega-menu">
+        <div class="mega-col">
+          <a href="/linsevaeske/">Linsevæske</a>
+          <a href="/oyedraper/">Øyedråper</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Guider <span class="nav-caret">▾</span></button>
+      <div class="mega-menu">
+        <div class="mega-col">
+          <a href="/guide/hvorfor-bruke-kontaktlinser/">Hvorfor bruke kontaktlinser</a>
+          <a href="/guide/manedslinser-vs-dagslinser/">Dagslinser vs. månedslinser</a>
+          <a href="/guide/kontaktlinser-med-astigmatisme/">Toriske linser og astigmatisme</a>
+          <a href="/guide/forsta-kontaktlinseresepten/">Slik leser du kontaktlinseresepten</a>
+          <a class="mega-see-all" href="/guider/">Se alle guider →</a>
+        </div>
+      </div>
+    </div>
   </nav>
 </div>
+<script>
+(function () {
+  var items = document.querySelectorAll('.nav-item');
+  function closeAll() {
+    for (var i = 0; i < items.length; i++) {
+      items[i].classList.remove('is-open');
+      var t = items[i].querySelector('.nav-trigger');
+      if (t) t.setAttribute('aria-expanded', 'false');
+    }
+  }
+  for (var i = 0; i < items.length; i++) {
+    (function (item) {
+      var trigger = item.querySelector('.nav-trigger');
+      if (!trigger) return;
+      trigger.addEventListener('click', function () {
+        var isOpen = item.classList.contains('is-open');
+        closeAll();
+        if (!isOpen) {
+          item.classList.add('is-open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    })(items[i]);
+  }
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-item')) closeAll();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll();
+  });
+})();
+</script>
 <div class="wrap wrap-product">
   <p class="breadcrumb">
     <a href="/">Hjem</a> ›
@@ -486,7 +589,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Extra Optical">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">45 kr frakt</span></div>
