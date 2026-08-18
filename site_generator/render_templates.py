@@ -874,6 +874,28 @@ def _time_ago(checked_at: str, now: datetime) -> str:
     return f"{round(hrs / 24)} dager siden"
 
 
+def _pick_lowest(eligible: list[dict]) -> dict | None:
+    """Velger ÉN vinner blant tilbud på lager og ikke utdaterte, ved eksakt
+    lik totalpris (2026-08-18, etter avtale med brukeren):
+    1) foretrekk et tilbud vi har en affiliate-avtale med (source ==
+       "affiliate_feed") fremfor et vi ikke har,
+    2) blant flere med avtale, velg den med best provisjon for oss --
+       IKKE implementert ennå, kun Extra Optical har avtale i dag, så det
+       finnes ingenting å sammenligne. Bygges når en to. avtale finnes.
+    Prisen er identisk for kunden i alle disse tilfellene uansett -- regelen
+    avgjør kun hvem som får "Lavest pris"-merket når det ikke er noen reell
+    prisforskjell å vise frem. Se disclosure-teksten på produktsidene, som
+    er oppdatert til å nevne dette eksplisitt."""
+    if not eligible:
+        return None
+    lowest_total = min(o["total"] for o in eligible)
+    tied = [o for o in eligible if o["total"] == lowest_total]
+    if len(tied) == 1:
+        return tied[0]
+    with_deal = [o for o in tied if o["source"] == "affiliate_feed"]
+    return with_deal[0] if with_deal else tied[0]
+
+
 def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) -> list[dict]:
     """Samme logikk som reconcile() i ingest_feed.py, men på rå dict-data
     slik generatoren kan kjøre den direkte på catalog.json uten omveier."""
@@ -886,10 +908,10 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
         enriched.append({**o, "total": total, "is_stale": is_stale})
 
     eligible = [o for o in enriched if o["in_stock"] and not o["is_stale"]]
-    lowest_total = min((o["total"] for o in eligible), default=None)
+    winner = _pick_lowest(eligible)
 
     for o in enriched:
-        o["is_lowest"] = lowest_total is not None and o in eligible and o["total"] == lowest_total
+        o["is_lowest"] = winner is not None and o is winner
 
     return sorted(enriched, key=lambda o: o["total"])
 
@@ -1484,8 +1506,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker ikke prisen du
-    betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
+    har avtale med. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
   {price_history_html}
@@ -4239,8 +4263,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   </div>
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker ikke prisen du
-    betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
+    har avtale med. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
   </p>
   <p class="disclosure">
@@ -4489,8 +4515,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker ikke prisen du
-    betaler eller rekkefølgen på tilbudene. Kontaktlinser.no er en uavhengig
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
+    har avtale med. Kontaktlinser.no er en uavhengig
     prissammenligningstjeneste, ikke en forhandler.
   </p>
 </div>
@@ -4632,8 +4660,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker ikke prisen du
-    betaler eller rekkefølgen på tilbudene. Priser eldre enn 24 timer eller
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
+    har avtale med. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med {escape(chain)}.

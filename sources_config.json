@@ -23,6 +23,8 @@
     "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1123997289&asid=2102229792&gsh=1&pfid=1650&gt=0",
     "shipping": {"free_over": 900, "fee_nok": 45},
     "$shipping_comment": "Gratis frakt over 900 kr, ellers 45 kr -- FOR KONTAKTLINSER, bekreftet direkte på en faktisk linse-produktside 2026-08-16 ('Frakt 45,- eller fri frakt over 900,-'). Extra Optical sin generelle 'frakt-og-levering'-side (extraoptical.no/kundeservice/frakt-og-levering) oppgir et ANNET tall (49 kr/gratis over 600 kr) -- den siden gjelder BRILLER (nevner 'produksjonsordre', slipe/montere glass), ikke kontaktlinser. Brukte feilaktig briller-tallet først, rettet etter at brukeren viste et skjermbilde av den faktiske linse-produktsiden. Lærdom: sjekk alltid det linse-spesifikke tallet direkte på en linse-produktside, ikke bare en generell fraktvilkår-side, hos forhandlere som også selger briller. NB: verdiene er hardkodet direkte i map_adtraction_row() i ingest_feed.py (feeden selv leverer ingen fraktdata), ikke lest fra dette feltet -- dette 'shipping'-feltet er kun dokumentasjon av samme tall, hold dem i sync manuelt hvis policyen endres.",
+    "commission_pct": 8,
+    "$commission_comment": "8% provisjon fra Adtraction, oppgitt av brukeren 2026-08-18. IKKE brukt i noen kodelogikk ennå -- kun Extra Optical har avtale i dag, så 'velg best provisjon blant flere avtalepartnere'-regelen (se _pick_lowest() i ingest_feed.py/render_templates.py) har ingenting å sammenligne. Rent dokumentasjonsfelt frem til en to. avtale finnes.",
     "brand_overrides": {}
   },
 

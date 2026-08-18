@@ -162,6 +162,27 @@ def pick_product_image(offers: list[Offer]) -> Optional[str]:
     return None
 
 
+def _pick_lowest(eligible: list[Offer]) -> Offer | None:
+    """Velger ÉN vinner blant tilbud på lager og ikke utdaterte, ved eksakt
+    lik totalpris (2026-08-18, etter avtale med brukeren):
+    1) foretrekk et tilbud vi har en affiliate-avtale med (source ==
+       "affiliate_feed") fremfor et vi ikke har,
+    2) blant flere med avtale, velg den med best provisjon for oss -- IKKE
+       implementert ennå, kun Extra Optical har avtale i dag, så det finnes
+       ingenting å sammenligne. Bygges når en to. avtale finnes.
+    Prisen er identisk for kunden i alle disse tilfellene uansett -- regelen
+    avgjør kun hvem som får "Lavest pris"-merket når det ikke er noen reell
+    prisforskjell å vise frem. Se disclosure-teksten på produktsidene."""
+    if not eligible:
+        return None
+    lowest_total = min(o.price_nok + o.shipping_nok for o in eligible)
+    tied = [o for o in eligible if o.price_nok + o.shipping_nok == lowest_total]
+    if len(tied) == 1:
+        return tied[0]
+    with_deal = [o for o in tied if o.source == "affiliate_feed"]
+    return with_deal[0] if with_deal else tied[0]
+
+
 def reconcile(product_id_to_offers: dict[str, list[Offer]]) -> dict:
     """Beregner is_lowest per produkt basert KUN på tilbud som er på lager og
     ikke utdaterte. Et utdatert eller utsolgt tilbud kan aldri "vinne" mint-
@@ -170,12 +191,9 @@ def reconcile(product_id_to_offers: dict[str, list[Offer]]) -> dict:
     result = {}
     for product_id, offers in product_id_to_offers.items():
         eligible = [o for o in offers if o.in_stock and not o.is_stale]
-        if eligible:
-            lowest_total = min(o.price_nok + o.shipping_nok for o in eligible)
-            for o in offers:
-                o.is_lowest = (
-                    o in eligible and (o.price_nok + o.shipping_nok) == lowest_total
-                )
+        winner = _pick_lowest(eligible)
+        for o in offers:
+            o.is_lowest = winner is not None and o is winner
         result[product_id] = [asdict(o) for o in offers]
     return result
 
