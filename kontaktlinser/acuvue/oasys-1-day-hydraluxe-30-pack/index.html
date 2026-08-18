@@ -298,9 +298,11 @@ a { color: inherit; }
 .qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
-.qty-pill { font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 12px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }
-.qty-pill span { display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); }
+.qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }
+.qty-pill svg { width: 20px; height: 20px; color: var(--aqua); }
+.qty-pill span { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
 .qty-pill.is-active { background: var(--aqua); border-color: var(--aqua); color: white; }
+.qty-pill.is-active svg { color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
 #qty-pill-custom { display: none; }
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
@@ -363,7 +365,7 @@ a { color: inherit; }
 </div>
 <div class="qty-box">
     <div class="qty-box-title">Hvor mange esker trenger du?</div>
-    <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1">1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2">2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4">4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6">6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10">10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">Eget<span>antall</span></button></div>
+    <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
     </div>
