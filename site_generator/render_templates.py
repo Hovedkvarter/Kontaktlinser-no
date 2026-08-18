@@ -2630,6 +2630,13 @@ akkurat det for deg – ikke noe man velger selv som standard.</p>
 <p style="font-size:1rem;line-height:1.7;">Har du sovnet med vanlige linser i, ta dem ut så snart du våkner og gi øynene en pause.
 Ta kontakt med optiker eller øyelege hvis du merker rødhet, smerte eller uklart syn
 etterpå.</p>
+
+<p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> er risikoen for sår på hornhinnen særlig stor ved bruk av linser over natten:</p>
+
+<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+  <p style="margin:0;">Linsene kan gi sår på hornhinnen. Myke kontaktlinser gir lettere sår enn harde. Risikoen er særlig stor hvis linsene brukes over natten.</p>
+  <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">NHI, Kontaktlinser</a></cite></footer>
+</blockquote>
 """,
         "faq": [
             {
@@ -2661,6 +2668,13 @@ vanskelig behandlebare øyeinfeksjoner.</p>
 
 <p style="margin-top:16px;">Skal du svømme og ønsker klart syn i vannet, er tettsittende svømmebriller et tryggere
 alternativ enn å beholde kontaktlinsene i.</p>
+
+<p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a>, med henvisning til Folkehelseinstituttet, er akantamøbe-infeksjon en anerkjent og alvorlig risiko ved kontaktlinsebruk i vann:</p>
+
+<blockquote cite="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+  <p style="margin:0;">Keratitt er en alvorlig øyeinfeksjon som i hovedsak ses hos brukere av alle typer kontaktlinser. Tilstanden er ofte smertefull og vanskelig å behandle.</p>
+  <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">NHI, Kontaktlinser og vann</a></cite></footer>
+</blockquote>
 """,
         "faq": [
             {
