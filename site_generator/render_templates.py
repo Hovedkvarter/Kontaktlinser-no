@@ -777,8 +777,8 @@ def render_footer() -> str:
     <span>&copy; {year} kontaktlinser.no</span>
     <a href="/">Forside</a>
     <a href="/guider/">Guider</a>
-    <a href="/om-oss/">Om oss</a>
-    <a href="/personvern/">Personvern og cookies</a>
+    <a href="/om-oss/" rel="author">Om oss</a>
+    <a href="/personvern/" rel="privacy-policy">Personvern og cookies</a>
     {_contact_email_link()}
     <a href="https://www.facebook.com/kontaktlinser.no/" rel="me" target="_blank" aria-label="Kontaktlinser.no på Facebook">Facebook</a>
   </div>
