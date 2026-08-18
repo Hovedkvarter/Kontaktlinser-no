@@ -22,6 +22,23 @@ from offer import compute_shipping_nok
 
 BASE_URL = "https://kontaktlinser.no"
 
+
+def _og_meta(title: str, description: str, url: str, image: str | None = None) -> str:
+    """Open Graph/Twitter Card-tagger, delt av alle sidetyper -- gjenbruker
+    alltid samme tittel/beskrivelse som den vanlige <title>/<meta
+    description> på siden, aldri egen tekst, slik at de to aldri kan komme
+    ut av synk med hverandre. Faller tilbake til logoen når siden ikke har
+    et eget produktbilde (kategori/merke/guide/forside osv.)."""
+    img = image or f"{BASE_URL}/static/logo.png"
+    return f"""<meta property="og:title" content="{escape(title)}">
+<meta property="og:description" content="{escape(description)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{escape(url)}">
+<meta property="og:image" content="{escape(img)}">
+<meta property="og:site_name" content="Kontaktlinser.no">
+<meta property="og:locale" content="nb_NO">
+<meta name="twitter:card" content="summary_large_image">"""
+
 SHARED_STYLE = """
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/static/fonts/inter-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/inter-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
@@ -186,7 +203,8 @@ a { color: inherit; }
 # tegndekning siten allerede hadde via Google Fonts sin "latin"-delmengde.
 FONT_LINKS = """<link rel="preload" href="/static/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="/static/favicon-o.png">
-<link rel="apple-touch-icon" href="/static/favicon-o.png">"""
+<link rel="apple-touch-icon" href="/static/favicon-o.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Kontaktlinser.no", "url": "https://kontaktlinser.no", "description": "Uavhengig prissammenligningstjeneste for kontaktlinser, linsevæske og øyedråper fra norske nettbutikker.", "inLanguage": "nb", "publisher": {"@type": "Organization", "name": "Kontaktlinser.no", "url": "https://kontaktlinser.no", "logo": {"@type": "ImageObject", "url": "https://kontaktlinser.no/static/logo.png"}, "sameAs": ["https://www.facebook.com/kontaktlinser.no/"]}}</script>"""
 
 # GTM lastes IKKE lenger automatisk - kun definert her, faktisk kalt av
 # CONSENT_SCRIPT etter samtykke (lagret fra forrige besøk) eller når bruker
@@ -1405,12 +1423,16 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     "offers": [{schema_offers}]
   }}'''
 
+    # dateModified = ferskeste checked_at blant tilbudene som faktisk er på
+    # lager -- et konkret, sant "sist bekreftet"-tidspunkt, ikke en gjettet
+    # eller statisk dato. Freshness-signal for AI-siteringstillit.
+    date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{offers_schema}{schema_props}
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}{schema_props}
 }}"""
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
@@ -1453,6 +1475,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 <title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
+{_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 <style>{SHARED_STYLE}
@@ -1609,6 +1632,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 <title>{escape(brand_label)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/merke/{brand_slug}/">
+{_og_meta(f'{brand_label} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{brand_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -1829,6 +1853,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 <title>kontaktlinser.no – Sammenlign priser på kontaktlinser</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
+{_og_meta('kontaktlinser.no – Sammenlign priser på kontaktlinser', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
@@ -3467,6 +3492,7 @@ def render_guide_page(slug: str) -> str | None:
 <title>{escape(guide["title"])} | kontaktlinser.no</title>
 <meta name="description" content="{escape(guide["description"])}">
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
+{_og_meta(f'{guide["title"]} | kontaktlinser.no', guide["description"], f'{BASE_URL}/guide/{slug}/')}
 {FONT_LINKS}
 {faq_schema}
 {article_schema}
@@ -3708,6 +3734,7 @@ def render_guides_index_page() -> str:
 <title>Guider – kontaktlinser.no</title>
 <meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.">
 <link rel="canonical" href="{BASE_URL}/guider/">
+{_og_meta('Guider – kontaktlinser.no', 'Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.', BASE_URL + '/guider/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 {GUIDE_TILE_STYLE}
@@ -3745,6 +3772,7 @@ def render_about_page() -> str:
 <title>Om oss – kontaktlinser.no</title>
 <meta name="description" content="Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.">
 <link rel="canonical" href="{BASE_URL}/om-oss/">
+{_og_meta('Om oss – kontaktlinser.no', 'Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.', BASE_URL + '/om-oss/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
@@ -3882,6 +3910,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
 <title>Personvern og cookies – kontaktlinser.no</title>
 <meta name="description" content="Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.">
 <link rel="canonical" href="{BASE_URL}/personvern/">
+{_og_meta('Personvern og cookies – kontaktlinser.no', 'Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.', BASE_URL + '/personvern/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .cookie-table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.86rem; margin: 16px 0; }}
@@ -4031,6 +4060,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <title>{escape(category["label"])} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(category["intro"])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
+{_og_meta(f'{category["label"]} – Sammenlign priser | kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -4219,12 +4249,13 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     "offers": [{schema_offers}]
   }}'''
 
+    date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{offers_schema}
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}
 }}"""
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
@@ -4237,6 +4268,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 <title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
+{_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 <style>{SHARED_STYLE}
@@ -4350,6 +4382,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 <title>{escape(cat["label"])} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(cat["intro"])}">
 <link rel="canonical" href="{BASE_URL}/{solution_category}/">
+{_og_meta(f'{cat["label"]} – Sammenlign priser | kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -4476,6 +4509,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 <title>{escape(subbrand)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/merke/{slug}/">
+{_og_meta(f'{subbrand} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -4572,6 +4606,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+    image_url = pick_product_image(real_product["offers"])
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -4610,12 +4645,13 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     best_band = render_winner_widget(best, offers)
 
     about_type = "Product" if in_stock_offers else "Thing"
+    date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "{escape(private_name)} ({escape(chain)}) er egentlig {escape(real_name)}",
   "about": {{"@type": "{about_type}", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}{about_offers_schema}}},
-  "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"
+  "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"{f', "dateModified": "{date_modified}"' if date_modified else ""}
 }}"""
 
     return f"""<!DOCTYPE html>
@@ -4627,6 +4663,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 <title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | kontaktlinser.no</title>
 <meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
+{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/', image_url)}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -4728,6 +4765,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
 <title>Optikerkjedenes egne merker – Hva heter linsen egentlig? | kontaktlinser.no</title>
 <meta name="description" content="{escape(intro)}">
 <link rel="canonical" href="{BASE_URL}/private-label/">
+{_og_meta('Optikerkjedenes egne merker – Hva heter linsen egentlig? | kontaktlinser.no', intro, BASE_URL + '/private-label/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
