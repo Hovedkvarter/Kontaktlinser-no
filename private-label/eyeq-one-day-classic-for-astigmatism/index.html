@@ -250,6 +250,9 @@ a { color: inherit; }
 .private-label-caveat { background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
 
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.winner-trophy { width: 44px; height: 44px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.winner-trophy svg { width: 22px; height: 22px; color: var(--mint); }
 .winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
 .winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
 .winner-band .winner-shipping { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
@@ -305,10 +308,13 @@ a { color: inherit; }
 
   <h2>Sammenlign priser på Biomedics 1Day Extra Toric 30-pack, sortert etter total pris</h2>
   <div class="winner-band">
-  <div class="label-group">
-    <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
-    <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span></div>
-    <div class="winner-shipping" id="winner-shipping">Gratis frakt</div>
+  <div class="winner-left">
+    <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
+    <div class="label-group">
+      <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
+      <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span></div>
+      <div class="winner-shipping" id="winner-shipping">Gratis frakt</div>
+    </div>
   </div>
   <div class="winner-price-group">
     <a class="price-pill is-winner" id="winner-price-pill" href="https://www.lensit.no/products/biomedics-1-day-extra-toric-b1detoric" rel="nofollow">301 kr</a>
