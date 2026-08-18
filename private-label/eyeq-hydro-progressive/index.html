@@ -366,9 +366,7 @@ a { color: inherit; }
     var logo = o.logo_dark ? '<span class="retailer-logo-chip">' + img + '</span>' : img;
     return logo + '<span style="position:absolute;left:-9999px;">' + o.retailer + '</span>';
   }
-  var offersList = document.querySelector('.offers');
-  var offerCards = offersList ? offersList.querySelectorAll('.offer-card') : [];
-  function findCard(retailer) {
+  function findCard(offerCards, retailer) {
     for (var i = 0; i < offerCards.length; i++) {
       if (offerCards[i].getAttribute('data-retailer') === retailer) return offerCards[i];
     }
@@ -377,6 +375,13 @@ a { color: inherit; }
 
   function update(qty) {
     if (!qty || qty < 1) return;
+    // Slås opp på nytt hver gang i stedet for én gang ved skript-kjøring --
+    // dette scriptet ligger FØR .offers i selve HTML-kildekoden (siden
+    // vinner-widgeten står øverst på siden), så et oppslag ved lasting ville
+    // alltid funnet 0 kort. update() kalles uansett kun etter klikk, lenge
+    // etter at hele siden er ferdig lastet.
+    var offersList = document.querySelector('.offers');
+    var offerCards = offersList ? offersList.querySelectorAll('.offer-card') : [];
     var results = [];
     for (var i = 0; i < data.length; i++) {
       var o = data[i];
@@ -403,7 +408,7 @@ a { color: inherit; }
       results.sort(function (a, b) { return a.total - b.total; });
       for (var i = 0; i < results.length; i++) {
         var r = results[i];
-        var card = findCard(r.o.retailer);
+        var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
         if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
