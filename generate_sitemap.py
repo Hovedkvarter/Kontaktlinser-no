@@ -55,6 +55,8 @@ def main(content_path: str = "site_content.json") -> None:
         url_entry(f"/kontaktlinser/{c['slug']}/", c["lastmod"]) for c in content["categories"]
     ] + [
         url_entry(f"/merke/{b['slug']}/", b["lastmod"]) for b in content["brands"]
+    ] + [
+        url_entry(f"/produsent/{m['slug']}/", m["lastmod"]) for m in content.get("manufacturers", [])
     ]
     write_urlset("sitemap-kategorier.xml", category_entries)
 

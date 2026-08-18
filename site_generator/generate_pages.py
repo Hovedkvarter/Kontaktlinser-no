@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, PRIVATE_LABEL_SUBBRANDS, reconcile_product
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, reconcile_product
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
@@ -117,6 +117,13 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         write_file(out_path, html)
         print(f"  merke    -> /merke/{brand_slug}/")
 
+    brand_counts = {slug: len([p for p in lens_products if p["brand_slug"] == slug]) for slug in brand_labels}
+    for manufacturer_slug in MANUFACTURERS:
+        html = render_manufacturer_page(manufacturer_slug, brand_counts, brand_labels)
+        out_path = BUILD_DIR / "produsent" / manufacturer_slug / "index.html"
+        write_file(out_path, html)
+        print(f"  produsent -> /produsent/{manufacturer_slug}/")
+
     if private_labels:
         for label in private_labels:
             real_product = products_by_id.get(label["real_product_id"])
@@ -192,6 +199,9 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         ] + [
             {"slug": PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower(), "lastmod": today}
             for chain in sorted({label["chain"] for label in private_labels})
+        ],
+        "manufacturers": [
+            {"slug": slug, "lastmod": today} for slug in MANUFACTURERS
         ],
         "guides": [
             {"slug": g["slug"], "lastmod": today}

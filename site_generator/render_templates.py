@@ -847,6 +847,79 @@ PRIVATE_LABEL_SUBBRANDS = {
     "Specsavers": "Easyvision",
 }
 
+# Merke -> produsent-kobling (2026-08-18), verifisert ett og ett merke mot
+# offisielle produsentkilder (aldri gjettet på navnelikhet) -- se agent-logg
+# for kildene. KUN de fire globale produsentene + Eyemed Technologies (ADORE)
+# dekker samtlige 18 linsemerker i katalogen per dags dato. Linsevæske-/
+# øyedråpe-merker (Opti-Free, Systane, ReNu, Hylo osv.) er bevisst IKKE med
+# her ennå -- egen runde om ønskelig, annen produsent-miks.
+MANUFACTURERS = {
+    "coopervision": {
+        "name": "CooperVision",
+        "official_url": "https://coopervision.no/",
+        "official_url_label": "coopervision.no",
+        "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics"],
+        "description_html": """
+<p>CooperVision ble stiftet i 1980 som en egen forretningsenhet under det som i dag heter
+The Cooper Companies, med hovedkontor i San Ramon, California. Selskapet er en av verdens
+største produsenter av myke kontaktlinser, og er særlig kjent for Aquaform Comfort
+Science-materialet som brukes i Biofinity-serien.</p>
+""",
+    },
+    "alcon": {
+        "name": "Alcon",
+        "official_url": "https://www.myalcon.com/no/contact-lenses/",
+        "official_url_label": "myalcon.com/no",
+        "brand_slugs": ["dailies", "air-optix", "precision1", "precision7", "total30", "freshlook"],
+        "description_html": """
+<p>Alcon ble grunnlagt i 1945 i Fort Worth, Texas, og har i dag hovedkontor i Genève i
+Sveits etter å ha blitt skilt ut som eget børsnotert selskap fra Novartis i 2019. Alcon
+regnes som verdens største øyehelseselskap, og står bak vanngradient-teknologien i
+Dailies Total1 og Precision7 – markedets eneste linse godkjent for én ukes bruk.</p>
+""",
+    },
+    "bausch-lomb": {
+        "name": "Bausch + Lomb",
+        "official_url": "https://www.bausch.no/",
+        "official_url_label": "bausch.no",
+        "brand_slugs": ["purevision", "soflens", "biotrue", "ultra"],
+        "description_html": """
+<p>Bausch + Lomb er et av bransjens eldste selskaper, grunnlagt i 1853 i Rochester, New
+York av John Jacob Bausch og Henry Lomb. Selskapet står bak MoistureSeal-teknologien i
+ULTRA-serien, og Biotrue-produktene er utviklet med utgangspunkt i egenskapene til
+kroppens egen tårefilm.</p>
+""",
+    },
+    "jnj-vision": {
+        "name": "Johnson & Johnson Vision",
+        "official_url": "https://www.acuvue.com/nb-no",
+        "official_url_label": "acuvue.com",
+        "brand_slugs": ["acuvue"],
+        "description_html": """
+<p>Johnson & Johnson Vision lanserte i 1987 Acuvue – verdens første masseproduserte
+engangskontaktlinse – og regnes som verdens ledende produsent av engangslinser.
+Acuvue-serien produseres blant annet ved selskapets anlegg i Irland.</p>
+""",
+    },
+    "eyemed-technologies": {
+        "name": "Eyemed Technologies",
+        "official_url": "https://adorelenses.com/en/",
+        "official_url_label": "adorelenses.com",
+        "brand_slugs": ["adore"],
+        "description_html": """
+<p>Eyemed Technologies er en italiensk produsent med base i Casorate Sempione, spesialisert
+på kosmetiske og fargede kontaktlinser under merkenavnet ADORE. Selskapet er vesentlig
+mindre enn de tre globale produsentene over, med salg i over 30 land.</p>
+""",
+    },
+}
+
+BRAND_TO_MANUFACTURER: dict[str, str] = {
+    brand_slug: manufacturer_slug
+    for manufacturer_slug, data in MANUFACTURERS.items()
+    for brand_slug in data["brand_slugs"]
+}
+
 
 def _brand_badge(brand_slug: str, brand_label: str) -> tuple[str, str]:
     """Returnerer (ekstra CSS-klasse for badge-sirkelen, innhold i den) -
@@ -1412,6 +1485,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     long_description = product.get("long_description", product["description"])
 
+    manufacturer_slug = BRAND_TO_MANUFACTURER.get(product["brand_slug"])
+    manufacturer_link_html = (
+        f'<p style="margin-top:8px;"><a href="/produsent/{manufacturer_slug}/" style="font-size:0.9rem;color:var(--muted);">'
+        f'Produsert av {escape(MANUFACTURERS[manufacturer_slug]["name"])} →</a></p>'
+        if manufacturer_slug else ""
+    )
+
     offers_schema = ""
     if in_stock_offers:
         offers_schema = f''',
@@ -1532,6 +1612,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
       <div class="kicker">{escape(product["brand_label"])}</div>
       <h1>{escape(product["name"])}</h1>
       <p>{escape(long_description)}</p>
+      {manufacturer_link_html}
     </div>
   </div>
   {ai_summary_html}
@@ -1562,6 +1643,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
 def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
+
+    manufacturer_slug = BRAND_TO_MANUFACTURER.get(brand_slug)
+    manufacturer_link_html = (
+        f'<p style="margin-top:8px;"><a href="/produsent/{manufacturer_slug}/" style="font-size:0.9rem;color:var(--muted);">'
+        f'Produsert av {escape(MANUFACTURERS[manufacturer_slug]["name"])} →</a></p>'
+        if manufacturer_slug else ""
+    )
 
     rows = []
     for p in products:
@@ -1652,6 +1740,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         <div class="kicker">Merke</div>
         <h1>{escape(brand_label)}</h1>
         <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+        {manufacturer_link_html}
       </div>
     </div>
   </div>
@@ -1696,6 +1785,117 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     document.getElementById('result-count').textContent = visible + ' produkter';
   }});
 </script>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int], brand_labels: dict[str, str]) -> str:
+    """Egen side per produsent (/produsent/{slug}/) -- IKKE det samme som en
+    merke-side (/merke/{slug}/): et merke er ett produktnavn (Biofinity), en
+    produsent kan stå bak flere merker (CooperVision -> Biofinity, Proclear,
+    MyDay, ...). Formålet er en ekte, utgående lenke til produsentens egen
+    side (ingen konkurrent i det norske markedet har dette, se research
+    2026-08-18) pluss original tekst om produsenten -- ikke bare en
+    videresending. brand_counts/brand_labels kommer fra den samme
+    utregningen som render_home_page allerede gjør, sendt inn slik at denne
+    funksjonen ikke trenger å vite noe om katalog-strukturen selv."""
+    data = MANUFACTURERS[manufacturer_slug]
+    name = data["name"]
+
+    own_brand_slugs = [s for s in data["brand_slugs"] if s in brand_counts]
+
+    def render_brand_card(slug: str) -> str:
+        label = brand_labels[slug]
+        count = brand_counts[slug]
+        n_label = "produkt" if count == 1 else "produkter"
+        extra_cls, badge_content = _brand_badge(slug, label)
+        badge_class = ("brand-card-badge " + extra_cls).strip()
+        return f"""<a class="brand-card" href="/merke/{escape(slug)}/">
+  <div class="{badge_class}">{badge_content}</div>
+  <div class="brand-card-info">
+    <div class="brand-card-name">{escape(label)}</div>
+    <div class="brand-card-count">{count} {n_label}</div>
+  </div>
+</a>"""
+
+    brand_cards_html = "\n".join(render_brand_card(s) for s in own_brand_slugs)
+    total_products = sum(brand_counts[s] for s in own_brand_slugs)
+    brand_names = [brand_labels[s] for s in own_brand_slugs]
+    brands_text = brand_names[0] if len(brand_names) == 1 else ", ".join(brand_names[:-1]) + " og " + brand_names[-1]
+
+    meta_description = f"Om {name}, produsenten bak {brands_text} – som produsent, teknologi og lenke til deres offisielle nettside."
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{"@type": "BreadcrumbList", "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "{escape(name)}", "item": "{BASE_URL}/produsent/{manufacturer_slug}/"}}
+    ]}},
+    {{"@type": "Organization", "name": "{escape(name)}", "url": "{escape(data['official_url'])}"}}
+  ]
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(name)} – Produsenten bak {escape(brands_text)} | kontaktlinser.no</title>
+<meta name="description" content="{escape(meta_description)}">
+<link rel="canonical" href="{BASE_URL}/produsent/{manufacturer_slug}/">
+{_og_meta(f'{name} – Produsenten bak {brands_text}', meta_description, f'{BASE_URL}/produsent/{manufacturer_slug}/')}
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
+.brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
+.brand-card:hover {{ border-color: var(--aqua); }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--aqua-tint); color: var(--aqua); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card-info {{ min-width: 0; }}
+.brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+.brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
+@media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap wrap-wide">
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(name)}</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Produsent</div>
+      <h1>{escape(name)}</h1>
+    </div>
+  </div>
+
+  <div style="max-width:720px;font-size:1rem;line-height:1.7;">
+    {data["description_html"]}
+  </div>
+
+  <p style="margin:20px 0 32px;">
+    <a href="{escape(data['official_url'])}" target="_blank" rel="noopener" style="font-weight:600;color:var(--aqua-dark);">
+      Offisiell nettside: {escape(data['official_url_label'])} ↗
+    </a>
+  </p>
+
+  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 16px;">
+    {escape(name)}s merker hos oss ({total_products} produkter totalt)
+  </h2>
+  <div class="brand-grid">
+    {brand_cards_html}
+  </div>
+
+  <p class="disclosure" style="margin-top:32px;">
+    kontaktlinser.no er en uavhengig prissammenligningstjeneste og har ingen avtale med
+    {escape(name)}. Lenken til deres nettside over er kun en informativ henvisning, ikke
+    en annonse eller et samarbeid.
+  </p>
+</div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
 {CONSENT_SCRIPT}
