@@ -3289,6 +3289,8 @@ rødhet, bør du oppsøke optiker, øyelege eller legevakt samme dag – ikke ve
 
 <p style="margin-top:16px;">Er du usikker på om linsen faktisk er ute av øyet, kan optikeren enkelt sjekke dette med
 en lampe – det er ikke noe å kvie seg for å spørre om.</p>
+
+<p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Kilde: <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> anbefaler å kontakte lege dersom du har hatt ubehag over lengre tid, eller dersom øynene er røde eller såre.</p>
 """,
         "faq": [
             {
@@ -3333,6 +3335,8 @@ behandling. Ta av linsen og oppsøk optiker eller lege samme dag.
 
 <p style="margin-top:16px;">Har synet endret seg gradvis over lengre tid uten andre symptomer, er det oftest bare
 tegn på at det er på tide med en ny synsundersøkelse.</p>
+
+<p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Kilde: <a href="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" target="_blank" rel="noopener">NHI sin veiviser for røde øyne</a> lister redusert syn som ett av flere varseltegn som krever rask legevurdering.</p>
 """,
         "faq": [
             {
@@ -3378,6 +3382,8 @@ kan bli alvorlig. Tommelfingerregelen er enkel: er du i tvil, ta linsen ut.
 <p style="margin-top:16px;">Sov aldri med linser som ikke er godkjent for det, bruk aldri springvann eller spytt på
 en linse, og hold deg til anbefalt bytteintervall for linse og væske – det reduserer
 risikoen for at dette oppstår i utgangspunktet.</p>
+
+<p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Helsenorge er tydelige på dette: <a href="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" target="_blank" rel="noopener">«Bruker du kontaktlinser og merker symptomer på øyekatarr, bør du ta ut kontaktlinsene og raskt oppsøke lege.»</a></p>
 """,
         "faq": [
             {
