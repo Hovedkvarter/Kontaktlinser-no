@@ -800,6 +800,14 @@ def pick_product_image(offers: list[dict]) -> str | None:
 
 TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
 
+# Isometrisk eske-ikon (topp-flate + to sideflater med ulik opasitet for
+# skygge/dybde) -- brukt på antallsvelgerens piller, siden "esker" bokstavelig
+# talt betyr fysiske pakkeesker, ikke bare et tall.
+BOX_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>'
+# Blyant-ikon for "Eget antall"-pillen -- samme piktogram-språk, men signaliserer
+# at dette er en verdi brukeren selv skriver inn, ikke et fast antall esker.
+PENCIL_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>'
+
 
 def render_offer_card(o: dict, retailer: str) -> str:
     status_note = (
@@ -967,10 +975,10 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
         return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
 
     pills = "".join(
-        f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{qty}<span>{"eske" if qty == 1 else "esker"}</span></button>'
+        f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{BOX_ICON_SVG}{qty}<span>{"eske" if qty == 1 else "esker"}</span></button>'
         for qty in (1, 2, 4, 6, 10)
     )
-    pills += '<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">Eget<span>antall</span></button>'
+    pills += f'<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">{PENCIL_ICON_SVG}Eget<span>antall</span></button>'
 
     fallback_parts = []
     for qty in (2, 4, 10):
@@ -1256,9 +1264,11 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .qty-box-title {{ font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }}
 .qty-pills {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }}
 @media (min-width: 640px) {{ .qty-pills {{ grid-template-columns: repeat(6, 1fr); }} }}
-.qty-pill {{ font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 12px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }}
-.qty-pill span {{ display: block; font-size: 0.68rem; font-weight: 400; color: var(--muted); }}
+.qty-pill {{ display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: var(--mist); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; }}
+.qty-pill svg {{ width: 20px; height: 20px; color: var(--aqua); }}
+.qty-pill span {{ font-size: 0.68rem; font-weight: 400; color: var(--muted); }}
 .qty-pill.is-active {{ background: var(--aqua); border-color: var(--aqua); color: white; }}
+.qty-pill.is-active svg {{ color: white; }}
 .qty-pill.is-active span {{ color: rgba(255,255,255,0.85); }}
 #qty-pill-custom {{ display: none; }}
 @media (min-width: 640px) {{ #qty-pill-custom {{ display: block; }} }}
