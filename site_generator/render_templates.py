@@ -829,13 +829,13 @@ def render_offer_card(o: dict, retailer: str) -> str:
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
     price_label = f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
 
-    return f"""<div class="{css_class}">
+    return f"""<div class="{css_class}" data-retailer="{escape(retailer)}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping">{TRUCK_ICON_SVG}{escape(shipping_text)}</div>
+    <div class="offer-shipping">{TRUCK_ICON_SVG}<span class="offer-shipping-text">{escape(shipping_text)}</span></div>
     <a class="price-pill" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}">{_fmt_kr(o["price_nok"])}</a>
   </div>
 </div>"""
@@ -876,24 +876,61 @@ _QTY_CALC_SCRIPT = r"""<script>
     var logo = o.logo_dark ? '<span class="retailer-logo-chip">' + img + '</span>' : img;
     return logo + '<span style="position:absolute;left:-9999px;">' + o.retailer + '</span>';
   }
+  var offersList = document.querySelector('.offers');
+  var offerCards = offersList ? offersList.querySelectorAll('.offer-card') : [];
+  function findCard(retailer) {
+    for (var i = 0; i < offerCards.length; i++) {
+      if (offerCards[i].getAttribute('data-retailer') === retailer) return offerCards[i];
+    }
+    return null;
+  }
 
   function update(qty) {
     if (!qty || qty < 1) return;
-    var best = null, bestTotal = Infinity, bestShipping = 0;
+    var results = [];
     for (var i = 0; i < data.length; i++) {
       var o = data[i];
       var productTotal = o.price_nok * qty;
       var shipping = computeShipping(productTotal, o.shipping_policy);
-      var total = productTotal + shipping;
-      if (total < bestTotal) { bestTotal = total; best = o; bestShipping = shipping; }
+      results.push({ o: o, productTotal: productTotal, shipping: shipping, total: productTotal + shipping });
     }
-    if (!best) return;
-    labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
-    retailerEl.innerHTML = retailerBadge(best);
-    shippingEl.textContent = shippingNote(bestShipping, best.shipping_policy);
-    pricePill.textContent = fmtKr(bestTotal);
-    pricePill.setAttribute('href', best.url);
-    pricePill.setAttribute('rel', best.rel);
+
+    var best = null;
+    for (var i = 0; i < results.length; i++) {
+      var r = results[i];
+      if (r.o.in_stock && !r.o.is_stale && (!best || r.total < best.total)) best = r;
+    }
+    if (best) {
+      labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
+      retailerEl.innerHTML = retailerBadge(best.o);
+      shippingEl.textContent = shippingNote(best.shipping, best.o.shipping_policy);
+      pricePill.textContent = fmtKr(best.total);
+      pricePill.setAttribute('href', best.o.url);
+      pricePill.setAttribute('rel', best.o.rel);
+    }
+
+    if (offersList && offerCards.length) {
+      results.sort(function (a, b) { return a.total - b.total; });
+      for (var i = 0; i < results.length; i++) {
+        var r = results[i];
+        var card = findCard(r.o.retailer);
+        if (!card) continue;
+        var pricePillEl = card.querySelector('.price-pill');
+        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        var shipTextEl = card.querySelector('.offer-shipping-text');
+        if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
+        var isWinner = !!(best && r.o.retailer === best.o.retailer);
+        card.classList.toggle('is-lowest', isWinner);
+        var existingTag = card.querySelector('.lowest-tag');
+        if (isWinner && !existingTag) {
+          var retailerDiv = card.querySelector('.offer-retailer');
+          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest pris</span>');
+        } else if (!isWinner && existingTag) {
+          existingTag.remove();
+        }
+        offersList.appendChild(card);
+      }
+    }
   }
 
   for (var i = 0; i < pills.length; i++) {
@@ -931,6 +968,38 @@ def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
             return f"Gratis frakt over {_fmt_kr(free_over)}"
         return "Gratis frakt"
     return f"{_fmt_kr(shipping_nok)} frakt"
+
+
+# Delt mellom produktsider og private-label-sider, slik at "billigst akkurat
+# nå"-widgeten ser identisk ut begge steder (se render_winner_widget).
+WINNER_WIDGET_STYLE = """
+.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
+.winner-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }
+.winner-band .winner-shipping { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.winner-price-group { text-align: right; flex-shrink: 0; }
+.winner-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 5px; }
+.price-pill.is-winner { background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }
+.qty-box { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
+.qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+@media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
+.qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
+.qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
+.qty-pill svg { width: 20px; height: 20px; color: var(--aqua); }
+.qty-pill span { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
+.qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--aqua) 100%); border-color: var(--aqua); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
+.qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
+.qty-pill.is-active svg { color: white; }
+.qty-pill.is-active span { color: rgba(255,255,255,0.85); }
+#qty-pill-custom { display: none; }
+@media (min-width: 640px) { #qty-pill-custom { display: block; } }
+.qty-custom-row { margin-top: 10px; }
+#qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
+.qty-tip-icon { flex-shrink: 0; }
+.qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
+"""
 
 
 def render_winner_widget(best: dict, offers: list[dict]) -> str:
@@ -990,8 +1059,12 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
         )
     static_fallback_html = f'<p class="qty-static-fallback">{" ".join(fallback_parts)}</p>'
 
+    # ALLE tilbud (ikke bare "eligible") sendes med her -- selv et utsolgt/
+    # utdatert tilbuds pris/frakt-rad under skal fortsatt oppdateres riktig
+    # ved antallsbytte, det er bare "Lavest pris"-merket og vinner-boksen som
+    # aldri kan lande på et slikt tilbud (samme regel som reconcile()).
     calc_offers = []
-    for o in eligible:
+    for o in offers:
         logo_entry = RETAILER_LOGOS.get(o["retailer"])
         calc_offers.append({
             "retailer": o["retailer"],
@@ -1001,6 +1074,8 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
             "rel": "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow",
             "logo_file": logo_entry[0] if logo_entry else None,
             "logo_dark": logo_entry[1] if logo_entry else False,
+            "in_stock": o["in_stock"],
+            "is_stale": o["is_stale"],
         })
     calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
 
@@ -1253,32 +1328,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 @media (min-width: 640px) {{ .hero-product-image {{ width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; }} }}
 @media (min-width: 1024px) {{ .hero-product-image {{ width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; }} }}
 
-.winner-band {{ display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }}
-.winner-band .label {{ font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }}
-.winner-band .retailer {{ font-size: 0.95rem; color: var(--ink); margin-top: 3px; display: flex; align-items: center; gap: 6px; }}
-.winner-band .winner-shipping {{ font-size: 0.8rem; color: var(--muted); margin-top: 2px; }}
-.winner-price-group {{ text-align: right; flex-shrink: 0; }}
-.winner-price-note {{ font-size: 0.75rem; color: var(--muted); margin-top: 5px; }}
-.price-pill.is-winner {{ background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }}
-.qty-box {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }}
-.qty-box-title {{ font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }}
-.qty-pills {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }}
-@media (min-width: 640px) {{ .qty-pills {{ grid-template-columns: repeat(6, 1fr); }} }}
-.qty-pill {{ display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }}
-.qty-pill:active {{ transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }}
-.qty-pill svg {{ width: 20px; height: 20px; color: var(--aqua); }}
-.qty-pill span {{ font-size: 0.68rem; font-weight: 400; color: var(--muted); }}
-.qty-pill.is-active {{ background: linear-gradient(180deg, #3ED4E4 0%, var(--aqua) 100%); border-color: var(--aqua); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }}
-.qty-pill.is-active:active {{ box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }}
-.qty-pill.is-active svg {{ color: white; }}
-.qty-pill.is-active span {{ color: rgba(255,255,255,0.85); }}
-#qty-pill-custom {{ display: none; }}
-@media (min-width: 640px) {{ #qty-pill-custom {{ display: block; }} }}
-.qty-custom-row {{ margin-top: 10px; }}
-#qty-custom-input {{ width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
-.qty-tip {{ display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }}
-.qty-tip-icon {{ flex-shrink: 0; }}
-.qty-static-fallback {{ font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }}
+{WINNER_WIDGET_STYLE}
 .price-history {{ margin-top: 28px; }}
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
@@ -4402,23 +4452,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    best_band = ""
-    if best:
-        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_price_note = (
-            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Gratis frakt"
-        )
-        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
-  <div class="label-group">
-    <div class="label">Laveste totalpris</div>
-    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
-  </div>
-  <div class="price-group">
-    <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{escape(best_price_note)}</div>
-  </div>
-</a>"""
+    best_band = render_winner_widget(best, offers)
 
     about_type = "Product" if in_stock_offers else "Thing"
     schema_json = f"""{{
@@ -4445,6 +4479,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+{WINNER_WIDGET_STYLE}
 </style>
 </head>
 <body>
