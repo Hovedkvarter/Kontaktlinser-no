@@ -130,7 +130,7 @@ function __loadGTM() {
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/ibm-plex-mono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/ibm-plex-mono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
-  --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
+  --ink: #0B2545; --mist: #F5F9FA; --blue: #2563EB; --blue-tint: #E8EFFE; --blue-dark: #1D4ED8;
   --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #7C8A9E; --muted-bg: #ECEFF3;
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
@@ -146,8 +146,9 @@ a { color: inherit; }
 /* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
    store skjermer -- kun grid-/liste-/pristabellsider trenger mer bredde.
    wrap-wide: forside/kategori/merke-oversikter. wrap-product: produkt-
-   /pristabellsider. Se .brand-grid/.category-grid for
-   tilhørende kolonneøkning ved samme breakpoint. */
+   /pristabellsider. Se .brand-grid for tilhørende kolonneøkning ved
+   samme breakpoint (.category-rows er en enkel radliste, skalerer ikke
+   i kolonner). */
 @media (min-width: 1024px) {
   .wrap-wide { max-width: 1200px; }
   .wrap-product { max-width: 1040px; }
@@ -158,18 +159,18 @@ a { color: inherit; }
 @media (min-width: 640px) { .topbar-logo img { height: 32px; } }
 .topbar-nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .topbar-nav a { font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--ink); }
-.topbar-nav a:hover { color: var(--aqua); }
+.topbar-nav a:hover { color: var(--blue); }
 .nav-item { position: relative; }
 .nav-trigger { display: flex; align-items: center; gap: 4px; background: none; border: none; font-family: inherit; font-size: 0.95rem; font-weight: 600; color: var(--ink); cursor: pointer; padding: 8px 6px; }
-.nav-trigger:hover { color: var(--aqua); }
+.nav-trigger:hover { color: var(--blue); }
 .nav-caret { font-size: 0.65em; color: var(--muted); }
 .mega-menu { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(11, 37, 69, 0.12); padding: 16px; z-index: 50; opacity: 0; visibility: hidden; transition: opacity 0.15s ease, visibility 0s linear 0.15s; }
 .mega-menu-cols { display: flex; gap: 32px; }
 .mega-col { display: flex; flex-direction: column; gap: 2px; min-width: 170px; }
 .mega-col-title { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
 .mega-menu a { display: block; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 5px 0; }
-.mega-menu a:hover { color: var(--aqua); }
-.mega-see-all { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600; color: var(--aqua) !important; }
+.mega-menu a:hover { color: var(--blue); }
+.mega-see-all { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600; color: var(--blue) !important; }
 @media (hover: hover) {
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transition-delay: 0s; }
 }
@@ -192,7 +193,7 @@ a { color: inherit; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
-.product-card:hover { border-color: var(--aqua); }
+.product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
 .lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -205,7 +206,7 @@ a { color: inherit; }
 .brand-card-badge.has-logo-dark { background: var(--ink); }
 .brand-logo-img { width: 100%; height: 100%; object-fit: contain; }
 .brand-hero-row { display: flex; align-items: center; gap: 16px; }
-.brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--blue-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .brand-hero-logo.has-logo, .brand-hero-logo.has-logo-dark { width: 128px; border-radius: 14px; padding: 10px; }
 .brand-hero-logo.has-logo { background: white; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
@@ -215,10 +216,10 @@ a { color: inherit; }
 .offer-price-col { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .offer-shipping { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 .offer-shipping svg { width: 15px; height: 15px; color: var(--mint); flex-shrink: 0; }
-.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--aqua); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--blue); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
 .price-pill:hover { opacity: 0.88; }
 .offer-card.is-lowest .price-pill { background: var(--mint); }
-.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--aqua-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--aqua); flex-shrink: 0; overflow: hidden; }
+.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: white; }
@@ -229,13 +230,13 @@ a { color: inherit; }
 .related h2, .guides h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin: 0 0 10px; }
 .related ul, .guides ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .related a, .guides a { display: block; font-size: 0.88rem; text-decoration: none; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; }
-.related a:hover, .guides a:hover { border-color: var(--aqua); }
+.related a:hover, .guides a:hover { border-color: var(--blue); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
 .site-footer { margin-top: 48px; background: var(--ink); color: white; }
 .footer-inner { max-width: 760px; margin: 0 auto; padding: 40px 20px 8px; display: flex; flex-wrap: wrap; gap: 32px 24px; }
 .footer-col { flex: 1 1 140px; min-width: 140px; }
-.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--aqua); margin: 0 0 12px; }
+.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); margin: 0 0 12px; }
 .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.78); text-decoration: none; padding: 3px 0; }
 .footer-col a:hover { color: white; text-decoration: underline; }
 .footer-brand-list { columns: 2; column-gap: 16px; }
@@ -248,23 +249,23 @@ a { color: inherit; }
 .consent-modal { background: white; border-radius: 16px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(11, 37, 69, 0.28); }
 .consent-modal h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin: 0 0 14px; }
 .consent-text { font-size: 0.88rem; line-height: 1.6; color: var(--ink); margin: 0 0 20px; }
-.consent-text a { color: var(--aqua); }
+.consent-text a { color: var(--blue); }
 .consent-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .consent-btn { font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 10px 18px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
 .consent-btn-primary { background: var(--ink); color: white; }
-.consent-btn-primary:hover { background: var(--aqua); }
+.consent-btn-primary:hover { background: var(--blue); }
 .consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
-.consent-btn-secondary:hover { border-color: var(--aqua); }
+.consent-btn-secondary:hover { border-color: var(--blue); }
 .consent-category { border-top: 1px solid var(--border); padding: 14px 0; }
 .consent-category:first-of-type { border-top: none; padding-top: 0; }
 .consent-category-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 0.9rem; }
 .consent-category-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
 .consent-toggle { flex-shrink: 0; appearance: none; -webkit-appearance: none; width: 40px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer; margin: 0; transition: background 0.15s; }
 .consent-toggle::before { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.3); }
-.consent-toggle:checked { background: var(--aqua); }
+.consent-toggle:checked { background: var(--blue); }
 .consent-toggle:checked::before { transform: translateX(16px); }
 .consent-toggle:disabled { opacity: 0.6; cursor: default; }
-.consent-link-btn { background: none; border: none; color: var(--aqua); font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 14px 0 0; display: block; }
+.consent-link-btn { background: none; border: none; color: var(--blue); font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 14px 0 0; display: block; }
 .consent-providers-list:not([hidden]) { list-style: none; padding: 8px 0 0; margin: 0; font-size: 0.82rem; color: var(--muted); }
 .consent-providers-list li { padding: 3px 0; }
 .consent-more-link { font-size: 0.8rem; }
@@ -293,9 +294,9 @@ a { color: inherit; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
-.qty-pill svg { width: 20px; height: 20px; color: var(--aqua); }
+.qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
 .qty-pill span { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
-.qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--aqua) 100%); border-color: var(--aqua); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
+.qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--blue) 100%); border-color: var(--blue); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
@@ -303,7 +304,7 @@ a { color: inherit; }
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
-.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
+.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
 .qty-tip-icon { flex-shrink: 0; }
 .qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
 
@@ -569,7 +570,7 @@ a { color: inherit; }
     <div class="offer-card is-lowest" data-retailer="Lensit">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> <span class="lowest-tag">Lavest pris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
@@ -579,7 +580,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Interoptik">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
@@ -589,7 +590,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Lenson">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -599,7 +600,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Lensway">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -609,7 +610,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Extra Optical">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">45 kr frakt</span></div>
@@ -619,7 +620,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Coptikk">
   <div class="offer-main">
     <div class="offer-retailer">Coptikk </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -627,7 +628,7 @@ a { color: inherit; }
   </div>
 </div>
   </div>
-  <p style="margin-top:16px;"><a href="/kontaktlinser/biomedics/biomedics-1-day-xtra-toric-30-pack/" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se full produktside for Biomedics 1Day Extra Toric 30-pack →</a></p>
+  <p style="margin-top:16px;"><a href="/kontaktlinser/biomedics/biomedics-1-day-xtra-toric-30-pack/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for Biomedics 1Day Extra Toric 30-pack →</a></p>
 
   <div class="private-label-explainer">
     <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for Synsam.</p>
