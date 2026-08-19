@@ -2435,9 +2435,9 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         </div>
       </div>
       <div class="hero-media">
-        <img src="/static/ismail-hadine-kb96ntPY2CA-unsplash.jpg" alt="" loading="eager">
+        <img src="/static/alexandru-zdrobau-4bmtMXGuVqo-unsplash.jpg" alt="" loading="eager">
       </div>
-      <p class="hero-photo-credit">Foto: Ismail Hadine / Unsplash</p>
+      <p class="hero-photo-credit">Foto: Alexandru Zdrobău / Unsplash</p>
     </div>
 
     <div class="section-header" id="kategorier" style="margin-top:20px;">
