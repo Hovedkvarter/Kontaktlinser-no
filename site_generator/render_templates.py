@@ -913,6 +913,17 @@ på kosmetiske og fargede kontaktlinser under merkenavnet ADORE. Selskapet er ve
 mindre enn de tre globale produsentene over, med salg i over 30 land.</p>
 """,
     },
+    "menicon": {
+        "name": "Menicon",
+        "official_url": "https://www.menicon.com/consumer/",
+        "official_url_label": "menicon.com",
+        "brand_slugs": ["miru"],
+        "description_html": """
+<p>Menicon ble grunnlagt i 1951 av Kyoichi Tanaka og var Japans første kontaktlinseprodusent.
+Selskapet har hovedkontor i Nagoya og er i dag representert i over 80 land, med Miru-serien
+som sin daglinse-satsning i det europeiske markedet.</p>
+""",
+    },
 }
 
 BRAND_TO_MANUFACTURER: dict[str, str] = {
@@ -996,6 +1007,154 @@ Aquaform Comfort Science-teknologi.</p>
 Science-teknologien binder vann tilsvarende det dobbelte av materialets egen vekt, og skaper
 naturlig fuktbarhet uten behov for en egen overflatebehandling – i motsetning til enkelte
 andre linser som er avhengige av en tilsatt fuktighetsbelegg.</p>
+""",
+    "purevision": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om PureVision</h2>
+<p>PureVision er en av Bausch + Lombs eldre og mest etablerte månedslinser, bygget rundt
+selskapets AerGel-teknologi.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">PureVision er laget av balafilcon A, en silikonhydrogel med 36 % vanninnhold.
+AerGel-teknologien slipper gjennom naturlige nivåer med oksygen og er motstandsdyktig mot
+proteinavleiringer, mens den nyere PureVision2 i tillegg har ComfortMoist-teknologi som
+tilfører ekstra fuktighet på linseoverflaten.</p>
+""",
+    "biotrue": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biotrue</h2>
+<p>Biotrue ONEday er Bausch + Lombs dagslinse, utviklet med utgangspunkt i egenskapene til
+hornhinnen og tårefilmen.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Biotrue er laget av nesofilcon A (markedsført som "HyperGel"), med 78 %
+vanninnhold – tilsvarende hornhinnens eget naturlige vanninnhold. Surface Active Technology
+skal bevare 98 % av fuktigheten i opptil 16 timer, mens en egen Peri-Ballast-utforming holder
+de toriske variantene stabile gjennom vanlige blunkebevegelser.</p>
+""",
+    "ultra": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ULTRA</h2>
+<p>ULTRA er Bausch + Lombs nyere månedslinse, bygget rundt MoistureSeal-teknologien.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">ULTRA er laget av samfilcon A, en silikonhydrogel med 46 % vanninnhold.
+MoistureSeal-teknologien er utviklet gjennom en to-trinns produksjonsprosess og skal bevare
+95 % av linsens fuktighet i opptil 16 timer.</p>
+""",
+    "air-optix": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Air Optix</h2>
+<p>Air Optix er Alcons etablerte månedslinse-serie, med varianter for sfærisk korreksjon,
+astigmatisme, alderssyn og fargede linser.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Air Optix plus HydraGlyde er laget av lotrafilcon B, en silikonhydrogel med
+33 % vanninnhold. HydraGlyde-teknologien er en overflatebehandling som kontinuerlig tilfører
+fuktighet til linseoverflaten, mens SmartShield-teknologien skal gjøre linsen mer
+motstandsdyktig mot avleiringer.</p>
+""",
+    "precision1": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision1</h2>
+<p>Precision1 er Alcons daglinse, ofte et førstevalg for nye linsebrukere.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Precision1 er laget av verofilcon A, en silikonhydrogel med 51 % vanninnhold
+i kjernen. SmartSurface-teknologien tilfører et tynt, permanent fuktighetslag med over 80 %
+vanninnhold på selve overflaten, slik at linsen kombinerer stabil oksygengjennomtrengelighet
+fra kjernen med fuktighet på overflaten.</p>
+""",
+    "precision7": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision7</h2>
+<p>Precision7 er Alcons ukelinse (7 dagers brukstid) – en mellomting mellom en dagslinse og
+en månedslinse i bytterutine.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Precision7 er laget av serafilcon A, med 55 % vanninnhold. Activ-Flo-
+teknologien er ment å etterfylle fuktighet gjennom hele den syv dager lange brukstiden.</p>
+""",
+    "total30": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om TOTAL30</h2>
+<p>TOTAL30 er Alcons premium månedslinse, bygget på samme vanngradient-prinsipp som
+Dailies Total1, bare i en versjon beregnet for en hel måneds bruk.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">TOTAL30 er laget av lehfilcon A, med 55 % vanninnhold i kjernen som stiger
+gradvis til nær 100 % ved selve overflaten (vanngradient-teknologi). Celligent-teknologien
+skal bidra til å holde linseoverflaten motstandsdyktig mot bakterier og fettavleiringer
+gjennom hele den 30 dager lange brukstiden.</p>
+""",
+    "freshlook": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om FreshLook</h2>
+<p>FreshLook er Alcons serie med fargede kontaktlinser, bygget på selskapets 3-i-1-
+fargeteknologi som blander tre nyanser i én linse for et naturlig utseende.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Godt å vite</h2>
+<p style="font-size:1rem;line-height:1.7;">Fargede linser krever samme resept og tilpasning hos optiker som andre
+kontaktlinser, selv uten styrke – se vår <a href="/guide/kosmetiske-kontaktlinser/">guide om
+kosmetiske og fargede kontaktlinser</a>.</p>
+""",
+    "avaira": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Avaira</h2>
+<p>Avaira Vitality er CooperVisions to-ukerslinse, med sfærisk og torisk variant.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Avaira Vitality er laget av fanfilcon A, med 55 % vanninnhold. Linsen har
+klasse I UV-blokkering, den høyeste klassifiseringen, som blokkerer over 90 % av UVA- og
+over 99 % av UVB-strålene.</p>
+""",
+    "biomedics": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biomedics</h2>
+<p>Biomedics er en eldre og godt etablert linseserie fra CooperVision, med varianter for
+både dags- og to-ukersbruk.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Biomedics er laget av ocufilcon D, en hydrogel med 55 % vanninnhold, som
+er myk og fleksibel og bidrar til fuktighet gjennom brukstiden.</p>
+""",
+    "clariti": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clariti</h2>
+<p>Clariti 1 day er CooperVisions rimeligere daglinse-serie i silikonhydrogel, med sfærisk,
+torisk og multifokal variant.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Clariti er laget av somofilcon A, med 56 % vanninnhold og innebygget
+UV-beskyttelse. WetLoc-teknologien skal fordele fuktighet jevnt over hele linseoverflaten.</p>
+""",
+    "myday": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om MyDay</h2>
+<p>MyDay er CooperVisions premium daglinse, med sfærisk, torisk og multifokal variant –
+samt MyDay MiSight, en egen daglinse godkjent for myopikontroll hos barn.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">MyDay er laget av stenfilcon A, med 54 % vanninnhold. Linsen bruker samme
+Aquaform-teknologi som Biofinity, som binder vann naturlig i materialet uten behov for en
+egen overflatebehandling.</p>
+""",
+    "proclear": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Proclear</h2>
+<p>Proclear er CooperVisions linseserie rettet spesielt mot brukere som opplever tørre øyne,
+i dags-, to-ukers- og multifokal variant.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Proclear er laget av omafilcon A, tilført CooperVisions PC-teknologi. Denne
+bygger inn fosforylkolin (PC) – et stoff som naturlig finnes i cellene i kroppen – som binder
+vann til og gjennom linsen for å redusere rask uttørking.</p>
+""",
+    "adore": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ADORE</h2>
+<p>ADORE er en linseserie for kosmetiske og fargede kontaktlinser fra den italienske
+produsenten Eyemed Technologies, med flere fargekolleksjoner (blant annet Bi-tone og Dare).
+Selv uten styrke regnes fargede linser som medisinsk utstyr og krever samme resept og
+tilpasning hos optiker som andre kontaktlinser – se vår
+<a href="/guide/kosmetiske-kontaktlinser/">guide om kosmetiske og fargede kontaktlinser</a>.</p>
+""",
+    "miru": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Miru</h2>
+<p>Miru er den japanske produsenten Menicons daglinse-serie, med varianter for sfærisk
+korreksjon, astigmatisme og alderssyn.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Miru 1day UpSide er laget av midafilcon A, en silikonhydrogel med 56 %
+vanninnhold. Menicon kombinerer MeniSilk Air-teknologi (fuktighet) med NanoGloss Pro
+(en glatt, lav-friksjons overflate) for å gi linsen komforten til en tradisjonell hydrogel-
+linse med håndteringsegenskapene til en silikonhydrogel.</p>
 """,
 }
 
