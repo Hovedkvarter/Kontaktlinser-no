@@ -10,7 +10,7 @@ JavaScript. Er ikke prisen der i rå-HTML, finnes den ikke for dem. JS her
 brukes kun til forbedringer ovenpå innhold som allerede er synlig uten den
 (filter/sortering på kategorisiden) - se <noscript>-fallback i category-malen.
 
-Bruker samme CSS-tokens som prototypene: ink/mist/aqua/mint, Space Grotesk /
+Bruker samme CSS-tokens som prototypene: ink/mist/blue/mint, Space Grotesk /
 Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
@@ -47,7 +47,7 @@ SHARED_STYLE = """
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/ibm-plex-mono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/ibm-plex-mono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
-  --ink: #0B2545; --mist: #F5F9FA; --aqua: #2EC4D6; --aqua-tint: #E4F7FA;
+  --ink: #0B2545; --mist: #F5F9FA; --blue: #2563EB; --blue-tint: #E8EFFE; --blue-dark: #1D4ED8;
   --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #7C8A9E; --muted-bg: #ECEFF3;
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
@@ -63,8 +63,9 @@ a { color: inherit; }
 /* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
    store skjermer -- kun grid-/liste-/pristabellsider trenger mer bredde.
    wrap-wide: forside/kategori/merke-oversikter. wrap-product: produkt-
-   /pristabellsider. Se .brand-grid/.category-grid for
-   tilhørende kolonneøkning ved samme breakpoint. */
+   /pristabellsider. Se .brand-grid for tilhørende kolonneøkning ved
+   samme breakpoint (.category-rows er en enkel radliste, skalerer ikke
+   i kolonner). */
 @media (min-width: 1024px) {
   .wrap-wide { max-width: 1200px; }
   .wrap-product { max-width: 1040px; }
@@ -75,18 +76,18 @@ a { color: inherit; }
 @media (min-width: 640px) { .topbar-logo img { height: 32px; } }
 .topbar-nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .topbar-nav a { font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--ink); }
-.topbar-nav a:hover { color: var(--aqua); }
+.topbar-nav a:hover { color: var(--blue); }
 .nav-item { position: relative; }
 .nav-trigger { display: flex; align-items: center; gap: 4px; background: none; border: none; font-family: inherit; font-size: 0.95rem; font-weight: 600; color: var(--ink); cursor: pointer; padding: 8px 6px; }
-.nav-trigger:hover { color: var(--aqua); }
+.nav-trigger:hover { color: var(--blue); }
 .nav-caret { font-size: 0.65em; color: var(--muted); }
 .mega-menu { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(11, 37, 69, 0.12); padding: 16px; z-index: 50; opacity: 0; visibility: hidden; transition: opacity 0.15s ease, visibility 0s linear 0.15s; }
 .mega-menu-cols { display: flex; gap: 32px; }
 .mega-col { display: flex; flex-direction: column; gap: 2px; min-width: 170px; }
 .mega-col-title { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
 .mega-menu a { display: block; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 5px 0; }
-.mega-menu a:hover { color: var(--aqua); }
-.mega-see-all { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600; color: var(--aqua) !important; }
+.mega-menu a:hover { color: var(--blue); }
+.mega-see-all { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-weight: 600; color: var(--blue) !important; }
 @media (hover: hover) {
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transition-delay: 0s; }
 }
@@ -109,7 +110,7 @@ a { color: inherit; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
-.product-card:hover { border-color: var(--aqua); }
+.product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
 .lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -122,7 +123,7 @@ a { color: inherit; }
 .brand-card-badge.has-logo-dark { background: var(--ink); }
 .brand-logo-img { width: 100%; height: 100%; object-fit: contain; }
 .brand-hero-row { display: flex; align-items: center; gap: 16px; }
-.brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--aqua-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.brand-hero-logo { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: var(--blue-tint); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .brand-hero-logo.has-logo, .brand-hero-logo.has-logo-dark { width: 128px; border-radius: 14px; padding: 10px; }
 .brand-hero-logo.has-logo { background: white; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
@@ -132,10 +133,10 @@ a { color: inherit; }
 .offer-price-col { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .offer-shipping { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 .offer-shipping svg { width: 15px; height: 15px; color: var(--mint); flex-shrink: 0; }
-.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--aqua); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--blue); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
 .price-pill:hover { opacity: 0.88; }
 .offer-card.is-lowest .price-pill { background: var(--mint); }
-.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--aqua-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--aqua); flex-shrink: 0; overflow: hidden; }
+.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
 .chip.active { background: var(--ink); border-color: var(--ink); color: white; }
@@ -146,13 +147,13 @@ a { color: inherit; }
 .related h2, .guides h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin: 0 0 10px; }
 .related ul, .guides ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .related a, .guides a { display: block; font-size: 0.88rem; text-decoration: none; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; }
-.related a:hover, .guides a:hover { border-color: var(--aqua); }
+.related a:hover, .guides a:hover { border-color: var(--blue); }
 .disclosure { font-size: 0.78rem; color: var(--muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 18px; margin-top: 22px; }
 @media (min-width: 560px) { .hero-copy h1 { font-size: 2.2rem; } }
 .site-footer { margin-top: 48px; background: var(--ink); color: white; }
 .footer-inner { max-width: 760px; margin: 0 auto; padding: 40px 20px 8px; display: flex; flex-wrap: wrap; gap: 32px 24px; }
 .footer-col { flex: 1 1 140px; min-width: 140px; }
-.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--aqua); margin: 0 0 12px; }
+.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); margin: 0 0 12px; }
 .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.78); text-decoration: none; padding: 3px 0; }
 .footer-col a:hover { color: white; text-decoration: underline; }
 .footer-brand-list { columns: 2; column-gap: 16px; }
@@ -165,23 +166,23 @@ a { color: inherit; }
 .consent-modal { background: white; border-radius: 16px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(11, 37, 69, 0.28); }
 .consent-modal h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin: 0 0 14px; }
 .consent-text { font-size: 0.88rem; line-height: 1.6; color: var(--ink); margin: 0 0 20px; }
-.consent-text a { color: var(--aqua); }
+.consent-text a { color: var(--blue); }
 .consent-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .consent-btn { font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 10px 18px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
 .consent-btn-primary { background: var(--ink); color: white; }
-.consent-btn-primary:hover { background: var(--aqua); }
+.consent-btn-primary:hover { background: var(--blue); }
 .consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
-.consent-btn-secondary:hover { border-color: var(--aqua); }
+.consent-btn-secondary:hover { border-color: var(--blue); }
 .consent-category { border-top: 1px solid var(--border); padding: 14px 0; }
 .consent-category:first-of-type { border-top: none; padding-top: 0; }
 .consent-category-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 0.9rem; }
 .consent-category-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
 .consent-toggle { flex-shrink: 0; appearance: none; -webkit-appearance: none; width: 40px; height: 24px; background: var(--border); border-radius: 12px; position: relative; cursor: pointer; margin: 0; transition: background 0.15s; }
 .consent-toggle::before { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; background: white; border-radius: 50%; transition: transform 0.15s; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.3); }
-.consent-toggle:checked { background: var(--aqua); }
+.consent-toggle:checked { background: var(--blue); }
 .consent-toggle:checked::before { transform: translateX(16px); }
 .consent-toggle:disabled { opacity: 0.6; cursor: default; }
-.consent-link-btn { background: none; border: none; color: var(--aqua); font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 14px 0 0; display: block; }
+.consent-link-btn { background: none; border: none; color: var(--blue); font-size: 0.82rem; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 14px 0 0; display: block; }
 .consent-providers-list:not([hidden]) { list-style: none; padding: 8px 0 0; margin: 0; font-size: 0.82rem; color: var(--muted); }
 .consent-providers-list li { padding: 3px 0; }
 .consent-more-link { font-size: 0.8rem; }
@@ -1475,9 +1476,9 @@ WINNER_WIDGET_STYLE = """
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
-.qty-pill svg { width: 20px; height: 20px; color: var(--aqua); }
+.qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
 .qty-pill span { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
-.qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--aqua) 100%); border-color: var(--aqua); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
+.qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--blue) 100%); border-color: var(--blue); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
@@ -1485,7 +1486,7 @@ WINNER_WIDGET_STYLE = """
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
-.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--aqua-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
+.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
 .qty-tip-icon { flex-shrink: 0; }
 .qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
 """
@@ -1817,7 +1818,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
 .aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
-.aliases-note a {{ color: var(--aqua); text-decoration: none; font-weight: 600; }}
+.aliases-note a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
 .aliases-note a:hover {{ text-decoration: underline; }}
 .specs {{ margin-top: 32px; }}
 .specs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
@@ -1829,9 +1830,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .spec-value {{ text-align: right; font-family: 'IBM Plex Mono', monospace; }}
 .specs-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }}
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
-.pack-size-callout:hover {{ border-color: var(--aqua); }}
-.pack-size-callout-arrow {{ color: var(--aqua); font-size: 1.1rem; flex-shrink: 0; }}
-.hero-product-image {{ width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--aqua); }}
+.pack-size-callout:hover {{ border-color: var(--blue); }}
+.pack-size-callout-arrow {{ color: var(--blue); font-size: 1.1rem; flex-shrink: 0; }}
+.hero-product-image {{ width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; }} }}
 @media (min-width: 1024px) {{ .hero-product-image {{ width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; }} }}
@@ -1841,10 +1842,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
 .price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }}
-.price-history-line {{ fill: none; stroke: var(--aqua); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
-.price-history-dot {{ fill: var(--aqua); }}
+.price-history-line {{ fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
+.price-history-dot {{ fill: var(--blue); }}
 .price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
-.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
@@ -2107,8 +2108,8 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 <style>{SHARED_STYLE}
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
-.brand-card:hover {{ border-color: var(--aqua); }}
-.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--aqua-tint); color: var(--aqua); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card:hover {{ border-color: var(--blue); }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
@@ -2131,7 +2132,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
   </div>
 
   <p style="margin:20px 0 32px;">
-    <a href="{escape(data['official_url'])}" target="_blank" rel="noopener" style="font-weight:600;color:var(--aqua-dark);">
+    <a href="{escape(data['official_url'])}" target="_blank" rel="noopener" style="font-weight:600;color:var(--blue-dark);">
       Offisiell nettside: {escape(data['official_url_label'])} ↗
     </a>
   </p>
@@ -2188,18 +2189,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     private_label_search_index_json = json.dumps(
         [build_private_label_search_entry(l) for l in (private_labels or [])], ensure_ascii=False
     ).replace("</", "<\\/")
-
-    def render_category_card(slug: str, category: dict) -> str:
-        count = sum(1 for p in catalog["products"] if p["category_slug"] == slug)
-        n_label = "produkt" if count == 1 else "produkter"
-        return f"""<a class="category-card" href="/kontaktlinser/{escape(slug)}/">
-  <div class="category-card-label">{escape(category["label"])}</div>
-  <div class="category-card-count">{count} {n_label}</div>
-</a>"""
-
-    category_cards_html = "\n".join(
-        render_category_card(slug, category) for slug, category in catalog["categories"].items()
-    )
 
     brand_counts: dict[str, int] = {}
     brand_labels: dict[str, str] = {}
@@ -2272,27 +2261,42 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         "fargede-linser": '<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none" opacity="0.35"/>',
         "multifokale-linser": '<circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/>',
     }
+    # Én aksentfarge per kategori, hentet fra den allerede etablerte
+    # paletten (samme farger som GUIDE_ICONS roterer gjennom) -- IKKE mint,
+    # det er reservert utelukkende for "laveste pris" noe annet sted på
+    # siden, se designsystem-regelen i CLAUDE.md.
+    CATEGORY_COLORS = {
+        "manedslinser": "blue",
+        "dagslinser": "amber",
+        "toriske-linser": "sky",
+        "fargede-linser": "lavender",
+        "multifokale-linser": "coral",
+    }
+    CATEGORY_TAGLINES = {
+        "manedslinser": "Populær og kostnadseffektiv",
+        "dagslinser": "Friske linser hver dag",
+        "toriske-linser": "For deg med astigmatisme",
+        "fargede-linser": "Endre eller forsterk øyefargen",
+        "multifokale-linser": "For nær, mellom og fjern",
+    }
 
-    def render_category_card(slug: str, category: dict) -> str:
-        count = sum(1 for p in catalog["products"] if p["category_slug"] == slug)
-        n_label = "produkt" if count == 1 else "produkter"
+    def render_category_row(slug: str, category: dict) -> str:
         icon = category_icons.get(slug, "")
-        return f"""<a class="category-card" href="/kontaktlinser/{escape(slug)}/">
-  <svg class="category-card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--aqua)" stroke-width="1.6" aria-hidden="true">{icon}</svg>
-  <div class="category-card-label">{escape(category["label"])}</div>
-  <div class="category-card-count">{count} {n_label}</div>
+        color = CATEGORY_COLORS.get(slug, "blue")
+        tagline = CATEGORY_TAGLINES.get(slug, "")
+        return f"""<a class="category-row" href="/kontaktlinser/{escape(slug)}/">
+  <div class="category-row-icon" style="background:var(--{color}-tint);color:var(--{color});">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{icon}</svg>
+  </div>
+  <div class="category-row-text">
+    <div class="category-row-label">{escape(category["label"])}</div>
+    <div class="category-row-desc">{escape(tagline)}</div>
+  </div>
+  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
 </a>"""
 
-    category_cards_html = "\n".join(
-        render_category_card(slug, category) for slug, category in catalog["categories"].items()
-    )
-
-    hero_category_pills_html = "\n".join(
-        f'''<a class="hero-pill" href="/kontaktlinser/{escape(slug)}/">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{category_icons.get(slug, "")}</svg>
-  {escape(category["label"])}
-</a>'''
-        for slug, category in catalog["categories"].items()
+    category_rows_html = "\n".join(
+        render_category_row(slug, category) for slug, category in catalog["categories"].items()
     )
 
     guide_cards_html = "\n".join(render_guide_tile(slug, g) for slug, g in GUIDE_CONTENT.items())
@@ -2315,31 +2319,28 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .hero {{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: "content" "media" "credit";
-  gap: 16px;
   padding: 8px 0 24px;
 }}
-.hero-content {{ grid-area: content; display: flex; flex-direction: column; gap: 16px; }}
-.hero-media {{ grid-area: media; border-radius: 18px; overflow: hidden; max-height: 170px; box-shadow: var(--card-shadow); }}
-.hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
-.hero-photo-credit {{ grid-area: credit; font-size: 0.66rem; color: var(--muted); margin: -10px 0 0; text-align: right; }}
-.hero-lead {{ max-width: 560px; }}
-.hero-lead p {{ margin: 0; color: var(--muted); font-size: 0.92rem; }}
-.hero-category-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }}
-.hero-pill {{ display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px 9px 14px; border-radius: 24px; border: 1px solid var(--border); background: white; color: var(--ink); text-decoration: none; font-size: 0.84rem; font-weight: 600; box-shadow: var(--card-shadow); transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s; }}
-.hero-pill svg {{ width: 15px; height: 15px; flex-shrink: 0; color: var(--aqua); }}
-.hero-pill:hover {{ border-color: var(--aqua); background: var(--aqua-tint); box-shadow: 0 2px 8px rgba(46, 196, 214, 0.18); }}
+.hero-content {{ display: flex; flex-direction: column; gap: 16px; }}
+.hero-subtext {{ margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 480px; }}
+.trust-card {{ display: flex; gap: 14px; align-items: flex-start; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
+.trust-card-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; color: var(--blue); box-shadow: var(--card-shadow); }}
+.trust-card-icon svg {{ width: 20px; height: 20px; }}
+.trust-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; margin: 0 0 4px; }}
+.trust-card-text {{ font-size: 0.84rem; color: var(--muted); line-height: 1.5; margin: 0; }}
 .trust-strip {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 40px 0 0; box-shadow: var(--card-shadow); }}
-.trust-item {{ font-size: 0.78rem; color: var(--muted); }}
-.trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; color: var(--ink); }}
-.search-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 10px; }}
+.trust-item {{ display: flex; align-items: center; gap: 10px; }}
+.trust-item-icon {{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; }}
+.trust-item-icon svg {{ width: 17px; height: 17px; }}
+.trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--ink); }}
+.trust-item span {{ font-size: 0.74rem; color: var(--muted); }}
 .search-row {{ position: relative; }}
 .search-icon {{ position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }}
-.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 20px 16px 48px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
-.search-input:focus {{ outline: none; border-color: var(--aqua); box-shadow: 0 0 0 4px var(--aqua-tint); }}
-.search-row:focus-within .search-icon {{ color: var(--aqua); }}
+.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
+.search-input:focus {{ outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-tint); }}
+.search-row:focus-within .search-icon {{ color: var(--blue); }}
+.search-btn {{ position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }}
+.search-btn:hover {{ background: var(--blue-dark); }}
 .search-suggestions {{ display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }}
 .search-suggestion {{ display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }}
 .search-suggestion:last-child {{ border-bottom: none; }}
@@ -2351,16 +2352,19 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
-.category-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }}
-.category-card {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--card-shadow); border-left: 3px solid var(--aqua); }}
-.category-card:hover {{ border-color: var(--aqua); }}
-.category-card-icon {{ width: 20px; height: 20px; margin-bottom: 8px; }}
-.category-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; }}
-.category-card-count {{ font-size: 0.78rem; color: var(--muted); margin-top: 3px; }}
+.category-rows {{ display: flex; flex-direction: column; gap: 10px; }}
+.category-row {{ display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--card-shadow); transition: border-color 0.15s; }}
+.category-row:hover {{ border-color: var(--blue); }}
+.category-row-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
+.category-row-icon svg {{ width: 20px; height: 20px; }}
+.category-row-text {{ flex: 1; min-width: 0; }}
+.category-row-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; }}
+.category-row-desc {{ font-size: 0.8rem; color: var(--muted); margin-top: 2px; }}
+.category-row-chevron {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--muted); }}
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
-.brand-card:hover {{ border-color: var(--aqua); }}
-.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--aqua-tint); color: var(--aqua); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card:hover {{ border-color: var(--blue); }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
@@ -2371,22 +2375,12 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
 .faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
-@media (min-width: 640px) {{ .category-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
-@media (min-width: 700px) {{
-  .hero {{
-    grid-template-columns: 1fr 42%;
-    grid-template-areas: "content media" "content credit";
-    align-items: start;
-    gap: 8px 32px;
-  }}
-  .hero-media {{ max-height: none; aspect-ratio: 4 / 3; }}
-  .hero-photo-credit {{ margin-top: -22px; }}
-}}
 @media (min-width: 1024px) {{
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
-  .category-grid {{ grid-template-columns: repeat(5, 1fr); }}
-  .search-input {{ padding: 18px 24px 18px 52px; font-size: 1.15rem; }}
+  .category-rows {{ max-width: 640px; }}
+  .search-input {{ padding: 18px 120px 18px 52px; font-size: 1.15rem; }}
   .search-icon {{ left: 22px; width: 22px; height: 22px; }}
+  .search-btn {{ padding: 0 26px; font-size: 0.98rem; }}
 }}
 </style>
 </head>
@@ -2398,27 +2392,32 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       <div class="hero-heading hero-copy">
         <div class="kicker">Prissammenligning</div>
         <h1>Finn billigste kontaktlinser</h1>
+        <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Alltid lavest totalpris – inkludert frakt.</p>
       </div>
       <div class="search-section">
-        <h2>Søk etter linse eller merke</h2>
         <div class="search-row">
           <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
           <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
-          <input type="search" id="lens-search" class="search-input" placeholder="F.eks. «Biofinity» eller «Dailies»" autocomplete="off">
+          <input type="search" id="lens-search" class="search-input" placeholder="Søk etter linse eller merke" autocomplete="off">
+          <button type="button" class="search-btn" id="search-btn">Søk</button>
           <div class="search-suggestions" id="search-suggestions"></div>
         </div>
       </div>
-      <div class="hero-lead">
-        <p>Kontaktlinser.no er en uavhengig prissammenligningstjeneste som sammenligner priser på {n_products} kontaktlinser fra {n_retailers} norske nettbutikker. Vi henter priser automatisk hver 6. time og sorterer alltid etter lavest totalpris inkludert frakt - søk, eller velg en kategori under.</p>
-        <div class="hero-category-pills">
-          {hero_category_pills_html}
+      <div class="trust-card">
+        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div>
+          <div class="trust-card-title">Uavhengig og oppdatert</div>
+          <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk hver 6. time og viser alltid lavest totalpris inkludert frakt.</p>
         </div>
       </div>
     </div>
-    <div class="hero-media">
-      <img src="/static/hero-eye.jpg" alt="" loading="eager">
-    </div>
-    <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
+  </div>
+
+  <div class="section-header" id="kategorier">
+    <h2>Kategorier</h2>
+  </div>
+  <div class="category-rows">
+    {category_rows_html}
   </div>
 
   <div class="section-header" id="merker">
@@ -2426,13 +2425,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
   <div class="brand-grid">
     {brand_cards_html}
-  </div>
-
-  <div class="section-header" id="kategorier">
-    <h2>Kategorier</h2>
-  </div>
-  <div class="category-grid">
-    {category_cards_html}
   </div>
 
   <div class="section-header">
@@ -2443,10 +2435,22 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 
   <div class="trust-strip">
-    <div class="trust-item"><strong>{n_retailers}</strong>forhandlere sammenlignet</div>
-    <div class="trust-item"><strong>{n_products}</strong>linser fulgt</div>
-    <div class="trust-item"><strong>6t</strong>mellom hver prisoppdatering</div>
-    <div class="trust-item"><strong>0 kr</strong>i skjulte gebyrer hos oss</div>
+    <div class="trust-item">
+      <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41L12 22l-9-9 8.59-8.59A2 2 0 0 1 13 3h5a2 2 0 0 1 2 2v5a2 2 0 0 1-.41 2.41z"/><circle cx="16.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+      <div><strong>{n_products} linser</strong><span>Oppdatert hver 6. time</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
+      <div><strong>{n_retailers} nettbutikker</strong><span>Alltid lavest totalpris</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-icon">{TRUCK_ICON_SVG}</div>
+      <div><strong>Inkl. frakt</strong><span>Totalpris du faktisk betaler</span></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/></svg></div>
+      <div><strong>Uavhengig</strong><span>Vi selger ikke linser selv</span></div>
+    </div>
   </div>
 
   {home_faq_html}
@@ -2500,6 +2504,20 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
   document.addEventListener('click', e => {{
     if (!e.target.closest('.search-row')) suggestions.style.display = 'none';
+  }});
+
+  // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
+  // klikke første forslag i dropdownen -- vi har ingen egen søkeresultat-
+  // side, kun autofullføring, så dette er nærmeste naturlige "søk"-handling.
+  function goToBestMatch() {{
+    const q = searchInput.value.trim().toLowerCase();
+    if (!q) {{ searchInput.focus(); return; }}
+    const best = allSearchable.find(item => item.search.includes(q));
+    if (best) window.location.href = best.href;
+  }}
+  document.getElementById('search-btn').addEventListener('click', goToBestMatch);
+  searchInput.addEventListener('keydown', e => {{
+    if (e.key === 'Enter') {{ e.preventDefault(); goToBestMatch(); }}
   }});
 </script>
 {render_footer()}
@@ -2628,7 +2646,7 @@ følges opp jevnlig så lenge det bruker linser.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/familie/barn/barn-og-kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> er det store individuelle forskjeller i når et barn er klart, selv om det finnes en vanlig tommelfingerregel:</p>
 
-<blockquote cite="https://nhi.no/familie/barn/barn-og-kontaktlinser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/familie/barn/barn-og-kontaktlinser" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Vanlige anbefalinger er at barn kan begynne å bruke linser når de er i 12-13 års alderen. Men det finnes 14-åringer som er for umodne til å bruke linser, og 10-åringer som er modne nok.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/familie/barn/barn-og-kontaktlinser" target="_blank" rel="noopener">NHI, Barn og kontaktlinser</a></cite></footer>
 </blockquote>
@@ -2781,7 +2799,7 @@ skal vare lenge.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> er dette et av de tydeligste rådene fra både amerikanske og norske helsemyndigheter:</p>
 
-<blockquote cite="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Både CDC og FHI presiserer at linser og linseetui aldri skal renses/skylles eller oppbevares i springvann.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">NHI, Kontaktlinser og vann</a></cite></footer>
 </blockquote>
@@ -3100,7 +3118,7 @@ etterpå.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> er risikoen for sår på hornhinnen særlig stor ved bruk av linser over natten:</p>
 
-<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Linsene kan gi sår på hornhinnen. Myke kontaktlinser gir lettere sår enn harde. Risikoen er særlig stor hvis linsene brukes over natten.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">NHI, Kontaktlinser</a></cite></footer>
 </blockquote>
@@ -3138,7 +3156,7 @@ alternativ enn å beholde kontaktlinsene i.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a>, med henvisning til Folkehelseinstituttet, er akantamøbe-infeksjon en anerkjent og alvorlig risiko ved kontaktlinsebruk i vann:</p>
 
-<blockquote cite="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Keratitt er en alvorlig øyeinfeksjon som i hovedsak ses hos brukere av alle typer kontaktlinser. Tilstanden er ofte smertefull og vanskelig å behandle.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">NHI, Kontaktlinser og vann</a></cite></footer>
 </blockquote>
@@ -3198,8 +3216,8 @@ et eksempel – trykk på en verdi for å få den forklart:</p>
 
 <style>
 .rx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
-.rx-cell { display: block; text-decoration: none; background: var(--aqua-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 8px; text-align: center; }
-.rx-cell:hover { border-color: var(--aqua); }
+.rx-cell { display: block; text-decoration: none; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 8px; text-align: center; }
+.rx-cell:hover { border-color: var(--blue); }
 .rx-cell-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--muted); }
 .rx-cell-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); margin-top: 2px; }
 @media (max-width: 480px) { .rx-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -3773,7 +3791,7 @@ en lampe – det er ikke noe å kvie seg for å spørre om.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> gjelder denne enkle tommelfingerregelen for når du bør oppsøke lege:</p>
 
-<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Kontakt lege dersom du har hatt ubehag over lengre tid eller dersom øynene dine er røde eller såre.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">NHI, Kontaktlinser</a></cite></footer>
 </blockquote>
@@ -3824,7 +3842,7 @@ tegn på at det er på tide med en ny synsundersøkelse.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">NHI sin veiviser for røde øyne lister opp konkrete varseltegn under overskriften «Tegn på alvorlig øyesykdom» – redusert syn er ett av dem:</p>
 
-<blockquote cite="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Redusert syn, lysskyhet.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://nhi.no/symptomer/infeksjoner/rodt-oye-veiviser" target="_blank" rel="noopener">NHI, Rødt øye – veiviser</a></cite></footer>
 </blockquote>
@@ -3876,7 +3894,7 @@ linse og væske – det reduserer risikoen for at dette oppstår i utgangspunkte
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" target="_blank" rel="noopener">Helsenorge</a>, den offentlige norske helseportalen, gjelder følgende anbefaling for kontaktlinsebrukere med tegn på øyekatarr:</p>
 
-<blockquote cite="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" style="border-left:3px solid var(--aqua);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
+<blockquote cite="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" style="border-left:3px solid var(--blue);margin:16px 0;padding:4px 0 4px 16px;font-size:0.9rem;color:var(--ink);">
   <p style="margin:0;">Bruker du kontaktlinser og merker symptomer på øyekatarr, bør du ta ut kontaktlinsene og raskt oppsøke lege.</p>
   <footer style="font-size:0.8rem;color:var(--muted);margin-top:6px;">&mdash; <cite><a href="https://www.helsenorge.no/sykdom/oyesykdommer/oyekatarr/" target="_blank" rel="noopener">Helsenorge, Øyekatarr (konjunktivitt)</a></cite></footer>
 </blockquote>
@@ -4044,7 +4062,7 @@ GUIDE_ICONS = {
         "svg": '<rect x="4" y="6" width="16" height="13" rx="3" fill="currentColor" opacity="0.18"/><circle cx="8" cy="10.5" r="1.7" fill="currentColor"/><circle cx="12" cy="10.5" r="1.7" fill="currentColor"/><circle cx="16" cy="10.5" r="1.7" fill="currentColor"/><circle cx="8" cy="15" r="1.7" fill="currentColor"/><circle cx="12" cy="15" r="1.7" fill="currentColor"/><circle cx="16" cy="15" r="1.7" fill="currentColor"/>',
     },
     "hvordan-velge-kontaktlinser": {
-        "color": "aqua",
+        "color": "blue",
         "svg": '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="white"/><circle cx="12" cy="12" r="2" fill="currentColor"/>',
     },
     "kontaktlinser-for-barn": {
@@ -4064,7 +4082,7 @@ GUIDE_ICONS = {
         "svg": '<circle cx="7" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="17" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M11 13h2M2.5 12l1-3M21.5 12l-1-3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
     },
     "vedlikehold-av-kontaktlinser": {
-        "color": "aqua",
+        "color": "blue",
         "svg": '<rect x="3" y="7" width="18" height="12" rx="4" fill="currentColor"/><circle cx="8.5" cy="13" r="2.5" fill="white"/><circle cx="15.5" cy="13" r="2.5" fill="white"/>',
     },
     "reising-med-kontaktlinser": {
@@ -4140,11 +4158,11 @@ GUIDE_ICONS = {
         "svg": '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.4"/><path d="M12 3v18M4.5 6.5l15 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     },
     "add-forklart": {
-        "color": "aqua",
+        "color": "blue",
         "svg": '<circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.18"/><path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
     },
     "hvor-lenge-kan-man-bruke-kontaktlinser": {
-        "color": "aqua",
+        "color": "blue",
         "svg": '<circle cx="12" cy="12" r="9" fill="currentColor"/><path d="M12 7.5v5l3 1.8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
     },
     "samme-styrke-briller-og-linser": {
@@ -4172,7 +4190,7 @@ GUIDE_ICONS = {
         "svg": '<rect x="4" y="5" width="16" height="14" rx="2" fill="currentColor" opacity="0.16"/><path d="M8 10h8M8 13h8M8 16h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
     },
     "kontaktlinseabonnement-vs-kjope-selv": {
-        "color": "aqua",
+        "color": "blue",
         "svg": '<path d="M17 5a7 7 0 1 0 3 5.3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M17 2v4h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>',
     },
     "hvordan-kjope-kontaktlinser-pa-nett": {
@@ -4206,19 +4224,19 @@ GUIDE_ICONS = {
 GUIDE_TILE_STYLE = """
 .guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
 .guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
-.guide-tile:hover { border-color: var(--aqua); }
+.guide-tile:hover { border-color: var(--blue); }
 .guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
 .guide-tile-icon svg { width: 28px; height: 28px; }
 .guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
 .guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
-.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--aqua); margin-top: 12px; }
+.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
 @media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
 """
 
 
 def render_guide_tile(slug: str, g: dict) -> str:
-    icon = GUIDE_ICONS.get(slug, {"color": "aqua", "svg": ""})
+    icon = GUIDE_ICONS.get(slug, {"color": "blue", "svg": ""})
     color, tint = f"var(--{icon['color']})", f"var(--{icon['color']}-tint)"
     return f"""<a class="guide-tile" href="/guide/{escape(slug)}/">
   <div class="guide-tile-icon" style="background:{tint};color:{color};"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true">{icon["svg"]}</svg></div>
@@ -4373,7 +4391,7 @@ def render_404_page() -> str:
 .not-found-hero p {{ color: var(--muted); font-size: 0.94rem; max-width: 440px; margin: 0 auto; }}
 .not-found-links {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 440px; margin: 28px auto 0; }}
 .not-found-link {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: var(--card-shadow); }}
-.not-found-link:hover {{ border-color: var(--aqua); }}
+.not-found-link:hover {{ border-color: var(--blue); }}
 </style>
 </head>
 <body>
@@ -4590,7 +4608,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 
   <div class="list-header">
     <h2 id="result-count">{len(products)} produkter</h2>
-    <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--aqua);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
+    <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
@@ -4781,7 +4799,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
-.product-ai-summary {{ background: var(--aqua-tint); border-left: 4px solid var(--aqua); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 </style>
@@ -5061,7 +5079,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
   </div>
 
-  <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
+  <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
 
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
@@ -5201,7 +5219,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   <div class="offers">
     {offer_cards_html}
   </div>
-  <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--aqua);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
+  <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
 
   <div class="private-label-explainer">
     <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for {escape(chain)}.</p>
@@ -5247,7 +5265,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict) ->
             for l in chain_labels
         )
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
-        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--aqua);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
+        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--blue);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
   <div class="product-list-group">{rows}</div>
 """
 
