@@ -6256,6 +6256,79 @@
           "slug": "linsebutikk/dagslinser/myday-misight-1-day-90-linser"
         }
       ]
+    },
+    {
+      "id": "live-30pk",
+      "slug": "live-30-pack",
+      "name": "Live 30-pack",
+      "description": "Dagslinse fra CooperVision.",
+      "long_description": "Live er CooperVisions rimeligere dagslinse, posisjonert mot unge og førstegangsbrukere. Laget av somofilcon A, samme materiale som Clariti 1 day.",
+      "brand_slug": "live",
+      "brand_label": "Live",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Somofilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "live-lens-7639"
+        },
+        {
+          "retailer": "lensit",
+          "slug": "live",
+          "variant": "30"
+        }
+      ]
+    },
+    {
+      "id": "live-90pk",
+      "slug": "live-90-pack",
+      "name": "Live 90-pack",
+      "description": "Dagslinse fra CooperVision.",
+      "long_description": "Live er CooperVisions rimeligere dagslinse, posisjonert mot unge og førstegangsbrukere. Laget av somofilcon A, samme materiale som Clariti 1 day.",
+      "brand_slug": "live",
+      "brand_label": "Live",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Somofilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "live-lens-7668"
+        }
+      ]
     }
   ]
 }

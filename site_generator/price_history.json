@@ -4423,5 +4423,19 @@
       "price": 1088.0,
       "store": "Synsam"
     }
+  ],
+  "live-30pk": [
+    {
+      "date": "2026-08-19",
+      "price": 249.0,
+      "store": "Lenson"
+    }
+  ],
+  "live-90pk": [
+    {
+      "date": "2026-08-19",
+      "price": 549.0,
+      "store": "Lenson"
+    }
   ]
 }

@@ -471,6 +471,7 @@ FOOTER_BRANDS = [
     ("clariti", "Clariti"),
     ("dailies", "Dailies"),
     ("freshlook", "FreshLook"),
+    ("live", "Live"),
     ("miru", "MIRU"),
     ("myday", "MyDay"),
     ("precision1", "Precision1"),
@@ -860,7 +861,7 @@ MANUFACTURERS = {
         "name": "CooperVision",
         "official_url": "https://coopervision.no/",
         "official_url_label": "coopervision.no",
-        "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics"],
+        "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics", "live"],
         "description_html": """
 <p>CooperVision ble stiftet i 1980 som en egen forretningsenhet under det som i dag heter
 The Cooper Companies, med hovedkontor i San Ramon, California. Selskapet er verdens
@@ -1156,6 +1157,17 @@ korreksjon, astigmatisme og alderssyn.</p>
 vanninnhold. Menicon kombinerer MeniSilk Air-teknologi (fuktighet) med NanoGloss Pro
 (en glatt, lav-friksjons overflate) for å gi linsen komforten til en tradisjonell hydrogel-
 linse med håndteringsegenskapene til en silikonhydrogel.</p>
+""",
+    "live": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Live</h2>
+<p>Live er CooperVisions rimeligere daglinse, posisjonert mot unge og førstegangsbrukere.
+Linsen selges også under andre navn hos enkelte utenlandske forhandlere/optikerkjeder, som
+en del av samme CooperVision-plattform.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Live er laget av somofilcon A, en silikonhydrogel med 56 % vanninnhold –
+samme materiale som brukes i CooperVisions Clariti 1 day. AquaGen-teknologien skal binde
+fuktighet naturlig til og gjennom linsen.</p>
 """,
 }
 
