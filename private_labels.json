@@ -300,6 +300,12 @@
       "name": "Ascend Evolve+ Toric",
       "chain": "Coptikk",
       "real_product_id": "avaira-vitality-toric-6pk"
+    },
+    {
+      "slug": "ascend-active-toric-1-day",
+      "name": "Ascend Active Toric 1 Day",
+      "chain": "Coptikk",
+      "real_product_id": "clariti-1day-toric-30pk"
     }
   ]
 }
