@@ -2318,10 +2318,13 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
+.hero-panel {{ padding: 0; }}
 .hero {{
   padding: 8px 0 24px;
 }}
 .hero-content {{ display: flex; flex-direction: column; gap: 16px; }}
+.hero-media {{ display: none; }}
+.hero-photo-credit {{ display: none; }}
 .hero-subtext {{ margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 480px; }}
 .trust-card {{ display: flex; gap: 14px; align-items: flex-start; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
 .trust-card-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; color: var(--blue); box-shadow: var(--card-shadow); }}
@@ -2377,47 +2380,71 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 1024px) {{
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
-  .category-rows {{ max-width: 640px; }}
   .search-input {{ padding: 18px 120px 18px 52px; font-size: 1.15rem; }}
   .search-icon {{ left: 22px; width: 22px; height: 22px; }}
   .search-btn {{ padding: 0 26px; font-size: 0.98rem; }}
+
+  .hero-panel {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 36px 40px; box-shadow: var(--card-shadow); }}
+  .hero {{
+    display: grid;
+    grid-template-columns: 1fr 36%;
+    grid-template-areas: "content media" "content credit";
+    align-items: start;
+    gap: 8px 32px;
+    padding: 0;
+  }}
+  .hero-media {{ display: block; grid-area: media; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: var(--card-shadow); }}
+  .hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
+  .hero-photo-credit {{ display: block; grid-area: credit; font-size: 0.66rem; color: var(--muted); margin: -18px 0 0; text-align: right; }}
+  #kategorier {{ margin-top: 32px !important; }}
+  .category-rows {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }}
+  .category-row {{ flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 20px 14px; }}
+  .category-row-icon {{ width: 48px; height: 48px; }}
+  .category-row-icon svg {{ width: 24px; height: 24px; }}
+  .category-row-chevron {{ display: none; }}
 }}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
-  <div class="hero">
-    <div class="hero-content">
-      <div class="hero-heading hero-copy">
-        <div class="kicker">Prissammenligning</div>
-        <h1>Finn billigste kontaktlinser</h1>
-        <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Alltid lavest totalpris – inkludert frakt.</p>
-      </div>
-      <div class="search-section">
-        <div class="search-row">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
-          <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
-          <input type="search" id="lens-search" class="search-input" placeholder="Søk etter linse eller merke" autocomplete="off">
-          <button type="button" class="search-btn" id="search-btn">Søk</button>
-          <div class="search-suggestions" id="search-suggestions"></div>
+  <div class="hero-panel">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-heading hero-copy">
+          <div class="kicker">Prissammenligning</div>
+          <h1>Finn billigste kontaktlinser</h1>
+          <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Alltid lavest totalpris – inkludert frakt.</p>
+        </div>
+        <div class="search-section">
+          <div class="search-row">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+            <label for="lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+            <input type="search" id="lens-search" class="search-input" placeholder="Søk etter linse eller merke" autocomplete="off">
+            <button type="button" class="search-btn" id="search-btn">Søk</button>
+            <div class="search-suggestions" id="search-suggestions"></div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div>
+            <div class="trust-card-title">Uavhengig og oppdatert</div>
+            <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk hver 6. time og viser alltid lavest totalpris inkludert frakt.</p>
+          </div>
         </div>
       </div>
-      <div class="trust-card">
-        <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div>
-          <div class="trust-card-title">Uavhengig og oppdatert</div>
-          <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk hver 6. time og viser alltid lavest totalpris inkludert frakt.</p>
-        </div>
+      <div class="hero-media">
+        <img src="/static/hero-eye.jpg" alt="" loading="eager">
       </div>
+      <p class="hero-photo-credit">Foto: Amanda Dalbjörn / Unsplash</p>
     </div>
-  </div>
 
-  <div class="section-header" id="kategorier">
-    <h2>Kategorier</h2>
-  </div>
-  <div class="category-rows">
-    {category_rows_html}
+    <div class="section-header" id="kategorier" style="margin-top:20px;">
+      <h2>Kategorier</h2>
+    </div>
+    <div class="category-rows">
+      {category_rows_html}
+    </div>
   </div>
 
   <div class="section-header" id="merker">
