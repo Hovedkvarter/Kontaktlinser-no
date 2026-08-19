@@ -471,6 +471,7 @@ FOOTER_BRANDS = [
     ("clariti", "Clariti"),
     ("dailies", "Dailies"),
     ("freshlook", "FreshLook"),
+    ("miru", "MIRU"),
     ("myday", "MyDay"),
     ("precision1", "Precision1"),
     ("precision7", "Precision7"),

@@ -3530,11 +3530,11 @@
       ]
     },
     {
-      "id": "precision7-6pk",
-      "slug": "precision7-6-pack",
-      "name": "Precision7 6-pack",
+      "id": "precision7-12pk",
+      "slug": "precision7-12-pack",
+      "name": "Precision7 12-pack",
       "description": "Ukelinse fra Alcon.",
-      "long_description": "Precision7 er Alcons nyeste ukelinse (7 dagers brukstid) i serafilcon A, med Activ-Flo-teknologi ment å etterfylle fuktighet gjennom hele brukstiden. Mellomting mellom en dagslinse og en månedslinse i bytterutine.",
+      "long_description": "Precision7 er Alcons ukelinse (7 dagers brukstid) i serafilcon A, med Activ-Flo-teknologi ment å etterfylle fuktighet gjennom hele brukstiden. Mellomting mellom en dagslinse og en månedslinse i bytterutine. Finnes ikke i 6-pakning noe sted i verden -- kun 12- og 27-pakning er reelle Alcon-pakningsstørrelser.",
       "brand_slug": "precision7",
       "brand_label": "Precision7",
       "category_slug": "manedslinser",
@@ -3564,14 +3564,69 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "precision/precision7-12-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "precision/precision7-12-pack"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "eyeq-precision7-12-stk-pk"
+        }
+      ]
     },
     {
-      "id": "precision7-astigmatism-6pk",
-      "slug": "precision7-for-astigmatism-6-pack",
-      "name": "Precision7 for Astigmatism 6-pack",
+      "id": "precision7-27pk",
+      "slug": "precision7-27-pack",
+      "name": "Precision7 27-pack",
+      "description": "Ukelinse fra Alcon.",
+      "long_description": "Precision7 er Alcons ukelinse (7 dagers brukstid) i serafilcon A, med Activ-Flo-teknologi ment å etterfylle fuktighet gjennom hele brukstiden. 27-pakningen dekker om lag et halvt års bruk.",
+      "brand_slug": "precision7",
+      "brand_label": "Precision7",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Serafilcon A med Activ-Flo-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "55 %"
+        ],
+        [
+          "Basiskurve",
+          "8,4 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Ukelinse (7 dager)"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "synsam",
+          "slug": "eyeq-precision7-27-stk-pk"
+        }
+      ]
+    },
+    {
+      "id": "precision7-astigmatism-12pk",
+      "slug": "precision7-for-astigmatism-12-pack",
+      "name": "Precision7 for Astigmatism 12-pack",
       "description": "Torisk ukelinse fra Alcon.",
-      "long_description": "Precision7 for Astigmatism er den toriske ukelinsen fra Alcon, samme serafilcon A-materiale som standard Precision7, formet for astigmatisme.",
+      "long_description": "Precision7 for Astigmatism er den toriske ukelinsen fra Alcon, samme serafilcon A-materiale som standard Precision7, formet for astigmatisme. Finnes ikke i 6-pakning noe sted i verden -- kun 12- og 27-pakning er reelle Alcon-pakningsstørrelser.",
       "brand_slug": "precision7",
       "brand_label": "Precision7",
       "category_slug": "toriske-linser",
@@ -3593,7 +3648,54 @@
           "Torisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "precision/precision7-for-astigmatism-12-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "precision/precision7-for-astigmatism-12-pack"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "eyeq-precision7-for-astigmatism-12-stk-pk"
+        }
+      ]
+    },
+    {
+      "id": "precision7-astigmatism-27pk",
+      "slug": "precision7-for-astigmatism-27-pack",
+      "name": "Precision7 for Astigmatism 27-pack",
+      "description": "Torisk ukelinse fra Alcon.",
+      "long_description": "Precision7 for Astigmatism er den toriske ukelinsen fra Alcon, samme serafilcon A-materiale som standard Precision7, formet for astigmatisme. 27-pakningen dekker om lag et halvt års bruk.",
+      "brand_slug": "precision7",
+      "brand_label": "Precision7",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Serafilcon A med Activ-Flo-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "55 %"
+        ],
+        [
+          "Brukstid",
+          "Ukelinse (7 dager)"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "synsam",
+          "slug": "eyeq-precision7-for-astigmatism-27-stk-pk"
+        }
+      ]
     },
     {
       "id": "freshlook-oneday-30pk",
@@ -3686,19 +3788,52 @@
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Etafilcon A med LACREON-teknologi"],
-        ["Vanninnhold", "58 %"],
-        ["Basiskurve", "8,5 / 9,0 mm"],
-        ["Diameter", "14,2 mm"],
-        ["Styrkeområde", "-12,00 til +6,00"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +6,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "1-day-acuvue-moist-lens-306"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-lens-306"},
-        {"retailer": "interoptik", "slug": "acuvue/1-day-acuvue-moist-90-pack2"},
-        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-90-pack2"},
+        {
+          "retailer": "lenson",
+          "slug": "1-day-acuvue-moist-lens-306"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "1-day-acuvue-moist-lens-306"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "acuvue/1-day-acuvue-moist-90-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "acuvue/1-day-acuvue-moist-90-pack2"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-90-linser"
@@ -3715,21 +3850,60 @@
       "brand_label": "Acuvue",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Etafilcon A med LACREON-teknologi"],
-        ["Vanninnhold", "58 %"],
-        ["Basiskurve", "8,5 mm"],
-        ["Diameter", "14,5 mm"],
-        ["Styrkeområde", "-9,00 til +4,00"],
-        ["Sylinder", "-0,75 til -2,25"],
-        ["Akse", "10–180°"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-9,00 til +4,00"
+        ],
+        [
+          "Sylinder",
+          "-0,75 til -2,25"
+        ],
+        [
+          "Akse",
+          "10–180°"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"},
-        {"retailer": "interoptik", "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"},
-        {"retailer": "brilleland", "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"},
+        {
+          "retailer": "lenson",
+          "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "1-day-acuvue-moist-for-astigmatism-lens-5760"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-for-astigmatism-90-linser"
@@ -3746,18 +3920,48 @@
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Senofilcon A med Hydraluxe-teknologi"],
-        ["Vanninnhold", "38 %"],
-        ["Basiskurve", "8,5 / 9,0 mm"],
-        ["Diameter", "14,3 mm"],
-        ["Styrkeområde", "-12,00 til +8,00"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"],
-        ["UV-filter", "Ja"]
+        [
+          "Materiale",
+          "Senofilcon A med Hydraluxe-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"},
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-oasys-1-day-with-hydraluxe-lens-6058"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/acuvue-oasys-1-day-90pk"
@@ -3778,18 +3982,48 @@
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Senofilcon A med TearStable-teknologi"],
-        ["Vanninnhold", "38 %"],
-        ["Basiskurve", "8,5 / 9,0 mm"],
-        ["Diameter", "14,3 mm"],
-        ["Styrkeområde", "-12,00 til +8,00"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"],
-        ["UV-filter", "Ja"]
+        [
+          "Materiale",
+          "Senofilcon A med TearStable-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 / 9,0 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-12,00 til +8,00"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-oasys-max-1-day-lens-9770"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-max-1-day-lens-9770"},
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-oasys-max-1-day-lens-9770"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-oasys-max-1-day-lens-9770"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/acuvue-oasys-max-1-day-2"
@@ -3810,14 +4044,32 @@
       "brand_label": "Biomedics",
       "category_slug": "dagslinser",
       "specs": [
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biomedics-1-day-xtra-lens-1992"},
-        {"retailer": "lensway", "slug": "biomedics-1-day-xtra-lens-1992"},
-        {"retailer": "interoptik", "slug": "biomedics/biomedics-1-day-extra-90-pack2"},
-        {"retailer": "synsam", "slug": "biomedics-1-day-extra-90-stk-pk"}
+        {
+          "retailer": "lenson",
+          "slug": "biomedics-1-day-xtra-lens-1992"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biomedics-1-day-xtra-lens-1992"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "biomedics/biomedics-1-day-extra-90-pack2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biomedics-1-day-extra-90-stk-pk"
+        }
       ]
     },
     {
@@ -3830,15 +4082,36 @@
       "brand_label": "Biotrue",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Nesofilcon A (Hypergel)"],
-        ["Vanninnhold", "78 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Nesofilcon A (Hypergel)"
+        ],
+        [
+          "Vanninnhold",
+          "78 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biotrue-oneday-lens-2063"},
-        {"retailer": "lensway", "slug": "biotrue-oneday-lens-2063"},
-        {"retailer": "synsam", "slug": "biotrue-oneday-90-stk-pk"},
+        {
+          "retailer": "lenson",
+          "slug": "biotrue-oneday-lens-2063"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biotrue-oneday-lens-2063"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "biotrue-oneday-90-stk-pk"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/biotrue-oneday-90pk"
@@ -3855,13 +4128,28 @@
       "brand_label": "Biotrue",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Nesofilcon A (Hypergel)"],
-        ["Vanninnhold", "78 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Nesofilcon A (Hypergel)"
+        ],
+        [
+          "Vanninnhold",
+          "78 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "synsam", "slug": "biotrue-oneday-for-presbyopia-90-stk-pk"},
+        {
+          "retailer": "synsam",
+          "slug": "biotrue-oneday-for-presbyopia-90-stk-pk"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/progressive-linser/biotrue-oneday-presbyopia-90-linser"
@@ -3878,16 +4166,40 @@
       "brand_label": "Clariti",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Somofilcon A (silikonhydrogel)"],
-        ["Vanninnhold", "56 %"],
-        ["Basiskurve", "8,6 mm"],
-        ["Diameter", "14,1 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Somofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "clariti-1-day-lens-7678"},
-        {"retailer": "lensway", "slug": "clariti-1-day-lens-7678"}
+        {
+          "retailer": "lenson",
+          "slug": "clariti-1-day-lens-7678"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "clariti-1-day-lens-7678"
+        }
       ]
     },
     {
@@ -3900,19 +4212,52 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Basiskurve", "8,7 mm"],
-        ["Diameter", "14,0 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-lens-362"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-lens-362"},
-        {"retailer": "interoptik", "slug": "dailies/dailies-aquacomfort-plus-90-pack"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-aquacomfort-plus-90-pack"},
-        {"retailer": "synsam", "slug": "dailies-aquacomfort-plus-90-stk-pk"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-lens-362"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-lens-362"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-aquacomfort-plus-90-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-aquacomfort-plus-90-pack"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "dailies-aquacomfort-plus-90-stk-pk"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-aquacomfort-plus-90pk"
@@ -3929,18 +4274,48 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Delefilcon A med vanngradient"],
-        ["Vanninnhold", "33 % i kjernen, opp mot 100 % på overflaten"],
-        ["Basiskurve", "8,5 mm"],
-        ["Diameter", "14,1 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Delefilcon A med vanngradient"
+        ],
+        [
+          "Vanninnhold",
+          "33 % i kjernen, opp mot 100 % på overflaten"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-total1-lens-1881"},
-        {"retailer": "lensway", "slug": "dailies-total1-lens-1881"},
-        {"retailer": "interoptik", "slug": "dailies/dailies-total-1-90-pack2"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-90-pack2"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-total1-lens-1881"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-total1-lens-1881"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-total-1-90-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-total-1-90-pack2"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-total1"
@@ -3957,16 +4332,40 @@
       "brand_label": "Dailies",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Delefilcon A med vanngradient"],
-        ["Vanninnhold", "33 % i kjernen, opp mot 100 % på overflaten"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Delefilcon A med vanngradient"
+        ],
+        [
+          "Vanninnhold",
+          "33 % i kjernen, opp mot 100 % på overflaten"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-total1-for-astigmatism-lens-9609"},
-        {"retailer": "lensway", "slug": "dailies-total1-for-astigmatism-lens-9609"},
-        {"retailer": "interoptik", "slug": "dailies/dailies-total1-for-astigmatism-90-pack"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total1-for-astigmatism-90-pack"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-total1-for-astigmatism-lens-9609"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-total1-for-astigmatism-lens-9609"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-total1-for-astigmatism-90-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-total1-for-astigmatism-90-pack"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dailies-total1-for-astigmatism-2"
@@ -3983,17 +4382,44 @@
       "brand_label": "Dailies",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Delefilcon A med vanngradient"],
-        ["Vanninnhold", "33 % i kjernen, opp mot 100 % på overflaten"],
-        ["Addisjon", "Lav / middels / høy"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Delefilcon A med vanngradient"
+        ],
+        [
+          "Vanninnhold",
+          "33 % i kjernen, opp mot 100 % på overflaten"
+        ],
+        [
+          "Addisjon",
+          "Lav / middels / høy"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-total1-multifocal-lens-6072"},
-        {"retailer": "lensway", "slug": "dailies-total1-multifocal-lens-6072"},
-        {"retailer": "interoptik", "slug": "dailies/dailies-total-1-multifocal-90-pack2"},
-        {"retailer": "brilleland", "slug": "dailies/dailies-total-1-multifocal-90-pack2"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-total1-multifocal-lens-6072"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-total1-multifocal-lens-6072"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-total-1-multifocal-90-pack2"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-total-1-multifocal-90-pack2"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-total1-multifocal-90pk"
@@ -4010,16 +4436,40 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Basiskurve", "8,6 mm"],
-        ["Diameter", "13,8 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "13,8 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "focus-dailies-lens-335"},
-        {"retailer": "lensway", "slug": "focus-dailies-lens-335"}
+        {
+          "retailer": "lenson",
+          "slug": "focus-dailies-lens-335"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "focus-dailies-lens-335"
+        }
       ]
     },
     {
@@ -4032,18 +4482,48 @@
       "brand_label": "MyDay",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Stenfilcon A (silikonhydrogel)"],
-        ["Vanninnhold", "54 %"],
-        ["Basiskurve", "8,4 mm"],
-        ["Diameter", "14,2 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Stenfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "54 %"
+        ],
+        [
+          "Basiskurve",
+          "8,4 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "myday-daily-disposable-lens-5009"},
-        {"retailer": "lensway", "slug": "myday-daily-disposable-lens-5009"},
-        {"retailer": "interoptik", "slug": "myday/myday-sphere-90-pack2"},
-        {"retailer": "synsam", "slug": "myday-daily-disposable-90-stk-pk"}
+        {
+          "retailer": "lenson",
+          "slug": "myday-daily-disposable-lens-5009"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "myday-daily-disposable-lens-5009"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "myday/myday-sphere-90-pack2"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "myday-daily-disposable-90-stk-pk"
+        }
       ]
     },
     {
@@ -4056,17 +4536,44 @@
       "brand_label": "Precision1",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Verofilcon A med SmartSurface-teknologi"],
-        ["Vanninnhold", "51 % i kjernen, over 80 % på overflaten"],
-        ["Basiskurve", "8,3 mm"],
-        ["Diameter", "14,2 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Verofilcon A med SmartSurface-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "51 % i kjernen, over 80 % på overflaten"
+        ],
+        [
+          "Basiskurve",
+          "8,3 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "precision1-lens-8468"},
-        {"retailer": "lensway", "slug": "precision1-lens-8468"},
-        {"retailer": "interoptik", "slug": "precision/precision1-90-pack"},
+        {
+          "retailer": "lenson",
+          "slug": "precision1-lens-8468"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "precision1-lens-8468"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "precision/precision1-90-pack"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/precision1"
@@ -4083,15 +4590,36 @@
       "brand_label": "Precision1",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Verofilcon A med SmartSurface-teknologi"],
-        ["Basiskurve", "8,3 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Verofilcon A med SmartSurface-teknologi"
+        ],
+        [
+          "Basiskurve",
+          "8,3 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "precision1-for-astigmatism-lens-8470"},
-        {"retailer": "lensway", "slug": "precision1-for-astigmatism-lens-8470"},
-        {"retailer": "interoptik", "slug": "precision/precision1-for-astigmatism-90-pack"},
+        {
+          "retailer": "lenson",
+          "slug": "precision1-for-astigmatism-lens-8470"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "precision1-for-astigmatism-lens-8470"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "precision/precision1-for-astigmatism-90-pack"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/precision1-for-astigmatism"
@@ -4108,15 +4636,36 @@
       "brand_label": "SofLens",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Hilafilcon B"],
-        ["Vanninnhold", "59 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Hilafilcon B"
+        ],
+        [
+          "Vanninnhold",
+          "59 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "soflens-daily-disposable-lens-83"},
-        {"retailer": "lensway", "slug": "soflens-daily-disposable-lens-83"},
-        {"retailer": "synsam", "slug": "soflens-daily-disposable-90-stk-pk"},
+        {
+          "retailer": "lenson",
+          "slug": "soflens-daily-disposable-lens-83"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "soflens-daily-disposable-lens-83"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "soflens-daily-disposable-90-stk-pk"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/soflens-daily-disposable"
@@ -4133,13 +4682,28 @@
       "brand_label": "ULTRA",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Samfilcon A med MoistureSeal-teknologi"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Samfilcon A med MoistureSeal-teknologi"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "ultra-one-day-lens-10837"},
-        {"retailer": "lensway", "slug": "ultra-one-day-lens-10837"}
+        {
+          "retailer": "lenson",
+          "slug": "ultra-one-day-lens-10837"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "ultra-one-day-lens-10837"
+        }
       ]
     },
     {
@@ -4152,14 +4716,32 @@
       "brand_label": "Acuvue",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Etafilcon A med LACREON-teknologi"],
-        ["Vanninnhold", "58 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5752"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5752"},
+        {
+          "retailer": "lenson",
+          "slug": "1-day-acuvue-moist-multifocal-lens-5752"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "1-day-acuvue-moist-multifocal-lens-5752"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-multifocal-30-linser"
@@ -4176,14 +4758,32 @@
       "brand_label": "Acuvue",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Etafilcon A med LACREON-teknologi"],
-        ["Vanninnhold", "58 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Etafilcon A med LACREON-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "1-day-acuvue-moist-multifocal-lens-5753"},
-        {"retailer": "lensway", "slug": "1-day-acuvue-moist-multifocal-lens-5753"},
+        {
+          "retailer": "lenson",
+          "slug": "1-day-acuvue-moist-multifocal-lens-5753"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "1-day-acuvue-moist-multifocal-lens-5753"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-multifocal-90-linser"
@@ -4200,13 +4800,28 @@
       "brand_label": "Acuvue",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Senofilcon A (silikonhydrogel)"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Senofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"},
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-oasys-1-day-for-astigmatism-lens-6509"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/acuvue-oasys-1-day-for-astigmatisme"
@@ -4227,13 +4842,28 @@
       "brand_label": "Acuvue",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Senofilcon A (silikonhydrogel)"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Senofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"},
-        {"retailer": "lensway", "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"},
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-oasys-1-day-for-astigmatism-lens-8436"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-90-linser"
@@ -4250,10 +4880,22 @@
       "brand_label": "Biofinity",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Comfilcon A (silikonhydrogel)"],
-        ["Vanninnhold", "48 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Multifokal og torisk"]
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal og torisk"
+        ]
       ],
       "scrape_targets": []
     },
@@ -4267,14 +4909,32 @@
       "brand_label": "Biofinity",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Comfilcon A (silikonhydrogel)"],
-        ["Vanninnhold", "48 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biofinity-xr-toric-lens-8745"},
-        {"retailer": "lensway", "slug": "biofinity-xr-toric-lens-8745"},
+        {
+          "retailer": "lenson",
+          "slug": "biofinity-xr-toric-lens-8745"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biofinity-xr-toric-lens-8745"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-xr-toric-3-linser"
@@ -4291,17 +4951,45 @@
       "brand_label": "Biofinity",
       "category_slug": "manedslinser",
       "specs": [
-        ["Materiale", "Comfilcon A (silikonhydrogel)"],
-        ["Vanninnhold", "48 %"],
-        ["Basiskurve", "8,7 mm"],
-        ["Diameter", "14,5 mm"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biofinity-xr-lens-4244"},
-        {"retailer": "lensway", "slug": "biofinity-xr-lens-4244"},
-        {"retailer": "lensit", "slug": "biofinity-xr-1", "variant": "3"},
+        {
+          "retailer": "lenson",
+          "slug": "biofinity-xr-lens-4244"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biofinity-xr-lens-4244"
+        },
+        {
+          "retailer": "lensit",
+          "slug": "biofinity-xr-1",
+          "variant": "3"
+        },
         {
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-xr-3-linser"
@@ -4318,16 +5006,40 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Basiskurve", "8,7 mm"],
-        ["Diameter", "14,0 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-lens-9612"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-lens-9612"}
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-lens-9612"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-lens-9612"
+        }
       ]
     },
     {
@@ -4340,14 +5052,32 @@
       "brand_label": "Dailies",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-multifocal-lens-3979"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-aquacomfort-plus-multifocal"
@@ -4364,14 +5094,32 @@
       "brand_label": "Dailies",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-multifocal-lens-9886"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-aquacomfort-plus-multifocal-2"
@@ -4388,14 +5136,32 @@
       "brand_label": "Dailies",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-3978"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-3978"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-toric-lens-3978"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-toric-lens-3978"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-aquacomfort-plus-toric"
@@ -4412,14 +5178,32 @@
       "brand_label": "Dailies",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-aquacomfort-plus-toric-lens-6465"},
-        {"retailer": "lensway", "slug": "dailies-aquacomfort-plus-toric-lens-6465"},
+        {
+          "retailer": "lenson",
+          "slug": "dailies-aquacomfort-plus-toric-lens-6465"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-aquacomfort-plus-toric-lens-6465"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/dailies-aquacomfort-plus-toric-2"
@@ -4436,16 +5220,40 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Delefilcon A med vanngradient"],
-        ["Vanninnhold", "33 % i kjernen, opp mot 100 % på overflaten"],
-        ["Basiskurve", "8,5 mm"],
-        ["Diameter", "14,1 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Delefilcon A med vanngradient"
+        ],
+        [
+          "Vanninnhold",
+          "33 % i kjernen, opp mot 100 % på overflaten"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "dailies-total1-lens-9619"},
-        {"retailer": "lensway", "slug": "dailies-total1-lens-9619"}
+        {
+          "retailer": "lenson",
+          "slug": "dailies-total1-lens-9619"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "dailies-total1-lens-9619"
+        }
       ]
     },
     {
@@ -4458,12 +5266,30 @@
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Nelfilcon A (hydrogel)"],
-        ["Vanninnhold", "69 %"],
-        ["Basiskurve", "8,6 mm"],
-        ["Diameter", "13,8 mm"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "13,8 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": []
     },
@@ -4477,14 +5303,32 @@
       "brand_label": "Proclear",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "proclear-1-day-lens-71"},
-        {"retailer": "lensway", "slug": "proclear-1-day-lens-71"}
+        {
+          "retailer": "lenson",
+          "slug": "proclear-1-day-lens-71"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "proclear-1-day-lens-71"
+        }
       ]
     },
     {
@@ -4497,14 +5341,32 @@
       "brand_label": "Proclear",
       "category_slug": "dagslinser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "proclear-1-day-lens-258"},
-        {"retailer": "lensway", "slug": "proclear-1-day-lens-258"}
+        {
+          "retailer": "lenson",
+          "slug": "proclear-1-day-lens-258"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "proclear-1-day-lens-258"
+        }
       ]
     },
     {
@@ -4517,14 +5379,32 @@
       "brand_label": "Proclear",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "proclear-1-day-multifocal-lens-2077"},
-        {"retailer": "lensway", "slug": "proclear-1-day-multifocal-lens-2077"}
+        {
+          "retailer": "lenson",
+          "slug": "proclear-1-day-multifocal-lens-2077"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "proclear-1-day-multifocal-lens-2077"
+        }
       ]
     },
     {
@@ -4537,14 +5417,32 @@
       "brand_label": "Proclear",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "proclear-multifocal-lens-421"},
-        {"retailer": "lensway", "slug": "proclear-multifocal-lens-421"}
+        {
+          "retailer": "lenson",
+          "slug": "proclear-multifocal-lens-421"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "proclear-multifocal-lens-421"
+        }
       ]
     },
     {
@@ -4557,10 +5455,22 @@
       "brand_label": "Proclear",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Multifokal og torisk"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal og torisk"
+        ]
       ],
       "scrape_targets": []
     },
@@ -4574,10 +5484,22 @@
       "brand_label": "Proclear",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": []
     },
@@ -4591,10 +5513,22 @@
       "brand_label": "Proclear",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Omafilcon A (hydrogel, PC Technology)"],
-        ["Vanninnhold", "60 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": []
     },
@@ -4608,13 +5542,28 @@
       "brand_label": "SofLens",
       "category_slug": "manedslinser",
       "specs": [
-        ["Vanninnhold", "38 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Sfærisk"]
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "soflens-38-lens-85"},
-        {"retailer": "lensway", "slug": "soflens-38-lens-85"}
+        {
+          "retailer": "lenson",
+          "slug": "soflens-38-lens-85"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "soflens-38-lens-85"
+        }
       ]
     },
     {
@@ -4627,14 +5576,32 @@
       "brand_label": "SofLens",
       "category_slug": "toriske-linser",
       "specs": [
-        ["Materiale", "Hilafilcon B"],
-        ["Vanninnhold", "59 %"],
-        ["Brukstid", "Dagslinse"],
-        ["Linsetype", "Torisk"]
+        [
+          "Materiale",
+          "Hilafilcon B"
+        ],
+        [
+          "Vanninnhold",
+          "59 %"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"},
-        {"retailer": "lensway", "slug": "soflens-daily-disposable-for-astigmatism-lens-225"},
+        {
+          "retailer": "lenson",
+          "slug": "soflens-daily-disposable-for-astigmatism-lens-225"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "soflens-daily-disposable-for-astigmatism-lens-225"
+        },
         {
           "retailer": "kroghoptikk",
           "slug": "dagslinser/soflens-daily-disposable-for-astigmatism"
@@ -4651,14 +5618,386 @@
       "brand_label": "SofLens",
       "category_slug": "multifokale-linser",
       "specs": [
-        ["Materiale", "Hilafilcon B"],
-        ["Vanninnhold", "59 %"],
-        ["Brukstid", "Månedslinse"],
-        ["Linsetype", "Multifokal"]
+        [
+          "Materiale",
+          "Hilafilcon B"
+        ],
+        [
+          "Vanninnhold",
+          "59 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
       ],
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "soflens-multifocal-lens-252"},
-        {"retailer": "lensway", "slug": "soflens-multifocal-lens-252"}
+        {
+          "retailer": "lenson",
+          "slug": "soflens-multifocal-lens-252"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "soflens-multifocal-lens-252"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-max-1day-multifocal-30pk",
+      "slug": "acuvue-oasys-max-1-day-multifocal-30-pack",
+      "name": "Acuvue Oasys MAX 1-Day Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra Johnson & Johnson.",
+      "long_description": "Acuvue Oasys MAX 1-Day Multifocal er den multifokale varianten av Oasys MAX 1-Day-serien, beregnet for alderssyn (presbyopi) i tillegg til vanlig synskorreksjon.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "acuvue/acuvue-oasys-max-1-day-multifocal"
+        },
+        {
+          "retailer": "lensit",
+          "slug": "acuvue-oasys-max-1-day-multifocal",
+          "variant": "30"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "acuvue-oasys-max-1-day-multifocal-30-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-max-1-day-mulitfocal"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-max-1day-multifocal-90pk",
+      "slug": "acuvue-oasys-max-1-day-multifocal-90-pack",
+      "name": "Acuvue Oasys MAX 1-Day Multifocal 90-pack",
+      "description": "Multifokal dagslinse fra Johnson & Johnson.",
+      "long_description": "Acuvue Oasys MAX 1-Day Multifocal er den multifokale varianten av Oasys MAX 1-Day-serien, beregnet for alderssyn (presbyopi) i tillegg til vanlig synskorreksjon.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "lensit",
+          "slug": "acuvue-oasys-max-1-day-multifocal",
+          "variant": "90"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "acuvue-oasys-max-1-day-multifocal-90-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-max-1-day-multifocal"
+        }
+      ]
+    },
+    {
+      "id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+      "slug": "acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack",
+      "name": "Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack",
+      "description": "Multifokal og torisk dagslinse fra Johnson & Johnson.",
+      "long_description": "Acuvue Oasys MAX 1-Day Multifocal for Astigmatism kombinerer multifokal korreksjon (alderssyn) med torisk utforming for astigmatisme, i samme dagslinse.",
+      "brand_slug": "acuvue",
+      "brand_label": "Acuvue",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal, torisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-stk-pk"
+        },
+        {
+          "retailer": "kroghoptikk",
+          "slug": "dagslinser/acuvue-oasys-max-1-day-multifocal-for-astigmatsm"
+        }
+      ]
+    },
+    {
+      "id": "dailies-all-day-comfort-30pk",
+      "slug": "dailies-all-day-comfort-30-pack",
+      "name": "Dailies All Day Comfort 30-pack",
+      "description": "Dagslinse fra Alcon.",
+      "long_description": "Dailies All Day Comfort er en dagslinse fra Alcon, en egen produktlinje atskilt fra Dailies AquaComfort Plus, Dailies Total1 og Focus Dailies som vi allerede fører.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-all-day-comfort-30-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-30-pack"
+        }
+      ]
+    },
+    {
+      "id": "dailies-all-day-comfort-90pk",
+      "slug": "dailies-all-day-comfort-90-pack",
+      "name": "Dailies All Day Comfort 90-pack",
+      "description": "Dagslinse fra Alcon.",
+      "long_description": "Dailies All Day Comfort er en dagslinse fra Alcon, en egen produktlinje atskilt fra Dailies AquaComfort Plus, Dailies Total1 og Focus Dailies som vi allerede fører.",
+      "brand_slug": "dailies",
+      "brand_label": "Dailies",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-all-day-comfort-90-pack"
+        },
+        {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-90-pack"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-upside-30pk",
+      "slug": "miru-1day-upside-30-pack",
+      "name": "Miru 1day UpSide 30-pack",
+      "description": "Dagslinse fra Menicon.",
+      "long_description": "Miru 1day UpSide er en dagslinse fra den japanske produsenten Menicon, ny i vår katalog.",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "miru/miru-1day-upside-30-pack"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-upside-astigmatism-30pk",
+      "slug": "miru-1day-upside-astigmatism-30-pack",
+      "name": "Miru 1day UpSide Astigmatism 30-pack",
+      "description": "Torisk dagslinse fra Menicon.",
+      "long_description": "Miru 1day UpSide Astigmatism er den toriske varianten av Miru 1day UpSide, fra den japanske produsenten Menicon.",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "miru/miru-1day-upside-astigmatism-30-pack"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-upside-multifocal-30pk",
+      "slug": "miru-1day-upside-multifocal-30-pack",
+      "name": "Miru 1day UpSide Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra Menicon.",
+      "long_description": "Miru 1day UpSide Multifocal er den multifokale varianten av Miru 1day UpSide, fra den japanske produsenten Menicon.",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "miru/miru-1day-upside-multifocal-30-pack"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-flatpack-astigmatism-30pk",
+      "slug": "miru-1day-flatpack-astigmatism-30-pack",
+      "name": "Miru 1day Flatpack Astigmatism 30-pack",
+      "description": "Torisk dagslinse fra Menicon.",
+      "long_description": "Miru 1day Flatpack Astigmatism er en torisk dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "miru/miru-1day-flatpack-astigmatism"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-flatpack-multifocal-30pk",
+      "slug": "miru-1day-flatpack-multifocal-30-pack",
+      "name": "Miru 1day Flatpack Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra Menicon.",
+      "long_description": "Miru 1day Flatpack Multifocal er en multifokal dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "miru/miru-1day-flatpack-multifocal"
+        }
+      ]
+    },
+    {
+      "id": "myday-misight-1day-30pk",
+      "slug": "myday-misight-1-day-30-pack",
+      "name": "MyDay MiSight 1 Day 30-pack",
+      "description": "Dagslinse for myopikontroll hos barn, fra CooperVision.",
+      "long_description": "MyDay MiSight 1 Day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
+      "brand_slug": "myday",
+      "brand_label": "MyDay",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk, myopikontroll"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "interoptik",
+          "slug": "myday/myday-misight-1-day-30-pack"
+        },
+        {
+          "retailer": "synsam",
+          "slug": "myday-misight-1-day-30-stk-pk"
+        }
+      ]
+    },
+    {
+      "id": "myday-misight-1day-90pk",
+      "slug": "myday-misight-1-day-90-pack",
+      "name": "MyDay MiSight 1 Day 90-pack",
+      "description": "Dagslinse for myopikontroll hos barn, fra CooperVision.",
+      "long_description": "MyDay MiSight 1 Day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
+      "brand_slug": "myday",
+      "brand_label": "MyDay",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk, myopikontroll"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "synsam",
+          "slug": "myday-misight-1-day-90-stk-pk"
+        }
       ]
     }
   ]
