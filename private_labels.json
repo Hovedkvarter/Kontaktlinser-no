@@ -294,6 +294,12 @@
       "name": "Ascend Evolve+",
       "chain": "Coptikk",
       "real_product_id": "avaira-vitality-6pk"
+    },
+    {
+      "slug": "ascend-evolve-plus-toric",
+      "name": "Ascend Evolve+ Toric",
+      "chain": "Coptikk",
+      "real_product_id": "avaira-vitality-toric-6pk"
     }
   ]
 }
