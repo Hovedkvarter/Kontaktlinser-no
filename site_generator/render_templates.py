@@ -921,6 +921,84 @@ BRAND_TO_MANUFACTURER: dict[str, str] = {
     for brand_slug in data["brand_slugs"]
 }
 
+# Original, faktabasert "om merket"-innhold for merke-sidene (2026-08-19).
+# Materiale-/teknologinavn er verifisert direkte mot produsentens egne
+# kilder (Bausch + Lomb pi.bausch.com/ecp.bauschcontactlenses.com m.fl.),
+# ALDRI kopiert fra en forhandlers markedsføringstekst -- se f.eks.
+# SofLens-runden der en forhandlerside påsto 70% vanninnhold generelt for
+# dagslinsen, mens produsentens egen kilde bekrefter 59%. Plasseres UNDER
+# produktlisten på merke-siden, ikke over -- prissammenligningen er
+# fortsatt hovedfunksjonen, samme prinsipp som private label-sidene.
+BRAND_CONTENT: dict[str, str] = {
+    "soflens": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om SofLens</h2>
+<p>SofLens er en linseserie fra Bausch + Lomb, et av bransjens eldste kontaktlinseselskaper
+(grunnlagt i 1853). Serien dekker de fleste behov: dagslinser, månedslinser, toriske linser
+for astigmatisme og multifokale linser for alderssyn (presbyopi).</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i SofLens-familien</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
+  <li><strong>SofLens Daily Disposable</strong> – hilafilcon B, 59 % vanninnhold. Kastes etter én
+  dags bruk.</li>
+  <li><strong>SofLens 38</strong> – polymacon, 38 % vanninnhold (navnet viser til dette tallet).
+  Månedslinse.</li>
+  <li><strong>SofLens Toric</strong> – alphafilcon A, 66 % vanninnhold. Bruker Bausch + Lombs
+  patenterte Lo-Torque-design, som holder linsen stabil i riktig rotasjon – avgjørende for at
+  den toriske korreksjonen av astigmatisme skal sitte riktig gjennom dagen.</li>
+  <li><strong>SofLens Multifocal</strong> – bruker Natra-Sight Optics, med en bredere
+  overgangssone mellom nær-, mellom- og langsynt-korreksjon, beregnet på alderssyn.</li>
+</ul>
+""",
+    "acuvue": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Acuvue</h2>
+<p>Acuvue er Johnson & Johnson Visions kontaktlinsemerke, og regnes som verdens ledende
+produsent av engangslinser. Familien spenner fra dagslinser til linser for to ukers bruk,
+i sfæriske, toriske og multifokale varianter.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Acuvue-familien</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
+  <li><strong>1-Day Acuvue Moist</strong> – etafilcon A, 58 % vanninnhold. Bruker LACREON-
+  teknologi, som binder et fuktighetsbevarende stoff direkte inn i linsematerialet.</li>
+  <li><strong>Acuvue Oasys</strong> (2-ukers) – senofilcon A, en silikonhydrogel med 38 %
+  vanninnhold og høy oksygengjennomtrengelighet. Bruker HYDRACLEAR PLUS-teknologi, en
+  fuktighetsgivende overflatebehandling som etterligner tårefilmen.</li>
+  <li><strong>Acuvue Oasys MAX 1-Day</strong> – samme senofilcon A-materiale som Oasys, men
+  tilført TearStable-teknologi for jevn fuktighet gjennom dagen og et OptiBlue-filter som
+  reduserer blått/fiolett lys fra skjermer med om lag 60 %.</li>
+</ul>
+""",
+    "dailies": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Dailies</h2>
+<p>Dailies er Alcons familie av dagslinser, og spenner over flere atskilte produktlinjer med
+ulike materialer og teknologier – fra den opprinnelige Focus Dailies-serien til de nyere
+AquaComfort Plus- og Total1-linjene.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Dailies-familien</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
+  <li><strong>Dailies AquaComfort Plus</strong> – nelfilcon A, 69 % vanninnhold. Et
+  fuktighetssystem tilsatt linsen (HPMC, PEG og PVA) skal gi jevn komfort gjennom dagen.</li>
+  <li><strong>Dailies Total1</strong> – delefilcon A, en silikonhydrogel bygget med
+  "vanngradient"-teknologi: kjernen har 33 % vanninnhold, mens selve overflaten som møter
+  øyet når over 80 % vann. Gir vesentlig høyere oksygengjennomtrengelighet enn
+  AquaComfort Plus.</li>
+  <li><strong>Focus Dailies</strong> – den opprinnelige Dailies-linjen, senere supplert av
+  AquaComfort Plus og Total1.</li>
+</ul>
+""",
+    "biofinity": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biofinity</h2>
+<p>Biofinity er CooperVisions flaggskip blant månedslinser, og finnes i sfærisk, torisk,
+multifokal og utvidet bruk-variant (XR). Serien er bygget rundt selskapets egen
+Aquaform Comfort Science-teknologi.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<p style="font-size:1rem;line-height:1.7;">Biofinity er laget av comfilcon A, med 48 % vanninnhold. Aquaform Comfort
+Science-teknologien binder vann tilsvarende det dobbelte av materialets egen vekt, og skaper
+naturlig fuktbarhet uten behov for en egen overflatebehandling – i motsetning til enkelte
+andre linser som er avhengige av en tilsatt fuktighetsbelegg.</p>
+""",
+}
+
 
 def _brand_badge(brand_slug: str, brand_label: str) -> tuple[str, str]:
     """Returnerer (ekstra CSS-klasse for badge-sirkelen, innhold i den) -
@@ -1765,6 +1843,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     via lenkene på produktsidene, men det påvirker ikke prisen du betaler
     eller rangeringen av produkter eller tilbud.
   </p>
+
+  {f'<div style="max-width:720px;margin-top:32px;">{BRAND_CONTENT[brand_slug]}</div>' if brand_slug in BRAND_CONTENT else ""}
 </div>
 
 <script>
