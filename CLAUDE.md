@@ -14,10 +14,15 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
 
 ## Designsystem (fast — følg dette uten å spørre)
 
-- Farger: ink navy `#0B2545` (tekst), mist white `#F5F9FA` (bakgrunn), aqua
-  `#2EC4D6` (merkevare-aksent), mint `#0BA36F` — reservert KUN for "laveste
-  pris"-markering. Grønt betyr alltid besparelse, ingenting annet. Flagg det
-  eksplisitt hvis en endring ville brutt denne regelen.
+- Farger: ink navy `#0B2545` (tekst), mist white `#F5F9FA` (bakgrunn), blue
+  `#2563EB` (merkevare-aksent, byttet fra aqua `#2EC4D6` 2026-08-19 etter
+  brukerens eksplisitte ønske/mockup — CSS-variabelen heter nå `--blue`/
+  `--blue-tint`/`--blue-dark`, IKKE `--aqua`), mint `#0BA36F` — reservert KUN
+  for "laveste pris"-markering. Grønt betyr alltid besparelse, ingenting
+  annet. Flagg det eksplisitt hvis en endring ville brutt denne regelen.
+  Kategori-ikonene på forsiden har hver sin egen aksentfarge fra den
+  etablerte paletten (blue/amber/sky/lavender/coral, se `CATEGORY_COLORS`)
+  — bevisst ALDRI grønt/mint der, av samme grunn.
 - Typografi: Space Grotesk (titler), Inter (brødtekst), IBM Plex Mono
   (priser/tall/data).
 - Signaturmotiv: konsentriske "fokusring"-sirkler (ekko av en kontaktlinse) —
@@ -1098,6 +1103,66 @@ Brukeren logget av for kvelden og ba meg fortsette med noe trygt/lavrisiko selv.
    i `generate_pages.py` (motsatt gruppering av `private_labels.json`), sendt som ny
    valgfri parameter til `render_product_page()`. Kun eksisterende, verifiserte data
    brukt -- ingen ny research.
+
+## Produsentsider, merkeinnhold, Cloudflare og forside-redesign (2026-08-18–20)
+
+Stor SEO/AI/GEO-runde over flere dager. Kort oppsummert hva som er nytt siden forrige
+statusnotat:
+
+- **Domenet ligger nå bak Cloudflare** (brukerens eget, bevisste DNS-bytte hos
+  Domeneshop). Åpnet for ekte server-side 301-er via Cloudflare Bulk Redirects for de
+  237 gamle `.aspx`-URL-ene (erstatter den gamle klientside-JS-omdirigeringen fra
+  404-siden — den koden ligger fortsatt som en harmløs backup). **Viktig fallgruve
+  funnet og fikset:** Cloudflares "AI Crawl Control" → "Managed robots.txt" var slått
+  PÅ som standard og injiserte en `Disallow`-blokk for GPTBot/ClaudeBot/Google-Extended
+  som overstyrte sidens egen bevisste `Allow`-policy lenger ned i samme fil — skrudd av.
+  HSTS er også aktivert i Cloudflare.
+- **Produsentsider lansert** (`/produsent/{slug}/`, `MANUFACTURERS`-dict i
+  `render_templates.py`): CooperVision, Alcon, Bausch + Lomb, Johnson & Johnson Vision,
+  Eyemed Technologies, Menicon. Hvert av de 20 linsemerkene er koblet til riktig
+  produsent (`BRAND_TO_MANUFACTURER`), med en "Produsert av X →"-lenke på både merke-
+  og produktsider (produktsider: rett under spesifikasjonstabellen, bevisst IKKE i
+  hero — konkurrerte med prissammenligningen). Ingen av de 6 sjekkede norske
+  konkurrentene har noe tilsvarende.
+- **Originalt "om merket"-innhold på alle 19+ merkesider** (`BRAND_CONTENT`-dict) —
+  materiale-/teknologinavn og vanninnholdstall verifisert direkte mot produsentkilder
+  (aldri kopiert fra en forhandlers markedsføringstekst — fant selv et reelt avvik hos
+  en konkurrent underveis: 70% vs. faktiske 59% vanninnhold for én SofLens-variant).
+- **Flere guide-siteringer** lagt til med det etablerte to-delte sitatmønsteret
+  (egen lenket setning + separat `<blockquote>`) — 7 av 37 guider har nå ekte,
+  verifiserte kilder (NHI/Helsenorge). Resten er bevisst ikke tvunget inn med
+  siteringer der ingen god kilde finnes.
+- **Coptikk fullført**: 64 nye tilbud på eksisterende produkter, pluss "Ascend"
+  (CooperVisions private label hos Coptikk) — kun 5 av 16 Ascend-produkter fikk
+  koblet seg til et ekte CooperVision-produkt med tilstrekkelig sikkerhet (Premier→
+  Biofinity, Premier Toric→Biofinity Toric, Evolve+ / Evolve+ Toric→Avaira Vitality
+  (Toric), Active Toric 1 Day→Clariti 1 day Toric — sistnevnte bekreftet via en ny
+  teknikk: eksakt matchende lovpålagt "plastnøytral"-tekstmal på både Coptikk sin
+  side og CooperVisions egen norske side). De resterende 11 er bevisst utelatt —
+  ingen kilde beviste hvilket ekte produkt de tilsvarer. Se `private_labels.json`
+  (`"chain": "Coptikk"`) og `PRIVATE_LABEL_SUBBRANDS["Coptikk"] = "Ascend"`.
+- **"Live" oppdaget og lagt til som nytt CooperVision-merke** (2 produkter,
+  Lenson+Lensit) — sidespor fra Ascend-researchen: samme materiale (somofilcon A) som
+  Clariti 1 day, egen ungdoms-/inngangsnivå-posisjonering. Uavklart, bevisst utelatt:
+  om "Ascend Active 1 Day" faktisk er Live (kun én kilde, ikke to uavhengige).
+- **149→155 produkter totalt** etter flere runder (Precision7 6-pack fantes ikke som
+  reell pakningsstørrelse noe sted i verden — byttet til 12-/27-pack; pluss Acuvue
+  Oasys MAX Multifocal, Dailies All Day Comfort, MIRU (nytt merke, Menicon), MyDay
+  MiSight, Live).
+- **Forsiden redesignet** (2026-08-20) etter brukerens egen mockup: fargesystemet
+  byttet fra aqua til blue (se designsystem-punktet lenger opp), kategoriene er nå en
+  radliste med fargede ikoner på mobil / et 5-kolonners grid på PC (`.hero-panel`,
+  `.category-rows`/`.category-row`, breakpoint 1024px), hero-bildet er skjult på
+  mobil men vist øverst til høyre på PC, og et nytt "Uavhengig og oppdatert"-
+  tillitskort er lagt til. Søkefeltet har nå en synlig "Søk"-knapp (naviger til
+  beste treff, siden vi ikke har noen egen søkeresultatside).
+- **Bevisst IKKE gjort ennå** (åpne tråder): originalt innhold à la Extra Optical for
+  de resterende merkesidene er dekket, men **Apotek1/Vitusapotek sine egne
+  kontaktlinser** (mulig asiatisk fabrikk, "lik originalen") er en ny, ikke undersøkt
+  tråd brukeren nevnte. USA-markedet ble vurdert og bevisst lagt på is til senere —
+  se egen vurdering: reelt gap i alle sjekkede konkurrenter (ingen siterer noen
+  autoritativ kilde), men krever et cold-start uten den domene-historie-fordelen
+  Norge har.
 
 ## Arbeidsspråk og autorisasjon
 
