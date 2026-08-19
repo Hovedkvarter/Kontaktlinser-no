@@ -2339,8 +2339,9 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-item span {{ font-size: 0.74rem; color: var(--muted); }}
 .search-row {{ position: relative; }}
 .search-icon {{ position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }}
-.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--border); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
-.search-input:focus {{ outline: none; border-color: var(--blue); box-shadow: 0 0 0 4px var(--blue-tint); }}
+.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
+.search-input:hover {{ border-color: var(--blue-dark); }}
+.search-input:focus {{ outline: none; border-color: var(--blue-dark); box-shadow: 0 0 0 4px var(--blue-tint); }}
 .search-row:focus-within .search-icon {{ color: var(--blue); }}
 .search-btn {{ position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }}
 .search-btn:hover {{ background: var(--blue-dark); }}
