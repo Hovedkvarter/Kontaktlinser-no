@@ -846,6 +846,7 @@ PRIVATE_LABEL_SUBBRANDS = {
     "Brilleland": "iWear",
     "Synsam": "EyeQ",
     "Specsavers": "Easyvision",
+    "Coptikk": "Ascend",
 }
 
 # Merke -> produsent-kobling (2026-08-18), verifisert ett og ett merke mot

@@ -1,70 +1,299 @@
 {
   "$comment": "Optikerkjedenes egne private label-navn for kontaktlinser vi allerede har i produkts_meta.json -- KUN høy-sikkerhet-koblinger, bekreftet direkte mot Lensway sin egen 'Optikerkjedenes varemerke'-seksjon (https://www.lensway.no/kontaktlinser/linseliste?p_privateBrand=...), som eksplisitt forklarer hvilket produsent-navn hver private label-linse faktisk selges under. real_product_id peker til den eksisterende oppføringen i products_meta.json -- ingen egen prisdata her, siden det er nøyaktig samme fysiske produkt/samme tilbud. Verifisert 2026-08-15, re-verifisert 2026-08-15 mot Lensway sitt eget produkt-API (viewproductpageinfo) -- fant og rettet 3 feil der XR-varianten pekte til biofinity-xr-6pk, men Lensway sin egen pakningsstørrelse-data for samme produkt-id (4244) viste at det er 3-pack, ikke 6-pack (samme kjente id-4244-forveksling som allerede var dokumentert for Lenson/Lensway sine scrape_targets).",
   "labels": [
-    {"slug": "iwear-oxygen", "name": "iWear Oxygen", "chain": "Brilleland", "real_product_id": "biofinity-6pk"},
-    {"slug": "eyeq-24", "name": "EyeQ 24", "chain": "Synsam", "real_product_id": "biofinity-6pk"},
-    {"slug": "easyvision-opteyes", "name": "Easyvision Opteyes", "chain": "Specsavers", "real_product_id": "biofinity-6pk"},
-
-    {"slug": "iwear-oxygen-astigmatism", "name": "iWear Oxygen Astigmatism", "chain": "Brilleland", "real_product_id": "biofinity-toric-6pk"},
-    {"slug": "eyeq-24-for-astigmatism", "name": "EyeQ 24 For Astigmatism", "chain": "Synsam", "real_product_id": "biofinity-toric-6pk"},
-    {"slug": "easyvision-opteyes-toric", "name": "Easyvision Opteyes Toric", "chain": "Specsavers", "real_product_id": "biofinity-toric-6pk"},
-
-    {"slug": "iwear-oxygen-presbyopia", "name": "iWear Oxygen Presbyopia", "chain": "Brilleland", "real_product_id": "biofinity-multifocal-6pk"},
-    {"slug": "eyeq-24-progressive", "name": "EyeQ 24 Progressive", "chain": "Synsam", "real_product_id": "biofinity-multifocal-6pk"},
-    {"slug": "easyvision-opteyes-multifocal", "name": "Easyvision Opteyes Multifocal", "chain": "Specsavers", "real_product_id": "biofinity-multifocal-6pk"},
-
-    {"slug": "iwear-oxygen-relax", "name": "iWear Oxygen Relax", "chain": "Brilleland", "real_product_id": "biofinity-energys-6pk"},
-    {"slug": "eyeq-digital-focus", "name": "EyeQ Digital Focus", "chain": "Synsam", "real_product_id": "biofinity-energys-6pk"},
-
-    {"slug": "iwear-oxygen-xr", "name": "iWear Oxygen XR", "chain": "Brilleland", "real_product_id": "biofinity-xr-3pk"},
-    {"slug": "eyeq-24-xr", "name": "EyeQ 24 XR", "chain": "Synsam", "real_product_id": "biofinity-xr-3pk"},
-    {"slug": "easyvision-opteyes-xr", "name": "Easyvision Opteyes XR", "chain": "Specsavers", "real_product_id": "biofinity-xr-3pk"},
-
-    {"slug": "iwear-balance-plus", "name": "iWear Balance Plus", "chain": "Brilleland", "real_product_id": "avaira-vitality-6pk"},
-    {"slug": "easyvision-uvicia-plus", "name": "Easyvision Uvicia Plus", "chain": "Specsavers", "real_product_id": "avaira-vitality-6pk"},
-
-    {"slug": "iwear-balance-plus-astigmatism", "name": "iWear Balance Plus Astigmatism", "chain": "Brilleland", "real_product_id": "avaira-vitality-toric-6pk"},
-    {"slug": "easyvision-uvicia-plus-toric", "name": "Easyvision Uvicia Plus Toric", "chain": "Specsavers", "real_product_id": "avaira-vitality-toric-6pk"},
-
-    {"slug": "iwear-fit", "name": "iWear Fit", "chain": "Brilleland", "real_product_id": "biomedics-1day-xtra-30pk"},
-    {"slug": "eyeq-one-day-classic", "name": "EyeQ One-Day Classic", "chain": "Synsam", "real_product_id": "biomedics-1day-xtra-30pk"},
-
-    {"slug": "iwear-fit-astigmatism", "name": "iWear Fit Astigmatism", "chain": "Brilleland", "real_product_id": "biomedics-1day-xtra-toric-30pk"},
-    {"slug": "eyeq-one-day-classic-for-astigmatism", "name": "EyeQ One-Day Classic For Astigmatism", "chain": "Synsam", "real_product_id": "biomedics-1day-xtra-toric-30pk"},
-
-    {"slug": "iwear-go-astigmatism", "name": "iWear Go Astigmatism", "chain": "Brilleland", "real_product_id": "biomedics-toric-6pk"},
-    {"slug": "eyeq-toric-classic", "name": "EyeQ Toric Classic", "chain": "Synsam", "real_product_id": "biomedics-toric-6pk"},
-
-    {"slug": "iwear-harmony", "name": "iWear Harmony", "chain": "Brilleland", "real_product_id": "myday-30pk"},
-    {"slug": "iwear-harmony-astigmatism", "name": "iWear Harmony Astigmatism", "chain": "Brilleland", "real_product_id": "myday-toric-30pk"},
-
-    {"slug": "iwear-activ", "name": "iWear Activ", "chain": "Brilleland", "real_product_id": "clariti-1day-30pk"},
-    {"slug": "easyvision-umere", "name": "Easyvision Umere", "chain": "Specsavers", "real_product_id": "clariti-1day-30pk"},
-
-    {"slug": "iwear-activ-astigmatism", "name": "iWear Activ Astigmatism", "chain": "Brilleland", "real_product_id": "clariti-1day-toric-30pk"},
-    {"slug": "easyvision-umere-toric", "name": "Easyvision Umere Toric", "chain": "Specsavers", "real_product_id": "clariti-1day-toric-30pk"},
-
-    {"slug": "iwear-fresh", "name": "iWear Fresh", "chain": "Brilleland", "real_product_id": "proclear-1day-30pk"},
-    {"slug": "eyeq-one-day-premium", "name": "EyeQ One-Day Premium", "chain": "Synsam", "real_product_id": "proclear-1day-30pk"},
-
-    {"slug": "eyeq-one-day-premium-progressive", "name": "EyeQ One-Day Premium Progressive", "chain": "Synsam", "real_product_id": "proclear-1day-multifocal-30pk"},
-
-    {"slug": "eyeq-premium", "name": "EyeQ Premium", "chain": "Synsam", "real_product_id": "proclear-sphere-6pk"},
-    {"slug": "eyeq-premium-for-astigmatism", "name": "EyeQ Premium For Astigmatism", "chain": "Synsam", "real_product_id": "proclear-toric-6pk"},
-    {"slug": "eyeq-premium-progressive", "name": "EyeQ Premium Progressive", "chain": "Synsam", "real_product_id": "proclear-multifocal-6pk"},
-
-    {"slug": "eyeq-hydro", "name": "EyeQ Hydro", "chain": "Synsam", "real_product_id": "air-optix-hydraglyde-6pk"},
-    {"slug": "eyeq-hydro-for-astigmatism", "name": "EyeQ Hydro For Astigmatism", "chain": "Synsam", "real_product_id": "air-optix-hydraglyde-astigmatism-6pk"},
-    {"slug": "eyeq-hydro-progressive", "name": "EyeQ Hydro Progressive", "chain": "Synsam", "real_product_id": "air-optix-hydraglyde-multifocal-6pk"},
-
-    {"slug": "eyeq-total30", "name": "EyeQ Total30", "chain": "Synsam", "real_product_id": "total30-6pk"},
-    {"slug": "eyeq-total30-for-astigmatism", "name": "EyeQ Total30 for Astigmatism", "chain": "Synsam", "real_product_id": "total30-astigmatism-6pk"},
-
-    {"slug": "eyeq-precision1", "name": "EyeQ Precision1", "chain": "Synsam", "real_product_id": "precision1-30pk"},
-    {"slug": "eyeq-precision1-for-astigmatism", "name": "EyeQ Precision1 for Astigmatism", "chain": "Synsam", "real_product_id": "precision1-astigmatism-30pk"},
-
-    {"slug": "easyvision-vitrea", "name": "Easyvision Vitrea", "chain": "Specsavers", "real_product_id": "dailies-aquacomfort-plus-30pk"},
-    {"slug": "easyvision-vitrea-toric", "name": "Easyvision Vitrea Toric", "chain": "Specsavers", "real_product_id": "dailies-aquacomfort-plus-toric-30pk"},
-    {"slug": "easyvision-vitrea-multifocal", "name": "Easyvision Vitrea Multifocal", "chain": "Specsavers", "real_product_id": "dailies-aquacomfort-plus-multifocal-30pk"}
+    {
+      "slug": "iwear-oxygen",
+      "name": "iWear Oxygen",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-6pk"
+    },
+    {
+      "slug": "eyeq-24",
+      "name": "EyeQ 24",
+      "chain": "Synsam",
+      "real_product_id": "biofinity-6pk"
+    },
+    {
+      "slug": "easyvision-opteyes",
+      "name": "Easyvision Opteyes",
+      "chain": "Specsavers",
+      "real_product_id": "biofinity-6pk"
+    },
+    {
+      "slug": "iwear-oxygen-astigmatism",
+      "name": "iWear Oxygen Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-toric-6pk"
+    },
+    {
+      "slug": "eyeq-24-for-astigmatism",
+      "name": "EyeQ 24 For Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "biofinity-toric-6pk"
+    },
+    {
+      "slug": "easyvision-opteyes-toric",
+      "name": "Easyvision Opteyes Toric",
+      "chain": "Specsavers",
+      "real_product_id": "biofinity-toric-6pk"
+    },
+    {
+      "slug": "iwear-oxygen-presbyopia",
+      "name": "iWear Oxygen Presbyopia",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-multifocal-6pk"
+    },
+    {
+      "slug": "eyeq-24-progressive",
+      "name": "EyeQ 24 Progressive",
+      "chain": "Synsam",
+      "real_product_id": "biofinity-multifocal-6pk"
+    },
+    {
+      "slug": "easyvision-opteyes-multifocal",
+      "name": "Easyvision Opteyes Multifocal",
+      "chain": "Specsavers",
+      "real_product_id": "biofinity-multifocal-6pk"
+    },
+    {
+      "slug": "iwear-oxygen-relax",
+      "name": "iWear Oxygen Relax",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-energys-6pk"
+    },
+    {
+      "slug": "eyeq-digital-focus",
+      "name": "EyeQ Digital Focus",
+      "chain": "Synsam",
+      "real_product_id": "biofinity-energys-6pk"
+    },
+    {
+      "slug": "iwear-oxygen-xr",
+      "name": "iWear Oxygen XR",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-xr-3pk"
+    },
+    {
+      "slug": "eyeq-24-xr",
+      "name": "EyeQ 24 XR",
+      "chain": "Synsam",
+      "real_product_id": "biofinity-xr-3pk"
+    },
+    {
+      "slug": "easyvision-opteyes-xr",
+      "name": "Easyvision Opteyes XR",
+      "chain": "Specsavers",
+      "real_product_id": "biofinity-xr-3pk"
+    },
+    {
+      "slug": "iwear-balance-plus",
+      "name": "iWear Balance Plus",
+      "chain": "Brilleland",
+      "real_product_id": "avaira-vitality-6pk"
+    },
+    {
+      "slug": "easyvision-uvicia-plus",
+      "name": "Easyvision Uvicia Plus",
+      "chain": "Specsavers",
+      "real_product_id": "avaira-vitality-6pk"
+    },
+    {
+      "slug": "iwear-balance-plus-astigmatism",
+      "name": "iWear Balance Plus Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "avaira-vitality-toric-6pk"
+    },
+    {
+      "slug": "easyvision-uvicia-plus-toric",
+      "name": "Easyvision Uvicia Plus Toric",
+      "chain": "Specsavers",
+      "real_product_id": "avaira-vitality-toric-6pk"
+    },
+    {
+      "slug": "iwear-fit",
+      "name": "iWear Fit",
+      "chain": "Brilleland",
+      "real_product_id": "biomedics-1day-xtra-30pk"
+    },
+    {
+      "slug": "eyeq-one-day-classic",
+      "name": "EyeQ One-Day Classic",
+      "chain": "Synsam",
+      "real_product_id": "biomedics-1day-xtra-30pk"
+    },
+    {
+      "slug": "iwear-fit-astigmatism",
+      "name": "iWear Fit Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "biomedics-1day-xtra-toric-30pk"
+    },
+    {
+      "slug": "eyeq-one-day-classic-for-astigmatism",
+      "name": "EyeQ One-Day Classic For Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "biomedics-1day-xtra-toric-30pk"
+    },
+    {
+      "slug": "iwear-go-astigmatism",
+      "name": "iWear Go Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "biomedics-toric-6pk"
+    },
+    {
+      "slug": "eyeq-toric-classic",
+      "name": "EyeQ Toric Classic",
+      "chain": "Synsam",
+      "real_product_id": "biomedics-toric-6pk"
+    },
+    {
+      "slug": "iwear-harmony",
+      "name": "iWear Harmony",
+      "chain": "Brilleland",
+      "real_product_id": "myday-30pk"
+    },
+    {
+      "slug": "iwear-harmony-astigmatism",
+      "name": "iWear Harmony Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "myday-toric-30pk"
+    },
+    {
+      "slug": "iwear-activ",
+      "name": "iWear Activ",
+      "chain": "Brilleland",
+      "real_product_id": "clariti-1day-30pk"
+    },
+    {
+      "slug": "easyvision-umere",
+      "name": "Easyvision Umere",
+      "chain": "Specsavers",
+      "real_product_id": "clariti-1day-30pk"
+    },
+    {
+      "slug": "iwear-activ-astigmatism",
+      "name": "iWear Activ Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "clariti-1day-toric-30pk"
+    },
+    {
+      "slug": "easyvision-umere-toric",
+      "name": "Easyvision Umere Toric",
+      "chain": "Specsavers",
+      "real_product_id": "clariti-1day-toric-30pk"
+    },
+    {
+      "slug": "iwear-fresh",
+      "name": "iWear Fresh",
+      "chain": "Brilleland",
+      "real_product_id": "proclear-1day-30pk"
+    },
+    {
+      "slug": "eyeq-one-day-premium",
+      "name": "EyeQ One-Day Premium",
+      "chain": "Synsam",
+      "real_product_id": "proclear-1day-30pk"
+    },
+    {
+      "slug": "eyeq-one-day-premium-progressive",
+      "name": "EyeQ One-Day Premium Progressive",
+      "chain": "Synsam",
+      "real_product_id": "proclear-1day-multifocal-30pk"
+    },
+    {
+      "slug": "eyeq-premium",
+      "name": "EyeQ Premium",
+      "chain": "Synsam",
+      "real_product_id": "proclear-sphere-6pk"
+    },
+    {
+      "slug": "eyeq-premium-for-astigmatism",
+      "name": "EyeQ Premium For Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "proclear-toric-6pk"
+    },
+    {
+      "slug": "eyeq-premium-progressive",
+      "name": "EyeQ Premium Progressive",
+      "chain": "Synsam",
+      "real_product_id": "proclear-multifocal-6pk"
+    },
+    {
+      "slug": "eyeq-hydro",
+      "name": "EyeQ Hydro",
+      "chain": "Synsam",
+      "real_product_id": "air-optix-hydraglyde-6pk"
+    },
+    {
+      "slug": "eyeq-hydro-for-astigmatism",
+      "name": "EyeQ Hydro For Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "air-optix-hydraglyde-astigmatism-6pk"
+    },
+    {
+      "slug": "eyeq-hydro-progressive",
+      "name": "EyeQ Hydro Progressive",
+      "chain": "Synsam",
+      "real_product_id": "air-optix-hydraglyde-multifocal-6pk"
+    },
+    {
+      "slug": "eyeq-total30",
+      "name": "EyeQ Total30",
+      "chain": "Synsam",
+      "real_product_id": "total30-6pk"
+    },
+    {
+      "slug": "eyeq-total30-for-astigmatism",
+      "name": "EyeQ Total30 for Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "total30-astigmatism-6pk"
+    },
+    {
+      "slug": "eyeq-precision1",
+      "name": "EyeQ Precision1",
+      "chain": "Synsam",
+      "real_product_id": "precision1-30pk"
+    },
+    {
+      "slug": "eyeq-precision1-for-astigmatism",
+      "name": "EyeQ Precision1 for Astigmatism",
+      "chain": "Synsam",
+      "real_product_id": "precision1-astigmatism-30pk"
+    },
+    {
+      "slug": "easyvision-vitrea",
+      "name": "Easyvision Vitrea",
+      "chain": "Specsavers",
+      "real_product_id": "dailies-aquacomfort-plus-30pk"
+    },
+    {
+      "slug": "easyvision-vitrea-toric",
+      "name": "Easyvision Vitrea Toric",
+      "chain": "Specsavers",
+      "real_product_id": "dailies-aquacomfort-plus-toric-30pk"
+    },
+    {
+      "slug": "easyvision-vitrea-multifocal",
+      "name": "Easyvision Vitrea Multifocal",
+      "chain": "Specsavers",
+      "real_product_id": "dailies-aquacomfort-plus-multifocal-30pk"
+    },
+    {
+      "slug": "ascend-premier",
+      "name": "Ascend Premier",
+      "chain": "Coptikk",
+      "real_product_id": "biofinity-6pk"
+    },
+    {
+      "slug": "ascend-premier-toric",
+      "name": "Ascend Premier Toric",
+      "chain": "Coptikk",
+      "real_product_id": "biofinity-toric-6pk"
+    },
+    {
+      "slug": "ascend-evolve-plus",
+      "name": "Ascend Evolve+",
+      "chain": "Coptikk",
+      "real_product_id": "avaira-vitality-6pk"
+    }
   ]
 }
