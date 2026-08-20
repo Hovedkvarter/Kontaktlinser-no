@@ -306,6 +306,30 @@
       "name": "Ascend Active Toric 1 Day",
       "chain": "Coptikk",
       "real_product_id": "clariti-1day-toric-30pk"
+    },
+    {
+      "slug": "ascend-premier-multifocal-distance",
+      "name": "Ascend Premier Multifocal Distance",
+      "chain": "Coptikk",
+      "real_product_id": "biofinity-multifocal-6pk"
+    },
+    {
+      "slug": "ascend-premier-multifocal-near",
+      "name": "Ascend Premier Multifocal Near",
+      "chain": "Coptikk",
+      "real_product_id": "biofinity-multifocal-6pk"
+    },
+    {
+      "slug": "ascend-active-1-day",
+      "name": "Ascend Active 1 Day",
+      "chain": "Coptikk",
+      "real_product_id": "proclear-1day-30pk"
+    },
+    {
+      "slug": "ascend-active-multifocal-1-day",
+      "name": "Ascend Active Multifocal 1 Day",
+      "chain": "Coptikk",
+      "real_product_id": "proclear-1day-multifocal-30pk"
     }
   ]
 }
