@@ -6329,6 +6329,190 @@
           "slug": "live-lens-7668"
         }
       ]
+    },
+    {
+      "id": "clearlii-daily-30pk",
+      "slug": "clearlii-daily-30-pack",
+      "name": "Clearlii Daily 30-pack",
+      "description": "Dagslinse fra Pegavision.",
+      "long_description": "Clearlii Daily er en dagslinse fra den taiwanske produsenten Pegavision, i etafilcon A med 58 % vanninnhold og hyaluronsyre for fuktighet. Selges under apotek-merket Clearlii, opprinnelig lansert i Sverige i 2011.",
+      "brand_slug": "clearlii",
+      "brand_label": "Clearlii",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Etafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "vitusapotek",
+          "slug": "oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471"
+        },
+        {
+          "retailer": "apotekfordeg",
+          "slug": "clearlii-daily-soft-endagslinser-30-pk--300"
+        }
+      ]
+    },
+    {
+      "id": "clearlii-daily-90pk",
+      "slug": "clearlii-daily-90-pack",
+      "name": "Clearlii Daily 90-pack",
+      "description": "Dagslinse fra Pegavision.",
+      "long_description": "Clearlii Daily er en dagslinse fra den taiwanske produsenten Pegavision, i etafilcon A med 58 % vanninnhold og hyaluronsyre for fuktighet. Selges under apotek-merket Clearlii, opprinnelig lansert i Sverige i 2011.",
+      "brand_slug": "clearlii",
+      "brand_label": "Clearlii",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Etafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "vitusapotek",
+          "slug": "oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-90pk-base-818943"
+        },
+        {
+          "retailer": "apotekfordeg",
+          "slug": "clearlii-daily-soft-endagslinser-90-pk--300"
+        }
+      ]
+    },
+    {
+      "id": "clearlii-monthly-6pk",
+      "slug": "clearlii-monthly-6-pack",
+      "name": "Clearlii Hydrogel Månedslinser 6-pack",
+      "description": "Månedslinse fra Pegavision.",
+      "long_description": "Clearlii Hydrogel Månedslinser er en månedslinse fra Pegavision i polymacon-hydrogel med 38 % vanninnhold og myk kant-design. Selges under apotek-merket Clearlii, opprinnelig lansert i Sverige i 2011.",
+      "brand_slug": "clearlii",
+      "brand_label": "Clearlii",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Polymacon (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "vitusapotek",
+          "slug": "oyne-og-ore/kontaktlinser/clearlii-hydrogel-manedslinser-6-stk-base-928630"
+        },
+        {
+          "retailer": "apotekfordeg",
+          "slug": "clearlii-hydrogel-manedslinser-6-stk--300"
+        }
+      ]
+    },
+    {
+      "id": "clearlii-vitamin-30pk",
+      "slug": "clearlii-vitamin-30-pack",
+      "name": "Clearlii Vitamin 30-pack",
+      "description": "Dagslinse fra Pegavision.",
+      "long_description": "Clearlii Vitamin er en dagslinse fra Pegavision i etafilcon A med 58 % vanninnhold, tilsatt vitamin E, B6 og B12 samt hyaluronsyre for ekstra fuktighet. Selges under apotek-merket Clearlii, opprinnelig lansert i Sverige i 2011.",
+      "brand_slug": "clearlii",
+      "brand_label": "Clearlii",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Materiale",
+          "Etafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "58 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "vitusapotek",
+          "slug": "oyne-og-ore/kontaktlinser/clearlii-vitamin-endagslinser-30-stk-base-929418"
+        },
+        {
+          "retailer": "apotekfordeg",
+          "slug": "clearlii-vitamin-enriched-endagslinser-30-pk--300"
+        }
+      ]
     }
   ]
 }

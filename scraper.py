@@ -209,12 +209,22 @@ def _find_price_in_embedded_json(sc: dict, resp_text: str) -> float | None:
     Samme mekanisme kan i prinsippet også dekke forhandlere der prisen ligger i et
     eget JSON-API-endepunkt i stedet for i en <script>-tag på produktsiden --
     da er embedded_json_pattern satt til "(.*)" (fanger hele respons-teksten
-    som gruppe 1, siden hele responsen ALLEREDE er ren JSON)."""
+    som gruppe 1, siden hele responsen ALLEREDE er ren JSON).
+    Noen forhandlere (Apotek For Deg, schema.org Offer-mikrodata) leverer
+    prisen som tekststreng ("197.00") i stedet for tall -- forsøker derfor
+    float()-parsing på strenger også, ikke bare rene JSON-tall."""
     value = _parse_embedded_json(sc, resp_text)
     if value is None:
         return None
     value = _resolve_json_path(value, sc["embedded_json_price_path"])
-    return float(value) if isinstance(value, int | float) else None
+    if isinstance(value, int | float):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return None
+    return None
 
 
 def _find_stock_in_embedded_json(sc: dict, resp_text: str) -> bool:

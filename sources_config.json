@@ -142,6 +142,37 @@
     "brand_overrides": {}
   },
 
+  "vitusapotek": {
+    "$comment": "Ny forhandler (Clearlii/Pegavision-onboarding, 2026-08-20). robots.txt tillater alt utenom /cart, /checkout, /api -- ingen disallow på produktsider. Salgsbetingelser (vitusapotek.no/c/salgsbetingelser/a/A74023) har ingen anti-skraping-klausul -- sjekket 2026-08-20. Diopter-spesifikke produkt-URL-er (funnet via søk) gir 404 ved direkte kall -- de ser ut til å flyttes/utgå. Merke-hub-siden (vare-merker/{merke}/c/{id}) avslører i stedet en STABIL, generisk '-base-'-URL per pakningsstørrelse (ikke styrke-spesifikk) -- denne har alltid en fast pris uavhengig av styrke, bekreftet server-rendret via schema.org Product/Offer JSON-LD (application/ld+json, FØRSTE script-tag på siden -- andre er BreadcrumbList). embedded_json_price_path henter offers.price direkte. availability-feltet er en streng (schema.org/InStock), ikke bool -- embedded_json_stock_path er derfor utelatt (samme mønster som Lensway/Lenson/Synsam), alle tilbud antas på lager.",
+    "display_name": "Vitusapotek",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.vitusapotek.no",
+      "price_source": "embedded_json",
+      "embedded_json_pattern": "<script type=\"application/ld\\+json\">(.*?)</script>",
+      "embedded_json_price_path": ["offers", "price"],
+      "product_url_pattern": "/{slug}"
+    },
+    "$shipping_comment": "Gratis frakt over 450 kr, bekreftet direkte sitert fra salgsbetingelser (vitusapotek.no/c/salgsbetingelser/a/A74023) 2026-08-20 ('All kjøp over kr 450 sendes fraktfritt'). Under 450 kr oppgis IKKE et fast gebyr -- 'Fraktkostnadene beregnes utifra vekt og volum og er i henhold til PostNord sine satser', altså variabelt per ordre. Utelater derfor 'shipping'-feltet helt i stedet for å gjette et tall -- compute_shipping_nok() i offer.py returnerer da 0.0 som eksplisitt 'ukjent'-standard, som er tryggere enn et gjettet fast gebyr.",
+    "brand_overrides": {}
+  },
+
+  "apotekfordeg": {
+    "$comment": "Ny forhandler (Clearlii/Pegavision-onboarding, 2026-08-20). robots.txt tillater produktsider (kun kontrollpanel/søk/faktura-endepunkter blokkert), eksplisitt Allow for ClaudeBot/OAI-SearchBot/PerplexityBot. Kjøp- og betalingsbetingelser (apotekfordeg.no/pages/conditions) har ingen anti-skraping-klausul -- sjekket 2026-08-20. VIKTIG BEGRENSNING: denne forhandleren har INGEN generisk produktside per pakningsstørrelse (i motsetning til Vitusapotek sin '-base-'-URL) -- hver styrke/diopter har sin egen unike URL og egen pris (f.eks. .../clearlii-daily-soft-endagslinser-30-pk--300 for -3,00). Siden hele siden vår sammenligner PER PAKNING (ikke per styrke), er -3,00 valgt som referanse-styrke for alle 4 Clearlii-produkter her (vanlig, bredt lagerført myopi-styrke, bekreftet i lager på alle 4 pakningene 2026-08-20) -- prisen kan derfor avvike noe fra hva en bruker med en annen styrke faktisk betaler hos denne ene forhandleren. Prisen ligger som TEKST i JSON-LD (\"197.00\", ikke tall 197) inne i @graph[0].mainEntity.offers.price -- se _find_price_in_embedded_json() i scraper.py som ble utvidet 2026-08-20 til å parse prisstrenger, ikke bare rene JSON-tall. availability er en streng, ikke bool -- embedded_json_stock_path utelatt, alle tilbud antas på lager (samme mønster som de andre embedded_json-forhandlerne).",
+    "display_name": "Apotek For Deg",
+    "default_source": "scraper",
+    "scraper_config": {
+      "base_url": "https://www.apotekfordeg.no",
+      "price_source": "embedded_json",
+      "embedded_json_pattern": "<script type=\"application/ld\\+json\">(.*?)</script>",
+      "embedded_json_price_path": ["@graph", 0, "mainEntity", "offers", "price"],
+      "product_url_pattern": "/products/{slug}",
+      "shipping": {"free_over": 995, "fee_nok": 69}
+    },
+    "$shipping_comment": "Gratis frakt over 995 kr (695 kr for medlemmer -- bruker ikke-medlem-tallet som konservativ standard), ellers 69 eller 89 kr avhengig av leveringsalternativ -- bekreftet direkte sitert fra frakt-og-levering-siden (apotekfordeg.no/pages/frakt-og-levering) 2026-08-20 ('kr 69 eller kr 89 per forsendelse beroende på leveringsalternativ'). Bruker laveste tall (69 kr) som standard siden det ikke er entydig hvilket alternativ som er default i kassen.",
+    "brand_overrides": {}
+  },
+
   "kroghoptikk": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. robots.txt blokkerer kun /craft/ (admin-panelet til Craft CMS) -- ingen disallow på produktsider. Kjøps-/leveringsvilkår har ingen anti-skraping-klausul -- sjekket 2026-08-16. Server-rendrer prisen direkte i HTML-en (bekreftet -- class=\"price-tag\" finnes i rå-respons, ingen JS-triks nødvendig, som Interoptik/Brilleland). URL-strukturen er /linser/{kategori}/{produkt} -- slug må derfor inneholde hele stien fra kategori-segmentet (samme mønster som Interoptik). Ingen 'utsolgt'-indikator funnet ved verifisering av et produkt på lager -- stock_selector utelatt inntil videre, som de andre CSS-selector-forhandlerne.",
     "display_name": "Krogh Optikk",

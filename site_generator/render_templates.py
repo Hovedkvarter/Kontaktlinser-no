@@ -470,6 +470,7 @@ FOOTER_BRANDS = [
     ("biomedics", "Biomedics"),
     ("biotrue", "Biotrue"),
     ("clariti", "Clariti"),
+    ("clearlii", "Clearlii"),
     ("dailies", "Dailies"),
     ("freshlook", "FreshLook"),
     ("live", "Live"),
@@ -927,6 +928,18 @@ Selskapet har hovedkontor i Nagoya og er i dag representert i over 80 land, med 
 som sin daglinse-satsning i det europeiske markedet.</p>
 """,
     },
+    "pegavision": {
+        "name": "Pegavision",
+        "official_url": "https://www.pegavision.com/en/",
+        "official_url_label": "pegavision.com",
+        "brand_slugs": ["clearlii"],
+        "description_html": """
+<p>Pegavision ble grunnlagt i 2009 som et joint venture mellom elektronikkkonsernene Pegatron
+og Kinsus, med hovedkontor i Taoyuan i Taiwan. Selskapet er børsnotert (TSE: PEGAVISION) og
+driver egen forskning, utvikling og produksjon av myke kontaktlinser – blant annet
+Clearlii-serien som selges gjennom nordiske apotek.</p>
+""",
+    },
 }
 
 BRAND_TO_MANUFACTURER: dict[str, str] = {
@@ -1169,6 +1182,23 @@ en del av samme CooperVision-plattform.</p>
 <p style="font-size:1rem;line-height:1.7;">Live er laget av somofilcon A, en silikonhydrogel med 56 % vanninnhold –
 samme materiale som brukes i CooperVisions Clariti 1 day. AquaGen-teknologien skal binde
 fuktighet naturlig til og gjennom linsen.</p>
+""",
+    "clearlii": """
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clearlii</h2>
+<p>Clearlii er et apotek-eksklusivt linsemerke, opprinnelig lansert i Stockholm i 2011 under
+navnet Apotekslinsen. Merket ble til Clearlii og fikk egenproduserte linser i 2018, og selges i
+dag hos 800–900 apotek og 150+ optikere i fem nordiske land. Linsene produseres av den
+taiwanske produsenten Pegavision.</p>
+
+<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Clearlii-familien</h2>
+<ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
+  <li><strong>Clearlii Daily</strong> – etafilcon A, 58 % vanninnhold. Tilsatt hyaluronsyre for
+  linsebrukere med tørre øyne.</li>
+  <li><strong>Clearlii Vitamin</strong> – samme etafilcon A-materiale (58 % vanninnhold) som
+  Daily, i tillegg tilsatt vitamin E, B6 og B12 samt hyaluronsyre.</li>
+  <li><strong>Clearlii Hydrogel Månedslinser</strong> – polymacon, 38 % vanninnhold, med et
+  mykt kant-design ("Silk & Soft Edge").</li>
+</ul>
 """,
 }
 
