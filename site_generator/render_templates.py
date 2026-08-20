@@ -5022,15 +5022,18 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         offers = reconcile_product(real_product["offers"], now)
         eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
-        image_url = pick_product_image(real_product["offers"])
-        rows.append({"label": label, "real_product": real_product, "lowest": lowest, "image_url": image_url})
+        rows.append({"label": label, "real_product": real_product, "lowest": lowest})
 
     rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
 
     def render_row(r: dict) -> str:
+        # Viser ALDRI det ekte produktets bilde her -- det er en annen fysisk
+        # innpakning (private label-eskens design er ukjent for oss), så et
+        # lånt Proclear/Biofinity-bilde under Ascend-navnet ville villedet
+        # brukeren til å tro det er slik den faktiske esken ser ut. Samme
+        # initial-fallback som brukes når vi ikke har NOE bilde i det hele tatt.
         label, real_product, lowest = r["label"], r["real_product"], r["lowest"]
-        thumb = f'<img src="{escape(r["image_url"])}" alt="{escape(label["name"])}" loading="lazy">' if r["image_url"] \
-            else escape(chain[:2].upper())
+        thumb = escape(chain[:2].upper())
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(real_product["offers"])} forhandlere</div>'
@@ -5188,7 +5191,6 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
-    image_url = pick_product_image(real_product["offers"])
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -5245,7 +5247,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 <title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | kontaktlinser.no</title>
 <meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/', image_url)}
+{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
