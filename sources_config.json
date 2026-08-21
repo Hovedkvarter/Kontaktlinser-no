@@ -61,14 +61,18 @@
   },
 
   "shopping4net": {
-    "$comment": "BLOKKERT for skraping akkurat nå: robots.txt finnes IKKE på domenets rot (https://www.shopping4net.com/robots.txt -> 404) -- de har kun lagt en robots.txt under /no/robots.txt, som ikke er gyldig plassering per robots.txt-spesifikasjonen og derfor ikke fanges opp av robots_allows(). Prosjektets regel er at manglende robots.txt betyr 'ikke scrape uten bekreftet tillatelse', så dette paret gir aldri data før det er avklart med dem direkte (eller de flytter robots.txt til rot). Bekreftet affiliate-program via Tradedoubler (opptil 10% provisjon, program-id 198299) -- ingen signert avtale ennå. price_selector (.amount) og product_url_pattern er verifisert mot ekte HTML og klare til bruk den dagen robots.txt-spørsmålet er løst.",
+    "$comment": "Ekte avtale på plass 2026-08-20 -- Tradedoubler-feed (program-id 198299, samme program som ble dokumentert uten avtale tidligere). Løser av seg selv det gamle robots.txt-problemet (manglende fil på domenets rot betydde 'ikke scrape uten bekreftet tillatelse') siden vi nå henter fra en offisiell feed i stedet for å skrape siden. token(et under) er den ekte, aktive API-nøkkelen -- samme mønster som Adtraction sin apid/asid i ExtraOptical sin feed_url, hemmeligholdes ikke separat i dette repoet. Feeden er Tradedoubler sitt paginerte products.json-API (IKKE en flat CSV-eksport som de andre nettverkene) -- se load_tradedoubler_feed()/map_tradedoubler_row() i ingest_feed.py. q=kontaktlinser/øyedråper er et uverifisert/udokumentert relevanssøk (fant IKKE en ekte kategori-parameter i APIet), delvis overlappende treffsett -- begge søk hentes og dedupliseres, med kategoristi-filter (Kontaktlinser>/Apotek>Øyne.../Apotek>Allergi>Øyendråper) som sikkerhetsnett i mapperen uansett hva søket returnerer. product_matching.json (nøkkel 'tradedoubler') har KUN høy-sikkerhet-koblinger -- rader der feedens navn/kode motsier hverandre på pakningsstørrelse (f.eks. ReNu Multipurpose '360 ml' med produktkode/URL som sier 355ml), eller der vi sporer flere pakningsstørrelser av samme bare produktnavn uten at feeden skiller dem (f.eks. 'Biofinity XR' uten 3-/6-pack, '1-Day Acuvue Moist for Astigmatism' uten 30-/90-pack), er bevisst utelatt -- samme prinsipp som Adtraction/ExtraOptical.",
     "display_name": "Shopping4net",
-    "default_source": "scraper",
-    "scraper_config": {
-      "base_url": "https://www.shopping4net.com",
-      "price_selector": ".amount",
-      "product_url_pattern": "/no/{slug}.htm"
-    },
+    "default_source": "affiliate_feed",
+    "network": "tradedoubler",
+    "feed_urls": [
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=kontaktlinser?token=66B2FD5D958C4409A8A0A14962A84DE596443232",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=%C3%B8yedr%C3%A5per?token=66B2FD5D958C4409A8A0A14962A84DE596443232"
+    ],
+    "shipping": {"free_over": 700, "fee_nok": 39},
+    "$shipping_comment": "Kontaktlinser-avdelingen har egen fri-frakt-grense (700 kr) -- ULIK Skjønnhet/Helsekost/Fitness sine 350 kr, bekreftet direkte sitert fra kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm) OG mot Shopping4net sin egen 'Fri Frakt'-info-modal (skjermbilde fra brukeren) 2026-08-20 ('Det er alltid den laveste grensen som gjelder hvis du kjøper fra forskjellige avdelinger'). Gebyret under grensen (39 kr) var ikke oppgitt i vilkårsteksten selv, men bekreftet direkte av brukeren 2026-08-20. NB: dette feltet er kun dokumentasjon her -- de faktiske verdiene som brukes er hardkodet direkte i map_tradedoubler_row() i ingest_feed.py, samme mønster som extraoptical.",
+    "commission_pct": 10,
+    "$commission_comment": "Opptil 10% provisjon, tidligere dokumentert fra research før avtalen var reell (program-id 198299 stemmer med feedens egen p(198299) i tracking-lenkene). Rent dokumentasjonsfelt, ikke brukt i kodelogikk ennå -- se samme merknad hos extraoptical.",
     "brand_overrides": {}
   },
 

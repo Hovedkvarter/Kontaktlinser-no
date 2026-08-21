@@ -111,6 +111,74 @@ def map_partner_ads_row(row: dict, product_match: dict[str, str]) -> Optional[Of
         return None
 
 
+def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> Optional[Offer]:
+    """Shopping4Net (Tradedoubler, program-id 198299, bekreftet 2026-08-20).
+    ANNERLEDES enn de andre nettverkene: hvert 'produkt' er et nøstet
+    JSON-objekt (offers[0] med pris/lenke/lagerstatus, categories[] med full
+    kategoristi, productImage.url), ikke en flat CSV-rad -- se
+    load_tradedoubler_feed() for selve HTTP/paginering-delen.
+
+    Filtrerer ALLTID på kategoristi her ("Kontaktlinser > ..."), ikke bare i
+    søket som henter feeden -- q=kontaktlinser/øyedråper i feed_url er et
+    uverifisert/udokumentert søkefilter (Tradedoubler sitt API har ingen
+    dokumentert kategori-parameter), så dette er et sikkerhetsnett mot at et
+    løst relatert produkt (søket ga f.eks. også mascara og solkrem) noensinne
+    limes inn som en linse/væske ved en feiltakelse.
+
+    offers[0].sourceProductId brukes som SKU-nøkkel i product_matching.json
+    (Tradedoubler sin egen, stabile produktkode -- mer robust enn Adtraction
+    sin navnebaserte 'id'). Rader der feedens EGET navn og URL/produktkode
+    motsier hverandre på pakningsstørrelse (f.eks. ReNu Multipurpose '360 ml'
+    med produktkode/URL som sier '355ml'), eller der vi sporer FLERE
+    pakningsstørrelser av samme produktnavn uten at feeden skiller dem
+    (f.eks. bare 'Biofinity XR' uten 3-/6-pack-angivelse), er bevisst IKKE
+    tatt med i product_matching -- samme prinsipp som Adtraction-feeden."""
+    categories = [c.get("name", "") for c in product.get("categories", [])]
+    if not any(c.startswith(("Kontaktlinser >", "Apotek > Allergi > Øyendråper", "Apotek > Øyne")) for c in categories):
+        return None
+
+    offers = product.get("offers") or []
+    if not offers:
+        return None
+    offer = offers[0]
+    sku = offer.get("sourceProductId")
+    product_id = product_match.get(sku) if sku else None
+    if product_id is None:
+        return None
+
+    price_history = offer.get("priceHistory") or []
+    if not price_history:
+        return None
+    try:
+        price_nok = float(price_history[0]["price"]["value"])
+    except (KeyError, ValueError, TypeError):
+        return None
+
+    image_url = (product.get("productImage") or {}).get("url") or None
+    return mark_staleness(Offer(
+        retailer="Shopping4net",
+        brand="",  # settes av build_catalog.py fra products_meta etter matching
+        source="affiliate_feed",
+        network="tradedoubler",
+        price_nok=price_nok,
+        # Kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm,
+        # 2026-08-20): gratis frakt over 700 kr for Kontaktlinser-avdelingen
+        # spesifikt ("Kontaktlinser: kr 700" -- ulikt Skjønnhet/Helsekost sine
+        # 350 kr, bekreftet av brukeren mot Shopping4net sin egen
+        # "Fri Frakt"-info-modal samme dag). Selve vilkårsteksten oppga ikke
+        # et fast gebyr under grensen ("styres av postnummer og størrelse"),
+        # men brukeren bekreftet 39 kr direkte 2026-08-20.
+        shipping_nok=compute_shipping_nok(price_nok, {"free_over": 700, "fee_nok": 39}),
+        shipping_policy={"free_over": 700, "fee_nok": 39},
+        url=offer.get("productUrl"),
+        in_stock=offer.get("availability") == "in_stock",
+        checked_at=datetime.now(timezone.utc).isoformat(),
+        image_url=image_url,
+        image_source="affiliate_feed" if image_url else "unlicensed",
+        product_id=product_id,
+    ))
+
+
 NETWORK_MAPPERS = {
     "adtraction": map_adtraction_row,
     "partner-ads": map_partner_ads_row,
@@ -150,6 +218,67 @@ def load_feed_url(url: str, network: str, product_match: dict[str, str]) -> list
         print(f"  [{network}] klarte ikke å hente feed fra URL: {e}")
         return []
     return _load_feed_rows(csv.DictReader(io.StringIO(resp.text)), network, product_match, url)
+
+
+def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[list[Offer], int]:
+    """Henter ALLE sider for ETT søk (q=...) i Tradedoubler sin paginerte
+    JSON-API. url skal IKKE inneholde et eget ;page=-segment -- det settes
+    her per side, rett før ?token=... (Tradedoubler sitt matrix-parameter-
+    format). Henter side for side til en side returnerer færre produkter enn
+    pageSize (siste side), med et hardt tak på 20 sider (2000 produkter) som
+    sikkerhetsnett mot en uendelig løkke hvis APIet oppfører seg uventet."""
+    if "?" not in url:
+        print(f"  [tradedoubler] uventet feed_url-format (mangler ?token=): {url}")
+        return [], 0
+    base, token_part = url.split("?", 1)
+
+    offers: list[Offer] = []
+    skipped = 0
+    page = 1
+    while page <= 20:
+        page_url = f"{base};page={page}?{token_part}"
+        try:
+            resp = requests.get(page_url, headers={"User-Agent": "kontaktlinser.no-feedbot/1.0"}, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+        except (requests.RequestException, ValueError) as e:
+            print(f"  [tradedoubler] klarte ikke å hente side {page} av {url}: {e}")
+            break
+        products = data.get("products", [])
+        for product in products:
+            offer = map_tradedoubler_row(product, product_match)
+            if offer:
+                offers.append(offer)
+            else:
+                skipped += 1
+        if len(products) < 100:
+            break
+        page += 1
+    return offers, skipped
+
+
+def load_tradedoubler_feed(urls: list[str], product_match: dict[str, str]) -> list[Offer]:
+    """Shopping4Net sin feed dekkes ikke av ETT søk -- q=kontaktlinser og
+    q=øyedråper gir DELVIS overlappende, men ikke identiske, treffsett
+    (Tradedoubler sitt q-filter er et uverifisert/udokumentert
+    relevanssøk, ingen ekte kategori-parameter er funnet). Henter derfor
+    flere søk (urls) og slår sammen -- samme produkt kan dukke opp i mer enn
+    ett søk, så resultatet dedupliseres på product_id til slutt (siste
+    treff vinner; prisen er uansett identisk siden det er samme rad i
+    Tradedoubler sin database uansett hvilket søk som fant den)."""
+    all_offers: list[Offer] = []
+    total_skipped = 0
+    for url in urls:
+        offers, skipped = _load_tradedoubler_query(url, product_match)
+        all_offers.extend(offers)
+        total_skipped += skipped
+    if total_skipped:
+        print(f"  [tradedoubler] {total_skipped} produkt-forekomst(er) matchet ikke et kjent produkt eller falt utenfor sporet kategori")
+
+    deduped: dict[str, Offer] = {}
+    for offer in all_offers:
+        deduped[offer.product_id] = offer
+    return list(deduped.values())
 
 
 def pick_product_image(offers: list[Offer]) -> Optional[str]:

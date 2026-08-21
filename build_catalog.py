@@ -26,7 +26,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from offer import Offer
-from ingest_feed import load_feed, load_feed_url
+from ingest_feed import load_feed, load_feed_url, load_tradedoubler_feed
 from scraper import scrape_product, should_scrape
 
 ROOT = Path(__file__).parent
@@ -51,7 +51,13 @@ def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[st
 
     def _ingest(network: str, cfg: dict) -> None:
         match_map = product_matching.get(network, {})
-        if "feed_url" in cfg:
+        if network == "tradedoubler":
+            # Paginert JSON-API, ikke en flat CSV-fil -- egen henter, se
+            # load_tradedoubler_feed() i ingest_feed.py. feed_urls (flertall)
+            # siden ett enkelt søk ikke dekker både linser og øyeplager-
+            # produkter i denne feeden.
+            offers = load_tradedoubler_feed(cfg["feed_urls"], match_map)
+        elif "feed_url" in cfg:
             offers = load_feed_url(cfg["feed_url"], network, match_map)
         else:
             feed_path = ROOT / cfg["feed_path"]
@@ -65,7 +71,7 @@ def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[st
     for retailer, cfg in sources_config.items():
         if retailer.startswith("$"):
             continue
-        if cfg.get("default_source") == "affiliate_feed" and ("feed_path" in cfg or "feed_url" in cfg):
+        if cfg.get("default_source") == "affiliate_feed" and ("feed_path" in cfg or "feed_url" in cfg or "feed_urls" in cfg):
             _ingest(cfg["network"], cfg)
 
         for brand, override in cfg.get("brand_overrides", {}).items():

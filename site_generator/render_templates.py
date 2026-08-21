@@ -802,7 +802,7 @@ RETAILER_LOGOS = {
     "Lensway": ("lensway.svg", False),
     "Lenson": ("lenson.svg", False),
     "Extra Optical": ("extraoptical.svg", False),
-    "Shopping4net": ("shopping4net.png", True),
+    "Shopping4net": ("shopping4net.png", False),
     "Lensit": ("lensit.svg", False),
     "Specsavers": ("specsavers.svg", False),
     "Synsam": ("synsam.svg", False),
