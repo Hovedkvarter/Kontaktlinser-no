@@ -311,11 +311,13 @@ a { color: inherit; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
 .price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
-.price-history-bar { fill: var(--orange); }
-.price-history-bar-last { fill: var(--orange-dark); }
+.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+.price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+.price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
+.price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
 .price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
-.price-history-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }
-.price-history-current-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }
+.price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
+.price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
@@ -631,21 +633,29 @@ a { color: inherit; }
     <h2>Prisutvikling</h2>
     <p class="price-history-summary">Laveste produktpris (uten frakt) siste 8 dager: 1 199 kr.</p>
     <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 8 dager, fra 1 199 kr til 1 199 kr">
+      <defs>
+        <linearGradient id="priceHistoryFade" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
       <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
       <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">1 343 kr</text>
       <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">1 199 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">1 055 kr</text>
-      <rect x="80.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>14.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="158.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>15.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="236.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>16.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="314.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>17.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="392.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>18.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="470.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>19.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="548.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar"><title>20.08: 1 199 kr hos Lenson</title></rect>
-      <rect x="626.0" y="86.0" width="14.0" height="72.0" rx="2.0" class="price-history-bar price-history-bar-last"><title>21.08: 1 199 kr hos Lenson</title></rect>
-      <text x="633.0" y="80.0" text-anchor="end" class="price-history-current-label">1 199 kr</text>
+      <path d="M48.0,158.0 L48.0,86.0 L137.1,86.0 L226.3,86.0 L315.4,86.0 L404.6,86.0 L493.7,86.0 L582.9,86.0 L672.0,86.0 L672.0,158.0 Z" class="price-history-area" />
+      <polyline points="48.0,86.0 137.1,86.0 226.3,86.0 315.4,86.0 404.6,86.0 493.7,86.0 582.9,86.0 672.0,86.0" class="price-history-line" />
+      <circle cx="48.0" cy="86.0" r="2.2" class="price-history-dot"><title>14.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="137.1" cy="86.0" r="2.2" class="price-history-dot"><title>15.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="226.3" cy="86.0" r="2.2" class="price-history-dot"><title>16.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="315.4" cy="86.0" r="2.2" class="price-history-dot"><title>17.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="404.6" cy="86.0" r="2.2" class="price-history-dot"><title>18.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="493.7" cy="86.0" r="2.2" class="price-history-dot"><title>19.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="582.9" cy="86.0" r="2.2" class="price-history-dot"><title>20.08: 1 199 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="86.0" r="3.2" class="price-history-dot price-history-dot-last"><title>21.08: 1 199 kr hos Lenson</title></circle>
+      <text x="672.0" y="78.0" text-anchor="end" class="price-history-current-label">1 199 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">21.08</text>
     </svg>
