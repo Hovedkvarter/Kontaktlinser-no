@@ -36,7 +36,7 @@ function __loadGTM() {
   "@type": "Product",
   "name": "Miru 1day Flatpack Multifocal 30-pack",
   "description": "Miru 1day Flatpack Multifocal er en multifokal dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).",
-  "brand": {"@type": "Brand", "name": "MIRU"}, "dateModified": "2026-08-21T08:12:08.948961+00:00",
+  "brand": {"@type": "Brand", "name": "MIRU"}, "dateModified": "2026-08-21T08:35:18.038618+00:00",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -73,6 +73,7 @@ function __loadGTM() {
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
   --lavender: #8B7FD6; --lavender-tint: #EEEBFA; --sky: #4F8FE8; --sky-tint: #E8F0FC;
+  --orange: #FB923C; --orange-dark: #F0740F;
 }
 * { box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) {
@@ -231,7 +232,19 @@ a { color: inherit; }
 .hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 280px; height: 280px; border-radius: 24px; font-size: 2.8rem; } }
+/* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
+   firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
+   Fjerner boks/ramme/padding for ekte bilder og maskerer i stedet kantene
+   til gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
+   siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
+   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før). */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 0; }
+.hero-product-image.has-photo img {
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+}
 
 
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
@@ -267,10 +280,12 @@ a { color: inherit; }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
-.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }
-.price-history-line { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.price-history-dot { fill: var(--blue); }
+.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
+.price-history-bar { fill: var(--orange); }
+.price-history-bar-last { fill: var(--orange-dark); }
+.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-history-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }
+.price-history-current-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }

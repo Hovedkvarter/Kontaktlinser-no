@@ -36,13 +36,13 @@ function __loadGTM() {
   "@type": "Product",
   "name": "Biomedics 55 Evolution 6-pack",
   "description": "Biomedics 55 Evolution er en av de mer budsjettvennlige månedslinsene fra CooperVision, i ocufilcon D med 55 % vanninnhold.",
-  "brand": {"@type": "Brand", "name": "Biomedics"}, "image": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biomedics_55_Evolution_6pk.jpg", "dateModified": "2026-08-21T08:07:44.512109+00:00",
+  "brand": {"@type": "Brand", "name": "Biomedics"}, "image": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biomedics_55_Evolution_6pk.jpg", "dateModified": "2026-08-21T08:30:50.186754+00:00",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
     "lowPrice": 195.0,
     "highPrice": 251.0,
-    "offerCount": 5,
+    "offerCount": 6,
     "offers": [{
         "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Lensit"},
@@ -97,6 +97,19 @@ function __loadGTM() {
       },
       {
         "@type": "Offer",
+        "seller": {"@type": "Organization", "name": "Shopping4net"},
+        "price": 219.0,
+        "priceCurrency": "NOK",
+        "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-DR)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FBiomedics-55-Evolution.htm%3FsClickID%3DTradeDoubler-1-3)",
+        "availability": "https://schema.org/InStock",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {"@type": "MonetaryAmount", "value": 39, "currency": "NOK"},
+          "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "NO"}
+        }
+      },
+      {
+        "@type": "Offer",
         "seller": {"@type": "Organization", "name": "Synsam"},
         "price": 251.0,
         "priceCurrency": "NOK",
@@ -129,6 +142,7 @@ function __loadGTM() {
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
   --lavender: #8B7FD6; --lavender-tint: #EEEBFA; --sky: #4F8FE8; --sky-tint: #E8F0FC;
+  --orange: #FB923C; --orange-dark: #F0740F;
 }
 * { box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) {
@@ -287,7 +301,19 @@ a { color: inherit; }
 .hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 280px; height: 280px; border-radius: 24px; font-size: 2.8rem; } }
+/* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
+   firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
+   Fjerner boks/ramme/padding for ekte bilder og maskerer i stedet kantene
+   til gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
+   siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
+   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før). */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 0; }
+.hero-product-image.has-photo img {
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+}
 
 
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
@@ -323,10 +349,12 @@ a { color: inherit; }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
-.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }
-.price-history-line { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.price-history-dot { fill: var(--blue); }
+.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
+.price-history-bar { fill: var(--orange); }
+.price-history-bar-last { fill: var(--orange-dark); }
+.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-history-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }
+.price-history-current-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
@@ -439,7 +467,7 @@ a { color: inherit; }
     Biomedics 55 Evolution 6-pack
   </p>
   <div class="hero">
-    <div class="hero-product-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biomedics_55_Evolution_6pk.jpg" alt="Biomedics 55 Evolution 6-pack" loading="lazy"></div>
+    <div class="hero-product-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biomedics_55_Evolution_6pk.jpg" alt="Biomedics 55 Evolution 6-pack" loading="lazy"></div>
     <div class="hero-copy">
       <div class="kicker">Biomedics</div>
       <h1>Biomedics 55 Evolution 6-pack</h1>
@@ -447,7 +475,7 @@ a { color: inherit; }
     </div>
   </div>
   <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Biomedics 55 Evolution 6-pack</strong> fra 5 norske nettbutikker. Laveste pris akkurat nå er <strong>206 kr</strong> hos Lensit. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>Biomedics 55 Evolution 6-pack</strong> fra 6 norske nettbutikker. Laveste pris akkurat nå er <strong>206 kr</strong> hos Lensit. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
 </section>
   <div class="winner-band">
   <div class="winner-left">
@@ -472,7 +500,7 @@ a { color: inherit; }
     <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   <p class="qty-static-fallback">Ved 2 esker: billigst hos Lensit – 412 kr totalt inkl. frakt (gratis frakt). Ved 4 esker: billigst hos Lensit – 824 kr totalt inkl. frakt (gratis frakt). Ved 10 esker: billigst hos Lensway – 1 950 kr totalt inkl. frakt (gratis frakt over 1 199 kr).</p>
-  <script type="application/json" id="qty-offers-data">[{"retailer": "Lensit", "price_nok": 206.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.lensit.no/products/biomedics-55-evolution-prd65532469", "rel": "nofollow", "logo_file": "lensit.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Extra Optical", "price_nok": 200.0, "shipping_policy": {"free_over": 900, "fee_nok": 45}, "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+55+Evolution+6+stk&url=https://extraoptical.no/biomedics-55-evolution-6-stk", "rel": "sponsored nofollow", "logo_file": "extraoptical.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lensway", "price_nok": 195.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lensway.no/biomedics-55-evolution-lens-16", "rel": "nofollow", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 206.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lenson.com/no/biomedics-55-evolution-lens-16", "rel": "nofollow", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Synsam", "price_nok": 251.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/biomedics-55-evolution-6-stk-pk", "rel": "nofollow", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
+  <script type="application/json" id="qty-offers-data">[{"retailer": "Lensit", "price_nok": 206.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.lensit.no/products/biomedics-55-evolution-prd65532469", "rel": "nofollow", "logo_file": "lensit.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Extra Optical", "price_nok": 200.0, "shipping_policy": {"free_over": 900, "fee_nok": 45}, "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+55+Evolution+6+stk&url=https://extraoptical.no/biomedics-55-evolution-6-stk", "rel": "sponsored nofollow", "logo_file": "extraoptical.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lensway", "price_nok": 195.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lensway.no/biomedics-55-evolution-lens-16", "rel": "nofollow", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 206.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lenson.com/no/biomedics-55-evolution-lens-16", "rel": "nofollow", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Shopping4net", "price_nok": 219.0, "shipping_policy": {"free_over": 700, "fee_nok": 39}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-DR)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FBiomedics-55-Evolution.htm%3FsClickID%3DTradeDoubler-1-3)", "rel": "sponsored nofollow", "logo_file": "shopping4net.png", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Synsam", "price_nok": 251.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/biomedics-55-evolution-6-stk-pk", "rel": "nofollow", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
@@ -634,6 +662,16 @@ a { color: inherit; }
     <a class="price-pill" href="https://www.lenson.com/no/biomedics-55-evolution-lens-16" rel="nofollow" aria-label="Se hos Lenson, 206 kr">206 kr</a>
   </div>
 </div>
+<div class="offer-card" data-retailer="Shopping4net">
+  <div class="offer-main">
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/shopping4net.png" alt="Shopping4net" loading="lazy"><span style="position:absolute;left:-9999px;">Shopping4net</span> </div>
+    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+  </div>
+  <div class="offer-price-col">
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">39 kr frakt</span></div>
+    <a class="price-pill" href="https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-DR)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FBiomedics-55-Evolution.htm%3FsClickID%3DTradeDoubler-1-3)" rel="sponsored nofollow" aria-label="Se hos Shopping4net, 219 kr">219 kr</a>
+  </div>
+</div>
 <div class="offer-card" data-retailer="Synsam">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span> </div>
@@ -655,12 +693,25 @@ a { color: inherit; }
   </p>
   <div class="price-history">
     <h2>Prisutvikling</h2>
-    <p class="price-history-summary">Laveste pris siste 8 dager: 200 kr. I dag: 206 kr hos Lensit.</p>
-    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 8 dager, fra 200 kr til 206 kr">
-      <polyline points="6.0,158.0 101.4,158.0 196.9,14.0 292.3,14.0 387.7,14.0 483.1,14.0 578.6,14.0 674.0,14.0" class="price-history-line" />
-      <circle cx="674.0" cy="14.0" r="3.5" class="price-history-dot" />
-      <text x="6" y="174" class="price-history-axis-label">14.08</text>
-      <text x="674" y="174" text-anchor="end" class="price-history-axis-label">21.08</text>
+    <p class="price-history-summary">Laveste produktpris (uten frakt) siste 8 dager: 195 kr.</p>
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 8 dager, fra 195 kr til 206 kr">
+      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
+      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">207 kr</text>
+      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
+      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
+      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">194 kr</text>
+      <rect x="80.0" y="91.6" width="14.0" height="66.4" rx="2.0" class="price-history-bar"><title>14.08: 200 kr hos Extra Optical</title></rect>
+      <rect x="158.0" y="91.6" width="14.0" height="66.4" rx="2.0" class="price-history-bar"><title>15.08: 200 kr hos Extra Optical</title></rect>
+      <rect x="236.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>16.08: 206 kr hos Lensit</title></rect>
+      <rect x="314.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>17.08: 206 kr hos Lensit</title></rect>
+      <rect x="392.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>18.08: 206 kr hos Lensit</title></rect>
+      <rect x="470.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>19.08: 206 kr hos Lensit</title></rect>
+      <rect x="548.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>20.08: 206 kr hos Lensit</title></rect>
+      <rect x="626.0" y="148.1" width="14.0" height="9.9" rx="2.0" class="price-history-bar price-history-bar-last"><title>21.08: 195 kr hos Lensway</title></rect>
+      <text x="633.0" y="142.1" text-anchor="end" class="price-history-current-label">195 kr</text>
+      <text x="48" y="174" class="price-history-axis-label">14.08</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">21.08</text>
     </svg>
   </div>
   <div class="specs">

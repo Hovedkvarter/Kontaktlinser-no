@@ -36,7 +36,7 @@ function __loadGTM() {
   "@type": "Product",
   "name": "Proclear Multifocal XR 3-pack",
   "description": "Proclear Multifocal XR er den progressive varianten av Proclears utvidede styrkeserie, for deg med sterk brytningsfeil og alderssyn som ikke dekkes av standard Multifocal.",
-  "brand": {"@type": "Brand", "name": "Proclear"}, "image": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg", "dateModified": "2026-08-21T08:04:08.508478+00:00",
+  "brand": {"@type": "Brand", "name": "Proclear"}, "image": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg", "dateModified": "2026-08-21T08:27:24.716806+00:00",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "NOK",
@@ -75,6 +75,7 @@ function __loadGTM() {
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
   --lavender: #8B7FD6; --lavender-tint: #EEEBFA; --sky: #4F8FE8; --sky-tint: #E8F0FC;
+  --orange: #FB923C; --orange-dark: #F0740F;
 }
 * { box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) {
@@ -233,7 +234,19 @@ a { color: inherit; }
 .hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 280px; height: 280px; border-radius: 24px; font-size: 2.8rem; } }
+/* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
+   firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
+   Fjerner boks/ramme/padding for ekte bilder og maskerer i stedet kantene
+   til gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
+   siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
+   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før). */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 0; }
+.hero-product-image.has-photo img {
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+}
 
 
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
@@ -269,10 +282,12 @@ a { color: inherit; }
 .price-history { margin-top: 28px; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
-.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }
-.price-history-line { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
-.price-history-dot { fill: var(--blue); }
+.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
+.price-history-bar { fill: var(--orange); }
+.price-history-bar-last { fill: var(--orange-dark); }
+.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-history-axis-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }
+.price-history-current-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
@@ -385,7 +400,7 @@ a { color: inherit; }
     Proclear Multifocal XR 3-pack
   </p>
   <div class="hero">
-    <div class="hero-product-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" loading="lazy"></div>
+    <div class="hero-product-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" loading="lazy"></div>
     <div class="hero-copy">
       <div class="kicker">Proclear</div>
       <h1>Proclear Multifocal XR 3-pack</h1>
@@ -433,12 +448,25 @@ a { color: inherit; }
   </p>
   <div class="price-history">
     <h2>Prisutvikling</h2>
-    <p class="price-history-summary">Laveste pris siste 8 dager: 895 kr. I dag: 940 kr hos Extra Optical.</p>
+    <p class="price-history-summary">Laveste produktpris (uten frakt) siste 8 dager: 895 kr.</p>
     <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 8 dager, fra 895 kr til 940 kr">
-      <polyline points="6.0,158.0 101.4,158.0 196.9,14.0 292.3,14.0 387.7,14.0 483.1,14.0 578.6,14.0 674.0,14.0" class="price-history-line" />
-      <circle cx="674.0" cy="14.0" r="3.5" class="price-history-dot" />
-      <text x="6" y="174" class="price-history-axis-label">14.08</text>
-      <text x="674" y="174" text-anchor="end" class="price-history-axis-label">21.08</text>
+      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
+      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">944 kr</text>
+      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
+      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">918 kr</text>
+      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
+      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">891 kr</text>
+      <rect x="80.0" y="148.1" width="14.0" height="9.9" rx="2.0" class="price-history-bar"><title>14.08: 895 kr hos Extra Optical</title></rect>
+      <rect x="158.0" y="148.1" width="14.0" height="9.9" rx="2.0" class="price-history-bar"><title>15.08: 895 kr hos Extra Optical</title></rect>
+      <rect x="236.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>16.08: 940 kr hos Extra Optical</title></rect>
+      <rect x="314.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>17.08: 940 kr hos Extra Optical</title></rect>
+      <rect x="392.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>18.08: 940 kr hos Extra Optical</title></rect>
+      <rect x="470.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>19.08: 940 kr hos Extra Optical</title></rect>
+      <rect x="548.0" y="23.9" width="14.0" height="134.1" rx="2.0" class="price-history-bar"><title>20.08: 940 kr hos Extra Optical</title></rect>
+      <rect x="626.0" y="148.1" width="14.0" height="9.9" rx="2.0" class="price-history-bar price-history-bar-last"><title>21.08: 895 kr hos Extra Optical</title></rect>
+      <text x="633.0" y="142.1" text-anchor="end" class="price-history-current-label">895 kr</text>
+      <text x="48" y="174" class="price-history-axis-label">14.08</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">21.08</text>
     </svg>
   </div>
   <div class="specs">
