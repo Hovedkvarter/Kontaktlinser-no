@@ -1129,8 +1129,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 629.0,
-      "store": "Lensit"
+      "price": 626.0,
+      "store": "Synsam"
     }
   ],
   "air-optix-hydraglyde-astigmatism-6pk": [
@@ -1171,8 +1171,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 575.0,
-      "store": "Lenson"
+      "price": 527.0,
+      "store": "Synsam"
     }
   ],
   "dailies-total1-30pk": [
@@ -1591,7 +1591,7 @@
     },
     {
       "date": "2026-08-21",
-      "price": 417.0,
+      "price": 416.0,
       "store": "Synsam"
     }
   ],
@@ -2791,7 +2791,7 @@
     },
     {
       "date": "2026-08-21",
-      "price": 789.0,
+      "price": 787.0,
       "store": "Synsam"
     }
   ],
@@ -2875,7 +2875,7 @@
     },
     {
       "date": "2026-08-21",
-      "price": 539.0,
+      "price": 538.0,
       "store": "Synsam"
     }
   ],
@@ -3085,8 +3085,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 827.0,
-      "store": "Synsam"
+      "price": 849.0,
+      "store": "Lenson"
     }
   ],
   "precision1-90pk": [
@@ -3211,7 +3211,7 @@
     },
     {
       "date": "2026-08-21",
-      "price": 446.0,
+      "price": 445.0,
       "store": "Synsam"
     }
   ],
@@ -5996,8 +5996,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 197.0,
-      "store": "Apotek For Deg"
+      "price": 239.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-daily-90pk": [
@@ -6008,8 +6008,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 509.0,
-      "store": "Apotek For Deg"
+      "price": 629.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-monthly-6pk": [
@@ -6020,8 +6020,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 219.0,
-      "store": "Apotek For Deg"
+      "price": 289.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-vitamin-30pk": [
@@ -6032,8 +6032,8 @@
     },
     {
       "date": "2026-08-21",
-      "price": 249.0,
-      "store": "Apotek For Deg"
+      "price": 299.0,
+      "store": "Vitusapotek"
     }
   ]
 }
