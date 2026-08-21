@@ -1633,11 +1633,15 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
 
 
 def _render_price_history_chart(history: list[dict]) -> str:
-    """SVG-søylegraf over laveste PRODUKTPRIS (uten frakt) per dag, tegnet
-    server-side -- ingen JS-bibliotek, fungerer uten at noe script kjører.
-    Viser ingenting før vi faktisk har minst en ukes historikk (en 2-punkts
-    graf fra dag 2 ser useriøs ut). Vokser med én dag per bygging inntil
-    price_history.py sin MAX_DAYS-grense (365) er nådd.
+    """SVG-linjegraf med fadet fylt areal under, over laveste PRODUKTPRIS
+    (uten frakt) per dag, tegnet server-side -- ingen JS-bibliotek, fungerer
+    uten at noe script kjører. Viser ingenting før vi faktisk har minst en
+    ukes historikk (en 2-punkts graf fra dag 2 ser useriøs ut). Vokser med
+    én dag per bygging inntil price_history.py sin MAX_DAYS-grense (365) er
+    nådd. Byttet fra søylediagram til linje+areal 2026-08-21 etter
+    brukerønske (så for "klumpete" ut) om noe nærmere Prisjakt sin egen
+    prisgraf -- gradienten (priceHistoryFade) går fra mørkere oransje ved
+    selve linjen til nesten gjennomsiktig ved grunnlinjen.
 
     'price' i history-radene er produktets pris ALENE (record_price() i
     generate_pages.py kalles med best["price_nok"], ikke best["total"] --
@@ -1646,7 +1650,7 @@ def _render_price_history_chart(history: list[dict]) -> str:
     preferanse, i motsetning til høyre-plasserte referanser). Når prisen
     har vært helt flat i hele perioden (min==max) ville en ekte skala
     kollapse til én linje helt i bunnen av grafen -- lager i stedet et
-    symmetrisk kunstig spenn rundt prisen, slik at søylen lander midt i
+    symmetrisk kunstig spenn rundt prisen, slik at linjen lander midt i
     grafen med luft (og akseverdier) over og under, ikke pinnet til bunnen."""
     if len(history) < 7:
         return ""
@@ -1675,30 +1679,31 @@ def _render_price_history_chart(history: list[dict]) -> str:
     def y_for(price: float) -> float:
         return pad_top + (1 - (price - min_price) / price_range) * plot_h
 
-    bar_slot_w = plot_w / n
-    bar_w = max(1.2, min(bar_slot_w * 0.62, 14))
+    def x_for(i: int) -> float:
+        return pad_left + (i / (n - 1) if n > 1 else 0) * plot_w
 
     def short_date(date_str: str) -> str:
         _, month, day = date_str.split("-")
         return f"{day}.{month}"
 
-    bars = []
+    line_points = " ".join(f"{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(history))
+    area_path = (
+        f"M{x_for(0):.1f},{baseline_y:.1f} "
+        + " ".join(f"L{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(history))
+        + f" L{x_for(n - 1):.1f},{baseline_y:.1f} Z"
+    )
+
+    dots = []
     for i, h in enumerate(history):
-        x_center = pad_left + (i + 0.5) * bar_slot_w
-        bar_top = y_for(h["price"])
-        bar_h = max(1.0, baseline_y - bar_top)
         is_last = i == n - 1
-        cls = "price-history-bar price-history-bar-last" if is_last else "price-history-bar"
+        cls = "price-history-dot price-history-dot-last" if is_last else "price-history-dot"
         tooltip = f"{short_date(h['date'])}: {_fmt_kr(h['price'])} hos {escape(h['store'])}"
-        bars.append(
-            f'<rect x="{x_center - bar_w / 2:.1f}" y="{bar_top:.1f}" width="{bar_w:.1f}" '
-            f'height="{bar_h:.1f}" rx="{min(2.0, bar_w / 2):.1f}" class="{cls}"><title>{tooltip}</title></rect>'
-        )
-    bars_svg = "\n      ".join(bars)
+        r = 3.2 if is_last else 2.2
+        dots.append(f'<circle cx="{x_for(i):.1f}" cy="{y_for(h["price"]):.1f}" r="{r}" class="{cls}"><title>{tooltip}</title></circle>')
+    dots_svg = "\n      ".join(dots)
 
     last = history[-1]
-    last_x_center = pad_left + (n - 0.5) * bar_slot_w
-    last_label_y = max(pad_top + 9, y_for(last["price"]) - 6)
+    last_label_y = max(pad_top + 9, y_for(last["price"]) - 8)
     last_label_anchor = "end" if n > 1 else "middle"
 
     axis_prices = [max_price, (min_price + max_price) / 2, min_price]
@@ -1718,9 +1723,17 @@ def _render_price_history_chart(history: list[dict]) -> str:
     <h2>Prisutvikling</h2>
     <p class="price-history-summary">Laveste produktpris (uten frakt) siste {n} dager: {_fmt_kr(real_min)}.</p>
     <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
+      <defs>
+        <linearGradient id="priceHistoryFade" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
       {axis_html}
-      {bars_svg}
-      <text x="{last_x_center:.1f}" y="{last_label_y:.1f}" text-anchor="{last_label_anchor}" class="price-history-current-label">{escape(_fmt_kr(last["price"]))}</text>
+      <path d="{area_path}" class="price-history-area" />
+      <polyline points="{line_points}" class="price-history-line" />
+      {dots_svg}
+      <text x="{x_for(n - 1):.1f}" y="{last_label_y:.1f}" text-anchor="{last_label_anchor}" class="price-history-current-label">{escape(_fmt_kr(last["price"]))}</text>
       {date_axis_html}
     </svg>
   </div>"""
@@ -1934,11 +1947,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
 .price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }}
-.price-history-bar {{ fill: var(--orange); }}
-.price-history-bar-last {{ fill: var(--orange-dark); }}
+.price-history-area {{ fill: url(#priceHistoryFade); stroke: none; }}
+.price-history-line {{ fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }}
+.price-history-dot {{ fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }}
+.price-history-dot-last {{ fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }}
 .price-history-gridline {{ stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }}
-.price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
-.price-history-current-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }}
+.price-history-axis-label {{ font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }}
+.price-history-current-label {{ font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
