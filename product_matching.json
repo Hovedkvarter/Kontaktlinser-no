@@ -88,7 +88,7 @@
     "PA-VITA-6": "acuvue-vita-6pk"
   },
   "tradedoubler": {
-    "$comment": "Shopping4Net (Tradedoubler, program-id 198299) -- verifisert mot ekte feed 2026-08-20. Nøkkelen er offers[0].sourceProductId fra feeden (Tradedoubler sin egen, stabile produktkode), IKKE produktnavnet. Bevisst utelatt: LBXR (Biofinity XR, ingen 3-/6-pack-angivelse i feeden, vi sporer begge), LM (1-Day Acuvue Moist for Astigmatism, ingen 30-/90-pack-angivelse, vi sporer begge), LAOA (Air Optix Aqua uten HydraGlyde, sporer ikke denne varianten), ED (Acuvue 2, sporer ikke), CL (FreshLook ColorBlends, sporer ikke -- annen produktlinje enn FreshLook ONEday), LB1 (Starlens Supra 55 UV Tint, usporet merke), BL355 (ReNu Multipurpose -- feedens EGET navn sier '360 ml' men produktkode/URL sier '355ml', selvmotsigende rad).",
+    "$comment": "Shopping4Net (Tradedoubler, program-id 198299) -- verifisert mot ekte feed 2026-08-20. Nøkkelen er offers[0].sourceProductId fra feeden (Tradedoubler sin egen, stabile produktkode), IKKE produktnavnet. Bevisst utelatt: LBXR (Biofinity XR, ingen 3-/6-pack-angivelse i feeden, vi sporer begge), LM (1-Day Acuvue Moist for Astigmatism, ingen 30-/90-pack-angivelse, vi sporer begge), LAOA (Air Optix Aqua uten HydraGlyde, sporer ikke denne varianten), ED (Acuvue 2, sporer ikke), CL (FreshLook ColorBlends, sporer ikke -- annen produktlinje enn FreshLook ONEday), LB1 (Starlens Supra 55 UV Tint, usporet merke), BL355 (ReNu Multipurpose -- feedens EGET navn sier '360 ml' men produktkode/URL sier '355ml', selvmotsigende rad), LU (Acuvue Oasys 1-Day HydraLuxe for Astigmatism -- uklart om dette er samme produkt som vår 'Acuvue Oasys 1-Day for Astigmatism' i tillegg til uklar pakningsstørrelse, dobbel usikkerhet), diverse usporede øyedråper-varianter (EYZ Clean, Drop-it, Hylo Night/Evo Tears, Thealoz Duo Gel, Oxyal Total Care Spray). RUNDE 2 (2026-08-21): brukeren fant Avaira Vitality 6p (LAVV) manuelt på shopping4net.com og spurte hvorfor den manglet -- viste seg at søket vårt (kun q=kontaktlinser+q=øyedråper) ikke dekket hele katalogen. Utvidet derfor feed_urls i sources_config.json med ett søk per merke vi sporer (se der) og fant 10 til på samme måte (LAVV, LDT1, LDT2, LAO19, LAO13, LBT300, LBOP, LUA, LH, ARTS0-UM-10) -- ingen av dem var gjettet, alle bekreftet direkte mot APIet med riktig kategori og entydig produktnavn (samme prinsipp som runde 1). Bekreftet TOTAL30 og Clariti ikke finnes i Shopping4Net sin katalog i det hele tatt (0 treff uansett skrivemåte), ikke et søkeproblem.",
     "LDA": "dailies-aquacomfort-plus-30pk",
     "LDB": "dailies-aquacomfort-plus-90pk",
     "CA": "focus-dailies-30pk",
@@ -149,6 +149,16 @@
     "AOCG2-BL-10": "oxyal-trehalos-duo-action-10ml",
     "ATD10-4D-10": "thealoz-duo-10ml",
     "AF213-9A-10": "hylo-gel-10ml",
-    "AHDI0-9A-10": "hylo-dual-intense-10ml"
+    "AHDI0-9A-10": "hylo-dual-intense-10ml",
+    "LAVV": "avaira-vitality-6pk",
+    "LDT1": "dailies-total1-30pk",
+    "LDT2": "dailies-total1-90pk",
+    "LAO19": "acuvue-oasys-1day-hydraluxe-90pk",
+    "LAO13": "acuvue-oasys-1day-hydraluxe-30pk",
+    "LBT300": "biotrue-solution-300ml",
+    "LBOP": "biotrue-oneday-presbyopia-30pk",
+    "LUA": "ultra-6pk",
+    "LH": "purevision2-astigmatism-6pk",
+    "ARTS0-UM-10": "tearsagain-sensitive-spray-10ml"
   }
 }
