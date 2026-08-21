@@ -1301,11 +1301,34 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
     return sorted(enriched, key=lambda o: o["total"])
 
 
+# Shopping4Net sine produktbilder er nesten alltid rene hvit-bakgrunn
+# studiobilder -- bekreftet ved å sample bakgrunnsfargen piksel for piksel
+# på alle 37 produkter der vi også har et Extra Optical-bilde av samme vare
+# (2026-08-21): Extra Optical ligger konsekvent på ca. (243,243,243), en
+# synlig lys grå, mens Shopping4Net ligger på ekte hvit (255,255,255) i 36
+# av de 37. Foretrekker derfor Shopping4Net fremfor Extra Optical når begge
+# finnes -- IKKE en gjetning, et målt resultat.
+# Det ENE unntaket (Dailies AquaComfort Plus Toric 90pk) er et fullkant-
+# bilde av selve (teal-fargede) esken uten hvit margin i det hele tatt --
+# ser dårlig ut med falme-masken vår (hero-product-image.has-photo), mens
+# Extra Optical sin versjon er et ekte studiobilde MED hvit margin. Holdt
+# utenfor manuelt i stedet for å bygge pikselsampling inn i selve bygget.
+IMAGE_URL_SKIP = {
+    "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LD_1.jpg",
+}
+IMAGE_RETAILER_PRIORITY = ["Shopping4net"]
+
+
 def pick_product_image(offers: list[dict]) -> str | None:
-    for o in offers:
-        if o.get("image_source") in LICENSED_IMAGE_SOURCES and o.get("image_url"):
-            return o["image_url"]
-    return None
+    licensed = [
+        o for o in offers
+        if o.get("image_source") in LICENSED_IMAGE_SOURCES and o.get("image_url") and o["image_url"] not in IMAGE_URL_SKIP
+    ]
+    for preferred in IMAGE_RETAILER_PRIORITY:
+        for o in licensed:
+            if o.get("retailer") == preferred:
+                return o["image_url"]
+    return licensed[0]["image_url"] if licensed else None
 
 
 TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
