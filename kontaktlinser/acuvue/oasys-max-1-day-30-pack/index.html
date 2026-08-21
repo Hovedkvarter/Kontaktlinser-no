@@ -303,18 +303,22 @@ a { color: inherit; }
 .hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 280px; height: 280px; border-radius: 24px; font-size: 2.8rem; } }
+@media (min-width: 1024px) { .hero-product-image { width: 340px; height: 340px; border-radius: 24px; font-size: 2.8rem; } }
 /* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
    firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
-   Fjerner boks/ramme/padding for ekte bilder og maskerer i stedet kantene
-   til gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
+   Fjerner boks/ramme for ekte bilder og maskerer i stedet kantene til
+   gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
    siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
-   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før). */
-.hero-product-image.has-photo { background: transparent; border: none; padding: 0; }
+   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før).
+   Beholder litt padding (i stedet for 0) og lar masken først starte langt
+   ute (85 %) -- noen produktbilder er beskåret tettere inntil selve varen
+   enn andre, og en for tidlig/for liten maske-radius falmet inn i selve
+   produktet på de bildene i stedet for bare i den hvite margen rundt. */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 14px; }
 .hero-product-image.has-photo img {
   object-fit: contain;
-  -webkit-mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
-  mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+  -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 85%, transparent 100%);
 }
 
 
