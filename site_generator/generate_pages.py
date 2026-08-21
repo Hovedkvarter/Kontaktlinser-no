@@ -71,8 +71,14 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     for product in lens_products:
         offers = reconcile_product(product["offers"], now)
         best = next((o for o in offers if o["is_lowest"]), None)
-        if best:
-            record_price(price_history, product["id"], today, best["total"], best["retailer"])
+        # Prishistorikk-grafen skal vise laveste PRODUKTPRIS (uten frakt),
+        # ikke laveste totalpris -- kan være en ANNEN forhandler enn den som
+        # vinner på total (den med lavest frakt vinner ikke nødvendigvis på
+        # ren produktpris). Regnes derfor ut separat fra best["total"].
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        if eligible:
+            cheapest = min(eligible, key=lambda o: o["price_nok"])
+            record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
 
         html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []))
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
@@ -84,8 +90,10 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     for product in solution_products:
         offers = reconcile_product(product["offers"], now)
         best = next((o for o in offers if o["is_lowest"]), None)
-        if best:
-            record_price(price_history, product["id"], today, best["total"], best["retailer"])
+        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        if eligible:
+            cheapest = min(eligible, key=lambda o: o["price_nok"])
+            record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
 
         cat_slug = product["solution_category"]
         html = render_solution_product_page(product, now)

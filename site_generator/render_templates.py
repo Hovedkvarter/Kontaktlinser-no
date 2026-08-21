@@ -52,6 +52,7 @@ SHARED_STYLE = """
   --border: #DCE4EA; --card-shadow: 0 1px 2px rgba(11, 37, 69, 0.06);
   --coral: #E8637A; --coral-tint: #FCEAED; --amber: #D9A02B; --amber-tint: #FBF3E0;
   --lavender: #8B7FD6; --lavender-tint: #EEEBFA; --sky: #4F8FE8; --sky-tint: #E8F0FC;
+  --orange: #FB923C; --orange-dark: #F0740F;
 }
 * { box-sizing: border-box; }
 @media (prefers-reduced-motion: reduce) {
@@ -1632,46 +1633,95 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
 
 
 def _render_price_history_chart(history: list[dict]) -> str:
-    """Enkel SVG-linjegraf over laveste pris per dag, tegnet server-side --
-    ingen JS-bibliotek, fungerer uten at noe script kjører. Viser ingenting
-    før vi faktisk har minst en ukes historikk (en 2-punkts strek fra dag 2
-    ser useriøs ut). Vokser med én dag per bygging inntil price_history.py
-    sin MAX_DAYS-grense (365) er nådd."""
+    """SVG-søylegraf over laveste PRODUKTPRIS (uten frakt) per dag, tegnet
+    server-side -- ingen JS-bibliotek, fungerer uten at noe script kjører.
+    Viser ingenting før vi faktisk har minst en ukes historikk (en 2-punkts
+    graf fra dag 2 ser useriøs ut). Vokser med én dag per bygging inntil
+    price_history.py sin MAX_DAYS-grense (365) er nådd.
+
+    'price' i history-radene er produktets pris ALENE (record_price() i
+    generate_pages.py kalles med best["price_nok"], ikke best["total"] --
+    endret 2026-08-21 etter brukerønske om at frakt IKKE skal påvirke
+    grafen). Y-aksen har prisetiketter på VENSTRE side (brukerens uttrykte
+    preferanse, i motsetning til høyre-plasserte referanser). Når prisen
+    har vært helt flat i hele perioden (min==max) ville en ekte skala
+    kollapse til én linje helt i bunnen av grafen -- lager i stedet et
+    symmetrisk kunstig spenn rundt prisen, slik at søylen lander midt i
+    grafen med luft (og akseverdier) over og under, ikke pinnet til bunnen."""
     if len(history) < 7:
         return ""
 
+    n = len(history)
     prices = [h["price"] for h in history]
-    min_price, max_price = min(prices), max(prices)
-    price_range = max_price - min_price or 1
+    real_min, real_max = min(prices), max(prices)
+
+    if real_min == real_max:
+        # Flat pris hele perioden -- kunstig, symmetrisk spenn rundt
+        # prisen (minst 10 kr, ellers 12 % av prisen) slik at søylene
+        # lander midt i grafen i stedet for helt i bunnen.
+        half_span = max(10.0, real_min * 0.12)
+        min_price, max_price = real_min - half_span, real_min + half_span
+    else:
+        pad = (real_max - real_min) * 0.08
+        min_price, max_price = real_min - pad, real_max + pad
+    price_range = max_price - min_price
 
     width, height = 680, 180
-    pad_left, pad_right, pad_top, pad_bottom = 6, 6, 14, 22
+    pad_left, pad_right, pad_top, pad_bottom = 48, 8, 14, 22
     plot_w = width - pad_left - pad_right
     plot_h = height - pad_top - pad_bottom
-    n = len(history)
-
-    def x_for(i: int) -> float:
-        return pad_left + (i / (n - 1) if n > 1 else 0) * plot_w
+    baseline_y = pad_top + plot_h
 
     def y_for(price: float) -> float:
         return pad_top + (1 - (price - min_price) / price_range) * plot_h
 
-    points = " ".join(f"{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(history))
-    first, last = history[0], history[-1]
-    last_x, last_y = x_for(n - 1), y_for(last["price"])
+    bar_slot_w = plot_w / n
+    bar_w = max(1.2, min(bar_slot_w * 0.62, 14))
 
     def short_date(date_str: str) -> str:
         _, month, day = date_str.split("-")
         return f"{day}.{month}"
 
+    bars = []
+    for i, h in enumerate(history):
+        x_center = pad_left + (i + 0.5) * bar_slot_w
+        bar_top = y_for(h["price"])
+        bar_h = max(1.0, baseline_y - bar_top)
+        is_last = i == n - 1
+        cls = "price-history-bar price-history-bar-last" if is_last else "price-history-bar"
+        tooltip = f"{short_date(h['date'])}: {_fmt_kr(h['price'])} hos {escape(h['store'])}"
+        bars.append(
+            f'<rect x="{x_center - bar_w / 2:.1f}" y="{bar_top:.1f}" width="{bar_w:.1f}" '
+            f'height="{bar_h:.1f}" rx="{min(2.0, bar_w / 2):.1f}" class="{cls}"><title>{tooltip}</title></rect>'
+        )
+    bars_svg = "\n      ".join(bars)
+
+    last = history[-1]
+    last_x_center = pad_left + (n - 0.5) * bar_slot_w
+    last_label_y = max(pad_top + 9, y_for(last["price"]) - 6)
+    last_label_anchor = "end" if n > 1 else "middle"
+
+    axis_prices = [max_price, (min_price + max_price) / 2, min_price]
+    axis_html = "\n      ".join(
+        f'<line x1="{pad_left}" y1="{y_for(p):.1f}" x2="{width - pad_right}" y2="{y_for(p):.1f}" class="price-history-gridline" />\n'
+        f'      <text x="{pad_left - 6}" y="{y_for(p) + 3:.1f}" text-anchor="end" class="price-history-axis-label">{escape(_fmt_kr(p))}</text>'
+        for p in axis_prices
+    )
+
+    first = history[0]
+    date_axis_html = (
+        f'<text x="{pad_left}" y="{height - 6}" class="price-history-axis-label">{escape(short_date(first["date"]))}</text>\n'
+        f'      <text x="{width - pad_right}" y="{height - 6}" text-anchor="end" class="price-history-axis-label">{escape(short_date(last["date"]))}</text>'
+    )
+
     return f"""<div class="price-history">
     <h2>Prisutvikling</h2>
-    <p class="price-history-summary">Laveste pris siste {n} dager: {_fmt_kr(min_price)}. I dag: {_fmt_kr(last["price"])} hos {escape(last["store"])}.</p>
-    <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(min_price)} til {_fmt_kr(max_price)}">
-      <polyline points="{points}" class="price-history-line" />
-      <circle cx="{last_x:.1f}" cy="{last_y:.1f}" r="3.5" class="price-history-dot" />
-      <text x="{pad_left}" y="{height - 6}" class="price-history-axis-label">{escape(short_date(first["date"]))}</text>
-      <text x="{width - pad_right}" y="{height - 6}" text-anchor="end" class="price-history-axis-label">{escape(short_date(last["date"]))}</text>
+    <p class="price-history-summary">Laveste produktpris (uten frakt) siste {n} dager: {_fmt_kr(real_min)}.</p>
+    <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
+      {axis_html}
+      {bars_svg}
+      <text x="{last_x_center:.1f}" y="{last_label_y:.1f}" text-anchor="{last_label_anchor}" class="price-history-current-label">{escape(_fmt_kr(last["price"]))}</text>
+      {date_axis_html}
     </svg>
   </div>"""
 
@@ -1865,16 +1915,30 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-product-image {{ width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; }} }}
-@media (min-width: 1024px) {{ .hero-product-image {{ width: 220px; height: 220px; border-radius: 24px; font-size: 2.8rem; }} }}
+@media (min-width: 1024px) {{ .hero-product-image {{ width: 280px; height: 280px; border-radius: 24px; font-size: 2.8rem; }} }}
+/* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
+   firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
+   Fjerner boks/ramme/padding for ekte bilder og maskerer i stedet kantene
+   til gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
+   siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
+   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før). */
+.hero-product-image.has-photo {{ background: transparent; border: none; padding: 0; }}
+.hero-product-image.has-photo img {{
+  object-fit: contain;
+  -webkit-mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+  mask-image: radial-gradient(closest-side, black 62%, transparent 100%);
+}}
 
 {WINNER_WIDGET_STYLE}
 .price-history {{ margin-top: 28px; }}
 .price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
 .price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
-.price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; }}
-.price-history-line {{ fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }}
-.price-history-dot {{ fill: var(--blue); }}
+.price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }}
+.price-history-bar {{ fill: var(--orange); }}
+.price-history-bar-last {{ fill: var(--orange-dark); }}
+.price-history-gridline {{ stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }}
 .price-history-axis-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 9px; fill: var(--muted); }}
+.price-history-current-label {{ font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700; fill: var(--orange-dark); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
@@ -1890,7 +1954,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     {escape(product["name"])}
   </p>
   <div class="hero">
-    <div class="hero-product-image">{thumb}</div>
+    <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
     <div class="hero-copy">
       <div class="kicker">{escape(product["brand_label"])}</div>
       <h1>{escape(product["name"])}</h1>
