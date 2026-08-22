@@ -1264,8 +1264,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 626.0,
-      "store": "Synsam"
+      "price": 629.0,
+      "store": "Lensit"
     }
   ],
   "air-optix-hydraglyde-astigmatism-6pk": [
@@ -1311,7 +1311,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 527.0,
+      "price": 552.0,
       "store": "Synsam"
     }
   ],
@@ -1781,7 +1781,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 416.0,
+      "price": 414.0,
       "store": "Synsam"
     }
   ],
@@ -2392,7 +2392,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 559.0,
+      "price": 544.0,
       "store": "Synsam"
     }
   ],
@@ -2439,8 +2439,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 697.0,
-      "store": "Lensit"
+      "price": 658.0,
+      "store": "Synsam"
     }
   ],
   "biomedics-1day-xtra-30pk": [
@@ -3121,7 +3121,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 787.0,
+      "price": 832.0,
       "store": "Synsam"
     }
   ],
@@ -3215,7 +3215,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 538.0,
+      "price": 536.0,
       "store": "Synsam"
     }
   ],
@@ -3591,7 +3591,7 @@
     },
     {
       "date": "2026-08-22",
-      "price": 445.0,
+      "price": 443.0,
       "store": "Synsam"
     }
   ],
@@ -6776,8 +6776,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 239.0,
-      "store": "Vitusapotek"
+      "price": 197.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-daily-90pk": [
@@ -6793,8 +6793,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 629.0,
-      "store": "Vitusapotek"
+      "price": 509.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-monthly-6pk": [
@@ -6810,8 +6810,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 289.0,
-      "store": "Vitusapotek"
+      "price": 219.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-vitamin-30pk": [
@@ -6827,8 +6827,8 @@
     },
     {
       "date": "2026-08-22",
-      "price": 299.0,
-      "store": "Vitusapotek"
+      "price": 249.0,
+      "store": "Apotek For Deg"
     }
   ]
 }
