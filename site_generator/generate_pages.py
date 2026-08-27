@@ -160,7 +160,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         # ikke laveste totalpris -- kan være en ANNEN forhandler enn den som
         # vinner på total (den med lavest frakt vinner ikke nødvendigvis på
         # ren produktpris). Regnes derfor ut separat fra best["total"].
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         if eligible:
             cheapest = min(eligible, key=lambda o: o["price_nok"])
             record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
@@ -175,7 +175,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     for product in solution_products:
         offers = reconcile_product(product["offers"], now)
         best = next((o for o in offers if o["is_lowest"]), None)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         if eligible:
             cheapest = min(eligible, key=lambda o: o["price_nok"])
             record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])

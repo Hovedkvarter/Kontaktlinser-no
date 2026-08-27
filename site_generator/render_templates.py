@@ -1292,7 +1292,7 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
         total = o["price_nok"] + o["shipping_nok"]
         enriched.append({**o, "total": total, "is_stale": is_stale})
 
-    eligible = [o for o in enriched if o["in_stock"] and not o["is_stale"]]
+    eligible = [o for o in enriched if o["in_stock"]]
     winner = _pick_lowest(eligible)
 
     for o in enriched:
@@ -1339,7 +1339,7 @@ def render_offer_card(o: dict, retailer: str) -> str:
         else '<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if o["is_stale"]
         else f'<div class="offer-meta">Sist oppdatert: {escape(_time_ago(o["checked_at"], datetime.now(timezone.utc)))}</div>'
     )
-    css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if (o["is_stale"] or not o["in_stock"]) else "")
+    css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if not o["in_stock"] else "")
     lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
     # Produktprisen er hovedtallet (stort), frakt en egen liten linje over --
     # samme mønster som Prisjakt/Klarna bruker, som er det norske brukere er
@@ -1427,7 +1427,7 @@ _QTY_CALC_SCRIPT = r"""<script>
     var best = null;
     for (var i = 0; i < results.length; i++) {
       var r = results[i];
-      if (r.o.in_stock && !r.o.is_stale && (!best || r.total < best.total)) best = r;
+      if (r.o.in_stock && (!best || r.total < best.total)) best = r;
     }
     if (best) {
       labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
@@ -1570,7 +1570,7 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
   </div>
 </div>"""
 
-    eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+    eligible = [o for o in offers if o["in_stock"]]
     if len(eligible) < 2:
         return winner_band  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
 
@@ -1771,7 +1771,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
             siblings.sort(key=lambda s: abs(s[0] - pack_size))
             sibling_pack_size, sibling = siblings[0]
             sibling_offers = reconcile_product(sibling["offers"], now)
-            sibling_eligible = [o for o in sibling_offers if o["in_stock"] and not o["is_stale"]]
+            sibling_eligible = [o for o in sibling_offers if o["in_stock"]]
             sibling_best = min(sibling_eligible, key=lambda o: o["total"], default=None)
             if sibling_best:
                 this_per_lens = best["total"] / pack_size
@@ -2030,7 +2030,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     rows = []
     for p in products:
         offers = reconcile_product(p["offers"], now)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
         image_url = pick_product_image(p["offers"])
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
@@ -2054,6 +2054,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
+            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
@@ -4686,7 +4687,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     rows = []
     for p in products:
         offers = reconcile_product(p["offers"], now)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
         image_url = pick_product_image(p["offers"])
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
@@ -4702,6 +4703,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
+            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
@@ -5019,7 +5021,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
     rows = []
     for p in products:
         offers = reconcile_product(p["offers"], now)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
         rows.append({"product": p, "lowest": lowest})
 
@@ -5030,6 +5032,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
+            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/{solution_category}/{p["brand_slug"]}/{p["slug"]}/'
@@ -5127,7 +5130,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         if real_product is None:
             continue
         offers = reconcile_product(real_product["offers"], now)
-        eligible = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
         rows.append({"label": label, "real_product": real_product, "lowest": lowest})
 
@@ -5144,6 +5147,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(real_product["offers"])} forhandlere</div>'
+            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/private-label/{escape(label["slug"])}/'
