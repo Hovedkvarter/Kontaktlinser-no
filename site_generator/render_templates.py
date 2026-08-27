@@ -5145,7 +5145,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
     <h2>{len(products)} produkter</h2>
   </div>
 
-  <div id="product-list">
+  <div id="product-list" class="product-tile-grid">
     {product_rows_html}
   </div>
 
