@@ -231,7 +231,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
             write_file(BUILD_DIR / "private-label" / label["slug"] / "index.html", html)
             print(f"  private-label -> /private-label/{label['slug']}/")
 
-        write_file(BUILD_DIR / "private-label" / "index.html", render_private_label_index_page(private_labels, products_by_id))
+        write_file(BUILD_DIR / "private-label" / "index.html", render_private_label_index_page(private_labels, products_by_id, catalog["categories"], now))
         print("  private-label -> /private-label/")
 
         labels_by_chain: dict[str, list[dict]] = {}
