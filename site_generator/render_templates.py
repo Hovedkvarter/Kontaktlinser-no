@@ -2046,10 +2046,11 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         examples = ", ".join(top_product_names[:-1]) + " og " + top_product_names[-1]
         meta_description = f"Sammenlign priser på {brand_label}-kontaktlinser som {examples}, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
 
-    def render_row(r: dict) -> str:
+    def render_grid_card(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
-        thumb = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
-            else escape(p["brand_label"][:2].upper())
+        image_block = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
+            else f'<span class="brand-card-fallback">{escape(p["brand_label"][:2].upper())}</span>'
+        image_cls = "brand-card-image has-photo" if r["image_url"] else "brand-card-image"
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
@@ -2057,16 +2058,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
         category_label = categories[p["category_slug"]]["label"]
-        return f"""<a class="product-card" href="{escape(href)}" data-category="{escape(p["category_slug"])}">
-  <div class="product-thumb">{thumb}</div>
-  <div class="product-main">
+        return f"""<a class="brand-card" href="{escape(href)}" data-category="{escape(p["category_slug"])}">
+  <div class="{image_cls}">{image_block}</div>
+  <div class="brand-card-body">
     <div class="product-name">{escape(p["name"])}</div>
     <div class="product-meta">{escape(category_label)}</div>
+    <div class="brand-card-price-row">{price_block}</div>
   </div>
-  <div class="product-price-col">{price_block}</div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>"""
 
-    product_rows_html = "\n".join(render_row(r) for r in rows)
+    product_rows_html = "\n".join(render_grid_card(r) for r in rows)
 
     brand_logo_cls, brand_logo_content = _brand_badge(brand_slug, brand_label)
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>' if brand_logo_cls else ""
@@ -2103,7 +2105,18 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {_og_meta(f'{brand_label} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{brand_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
-<style>{SHARED_STYLE}</style>
+<style>{SHARED_STYLE}
+.brand-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }}
+.brand-card {{ display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); transition: border-color 0.15s; }}
+.brand-card:hover {{ border-color: var(--blue); }}
+.brand-card-image {{ aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }}
+.brand-card-image.has-photo {{ background: white; }}
+.brand-card-image img {{ max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }}
+.brand-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }}
+.brand-card-body {{ padding: 14px 16px 4px; flex-grow: 1; }}
+.brand-card-price-row {{ display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }}
+.brand-card-cta {{ margin-top: 12px; padding: 10px 16px; background: var(--blue); color: white; text-align: center; font-size: 0.85rem; font-weight: 600; }}
+</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -2130,7 +2143,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     <h2 id="result-count">{len(products)} produkter</h2>
   </div>
 
-  <div id="product-list">
+  <div id="product-list" class="brand-grid">
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -2155,7 +2168,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     btn.classList.add('active');
     const category = btn.dataset.category;
     let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {{
+    list.querySelectorAll('.brand-card').forEach(card => {{
       const show = category === 'all' || card.dataset.category === category;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
