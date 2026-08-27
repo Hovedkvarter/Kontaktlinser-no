@@ -190,6 +190,31 @@ a { color: inherit; }
 @media (min-width: 1024px) {
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
+.product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
+.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
+.product-tile-image-link { display: block; text-decoration: none; }
+.product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-tile-image.has-photo { background: var(--mist); }
+.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
+.product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.68rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.product-tile-name-link { text-decoration: none; color: var(--ink); }
+.product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
+.product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+.product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
+.product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
+.product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
+.product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.product-tile-price-currency { font-size: 0.9rem; font-weight: 700; }
+.product-tile-store-line { margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
+.product-tile-store-name { color: var(--ink); font-weight: 700; }
+.product-tile-store-count { color: var(--blue); font-weight: 700; }
+.product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
+.product-tile:hover .product-tile-cta { background: var(--blue-dark); }
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -1247,11 +1272,45 @@ def _fmt_kr(n: float) -> str:
     return f"{n:,.0f}".replace(",", " ") + " kr"
 
 
-def _fmt_kr_dash(n: float) -> str:
-    """Kortere prisformat ('232,-') for kompakte kort (merke-rutenett) --
-    _fmt_kr() sin 'kr'-suffiks brukes fortsatt overalt ellers (produktside,
-    full tilbudsliste), denne er bevisst kun for det trange kort-formatet."""
-    return f"{n:,.0f}".replace(",", " ") + ",-"
+def _render_product_tile(*, href: str, name: str, image_url: str | None, fallback_initials: str,
+                          category_label: str | None, secondary_line_html: str,
+                          lowest: dict | None, other_count: int, data_attr: str = "") -> str:
+    """Delt kortmarkup for merke-/kategori-/tilbehør-/private label-rutenett
+    (render_brand_page, render_category_page, render_solution_category_page,
+    render_private_label_brand_page) -- én mal, page-spesifikt innhold
+    (kategori-badge, "sekundærlinje" under produktnavnet: produsent/merke/
+    ekte-produkt-lenke) sendes inn som ferdig HTML fra hver kallested."""
+    href_esc = escape(href)
+    image_block = f'<img src="{escape(image_url)}" alt="{escape(name)}" loading="lazy">' if image_url \
+        else f'<span class="product-tile-fallback">{escape(fallback_initials)}</span>'
+    image_cls = "product-tile-image has-photo" if image_url else "product-tile-image"
+    category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
+
+    if lowest:
+        num = f'{lowest["total"]:,.0f}'.replace(",", " ")
+        store_html = f'Lavest hos <span class="product-tile-store-name">{escape(lowest["retailer"])}</span>'
+        if other_count > 0:
+            store_html += f' <span class="product-tile-store-count">+ {other_count} butikker</span>'
+        price_block = (
+            f'<div class="product-tile-price-label">Laveste pris</div>'
+            f'<div class="product-tile-price"><span class="product-tile-price-number">{num}</span>'
+            f'<span class="product-tile-price-currency">kr</span></div>'
+            f'<div class="product-tile-store-line">{store_html}</div>'
+        )
+    else:
+        price_block = '<div class="product-tile-store-line">Ingen tilbud tilgjengelig</div>'
+
+    return f"""<div class="product-tile"{data_attr}>
+  <a class="product-tile-image-link" href="{href_esc}"><div class="{image_cls}">{image_block}</div></a>
+  <div class="product-tile-body">
+    {category_badge}
+    <a class="product-tile-name-link" href="{href_esc}"><div class="product-name">{escape(name)}</div></a>
+    {secondary_line_html}
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="{href_esc}">{price_block}</a>
+  </div>
+  <a class="product-tile-cta" href="{href_esc}">Sammenlign priser →</a>
+</div>"""
 
 
 def _time_ago(checked_at: str, now: datetime) -> str:
@@ -2060,26 +2119,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 
     def render_grid_card(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
-        image_block = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
-            else f'<span class="product-tile-fallback">{escape(p["brand_label"][:2].upper())}</span>'
-        image_cls = "product-tile-image has-photo" if r["image_url"] else "product-tile-image"
-        other_count = len(p["offers"]) - 1
-        store_line = f'hos <strong>{escape(lowest["retailer"])}</strong>' + (f' +{other_count} butikker' if other_count > 0 else '')
-        price_line = (
-            f'<div class="product-tile-price">Fra {_fmt_kr_dash(lowest["total"])}</div>'
-            f'<div class="retailer-count">{store_line}</div>'
-            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        return _render_product_tile(
+            href=f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
+            name=p["name"],
+            image_url=r["image_url"],
+            fallback_initials=p["brand_label"][:2].upper(),
+            category_label=categories[p["category_slug"]]["label"],
+            secondary_line_html=manufacturer_card_line,
+            lowest=lowest,
+            other_count=len(p["offers"]) - 1,
+            data_attr=f' data-category="{escape(p["category_slug"])}"',
         )
-        href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
-        return f"""<div class="product-tile" data-category="{escape(p["category_slug"])}">
-  <a class="product-tile-image-link" href="{escape(href)}"><div class="{image_cls}">{image_block}</div></a>
-  <div class="product-tile-body">
-    <a class="product-tile-name-link" href="{escape(href)}"><div class="product-name">{escape(p["name"])}</div></a>
-    {manufacturer_card_line}
-    <a class="product-tile-price-link" href="{escape(href)}">{price_line}</a>
-  </div>
-  <a class="product-tile-cta" href="{escape(href)}">Sammenlign priser →</a>
-</div>"""
 
     product_rows_html = "\n".join(render_grid_card(r) for r in rows)
 
@@ -2118,23 +2168,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {_og_meta(f'{brand_label} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{brand_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
-<style>{SHARED_STYLE}
-.product-tile-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }}
-.product-tile {{ display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: border-color 0.15s; }}
-.product-tile:hover {{ border-color: var(--blue); }}
-.product-tile-image-link {{ display: block; text-decoration: none; }}
-.product-tile-image {{ aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }}
-.product-tile-image.has-photo {{ background: white; }}
-.product-tile-image img {{ max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }}
-.product-tile-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }}
-.product-tile-body {{ padding: 14px 16px 4px; flex-grow: 1; display: flex; flex-direction: column; }}
-.product-tile-name-link {{ text-decoration: none; color: var(--ink); }}
-.product-tile-manufacturer {{ display: inline-block; margin-top: 2px; font-size: 0.8rem; color: var(--blue); text-decoration: none; }}
-.product-tile-manufacturer:hover {{ text-decoration: underline; }}
-.product-tile-price-link {{ display: block; text-decoration: none; color: var(--ink); margin-top: auto; }}
-.product-tile-price {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); padding-top: 10px; }}
-.product-tile-cta {{ display: block; margin-top: auto; padding: 10px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; }}
-</style>
+<style>{SHARED_STYLE}</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -4715,22 +4749,23 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
-        thumb = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
-            else escape(p["brand_label"][:2].upper())
-        price_block = (
-            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
-            f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
-            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        # På kategorisider (i motsetning til merkesider) er MERKET det som
+        # faktisk varierer/skiller kortene fra hverandre -- produsent er ofte
+        # konstant på tvers av flere merker (CooperVision -> Biofinity/Avaira/
+        # MyDay/...), så merkenavnet fyller samme "nyttig, varierende info
+        # rett under tittelen"-rolle som produsent gjorde på merkesiden.
+        brand_link = f'<a class="product-tile-manufacturer" href="/merke/{escape(p["brand_slug"])}/">{escape(p["brand_label"])}</a>'
+        return _render_product_tile(
+            href=f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
+            name=p["name"],
+            image_url=r["image_url"],
+            fallback_initials=p["brand_label"][:2].upper(),
+            category_label=category["label"],
+            secondary_line_html=brand_link,
+            lowest=lowest,
+            other_count=len(p["offers"]) - 1,
+            data_attr=f' data-brand="{escape(p["brand_slug"])}"',
         )
-        href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
-        return f"""<a class="product-card" href="{escape(href)}" data-brand="{escape(p["brand_slug"])}">
-  <div class="product-thumb">{thumb}</div>
-  <div class="product-main">
-    <div class="product-name">{escape(p["name"])}</div>
-    <div class="product-meta">{escape(p["brand_label"])}</div>
-  </div>
-  <div class="product-price-col">{price_block}</div>
-</a>"""
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
 
@@ -4796,7 +4831,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
-  <div id="product-list">
+  <div id="product-list" class="product-tile-grid">
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -4829,7 +4864,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     btn.classList.add('active');
     const brand = btn.dataset.brand;
     let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {{
+    list.querySelectorAll('.product-tile').forEach(card => {{
       const show = brand === 'all' || card.dataset.brand === brand;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
@@ -4840,10 +4875,10 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
   sortToggle.addEventListener('click', () => {{
     ascending = !ascending;
     sortToggle.textContent = 'Sorter: Lavest pris ' + (ascending ? '↑' : '↓');
-    const cards = Array.from(list.querySelectorAll('.product-card'));
+    const cards = Array.from(list.querySelectorAll('.product-tile'));
     cards.sort((a, b) => {{
-      const av = parseFloat(a.querySelector('.price-value')?.textContent.replace(/\\D/g, '')) || Infinity;
-      const bv = parseFloat(b.querySelector('.price-value')?.textContent.replace(/\\D/g, '')) || Infinity;
+      const av = parseFloat(a.querySelector('.product-tile-price')?.textContent.replace(/\\D/g, '')) || Infinity;
+      const bv = parseFloat(b.querySelector('.product-tile-price')?.textContent.replace(/\\D/g, '')) || Infinity;
       return ascending ? av - bv : bv - av;
     }});
     cards.forEach(c => list.appendChild(c));
@@ -5045,25 +5080,25 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
-        price_block = (
-            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
-            f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
-            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        image_url = pick_product_image(p["offers"])
+        # Linsevæsker/øyedråper-merker har ALDRI en egen /merke/{{slug}}/-side
+        # (den bygges kun for linse-merker i generate_pages.py, bekreftet 0
+        # overlapp mellom brand_slug-settene) -- ren tekst, ikke en lenke,
+        # for å unngå en 404 her.
+        brand_link = f'<div class="product-tile-manufacturer" style="cursor:default;">{escape(p["brand_label"])}</div>'
+        return _render_product_tile(
+            href=f'/{solution_category}/{p["brand_slug"]}/{p["slug"]}/',
+            name=p["name"],
+            image_url=image_url,
+            fallback_initials=p["brand_label"][:2].upper(),
+            category_label=cat["label"],
+            secondary_line_html=brand_link,
+            lowest=lowest,
+            other_count=len(p["offers"]) - 1,
         )
-        href = f'/{solution_category}/{p["brand_slug"]}/{p["slug"]}/'
-        size_label = f'{p["size_ml"]} ml' if p.get("size_ml") else ""
-        meta = escape(p["brand_label"]) + (f" · {escape(size_label)}" if size_label else "")
-        return f"""<a class="product-card" href="{escape(href)}">
-  <div class="product-thumb">{escape(p["brand_label"][:2].upper())}</div>
-  <div class="product-main">
-    <div class="product-name">{escape(p["name"])}</div>
-    <div class="product-meta">{meta}</div>
-  </div>
-  <div class="product-price-col">{price_block}</div>
-</a>"""
 
-    product_rows_html = "\n".join(render_row(r) for r in rows)
     cat = SOLUTION_CATEGORIES[solution_category]
+    product_rows_html = "\n".join(render_row(r) for r in rows)
 
     schema_items = ",\n      ".join(
         f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/{solution_category}/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
@@ -5158,22 +5193,20 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         # brukeren til å tro det er slik den faktiske esken ser ut. Samme
         # initial-fallback som brukes når vi ikke har NOE bilde i det hele tatt.
         label, real_product, lowest = r["label"], r["real_product"], r["lowest"]
-        thumb = escape(chain[:2].upper())
-        price_block = (
-            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
-            f'<div class="retailer-count">{len(real_product["offers"])} forhandlere</div>'
-            if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
+        real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
+        real_product_link = f'<a class="product-tile-manufacturer" href="{escape(real_href)}">= {escape(real_product["name"])}</a>'
+        category_slug = real_product.get("category_slug", "")
+        return _render_product_tile(
+            href=f'/private-label/{escape(label["slug"])}/',
+            name=label["name"],
+            image_url=None,
+            fallback_initials=chain[:2].upper(),
+            category_label=categories.get(category_slug, {}).get("label"),
+            secondary_line_html=real_product_link,
+            lowest=lowest,
+            other_count=len(real_product["offers"]) - 1,
+            data_attr=f' data-category="{escape(category_slug)}"',
         )
-        href = f'/private-label/{escape(label["slug"])}/'
-        category_label = categories[real_product["category_slug"]]["label"] if "category_slug" in real_product else ""
-        return f"""<a class="product-card" href="{href}" data-category="{escape(real_product.get("category_slug", ""))}">
-  <div class="product-thumb">{thumb}</div>
-  <div class="product-main">
-    <div class="product-name">{escape(label["name"])}</div>
-    <div class="product-meta">= {escape(real_product["name"])}{" · " + escape(category_label) if category_label else ""}</div>
-  </div>
-  <div class="product-price-col">{price_block}</div>
-</a>"""
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
 
@@ -5256,7 +5289,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     <h2 id="result-count">{len(rows)} produkter</h2>
   </div>
 
-  <div id="product-list">
+  <div id="product-list" class="product-tile-grid">
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -5288,7 +5321,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     btn.classList.add('active');
     const category = btn.dataset.category;
     let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {{
+    list.querySelectorAll('.product-tile').forEach(card => {{
       const show = category === 'all' || card.dataset.category === category;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
