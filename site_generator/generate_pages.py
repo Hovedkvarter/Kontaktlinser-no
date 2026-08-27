@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, reconcile_product
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
@@ -34,6 +34,71 @@ PRIVATE_LABELS_PATH = Path(__file__).parent.parent / "private_labels.json"
 def write_file(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
+
+
+PUBLIC_CATALOG_VERSION = "1"
+
+
+def _public_offers(offers: list[dict], now: datetime) -> list[dict]:
+    """Bruker SAMME reconcile_product()-logikk som nettsidens egne
+    tilbudskort -- pris/frakt/totalpris/lagerstatus i den offentlige
+    feeden skal ALDRI kunne avvike fra det som faktisk vises på siden."""
+    return [
+        {
+            "merchant": o["retailer"],
+            "price": o["price_nok"],
+            "shipping": o["shipping_nok"],
+            "total_price": o["total"],
+            "availability": "in_stock" if o["in_stock"] else "out_of_stock",
+            "url": o["url"],
+        }
+        for o in reconcile_product(offers, now)
+    ]
+
+
+def build_public_catalog(lens_products: list[dict], solution_products: list[dict], now: datetime) -> dict:
+    """Bygger den OFFENTLIGE, versjonerte data-kontrakten på /data/catalog.json
+    -- en bevisst kuratert eksportform for eksterne integrasjoner (f.eks.
+    Cartbooster), IKKE en rå kopi av catalog_live.json. catalog_live.json er
+    et internt byggeformat som kan endre feltnavn/struktur når som helst uten
+    varsel (se build_catalog.py); denne funksjonen er den ENESTE plassen som
+    får lov til å endre formen på /data/catalog.json, og KUN med en økt
+    "version" hvis endringen bryter bakoverkompatibilitet -- eksterne
+    konsumenter skal kunne stole på formen uten å følge interne refaktoreringer.
+    Ingen felt her er noe som ikke allerede vises offentlig et sted på en
+    produktside (pris/frakt/lenke/lagerstatus) -- ingen ny eksponering."""
+    products_out = []
+    for p in lens_products:
+        parsed = _pack_size_from_id(p["id"])
+        manufacturer = MANUFACTURERS.get(BRAND_TO_MANUFACTURER.get(p["brand_slug"], ""), {}).get("name")
+        products_out.append({
+            "id": p["id"],
+            "name": p["name"],
+            "brand": p["brand_label"],
+            "category": p["category_slug"],
+            "pack_size": parsed[1] if parsed else None,
+            "attributes": {"manufacturer": manufacturer} if manufacturer else {},
+            "offers": _public_offers(p["offers"], now),
+        })
+    for p in solution_products:
+        manufacturer = MANUFACTURERS.get(BRAND_TO_MANUFACTURER.get(p["brand_slug"], ""), {}).get("name")
+        attributes = {"size_ml": p.get("size_ml")}
+        if manufacturer:
+            attributes["manufacturer"] = manufacturer
+        products_out.append({
+            "id": p["id"],
+            "name": p["name"],
+            "brand": p["brand_label"],
+            "category": p["solution_category"],
+            "pack_size": None,
+            "attributes": attributes,
+            "offers": _public_offers(p["offers"], now),
+        })
+    return {
+        "version": PUBLIC_CATALOG_VERSION,
+        "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "products": products_out,
+    }
 
 
 def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dict:
@@ -103,6 +168,10 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
         print(f"  {cat_slug} -> /{cat_slug}/{product['brand_slug']}/{product['slug']}/")
 
     save_history(price_history)
+
+    public_catalog = build_public_catalog(lens_products, solution_products, now)
+    write_file(BUILD_DIR / "data" / "catalog.json", json.dumps(public_catalog, indent=2, ensure_ascii=False))
+    print(f"  data     -> /data/catalog.json ({len(public_catalog['products'])} produkter)")
 
     solution_categories = sorted({p["solution_category"] for p in solution_products})
     for cat_slug in solution_categories:
