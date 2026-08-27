@@ -42,7 +42,11 @@ PUBLIC_CATALOG_VERSION = "1"
 def _public_offers(offers: list[dict], now: datetime) -> list[dict]:
     """Bruker SAMME reconcile_product()-logikk som nettsidens egne
     tilbudskort -- pris/frakt/totalpris/lagerstatus i den offentlige
-    feeden skal ALDRI kunne avvike fra det som faktisk vises på siden."""
+    feeden skal ALDRI kunne avvike fra det som faktisk vises på siden.
+    checked_at (2026-08-27, dag 1 av kontrakten, ingen ekstern konsument
+    ennå -- billigst mulig tidspunkt å legge den til) eksponerer data vi
+    allerede har internt (brukt til is_stale i reconcile_product selv),
+    siden ulike forhandlere/kilder kan ha ulik alder på prisen sin."""
     return [
         {
             "merchant": o["retailer"],
@@ -51,6 +55,7 @@ def _public_offers(offers: list[dict], now: datetime) -> list[dict]:
             "total_price": o["total"],
             "availability": "in_stock" if o["in_stock"] else "out_of_stock",
             "url": o["url"],
+            "checked_at": o["checked_at"],
         }
         for o in reconcile_product(offers, now)
     ]
@@ -66,7 +71,21 @@ def build_public_catalog(lens_products: list[dict], solution_products: list[dict
     "version" hvis endringen bryter bakoverkompatibilitet -- eksterne
     konsumenter skal kunne stole på formen uten å følge interne refaktoreringer.
     Ingen felt her er noe som ikke allerede vises offentlig et sted på en
-    produktside (pris/frakt/lenke/lagerstatus) -- ingen ny eksponering."""
+    produktside (pris/frakt/lenke/lagerstatus) -- ingen ny eksponering.
+
+    STABILE ID-ER: p["id"] (fra products_meta.json/solutions_meta.json) ER
+    den offentlige kontraktens id-felt -- eksterne konsumenter (Cartbooster)
+    forventes å lagre/referere denne på tvers av samtaler/analytics/AI-
+    anbefalinger. Regel: ENDRE ALDRI en eksisterende produkt-id (selv om
+    navn/URL/kategori endres) -- kun legg til nye id-er for nye produkter.
+    Samme prinsipp som vi allerede fulgte ubevisst (ingen id er noensinne
+    blitt endret i dette prosjektet), nå skrevet ned som en eksplisitt regel
+    siden id-en har fått en ekstern konsument å svare til.
+
+    CURRENCY: "NOK" er hardkodet på toppnivå, ikke per tilbud -- riktig
+    design er én valuta per feed/marked (en fremtidig UK-versjon av denne
+    kontrakten ville hatt sin egen "currency": "GBP", ikke blandet valuta i
+    samme fil)."""
     products_out = []
     for p in lens_products:
         parsed = _pack_size_from_id(p["id"])
@@ -97,6 +116,7 @@ def build_public_catalog(lens_products: list[dict], solution_products: list[dict
     return {
         "version": PUBLIC_CATALOG_VERSION,
         "generated_at": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "currency": "NOK",
         "products": products_out,
     }
 
