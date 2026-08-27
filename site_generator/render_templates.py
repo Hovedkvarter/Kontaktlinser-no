@@ -2054,7 +2054,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         meta_description = f"Sammenlign priser på {brand_label}-kontaktlinser som {examples}, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
 
     manufacturer_card_line = (
-        f'<div class="product-tile-manufacturer">Produsent: <a href="/produsent/{manufacturer_slug}/">{escape(MANUFACTURERS[manufacturer_slug]["name"])}</a></div>'
+        f'<a class="product-tile-manufacturer" href="/produsent/{manufacturer_slug}/">{escape(MANUFACTURERS[manufacturer_slug]["name"])}</a>'
         if manufacturer_slug else ""
     )
 
@@ -2071,17 +2071,13 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
-        category_label = categories[p["category_slug"]]["label"]
         return f"""<div class="product-tile" data-category="{escape(p["category_slug"])}">
-  <a class="product-tile-link" href="{escape(href)}">
-    <div class="{image_cls}">{image_block}</div>
-    <div class="product-tile-body">
-      <div class="product-name">{escape(p["name"])}</div>
-      <div class="product-meta">{escape(category_label)}</div>
-      {price_line}
-    </div>
-  </a>
-  {manufacturer_card_line}
+  <a class="product-tile-image-link" href="{escape(href)}"><div class="{image_cls}">{image_block}</div></a>
+  <div class="product-tile-body">
+    <a class="product-tile-name-link" href="{escape(href)}"><div class="product-name">{escape(p["name"])}</div></a>
+    {manufacturer_card_line}
+    <a class="product-tile-price-link" href="{escape(href)}">{price_line}</a>
+  </div>
   <a class="product-tile-cta" href="{escape(href)}">Sammenlign priser →</a>
 </div>"""
 
@@ -2126,16 +2122,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .product-tile-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }}
 .product-tile {{ display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: border-color 0.15s; }}
 .product-tile:hover {{ border-color: var(--blue); }}
-.product-tile-link {{ display: flex; flex-direction: column; flex-grow: 1; text-decoration: none; color: var(--ink); }}
+.product-tile-image-link {{ display: block; text-decoration: none; }}
 .product-tile-image {{ aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }}
 .product-tile-image.has-photo {{ background: white; }}
 .product-tile-image img {{ max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }}
 .product-tile-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }}
 .product-tile-body {{ padding: 14px 16px 4px; flex-grow: 1; display: flex; flex-direction: column; }}
-.product-tile-price {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-top: auto; padding-top: 10px; }}
-.product-tile-manufacturer {{ padding: 0 16px 12px; font-size: 0.78rem; color: var(--muted); }}
-.product-tile-manufacturer a {{ color: var(--blue); text-decoration: none; }}
-.product-tile-manufacturer a:hover {{ text-decoration: underline; }}
+.product-tile-name-link {{ text-decoration: none; color: var(--ink); }}
+.product-tile-manufacturer {{ display: inline-block; margin-top: 2px; font-size: 0.8rem; color: var(--blue); text-decoration: none; }}
+.product-tile-manufacturer:hover {{ text-decoration: underline; }}
+.product-tile-price-link {{ display: block; text-decoration: none; color: var(--ink); margin-top: auto; }}
+.product-tile-price {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); padding-top: 10px; }}
 .product-tile-cta {{ display: block; margin-top: auto; padding: 10px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; }}
 </style>
 </head>
