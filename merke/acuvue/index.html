@@ -17,10 +17,10 @@ function __loadGTM() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Acuvue kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på Acuvue-kontaktlinser som 1-Day Acuvue Moist 30-pack, Acuvue Oasys 6-pack og Acuvue Oasys 1-Day with Hydraluxe 30-pack, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<meta name="description" content="Sammenlign priser på alle Acuvue-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="https://kontaktlinser.no/merke/acuvue/">
 <meta property="og:title" content="Acuvue kontaktlinser – Sammenlign priser | kontaktlinser.no">
-<meta property="og:description" content="Sammenlign priser på Acuvue-kontaktlinser som 1-Day Acuvue Moist 30-pack, Acuvue Oasys 6-pack og Acuvue Oasys 1-Day with Hydraluxe 30-pack, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<meta property="og:description" content="Sammenlign priser på alle Acuvue-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kontaktlinser.no/merke/acuvue/">
 <meta property="og:image" content="https://kontaktlinser.no/static/logo.png">
@@ -210,6 +210,17 @@ a { color: inherit; }
 @media (min-width: 1024px) {
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
+
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }
+.brand-card { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); transition: border-color 0.15s; }
+.brand-card:hover { border-color: var(--blue); }
+.brand-card-image { aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }
+.brand-card-image.has-photo { background: white; }
+.brand-card-image img { max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }
+.brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.brand-card-body { padding: 14px 16px 4px; flex-grow: 1; }
+.brand-card-price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
+.brand-card-cta { margin-top: 12px; padding: 10px 16px; background: var(--blue); color: white; text-align: center; font-size: 0.85rem; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -334,158 +345,177 @@ a { color: inherit; }
     <h2 id="result-count">19 produkter</h2>
   </div>
 
-  <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/acuvue/moist-30-pack/" data-category="dagslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_30pk.jpg" alt="1-Day Acuvue Moist 30-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">1-Day Acuvue Moist 30-pack</div>
-    <div class="product-meta">Dagslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">232 kr</div><div class="retailer-count">8 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-6-pack/" data-category="manedslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_with_HYDRACLEAR_Plus_6pk.jpg" alt="Acuvue Oasys 6-pack" loading="lazy"></div>
-  <div class="product-main">
+  <div id="product-list" class="brand-grid">
+    <a class="brand-card" href="/kontaktlinser/acuvue/oasys-6-pack/" data-category="manedslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_with_HYDRACLEAR_Plus_6pk.jpg" alt="Acuvue Oasys 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Oasys 6-pack</div>
     <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">262 kr</div><div class="retailer-count">8 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-30-pack/" data-category="dagslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_1-Day_WITH_HYDRALUXE_30pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 30-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys 1-Day with Hydraluxe 30-pack</div>
-    <div class="product-meta">Dagslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">276 kr</div><div class="retailer-count">8 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/moist-astigmatism-30-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_for_ASTIGMATISM_30pk.jpg" alt="1-Day Acuvue Moist for Astigmatism 30-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">1-Day Acuvue Moist for Astigmatism 30-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">297 kr</div><div class="retailer-count">7 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/moist-multifocal-30-pack/" data-category="multifokale-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg" alt="1-Day Acuvue Moist Multifocal 30-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">1-Day Acuvue Moist Multifocal 30-pack</div>
-    <div class="product-meta">Multifokale linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">327 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-max-1-day-30-pack/" data-category="dagslinser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys MAX 1-Day 30-pack</div>
-    <div class="product-meta">Dagslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">344 kr</div><div class="retailer-count">6 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_for_ASTIGMATISM_6pk.jpg" alt="Acuvue Oasys for Astigmatism 6-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys for Astigmatism 6-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">351 kr</div><div class="retailer-count">8 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-1-day-for-astigmatism-30-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/o/n/one-day.jpg" alt="Acuvue Oasys 1-Day for Astigmatism 30-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys 1-Day for Astigmatism 30-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">364 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/vita-6-pack/" data-category="manedslinser">
-  <div class="product-thumb"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LAV_1.jpg" alt="Acuvue Vita 6-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/vita-6-pack/" data-category="manedslinser">
+  <div class="brand-card-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LAV_1.jpg" alt="Acuvue Vita 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Vita 6-pack</div>
     <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">378 kr</div><div class="retailer-count">3 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/" data-category="multifokale-linser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-30-pack/" data-category="dagslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_30pk.jpg" alt="1-Day Acuvue Moist 30-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">1-Day Acuvue Moist 30-pack</div>
+    <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-max-1-day-30-pack/" data-category="dagslinser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys MAX 1-Day 30-pack</div>
+    <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-30-pack/" data-category="dagslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_1-Day_WITH_HYDRALUXE_30pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 30-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys 1-Day with Hydraluxe 30-pack</div>
+    <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_for_ASTIGMATISM_6pk.jpg" alt="Acuvue Oasys for Astigmatism 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys for Astigmatism 6-pack</div>
+    <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-astigmatism-30-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_for_ASTIGMATISM_30pk.jpg" alt="1-Day Acuvue Moist for Astigmatism 30-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">1-Day Acuvue Moist for Astigmatism 30-pack</div>
+    <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Oasys Multifocal 6-pack</div>
     <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">447 kr</div><div class="retailer-count">4 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/" data-category="multifokale-linser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys MAX 1-Day Multifocal 30-pack</div>
-    <div class="product-meta">Multifokale linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">479 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/" data-category="multifokale-linser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack</div>
-    <div class="product-meta">Multifokale linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">579 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/moist-90-pack/" data-category="dagslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_90pk.jpg" alt="1-Day Acuvue Moist 90-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-90-pack/" data-category="dagslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_90pk.jpg" alt="1-Day Acuvue Moist 90-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">1-Day Acuvue Moist 90-pack</div>
     <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">649 kr</div><div class="retailer-count">7 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/moist-astigmatism-90-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_for_ASTIGMATISM_90pk.jpg" alt="1-Day Acuvue Moist for Astigmatism 90-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-astigmatism-90-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_MOIST_for_ASTIGMATISM_90pk.jpg" alt="1-Day Acuvue Moist for Astigmatism 90-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">1-Day Acuvue Moist for Astigmatism 90-pack</div>
     <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">777 kr</div><div class="retailer-count">6 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-90-pack/" data-category="dagslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_1-Day_WITH_HYDRALUXE_90pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 90-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-90-pack/" data-category="dagslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/A/C/ACUVUE_OASYS_1-Day_WITH_HYDRALUXE_90pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 90-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Oasys 1-Day with Hydraluxe 90-pack</div>
     <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">799 kr</div><div class="retailer-count">5 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/moist-multifocal-90-pack/" data-category="multifokale-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg" alt="1-Day Acuvue Moist Multifocal 90-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">1-Day Acuvue Moist Multifocal 90-pack</div>
-    <div class="product-meta">Multifokale linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">799 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-1-day-for-astigmatism-90-pack/" data-category="toriske-linser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue Oasys 1-Day for Astigmatism 90-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">874 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/acuvue/oasys-max-1-day-90-pack/" data-category="dagslinser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-max-1-day-90-pack/" data-category="dagslinser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Oasys MAX 1-Day 90-pack</div>
     <div class="product-meta">Dagslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">949 kr</div><div class="retailer-count">3 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/" data-category="multifokale-linser">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-multifocal-30-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg" alt="1-Day Acuvue Moist Multifocal 30-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">1-Day Acuvue Moist Multifocal 30-pack</div>
+    <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/moist-multifocal-90-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg" alt="1-Day Acuvue Moist Multifocal 90-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">1-Day Acuvue Moist Multifocal 90-pack</div>
+    <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-1-day-for-astigmatism-30-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/o/n/one-day.jpg" alt="Acuvue Oasys 1-Day for Astigmatism 30-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys 1-Day for Astigmatism 30-pack</div>
+    <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/oasys-1-day-for-astigmatism-90-pack/" data-category="toriske-linser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys 1-Day for Astigmatism 90-pack</div>
+    <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys MAX 1-Day Multifocal 30-pack</div>
+    <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
     <div class="product-name">Acuvue Oasys MAX 1-Day Multifocal 90-pack</div>
     <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">999 kr</div><div class="retailer-count">3 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image"><span class="brand-card-fallback">AC</span></div>
+  <div class="brand-card-body">
+    <div class="product-name">Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack</div>
+    <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -527,7 +557,7 @@ i sfæriske, toriske og multifokale varianter.</p>
     btn.classList.add('active');
     const category = btn.dataset.category;
     let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {
+    list.querySelectorAll('.brand-card').forEach(card => {
       const show = category === 'all' || card.dataset.category === category;
       card.style.display = show ? '' : 'none';
       if (show) visible++;

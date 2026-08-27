@@ -17,10 +17,10 @@ function __loadGTM() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Biofinity kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på Biofinity-kontaktlinser som Biofinity XR 3-pack, Biofinity 6-pack og Biofinity Energys 6-pack, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<meta name="description" content="Sammenlign priser på alle Biofinity-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="https://kontaktlinser.no/merke/biofinity/">
 <meta property="og:title" content="Biofinity kontaktlinser – Sammenlign priser | kontaktlinser.no">
-<meta property="og:description" content="Sammenlign priser på Biofinity-kontaktlinser som Biofinity XR 3-pack, Biofinity 6-pack og Biofinity Energys 6-pack, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<meta property="og:description" content="Sammenlign priser på alle Biofinity-kontaktlinser vi følger, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kontaktlinser.no/merke/biofinity/">
 <meta property="og:image" content="https://kontaktlinser.no/static/logo.png">
@@ -199,6 +199,17 @@ a { color: inherit; }
 @media (min-width: 1024px) {
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
+
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }
+.brand-card { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); transition: border-color 0.15s; }
+.brand-card:hover { border-color: var(--blue); }
+.brand-card-image { aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }
+.brand-card-image.has-photo { background: white; }
+.brand-card-image img { max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }
+.brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.brand-card-body { padding: 14px 16px 4px; flex-grow: 1; }
+.brand-card-price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }
+.brand-card-cta { margin-top: 12px; padding: 10px 16px; background: var(--blue); color: white; text-align: center; font-size: 0.85rem; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -323,70 +334,78 @@ a { color: inherit; }
     <h2 id="result-count">8 produkter</h2>
   </div>
 
-  <div id="product-list">
-    <a class="product-card" href="/kontaktlinser/biofinity/xr-3-pack/" data-category="manedslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/c/o/cooperv_1.jpg" alt="Biofinity XR 3-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Biofinity XR 3-pack</div>
-    <div class="product-meta">Månedslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">222 kr</div><div class="retailer-count">5 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/biofinity/biofinity-6-pack/" data-category="manedslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" loading="lazy"></div>
-  <div class="product-main">
+  <div id="product-list" class="brand-grid">
+    <a class="brand-card" href="/kontaktlinser/biofinity/biofinity-6-pack/" data-category="manedslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Biofinity 6-pack</div>
     <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">331 kr</div><div class="retailer-count">9 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/biofinity/energys-6-pack/" data-category="manedslinser">
-  <div class="product-thumb">BI</div>
-  <div class="product-main">
-    <div class="product-name">Biofinity Energys 6-pack</div>
-    <div class="product-meta">Månedslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">387 kr</div><div class="retailer-count">6 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_Toric_6pk.jpg" alt="Biofinity Toric 6-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_Toric_6pk.jpg" alt="Biofinity Toric 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Biofinity Toric 6-pack</div>
     <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">454 kr</div><div class="retailer-count">9 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/biofinity/xr-toric-3-pack/" data-category="toriske-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/x/r/xr-toric.jpg" alt="Biofinity XR Toric 3-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Biofinity XR Toric 3-pack</div>
-    <div class="product-meta">Toriske linser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">499 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/biofinity/xr-6-pack/" data-category="manedslinser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg" alt="Biofinity XR 6-pack" loading="lazy"></div>
-  <div class="product-main">
-    <div class="product-name">Biofinity XR 6-pack</div>
-    <div class="product-meta">Månedslinser</div>
-  </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">649 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/" data-category="multifokale-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_Multifocal_6pk.jpg" alt="Biofinity Multifocal 6-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_Multifocal_6pk.jpg" alt="Biofinity Multifocal 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Biofinity Multifocal 6-pack</div>
     <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">659 kr</div><div class="retailer-count">7 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
-<a class="product-card" href="/kontaktlinser/biofinity/multifocal-toric-3-pack/" data-category="multifokale-linser">
-  <div class="product-thumb"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" loading="lazy"></div>
-  <div class="product-main">
+<a class="brand-card" href="/kontaktlinser/biofinity/energys-6-pack/" data-category="manedslinser">
+  <div class="brand-card-image"><span class="brand-card-fallback">BI</span></div>
+  <div class="brand-card-body">
+    <div class="product-name">Biofinity Energys 6-pack</div>
+    <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/biofinity/xr-6-pack/" data-category="manedslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg" alt="Biofinity XR 6-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Biofinity XR 6-pack</div>
+    <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/biofinity/multifocal-toric-3-pack/" data-category="multifokale-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" loading="lazy"></div>
+  <div class="brand-card-body">
     <div class="product-name">Biofinity Multifocal Toric 3-pack</div>
     <div class="product-meta">Multifokale linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">1 095 kr</div><div class="retailer-count">1 forhandlere</div></div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/biofinity/xr-toric-3-pack/" data-category="toriske-linser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/x/r/xr-toric.jpg" alt="Biofinity XR Toric 3-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Biofinity XR Toric 3-pack</div>
+    <div class="product-meta">Toriske linser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
+</a>
+<a class="brand-card" href="/kontaktlinser/biofinity/xr-3-pack/" data-category="manedslinser">
+  <div class="brand-card-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/c/o/cooperv_1.jpg" alt="Biofinity XR 3-pack" loading="lazy"></div>
+  <div class="brand-card-body">
+    <div class="product-name">Biofinity XR 3-pack</div>
+    <div class="product-meta">Månedslinser</div>
+    <div class="brand-card-price-row"><div class="retailer-count">Ingen tilbud tilgjengelig</div></div>
+  </div>
+  <div class="brand-card-cta">Sammenlign priser →</div>
 </a>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -422,7 +441,7 @@ andre linser som er avhengige av en tilsatt fuktighetsbelegg.</p>
     btn.classList.add('active');
     const category = btn.dataset.category;
     let visible = 0;
-    list.querySelectorAll('.product-card').forEach(card => {
+    list.querySelectorAll('.brand-card').forEach(card => {
       const show = category === 'all' || card.dataset.category === category;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
