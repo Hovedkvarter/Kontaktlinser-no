@@ -31,7 +31,22 @@ from offer import Offer, mark_staleness, compute_shipping_nok
 LICENSED_IMAGE_SOURCES = {"affiliate_feed", "manufacturer_kit"}
 
 
-def map_adtraction_row(row: dict, product_match: dict[str, str]) -> Optional[Offer]:
+def _resolve_product_ids(product_match: dict, sku: Optional[str]) -> list[str]:
+    """product_matching.json sin verdi er normalt en enkelt product_id-streng,
+    men kan også være en liste -- brukt der to produkter i katalogen (f.eks.
+    "Focus Dailies" og "Dailies All Day Comfort", samme fysiske vare under to
+    navn, bekreftet 2026-08-27) begge skal vise SAMME feed-tilbud. Én rad
+    matcher da til flere produkt-id-er i stedet for å måtte dupliseres i
+    feeden (som ikke finnes to ganger der)."""
+    if not sku:
+        return []
+    match = product_match.get(sku)
+    if match is None:
+        return []
+    return match if isinstance(match, list) else [match]
+
+
+def map_adtraction_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
     """Adtraction sin faktiske eksport er et Google Shopping-formatert feed
     (id/title/link/image_link/price/availability/brand osv.) -- bekreftet mot
     ekte feed fra ExtraOptical 2026-08-12, IKKE den samme kolonnestrukturen
@@ -47,18 +62,19 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> Optional[Off
     er derfor hardkodet her. Legges en ANNEN Adtraction-forhandler til senere,
     må dette parameteriseres."""
     sku = row.get("id")
-    product_id = product_match.get(sku) if sku else None
-    if product_id is None:
-        return None  # ukjent produkt - hopp over i stedet for å gjette
+    product_ids = _resolve_product_ids(product_match, sku)
+    if not product_ids:
+        return []  # ukjent produkt - hopp over i stedet for å gjette
 
     price_text = row.get("sale_price") or row.get("price") or ""
     price_match = re.search(r"[\d.,]+", price_text)
     if not price_match:
-        return None
+        return []
 
     try:
         price_nok = float(price_match.group().replace(",", "."))
-        return mark_staleness(Offer(
+        checked_at = datetime.now(timezone.utc).isoformat()
+        return [mark_staleness(Offer(
             retailer="Extra Optical",
             brand="",  # settes av build_catalog.py fra products_meta etter matching
             source="affiliate_feed",
@@ -75,25 +91,25 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> Optional[Off
             shipping_policy={"free_over": 900, "fee_nok": 45},
             url=row["link"],
             in_stock=row.get("availability") == "in_stock",
-            checked_at=datetime.now(timezone.utc).isoformat(),
+            checked_at=checked_at,
             image_url=row.get("image_link") or None,
             image_source="affiliate_feed" if row.get("image_link") else "unlicensed",
             product_id=product_id,
-        ))
+        )) for product_id in product_ids]
     except (KeyError, ValueError):
-        return None  # logg og hopp over feilformede rader i stedet for å publisere feil data
+        return []  # logg og hopp over feilformede rader i stedet for å publisere feil data
 
 
-def map_partner_ads_row(row: dict, product_match: dict[str, str]) -> Optional[Offer]:
+def map_partner_ads_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
     """Juster feltnavn til Partner-ads sine faktiske eksport-kolonner.
     Forventer en 'produktnummer'-kolonne som finnes i product_match."""
     sku = row.get("produktnummer")
-    product_id = product_match.get(sku) if sku else None
-    if product_id is None:
-        return None
+    product_ids = _resolve_product_ids(product_match, sku)
+    if not product_ids:
+        return []
 
     try:
-        return mark_staleness(Offer(
+        return [mark_staleness(Offer(
             retailer=row["shop"],
             brand="",
             source="affiliate_feed",
@@ -106,12 +122,12 @@ def map_partner_ads_row(row: dict, product_match: dict[str, str]) -> Optional[Of
             image_url=row.get("bilde_url") or None,
             image_source="affiliate_feed" if row.get("bilde_url") else "unlicensed",
             product_id=product_id,
-        ))
+        )) for product_id in product_ids]
     except (KeyError, ValueError):
-        return None
+        return []
 
 
-def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> Optional[Offer]:
+def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> list[Offer]:
     """Shopping4Net (Tradedoubler, program-id 198299, bekreftet 2026-08-20).
     ANNERLEDES enn de andre nettverkene: hvert 'produkt' er et nøstet
     JSON-objekt (offers[0] med pris/lenke/lagerstatus, categories[] med full
@@ -135,27 +151,28 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> Option
     tatt med i product_matching -- samme prinsipp som Adtraction-feeden."""
     categories = [c.get("name", "") for c in product.get("categories", [])]
     if not any(c.startswith(("Kontaktlinser >", "Apotek > Allergi > Øyendråper", "Apotek > Øyne")) for c in categories):
-        return None
+        return []
 
     offers = product.get("offers") or []
     if not offers:
-        return None
+        return []
     offer = offers[0]
     sku = offer.get("sourceProductId")
-    product_id = product_match.get(sku) if sku else None
-    if product_id is None:
-        return None
+    product_ids = _resolve_product_ids(product_match, sku)
+    if not product_ids:
+        return []
 
     price_history = offer.get("priceHistory") or []
     if not price_history:
-        return None
+        return []
     try:
         price_nok = float(price_history[0]["price"]["value"])
     except (KeyError, ValueError, TypeError):
-        return None
+        return []
 
     image_url = (product.get("productImage") or {}).get("url") or None
-    return mark_staleness(Offer(
+    checked_at = datetime.now(timezone.utc).isoformat()
+    return [mark_staleness(Offer(
         retailer="Shopping4net",
         brand="",  # settes av build_catalog.py fra products_meta etter matching
         source="affiliate_feed",
@@ -172,11 +189,11 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> Option
         shipping_policy={"free_over": 700, "fee_nok": 39},
         url=offer.get("productUrl"),
         in_stock=offer.get("availability") == "in_stock",
-        checked_at=datetime.now(timezone.utc).isoformat(),
+        checked_at=checked_at,
         image_url=image_url,
         image_source="affiliate_feed" if image_url else "unlicensed",
         product_id=product_id,
-    ))
+    )) for product_id in product_ids]
 
 
 NETWORK_MAPPERS = {
@@ -190,9 +207,9 @@ def _load_feed_rows(rows: csv.DictReader, network: str, product_match: dict[str,
     offers = []
     skipped = 0
     for row in rows:
-        offer = mapper(row, product_match)
-        if offer:
-            offers.append(offer)
+        row_offers = mapper(row, product_match)
+        if row_offers:
+            offers.extend(row_offers)
         else:
             skipped += 1
     if skipped:
@@ -246,9 +263,9 @@ def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[l
             break
         products = data.get("products", [])
         for product in products:
-            offer = map_tradedoubler_row(product, product_match)
-            if offer:
-                offers.append(offer)
+            product_offers = map_tradedoubler_row(product, product_match)
+            if product_offers:
+                offers.extend(product_offers)
             else:
                 skipped += 1
         if len(products) < 100:

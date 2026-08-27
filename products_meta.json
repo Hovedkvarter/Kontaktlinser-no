@@ -3864,7 +3864,7 @@
       "slug": "focus-dailies-30-pack",
       "name": "Focus Dailies 30-pack",
       "description": "Dagslinse fra Alcon.",
-      "long_description": "Focus Dailies er en av Alcons eldre, rimeligere dagslinser i nelfilcon A, med høyt vanninnhold. Et budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
+      "long_description": "Focus Dailies All Day Comfort er Alcons fulle offisielle navn på denne linsen -- \"Focus Dailies\" og \"Dailies All Day Comfort\" er begge forkortede versjoner av SAMME navn, trykt sammen på samme eske (bekreftet mot Alcons eget produktbilde 2026-08-27). Nelfilcon A-hydrogel med 69 % vanninnhold -- en av Alcons eldre, rimeligere dagslinser, budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
       "brand_slug": "dailies",
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
@@ -3896,21 +3896,28 @@
       ],
       "scrape_targets": [
         {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-30-pack"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/focus-dailies-30-linser"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-all-day-comfort-30-pack"
+        },
+        {
+          "retailer": "lensit",
+          "slug": "focus-dailies-prd30058595"
+        },
+        {
           "retailer": "lenson",
           "slug": "focus-dailies-lens-245"
         },
         {
           "retailer": "lensway",
           "slug": "focus-dailies-lens-245"
-        },
-        {
-          "retailer": "lensit",
-          "slug": "focus-dailies-prd30058595",
-          "variant": "30"
-        },
-        {
-          "retailer": "coptikk",
-          "slug": "linsebutikk/dagslinser/focus-dailies-30-linser"
         }
       ]
     },
@@ -4595,7 +4602,7 @@
       "slug": "focus-dailies-90-pack",
       "name": "Focus Dailies 90-pack",
       "description": "Dagslinse fra Alcon.",
-      "long_description": "Focus Dailies er en av Alcons eldre, rimeligere dagslinser i nelfilcon A, med høyt vanninnhold. Et budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
+      "long_description": "Focus Dailies All Day Comfort er Alcons fulle offisielle navn på denne linsen -- \"Focus Dailies\" og \"Dailies All Day Comfort\" er begge forkortede versjoner av SAMME navn, trykt sammen på samme eske (bekreftet mot Alcons eget produktbilde 2026-08-27). Nelfilcon A-hydrogel med 69 % vanninnhold -- en av Alcons eldre, rimeligere dagslinser, budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
       "brand_slug": "dailies",
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
@@ -4627,16 +4634,24 @@
       ],
       "scrape_targets": [
         {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-90-pack"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/focus-dailies-90-linser"
+        },
+        {
+          "retailer": "interoptik",
+          "slug": "dailies/dailies-all-day-comfort-90-pack"
+        },
+        {
           "retailer": "lenson",
           "slug": "focus-dailies-lens-335"
         },
         {
           "retailer": "lensway",
           "slug": "focus-dailies-lens-335"
-        },
-        {
-          "retailer": "coptikk",
-          "slug": "linsebutikk/dagslinser/focus-dailies-90-linser"
         }
       ]
     },
@@ -6008,11 +6023,27 @@
       "slug": "dailies-all-day-comfort-30-pack",
       "name": "Dailies All Day Comfort 30-pack",
       "description": "Dagslinse fra Alcon.",
-      "long_description": "Dailies All Day Comfort er en dagslinse fra Alcon, en egen produktlinje atskilt fra Dailies AquaComfort Plus, Dailies Total1 og Focus Dailies som vi allerede fører.",
+      "long_description": "Focus Dailies All Day Comfort er Alcons fulle offisielle navn på denne linsen -- \"Focus Dailies\" og \"Dailies All Day Comfort\" er begge forkortede versjoner av SAMME navn, trykt sammen på samme eske (bekreftet mot Alcons eget produktbilde 2026-08-27). Nelfilcon A-hydrogel med 69 % vanninnhold -- en av Alcons eldre, rimeligere dagslinser, budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
       "brand_slug": "dailies",
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "13,8 mm"
+        ],
         [
           "Brukstid",
           "Dagslinse"
@@ -6024,12 +6055,28 @@
       ],
       "scrape_targets": [
         {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-30-pack"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/focus-dailies-30-linser"
+        },
+        {
           "retailer": "interoptik",
           "slug": "dailies/dailies-all-day-comfort-30-pack"
         },
         {
-          "retailer": "brilleland",
-          "slug": "dailies/dailies-all-day-comfort-30-pack"
+          "retailer": "lensit",
+          "slug": "focus-dailies-prd30058595"
+        },
+        {
+          "retailer": "lenson",
+          "slug": "focus-dailies-lens-245"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "focus-dailies-lens-245"
         }
       ]
     },
@@ -6038,11 +6085,27 @@
       "slug": "dailies-all-day-comfort-90-pack",
       "name": "Dailies All Day Comfort 90-pack",
       "description": "Dagslinse fra Alcon.",
-      "long_description": "Dailies All Day Comfort er en dagslinse fra Alcon, en egen produktlinje atskilt fra Dailies AquaComfort Plus, Dailies Total1 og Focus Dailies som vi allerede fører.",
+      "long_description": "Focus Dailies All Day Comfort er Alcons fulle offisielle navn på denne linsen -- \"Focus Dailies\" og \"Dailies All Day Comfort\" er begge forkortede versjoner av SAMME navn, trykt sammen på samme eske (bekreftet mot Alcons eget produktbilde 2026-08-27). Nelfilcon A-hydrogel med 69 % vanninnhold -- en av Alcons eldre, rimeligere dagslinser, budsjettvennlig alternativ til de nyere vanngradient-linsene fra samme produsent.",
       "brand_slug": "dailies",
       "brand_label": "Dailies",
       "category_slug": "dagslinser",
       "specs": [
+        [
+          "Materiale",
+          "Nelfilcon A (hydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "69 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "13,8 mm"
+        ],
         [
           "Brukstid",
           "Dagslinse"
@@ -6054,12 +6117,24 @@
       ],
       "scrape_targets": [
         {
+          "retailer": "brilleland",
+          "slug": "dailies/dailies-all-day-comfort-90-pack"
+        },
+        {
+          "retailer": "coptikk",
+          "slug": "linsebutikk/dagslinser/focus-dailies-90-linser"
+        },
+        {
           "retailer": "interoptik",
           "slug": "dailies/dailies-all-day-comfort-90-pack"
         },
         {
-          "retailer": "brilleland",
-          "slug": "dailies/dailies-all-day-comfort-90-pack"
+          "retailer": "lenson",
+          "slug": "focus-dailies-lens-335"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "focus-dailies-lens-335"
         }
       ]
     },
