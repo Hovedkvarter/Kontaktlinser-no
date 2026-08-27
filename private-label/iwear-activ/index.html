@@ -107,7 +107,7 @@ function __loadGTM() {
           }
         }]
     }},
-  "mainEntityOfPage": "https://kontaktlinser.no/private-label/iwear-activ/", "dateModified": "2026-08-27T18:32:25.555532+00:00"
+  "mainEntityOfPage": "https://kontaktlinser.no/private-label/iwear-activ/", "dateModified": "2026-08-27T20:15:58.078886+00:00"
 }</script>
 <style>
 @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/static/fonts/inter-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
@@ -260,6 +260,31 @@ a { color: inherit; }
 @media (min-width: 1024px) {
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
+.product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
+.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
+.product-tile-image-link { display: block; text-decoration: none; }
+.product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-tile-image.has-photo { background: var(--mist); }
+.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
+.product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.68rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.product-tile-name-link { text-decoration: none; color: var(--ink); }
+.product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
+.product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+.product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
+.product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
+.product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
+.product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.product-tile-price-currency { font-size: 0.9rem; font-weight: 700; }
+.product-tile-store-line { margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
+.product-tile-store-name { color: var(--ink); font-weight: 700; }
+.product-tile-store-count { color: var(--blue); font-weight: 700; }
+.product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
+.product-tile:hover .product-tile-cta { background: var(--blue-dark); }
 
 .hero { display: flex; align-items: center; gap: 20px; }
 .private-label-explainer { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }

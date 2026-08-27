@@ -208,6 +208,31 @@ a { color: inherit; }
 @media (min-width: 1024px) {
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1200px; }
 }
+.product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
+.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
+.product-tile-image-link { display: block; text-decoration: none; }
+.product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-tile-image.has-photo { background: var(--mist); }
+.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
+.product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.68rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.product-tile-name-link { text-decoration: none; color: var(--ink); }
+.product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
+.product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
+.product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
+.product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
+.product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
+.product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
+.product-tile-price-currency { font-size: 0.9rem; font-weight: 700; }
+.product-tile-store-line { margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
+.product-tile-store-name { color: var(--ink); font-weight: 700; }
+.product-tile-store-count { color: var(--blue); font-weight: 700; }
+.product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
+.product-tile:hover .product-tile-cta { background: var(--blue-dark); }
 </style>
 </head>
 <body>
@@ -324,142 +349,193 @@ a { color: inherit; }
   </div>
 
   <div id="product-list">
-    <a class="product-card" href="/linsevaeske/renu/renu-multi-purpose-60-ml/">
-  <div class="product-thumb">RE</div>
-  <div class="product-main">
-    <div class="product-name">ReNu Multi-Purpose 60 ml</div>
-    <div class="product-meta">ReNu · 60 ml</div>
+    <div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/renu/renu-multi-purpose-60-ml/"><div class="product-tile-image"><span class="product-tile-fallback">RE</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/renu/renu-multi-purpose-60-ml/"><div class="product-name">ReNu Multi-Purpose 60 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-60-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">94</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">94 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/everclear/refresh-250-ml/">
-  <div class="product-thumb">EV</div>
-  <div class="product-main">
-    <div class="product-name">everclear REFRESH 250 ml</div>
-    <div class="product-meta">everclear · 250 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-60-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/everclear/refresh-250-ml/"><div class="product-tile-image"><span class="product-tile-fallback">EV</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/everclear/refresh-250-ml/"><div class="product-name">everclear REFRESH 250 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">everclear</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/everclear/refresh-250-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">94</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">94 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/easysept/easysept-120-ml/">
-  <div class="product-thumb">EA</div>
-  <div class="product-main">
-    <div class="product-name">EasySept 120 ml</div>
-    <div class="product-meta">EasySept · 120 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/everclear/refresh-250-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/easysept/easysept-120-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LEASE120_1.jpg" alt="EasySept 120 ml" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/easysept/easysept-120-ml/"><div class="product-name">EasySept 120 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">EasySept</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-120-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">98</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">98 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/acuvue-revitalens/revitalens-100-ml/">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue RevitaLens 100 ml</div>
-    <div class="product-meta">Acuvue RevitaLens · 100 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/easysept/easysept-120-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/acuvue-revitalens/revitalens-100-ml/"><div class="product-tile-image"><span class="product-tile-fallback">AC</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/acuvue-revitalens/revitalens-100-ml/"><div class="product-name">Acuvue RevitaLens 100 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Acuvue RevitaLens</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/revitalens-100-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">102</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">102 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/opti-free/express-120-ml/">
-  <div class="product-thumb">OP</div>
-  <div class="product-main">
-    <div class="product-name">Opti-Free Express 120 ml</div>
-    <div class="product-meta">Opti-Free · 120 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/acuvue-revitalens/revitalens-100-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/opti-free/express-120-ml/"><div class="product-tile-image"><span class="product-tile-fallback">OP</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/opti-free/express-120-ml/"><div class="product-name">Opti-Free Express 120 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/express-120-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">110</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">110 kr</div><div class="retailer-count">1 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/acuvue-revitalens/revitalens-300-ml/">
-  <div class="product-thumb">AC</div>
-  <div class="product-main">
-    <div class="product-name">Acuvue RevitaLens 300 ml</div>
-    <div class="product-meta">Acuvue RevitaLens · 300 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/opti-free/express-120-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/acuvue-revitalens/revitalens-300-ml/"><div class="product-tile-image"><span class="product-tile-fallback">AC</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/acuvue-revitalens/revitalens-300-ml/"><div class="product-name">Acuvue RevitaLens 300 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Acuvue RevitaLens</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/revitalens-300-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">117</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">117 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/opti-free/puremoist-90-ml/">
-  <div class="product-thumb">OP</div>
-  <div class="product-main">
-    <div class="product-name">Opti-Free PureMoist 90 ml</div>
-    <div class="product-meta">Opti-Free · 90 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/acuvue-revitalens/revitalens-300-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/opti-free/puremoist-90-ml/"><div class="product-tile-image"><span class="product-tile-fallback">OP</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/opti-free/puremoist-90-ml/"><div class="product-name">Opti-Free PureMoist 90 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/puremoist-90-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">120</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">120 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/renu/renu-multi-purpose-240-ml/">
-  <div class="product-thumb">RE</div>
-  <div class="product-main">
-    <div class="product-name">ReNu Multi-Purpose 240 ml</div>
-    <div class="product-meta">ReNu · 240 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/opti-free/puremoist-90-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/renu/renu-multi-purpose-240-ml/"><div class="product-tile-image"><span class="product-tile-fallback">RE</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/renu/renu-multi-purpose-240-ml/"><div class="product-name">ReNu Multi-Purpose 240 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-240-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">124</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">124 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/renu/renu-multi-purpose-360-ml/">
-  <div class="product-thumb">RE</div>
-  <div class="product-main">
-    <div class="product-name">ReNu Multi-Purpose 360 ml</div>
-    <div class="product-meta">ReNu · 360 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-240-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/renu/renu-multi-purpose-360-ml/"><div class="product-tile-image"><span class="product-tile-fallback">RE</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/renu/renu-multi-purpose-360-ml/"><div class="product-name">ReNu Multi-Purpose 360 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-360-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">139 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/">
-  <div class="product-thumb">OX</div>
-  <div class="product-main">
-    <div class="product-name">Oxysept 1-Step 300 ml</div>
-    <div class="product-meta">Oxysept · 300 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-360-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/"><div class="product-tile-image"><span class="product-tile-fallback">OX</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/"><div class="product-name">Oxysept 1-Step 300 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Oxysept</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">139 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/opti-free/express-355-ml/">
-  <div class="product-thumb">OP</div>
-  <div class="product-main">
-    <div class="product-name">Opti-Free Express 355 ml</div>
-    <div class="product-meta">Opti-Free · 355 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/opti-free/express-355-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-AA355_1.jpg" alt="Opti-Free Express 355 ml" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/opti-free/express-355-ml/"><div class="product-name">Opti-Free Express 355 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/express-355-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">147</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">147 kr</div><div class="retailer-count">4 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/solocare/solocare-aqua-360-ml/">
-  <div class="product-thumb">SO</div>
-  <div class="product-main">
-    <div class="product-name">SoloCare Aqua 360 ml</div>
-    <div class="product-meta">SoloCare · 360 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/opti-free/express-355-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/solocare/solocare-aqua-360-ml/"><div class="product-tile-image"><span class="product-tile-fallback">SO</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/solocare/solocare-aqua-360-ml/"><div class="product-name">SoloCare Aqua 360 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">SoloCare</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/solocare/solocare-aqua-360-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">147</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">147 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/biotrue-solution/biotrue-300-ml/">
-  <div class="product-thumb">BI</div>
-  <div class="product-main">
-    <div class="product-name">Biotrue 300 ml</div>
-    <div class="product-meta">Biotrue · 300 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/solocare/solocare-aqua-360-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/biotrue-solution/biotrue-300-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LBT300_1.jpg" alt="Biotrue 300 ml" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/biotrue-solution/biotrue-300-ml/"><div class="product-name">Biotrue 300 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Biotrue</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/biotrue-solution/biotrue-300-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">158</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">158 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/easysept/easysept-360-ml/">
-  <div class="product-thumb">EA</div>
-  <div class="product-main">
-    <div class="product-name">EasySept 360 ml</div>
-    <div class="product-meta">EasySept · 360 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/biotrue-solution/biotrue-300-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/easysept/easysept-360-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LEASE360_1.jpg" alt="EasySept 360 ml" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/easysept/easysept-360-ml/"><div class="product-name">EasySept 360 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">EasySept</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-360-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">168</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">168 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/opti-free/puremoist-300-ml/">
-  <div class="product-thumb">OP</div>
-  <div class="product-main">
-    <div class="product-name">Opti-Free PureMoist 300 ml</div>
-    <div class="product-meta">Opti-Free · 300 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/easysept/easysept-360-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/opti-free/puremoist-300-ml/"><div class="product-tile-image"><span class="product-tile-fallback">OP</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/opti-free/puremoist-300-ml/"><div class="product-name">Opti-Free PureMoist 300 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/puremoist-300-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">177</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">177 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/aosept/aosept-plus-360-ml/">
-  <div class="product-thumb">AO</div>
-  <div class="product-main">
-    <div class="product-name">AOSept Plus 360 ml</div>
-    <div class="product-meta">AOSept · 360 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/opti-free/puremoist-300-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/aosept/aosept-plus-360-ml/"><div class="product-tile-image"><span class="product-tile-fallback">AO</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/aosept/aosept-plus-360-ml/"><div class="product-name">AOSept Plus 360 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">AOSept</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/aosept/aosept-plus-360-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">184</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">184 kr</div><div class="retailer-count">3 forhandlere</div></div>
-</a>
-<a class="product-card" href="/linsevaeske/swati/lens-solution-100-ml/">
-  <div class="product-thumb">SW</div>
-  <div class="product-main">
-    <div class="product-name">SWATI Lens Solution 100 ml</div>
-    <div class="product-meta">SWATI · 100 ml</div>
+  <a class="product-tile-cta" href="/linsevaeske/aosept/aosept-plus-360-ml/">Sammenlign priser →</a>
+</div>
+<div class="product-tile">
+  <a class="product-tile-image-link" href="/linsevaeske/swati/lens-solution-100-ml/"><div class="product-tile-image"><span class="product-tile-fallback">SW</span></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Linsevæske</div>
+    <a class="product-tile-name-link" href="/linsevaeske/swati/lens-solution-100-ml/"><div class="product-name">SWATI Lens Solution 100 ml</div></a>
+    <div class="product-tile-manufacturer" style="cursor:default;">SWATI</div>
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/linsevaeske/swati/lens-solution-100-ml/"><div class="product-tile-price-label">Laveste pris</div><div class="product-tile-price"><span class="product-tile-price-number">184</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
-  <div class="product-price-col"><div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">184 kr</div><div class="retailer-count">2 forhandlere</div></div>
-</a>
+  <a class="product-tile-cta" href="/linsevaeske/swati/lens-solution-100-ml/">Sammenlign priser →</a>
+</div>
   </div>
 
   <p class="disclosure">
