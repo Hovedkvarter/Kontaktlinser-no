@@ -198,16 +198,17 @@ a { color: inherit; }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }
 .product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: border-color 0.15s; }
 .product-tile:hover { border-color: var(--blue); }
-.product-tile-link { display: flex; flex-direction: column; flex-grow: 1; text-decoration: none; color: var(--ink); }
+.product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }
 .product-tile-image.has-photo { background: white; }
 .product-tile-image img { max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 14px 16px 4px; flex-grow: 1; display: flex; flex-direction: column; }
-.product-tile-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-top: auto; padding-top: 10px; }
-.product-tile-manufacturer { padding: 0 16px 12px; font-size: 0.78rem; color: var(--muted); }
-.product-tile-manufacturer a { color: var(--blue); text-decoration: none; }
-.product-tile-manufacturer a:hover { text-decoration: underline; }
+.product-tile-name-link { text-decoration: none; color: var(--ink); }
+.product-tile-manufacturer { display: inline-block; margin-top: 2px; font-size: 0.8rem; color: var(--blue); text-decoration: none; }
+.product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); padding-top: 10px; }
 .product-tile-cta { display: block; margin-top: auto; padding: 10px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; }
 </style>
 </head>
@@ -335,39 +336,30 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/">
-    <div class="product-tile-image"><span class="product-tile-fallback">CL</span></div>
-    <div class="product-tile-body">
-      <div class="product-name">Clariti 1 day 30-pack</div>
-      <div class="product-meta">Dagslinser</div>
-      <div class="product-tile-price">Fra 254,-</div><div class="retailer-count">hos <strong>Lensit</strong> +4 butikker</div>
-    </div>
-  </a>
-  <div class="product-tile-manufacturer">Produsent: <a href="/produsent/coopervision/">CooperVision</a></div>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
+  <div class="product-tile-body">
+    <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-name">Clariti 1 day 30-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-tile-price">Fra 254,-</div><div class="retailer-count">hos <strong>Lensit</strong> +4 butikker</div></a>
+  </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/">
-    <div class="product-tile-image"><span class="product-tile-fallback">CL</span></div>
-    <div class="product-tile-body">
-      <div class="product-name">Clariti 1 day Toric 30-pack</div>
-      <div class="product-meta">Toriske linser</div>
-      <div class="product-tile-price">Fra 387,-</div><div class="retailer-count">hos <strong>Brilleland</strong> +3 butikker</div>
-    </div>
-  </a>
-  <div class="product-tile-manufacturer">Produsent: <a href="/produsent/coopervision/">CooperVision</a></div>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
+  <div class="product-tile-body">
+    <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-name">Clariti 1 day Toric 30-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-tile-price">Fra 387,-</div><div class="retailer-count">hos <strong>Brilleland</strong> +3 butikker</div></a>
+  </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/">
-    <div class="product-tile-image"><span class="product-tile-fallback">CL</span></div>
-    <div class="product-tile-body">
-      <div class="product-name">Clariti 1 day 90-pack</div>
-      <div class="product-meta">Dagslinser</div>
-      <div class="product-tile-price">Fra 664,-</div><div class="retailer-count">hos <strong>Lensway</strong> +1 butikker</div>
-    </div>
-  </a>
-  <div class="product-tile-manufacturer">Produsent: <a href="/produsent/coopervision/">CooperVision</a></div>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
+  <div class="product-tile-body">
+    <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-name">Clariti 1 day 90-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-tile-price">Fra 664,-</div><div class="retailer-count">hos <strong>Lensway</strong> +1 butikker</div></a>
+  </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-90-pack/">Sammenlign priser →</a>
 </div>
   </div>
