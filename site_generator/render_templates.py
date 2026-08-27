@@ -1247,6 +1247,13 @@ def _fmt_kr(n: float) -> str:
     return f"{n:,.0f}".replace(",", " ") + " kr"
 
 
+def _fmt_kr_dash(n: float) -> str:
+    """Kortere prisformat ('232,-') for kompakte kort (merke-rutenett) --
+    _fmt_kr() sin 'kr'-suffiks brukes fortsatt overalt ellers (produktside,
+    full tilbudsliste), denne er bevisst kun for det trange kort-formatet."""
+    return f"{n:,.0f}".replace(",", " ") + ",-"
+
+
 def _time_ago(checked_at: str, now: datetime) -> str:
     checked = datetime.fromisoformat(checked_at)
     hrs = round((now - checked).total_seconds() / 3600)
@@ -2046,28 +2053,37 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         examples = ", ".join(top_product_names[:-1]) + " og " + top_product_names[-1]
         meta_description = f"Sammenlign priser på {brand_label}-kontaktlinser som {examples}, fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud."
 
+    manufacturer_card_line = (
+        f'<div class="product-tile-manufacturer">Produsent: <a href="/produsent/{manufacturer_slug}/">{escape(MANUFACTURERS[manufacturer_slug]["name"])}</a></div>'
+        if manufacturer_slug else ""
+    )
+
     def render_grid_card(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
         image_block = f'<img src="{escape(r["image_url"])}" alt="{escape(p["name"])}" loading="lazy">' if r["image_url"] \
-            else f'<span class="brand-card-fallback">{escape(p["brand_label"][:2].upper())}</span>'
-        image_cls = "brand-card-image has-photo" if r["image_url"] else "brand-card-image"
-        price_block = (
-            f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
-            f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
-            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
+            else f'<span class="product-tile-fallback">{escape(p["brand_label"][:2].upper())}</span>'
+        image_cls = "product-tile-image has-photo" if r["image_url"] else "product-tile-image"
+        other_count = len(p["offers"]) - 1
+        store_line = f'hos <strong>{escape(lowest["retailer"])}</strong>' + (f' +{other_count} butikker' if other_count > 0 else '')
+        price_line = (
+            f'<div class="product-tile-price">Fra {_fmt_kr_dash(lowest["total"])}</div>'
+            f'<div class="retailer-count">{store_line}</div>'
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
         category_label = categories[p["category_slug"]]["label"]
-        return f"""<a class="brand-card" href="{escape(href)}" data-category="{escape(p["category_slug"])}">
-  <div class="{image_cls}">{image_block}</div>
-  <div class="brand-card-body">
-    <div class="product-name">{escape(p["name"])}</div>
-    <div class="product-meta">{escape(category_label)}</div>
-    <div class="brand-card-price-row">{price_block}</div>
-  </div>
-  <div class="brand-card-cta">Sammenlign priser →</div>
-</a>"""
+        return f"""<div class="product-tile" data-category="{escape(p["category_slug"])}">
+  <a class="product-tile-link" href="{escape(href)}">
+    <div class="{image_cls}">{image_block}</div>
+    <div class="product-tile-body">
+      <div class="product-name">{escape(p["name"])}</div>
+      <div class="product-meta">{escape(category_label)}</div>
+      {price_line}
+    </div>
+  </a>
+  {manufacturer_card_line}
+  <a class="product-tile-cta" href="{escape(href)}">Sammenlign priser →</a>
+</div>"""
 
     product_rows_html = "\n".join(render_grid_card(r) for r in rows)
 
@@ -2107,16 +2123,20 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
-.brand-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }}
-.brand-card {{ display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); transition: border-color 0.15s; }}
-.brand-card:hover {{ border-color: var(--blue); }}
-.brand-card-image {{ aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }}
-.brand-card-image.has-photo {{ background: white; }}
-.brand-card-image img {{ max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }}
-.brand-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }}
-.brand-card-body {{ padding: 14px 16px 4px; flex-grow: 1; }}
-.brand-card-price-row {{ display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; }}
-.brand-card-cta {{ margin-top: 12px; padding: 10px 16px; background: var(--blue); color: white; text-align: center; font-size: 0.85rem; font-weight: 600; }}
+.product-tile-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 8px; }}
+.product-tile {{ display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--card-shadow); transition: border-color 0.15s; }}
+.product-tile:hover {{ border-color: var(--blue); }}
+.product-tile-link {{ display: flex; flex-direction: column; flex-grow: 1; text-decoration: none; color: var(--ink); }}
+.product-tile-image {{ aspect-ratio: 4 / 3; background: var(--mist); display: flex; align-items: center; justify-content: center; padding: 18px; box-sizing: border-box; }}
+.product-tile-image.has-photo {{ background: white; }}
+.product-tile-image img {{ max-width: 100%; max-height: 100%; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%); mask-image: radial-gradient(closest-side, black 85%, transparent 100%); }}
+.product-tile-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }}
+.product-tile-body {{ padding: 14px 16px 4px; flex-grow: 1; display: flex; flex-direction: column; }}
+.product-tile-price {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-top: auto; padding-top: 10px; }}
+.product-tile-manufacturer {{ padding: 0 16px 12px; font-size: 0.78rem; color: var(--muted); }}
+.product-tile-manufacturer a {{ color: var(--blue); text-decoration: none; }}
+.product-tile-manufacturer a:hover {{ text-decoration: underline; }}
+.product-tile-cta {{ display: block; margin-top: auto; padding: 10px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.85rem; font-weight: 600; }}
 </style>
 </head>
 <body>
@@ -2144,7 +2164,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     <h2 id="result-count">{len(products)} produkter</h2>
   </div>
 
-  <div id="product-list" class="brand-grid">
+  <div id="product-list" class="product-tile-grid">
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -2169,7 +2189,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     btn.classList.add('active');
     const category = btn.dataset.category;
     let visible = 0;
-    list.querySelectorAll('.brand-card').forEach(card => {{
+    list.querySelectorAll('.product-tile').forEach(card => {{
       const show = category === 'all' || card.dataset.category === category;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
@@ -4703,7 +4723,6 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
-            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
@@ -5032,7 +5051,6 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(p["offers"])} forhandlere</div>'
-            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/{solution_category}/{p["brand_slug"]}/{p["slug"]}/'
@@ -5147,7 +5165,6 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         price_block = (
             f'<div class="price-label">Fra</div><div class="price-value" style="color:var(--mint);">{_fmt_kr(lowest["total"])}</div>'
             f'<div class="retailer-count">{len(real_product["offers"])} forhandlere</div>'
-            + ('<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if lowest["is_stale"] else "")
             if lowest else '<div class="retailer-count">Ingen tilbud tilgjengelig</div>'
         )
         href = f'/private-label/{escape(label["slug"])}/'
