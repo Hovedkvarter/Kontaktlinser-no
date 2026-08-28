@@ -733,8 +733,9 @@ a { color: inherit; }
     return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
   }
   function shippingNote(shipping, policy) {
+    if (!policy) return 'Frakt beregnes i kassen';
     if (shipping <= 0) {
-      if (policy && policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
+      if (policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
       return 'Gratis frakt';
     }
     return fmtKr(shipping) + ' frakt';
@@ -866,7 +867,7 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: 4 timer siden</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt over 500 kr</span></div>
     <a class="price-pill" href="https://www.coptikk.no/linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-90-linser" rel="nofollow" aria-label="Gå til Coptikk for Acuvue Oasys 1-Day for Astigmatism 90-pack, 1 049 kr">1 049 kr</a>
   </div>
 </div>

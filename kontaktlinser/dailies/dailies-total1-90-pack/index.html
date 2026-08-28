@@ -780,8 +780,9 @@ a { color: inherit; }
     return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
   }
   function shippingNote(shipping, policy) {
+    if (!policy) return 'Frakt beregnes i kassen';
     if (shipping <= 0) {
-      if (policy && policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
+      if (policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
       return 'Gratis frakt';
     }
     return fmtKr(shipping) + ' frakt';
@@ -923,7 +924,7 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: 4 timer siden</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt over 700 kr</span></div>
     <a class="price-pill" href="https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LDT2)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FDagslinser%2FDailies-Total1-90p.htm%3FsClickID%3DTradeDoubler-1-3)" rel="sponsored nofollow" aria-label="Gå til Shopping4net for Dailies Total1 90-pack, 949 kr">949 kr</a>
   </div>
 </div>
@@ -933,7 +934,7 @@ a { color: inherit; }
     <div class="offer-meta">Sist oppdatert: 4 timer siden</div>
   </div>
   <div class="offer-price-col">
-    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
+    <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt over 900 kr</span></div>
     <a class="price-pill" href="https://track.adtraction.com/t/t?a=1487383541&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=Dailies+Total+1+90+stk&amp;fid=1650&amp;url=https://extraoptical.no/dailies-total1-90-stk" rel="sponsored nofollow" aria-label="Gå til Extra Optical for Dailies Total1 90-pack, 1 005 kr">1 005 kr</a>
   </div>
 </div>
