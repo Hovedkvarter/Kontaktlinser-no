@@ -1599,7 +1599,7 @@ PENCIL_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" a
 TROPHY_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>'
 
 
-def render_offer_card(o: dict, retailer: str) -> str:
+def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
         else '<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if o["is_stale"]
@@ -1617,7 +1617,10 @@ def render_offer_card(o: dict, retailer: str) -> str:
     # etterprøvbart uten at hvert enkelt kort må gjenta regnestykket.
     shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Gratis frakt"
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
-    price_label = f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
+    price_label = (
+        f'Gå til {escape(retailer)} for {escape(product_name)}, {_fmt_kr(o["price_nok"])}'
+        if product_name else f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
+    )
 
     return f"""<div class="{css_class}" data-retailer="{escape(retailer)}">
   <div class="offer-main">
@@ -1636,6 +1639,7 @@ _QTY_CALC_SCRIPT = r"""<script>
   var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
+  var productName = dataEl.getAttribute('data-product-name') || '';
   var pills = document.querySelectorAll('.qty-pill');
   var customRow = document.getElementById('qty-custom-row');
   var customInput = document.getElementById('qty-custom-input');
@@ -1702,6 +1706,7 @@ _QTY_CALC_SCRIPT = r"""<script>
       pricePill.textContent = fmtKr(best.total);
       pricePill.setAttribute('href', best.o.url);
       pricePill.setAttribute('rel', best.o.rel);
+      pricePill.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
     }
 
     if (offersList && offerCards.length) {
@@ -1711,7 +1716,10 @@ _QTY_CALC_SCRIPT = r"""<script>
         var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        if (pricePillEl) {
+          pricePillEl.textContent = fmtKr(r.productTotal);
+          pricePillEl.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
+        }
         var shipTextEl = card.querySelector('.offer-shipping-text');
         if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
         var isWinner = !!(best && r.o.retailer === best.o.retailer);
@@ -1800,7 +1808,7 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict]) -> str:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None) -> str:
     """Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
     banneren: viser billigste totalpris for valgt antall esker, med en
     kompakt antallsvelger (1/2/4/6/10/eget antall) som regner om vinneren
@@ -1820,6 +1828,10 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
 
     rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
     shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
+    winner_aria = (
+        f'Gå til {escape(best["retailer"])} for {escape(product_name)}, {_fmt_kr(best["total"])} totalt inkl. frakt'
+        if product_name else f'Gå til {escape(best["retailer"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
+    )
 
     winner_band = f"""<div class="winner-band">
   <div class="winner-left">
@@ -1831,7 +1843,7 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
     </div>
   </div>
   <div class="winner-price-group">
-    <a class="price-pill is-winner" id="winner-price-pill" href="{escape(best["url"])}" rel="{rel}">{_fmt_kr(best["total"])}</a>
+    <a class="price-pill is-winner" id="winner-price-pill" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}">{_fmt_kr(best["total"])}</a>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
 </div>"""
@@ -1889,7 +1901,7 @@ def render_winner_widget(best: dict, offers: list[dict]) -> str:
     <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   {static_fallback_html}
-  <script type="application/json" id="qty-offers-data">{calc_offers_json}</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}">{calc_offers_json}</script>
   {_QTY_CALC_SCRIPT}"""
 
     return winner_band + "\n" + qty_box
@@ -2060,7 +2072,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = f'<img src="{escape(image_url)}" alt="{escape(product["name"])}" loading="lazy">' if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -2071,7 +2083,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
 </section>"""
 
-    best_band = render_winner_widget(best, offers)
+    best_band = render_winner_widget(best, offers, product["name"])
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     # "price" er produktprisen alene, ikke fraktinkludert totalsum -- ellers
@@ -5160,7 +5172,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
     long_description = product.get("long_description", product.get("description", ""))
     cat_slug = product["solution_category"]
     cat = SOLUTION_CATEGORIES[cat_slug]
@@ -5183,7 +5195,8 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
             f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
             else "Gratis frakt"
         )
-        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}">
+        best_price_aria = f'Gå til {escape(best["retailer"])} for {escape(product["name"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
+        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}" aria-label="{best_price_aria}">
   <div class="label-group">
     <div class="label">Laveste totalpris</div>
     <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
@@ -5592,7 +5605,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"]) for o in offers)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], real_product["name"]) for o in offers)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -5628,7 +5641,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    best_band = render_winner_widget(best, offers)
+    best_band = render_winner_widget(best, offers, real_product["name"])
 
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
