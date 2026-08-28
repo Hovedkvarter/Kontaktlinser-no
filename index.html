@@ -132,9 +132,55 @@ a { color: inherit; }
 .mega-col-title { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
 .mega-menu-link { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 7px 10px; margin: 0 -10px; border-radius: 8px; transition: background 0.12s ease, color 0.12s ease; }
 .mega-menu-link:hover { background: var(--mist); color: var(--blue); }
-.mega-menu-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.66rem; }
 .mega-see-all { display: block; text-align: center; margin: 10px 0 0; padding: 10px 16px; border-radius: 999px; background: var(--blue); color: white !important; font-weight: 700; }
 .mega-see-all:hover { background: var(--blue-dark); color: white !important; }
+.mega-menu-rich { width: min(94vw, 380px); padding: 20px; }
+.mega-rich-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 16px; }
+@media (min-width: 700px) {
+  /* Hver variant er bredden dens egne kolonner faktisk trenger -- IKKE én
+     felles bredde for alle tre, det tvang de to smalere menyene (Merker,
+     Guider) unødvendig brede og økte risikoen for at de skjøt utenfor
+     viewport ved 1024px (nedre støttede breddegrense), siden posisjonen
+     deres i navigasjonen varierer. */
+  .mega-menu-rich:has(.mega-rich-grid-3col) { width: 720px; }
+  .mega-menu-rich:has(.mega-rich-grid-2col) { width: 580px; }
+  .mega-menu-rich:has(.mega-rich-grid-3col-plain) { width: 540px; }
+  .mega-rich-grid-3col { grid-template-columns: 190px 210px 230px; }
+  .mega-rich-grid-2col { grid-template-columns: 220px 1fr; }
+  .mega-rich-grid-3col-plain { grid-template-columns: repeat(3, 150px); gap: 18px; }
+}
+.mega-rich-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mega-panel-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
+.mega-panel-heading { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--ink); margin: 4px 0 0; }
+.mega-panel-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
+.mega-type-row { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 8px 10px; margin: 0 -10px; border-radius: 10px; transition: background 0.12s ease; }
+.mega-type-row:hover { background: var(--mist); }
+.mega-type-row-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.mega-type-row-icon svg { width: 18px; height: 18px; }
+.mega-type-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mega-type-row-label { font-weight: 600; font-size: 0.87rem; }
+.mega-type-row-desc { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+.mega-type-row-chevron { flex-shrink: 0; width: 15px; height: 15px; color: var(--muted); }
+.mega-brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mega-brand-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; transition: border-color 0.15s; text-align: center; }
+.mega-brand-card:hover { border-color: var(--blue); }
+.mega-brand-card-logo { display: flex; align-items: center; justify-content: center; width: 100%; height: 30px; }
+.mega-brand-card-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.mega-brand-card-logo.has-logo-dark { background: var(--ink); border-radius: 6px; padding: 4px; }
+.mega-brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); }
+.mega-brand-card-name { font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+.mega-promo-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 150px; border-radius: 14px; background-size: cover; background-position: center; padding: 16px; color: white; text-decoration: none; }
+.mega-promo-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
+.mega-promo-text { font-size: 0.78rem; opacity: 0.92; margin-top: 4px; }
+.mega-promo-cta { display: inline-block; margin-top: 10px; background: white; color: var(--blue); font-weight: 700; font-size: 0.78rem; padding: 7px 12px; border-radius: 999px; width: fit-content; }
+.mega-link-row { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); padding: 7px 10px; margin: 0 -10px; border-radius: 8px; transition: background 0.12s ease; }
+.mega-link-row:hover { background: var(--mist); }
+.mega-link-row-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; }
+.mega-link-row-icon svg { width: 14px; height: 14px; }
+.mega-link-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mega-link-row-label { font-size: 0.83rem; font-weight: 600; }
+.mega-link-row-sub { font-size: 0.7rem; color: var(--muted); }
+.mega-link-row-chevron { flex-shrink: 0; width: 14px; height: 14px; color: var(--muted); }
 @media (hover: hover) {
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 }
@@ -367,25 +413,90 @@ a { color: inherit; }
   <nav class="topbar-nav">
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Kontaktlinser <span class="nav-caret">▾</span></button>
-      <div class="mega-menu">
-        <div class="mega-menu-cols">
-          <div class="mega-col">
-            <div class="mega-col-title">Type</div>
-            <a class="mega-menu-link" href="/kontaktlinser/dagslinser/">Dagslinser</a>
-            <a class="mega-menu-link" href="/kontaktlinser/manedslinser/">Månedslinser</a>
-            <a class="mega-menu-link" href="/kontaktlinser/toriske-linser/">Toriske linser</a>
-            <a class="mega-menu-link" href="/kontaktlinser/multifokale-linser/">Multifokale linser</a>
-            <a class="mega-menu-link" href="/kontaktlinser/fargede-linser/">Fargede linser</a>
-            <a class="mega-menu-link" href="/private-label/">Optikerkjedenes varemerker</a>
+      <div class="mega-menu mega-menu-rich">
+        <div class="mega-rich-grid mega-rich-grid-3col">
+          <div class="mega-rich-col">
+            <div class="mega-panel-kicker">Finn kontaktlinser</div>
+            <div class="mega-panel-heading">Velg riktig linsetype for dine behov</div>
+            <div class="mega-col-title" style="margin-top:18px;">Etter type</div>
+            <a class="mega-type-row" href="/kontaktlinser/dagslinser/">
+          <span class="mega-type-row-icon" style="background:var(--amber-tint);color:var(--amber);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg></span>
+          <span class="mega-type-row-text"><span class="mega-type-row-label">Dagslinser</span><span class="mega-type-row-desc">Friske linser hver dag</span></span>
+          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-type-row" href="/kontaktlinser/manedslinser/">
+          <span class="mega-type-row-icon" style="background:var(--blue-tint);color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span>
+          <span class="mega-type-row-text"><span class="mega-type-row-label">Månedslinser</span><span class="mega-type-row-desc">Populær og kostnadseffektiv</span></span>
+          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-type-row" href="/kontaktlinser/toriske-linser/">
+          <span class="mega-type-row-icon" style="background:var(--sky-tint);color:var(--sky);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6"/></svg></span>
+          <span class="mega-type-row-text"><span class="mega-type-row-label">Toriske linser</span><span class="mega-type-row-desc">For deg med astigmatisme</span></span>
+          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-type-row" href="/kontaktlinser/fargede-linser/">
+          <span class="mega-type-row-icon" style="background:var(--lavender-tint);color:var(--lavender);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none" opacity="0.35"/></svg></span>
+          <span class="mega-type-row-text"><span class="mega-type-row-label">Fargede linser</span><span class="mega-type-row-desc">Endre eller forsterk øyefargen</span></span>
+          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-type-row" href="/kontaktlinser/multifokale-linser/">
+          <span class="mega-type-row-icon" style="background:var(--coral-tint);color:var(--coral);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/></svg></span>
+          <span class="mega-type-row-text"><span class="mega-type-row-label">Multifokale linser</span><span class="mega-type-row-desc">For nær, mellom og fjern</span></span>
+          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
           </div>
-          <div class="mega-col">
-            <div class="mega-col-title">Merke</div>
-            <a class="mega-menu-link" href="/merke/biofinity/"><span class="mega-menu-icon">BI</span>Biofinity</a>
-            <a class="mega-menu-link" href="/merke/acuvue/"><span class="mega-menu-icon">AC</span>Acuvue</a>
-            <a class="mega-menu-link" href="/merke/air-optix/"><span class="mega-menu-icon">AI</span>Air Optix</a>
-            <a class="mega-menu-link" href="/merke/dailies/"><span class="mega-menu-icon">DA</span>Dailies</a>
-            <a class="mega-menu-link" href="/merke/precision1/"><span class="mega-menu-icon">PR</span>Precision1</a>
-            <a class="mega-menu-link" href="/merke/biotrue/"><span class="mega-menu-icon">BI</span>Biotrue</a>
+          <div class="mega-rich-col">
+            <div class="mega-col-title">Populære merker</div>
+            <div class="mega-brand-grid">
+              <a class="mega-brand-card" href="/merke/biofinity/">
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Biofinity</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/acuvue/">
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Acuvue</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/air-optix/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Air Optix</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/dailies/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Dailies</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/precision1/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Precision1</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/biotrue/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Biotrue</span>
+        </a>
+            </div>
+            <a class="mega-menu-link mega-see-all" href="/#merker">Se alle merker →</a>
+          </div>
+          <div class="mega-rich-col">
+            <a class="mega-promo-card" href="/guide/hvordan-velge-kontaktlinser/" style="background-image:linear-gradient(180deg, rgba(11,37,69,0.1), rgba(11,37,69,0.82)), url('/static/hero-eye.jpg');">
+              <span class="mega-promo-title">Finn den perfekte linsen for deg</span>
+              <span class="mega-promo-text">Sammenlign priser fra norske nettbutikker</span>
+              <span class="mega-promo-cta">Utforsk guiden →</span>
+            </a>
+            <div class="mega-col-title" style="margin-top:18px;">Nyttig å vite</div>
+            <a class="mega-link-row" href="/private-label/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Optikerkjedenes varemerker</span><span class="mega-link-row-sub">Samme linse, andre navn</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-link-row" href="/guide/hvordan-velge-kontaktlinser/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Hvordan velge riktig linse?</span><span class="mega-link-row-sub">Guide</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-link-row" href="/guide/kontaktlinseabonnement-vs-kjope-selv/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Linseabonnement</span><span class="mega-link-row-sub">Abonnement vs. kjøpe selv</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
           </div>
         </div>
         <a class="mega-menu-link mega-see-all" href="/#kategorier">Se alle kontaktlinser →</a>
@@ -393,22 +504,72 @@ a { color: inherit; }
     </div>
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Merker <span class="nav-caret">▾</span></button>
-      <div class="mega-menu">
-        <div class="mega-col">
-          <a class="mega-menu-link" href="/merke/biofinity/"><span class="mega-menu-icon">BI</span>Biofinity</a>
-            <a class="mega-menu-link" href="/merke/acuvue/"><span class="mega-menu-icon">AC</span>Acuvue</a>
-            <a class="mega-menu-link" href="/merke/air-optix/"><span class="mega-menu-icon">AI</span>Air Optix</a>
-            <a class="mega-menu-link" href="/merke/dailies/"><span class="mega-menu-icon">DA</span>Dailies</a>
-            <a class="mega-menu-link" href="/merke/precision1/"><span class="mega-menu-icon">PR</span>Precision1</a>
-            <a class="mega-menu-link" href="/merke/biotrue/"><span class="mega-menu-icon">BI</span>Biotrue</a>
-          <a class="mega-menu-link mega-see-all" href="/#merker">Se alle merker →</a>
+      <div class="mega-menu mega-menu-rich">
+        <div class="mega-rich-grid mega-rich-grid-2col">
+          <div class="mega-rich-col">
+            <div class="mega-panel-kicker">Merker</div>
+            <div class="mega-panel-heading">Bla i alle kontaktlinsemerker</div>
+            <p class="mega-panel-text">Utforsk populære merker, eller søk etter produsent.</p>
+            <div class="mega-col-title" style="margin-top:18px;">Bla etter produsent</div>
+            <a class="mega-link-row" href="/produsent/coopervision/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">CooperVision</span><span class="mega-link-row-sub">Se merkene →</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-link-row" href="/produsent/alcon/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Alcon</span><span class="mega-link-row-sub">Se merkene →</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-link-row" href="/produsent/bausch-lomb/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Bausch + Lomb</span><span class="mega-link-row-sub">Se merkene →</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+        <a class="mega-link-row" href="/produsent/jnj-vision/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Johnson & Johnson Vision</span><span class="mega-link-row-sub">Se merkene →</span></span>
+          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+        </a>
+          </div>
+          <div class="mega-rich-col">
+            <div class="mega-col-title">Populære merker</div>
+            <div class="mega-brand-grid">
+              <a class="mega-brand-card" href="/merke/biofinity/">
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Biofinity</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/acuvue/">
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Acuvue</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/air-optix/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Air Optix</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/dailies/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Dailies</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/precision1/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Precision1</span>
+        </a>
+        <a class="mega-brand-card" href="/merke/biotrue/">
+          <span class="mega-brand-card-logo has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-name">Biotrue</span>
+        </a>
+            </div>
+          </div>
         </div>
+        <a class="mega-menu-link mega-see-all" href="/#merker">Se alle merker →</a>
       </div>
     </div>
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Tilbehør <span class="nav-caret">▾</span></button>
       <div class="mega-menu">
         <div class="mega-col">
+          <div class="mega-col-title">Kategori</div>
           <a class="mega-menu-link" href="/linsevaeske/">Linsevæske</a>
           <a class="mega-menu-link" href="/oyedraper/">Øyedråper</a>
         </div>
@@ -416,14 +577,31 @@ a { color: inherit; }
     </div>
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Guider <span class="nav-caret">▾</span></button>
-      <div class="mega-menu">
-        <div class="mega-col">
-          <a class="mega-menu-link" href="/guide/hvorfor-bruke-kontaktlinser/">Hvorfor bruke kontaktlinser</a>
-          <a class="mega-menu-link" href="/guide/manedslinser-vs-dagslinser/">Dagslinser vs. månedslinser</a>
-          <a class="mega-menu-link" href="/guide/kontaktlinser-med-astigmatisme/">Toriske linser og astigmatisme</a>
-          <a class="mega-menu-link" href="/guide/forsta-kontaktlinseresepten/">Slik leser du kontaktlinseresepten</a>
-          <a class="mega-menu-link mega-see-all" href="/guider/">Se alle guider →</a>
+      <div class="mega-menu mega-menu-rich">
+        <div class="mega-rich-grid mega-rich-grid-3col-plain">
+          <div class="mega-rich-col">
+            <div class="mega-col-title">Kom i gang</div>
+            <a class="mega-menu-link" href="/guide/hvordan-velge-kontaktlinser/">Hvordan velge riktig linse</a>
+            <a class="mega-menu-link" href="/guide/hvordan-bruke-kontaktlinser/">Slik bruker du kontaktlinser</a>
+            <a class="mega-menu-link" href="/guide/hvorfor-bruke-kontaktlinser/">Hvorfor bruke kontaktlinser</a>
+            <a class="mega-menu-link" href="/guide/kontaktlinser-for-barn/">Kontaktlinser for barn</a>
+          </div>
+          <div class="mega-rich-col">
+            <div class="mega-col-title">Linseguider</div>
+            <a class="mega-menu-link" href="/guide/manedslinser-vs-dagslinser/">Dagslinser vs. månedslinser</a>
+            <a class="mega-menu-link" href="/guide/kontaktlinser-med-astigmatisme/">Toriske linser og astigmatisme</a>
+            <a class="mega-menu-link" href="/guide/multifokale-kontaktlinser/">Multifokale linser</a>
+            <a class="mega-menu-link" href="/guide/harde-eller-myke-linser/">Harde eller myke linser</a>
+          </div>
+          <div class="mega-rich-col">
+            <div class="mega-col-title">Øyehelse</div>
+            <a class="mega-menu-link" href="/guide/vedlikehold-av-kontaktlinser/">Vedlikehold og hygiene</a>
+            <a class="mega-menu-link" href="/guide/kontaktlinser-og-torre-oyne/">Tørre øyne</a>
+            <a class="mega-menu-link" href="/guide/rode-oyne-og-svie-med-kontaktlinser/">Røde øyne og svie</a>
+            <a class="mega-menu-link" href="/guide/kan-jeg-bytte-kontaktlinsemerke-selv/">Bytte linsemerke selv</a>
+          </div>
         </div>
+        <a class="mega-menu-link mega-see-all" href="/guider/">Se alle guider →</a>
       </div>
     </div>
   </nav>
