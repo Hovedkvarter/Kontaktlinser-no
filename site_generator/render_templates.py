@@ -2196,6 +2196,18 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         ) + "]"
 
     long_description = product.get("long_description", product["description"])
+    # Meta-beskrivelsen skal lede med selve sammenligningen (pris/butikker),
+    # ikke produktets materialbeskrivelse -- et ekte Google-treff (vist av
+    # brukeren 2026-08-28) viste linsemateriale/UV-filter-tekst i stedet for
+    # pris, mens et annet treff for en annen linse fikk Google til å
+    # generere en pris-ledet snippet selv (fra ai_summary-avsnittet lenger
+    # ned på siden) -- ustabilt, siden det er opp til Google om den
+    # omskriver. Gir Google et sterkt, riktig signal direkte i meta-taggen
+    # i stedet for å stole på at den finner riktig avsnitt selv.
+    meta_description = (
+        f'Vi sammenligner priser på {product["name"]} fra {len(product["offers"])} norske nettbutikker. '
+        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
+    ) if best else long_description[:155]
 
     manufacturer_slug = BRAND_TO_MANUFACTURER.get(product["brand_slug"])
     manufacturer_link_html = (
@@ -2344,9 +2356,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
-<meta name="description" content="{escape(long_description[:155])}">
+<meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
-{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
+{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -5253,6 +5265,12 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     best = next((o for o in offers if o["is_lowest"]), None)
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
     long_description = product.get("long_description", product.get("description", ""))
+    # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
+    # lede med selve prissammenligningen, ikke produktbeskrivelsen.
+    meta_description = (
+        f'Vi sammenligner priser på {product["name"]} fra {len(product["offers"])} norske nettbutikker. '
+        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
+    ) if best else long_description[:155]
     cat_slug = product["solution_category"]
     cat = SOLUTION_CATEGORIES[cat_slug]
     base_url_path = f"/{cat_slug}/{product['brand_slug']}/{product['slug']}/"
@@ -5382,9 +5400,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
-<meta name="description" content="{escape(long_description[:155])}">
+<meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
-{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
+{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
