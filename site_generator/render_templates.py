@@ -142,6 +142,26 @@ a { color: inherit; }
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 }
 .nav-item.is-open .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
+/* Under 700px er .mega-menu ellers venstre-forankret til SIN EGEN
+   nav-item-knapp (position:absolute; left:0 relative til .nav-item) -- for
+   en knapp langt til høyre i navigasjonen (f.eks. "Guider") skyter en
+   380-720px bred meny da langt utenfor et ~360-400px mobilvindu. Låser i
+   stedet menyen til viewporten med position:fixed og faste sidemarger, og
+   JS-en i TOPBAR_HTML sitt <script> (closeAll()/trigger-click) setter
+   inline top= like under selve topbaren ved åpning -- position:fixed sin
+   top er alltid viewport-relativ, så getBoundingClientRect().bottom
+   fungerer uendret uansett scroll-posisjon. top:70px under er kun et
+   statisk fallback-tall for det (usannsynlige) tilfellet JS ikke kjører.
+   Klarer nav-item bevisst IKKE position:static her -- feil forankrings-
+   kontekst ville kun flyttet problemet et hakk (fortsatt konteksten til
+   den enkelte knappen), position:fixed løser det uansett hvilken knapp
+   som er trigger. */
+@media (max-width: 699px) {
+  .mega-menu, .mega-menu-rich {
+    position: fixed; left: 12px; right: 12px; top: 70px; width: auto; max-width: none;
+    max-height: calc(100vh - 90px); overflow-y: auto; padding: 16px;
+  }
+}
 .breadcrumb { font-size: 0.8rem; color: var(--muted); margin: 4px 0 20px; }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
@@ -150,16 +170,12 @@ a { color: inherit; }
 .hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
 .hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
-.best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; text-decoration: none; color: inherit; }
-.best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
-.best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
-.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
-.best-price-band .price-group { text-align: right; }
-.best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
-.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
+.offer-card:hover, .offer-card:focus-visible { border-color: var(--blue); }
+.offer-card.is-lowest:hover, .offer-card.is-lowest:focus-visible { border-color: var(--mint); }
+.offer-card:hover .price-pill, .offer-card:focus-visible .price-pill { opacity: 0.88; }
 .product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
@@ -167,7 +183,6 @@ a { color: inherit; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
-.best-price-band .retailer-logo { height: 22px; max-width: 110px; }
 .brand-card-badge.has-logo, .brand-card-badge.has-logo-dark { width: 52px; border-radius: 8px; padding: 4px; }
 .brand-card-badge.has-logo { background: white; }
 .brand-card-badge.has-logo-dark { background: var(--ink); }
@@ -682,11 +697,14 @@ TOPBAR_HTML = f"""<div class="topbar">
 <script>
 (function () {{
   var items = document.querySelectorAll('.nav-item');
+  var topbarEl = document.querySelector('.topbar');
   function closeAll() {{
     for (var i = 0; i < items.length; i++) {{
       items[i].classList.remove('is-open');
       var t = items[i].querySelector('.nav-trigger');
       if (t) t.setAttribute('aria-expanded', 'false');
+      var m = items[i].querySelector('.mega-menu');
+      if (m) m.style.top = '';
     }}
   }}
   for (var i = 0; i < items.length; i++) {{
@@ -699,6 +717,15 @@ TOPBAR_HTML = f"""<div class="topbar">
         if (!isOpen) {{
           item.classList.add('is-open');
           trigger.setAttribute('aria-expanded', 'true');
+          // Kun under 700px-brytpunktet (se .mega-menu sin @media (max-width:
+          // 699px) i SHARED_STYLE) -- der er menyen position:fixed og trenger
+          // en presis top= like under topbaren, siden CSS-en sitt statiske
+          // fallback-tall (70px) ikke tar høyde for at logo+navigasjon kan
+          // brytes til to linjer på svært smale skjermer.
+          if (topbarEl && window.innerWidth < 700) {{
+            var menu = item.querySelector('.mega-menu');
+            if (menu) menu.style.top = (topbarEl.getBoundingClientRect().bottom + 8) + 'px';
+          }}
         }}
       }});
     }})(items[i]);
@@ -1629,16 +1656,20 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
         if product_name else f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
     )
 
-    return f"""<div class="{css_class}" data-retailer="{escape(retailer)}">
+    # Hele kortet er selve lenken (ikke bare pris-pillen) -- små knapper er
+    # vonde touch-mål på mobil, og det gir uansett bare ett meningsfullt sted
+    # å klikke per rad. price-pill er derfor et <span>, ikke en egen <a> --
+    # nøstede <a>-tagger er ugyldig HTML og ville brutt visningen.
+    return f"""<a class="{css_class}" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}" data-retailer="{escape(retailer)}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping">{TRUCK_ICON_SVG}<span class="offer-shipping-text">{escape(shipping_text)}</span></div>
-    <a class="price-pill" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}">{_fmt_kr(o["price_nok"])}</a>
+    <span class="price-pill">{_fmt_kr(o["price_nok"])}</span>
   </div>
-</div>"""
+</a>"""
 
 
 _QTY_CALC_SCRIPT = r"""<script>
@@ -1647,12 +1678,15 @@ _QTY_CALC_SCRIPT = r"""<script>
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
   var productName = dataEl.getAttribute('data-product-name') || '';
+  var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
+  var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
   var pills = document.querySelectorAll('.qty-pill');
   var customRow = document.getElementById('qty-custom-row');
   var customInput = document.getElementById('qty-custom-input');
   var labelEl = document.getElementById('winner-label');
   var retailerEl = document.getElementById('winner-retailer');
   var shippingEl = document.getElementById('winner-shipping');
+  var winnerLink = document.getElementById('winner-band-link');
   var pricePill = document.getElementById('winner-price-pill');
 
   function computeShipping(productTotal, policy) {
@@ -1708,13 +1742,15 @@ _QTY_CALC_SCRIPT = r"""<script>
       if (r.o.in_stock && (!best || r.total < best.total)) best = r;
     }
     if (best) {
-      labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
+      labelEl.textContent = 'Billigst akkurat nå for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
       retailerEl.innerHTML = retailerBadge(best.o);
       shippingEl.textContent = shippingNote(best.shipping, best.o.shipping_policy);
       pricePill.textContent = fmtKr(best.total);
-      pricePill.setAttribute('href', best.o.url);
-      pricePill.setAttribute('rel', best.o.rel);
-      pricePill.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
+      // winner-band-link ER lenken (se render_winner_widget) -- href/rel/
+      // aria-label hører hjemme der, ikke på price-pill-spannet inni.
+      winnerLink.setAttribute('href', best.o.url);
+      winnerLink.setAttribute('rel', best.o.rel);
+      winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
     }
 
     if (offersList && offerCards.length) {
@@ -1724,10 +1760,10 @@ _QTY_CALC_SCRIPT = r"""<script>
         var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) {
-          pricePillEl.textContent = fmtKr(r.productTotal);
-          pricePillEl.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
-        }
+        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        // card ER lenken (se render_offer_card) -- aria-label hører hjemme
+        // på card selv, ikke på price-pill-spannet inni.
+        card.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
         var shipTextEl = card.querySelector('.offer-shipping-text');
         if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
         var isWinner = !!(best && r.o.retailer === best.o.retailer);
@@ -1810,7 +1846,8 @@ METHODOLOGY_HTML = """<div class="methodology">
 # Delt mellom produktsider og private-label-sider, slik at "billigst akkurat
 # nå"-widgeten ser identisk ut begge steder (se render_winner_widget).
 WINNER_WIDGET_STYLE = """
-.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; text-decoration: none; color: inherit; }
+.winner-band:hover, .winner-band:focus-visible { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .winner-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .winner-trophy { width: 44px; height: 44px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .winner-trophy svg { width: 22px; height: 22px; color: var(--mint); }
@@ -1842,21 +1879,25 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None) -> str:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker") -> str:
     """Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
-    banneren: viser billigste totalpris for valgt antall esker, med en
+    banneren: viser billigste totalpris for valgt antall enheter, med en
     kompakt antallsvelger (1/2/4/6/10/eget antall) som regner om vinneren
-    live via JS.
+    live via JS. unit_singular/unit_plural lar kontaktlinse-sider si "eske"/
+    "esker" (standard) mens linsevæske-/øyedråpesider (render_solution_
+    product_page) sier "flaske"/"flasker" -- samme widget, samme trofé,
+    samme klikkbare heldekkende ramme, kun ordet for hva man kjøper flere av
+    er ulikt.
 
-    Standardtilstanden (1 eske) er ALLTID ekte, ferdig-rendret HTML, og det
+    Standardtilstanden (1 enhet) er ALLTID ekte, ferdig-rendret HTML, og det
     samme er 2/4/10-eksemplene i den statiske oppsummeringen under velgeren
     -- mange AI-crawlere (GPTBot, ClaudeBot, PerplexityBot m.fl.) kjører ikke
     JavaScript, og skal likevel kunne lese disse tallene rett i kildekoden.
 
     Fraktkostnaden regnes på nytt per antall (compute_shipping_nok), ikke
-    bare multiplisert med shipping_nok for én eske -- en fri-frakt-grense som
-    ikke er nådd ved 1 eske kan fint være nådd ved 4, og gir da en annen
-    vinner enn ved enkeltkjøp."""
+    bare multiplisert med shipping_nok for én enhet -- en fri-frakt-grense
+    som ikke er nådd ved 1 enhet kan fint være nådd ved 4, og gir da en
+    annen vinner enn ved enkeltkjøp."""
     if not best:
         return ""
 
@@ -1867,20 +1908,23 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         if product_name else f'Gå til {escape(best["retailer"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
     )
 
-    winner_band = f"""<div class="winner-band">
+    # Hele banneret er selve lenken (ikke bare pris-pillen) -- samme
+    # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
+    # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
+    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
-      <div class="label" id="winner-label">Billigst akkurat nå for 1 eske</div>
+      <div class="label" id="winner-label">Billigst akkurat nå for 1 {escape(unit_singular)}</div>
       <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
       <div class="winner-shipping" id="winner-shipping">{escape(shipping_note)}</div>
     </div>
   </div>
   <div class="winner-price-group">
-    <a class="price-pill is-winner" id="winner-price-pill" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}">{_fmt_kr(best["total"])}</a>
+    <span class="price-pill is-winner" id="winner-price-pill">{_fmt_kr(best["total"])}</span>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
-</div>"""
+</a>"""
 
     eligible = [o for o in offers if o["in_stock"]]
     if len(eligible) < 2:
@@ -1891,7 +1935,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
 
     pills = "".join(
-        f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{BOX_ICON_SVG}{qty}<span>{"eske" if qty == 1 else "esker"}</span></button>'
+        f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{BOX_ICON_SVG}{qty}<span>{escape(unit_singular) if qty == 1 else escape(unit_plural)}</span></button>'
         for qty in (1, 2, 4, 6, 10)
     )
     pills += f'<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">{PENCIL_ICON_SVG}Eget<span>antall</span></button>'
@@ -1902,7 +1946,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         qty_shipping = compute_shipping_nok(best_o["price_nok"] * qty, best_o.get("shipping_policy"))
         note = _shipping_note(qty_shipping, best_o.get("shipping_policy"))
         fallback_parts.append(
-            f'Ved {qty} esker: billigst hos {escape(best_o["retailer"])} – {_fmt_kr(total_for_qty(best_o, qty))} totalt inkl. frakt ({note.lower()}).'
+            f'Ved {qty} {escape(unit_plural)}: billigst hos {escape(best_o["retailer"])} – {_fmt_kr(total_for_qty(best_o, qty))} totalt inkl. frakt ({note.lower()}).'
         )
     static_fallback_html = f'<p class="qty-static-fallback">{" ".join(fallback_parts)}</p>'
 
@@ -1927,15 +1971,15 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
 
     qty_box = f"""<div class="qty-box">
-    <div class="qty-box-title">Hvor mange esker trenger du?</div>
+    <div class="qty-box-title">Hvor mange {escape(unit_plural)} trenger du?</div>
     <div class="qty-pills" id="qty-pills">{pills}</div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
-      <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
+      <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}">
     </div>
-    <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
+    <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere {escape(unit_plural)}, på grunn av ulike fraktgrenser.</span></p>
   </div>
   {static_fallback_html}
-  <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}">{calc_offers_json}</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
   {_QTY_CALC_SCRIPT}"""
 
     return winner_band + "\n" + qty_box
@@ -5223,26 +5267,12 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne akkurat nå. Prisene oppdateres hver 6. time.</p>
 </section>"""
 
-    best_band = ""
-    if best:
-        best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        if best.get("shipping_policy") is None:
-            best_price_note = "Frakt beregnes i kassen"
-        elif best["shipping_nok"] > 0:
-            best_price_note = f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt'
-        else:
-            best_price_note = "Gratis frakt"
-        best_price_aria = f'Gå til {escape(best["retailer"])} for {escape(product["name"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
-        best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}" aria-label="{best_price_aria}">
-  <div class="label-group">
-    <div class="label">Laveste totalpris</div>
-    <div class="retailer">{_retailer_badge_html(best["retailer"])}</div>
-  </div>
-  <div class="price-group">
-    <div class="price">{_fmt_kr(best["total"])}</div>
-    <div class="price-note">{escape(best_price_note)}</div>
-  </div>
-</a>"""
+    # Samme delte vinner-widget som render_product_page/render_private_label_page
+    # -- gir trofé-ikonet, heldekkende klikkbar ramme og antallsvelger også her
+    # (samme behandling for alle produkttyper). "flaske"/"flasker" i stedet for
+    # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
+    # kontaktlinseesker.
+    best_band = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker")
 
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
@@ -5359,6 +5389,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 {schema_json_html}
 {product_faq_schema}
 <style>{SHARED_STYLE}
+{WINNER_WIDGET_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
