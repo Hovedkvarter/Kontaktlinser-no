@@ -633,7 +633,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-max-1day.jpg"
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-30pk",
@@ -1167,7 +1168,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-multifocal.jpg"
     },
     {
       "id": "biofinity-multifocal-6pk",
@@ -4175,7 +4177,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-max-1day.jpg"
     },
     {
       "id": "biomedics-1day-xtra-90pk",
@@ -5939,7 +5942,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-multifocal-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-max-multifocal.jpg"
     },
     {
       "id": "acuvue-oasys-max-1day-multifocal-90pk",
@@ -5978,7 +5982,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-multifocal-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-max-multifocal.jpg"
     },
     {
       "id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
@@ -6016,7 +6021,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-max-1-day-multifocus-for-astigmatism-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-max-multifocal-astigmatism.jpg"
     },
     {
       "id": "dailies-all-day-comfort-30pk",

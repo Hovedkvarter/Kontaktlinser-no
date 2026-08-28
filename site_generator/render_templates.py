@@ -1567,6 +1567,19 @@ def pick_product_image(offers: list[dict]) -> str | None:
     return None
 
 
+def _product_image(product: dict) -> str | None:
+    """Et manuelt kuratert produsent-pressebilde (manual_image i
+    products_meta.json, se PRODUCT_IMAGES) vinner alltid over et
+    skrapet/feed-bilde -- egen research/nedlasting, høyere og mer
+    konsistent kvalitet enn det en tilfeldig forhandler sin feed gir.
+    Finnes ikke et manuelt bilde, faller vi tilbake til
+    pick_product_image() sin vanlige logikk."""
+    manual = product.get("manual_image")
+    if manual:
+        return manual
+    return pick_product_image(product["offers"])
+
+
 TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
 
 # Isometrisk eske-ikon (topp-flate + to sideflater med ulik opasitet for
@@ -2002,7 +2015,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    image_url = pick_product_image(product["offers"])
+    image_url = _product_image(product)
 
     pack_size_callout = ""
     parsed = _pack_size_from_id(product["id"])
@@ -2280,7 +2293,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         offers = reconcile_product(p["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
-        image_url = pick_product_image(p["offers"])
+        image_url = _product_image(p)
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
 
     rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
@@ -2541,7 +2554,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
             "name": p["name"],
             "meta": p["brand_label"],
             "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
-            "image": pick_product_image(p["offers"]),
+            "image": _product_image(p),
             "search": f'{p["name"]} {p["brand_label"]}'.lower(),
         }
 
@@ -4896,7 +4909,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
         offers = reconcile_product(p["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
-        image_url = pick_product_image(p["offers"])
+        image_url = _product_image(p)
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
 
     # Statisk render, sortert lavest-først som standard - dette er det AI-crawlere
@@ -5077,7 +5090,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     cat_slug = product["solution_category"]
     cat = SOLUTION_CATEGORIES[cat_slug]
     base_url_path = f"/{cat_slug}/{product['brand_slug']}/{product['slug']}/"
-    image_url = pick_product_image(product["offers"])
+    image_url = _product_image(product)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -5236,7 +5249,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
-        image_url = pick_product_image(p["offers"])
+        image_url = _product_image(p)
         # Linsevæsker/øyedråper-merker har ALDRI en egen /merke/{{slug}}/-side
         # (den bygges kun for linse-merker i generate_pages.py, bekreftet 0
         # overlapp mellom brand_slug-settene) -- ren tekst, ikke en lenke,
