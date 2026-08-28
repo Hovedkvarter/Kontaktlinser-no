@@ -4968,10 +4968,10 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(category["label"])} – Sammenlign priser | kontaktlinser.no</title>
+<title>Billige {escape(category["label"].lower())} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(category["intro"])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
-{_og_meta(f'{category["label"]} – Sammenlign priser | kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
+{_og_meta(f'Billige {category["label"].lower()} – Sammenlign priser | kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -5068,10 +5068,12 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 SOLUTION_CATEGORIES = {
     "linsevaeske": {
         "label": "Linsevæske",
+        "title_label": "Billig linsevæske",
         "intro": "Sammenlign priser på linsevæske fra Lenson, Lensway og Extra Optical. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
     },
     "oyedraper": {
         "label": "Øyedråper",
+        "title_label": "Billige øyedråper",
         "intro": "Sammenlign priser på øyedråper for tørre øyne fra Lenson og Lensway. Vi viser pris per 100 ml, slik at ulike flaskestørrelser er sammenlignbare.",
     },
 }
@@ -5290,10 +5292,10 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(cat["label"])} – Sammenlign priser | kontaktlinser.no</title>
+<title>{escape(cat["title_label"])} – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="{escape(cat["intro"])}">
 <link rel="canonical" href="{BASE_URL}/{solution_category}/">
-{_og_meta(f'{cat["label"]} – Sammenlign priser | kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
+{_og_meta(f'{cat["title_label"]} – Sammenlign priser | kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
