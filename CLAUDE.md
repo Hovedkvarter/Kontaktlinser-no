@@ -578,11 +578,16 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
     IKKE endret der ordet etter "–" er selve merkenavnet
     "kontaktlinser.no" (Guider/Om oss/404/Personvern-titlene) -- det er
     en bevisst, konsekvent brukt små bokstaver-stil brukt over 200+
-    steder på siden (forsidetittel, brødtekst, footer, llms.txt), og
-    Google har uansett ingen `og:site_name`/`WebSite`-schema å styres av
-    her -- det viste lille "kontaktlinser.no" øverst i Google-treff er
-    trolig hentet rett fra domenet, ikke fra title-taggen. Anbefaling:
-    IKKE endre denne -- brukeren informert, ikke gjort uten videre.
+    steder på siden (forsidetittel, brødtekst, footer, llms.txt).
+    **Rettelse 2026-08-28:** denne notisen var feil -- siden har faktisk
+    `og:site_name` (riktig "Kontaktlinser.no") og et `WebSite`-JSON-LD-
+    schema med samme navn, begge på plass allerede (se `_og_meta()` og
+    `FONT_LINKS` i `render_templates.py`). At Google likevel viser lille
+    "kontaktlinser.no" i SERP skyldes trolig bare indekserings-/cache-
+    forsinkelse (samme kategori forsinkelse som prisvisningen i søketreff,
+    se punktet om AI-oppsummeringen lenger ned) -- Google følger uansett
+    ikke `og:site_name` slavisk, det er ett av flere signaler. Ingen
+    kodeendring nødvendig, bare tid.
   - **Produktside-tittel:** vurderte å bake inn live laveste-pris i
     `<title>` (som i AI-verktøyets forslag), men avvist -- produktnavn
     varierer sterkt i lengde ("MyDay 30-pack" vs. "Dailies Total1 for
@@ -1163,6 +1168,68 @@ statusnotat:
   se egen vurdering: reelt gap i alle sjekkede konkurrenter (ingen siterer noen
   autoritativ kilde), men krever et cold-start uten den domene-historie-fordelen
   Norge har.
+
+## Dropdown-redesign, manuelt kuraterte produktbilder og prisvisning i søk (2026-08-28)
+
+- **Rike dropdown-menyer** i `TOPBAR_HTML`: Kontaktlinser/Merker/Guider fikk en
+  fullstendig redesignet meny basert på brukerens egne skisser (type-rader med
+  farge-ikoner, merke-logo-rutenett, promo-boks, "nyttig å vite"-lister) --
+  `BRAND_LOGOS`/`_brand_badge`/`CATEGORY_ICONS`/`CATEGORY_COLORS`/
+  `CATEGORY_TAGLINES` er flyttet til modulnivå (fra hhv. lenger ned i filen og
+  en lokal variabel i `render_home_page`) siden `TOPBAR_HTML` nå trenger dem.
+  Tilbehør-menyen er BEVISST holdt enkel (kun Linsevæske/Øyedråper, ingen
+  oppdiktede kategorier) til sortimentet faktisk utvides. Egen `.mega-type-row`-
+  klasse (ikke gjenbruk av `.category-row`) for å unngå at forsidens egen
+  `@media(1024px)`-variant utilsiktet trekkes inn i dropdownen siden
+  `TOPBAR_HTML` ligger på alle sider inkl. forsiden selv.
+- **Manuelt kuraterte produktbilder** (`manual_image`-felt i `products_meta.json`,
+  `_product_image()` i `render_templates.py` -- sjekkes FØR
+  `pick_product_image()`/feed-bilder): 159 produkter totalt, 57 manglet
+  lisensiert bilde (kun `affiliate_feed` teller som lisensiert). Første runde
+  dekket 6 av 7 manglende Acuvue-produkter med ekte pressebilder fra
+  acuvue.com, konvertert til komprimert JPEG i `static/products/`. **Viktig
+  lærdom:** stol ALDRI på filnavn/alt-tekst alene -- CooperVision.no sin
+  forbrukerside gjenbruker generiske livsstilsbilder med produktspesifikke
+  filnavn (fant og forkastet minst to feilmerkede bilder derfra). Visuell
+  verifisering i nettleseren er obligatorisk før nedlasting. Samme bilde
+  gjenbrukes bevisst for 30-/90-pakningssøsken av samme produktlinje der
+  emballasjen er identisk (samme praksis som lenspricer.no/godpris.no).
+  Resterende ~50 produkter (MIRU, Precision7, Clearlii, Clariti, Ultra, ReNu,
+  Opti-Free, Systane m.fl.) er IKKE dekket ennå -- fortsett samme metode.
+- **Tradedoubler-token rotert** (brukeren limte forrige token inn i en annen
+  AI-tjeneste): nytt token verifisert og oppdatert i `sources_config.json`
+  (16 forekomster, Shopping4net sine feed_urls). Lenson (`fid=9560`) og
+  Lensway (`fid=6884`) er godkjent som annonsører hos Tradedoubler, men
+  publisher-kontoen var pr. 2026-08-28 ikke koblet til feedene deres ennå
+  ("Requester is not connected to Feed") -- sjekk på nytt når brukeren sier
+  fra, samme JSON-API-format som Shopping4net forventes (`map_tradedoubler_row()`
+  bør fungere uendret, bare ny `fid` i `feed_urls`).
+- **AI-oppsummeringsboksen viser nå pris UTEN frakt som hovedtall** (både
+  `render_product_page()` og `render_solution_product_page()`), ikke totalpris
+  som før. Årsak: Google sin uthevede pris i søketreff (og trolig snutt-teksten)
+  hentes med stor sannsynlighet fra denne synlige boksen -- med totalpris som
+  hovedtall så vi konsekvent dyrere ut enn konkurrenter (Klarna, Prisjakt m.fl.)
+  i søkeresultatene selv når vi faktisk var billigst. Bekreftet mot Prisjakt.no
+  sitt eget mønster: pris uten frakt som standardtall, frakt vist synlig per
+  tilbud, egen "pris inkl. frakt"-sortering tilgjengelig. Samme forhandler som
+  resten av siden peker på som billigst (basert på total pris) beholdes --
+  bare hovedtallet i denne ene setningen endret til "fra {produktpris} kr
+  (ekskl. frakt)", med tydelig forbehold. Alt annet (badge, sortering,
+  best-price-band, full tilbudsliste) er UENDRET og viser fortsatt reell
+  totalpris inkl. frakt -- kjerneprinsippet står fast, bare "reklame"-tallet
+  i denne ene boksen er endret. AggregateOffer-schemaet (`lowPrice`/`highPrice`)
+  brukte forøvrig ALLEREDE `price_nok` uten frakt, det var kun denne synlige
+  boksen som var inkonsekvent med det.
+- **Google Shopping-panelet** (høyre side i søkeresultater, "Farmasiet 125 kr"
+  osv.) krever en egen Google Merchant Center-konto + produktfeed -- kommer
+  IKKE automatisk fra schema.org-markup på siden. Ikke bygget, egen
+  vurdering/prosjekt om ønskelig senere.
+- **`og:site_name`/`WebSite`-schema var allerede riktig satt opp** (se
+  `_og_meta()`/`FONT_LINKS`) -- en eldre notis i dette dokumentet (under
+  "Titler, synlig AI-oppsummeringsboks..." 2026-08-15) som påsto det motsatte
+  var feil, nå rettet. At Google likevel viser små bokstaver i SERP er trolig
+  bare indekserings-/cache-forsinkelse, samme kategori som prisvisnings-
+  forsinkelsen over -- ingen kodeendring nødvendig.
 
 ## Arbeidsspråk og autorisasjon
 
