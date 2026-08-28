@@ -2059,7 +2059,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -5094,7 +5094,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["total"])}</strong> hos {escape(best["retailer"])}. Kontaktlinser.no er en uavhengig sammenligningstjeneste og viser alltid den reelle totalprisen inkludert frakt.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
