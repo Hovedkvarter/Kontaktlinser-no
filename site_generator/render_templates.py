@@ -1780,6 +1780,22 @@ def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
     return f"{_fmt_kr(shipping_nok)} frakt"
 
 
+# Delt mellom kontaktlinse- og linsevæske/øyedråpe-produktsider -- teksten
+# handler om selve sammenligningsmotoren (produktpris/frakt/totalpris-
+# begrepene), ikke om noe produktspesifikt, så samme streng brukes ordrett
+# begge steder i stedet for å duplisere den.
+METHODOLOGY_HTML = """<div class="methodology">
+    <h2>Slik sammenligner vi priser</h2>
+    <dl>
+      <div class="methodology-row"><dt>Produktpris</dt><dd>Prisen butikken oppgir for selve produktet, uten frakt.</dd></div>
+      <div class="methodology-row"><dt>Frakt</dt><dd>Fraktkostnaden beregnes for antallet esker du har valgt. Dersom kjøpet kvalifiserer til fri frakt hos butikken, tar beregningen hensyn til dette.</dd></div>
+      <div class="methodology-row"><dt>Totalpris</dt><dd>Produktpris for valgt antall pluss eventuell frakt.</dd></div>
+      <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
+      <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres hver 6. time.</dd></div>
+    </dl>
+  </div>"""
+
+
 # Delt mellom produktsider og private-label-sider, slik at "billigst akkurat
 # nå"-widgeten ser identisk ut begge steder (se render_winner_widget).
 WINNER_WIDGET_STYLE = """
@@ -2243,17 +2259,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
 
-    methodology_html = """<div class="methodology">
-    <h2>Slik sammenligner vi priser</h2>
-    <dl>
-      <div class="methodology-row"><dt>Produktpris</dt><dd>Prisen butikken oppgir for selve produktet, uten frakt.</dd></div>
-      <div class="methodology-row"><dt>Frakt</dt><dd>Fraktkostnaden beregnes for antallet esker du har valgt. Dersom kjøpet kvalifiserer til fri frakt hos butikken, tar beregningen hensyn til dette.</dd></div>
-      <div class="methodology-row"><dt>Totalpris</dt><dd>Produktpris for valgt antall pluss eventuell frakt.</dd></div>
-      <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
-      <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres hver 6. time.</dd></div>
-    </dl>
-  </div>"""
-
     # "Relatert til X" -- kun ekte, entydige sider (søsken-pakninger, merke,
     # kategori, produsent), aldri en generisk lenkevegg av urelaterte merker
     # (se V1-spesifikasjonens Section 11/37 -- doorway-lenker er bevisst unngått).
@@ -2382,7 +2387,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {specs_html}
   {aliases_html}
   {product_faq_html}
-  {methodology_html}
+  {METHODOLOGY_HTML}
   {related_html}
 </div>
 {render_footer()}
@@ -5277,6 +5282,56 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 }}"""
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
+    # Samme dynamiske FAQ/Relatert-mønster som render_product_page, tilpasset
+    # linsevæske/øyedråper sin datamodell (size_ml i stedet for pakning med
+    # linseantall, ingen merkeside/produsentside å lenke til for disse
+    # merkene -- se egen kommentar i render_solution_category_page om
+    # hvorfor). "Hvor lenge varer" utelates bevisst -- vi har ikke pålitelig
+    # data på forbruk per dag for linsevæske/øyedråper.
+    product_faq: list[dict] = []
+    if best:
+        cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
+        if cheapest_product_offer["retailer"] != best["retailer"]:
+            billigst_svar = (
+                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
+                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
+                f'men {best["retailer"]} blir billigst når frakten regnes med.'
+            )
+        else:
+            billigst_svar = (
+                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+            )
+        product_faq.append({"question": f'Hvor er {product["name"]} billigst?', "answer": billigst_svar})
+
+        laveste_produktpris = min(o["price_nok"] for o in in_stock_offers)
+        product_faq.append({
+            "question": f'Hva koster {product["name"]}?',
+            "answer": f'Laveste produktpris på {product["name"]} er {_fmt_kr(laveste_produktpris)} uten frakt akkurat nå. '
+                      f'Totalprisen avhenger av hvilken butikk du velger og fraktkostnaden der.',
+        })
+
+    if size_ml:
+        product_faq.append({
+            "question": f'Hvor mange ml er det i {product["name"]}?',
+            "answer": f'Flasken inneholder {size_ml:.0f} ml.',
+        })
+
+    product_faq.append({
+        "question": "Hvor ofte oppdateres prisene?",
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+                  "uten frakt og beregner totalpris basert på frakt og antallet du velger.",
+    })
+
+    product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
+
+    related_links = f'<li><a href="/{cat_slug}/">Alle {escape(cat["label"].lower())}</a></li>'
+    related_html = f"""<div class="related">
+    <h2>Relatert til {escape(product["name"])}</h2>
+    <ul>
+    {related_links}
+    </ul>
+  </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -5289,6 +5344,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 {_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
+{product_faq_schema}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
@@ -5334,6 +5390,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
+  {product_faq_html}
+  {METHODOLOGY_HTML}
+  {related_html}
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
