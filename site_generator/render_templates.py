@@ -264,6 +264,11 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
+.faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
+.faq-item { margin-bottom: 18px; }
+.faq-item h3 { font-size: 0.94rem; margin: 0 0 6px; }
+.faq-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -2167,6 +2172,58 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <a href="/private-label/">Om optikerkjedenes egne merker →</a>
   </div>"""
 
+    # Dynamisk FAQ bygget fra SAMME beregnede data som resten av siden
+    # (best/in_stock_offers/parsed) -- aldri hardkodet forhandler/pris, og
+    # aldri flere spørsmål enn det finnes et pålitelig svar på (f.eks.
+    # "hvor lenge varer den" krever KJENT pakningsstørrelse OG at det
+    # faktisk er en dagslinse -- ellers utelates spørsmålet helt i stedet
+    # for å gjette).
+    product_faq: list[dict] = []
+    if best:
+        cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
+        if cheapest_product_offer["retailer"] != best["retailer"]:
+            billigst_svar = (
+                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
+                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
+                f'men {best["retailer"]} blir billigst når frakten regnes med. Velger du flere esker, kan en annen butikk bli billigst, '
+                f'siden fraktgrenser varierer mellom butikkene.'
+            )
+        else:
+            billigst_svar = (
+                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+            )
+        product_faq.append({"question": f'Hvor er {product["name"]} billigst?', "answer": billigst_svar})
+
+        laveste_produktpris = min(o["price_nok"] for o in in_stock_offers)
+        product_faq.append({
+            "question": f'Hva koster {product["name"]}?',
+            "answer": f'Laveste produktpris på {product["name"]} er {_fmt_kr(laveste_produktpris)} uten frakt akkurat nå. '
+                      f'Totalprisen avhenger av hvilken butikk du velger og fraktkostnaden der.',
+        })
+
+    if parsed:
+        _, pack_size = parsed
+        product_faq.append({
+            "question": f'Hvor mange linser er det i {product["name"]}?',
+            "answer": f'Én pakke inneholder {pack_size} linser.',
+        })
+        if product["category_slug"] == "dagslinser":
+            days_two_eyes = pack_size // 2
+            product_faq.append({
+                "question": f'Hvor lenge varer {product["name"]}?',
+                "answer": f'Til ett øye varer pakningen i {pack_size} dager (én linse per dag). Bruker du linser med samme '
+                          f'styrke på begge øyne fra samme pakning, varer den {days_two_eyes} dager. Har du ulik styrke på '
+                          f'hvert øye, trenger du vanligvis en egen pakning per øye.',
+            })
+
+    product_faq.append({
+        "question": "Hvor ofte oppdateres prisene?",
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+                  "uten frakt og beregner totalpris basert på frakt og antallet esker du velger.",
+    })
+
+    product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -2179,6 +2236,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
+{product_faq_schema}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
@@ -2270,6 +2328,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {price_history_html}
   {specs_html}
   {aliases_html}
+  {product_faq_html}
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
@@ -2731,11 +2790,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
 {GUIDE_TILE_STYLE}
-.faq-section {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }}
-.faq-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }}
-.faq-item {{ margin-bottom: 18px; }}
-.faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
-.faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 1024px) {{
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
@@ -4407,11 +4461,6 @@ def render_guide_page(slug: str) -> str | None:
 {faq_schema}
 {article_schema}
 <style>{SHARED_STYLE}
-.faq-section {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }}
-.faq-section h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }}
-.faq-item {{ margin-bottom: 18px; }}
-.faq-item h3 {{ font-size: 0.94rem; margin: 0 0 6px; }}
-.faq-item p {{ font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
 </style>
 </head>
