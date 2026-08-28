@@ -1622,7 +1622,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
     # totalpris, og toppbanneret viser vinnerens totalsum -- "Lavest pris"-
     # merket (ALLTID totalpris-basert, se reconcile()) er dermed fortsatt
     # etterprøvbart uten at hvert enkelt kort må gjenta regnestykket.
-    shipping_text = f'{_fmt_kr(o["shipping_nok"])} frakt' if o["shipping_nok"] > 0 else "Gratis frakt"
+    shipping_text = _shipping_note(o["shipping_nok"], o.get("shipping_policy"))
     rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
     price_label = (
         f'Gå til {escape(retailer)} for {escape(product_name)}, {_fmt_kr(o["price_nok"])}'
@@ -1665,8 +1665,9 @@ _QTY_CALC_SCRIPT = r"""<script>
     return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
   }
   function shippingNote(shipping, policy) {
+    if (!policy) return 'Frakt beregnes i kassen';
     if (shipping <= 0) {
-      if (policy && policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
+      if (policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
       return 'Gratis frakt';
     }
     return fmtKr(shipping) + ' frakt';
@@ -1771,9 +1772,19 @@ def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
     tilfeldigvis er nådd ved akkurat denne bestillingsstørrelsen" -- å si
     "Gratis frakt" uten forbehold i det siste tilfellet er misvisende, siden
     brukeren lett kan tro forhandleren alltid har fri frakt, ikke bare ved
-    dette antallet esker."""
+    dette antallet esker.
+
+    shipping_policy=None betyr at forhandlerens fraktgebyr under fri-frakt-
+    grensen faktisk er UKJENT (se compute_shipping_nok() i offer.py, f.eks.
+    Vitusapotek/Apotekhjem) -- IKKE at frakten er gratis. compute_shipping_nok()
+    returnerer 0.0 som eksplisitt "ukjent"-standard i dette tilfellet, så
+    shipping_nok alene kan ikke skille de to -- shipping_policy MÅ sjekkes
+    først, ellers vises "Gratis frakt" feilaktig for en ordre godt under en
+    kjent fri-frakt-grense."""
+    if shipping_policy is None:
+        return "Frakt beregnes i kassen"
     if shipping_nok <= 0:
-        free_over = (shipping_policy or {}).get("free_over")
+        free_over = shipping_policy.get("free_over")
         if free_over:
             return f"Gratis frakt over {_fmt_kr(free_over)}"
         return "Gratis frakt"
@@ -5215,10 +5226,12 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     best_band = ""
     if best:
         best_rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
-        best_price_note = (
-            f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt' if best["shipping_nok"] > 0
-            else "Gratis frakt"
-        )
+        if best.get("shipping_policy") is None:
+            best_price_note = "Frakt beregnes i kassen"
+        elif best["shipping_nok"] > 0:
+            best_price_note = f'{_fmt_kr(best["price_nok"])} + {_fmt_kr(best["shipping_nok"])} frakt'
+        else:
+            best_price_note = "Gratis frakt"
         best_price_aria = f'Gå til {escape(best["retailer"])} for {escape(product["name"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
         best_band = f"""<a class="best-price-band" href="{escape(best["url"])}" rel="{best_rel}" aria-label="{best_price_aria}">
   <div class="label-group">
