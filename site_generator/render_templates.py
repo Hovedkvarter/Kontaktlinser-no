@@ -2343,10 +2343,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – Sammenlign og få billigste pris »</title>
+<title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
-{_og_meta(f'{product["name"]} – Sammenlign og få billigste pris »', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
+{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -5381,10 +5381,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – Sammenlign og få billigste pris »</title>
+<title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
-{_og_meta(f'{product["name"]} – Sammenlign og få billigste pris »', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
+{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
