@@ -5731,6 +5731,56 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"{f', "dateModified": "{date_modified}"' if date_modified else ""}
 }}"""
 
+    # Samme dynamiske FAQ-mønster som render_product_page/render_solution_
+    # product_page, men spørsmålene refererer til det EKTE produktnavnet
+    # (real_name) siden det er det tilbudene faktisk gjelder -- "hvorfor har
+    # den to navn"-spørsmålet er bevisst IKKE med her, det er allerede
+    # grundig dekket av private-label-explainer-boksen over, ville bare
+    # vært en duplisering.
+    product_faq: list[dict] = []
+    if best:
+        cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
+        if cheapest_product_offer["retailer"] != best["retailer"]:
+            billigst_svar = (
+                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
+                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
+                f'men {best["retailer"]} blir billigst når frakten regnes med.'
+            )
+        else:
+            billigst_svar = (
+                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+            )
+        product_faq.append({"question": f'Hvor er {real_name} ({private_name}) billigst?', "answer": billigst_svar})
+
+        laveste_produktpris = min(o["price_nok"] for o in in_stock_offers)
+        product_faq.append({
+            "question": f'Hva koster {real_name}?',
+            "answer": f'Laveste produktpris på {real_name} er {_fmt_kr(laveste_produktpris)} uten frakt akkurat nå. '
+                      f'Totalprisen avhenger av hvilken butikk du velger og fraktkostnaden der.',
+        })
+
+    product_faq.append({
+        "question": "Hvor ofte oppdateres prisene?",
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+                  "uten frakt og beregner totalpris basert på frakt og antallet du velger.",
+    })
+
+    product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {real_name}')
+
+    related_items = [
+        (f'/merke/{real_product["brand_slug"]}/', f'Alle {real_brand}-kontaktlinser'),
+        (f'/kontaktlinser/{real_product["category_slug"]}/', f'Alle {category_label.lower()}'),
+    ]
+    subbrand_slug = PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower()
+    related_items.append((f'/merke/{subbrand_slug}/', f'Flere {PRIVATE_LABEL_SUBBRANDS.get(chain, chain)}-produkter'))
+    related_links = "\n    ".join(f'<li><a href="{escape(href)}">{escape(label_text)}</a></li>' for href, label_text in related_items)
+    related_html = f"""<div class="related">
+    <h2>Relatert til {escape(private_name)}</h2>
+    <ul>
+    {related_links}
+    </ul>
+  </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -5743,6 +5793,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
+{product_faq_schema}
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
@@ -5792,6 +5843,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med {escape(chain)}.
   </p>
+  {product_faq_html}
+  {METHODOLOGY_HTML}
+  {related_html}
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
