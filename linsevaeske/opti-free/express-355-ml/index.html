@@ -148,7 +148,8 @@ a { color: inherit; }
 .mega-menu-link { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 7px 10px; margin: 0 -10px; border-radius: 8px; transition: background 0.12s ease, color 0.12s ease; }
 .mega-menu-link:hover { background: var(--mist); color: var(--blue); }
 .mega-menu-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.66rem; }
-.mega-see-all { margin-top: 6px; padding-top: 13px; border-top: 1px solid var(--border); font-weight: 600; color: var(--blue) !important; }
+.mega-see-all { display: block; text-align: center; margin: 10px 0 0; padding: 10px 16px; border-radius: 999px; background: var(--blue); color: white !important; font-weight: 700; }
+.mega-see-all:hover { background: var(--blue-dark); color: white !important; }
 @media (hover: hover) {
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 }
