@@ -788,7 +788,7 @@ a { color: inherit; }
         var existingTag = card.querySelector('.lowest-tag');
         if (isWinner && !existingTag) {
           var retailerDiv = card.querySelector('.offer-retailer');
-          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest pris</span>');
+          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest totalpris</span>');
         } else if (!isWinner && existingTag) {
           existingTag.remove();
         }
@@ -828,7 +828,7 @@ a { color: inherit; }
     <h2>Alle tilbud, sortert etter total pris</h2>
     <div class="offer-card is-lowest" data-retailer="Lensit">
   <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> <span class="lowest-tag">Lavest pris</span></div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensit.svg" alt="Lensit" loading="lazy"><span style="position:absolute;left:-9999px;">Lensit</span> <span class="lowest-tag">Lavest totalpris</span></div>
     <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
@@ -839,7 +839,7 @@ a { color: inherit; }
 <div class="offer-card" data-retailer="Interoptik">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
