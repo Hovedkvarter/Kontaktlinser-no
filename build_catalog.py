@@ -58,13 +58,13 @@ def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[st
             # produkter i denne feeden.
             offers = load_tradedoubler_feed(cfg["feed_urls"], match_map)
         elif "feed_url" in cfg:
-            offers = load_feed_url(cfg["feed_url"], network, match_map)
+            offers = load_feed_url(cfg["feed_url"], network, match_map, cfg)
         else:
             feed_path = ROOT / cfg["feed_path"]
             if not feed_path.exists():
                 print(f"  [hopper over] feed ikke funnet: {feed_path}")
                 return
-            offers = load_feed(str(feed_path), network, match_map)
+            offers = load_feed(str(feed_path), network, match_map, cfg)
         for offer in offers:
             offers_by_product.setdefault(offer.product_id, []).append(offer)
 

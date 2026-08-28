@@ -89,6 +89,27 @@
     "Nor_Express 120ml": "optifree-express-120ml",
     "Nor_Aosept 360ml": "aosept-plus-360ml"
   },
+  "adtraction_apotekhjem": {
+    "$comment": "Apotekhjem (Adtraction, pfid=2510) -- verifisert mot ekte feed 2026-08-28. Nøkkelen er feedens 'id'-kolonne (numerisk, IKKE samme navnerom som ExtraOptical sin id-kolonne -- derfor egen tabell, se sources_config.json). Feeden er Apotekhjem sin fulle apotek-/dyrebutikk-katalog (9416 varer), kun linsevæske-/øyedråpe-produkter som ALLEREDE fantes i solutions_meta.json fra før er koblet her. Flere lignende produkter i feeden (Clearlii multi-purpose, Artelac, Viscotears, EvoTears, Hyprosan, Bevita, POSIFORLID, Desodrop, Cleye, Euphrasia Pollendråper m.fl.) er bevisst IKKE lagt til -- de finnes ikke som produktsider hos oss ennå, avklares med brukeren separat før noe legges til. 'Systane hydra ... u/kon' og 'Systane ultra ... u/kon' matchet mot hhv. systane-hydration-10ml/systane-ultra-10ml på navn+størrelse -- moderat sikkerhet (apotekhjem sin 'u/kon'-kvalifikator antas å beskrive samme produkt Lenson/Lensway allerede sporer under samme navn, ikke en egen konkurrerende variant, siden Norge normalt bare selger én SKU per Systane-navn+størrelse).",
+    "55939": "optifree-express-355ml",
+    "15629": "renu-multipurpose-360ml",
+    "97115": "systane-ultra-10ml",
+    "97179": "systane-complete-10ml",
+    "97123": "systane-hydration-10ml",
+    "103223": "hylo-care-10ml",
+    "9698": "hylo-gel-10ml",
+    "103288": "hylo-fresh-10ml",
+    "8232": "hylo-comod-10ml",
+    "94698": "hylo-dual-10ml",
+    "88520": "hylo-dual-intense-10ml",
+    "11500": "thealoz-duo-10ml",
+    "89511": "oxyal-trehalos-duo-action-10ml",
+    "92961": "oxyal-trehalos-triple-action-10ml",
+    "15674": "oxyal-triple-action-10ml",
+    "11460": "tearsagain-sensitive-spray-10ml",
+    "97595": "eyz-plus-10ml",
+    "97631": "eyz-protect-10ml"
+  },
   "partner-ads": {
     "PA-OASYS-6": "acuvue-oasys-6pk",
     "PA-VITA-6": "acuvue-vita-6pk"

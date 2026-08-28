@@ -46,7 +46,7 @@ def _resolve_product_ids(product_match: dict, sku: Optional[str]) -> list[str]:
     return match if isinstance(match, list) else [match]
 
 
-def map_adtraction_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
+def map_adtraction_row(row: dict, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
     """Adtraction sin faktiske eksport er et Google Shopping-formatert feed
     (id/title/link/image_link/price/availability/brand osv.) -- bekreftet mot
     ekte feed fra ExtraOptical 2026-08-12, IKKE den samme kolonnestrukturen
@@ -56,11 +56,14 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
     limes rett inn som Offer.url uten videre bearbeiding. 'price' har
     valutakode som suffiks (f.eks. "495 NOK").
 
-    Denne feeden er per i dag ENESTE Adtraction-forhandler
-    (ExtraOptical) og har ingen egen merchant-navn-kolonne (feeden er
-    forhandler-spesifikk, ikke en samle-feed for flere butikker) -- retailer
-    er derfor hardkodet her. Legges en ANNEN Adtraction-forhandler til senere,
-    må dette parameteriseres."""
+    Delt mapper for ALLE Adtraction-forhandlere (ExtraOptical, Apotekhjem,
+    ...) siden det er samme feed-format uansett annonsør -- retailer/frakt
+    hentes fra retailer_cfg (display_name/shipping fra sources_config.json)
+    i stedet for å hardkodes, siden en samle-feed for flere forhandlere
+    aldri finnes her (én Adtraction-feed = én forhandler, id-navnerommet
+    er IKKE delt på tvers av forhandlere -- derfor også egen
+    product_matching-nøkkel per forhandler, se sources_config.json sin
+    'network'-verdi for hver)."""
     sku = row.get("id")
     product_ids = _resolve_product_ids(product_match, sku)
     if not product_ids:
@@ -74,21 +77,15 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
     try:
         price_nok = float(price_match.group().replace(",", "."))
         checked_at = datetime.now(timezone.utc).isoformat()
+        shipping_policy = retailer_cfg.get("shipping")
         return [mark_staleness(Offer(
-            retailer="Extra Optical",
+            retailer=retailer_cfg["display_name"],
             brand="",  # settes av build_catalog.py fra products_meta etter matching
             source="affiliate_feed",
             network="adtraction",
             price_nok=price_nok,
-            # Feeden har ikke fraktdata (shipping-kolonnen er alltid tom, bekreftet
-            # 2026-08-12). VIKTIG: Extra Optical har ULIK fraktpolicy for briller
-            # (frakt-og-levering-siden sier 49 kr/gratis over 600 kr) og kontaktlinser
-            # (bekreftet direkte på en faktisk linse-produktside 2026-08-16: "Frakt 45,-
-            # eller fri frakt over 900,-") -- brukte feilaktig briller-tallet først,
-            # rettet til de linse-spesifikke tallene under. Regnes ut her siden feeden
-            # selv ikke leverer fraktdata.
-            shipping_nok=compute_shipping_nok(price_nok, {"free_over": 900, "fee_nok": 45}),
-            shipping_policy={"free_over": 900, "fee_nok": 45},
+            shipping_nok=compute_shipping_nok(price_nok, shipping_policy),
+            shipping_policy=shipping_policy,
             url=row["link"],
             in_stock=row.get("availability") == "in_stock",
             checked_at=checked_at,
@@ -100,9 +97,11 @@ def map_adtraction_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
         return []  # logg og hopp over feilformede rader i stedet for å publisere feil data
 
 
-def map_partner_ads_row(row: dict, product_match: dict[str, str]) -> list[Offer]:
+def map_partner_ads_row(row: dict, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
     """Juster feltnavn til Partner-ads sine faktiske eksport-kolonner.
-    Forventer en 'produktnummer'-kolonne som finnes i product_match."""
+    Forventer en 'produktnummer'-kolonne som finnes i product_match.
+    retailer_cfg er ubrukt her -- Partner-ads er en samle-feed med egen
+    'shop'-kolonne per rad, retailer-navnet kommer derfra, ikke fra config."""
     sku = row.get("produktnummer")
     product_ids = _resolve_product_ids(product_match, sku)
     if not product_ids:
@@ -198,16 +197,17 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> list[O
 
 NETWORK_MAPPERS = {
     "adtraction": map_adtraction_row,
+    "adtraction_apotekhjem": map_adtraction_row,
     "partner-ads": map_partner_ads_row,
 }
 
 
-def _load_feed_rows(rows: csv.DictReader, network: str, product_match: dict[str, str], source_label: str) -> list[Offer]:
+def _load_feed_rows(rows: csv.DictReader, network: str, product_match: dict[str, str], source_label: str, retailer_cfg: dict) -> list[Offer]:
     mapper = NETWORK_MAPPERS[network]
     offers = []
     skipped = 0
     for row in rows:
-        row_offers = mapper(row, product_match)
+        row_offers = mapper(row, product_match, retailer_cfg)
         if row_offers:
             offers.extend(row_offers)
         else:
@@ -217,12 +217,12 @@ def _load_feed_rows(rows: csv.DictReader, network: str, product_match: dict[str,
     return offers
 
 
-def load_feed(path: str, network: str, product_match: dict[str, str]) -> list[Offer]:
+def load_feed(path: str, network: str, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
     with open(path, newline="", encoding="utf-8") as f:
-        return _load_feed_rows(csv.DictReader(f), network, product_match, path)
+        return _load_feed_rows(csv.DictReader(f), network, product_match, path, retailer_cfg)
 
 
-def load_feed_url(url: str, network: str, product_match: dict[str, str]) -> list[Offer]:
+def load_feed_url(url: str, network: str, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
     """Henter en feed direkte over HTTP i stedet for fra en lokal fil --
     brukes for ekte affiliate-feeds som skal hentes ferske ved hver bygging
     (live pris/lager-data), ikke en fil noen har lastet ned og kan glemme å
@@ -234,7 +234,7 @@ def load_feed_url(url: str, network: str, product_match: dict[str, str]) -> list
     except requests.RequestException as e:
         print(f"  [{network}] klarte ikke å hente feed fra URL: {e}")
         return []
-    return _load_feed_rows(csv.DictReader(io.StringIO(resp.text)), network, product_match, url)
+    return _load_feed_rows(csv.DictReader(io.StringIO(resp.text)), network, product_match, url, retailer_cfg)
 
 
 def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[list[Offer], int]:
