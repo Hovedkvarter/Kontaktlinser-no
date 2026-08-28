@@ -2074,8 +2074,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 629.0,
-      "store": "Lensit"
+      "price": 626.0,
+      "store": "Synsam"
     }
   ],
   "air-optix-hydraglyde-astigmatism-6pk": [
@@ -2151,8 +2151,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 576.0,
-      "store": "Lensit"
+      "price": 527.0,
+      "store": "Synsam"
     }
   ],
   "dailies-total1-30pk": [
@@ -8027,8 +8027,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 89.0,
-      "store": "Lensway"
+      "price": 87.0,
+      "store": "Apotekhjem"
     }
   ],
   "optifree-puremoist-90ml": [
@@ -9604,8 +9604,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 179.0,
-      "store": "Lensway"
+      "price": 169.0,
+      "store": "Apotekhjem"
     }
   ],
   "hylo-dual-10ml": [
@@ -9676,8 +9676,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 194.0,
-      "store": "Lensway"
+      "price": 188.0,
+      "store": "Apotekhjem"
     }
   ],
   "hylo-dual-intense-10ml": [
@@ -9748,8 +9748,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 209.0,
-      "store": "Shopping4net"
+      "price": 190.0,
+      "store": "Apotekhjem"
     }
   ],
   "thealoz-duo-10ml": [
@@ -9820,8 +9820,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 164.0,
-      "store": "Lensway"
+      "price": 148.0,
+      "store": "Apotekhjem"
     }
   ],
   "oxyal-trehalos-duo-action-10ml": [
@@ -9964,8 +9964,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 194.0,
-      "store": "Lensway"
+      "price": 179.0,
+      "store": "Apotekhjem"
     }
   ],
   "oxyal-triple-action-10ml": [
@@ -10036,8 +10036,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 187.0,
-      "store": "Lensway"
+      "price": 146.0,
+      "store": "Apotekhjem"
     }
   ],
   "tearsagain-10ml": [
@@ -10324,8 +10324,8 @@
     },
     {
       "date": "2026-08-28",
-      "price": 149.0,
-      "store": "Lensway"
+      "price": 135.0,
+      "store": "Apotekhjem"
     }
   ],
   "eyz-protect-10ml": [
@@ -11594,6 +11594,76 @@
       "date": "2026-08-28",
       "price": 249.0,
       "store": "Apotek For Deg"
+    }
+  ],
+  "clearlii-multipurpose-100ml": [
+    {
+      "date": "2026-08-28",
+      "price": 80.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "artelac-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 50.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "viscotears-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 83.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "evotears-3ml": [
+    {
+      "date": "2026-08-28",
+      "price": 261.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "hyprosan-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 157.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "bevita-eye-pro-forte-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 141.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "posiforlid-eye-spray-15ml": [
+    {
+      "date": "2026-08-28",
+      "price": 157.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "desodrop-8ml": [
+    {
+      "date": "2026-08-28",
+      "price": 223.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "cleye-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 164.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "euphrasia-pollendraper-10ml": [
+    {
+      "date": "2026-08-28",
+      "price": 167.0,
+      "store": "Apotekhjem"
     }
   ]
 }
