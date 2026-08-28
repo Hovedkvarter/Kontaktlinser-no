@@ -5787,11 +5787,18 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
     # "sammenlign priser"-teksten. Identitetsfakta (hva den egentlig heter)
     # beholdes først, siden det er selve grunnen til at denne siden finnes
-    # (ellers dupliserer den bare real_product sin egen side).
+    # (ellers dupliserer den bare real_product sin egen side). Bruker
+    # PRODUSENTEN (f.eks. CooperVision), ikke real_brand (f.eks. "Biofinity")
+    # -- real_name inneholder allerede merkenavnet ("Biofinity 6-pack"), så
+    # "... er samme linse som Biofinity 6-pack fra Biofinity" var en
+    # gjentakelse. Faller tilbake til real_brand kun for de sjeldne
+    # merkene uten produsent-kobling i BRAND_TO_MANUFACTURER.
+    manufacturer_slug = BRAND_TO_MANUFACTURER.get(real_product["brand_slug"])
+    real_source = MANUFACTURERS[manufacturer_slug]["name"] if manufacturer_slug else real_brand
     meta_description = (
-        f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand}. '
+        f'{private_name} fra {chain} er samme linse som {real_name} fra {real_source}. '
         f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
-    ) if best else f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
+    ) if best else f'{private_name} fra {chain} er samme linse som {real_name} fra {real_source} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
 
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
