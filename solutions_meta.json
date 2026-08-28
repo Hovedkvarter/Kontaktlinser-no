@@ -554,6 +554,127 @@
         {"retailer": "lenson", "slug": "add1-extra-6280"},
         {"retailer": "lensway", "slug": "add1-extra-6280"}
       ]
+    },
+    {
+      "id": "clearlii-multipurpose-100ml",
+      "slug": "clearlii-multi-purpose-100-ml",
+      "name": "Clearlii Multi-Purpose 100 ml",
+      "brand_slug": "clearlii",
+      "brand_label": "Clearlii",
+      "size_ml": 100,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "description": "Multipurpose linsevæske fra Clearlii.",
+      "long_description": "Clearlii Multi-Purpose er en flerbruksløsning for rengjøring, desinfeksjon, skylling og oppbevaring av myke kontaktlinser i ett trinn.",
+      "scrape_targets": []
+    },
+    {
+      "id": "artelac-10ml",
+      "slug": "artelac-10-ml",
+      "name": "Artelac Øyedråper 10 ml",
+      "brand_slug": "artelac",
+      "brand_label": "Artelac",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Fuktighetsdråper for tørre øyne.",
+      "long_description": "Artelac er øyedråper mot tørre øyne ved nedsatt tåreproduksjon, i praktisk 10 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "viscotears-10ml",
+      "slug": "viscotears-10-g",
+      "name": "Viscotears Øyegel 10 g",
+      "brand_slug": "viscotears",
+      "brand_label": "Viscotears",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Øyegel for tørre øyne.",
+      "long_description": "Viscotears er en øyegel mot tørre øyne ved nedsatt tåreproduksjon, i praktisk 10 g tube.",
+      "scrape_targets": []
+    },
+    {
+      "id": "evotears-3ml",
+      "slug": "evotears-3-ml",
+      "name": "EvoTears 3 ml",
+      "brand_slug": "evotears",
+      "brand_label": "EvoTears",
+      "size_ml": 3,
+      "solution_category": "oyedraper",
+      "description": "Øyedråper for tørre øyne ved lipidmangel.",
+      "long_description": "EvoTears er øyedråper som erstatter tårefilmens lipidlag, beregnet for tørre øyne forårsaket av lipidmangel (MGD), i praktisk 3 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "hyprosan-10ml",
+      "slug": "hyprosan-10-ml",
+      "name": "Hyprosan Øyedråper 10 ml",
+      "brand_slug": "hyprosan",
+      "brand_label": "Hyprosan",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Reseptfrie øyedråper mot tørre øyne.",
+      "long_description": "Hyprosan er reseptfrie øyedråper (3,2 mg/ml) som erstatter naturlige tårer og fukter øynene, i praktisk 10 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "bevita-eye-pro-forte-10ml",
+      "slug": "bevita-eye-pro-forte-10-ml",
+      "name": "Bevita Eye Pro Forte 10 ml",
+      "brand_slug": "bevita",
+      "brand_label": "Bevita",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Fuktende øyedråper for moderat til alvorlig tørre øyne.",
+      "long_description": "Bevita Eye Pro Forte er fuktende, beskyttende og smørende øyedråper for moderate til alvorlige tørre øyne, uten konserveringsmidler, i praktisk 10 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "posiforlid-eye-spray-15ml",
+      "slug": "posiforlid-eye-spray-15-ml",
+      "name": "POSIFORLID Eye Spray 15 ml",
+      "brand_slug": "posiforlid",
+      "brand_label": "POSIFORLID",
+      "size_ml": 15,
+      "solution_category": "oyedraper",
+      "description": "Øyespray for pleie av øyelokk.",
+      "long_description": "POSIFORLID øyespray er beregnet for daglig hygiene og pleie av irriterte øyelokk og øyelokkskanter, i praktisk 15 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "desodrop-8ml",
+      "slug": "desodrop-8-ml",
+      "name": "Desodrop Øyedråper 8 ml",
+      "brand_slug": "desodrop",
+      "brand_label": "Desodrop",
+      "size_ml": 8,
+      "solution_category": "oyedraper",
+      "description": "Fuktighetsgivende øyedråper uten konserveringsmidler.",
+      "long_description": "Desodrop er fuktighetsgivende øyedråper uten konserveringsmidler som lindrer tørre, irriterte øyne, i praktisk 8 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "cleye-10ml",
+      "slug": "cleye-10-ml",
+      "name": "Cleye Øyedråper 10 ml",
+      "brand_slug": "cleye",
+      "brand_label": "Cleye",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Smørende øyedråper for tørre øyne.",
+      "long_description": "Cleye er smørende og fuktgivende øyedråper (0,12 mg/ml) for tørre, irriterte eller trøtte øyne, i praktisk 10 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "euphrasia-pollendraper-10ml",
+      "slug": "euphrasia-pollendraper-10-ml",
+      "name": "Euphrasia Pollendråper 10 ml",
+      "brand_slug": "euphrasia-pollendraper",
+      "brand_label": "Euphrasia Pollendråper",
+      "size_ml": 10,
+      "solution_category": "oyedraper",
+      "description": "Naturlig øyedråpe basert på øyentrøst.",
+      "long_description": "Euphrasia Pollendråper er en øyedråpe basert på øyentrøst (Euphrasia), tradisjonelt brukt ved pollenplager og øyeirritasjon, i praktisk 10 ml flaske.",
+      "scrape_targets": []
     }
   ]
 }

@@ -90,7 +90,7 @@
     "Nor_Aosept 360ml": "aosept-plus-360ml"
   },
   "adtraction_apotekhjem": {
-    "$comment": "Apotekhjem (Adtraction, pfid=2510) -- verifisert mot ekte feed 2026-08-28. Nøkkelen er feedens 'id'-kolonne (numerisk, IKKE samme navnerom som ExtraOptical sin id-kolonne -- derfor egen tabell, se sources_config.json). Feeden er Apotekhjem sin fulle apotek-/dyrebutikk-katalog (9416 varer), kun linsevæske-/øyedråpe-produkter som ALLEREDE fantes i solutions_meta.json fra før er koblet her. Flere lignende produkter i feeden (Clearlii multi-purpose, Artelac, Viscotears, EvoTears, Hyprosan, Bevita, POSIFORLID, Desodrop, Cleye, Euphrasia Pollendråper m.fl.) er bevisst IKKE lagt til -- de finnes ikke som produktsider hos oss ennå, avklares med brukeren separat før noe legges til. 'Systane hydra ... u/kon' og 'Systane ultra ... u/kon' matchet mot hhv. systane-hydration-10ml/systane-ultra-10ml på navn+størrelse -- moderat sikkerhet (apotekhjem sin 'u/kon'-kvalifikator antas å beskrive samme produkt Lenson/Lensway allerede sporer under samme navn, ikke en egen konkurrerende variant, siden Norge normalt bare selger én SKU per Systane-navn+størrelse).",
+    "$comment": "Apotekhjem (Adtraction, pfid=2510) -- verifisert mot ekte feed 2026-08-28. Nøkkelen er feedens 'id'-kolonne (numerisk, IKKE samme navnerom som ExtraOptical sin id-kolonne -- derfor egen tabell, se sources_config.json). Feeden er Apotekhjem sin fulle apotek-/dyrebutikk-katalog (9416 varer), kun linsevæske-/øyedråpe-produkter er koblet her. 'Systane hydra ... u/kon' og 'Systane ultra ... u/kon' matchet mot hhv. systane-hydration-10ml/systane-ultra-10ml på navn+størrelse -- moderat sikkerhet (apotekhjem sin 'u/kon'-kvalifikator antas å beskrive samme produkt Lenson/Lensway allerede sporer under samme navn, ikke en egen konkurrerende variant, siden Norge normalt bare selger én SKU per Systane-navn+størrelse). RUNDE 2 (samme dag): la til 10 nye produkter i solutions_meta.json for merker feeden avdekket som vi ikke sporet fra før (Clearlii, Artelac, Viscotears, EvoTears, Hyprosan, Bevita, POSIFORLID, Desodrop, Cleye, Euphrasia Pollendråper) -- kun ETT representativt SKU/pakningsstørrelse per merke, ikke alle varianter feeden har (f.eks. Artelac finnes også som endose-pakning, Viscotears i 3 ulike pakninger -- disse er bevisst utelatt for å holde omfanget likt spørsmålet brukeren fikk). To datakvalitetsfunn underveis: id 11517 ('Clearlii multi-purpose' uten ml-angivelse) hadde en beskrivelse som tydelig tilhørte et helt annet produkt ('Apolinsen linsevæske 355ml') -- luket ut, brukte i stedet id 11515 ('Clearlii multi-purpose 100 ml', bekreftet på selve produktsiden). To Hyprosan-rader (85491/85492) delte identisk tittel/beskrivelse men ulik pris -- besøkte begge produktsidene direkte og fant at 85491 er en 3-pakning (3x10 ml, 447 kr) og 85492 er enkeltflasken (10 ml, 157 kr) -- brukte 85492 for å matche enkeltflaske-mønsteret resten av katalogen følger.",
     "55939": "optifree-express-355ml",
     "15629": "renu-multipurpose-360ml",
     "97115": "systane-ultra-10ml",
@@ -108,7 +108,17 @@
     "15674": "oxyal-triple-action-10ml",
     "11460": "tearsagain-sensitive-spray-10ml",
     "97595": "eyz-plus-10ml",
-    "97631": "eyz-protect-10ml"
+    "97631": "eyz-protect-10ml",
+    "11515": "clearlii-multipurpose-100ml",
+    "10254": "artelac-10ml",
+    "9891": "viscotears-10ml",
+    "84535": "evotears-3ml",
+    "85492": "hyprosan-10ml",
+    "103812": "bevita-eye-pro-forte-10ml",
+    "103603": "posiforlid-eye-spray-15ml",
+    "92960": "desodrop-8ml",
+    "85312": "cleye-10ml",
+    "90759": "euphrasia-pollendraper-10ml"
   },
   "partner-ads": {
     "PA-OASYS-6": "acuvue-oasys-6pk",
