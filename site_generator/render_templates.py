@@ -1469,12 +1469,12 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
 
     if lowest:
-        num = f'{lowest["total"]:,.0f}'.replace(",", " ")
+        num = f'{lowest["price_nok"]:,.0f}'.replace(",", " ")
         store_html = f'Lavest hos <span class="product-tile-store-name">{escape(lowest["retailer"])}</span>'
         if other_count > 0:
             store_html += f' <span class="product-tile-store-count">+ {other_count} butikker</span>'
         price_block = (
-            f'<div class="product-tile-price-label">Laveste pris</div>'
+            f'<div class="product-tile-price-label">Fra (ekskl. frakt)</div>'
             f'<div class="product-tile-price"><span class="product-tile-price-number">{num}</span>'
             f'<span class="product-tile-price-currency">kr</span></div>'
             f'<div class="product-tile-store-line">{store_html}</div>'
@@ -1601,7 +1601,7 @@ def render_offer_card(o: dict, retailer: str) -> str:
         else f'<div class="offer-meta">Sist oppdatert: {escape(_time_ago(o["checked_at"], datetime.now(timezone.utc)))}</div>'
     )
     css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if not o["in_stock"] else "")
-    lowest_tag = '<span class="lowest-tag">Lavest pris</span>' if o["is_lowest"] else ""
+    lowest_tag = '<span class="lowest-tag">Lavest totalpris</span>' if o["is_lowest"] else ""
     # Produktprisen er hovedtallet (stort), frakt en egen liten linje over --
     # samme mønster som Prisjakt/Klarna bruker, som er det norske brukere er
     # vant til å lese. Vi dropper en egen "Totalt X kr"-linje per rad (var
@@ -1714,7 +1714,7 @@ _QTY_CALC_SCRIPT = r"""<script>
         var existingTag = card.querySelector('.lowest-tag');
         if (isWinner && !existingTag) {
           var retailerDiv = card.querySelector('.offer-retailer');
-          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest pris</span>');
+          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest totalpris</span>');
         } else if (!isWinner && existingTag) {
           existingTag.remove();
         }
