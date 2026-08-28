@@ -211,6 +211,26 @@ a { color: inherit; }
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 }
 .nav-item.is-open .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
+/* Under 700px er .mega-menu ellers venstre-forankret til SIN EGEN
+   nav-item-knapp (position:absolute; left:0 relative til .nav-item) -- for
+   en knapp langt til høyre i navigasjonen (f.eks. "Guider") skyter en
+   380-720px bred meny da langt utenfor et ~360-400px mobilvindu. Låser i
+   stedet menyen til viewporten med position:fixed og faste sidemarger, og
+   JS-en i TOPBAR_HTML sitt <script> (closeAll()/trigger-click) setter
+   inline top= like under selve topbaren ved åpning -- position:fixed sin
+   top er alltid viewport-relativ, så getBoundingClientRect().bottom
+   fungerer uendret uansett scroll-posisjon. top:70px under er kun et
+   statisk fallback-tall for det (usannsynlige) tilfellet JS ikke kjører.
+   Klarer nav-item bevisst IKKE position:static her -- feil forankrings-
+   kontekst ville kun flyttet problemet et hakk (fortsatt konteksten til
+   den enkelte knappen), position:fixed løser det uansett hvilken knapp
+   som er trigger. */
+@media (max-width: 699px) {
+  .mega-menu, .mega-menu-rich {
+    position: fixed; left: 12px; right: 12px; top: 70px; width: auto; max-width: none;
+    max-height: calc(100vh - 90px); overflow-y: auto; padding: 16px;
+  }
+}
 .breadcrumb { font-size: 0.8rem; color: var(--muted); margin: 4px 0 20px; }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { text-decoration: underline; }
@@ -219,16 +239,12 @@ a { color: inherit; }
 .hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
 .hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
-.best-price-band { position: relative; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; text-decoration: none; color: inherit; }
-.best-price-band:hover { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
-.best-price-band .label { font-size: 0.78rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.05em; }
-.best-price-band .retailer { font-size: 0.95rem; color: var(--ink); margin-top: 2px; display: flex; align-items: center; gap: 6px; }
-.best-price-band .price-group { text-align: right; }
-.best-price-band .price { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.6rem; color: var(--mint); white-space: nowrap; }
-.best-price-band .price-note { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; color: var(--muted); white-space: nowrap; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
 .offer-card.is-muted { opacity: 0.55; }
+.offer-card:hover, .offer-card:focus-visible { border-color: var(--blue); }
+.offer-card.is-lowest:hover, .offer-card.is-lowest:focus-visible { border-color: var(--mint); }
+.offer-card:hover .price-pill, .offer-card:focus-visible .price-pill { opacity: 0.88; }
 .product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
@@ -236,7 +252,6 @@ a { color: inherit; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
-.best-price-band .retailer-logo { height: 22px; max-width: 110px; }
 .brand-card-badge.has-logo, .brand-card-badge.has-logo-dark { width: 52px; border-radius: 8px; padding: 4px; }
 .brand-card-badge.has-logo { background: white; }
 .brand-card-badge.has-logo-dark { background: var(--ink); }
@@ -385,7 +400,8 @@ a { color: inherit; }
 }
 
 
-.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; text-decoration: none; color: inherit; }
+.winner-band:hover, .winner-band:focus-visible { border-color: var(--mint); box-shadow: 0 2px 8px rgba(11, 163, 111, 0.18); }
 .winner-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .winner-trophy { width: 44px; height: 44px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .winner-trophy svg { width: 22px; height: 22px; color: var(--mint); }
@@ -633,11 +649,14 @@ a { color: inherit; }
 <script>
 (function () {
   var items = document.querySelectorAll('.nav-item');
+  var topbarEl = document.querySelector('.topbar');
   function closeAll() {
     for (var i = 0; i < items.length; i++) {
       items[i].classList.remove('is-open');
       var t = items[i].querySelector('.nav-trigger');
       if (t) t.setAttribute('aria-expanded', 'false');
+      var m = items[i].querySelector('.mega-menu');
+      if (m) m.style.top = '';
     }
   }
   for (var i = 0; i < items.length; i++) {
@@ -650,6 +669,15 @@ a { color: inherit; }
         if (!isOpen) {
           item.classList.add('is-open');
           trigger.setAttribute('aria-expanded', 'true');
+          // Kun under 700px-brytpunktet (se .mega-menu sin @media (max-width:
+          // 699px) i SHARED_STYLE) -- der er menyen position:fixed og trenger
+          // en presis top= like under topbaren, siden CSS-en sitt statiske
+          // fallback-tall (70px) ikke tar høyde for at logo+navigasjon kan
+          // brytes til to linjer på svært smale skjermer.
+          if (topbarEl && window.innerWidth < 700) {
+            var menu = item.querySelector('.mega-menu');
+            if (menu) menu.style.top = (topbarEl.getBoundingClientRect().bottom + 8) + 'px';
+          }
         }
       });
     })(items[i]);
@@ -680,7 +708,7 @@ a { color: inherit; }
   <section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på <strong>Clearlii Daily 30-pack</strong> fra 2 norske nettbutikker. Fra <strong>239 kr</strong> hos Vitusapotek (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>
-  <div class="winner-band">
+  <a class="winner-band" id="winner-band-link" href="https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471" rel="nofollow" aria-label="Gå til Vitusapotek for Clearlii Daily 30-pack, 239 kr totalt inkl. frakt">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
     <div class="label-group">
@@ -690,10 +718,10 @@ a { color: inherit; }
     </div>
   </div>
   <div class="winner-price-group">
-    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471" rel="nofollow" aria-label="Gå til Vitusapotek for Clearlii Daily 30-pack, 239 kr totalt inkl. frakt">239 kr</a>
+    <span class="price-pill is-winner" id="winner-price-pill">239 kr</span>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
-</div>
+</a>
 <div class="qty-box">
     <div class="qty-box-title">Hvor mange esker trenger du?</div>
     <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
@@ -703,19 +731,22 @@ a { color: inherit; }
     <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   <p class="qty-static-fallback">Ved 2 esker: billigst hos Apotek For Deg – 463 kr totalt inkl. frakt (69 kr frakt). Ved 4 esker: billigst hos Apotek For Deg – 857 kr totalt inkl. frakt (69 kr frakt). Ved 10 esker: billigst hos Apotek For Deg – 1 970 kr totalt inkl. frakt (gratis frakt over 995 kr).</p>
-  <script type="application/json" id="qty-offers-data" data-product-name="Clearlii Daily 30-pack">[{"retailer": "Vitusapotek", "price_nok": 239.0, "shipping_policy": null, "url": "https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Apotek For Deg", "price_nok": 197.0, "shipping_policy": {"free_over": 995, "fee_nok": 69}, "url": "https://www.apotekfordeg.no/products/clearlii-daily-soft-endagslinser-30-pk--300", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="Clearlii Daily 30-pack" data-unit-singular="eske" data-unit-plural="esker">[{"retailer": "Vitusapotek", "price_nok": 239.0, "shipping_policy": null, "url": "https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Apotek For Deg", "price_nok": 197.0, "shipping_policy": {"free_over": 995, "fee_nok": 69}, "url": "https://www.apotekfordeg.no/products/clearlii-daily-soft-endagslinser-30-pk--300", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
   var productName = dataEl.getAttribute('data-product-name') || '';
+  var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
+  var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
   var pills = document.querySelectorAll('.qty-pill');
   var customRow = document.getElementById('qty-custom-row');
   var customInput = document.getElementById('qty-custom-input');
   var labelEl = document.getElementById('winner-label');
   var retailerEl = document.getElementById('winner-retailer');
   var shippingEl = document.getElementById('winner-shipping');
+  var winnerLink = document.getElementById('winner-band-link');
   var pricePill = document.getElementById('winner-price-pill');
 
   function computeShipping(productTotal, policy) {
@@ -771,13 +802,15 @@ a { color: inherit; }
       if (r.o.in_stock && (!best || r.total < best.total)) best = r;
     }
     if (best) {
-      labelEl.textContent = 'Billigst akkurat nå for ' + qty + (qty === 1 ? ' eske' : ' esker');
+      labelEl.textContent = 'Billigst akkurat nå for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
       retailerEl.innerHTML = retailerBadge(best.o);
       shippingEl.textContent = shippingNote(best.shipping, best.o.shipping_policy);
       pricePill.textContent = fmtKr(best.total);
-      pricePill.setAttribute('href', best.o.url);
-      pricePill.setAttribute('rel', best.o.rel);
-      pricePill.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
+      // winner-band-link ER lenken (se render_winner_widget) -- href/rel/
+      // aria-label hører hjemme der, ikke på price-pill-spannet inni.
+      winnerLink.setAttribute('href', best.o.url);
+      winnerLink.setAttribute('rel', best.o.rel);
+      winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
     }
 
     if (offersList && offerCards.length) {
@@ -787,10 +820,10 @@ a { color: inherit; }
         var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) {
-          pricePillEl.textContent = fmtKr(r.productTotal);
-          pricePillEl.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
-        }
+        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        // card ER lenken (se render_offer_card) -- aria-label hører hjemme
+        // på card selv, ikke på price-pill-spannet inni.
+        card.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
         var shipTextEl = card.querySelector('.offer-shipping-text');
         if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
         var isWinner = !!(best && r.o.retailer === best.o.retailer);
@@ -836,26 +869,26 @@ a { color: inherit; }
 </a>
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
-    <div class="offer-card is-lowest" data-retailer="Vitusapotek">
+    <a class="offer-card is-lowest" href="https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471" rel="nofollow" aria-label="Gå til Vitusapotek for Clearlii Daily 30-pack, 239 kr" data-retailer="Vitusapotek">
   <div class="offer-main">
     <div class="offer-retailer">Vitusapotek <span class="lowest-tag">Lavest totalpris</span></div>
-    <div class="offer-meta">Sist oppdatert: 4 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Frakt beregnes i kassen</span></div>
-    <a class="price-pill" href="https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-daily-endagslinser-30-pk-base-923471" rel="nofollow" aria-label="Gå til Vitusapotek for Clearlii Daily 30-pack, 239 kr">239 kr</a>
+    <span class="price-pill">239 kr</span>
   </div>
-</div>
-<div class="offer-card" data-retailer="Apotek For Deg">
+</a>
+<a class="offer-card" href="https://www.apotekfordeg.no/products/clearlii-daily-soft-endagslinser-30-pk--300" rel="nofollow" aria-label="Gå til Apotek For Deg for Clearlii Daily 30-pack, 197 kr" data-retailer="Apotek For Deg">
   <div class="offer-main">
     <div class="offer-retailer">Apotek For Deg </div>
-    <div class="offer-meta">Sist oppdatert: 4 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">69 kr frakt</span></div>
-    <a class="price-pill" href="https://www.apotekfordeg.no/products/clearlii-daily-soft-endagslinser-30-pk--300" rel="nofollow" aria-label="Gå til Apotek For Deg for Clearlii Daily 30-pack, 197 kr">197 kr</a>
+    <span class="price-pill">197 kr</span>
   </div>
-</div>
+</a>
   </div>
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
