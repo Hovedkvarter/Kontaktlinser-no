@@ -704,7 +704,7 @@ a { color: inherit; }
     </div>
   </div>
   <div class="winner-price-group">
-    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.synsam.no/eyeq-precision7-12-stk-pk" rel="nofollow">538 kr</a>
+    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.synsam.no/eyeq-precision7-12-stk-pk" rel="nofollow" aria-label="Gå til Synsam for Precision7 12-pack, 538 kr totalt inkl. frakt">538 kr</a>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
 </div>
@@ -717,12 +717,13 @@ a { color: inherit; }
     <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   <p class="qty-static-fallback">Ved 2 esker: billigst hos Synsam – 1 037 kr totalt inkl. frakt (39 kr frakt). Ved 4 esker: billigst hos Synsam – 2 035 kr totalt inkl. frakt (39 kr frakt). Ved 10 esker: billigst hos Synsam – 5 029 kr totalt inkl. frakt (39 kr frakt).</p>
-  <script type="application/json" id="qty-offers-data">[{"retailer": "Synsam", "price_nok": 499.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/eyeq-precision7-12-stk-pk", "rel": "nofollow", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Coptikk", "price_nok": 579.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}, "url": "https://www.coptikk.no/linsebutikk/dognlinser/precision-7-12-linser", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Interoptik", "price_nok": 625.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/", "rel": "nofollow", "logo_file": "interoptik.png", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Brilleland", "price_nok": 575.0, "shipping_policy": {"free_over": 1000, "fee_nok": 59}, "url": "https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/", "rel": "nofollow", "logo_file": "brilleland.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="Precision7 12-pack">[{"retailer": "Synsam", "price_nok": 499.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/eyeq-precision7-12-stk-pk", "rel": "nofollow", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Coptikk", "price_nok": 579.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}, "url": "https://www.coptikk.no/linsebutikk/dognlinser/precision-7-12-linser", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Interoptik", "price_nok": 625.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/", "rel": "nofollow", "logo_file": "interoptik.png", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Brilleland", "price_nok": 575.0, "shipping_policy": {"free_over": 1000, "fee_nok": 59}, "url": "https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/", "rel": "nofollow", "logo_file": "brilleland.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
+  var productName = dataEl.getAttribute('data-product-name') || '';
   var pills = document.querySelectorAll('.qty-pill');
   var customRow = document.getElementById('qty-custom-row');
   var customInput = document.getElementById('qty-custom-input');
@@ -789,6 +790,7 @@ a { color: inherit; }
       pricePill.textContent = fmtKr(best.total);
       pricePill.setAttribute('href', best.o.url);
       pricePill.setAttribute('rel', best.o.rel);
+      pricePill.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
     }
 
     if (offersList && offerCards.length) {
@@ -798,7 +800,10 @@ a { color: inherit; }
         var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        if (pricePillEl) {
+          pricePillEl.textContent = fmtKr(r.productTotal);
+          pricePillEl.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
+        }
         var shipTextEl = card.querySelector('.offer-shipping-text');
         if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
         var isWinner = !!(best && r.o.retailer === best.o.retailer);
@@ -851,7 +856,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">39 kr frakt</span></div>
-    <a class="price-pill" href="https://www.synsam.no/eyeq-precision7-12-stk-pk" rel="nofollow" aria-label="Se hos Synsam, 499 kr">499 kr</a>
+    <a class="price-pill" href="https://www.synsam.no/eyeq-precision7-12-stk-pk" rel="nofollow" aria-label="Gå til Synsam for Precision7 12-pack, 499 kr">499 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Coptikk">
@@ -861,7 +866,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
-    <a class="price-pill" href="https://www.coptikk.no/linsebutikk/dognlinser/precision-7-12-linser" rel="nofollow" aria-label="Se hos Coptikk, 579 kr">579 kr</a>
+    <a class="price-pill" href="https://www.coptikk.no/linsebutikk/dognlinser/precision-7-12-linser" rel="nofollow" aria-label="Gå til Coptikk for Precision7 12-pack, 579 kr">579 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Interoptik">
@@ -871,7 +876,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
-    <a class="price-pill" href="https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/" rel="nofollow" aria-label="Se hos Interoptik, 625 kr">625 kr</a>
+    <a class="price-pill" href="https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/" rel="nofollow" aria-label="Gå til Interoptik for Precision7 12-pack, 625 kr">625 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Brilleland">
@@ -881,7 +886,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">59 kr frakt</span></div>
-    <a class="price-pill" href="https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/" rel="nofollow" aria-label="Se hos Brilleland, 575 kr">575 kr</a>
+    <a class="price-pill" href="https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/" rel="nofollow" aria-label="Gå til Brilleland for Precision7 12-pack, 575 kr">575 kr</a>
   </div>
 </div>
   </div>

@@ -706,7 +706,7 @@ a { color: inherit; }
     </div>
   </div>
   <div class="winner-price-group">
-    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.lensway.no/acuvue-oasys-multifocal-lens-9610" rel="nofollow">447 kr</a>
+    <a class="price-pill is-winner" id="winner-price-pill" href="https://www.lensway.no/acuvue-oasys-multifocal-lens-9610" rel="nofollow" aria-label="Gå til Lensway for Acuvue Oasys Multifocal 6-pack, 447 kr totalt inkl. frakt">447 kr</a>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
 </div>
@@ -719,12 +719,13 @@ a { color: inherit; }
     <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere esker, på grunn av ulike fraktgrenser.</span></p>
   </div>
   <p class="qty-static-fallback">Ved 2 esker: billigst hos Lensway – 844 kr totalt inkl. frakt (50 kr frakt). Ved 4 esker: billigst hos Lensway – 1 588 kr totalt inkl. frakt (gratis frakt over 1 199 kr). Ved 10 esker: billigst hos Lensway – 3 970 kr totalt inkl. frakt (gratis frakt over 1 199 kr).</p>
-  <script type="application/json" id="qty-offers-data">[{"retailer": "Lensway", "price_nok": 397.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lensway.no/acuvue-oasys-multifocal-lens-9610", "rel": "nofollow", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 423.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610", "rel": "nofollow", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Coptikk", "price_nok": 499.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}, "url": "https://www.coptikk.no/linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lensit", "price_nok": 580.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.lensit.no/products/acuvue-oasys-multifocal", "rel": "nofollow", "logo_file": "lensit.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="Acuvue Oasys Multifocal 6-pack">[{"retailer": "Lensway", "price_nok": 397.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lensway.no/acuvue-oasys-multifocal-lens-9610", "rel": "nofollow", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 423.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610", "rel": "nofollow", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Coptikk", "price_nok": 499.0, "shipping_policy": {"free_over": 500, "fee_nok": 50}, "url": "https://www.coptikk.no/linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser", "rel": "nofollow", "logo_file": null, "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lensit", "price_nok": 580.0, "shipping_policy": {"free_over": 0, "fee_nok": 0}, "url": "https://www.lensit.no/products/acuvue-oasys-multifocal", "rel": "nofollow", "logo_file": "lensit.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
   var data = JSON.parse(dataEl.textContent);
+  var productName = dataEl.getAttribute('data-product-name') || '';
   var pills = document.querySelectorAll('.qty-pill');
   var customRow = document.getElementById('qty-custom-row');
   var customInput = document.getElementById('qty-custom-input');
@@ -791,6 +792,7 @@ a { color: inherit; }
       pricePill.textContent = fmtKr(best.total);
       pricePill.setAttribute('href', best.o.url);
       pricePill.setAttribute('rel', best.o.rel);
+      pricePill.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
     }
 
     if (offersList && offerCards.length) {
@@ -800,7 +802,10 @@ a { color: inherit; }
         var card = findCard(offerCards, r.o.retailer);
         if (!card) continue;
         var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
+        if (pricePillEl) {
+          pricePillEl.textContent = fmtKr(r.productTotal);
+          pricePillEl.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
+        }
         var shipTextEl = card.querySelector('.offer-shipping-text');
         if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
         var isWinner = !!(best && r.o.retailer === best.o.retailer);
@@ -848,7 +853,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
-    <a class="price-pill" href="https://www.lensway.no/acuvue-oasys-multifocal-lens-9610" rel="nofollow" aria-label="Se hos Lensway, 397 kr">397 kr</a>
+    <a class="price-pill" href="https://www.lensway.no/acuvue-oasys-multifocal-lens-9610" rel="nofollow" aria-label="Gå til Lensway for Acuvue Oasys Multifocal 6-pack, 397 kr">397 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Lenson">
@@ -858,7 +863,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
-    <a class="price-pill" href="https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610" rel="nofollow" aria-label="Se hos Lenson, 423 kr">423 kr</a>
+    <a class="price-pill" href="https://www.lenson.com/no/acuvue-oasys-multifocal-lens-9610" rel="nofollow" aria-label="Gå til Lenson for Acuvue Oasys Multifocal 6-pack, 423 kr">423 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Coptikk">
@@ -868,7 +873,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
-    <a class="price-pill" href="https://www.coptikk.no/linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser" rel="nofollow" aria-label="Se hos Coptikk, 499 kr">499 kr</a>
+    <a class="price-pill" href="https://www.coptikk.no/linsebutikk/dognlinser/acuvue-oasys-multifocal-6-linser" rel="nofollow" aria-label="Gå til Coptikk for Acuvue Oasys Multifocal 6-pack, 499 kr">499 kr</a>
   </div>
 </div>
 <div class="offer-card" data-retailer="Lensit">
@@ -878,7 +883,7 @@ a { color: inherit; }
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Gratis frakt</span></div>
-    <a class="price-pill" href="https://www.lensit.no/products/acuvue-oasys-multifocal" rel="nofollow" aria-label="Se hos Lensit, 580 kr">580 kr</a>
+    <a class="price-pill" href="https://www.lensit.no/products/acuvue-oasys-multifocal" rel="nofollow" aria-label="Gå til Lensit for Acuvue Oasys Multifocal 6-pack, 580 kr">580 kr</a>
   </div>
 </div>
   </div>
