@@ -2669,10 +2669,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>kontaktlinser.no – Sammenlign priser på kontaktlinser</title>
+<title>Billige kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
-{_og_meta('kontaktlinser.no – Sammenlign priser på kontaktlinser', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
+{_og_meta('Billige kontaktlinser – Sammenlign priser | kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
