@@ -269,6 +269,13 @@ a { color: inherit; }
 .faq-item { margin-bottom: 18px; }
 .faq-item h3 { font-size: 0.94rem; margin: 0 0 6px; }
 .faq-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }
+.methodology { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
+.methodology h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
+.methodology dl { margin: 0; }
+.methodology-row { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.methodology-row:last-child { border-bottom: none; }
+.methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
+.methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -2236,6 +2243,17 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
 
+    methodology_html = """<div class="methodology">
+    <h2>Slik sammenligner vi priser</h2>
+    <dl>
+      <div class="methodology-row"><dt>Produktpris</dt><dd>Prisen butikken oppgir for selve produktet, uten frakt.</dd></div>
+      <div class="methodology-row"><dt>Frakt</dt><dd>Fraktkostnaden beregnes for antallet esker du har valgt. Dersom kjøpet kvalifiserer til fri frakt hos butikken, tar beregningen hensyn til dette.</dd></div>
+      <div class="methodology-row"><dt>Totalpris</dt><dd>Produktpris for valgt antall pluss eventuell frakt.</dd></div>
+      <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
+      <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres hver 6. time.</dd></div>
+    </dl>
+  </div>"""
+
     # "Relatert til X" -- kun ekte, entydige sider (søsken-pakninger, merke,
     # kategori, produsent), aldri en generisk lenkevegg av urelaterte merker
     # (se V1-spesifikasjonens Section 11/37 -- doorway-lenker er bevisst unngått).
@@ -2364,6 +2382,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {specs_html}
   {aliases_html}
   {product_faq_html}
+  {methodology_html}
   {related_html}
 </div>
 {render_footer()}
