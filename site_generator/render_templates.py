@@ -2024,9 +2024,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     pack_size_callout = ""
     parsed = _pack_size_from_id(product["id"])
+    siblings: list[tuple[int, dict]] = []
     if parsed and best and products_by_id:
         base_stem, pack_size = parsed
-        siblings = []
         for pid, p in products_by_id.items():
             if pid == product["id"]:
                 continue
@@ -2224,6 +2224,29 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
 
+    # "Relatert til X" -- kun ekte, entydige sider (søsken-pakninger, merke,
+    # kategori, produsent), aldri en generisk lenkevegg av urelaterte merker
+    # (se V1-spesifikasjonens Section 11/37 -- doorway-lenker er bevisst unngått).
+    related_items = []
+    for sibling_pack_size, sibling in sorted(siblings, key=lambda s: s[0]):
+        related_items.append((
+            f'/kontaktlinser/{sibling["brand_slug"]}/{sibling["slug"]}/',
+            f'{sibling["name"]}',
+        ))
+    related_items.append((f'/merke/{product["brand_slug"]}/', f'Alle {product["brand_label"]}-kontaktlinser'))
+    related_items.append((f'/kontaktlinser/{product["category_slug"]}/', f'Alle {categories[product["category_slug"]]["label"].lower()}'))
+    if manufacturer_slug:
+        related_items.append((f'/produsent/{manufacturer_slug}/', f'{MANUFACTURERS[manufacturer_slug]["name"]}-kontaktlinser'))
+    related_html = ""
+    if related_items:
+        related_links = "\n    ".join(f'<li><a href="{escape(href)}">{escape(label)}</a></li>' for href, label in related_items)
+        related_html = f"""<div class="related">
+    <h2>Relatert til {escape(product["name"])}</h2>
+    <ul>
+    {related_links}
+    </ul>
+  </div>"""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -2329,6 +2352,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {specs_html}
   {aliases_html}
   {product_faq_html}
+  {related_html}
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
