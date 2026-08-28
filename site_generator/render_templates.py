@@ -5783,6 +5783,16 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
     best_band = render_winner_widget(best, offers, real_product["name"])
 
+    # Samme prinsipp som render_product_page/render_solution_product_page --
+    # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
+    # "sammenlign priser"-teksten. Identitetsfakta (hva den egentlig heter)
+    # beholdes først, siden det er selve grunnen til at denne siden finnes
+    # (ellers dupliserer den bare real_product sin egen side).
+    meta_description = (
+        f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand}. '
+        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
+    ) if best else f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
+
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
@@ -5850,9 +5860,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | Kontaktlinser.no</title>
-<meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
+<meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | Kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/')}
+{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | Kontaktlinser.no', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
