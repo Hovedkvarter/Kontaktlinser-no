@@ -342,7 +342,7 @@ function __loadGTM() {
 CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidden>
   <div class="consent-modal" role="dialog" aria-modal="true" aria-labelledby="consent-title">
     <div id="consent-step-main">
-      <h2 id="consent-title">Vi bruker cookies på kontaktlinser.no</h2>
+      <h2 id="consent-title">Vi bruker cookies på Kontaktlinser.no</h2>
       <p class="consent-text">
         Vi og våre samarbeidspartnere bruker cookies til statistikk og for å
         registrere når et kjøp hos en forhandler skjedde via en lenke fra oss,
@@ -600,7 +600,7 @@ _MEGA_USEFUL_LINKS_HTML = "\n        ".join([
 ])
 
 TOPBAR_HTML = f"""<div class="topbar">
-  <a href="/" class="topbar-logo"><img src="/static/logo.png" alt="kontaktlinser.no" loading="eager"></a>
+  <a href="/" class="topbar-logo"><img src="/static/logo.png" alt="Kontaktlinser.no" loading="eager"></a>
   <nav class="topbar-nav">
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Kontaktlinser <span class="nav-caret">▾</span></button>
@@ -1066,7 +1066,7 @@ def render_footer() -> str:
     rådfør deg alltid med optiker ved valg av linsetype og styrke.
   </p>
   <div class="footer-bottom">
-    <span>&copy; {year} kontaktlinser.no</span>
+    <span>&copy; {year} Kontaktlinser.no</span>
     <a href="/">Forside</a>
     <a href="/guider/">Guider</a>
     <a href="/om-oss/" rel="author">Om oss</a>
@@ -2343,10 +2343,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
+<title>{escape(product["name"])} – Billigste pris | Kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
-{_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
+{_og_meta(f'{product["name"]} – Billigste pris | Kontaktlinser.no', long_description[:155], f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -2531,10 +2531,10 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(brand_label)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
+<title>{escape(brand_label)} kontaktlinser – Sammenlign priser | Kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/merke/{brand_slug}/">
-{_og_meta(f'{brand_label} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{brand_slug}/')}
+{_og_meta(f'{brand_label} kontaktlinser – Sammenlign priser | Kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{brand_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -2657,7 +2657,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(name)} – Produsenten bak {escape(brands_text)} | kontaktlinser.no</title>
+<title>{escape(name)} – Produsenten bak {escape(brands_text)} | Kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/produsent/{manufacturer_slug}/">
 {_og_meta(f'{name} – Produsenten bak {brands_text}', meta_description, f'{BASE_URL}/produsent/{manufacturer_slug}/')}
@@ -2703,7 +2703,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
   </div>
 
   <p class="disclosure" style="margin-top:32px;">
-    kontaktlinser.no er en uavhengig prissammenligningstjeneste og har ingen avtale med
+    Kontaktlinser.no er en uavhengig prissammenligningstjeneste og har ingen avtale med
     {escape(name)}. Lenken til deres nettside over er kun en informativ henvisning, ikke
     en annonse eller et samarbeid.
   </p>
@@ -2843,10 +2843,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billige kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
+<title>Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
-{_og_meta('Billige kontaktlinser – Sammenlign priser | kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
+{_og_meta('Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
@@ -3223,7 +3223,7 @@ følges opp jevnlig så lenge det bruker linser.</p>
         "description": "Forskjellen på myke og harde (gassgjennomtrengelige) kontaktlinser, og hvorfor de aller fleste i dag bruker myke linser.",
         "body_html": """
 <p>De aller fleste kontaktlinser som selges i dag – og alt vi sammenligner priser på her
-på kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikonhydrogel).
+på Kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikonhydrogel).
 Harde (gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag først og
 fremst til spesielle synsforhold.</p>
 
@@ -3452,7 +3452,7 @@ noen kan oppleves annerledes komfortabelt enn silikonhydrogel, spesielt tidlig i
 brukstiden.</p>
 
 <p style="margin-top:16px;">Materiale og vanninnhold står oppgitt under spesifikasjoner på hver produktside her
-på kontaktlinser.no.</p>
+på Kontaktlinser.no.</p>
 """,
         "faq": [
             {
@@ -4070,7 +4070,7 @@ oppdaterte priser fra norske nettbutikker.</p>
             },
             {
                 "question": "Hvordan finner jeg riktig pris for akkurat mine linser?",
-                "answer": "Søk opp navnet fra esken din på forsiden av kontaktlinser.no for å se oppdaterte priser fra norske nettbutikker, sortert etter lavest totalpris.",
+                "answer": "Søk opp navnet fra esken din på forsiden av Kontaktlinser.no for å se oppdaterte priser fra norske nettbutikker, sortert etter lavest totalpris.",
             },
         ],
     },
@@ -4504,7 +4504,7 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
 
 HOME_FAQ = [
     {
-        "question": "Hvordan fungerer kontaktlinser.no?",
+        "question": "Hvordan fungerer Kontaktlinser.no?",
         "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikkers egne nettsider og feeds hver 6. time, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
     },
     {
@@ -4521,7 +4521,7 @@ HOME_FAQ = [
     },
     {
         "question": "Er dagslinser eller månedslinser billigst?",
-        "answer": "Det kommer an på linsetype, merke og hvor ofte du bruker linser - det finnes ikke ett svar som gjelder for alle. Se vår guide om månedslinser vs. dagslinser, og bruk kategoriene på kontaktlinser.no til å sammenligne faktiske priser for akkurat den styrken og pakningsstørrelsen du trenger.",
+        "answer": "Det kommer an på linsetype, merke og hvor ofte du bruker linser - det finnes ikke ett svar som gjelder for alle. Se vår guide om månedslinser vs. dagslinser, og bruk kategoriene på Kontaktlinser.no til å sammenligne faktiske priser for akkurat den styrken og pakningsstørrelsen du trenger.",
     },
     {
         "question": "Selger dere også linsevæske og øyedråper?",
@@ -4532,8 +4532,8 @@ HOME_FAQ = [
         "answer": "Flere optikerkjeder selger kjente kontaktlinser under sitt eget varenavn - for eksempel selger Brilleland Biofinity under navnet «iWear Oxygen». Det er samme fysiske produkt, bare med kjedens egen emballasje og navn. Vi har en egen oversikt over disse koblingene under Optikerkjedenes egne merker.",
     },
     {
-        "question": "Er kontaktlinser.no en nettbutikk eller et apotek?",
-        "answer": "Nei, kontaktlinser.no er verken en nettbutikk eller et apotek - vi er en uavhengig sammenligningstjeneste og selger ingenting selv. Kontaktlinser er reseptvare, så rådfør deg alltid med optiker eller øyelege om riktig linsetype og styrke før kjøp.",
+        "question": "Er Kontaktlinser.no en nettbutikk eller et apotek?",
+        "answer": "Nei, Kontaktlinser.no er verken en nettbutikk eller et apotek - vi er en uavhengig sammenligningstjeneste og selger ingenting selv. Kontaktlinser er reseptvare, så rådfør deg alltid med optiker eller øyelege om riktig linsetype og styrke før kjøp.",
     },
     {
         "question": "Kan jeg søke opp en spesifikk linse direkte?",
@@ -4556,8 +4556,8 @@ def render_guide_page(slug: str) -> str | None:
   "@type": "Article",
   "headline": "{escape(guide["title"])}",
   "description": "{escape(guide["description"])}",
-  "author": {{"@type": "Organization", "name": "kontaktlinser.no"}},
-  "publisher": {{"@type": "Organization", "name": "kontaktlinser.no"}},
+  "author": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
+  "publisher": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
   "datePublished": "{updated_iso}",
   "dateModified": "{updated_iso}"
 }}</script>"""
@@ -4568,10 +4568,10 @@ def render_guide_page(slug: str) -> str | None:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(guide["title"])} | kontaktlinser.no</title>
+<title>{escape(guide["title"])} | Kontaktlinser.no</title>
 <meta name="description" content="{escape(guide["description"])}">
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
-{_og_meta(f'{guide["title"]} | kontaktlinser.no', guide["description"], f'{BASE_URL}/guide/{slug}/')}
+{_og_meta(f'{guide["title"]} | Kontaktlinser.no', guide["description"], f'{BASE_URL}/guide/{slug}/')}
 {FONT_LINKS}
 {faq_schema}
 {article_schema}
@@ -4587,7 +4587,7 @@ def render_guide_page(slug: str) -> str | None:
     <div class="hero-copy">
       <div class="kicker">Guide</div>
       <h1>{escape(guide["title"])}</h1>
-      <p class="guide-byline">Kvalitetssikret av kontaktlinser.no · Sist oppdatert {updated_display}</p>
+      <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert {updated_display}</p>
     </div>
   </div>
   <div style="max-width:640px;">
@@ -4805,10 +4805,10 @@ def render_guides_index_page() -> str:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guider – kontaktlinser.no</title>
+<title>Guider – Kontaktlinser.no</title>
 <meta name="description" content="Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.">
 <link rel="canonical" href="{BASE_URL}/guider/">
-{_og_meta('Guider – kontaktlinser.no', 'Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.', BASE_URL + '/guider/')}
+{_og_meta('Guider – Kontaktlinser.no', 'Guider om kontaktlinser: hvordan velge riktig type, bruk og vedlikehold, kontaktlinser for barn, og mer.', BASE_URL + '/guider/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 {GUIDE_TILE_STYLE}
@@ -4843,10 +4843,10 @@ def render_about_page() -> str:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Om oss – kontaktlinser.no</title>
-<meta name="description" content="Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.">
+<title>Om oss – Kontaktlinser.no</title>
+<meta name="description" content="Om Kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.">
 <link rel="canonical" href="{BASE_URL}/om-oss/">
-{_og_meta('Om oss – kontaktlinser.no', 'Om kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.', BASE_URL + '/om-oss/')}
+{_og_meta('Om oss – Kontaktlinser.no', 'Om Kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.', BASE_URL + '/om-oss/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
@@ -4860,7 +4860,7 @@ def render_about_page() -> str:
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Om oss</div>
-      <h1>Om kontaktlinser.no</h1>
+      <h1>Om Kontaktlinser.no</h1>
       <p>En uavhengig prissammenligningstjeneste for kontaktlinser i Norge.</p>
     </div>
   </div>
@@ -4932,7 +4932,7 @@ def render_404_page() -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Siden ble ikke funnet – kontaktlinser.no</title>
+<title>Siden ble ikke funnet – Kontaktlinser.no</title>
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .not-found-hero {{ padding: 40px 0 16px; text-align: center; }}
@@ -4981,10 +4981,10 @@ def render_privacy_page(now: datetime | None = None) -> str:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personvern og cookies – kontaktlinser.no</title>
-<meta name="description" content="Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.">
+<title>Personvern og cookies – Kontaktlinser.no</title>
+<meta name="description" content="Hvilke informasjonskapsler (cookies) Kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.">
 <link rel="canonical" href="{BASE_URL}/personvern/">
-{_og_meta('Personvern og cookies – kontaktlinser.no', 'Hvilke informasjonskapsler (cookies) kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.', BASE_URL + '/personvern/')}
+{_og_meta('Personvern og cookies – Kontaktlinser.no', 'Hvilke informasjonskapsler (cookies) Kontaktlinser.no bruker, hvorfor, og hvordan du kan kontrollere dem.', BASE_URL + '/personvern/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 .cookie-table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.86rem; margin: 16px 0; }}
@@ -5004,7 +5004,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
     <div class="hero-copy">
       <div class="kicker">Personvern</div>
       <h1>Personvern og cookies</h1>
-      <p>Hvilke informasjonskapsler vi bruker på kontaktlinser.no, hvorfor, og hvordan du styrer dem selv.</p>
+      <p>Hvilke informasjonskapsler vi bruker på Kontaktlinser.no, hvorfor, og hvordan du styrer dem selv.</p>
     </div>
   </div>
 
@@ -5025,9 +5025,9 @@ def render_privacy_page(now: datetime | None = None) -> str:
         <td>Tradedoubler, Awin, Adtraction</td>
         <td>Settes først når du klikker deg videre til en forhandler via en
         tilbudslenke fra oss. Registrerer at besøket kom fra
-        kontaktlinser.no, slik at forhandleren kan betale riktig provisjon til
+        Kontaktlinser.no, slik at forhandleren kan betale riktig provisjon til
         oss. Disse cookiene settes av det aktuelle affiliate-nettverket eller
-        forhandlerens eget domene, ikke av kontaktlinser.no direkte.</td>
+        forhandlerens eget domene, ikke av Kontaktlinser.no direkte.</td>
         <td>Ikke nødvendig (tilknyttet markedsføring)</td>
       </tr>
     </table>
@@ -5041,18 +5041,18 @@ def render_privacy_page(now: datetime | None = None) -> str:
     tredjepartsleverandørene vi samarbeider med). Statistikk-skriptet (Google
     Tag Manager) lastes ikke før du har samtykket til det. Valget lagres i
     nettleseren din og du kan endre det når som helst ved å slette lagret
-    nettstedsdata for kontaktlinser.no i nettleserinnstillingene og laste
+    nettstedsdata for Kontaktlinser.no i nettleserinnstillingene og laste
     siden på nytt.</p>
 
     <h2>Hvordan kontrollere eller slette cookies</h2>
     <p>De fleste nettlesere lar deg se, blokkere og slette cookies under
     personvern- eller sikkerhetsinnstillingene. Slår du av ikke-nødvendige
-    cookies helt, vil kontaktlinser.no fortsatt fungere som normalt - vi
+    cookies helt, vil Kontaktlinser.no fortsatt fungere som normalt - vi
     bruker dem kun til måling og provisjonssporing, ikke til selve
     prissammenligningen.</p>
 
     <h2>Kontakt</h2>
-    <p>Spørsmål om personvern eller cookies på kontaktlinser.no? Send oss en
+    <p>Spørsmål om personvern eller cookies på Kontaktlinser.no? Send oss en
     e-post på {_contact_email_link()}.</p>
 
     <p class="updated">Sist oppdatert: {updated}</p>
@@ -5132,10 +5132,10 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billige {escape(category["label"].lower())} – Sammenlign priser | kontaktlinser.no</title>
+<title>Billige {escape(category["label"].lower())} – Sammenlign priser | Kontaktlinser.no</title>
 <meta name="description" content="{escape(category["intro"])}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
-{_og_meta(f'Billige {category["label"].lower()} – Sammenlign priser | kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
+{_og_meta(f'Billige {category["label"].lower()} – Sammenlign priser | Kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -5381,10 +5381,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} – Billigste pris | kontaktlinser.no</title>
+<title>{escape(product["name"])} – Billigste pris | Kontaktlinser.no</title>
 <meta name="description" content="{escape(long_description[:155])}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
-{_og_meta(f'{product["name"]} – Billigste pris | kontaktlinser.no', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
+{_og_meta(f'{product["name"]} – Billigste pris | Kontaktlinser.no', long_description[:155], f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -5500,10 +5500,10 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(cat["title_label"])} – Sammenlign priser | kontaktlinser.no</title>
+<title>{escape(cat["title_label"])} – Sammenlign priser | Kontaktlinser.no</title>
 <meta name="description" content="{escape(cat["intro"])}">
 <link rel="canonical" href="{BASE_URL}/{solution_category}/">
-{_og_meta(f'{cat["title_label"]} – Sammenlign priser | kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
+{_og_meta(f'{cat["title_label"]} – Sammenlign priser | Kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
@@ -5628,10 +5628,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(subbrand)} kontaktlinser – Sammenlign priser | kontaktlinser.no</title>
+<title>{escape(subbrand)} kontaktlinser – Sammenlign priser | Kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/merke/{slug}/">
-{_og_meta(f'{subbrand} kontaktlinser – Sammenlign priser | kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{slug}/')}
+{_og_meta(f'{subbrand} kontaktlinser – Sammenlign priser | Kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -5831,10 +5831,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | kontaktlinser.no</title>
+<title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | Kontaktlinser.no</title>
 <meta name="description" content="{escape(private_name)} fra {escape(chain)} er samme linse som {escape(real_name)} fra {escape(real_brand)} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/')}
+{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | Kontaktlinser.no', f'{private_name} fra {chain} er samme linse som {real_name} fra {real_brand} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.', f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
@@ -5952,10 +5952,10 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Optikerkjedenes egne merker – Hva heter linsen egentlig? | kontaktlinser.no</title>
+<title>Optikerkjedenes egne merker – Hva heter linsen egentlig? | Kontaktlinser.no</title>
 <meta name="description" content="{escape(intro)}">
 <link rel="canonical" href="{BASE_URL}/private-label/">
-{_og_meta('Optikerkjedenes egne merker – Hva heter linsen egentlig? | kontaktlinser.no', intro, BASE_URL + '/private-label/')}
+{_og_meta('Optikerkjedenes egne merker – Hva heter linsen egentlig? | Kontaktlinser.no', intro, BASE_URL + '/private-label/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}</style>
