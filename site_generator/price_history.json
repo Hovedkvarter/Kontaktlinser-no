@@ -11438,8 +11438,8 @@
     },
     {
       "date": "2026-08-29",
-      "price": 479.0,
-      "store": "Lensit"
+      "price": 463.0,
+      "store": "Lenson"
     }
   ],
   "acuvue-oasys-max-1day-multifocal-90pk": [
@@ -11552,8 +11552,8 @@
     },
     {
       "date": "2026-08-29",
-      "price": 549.0,
-      "store": "Synsam"
+      "price": 412.0,
+      "store": "Lensway"
     }
   ],
   "dailies-all-day-comfort-30pk": [
@@ -12509,6 +12509,125 @@
       "date": "2026-08-29",
       "price": 167.0,
       "store": "Apotekhjem"
+    }
+  ],
+  "everclear-adm-30pk": [
+    {
+      "date": "2026-08-29",
+      "price": 164.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-adm-90pk": [
+    {
+      "date": "2026-08-29",
+      "price": 419.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-air-6pk": [
+    {
+      "date": "2026-08-29",
+      "price": 284.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-elite-30pk": [
+    {
+      "date": "2026-08-29",
+      "price": 239.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-elite-90pk": [
+    {
+      "date": "2026-08-29",
+      "price": 607.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-plus-6pk": [
+    {
+      "date": "2026-08-29",
+      "price": 202.0,
+      "store": "Lensway"
+    }
+  ],
+  "clear-1-day-30pk": [
+    {
+      "date": "2026-08-29",
+      "price": 247.0,
+      "store": "Lensway"
+    }
+  ],
+  "daysoft-silk-32pk": [
+    {
+      "date": "2026-08-29",
+      "price": 217.0,
+      "store": "Lensway"
+    }
+  ],
+  "daysoft-silk-96pk": [
+    {
+      "date": "2026-08-29",
+      "price": 562.0,
+      "store": "Lensway"
+    }
+  ],
+  "queens-trilogy-2pk": [
+    {
+      "date": "2026-08-29",
+      "price": 209.0,
+      "store": "Lensway"
+    }
+  ],
+  "swati-coloured-lenses-1month-2pk": [
+    {
+      "date": "2026-08-29",
+      "price": 322.0,
+      "store": "Lensway"
+    }
+  ],
+  "swati-coloured-lenses-6months-2pk": [
+    {
+      "date": "2026-08-29",
+      "price": 479.0,
+      "store": "Lensway"
+    }
+  ],
+  "clariti-1day-multifocal-30pk": [
+    {
+      "date": "2026-08-29",
+      "price": 374.0,
+      "store": "Lensway"
+    }
+  ],
+  "clariti-1day-multifocal-90pk": [
+    {
+      "date": "2026-08-29",
+      "price": 847.0,
+      "store": "Lensway"
+    }
+  ],
+  "acuvue-oasys-max-1day-astigmatism-30pk": [
+    {
+      "date": "2026-08-29",
+      "price": 399.0,
+      "store": "Lenson"
+    }
+  ],
+  "extend-355ml": [
+    {
+      "date": "2026-08-29",
+      "price": 67.0,
+      "store": "Lensway"
+    }
+  ],
+  "extend-100ml": [
+    {
+      "date": "2026-08-29",
+      "price": 37.0,
+      "store": "Lensway"
     }
   ]
 }
