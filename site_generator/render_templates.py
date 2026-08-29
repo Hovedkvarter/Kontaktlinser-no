@@ -1095,6 +1095,7 @@ RETAILER_LOGOS = {
     "Specsavers": ("specsavers.svg", False),
     "Synsam": ("synsam.svg", False),
     "Brilleland": ("brilleland.svg", False),
+    "Apotekhjem": ("apotekhjem.png", False),
 }
 
 
