@@ -3699,7 +3699,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/precision-7-12-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/precision7-12pk.jpg"
     },
     {
       "id": "precision7-27pk",
@@ -3745,7 +3746,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/precision-7-27-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/precision7-27pk.jpg"
     },
     {
       "id": "precision7-astigmatism-12pk",
@@ -3791,7 +3793,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/precision-7-for-astigmatism-12-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/precision7-astigmatism-12pk.jpg"
     },
     {
       "id": "precision7-astigmatism-27pk",
@@ -3829,7 +3832,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/precision-7-for-astigmatism-27-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/precision7-astigmatism-27pk.jpg"
     },
     {
       "id": "freshlook-oneday-30pk",
@@ -5857,7 +5861,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/soflens-daily-disposable-toric-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-daily-disposable-astigmatism.jpg"
     },
     {
       "id": "soflens-multifocal-6pk",
