@@ -1632,6 +1632,63 @@ PENCIL_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" a
 # Pokal-ikon i vinner-boksen -- gir litt "stas"/humor til å være billigst, ikke
 # bare et nøkternt tall.
 TROPHY_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>'
+# Dråpe-ikon for linsetype-badger (toriske/multifokale/fargede linser) og
+# kalender-ikon for brukstid-badger (dagslinser/månedslinser/ukelinser) --
+# se _product_type_badges().
+DROPLET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>'
+CALENDAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+
+# Badger på produktsidens hero -- KUN utledet fra verifiserte spesifikasjons-
+# felt (Linsetype/Brukstid i products_meta.json), aldri egne påstander eller
+# markedsføringsord (se brukerens eksplisitte "ikke uverifiserte slagord"-
+# tilbakemelding 2026-08-29). Nøkkelord-basert i stedet for eksakt verdi-match,
+# siden feltene er fritekst med reell variasjon ("Ukelinse (7 dager)",
+# "Månedslinse (godkjent for kontinuerlig bruk)", "Multifokal og torisk" osv.)
+# -- bekreftet mot samtlige verdier i products_meta.json 2026-08-29.
+# "Sfærisk" alene gir bevisst INGEN badge -- det er standard-tilfellet for
+# de fleste linser, ikke en differensierende egenskap å fremheve.
+_TYPE_BADGE_KEYWORDS = [
+    ("Torisk", "Toriske linser"),
+    ("Multifokal", "Multifokale linser"),
+    ("Farget", "Fargede linser"),
+    ("myopikontroll", "Myopikontroll"),
+]
+_USAGE_BADGE_KEYWORDS = [
+    ("Dagslinse", "Dagslinser"),
+    ("Ukelinse", "Ukelinser"),
+    ("14-dagerslinse", "14-dagerslinser"),
+    ("Månedslinse", "Månedslinser"),
+    ("3 måneder", "3-månederslinser"),
+]
+
+
+def _product_type_badges(specs: list[tuple[str, str]]) -> list[tuple[str, str]]:
+    """Returnerer (ikon, tekst)-par for hero-badgene, utledet fra Linsetype/
+    Brukstid-radene i specs -- se modulnivå-kommentaren over listene for
+    hvorfor nøkkelord-match i stedet for eksakt verdi."""
+    badges: list[tuple[str, str]] = []
+    spec_dict = dict(specs)
+    linsetype = spec_dict.get("Linsetype", "")
+    for keyword, label in _TYPE_BADGE_KEYWORDS:
+        if keyword.lower() in linsetype.lower():
+            badges.append((DROPLET_ICON_SVG, label))
+    brukstid = spec_dict.get("Brukstid", "")
+    for keyword, label in _USAGE_BADGE_KEYWORDS:
+        if keyword.lower() in brukstid.lower():
+            badges.append((CALENDAR_ICON_SVG, label))
+            break  # kun én brukstid-badge -- feltet beskriver ett og samme faktum
+    return badges
+
+
+def _render_product_badges(specs: list[tuple[str, str]]) -> str:
+    badges = _product_type_badges(specs)
+    if not badges:
+        return ""
+    items = "".join(
+        f'<span class="hero-badge">{icon}<span>{escape(label)}</span></span>'
+        for icon, label in badges
+    )
+    return f'<div class="hero-badges">{items}</div>'
 
 
 def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -> str:
@@ -1880,8 +1937,16 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker") -> str:
-    """Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker") -> tuple[str, str]:
+    """Returnerer (winner_band, qty_box) som ETT tuple i stedet for én
+    sammenslått streng -- render_product_page sin nye hero-layout plasserer
+    trofé-boksen (winner_band) INNE i hero-kortet, mens antallsvelgeren
+    (qty_box) fortsatt ligger som egen seksjon under, slik den alltid har
+    gjort. De to andre kallerne (render_solution_product_page,
+    render_private_label_page) limer dem ganske enkelt sammen igjen med
+    "\\n" akkurat som før -- ingen visuell endring der.
+
+    Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
     banneren: viser billigste totalpris for valgt antall enheter, med en
     kompakt antallsvelger (1/2/4/6/10/eget antall) som regner om vinneren
     live via JS. unit_singular/unit_plural lar kontaktlinse-sider si "eske"/
@@ -1900,7 +1965,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     som ikke er nådd ved 1 enhet kan fint være nådd ved 4, og gir da en
     annen vinner enn ved enkeltkjøp."""
     if not best:
-        return ""
+        return "", ""
 
     rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
     shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
@@ -1929,7 +1994,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
 
     eligible = [o for o in offers if o["in_stock"]]
     if len(eligible) < 2:
-        return winner_band  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
+        return winner_band, ""  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
 
     def total_for_qty(o: dict, qty: int) -> float:
         product_total = o["price_nok"] * qty
@@ -1983,7 +2048,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
   {_QTY_CALC_SCRIPT}"""
 
-    return winner_band + "\n" + qty_box
+    return winner_band, qty_box
 
 
 def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
@@ -2162,7 +2227,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
 </section>"""
 
-    best_band = render_winner_widget(best, offers, product["name"])
+    winner_html, qty_html = render_winner_widget(best, offers, product["name"])
+    badges_html = _render_product_badges(product.get("specs", []))
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     # "price" er produktprisen alene, ikke fraktinkludert totalsum -- ellers
@@ -2364,7 +2430,19 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {schema_json_html}
 {product_faq_schema}
 <style>{SHARED_STYLE}
-.hero {{ display: flex; align-items: center; gap: 20px; }}
+.hero-card {{ background: var(--blue-tint); border-radius: 20px; padding: 20px; margin-bottom: 20px; }}
+.hero-main {{ display: flex; flex-direction: column; gap: 20px; }}
+@media (min-width: 860px) {{
+  .hero-card {{ padding: 28px; }}
+  .hero-main {{ display: grid; grid-template-columns: minmax(200px, 300px) 1fr minmax(230px, 280px); gap: 28px; align-items: start; }}
+  .hero-main .winner-band {{ margin: 0; flex-direction: column; align-items: center; text-align: center; gap: 12px; }}
+  .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 8px; }}
+  .hero-main .winner-price-group {{ text-align: center; }}
+}}
+.hero-badges {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }}
+.hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px 6px 10px; font-size: 0.8rem; font-weight: 600; color: var(--blue); }}
+.hero-badge svg {{ width: 15px; height: 15px; flex-shrink: 0; }}
+.hero-card .product-ai-summary {{ background: white; margin: 16px 0 0; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
 .aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
 .aliases-note a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
@@ -2381,10 +2459,14 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
 .pack-size-callout:hover {{ border-color: var(--blue); }}
 .pack-size-callout-arrow {{ color: var(--blue); font-size: 1.1rem; flex-shrink: 0; }}
-.hero-product-image {{ width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }}
+.hero-product-image {{ width: 200px; height: 200px; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
-@media (min-width: 640px) {{ .hero-product-image {{ width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; }} }}
-@media (min-width: 1024px) {{ .hero-product-image {{ width: 340px; height: 340px; border-radius: 24px; font-size: 2.8rem; }} }}
+@media (min-width: 640px) {{ .hero-product-image {{ width: 260px; height: 260px; border-radius: 20px; font-size: 2.6rem; }} }}
+/* Bildekolonnen i hero-main sitt grid er minmax(200px, 300px) -- 100 % bredde
+   her (i stedet for en fast px-verdi som før) lar bildet fylle hele kolonnen
+   uansett hvor mye plass grid-en faktisk gir det, i stedet for å risikere
+   enten overflow eller unødig tomrom rundt et mindre, fast-satt bilde. */
+@media (min-width: 860px) {{ .hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0; font-size: 3rem; }} }}
 /* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
    firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
    Fjerner boks/ramme for ekte bilder og maskerer i stedet kantene til
@@ -2428,16 +2510,20 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <a href="/merke/{escape(product["brand_slug"])}/">{escape(product["brand_label"])}</a> ›
     {escape(product["name"])}
   </p>
-  <div class="hero">
-    <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
-    <div class="hero-copy">
-      <div class="kicker">{escape(product["brand_label"])}</div>
-      <h1>{escape(product["name"])}</h1>
-      <p>{escape(long_description)}</p>
+  <div class="hero-card">
+    <div class="hero-main">
+      <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+      <div class="hero-copy">
+        <div class="kicker">{escape(product["brand_label"])}</div>
+        <h1>{escape(product["name"])}</h1>
+        <p>{escape(long_description)}</p>
+        {badges_html}
+        {ai_summary_html}
+      </div>
+      {winner_html}
     </div>
   </div>
-  {ai_summary_html}
-  {best_band}
+  {qty_html}
   {pack_size_callout}
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
@@ -5291,7 +5377,8 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     # (samme behandling for alle produkttyper). "flaske"/"flasker" i stedet for
     # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
     # kontaktlinseesker.
-    best_band = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker")
+    winner_html, qty_html = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker")
+    best_band = f"{winner_html}\n{qty_html}"
 
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
@@ -5782,7 +5869,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    best_band = render_winner_widget(best, offers, real_product["name"])
+    winner_html, qty_html = render_winner_widget(best, offers, real_product["name"])
+    best_band = f"{winner_html}\n{qty_html}"
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
