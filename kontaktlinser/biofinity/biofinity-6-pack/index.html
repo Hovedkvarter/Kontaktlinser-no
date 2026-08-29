@@ -435,7 +435,19 @@ a { color: inherit; }
 .methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
-.hero { display: flex; align-items: center; gap: 20px; }
+.hero-card { background: var(--blue-tint); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+.hero-main { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 860px) {
+  .hero-card { padding: 28px; }
+  .hero-main { display: grid; grid-template-columns: minmax(200px, 300px) 1fr minmax(230px, 280px); gap: 28px; align-items: start; }
+  .hero-main .winner-band { margin: 0; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .hero-main .winner-left { flex-direction: column; align-items: center; gap: 8px; }
+  .hero-main .winner-price-group { text-align: center; }
+}
+.hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px 6px 10px; font-size: 0.8rem; font-weight: 600; color: var(--blue); }
+.hero-badge svg { width: 15px; height: 15px; flex-shrink: 0; }
+.hero-card .product-ai-summary { background: white; margin: 16px 0 0; }
 .aliases-note { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }
 .aliases-note ul { margin: 8px 0; padding-left: 20px; }
 .aliases-note a { color: var(--blue); text-decoration: none; font-weight: 600; }
@@ -452,10 +464,14 @@ a { color: inherit; }
 .pack-size-callout { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }
 .pack-size-callout:hover { border-color: var(--blue); }
 .pack-size-callout-arrow { color: var(--blue); font-size: 1.1rem; flex-shrink: 0; }
-.hero-product-image { width: 140px; height: 140px; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2rem; color: var(--blue); }
+.hero-product-image { width: 200px; height: 200px; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
-@media (min-width: 640px) { .hero-product-image { width: 180px; height: 180px; border-radius: 20px; font-size: 2.4rem; } }
-@media (min-width: 1024px) { .hero-product-image { width: 340px; height: 340px; border-radius: 24px; font-size: 2.8rem; } }
+@media (min-width: 640px) { .hero-product-image { width: 260px; height: 260px; border-radius: 20px; font-size: 2.6rem; } }
+/* Bildekolonnen i hero-main sitt grid er minmax(200px, 300px) -- 100 % bredde
+   her (i stedet for en fast px-verdi som før) lar bildet fylle hele kolonnen
+   uansett hvor mye plass grid-en faktisk gir det, i stedet for å risikere
+   enten overflow eller unødig tomrom rundt et mindre, fast-satt bilde. */
+@media (min-width: 860px) { .hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0; font-size: 3rem; } }
 /* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
    firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
    Fjerner boks/ramme for ekte bilder og maskerer i stedet kantene til
@@ -771,18 +787,19 @@ a { color: inherit; }
     <a href="/merke/biofinity/">Biofinity</a> ›
     Biofinity 6-pack
   </p>
-  <div class="hero">
-    <div class="hero-product-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" loading="lazy"></div>
-    <div class="hero-copy">
-      <div class="kicker">Biofinity</div>
-      <h1>Biofinity 6-pack</h1>
-      <p>Biofinity fra CooperVision er en månedslinse i comfilcon A med 48 % vanninnhold og høy oksygengjennomstrømning. Kan godkjennes for kontinuerlig bruk i flere døgn etter avtale med optiker, men brukes normalt som en vanlig månedslinse.</p>
-    </div>
-  </div>
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <div class="hero-card">
+    <div class="hero-main">
+      <div class="hero-product-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" loading="lazy"></div>
+      <div class="hero-copy">
+        <div class="kicker">Biofinity</div>
+        <h1>Biofinity 6-pack</h1>
+        <p>Biofinity fra CooperVision er en månedslinse i comfilcon A med 48 % vanninnhold og høy oksygengjennomstrømning. Kan godkjennes for kontinuerlig bruk i flere døgn etter avtale med optiker, men brukes normalt som en vanlig månedslinse.</p>
+        <div class="hero-badges"><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Månedslinser</span></span></div>
+        <section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på <strong>Biofinity 6-pack</strong> fra 8 norske nettbutikker. Fra <strong>331 kr</strong> hos Lensit (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>
-  <a class="winner-band" id="winner-band-link" href="https://www.lensit.no/products/biofinity-prd39456092" rel="nofollow" aria-label="Gå til Lensit for Biofinity 6-pack, 331 kr totalt inkl. frakt">
+      </div>
+      <a class="winner-band" id="winner-band-link" href="https://www.lensit.no/products/biofinity-prd39456092" rel="nofollow" aria-label="Gå til Lensit for Biofinity 6-pack, 331 kr totalt inkl. frakt">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
     <div class="label-group">
@@ -796,7 +813,9 @@ a { color: inherit; }
     <div class="winner-price-note">Totalpris inkl. frakt</div>
   </div>
 </a>
-<div class="qty-box">
+    </div>
+  </div>
+  <div class="qty-box">
     <div class="qty-box-title">Hvor mange esker trenger du?</div>
     <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
