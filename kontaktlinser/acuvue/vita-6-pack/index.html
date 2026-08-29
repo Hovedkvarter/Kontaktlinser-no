@@ -428,22 +428,16 @@ a { color: inherit; }
    prisboks), ikke tvinges til et fast kvadrat uansett hvor høyt det er. */
 @media (min-width: 640px) and (max-width: 859px) { .hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0; } }
 @media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; margin: 0; font-size: 3rem; } }
-/* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
-   firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
-   Fjerner boks/ramme for ekte bilder og maskerer i stedet kantene til
-   gjennomsiktig med en radial gradient, slik at det hvite falmer inn i
-   siden i stedet for å klippes hardt -- rent CSS, ingen ekstra bildefil,
-   ingen påvirkning på LCP/ytelse eller SEO (samme <img src>/alt som før).
-   Beholder litt padding (i stedet for 0) og lar masken først starte langt
-   ute (85 %) -- noen produktbilder er beskåret tettere inntil selve varen
-   enn andre, og en for tidlig/for liten maske-radius falmet inn i selve
-   produktet på de bildene i stedet for bare i den hvite margen rundt. */
-.hero-product-image.has-photo { background: transparent; border: none; padding: 14px; }
-.hero-product-image.has-photo img {
-  object-fit: contain;
-  -webkit-mask-image: radial-gradient(closest-side, black 85%, transparent 100%);
-  mask-image: radial-gradient(closest-side, black 85%, transparent 100%);
-}
+/* Fade-masken (radial gradient som lot hvite produktbilder smelte inn i
+   siden) er fjernet -- den var designet for å blande hvitt inn i en FARGET
+   hero-bakgrunn, men heroen er nå selv hvit (se .hero-card), så masken
+   gjorde ingenting nyttig lenger og risikerte i tillegg å dempe kantene på
+   bilder som IKKE er helt rene hvite (se SofLens-bildet med grå bakgrunn
+   som avslørte den "blob"-formede kanteffekten tidligere i dag). Minimal
+   padding (6px, ikke 0) kun for å unngå at bildet klipper helt inntil
+   kortkanten -- ellers skal bildet fylle mest mulig av ruta, som ønsket. */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 6px; }
+.hero-product-image.has-photo img { object-fit: contain; }
 
 
 .winner-band { display: flex; align-items: center; justify-content: space-between; gap: 16px; background: var(--mint-tint); border: 1px solid #BFE7D5; border-radius: 14px; padding: 16px 18px; margin: 14px 0; text-decoration: none; color: inherit; }
@@ -916,7 +910,7 @@ a { color: inherit; }
     <a class="offer-card is-lowest" href="https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LAV)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FAcuvue-Vita.htm%3FsClickID%3DTradeDoubler-1-3)" rel="sponsored nofollow" aria-label="Gå til Shopping4net for Acuvue Vita 6-pack, 339 kr" data-retailer="Shopping4net">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/shopping4net.png" alt="Shopping4net" loading="lazy"><span style="position:absolute;left:-9999px;">Shopping4net</span> <span class="lowest-tag">Lavest totalpris</span></div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">39 kr frakt</span></div>
@@ -926,7 +920,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-6648)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Facuvue-vita-lens-6648)" rel="sponsored nofollow" aria-label="Gå til Lensway for Acuvue Vita 6-pack, 374 kr" data-retailer="Lensway">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -936,7 +930,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-6648)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Facuvue-vita-lens-6648)" rel="sponsored nofollow" aria-label="Gå til Lenson for Acuvue Vita 6-pack, 399 kr" data-retailer="Lenson">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
+    <div class="offer-meta">Sist oppdatert: 6 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
