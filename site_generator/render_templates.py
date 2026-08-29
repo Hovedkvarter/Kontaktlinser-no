@@ -1990,7 +1990,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
   <div class="winner-price-group">
     <span class="price-pill is-winner" id="winner-price-pill">{_fmt_kr(best["total"])}</span>
     <div class="winner-price-note">Totalpris inkl. frakt</div>
-    <span class="winner-cta" aria-hidden="true">Til butikken</span>
+    <span class="winner-cta" aria-hidden="true">Til butikken <span class="winner-cta-arrow">&#8594;</span></span>
   </div>
 </a>"""
 
@@ -2446,13 +2446,16 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   .hero-main {{ display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }}
   .hero-main .hero-product-image {{ grid-column: 1; grid-row: 1 / 3; }}
   .hero-main .hero-copy {{ grid-column: 2; grid-row: 1; }}
-  .hero-main .winner-band {{ grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 12px; position: relative; padding: 36px 18px 18px; }}
-  .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 8px; }}
+  .hero-main .winner-band {{ grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }}
+  .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 0; }}
   .hero-main .winner-trophy {{ position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }}
-  .hero-main .winner-band .label {{ margin-top: 4px; }}
+  .hero-main .winner-band .label {{ margin-top: 0; }}
   .hero-main .winner-band .retailer {{ justify-content: center; margin-top: 10px; }}
+  .hero-main .winner-band .winner-shipping {{ margin-top: 10px; }}
   .hero-main .winner-price-group {{ text-align: center; }}
-  .hero-main .winner-cta {{ display: inline-flex; align-items: center; justify-content: center; margin-top: 12px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }}
+  .hero-main .price-pill.is-winner {{ display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }}
+  .hero-main .winner-price-note {{ margin-top: 7px; line-height: 1; }}
+  .hero-main .winner-cta {{ display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }}
   .hero-main .product-ai-summary {{ grid-column: 2 / 4; grid-row: 2; margin: 0; }}
 }}
 /* wrap-product er delt med linsevæske-/private label-produktsider (som
