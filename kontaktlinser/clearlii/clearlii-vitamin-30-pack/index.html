@@ -365,11 +365,17 @@ a { color: inherit; }
 .hero-main { display: flex; flex-direction: column; gap: 20px; }
 @media (min-width: 860px) {
   .hero-card { padding: 28px; }
-  .hero-main { display: grid; grid-template-columns: minmax(200px, 300px) 1fr minmax(230px, 280px); gap: 28px; align-items: start; }
+  .hero-main { display: grid; grid-template-columns: minmax(220px, 340px) 1fr minmax(250px, 320px); gap: 32px; align-items: start; }
   .hero-main .winner-band { margin: 0; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
   .hero-main .winner-left { flex-direction: column; align-items: center; gap: 8px; }
   .hero-main .winner-price-group { text-align: center; }
 }
+/* wrap-product er delt med linsevæske-/private label-produktsider (som
+   fortsatt bruker den gamle, smalere hero-layouten) -- utvider den KUN her,
+   siden det er denne nye, bredere hero-en som faktisk trenger albuerommet.
+   Kommer etter {SHARED_STYLE} i selve <style>-taggen, så denne regelen
+   vinner kaskaden uten !important (samme spesifisitet, senere i kilden). */
+@media (min-width: 1024px) { .wrap-product { max-width: 1280px; } }
 .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
 .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px 6px 10px; font-size: 0.8rem; font-weight: 600; color: var(--blue); }
 .hero-badge svg { width: 15px; height: 15px; flex-shrink: 0; }
@@ -886,7 +892,7 @@ a { color: inherit; }
     <a class="offer-card is-lowest" href="https://www.vitusapotek.no/oyne-og-ore/kontaktlinser/clearlii-vitamin-endagslinser-30-stk-base-929418" rel="nofollow" aria-label="Gå til Vitusapotek for Clearlii Vitamin 30-pack, 299 kr" data-retailer="Vitusapotek">
   <div class="offer-main">
     <div class="offer-retailer">Vitusapotek <span class="lowest-tag">Lavest totalpris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Frakt beregnes i kassen</span></div>
@@ -896,7 +902,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://www.apotekfordeg.no/products/clearlii-vitamin-enriched-endagslinser-30-pk--300" rel="nofollow" aria-label="Gå til Apotek For Deg for Clearlii Vitamin 30-pack, 249 kr" data-retailer="Apotek For Deg">
   <div class="offer-main">
     <div class="offer-retailer">Apotek For Deg </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 1 time siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">69 kr frakt</span></div>
