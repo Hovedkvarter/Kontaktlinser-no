@@ -2431,11 +2431,12 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {product_faq_schema}
 <style>{SHARED_STYLE}
 .hero-card {{ background: var(--blue-tint); border-radius: 20px; padding: 20px; margin-bottom: 20px; }}
+.hero-card .hero-copy h1 {{ font-size: 1.6rem; }}
 .hero-main {{ display: flex; flex-direction: column; gap: 20px; }}
 @media (min-width: 860px) {{
   .hero-card {{ padding: 28px; }}
   .hero-main {{ display: grid; grid-template-columns: minmax(220px, 340px) 1fr minmax(250px, 320px); gap: 32px; align-items: start; }}
-  .hero-main .winner-band {{ margin: 0; flex-direction: column; align-items: center; text-align: center; gap: 12px; }}
+  .hero-main .winner-band {{ margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 12px; }}
   .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 8px; }}
   .hero-main .winner-price-group {{ text-align: center; }}
 }}
@@ -2448,7 +2449,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-badges {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }}
 .hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px 6px 10px; font-size: 0.8rem; font-weight: 600; color: var(--blue); }}
 .hero-badge svg {{ width: 15px; height: 15px; flex-shrink: 0; }}
-.hero-card .product-ai-summary {{ background: white; margin: 16px 0 0; }}
+.hero-card .product-ai-summary {{ background: white; border-left: none; border-radius: 10px; margin: 16px 0 0; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
 .aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
 .aliases-note a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
