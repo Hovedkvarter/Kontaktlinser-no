@@ -6639,6 +6639,469 @@
           "slug": "clearlii-vitamin-enriched-endagslinser-30-pk--300"
         }
       ]
+    },
+    {
+      "id": "everclear-adm-30pk",
+      "slug": "everclear-adm-30-pack",
+      "name": "everclear ADM 30-pack",
+      "description": "Dagslinse fra everclear.",
+      "long_description": "everclear ADM (All Day Moisturizing) er en dagslinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "everclear-adm-90pk",
+      "slug": "everclear-adm-90-pack",
+      "name": "everclear ADM 90-pack",
+      "description": "Dagslinse fra everclear.",
+      "long_description": "everclear ADM (All Day Moisturizing) er en dagslinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "everclear-air-6pk",
+      "slug": "everclear-air-6-pack",
+      "name": "everclear AIR 6-pack",
+      "description": "Månedslinse fra everclear.",
+      "long_description": "everclear AIR er en månedslinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "everclear-elite-30pk",
+      "slug": "everclear-elite-30-pack",
+      "name": "everclear ELITE 30-pack",
+      "description": "Dagslinse fra everclear.",
+      "long_description": "everclear ELITE er en dagslinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,8 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "everclear-elite-90pk",
+      "slug": "everclear-elite-90-pack",
+      "name": "everclear ELITE 90-pack",
+      "description": "Dagslinse fra everclear.",
+      "long_description": "everclear ELITE er en dagslinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,8 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "everclear-plus-6pk",
+      "slug": "everclear-plus-6-pack",
+      "name": "everclear PLUS 6-pack",
+      "description": "Ukelinse fra everclear.",
+      "long_description": "everclear PLUS er en ukelinse fra det taiwanske merket everclear, produsert av Visco Vision.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Ukelinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "clear-1-day-30pk",
+      "slug": "clear-1-day-30-pack",
+      "name": "Clear 1-day 30-pack",
+      "description": "Dagslinse fra ClearLab.",
+      "long_description": "Clear 1-day er en dagslinse fra det singaporske merket ClearLab.",
+      "brand_slug": "clearlab",
+      "brand_label": "ClearLab",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "daysoft-silk-32pk",
+      "slug": "daysoft-silk-32-pack",
+      "name": "Daysoft SILK 32-pack",
+      "description": "Dagslinse fra Daysoft.",
+      "long_description": "Daysoft SILK er en dagslinse fra det britiske merket Daysoft (Provis Limited).",
+      "brand_slug": "daysoft",
+      "brand_label": "Daysoft",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "daysoft-silk-96pk",
+      "slug": "daysoft-silk-96-pack",
+      "name": "Daysoft SILK 96-pack",
+      "description": "Dagslinse fra Daysoft.",
+      "long_description": "Daysoft SILK er en dagslinse fra det britiske merket Daysoft (Provis Limited).",
+      "brand_slug": "daysoft",
+      "brand_label": "Daysoft",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "queens-trilogy-2pk",
+      "slug": "queens-trilogy-2-pack",
+      "name": "Queen's Trilogy 2-pack",
+      "description": "Fargede månedslinser fra Soleko.",
+      "long_description": "Queen's Trilogy er en farget månedslinse fra det italienske merket Soleko, tilgjengelig i ni farger (Amber, Blue, Choco, Dark green, Light green, Ocean, Pearl, Violet, Yellow), med eller uten styrke.",
+      "brand_slug": "queens-trilogy",
+      "brand_label": "Queen's Trilogy",
+      "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "swati-coloured-lenses-1month-2pk",
+      "slug": "swati-coloured-lenses-1-month-2-pack",
+      "name": "SWATI Coloured Lenses 1 month 2-pack",
+      "description": "Fargede linser fra SWATI.",
+      "long_description": "SWATI Coloured Lenses er fargede linser fra kosmetikkmerket SWATI, med 1 måneds brukstid, med eller uten styrke.",
+      "brand_slug": "swati",
+      "brand_label": "SWATI",
+      "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "swati-coloured-lenses-6months-2pk",
+      "slug": "swati-coloured-lenses-6-months-2-pack",
+      "name": "SWATI Coloured Lenses 6 months 2-pack",
+      "description": "Fargede linser fra SWATI.",
+      "long_description": "SWATI Coloured Lenses er fargede linser fra kosmetikkmerket SWATI, med 6 måneders brukstid, med eller uten styrke.",
+      "brand_slug": "swati",
+      "brand_label": "SWATI",
+      "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "6-månederslinse"
+        ],
+        [
+          "Linsetype",
+          "Farget, med og uten styrke"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "clariti-1day-multifocal-30pk",
+      "slug": "clariti-1-day-multifocal-30-pack",
+      "name": "Clariti 1 day Multifocal 30-pack",
+      "description": "Multifokal dagslinse fra CooperVision.",
+      "long_description": "Clariti 1 day Multifocal er en flerstyrke-dagslinse fra CooperVision i somofilcon A, for deg med alderssyn (presbyopi). Fås med Low eller High addisjon.",
+      "brand_slug": "clariti",
+      "brand_label": "Clariti",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Somofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "clariti-1day-multifocal-90pk",
+      "slug": "clariti-1-day-multifocal-90-pack",
+      "name": "Clariti 1 day Multifocal 90-pack",
+      "description": "Multifokal dagslinse fra CooperVision.",
+      "long_description": "Clariti 1 day Multifocal er en flerstyrke-dagslinse fra CooperVision i somofilcon A, for deg med alderssyn (presbyopi). Fås med Low eller High addisjon.",
+      "brand_slug": "clariti",
+      "brand_label": "Clariti",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Somofilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,1 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "acuvue-oasys-max-1day-astigmatism-30pk",
+      "slug": "oasys-max-1-day-astigmatism-30-pack",
+      "name": "Acuvue Oasys MAX 1-Day for Astigmatism 30-pack",
+      "description": "Torisk dagslinse fra Johnson & Johnson Vision.",
+      "long_description": "Acuvue Oasys MAX 1-Day for Astigmatism er den toriske varianten av Acuvue Oasys MAX 1-Day, en dagslinse fra Johnson & Johnson Vision i senofilcon A med TearStable-teknologi.",
+      "brand_slug": "acuvue-oasys-max",
+      "brand_label": "Acuvue Oasys MAX",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Senofilcon A med TearStable-teknologi"
+        ],
+        [
+          "Vanninnhold",
+          "38 %"
+        ],
+        [
+          "Basiskurve",
+          "8,5 mm"
+        ],
+        [
+          "Diameter",
+          "14,3 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "UV-filter",
+          "Ja"
+        ]
+      ],
+      "scrape_targets": []
     }
   ]
 }

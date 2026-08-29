@@ -13,8 +13,14 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-5"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-5"}
+        {
+          "retailer": "lenson",
+          "slug": "renu-multi-purpose-extra-5"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "renu-multi-purpose-extra-5"
+        }
       ]
     },
     {
@@ -29,8 +35,14 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-280"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-280"}
+        {
+          "retailer": "lenson",
+          "slug": "renu-multi-purpose-extra-280"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "renu-multi-purpose-extra-280"
+        }
       ]
     },
     {
@@ -45,8 +57,14 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "ReNu Multi-Purpose er en flerbruksløsning fra Bausch + Lomb for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser i ett trinn.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "renu-multi-purpose-extra-102"},
-        {"retailer": "lensway", "slug": "renu-multi-purpose-extra-102"}
+        {
+          "retailer": "lenson",
+          "slug": "renu-multi-purpose-extra-102"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "renu-multi-purpose-extra-102"
+        }
       ]
     },
     {
@@ -61,8 +79,14 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free PureMoist er Alcons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser, med fuktighetsbevarende tilsetning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-puremoist-extra-1334"},
-        {"retailer": "lensway", "slug": "opti-free-puremoist-extra-1334"}
+        {
+          "retailer": "lenson",
+          "slug": "opti-free-puremoist-extra-1334"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "opti-free-puremoist-extra-1334"
+        }
       ]
     },
     {
@@ -77,8 +101,14 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free PureMoist er Alcons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser, med fuktighetsbevarende tilsetning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-puremoist-extra-1335"},
-        {"retailer": "lensway", "slug": "opti-free-puremoist-extra-1335"}
+        {
+          "retailer": "lenson",
+          "slug": "opti-free-puremoist-extra-1335"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "opti-free-puremoist-extra-1335"
+        }
       ]
     },
     {
@@ -93,8 +123,14 @@
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free Express er Alcons rimeligere flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "opti-free-express-extra-56"},
-        {"retailer": "lensway", "slug": "opti-free-express-extra-56"}
+        {
+          "retailer": "lenson",
+          "slug": "opti-free-express-extra-56"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "opti-free-express-extra-56"
+        }
       ]
     },
     {
@@ -122,8 +158,14 @@
       "description": "Peroksidbasert linsevæske fra Alcon.",
       "long_description": "AOSept Plus er en peroksidbasert oppbevaringsløsning fra Alcon. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "aosept-plus-extra-864"},
-        {"retailer": "lensway", "slug": "aosept-plus-extra-864"}
+        {
+          "retailer": "lenson",
+          "slug": "aosept-plus-extra-864"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "aosept-plus-extra-864"
+        }
       ]
     },
     {
@@ -138,8 +180,14 @@
       "description": "Peroksidbasert linsevæske.",
       "long_description": "EasySept er en peroksidbasert oppbevaringsløsning. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "easysept-extra-303"},
-        {"retailer": "lensway", "slug": "easysept-extra-303"}
+        {
+          "retailer": "lenson",
+          "slug": "easysept-extra-303"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "easysept-extra-303"
+        }
       ]
     },
     {
@@ -154,8 +202,14 @@
       "description": "Peroksidbasert linsevæske.",
       "long_description": "EasySept er en peroksidbasert oppbevaringsløsning. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning. Denne reisestørrelsen er praktisk for kortere turer.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "easysept-extra-50"},
-        {"retailer": "lensway", "slug": "easysept-extra-50"}
+        {
+          "retailer": "lenson",
+          "slug": "easysept-extra-50"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "easysept-extra-50"
+        }
       ]
     },
     {
@@ -170,8 +224,14 @@
       "description": "Multipurpose linsevæske fra Menicon.",
       "long_description": "SoloCare Aqua er Menicons flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "solo-care-aqua-extra-149"},
-        {"retailer": "lensway", "slug": "solo-care-aqua-extra-149"}
+        {
+          "retailer": "lenson",
+          "slug": "solo-care-aqua-extra-149"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "solo-care-aqua-extra-149"
+        }
       ]
     },
     {
@@ -186,8 +246,14 @@
       "description": "Multipurpose linsevæske fra Bausch + Lomb.",
       "long_description": "Biotrue er Bausch + Lombs flerbruksløsning, formulert til å ligne øyets eget tårefilm i pH og innhold. Ikke å forveksle med Biotrue ONEday, som er en dagslinse fra samme produsent.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "biotrue-extra-947"},
-        {"retailer": "lensway", "slug": "biotrue-extra-947"}
+        {
+          "retailer": "lenson",
+          "slug": "biotrue-extra-947"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biotrue-extra-947"
+        }
       ]
     },
     {
@@ -202,8 +268,14 @@
       "description": "Multipurpose linsevæske, Lensons eget merke.",
       "long_description": "everclear REFRESH er en flerbruksløsning under Lensons eget merke everclear, for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "everclear-refresh-extra-8157"},
-        {"retailer": "lensway", "slug": "everclear-refresh-extra-8157"}
+        {
+          "retailer": "lenson",
+          "slug": "everclear-refresh-extra-8157"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "everclear-refresh-extra-8157"
+        }
       ]
     },
     {
@@ -218,8 +290,14 @@
       "description": "Peroksidbasert linsevæske i ett trinn.",
       "long_description": "Oxysept 1-Step er en peroksidbasert oppbevaringsløsning i ett trinn. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "oxysept-1-step-extra-6406"},
-        {"retailer": "lensway", "slug": "oxysept-1-step-extra-6406"}
+        {
+          "retailer": "lenson",
+          "slug": "oxysept-1-step-extra-6406"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "oxysept-1-step-extra-6406"
+        }
       ]
     },
     {
@@ -234,8 +312,14 @@
       "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
       "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-revitalens-extra-7832"},
-        {"retailer": "lensway", "slug": "acuvue-revitalens-extra-7832"}
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-revitalens-extra-7832"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-revitalens-extra-7832"
+        }
       ]
     },
     {
@@ -250,8 +334,14 @@
       "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
       "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "acuvue-revitalens-extra-7833"},
-        {"retailer": "lensway", "slug": "acuvue-revitalens-extra-7833"}
+        {
+          "retailer": "lenson",
+          "slug": "acuvue-revitalens-extra-7833"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "acuvue-revitalens-extra-7833"
+        }
       ]
     },
     {
@@ -266,8 +356,14 @@
       "description": "Multipurpose linsevæske, reisestørrelse.",
       "long_description": "SWATI Lens Solution er en flerbruksløsning i reisestørrelse, praktisk som suppleringsflaske eller på kortere turer.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "swati-lens-solution-100-ml-extra-9576"},
-        {"retailer": "lensway", "slug": "swati-lens-solution-100-ml-extra-9576"}
+        {
+          "retailer": "lenson",
+          "slug": "swati-lens-solution-100-ml-extra-9576"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "swati-lens-solution-100-ml-extra-9576"
+        }
       ]
     },
     {
@@ -281,8 +377,14 @@
       "description": "Fuktighetsdråper for tørre øyne.",
       "long_description": "Systane Ultra er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "systane-ultra-extra-10089"},
-        {"retailer": "lensway", "slug": "systane-ultra-extra-10089"}
+        {
+          "retailer": "lenson",
+          "slug": "systane-ultra-extra-10089"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "systane-ultra-extra-10089"
+        }
       ]
     },
     {
@@ -296,8 +398,14 @@
       "description": "Fuktighetsdråper for tørre øyne.",
       "long_description": "Systane Complete er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "systane-complete-extra-10088"},
-        {"retailer": "lensway", "slug": "systane-complete-extra-10088"}
+        {
+          "retailer": "lenson",
+          "slug": "systane-complete-extra-10088"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "systane-complete-extra-10088"
+        }
       ]
     },
     {
@@ -311,8 +419,14 @@
       "description": "Fuktighetsdråper for tørre øyne.",
       "long_description": "Systane Hydration er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "systane-hydration-extra-10090"},
-        {"retailer": "lensway", "slug": "systane-hydration-extra-10090"}
+        {
+          "retailer": "lenson",
+          "slug": "systane-hydration-extra-10090"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "systane-hydration-extra-10090"
+        }
       ]
     },
     {
@@ -326,8 +440,14 @@
       "description": "Konserveringsmiddelfrie øyedråper for tørre øyne.",
       "long_description": "Hylo-Care er konserveringsmiddelfrie øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-care-extra-2263"},
-        {"retailer": "lensway", "slug": "hylo-care-extra-2263"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-care-extra-2263"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-care-extra-2263"
+        }
       ]
     },
     {
@@ -341,8 +461,14 @@
       "description": "Konserveringsmiddelfrie øyegel-dråper for tørre øyne.",
       "long_description": "Hylo-Gel er konserveringsmiddelfrie øyedråper med gel-konsistens mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-gel-extra-2264"},
-        {"retailer": "lensway", "slug": "hylo-gel-extra-2264"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-gel-extra-2264"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-gel-extra-2264"
+        }
       ]
     },
     {
@@ -356,8 +482,14 @@
       "description": "Konserveringsmiddelfrie øyedråper for tørre øyne.",
       "long_description": "Hylo Fresh er konserveringsmiddelfrie øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-fresh-extra-9887"},
-        {"retailer": "lensway", "slug": "hylo-fresh-extra-9887"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-fresh-extra-9887"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-fresh-extra-9887"
+        }
       ]
     },
     {
@@ -371,8 +503,14 @@
       "description": "Konserveringsmiddelfrie øyedråper for tørre øyne.",
       "long_description": "Hylo Comod er konserveringsmiddelfrie øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-comod-extra-9888"},
-        {"retailer": "lensway", "slug": "hylo-comod-extra-9888"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-comod-extra-9888"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-comod-extra-9888"
+        }
       ]
     },
     {
@@ -386,8 +524,14 @@
       "description": "Smørende øyedråper for tørre øyne.",
       "long_description": "Hylo Dual er smørende øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-dual-extra-9889"},
-        {"retailer": "lensway", "slug": "hylo-dual-extra-9889"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-dual-extra-9889"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-dual-extra-9889"
+        }
       ]
     },
     {
@@ -401,8 +545,14 @@
       "description": "Smørende øyedråper for tørre og irriterte øyne.",
       "long_description": "Hylo Dual Intense er smørende øyedråper mot tørre og irriterte øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "hylo-dual-intense-extra-9890"},
-        {"retailer": "lensway", "slug": "hylo-dual-intense-extra-9890"}
+        {
+          "retailer": "lenson",
+          "slug": "hylo-dual-intense-extra-9890"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-dual-intense-extra-9890"
+        }
       ]
     },
     {
@@ -416,8 +566,14 @@
       "description": "Konserveringsmiddelfrie øyedråper for tørre øyne.",
       "long_description": "Thealoz Duo er konserveringsmiddelfrie øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "thealoz-duo-extra-10562"},
-        {"retailer": "lensway", "slug": "thealoz-duo-extra-10562"}
+        {
+          "retailer": "lenson",
+          "slug": "thealoz-duo-extra-10562"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "thealoz-duo-extra-10562"
+        }
       ]
     },
     {
@@ -431,8 +587,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "OXYAL Trehalos Duo Action er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "oxyal-trehalos-duo-action-extra-9641"},
-        {"retailer": "lensway", "slug": "oxyal-trehalos-duo-action-extra-9641"}
+        {
+          "retailer": "lenson",
+          "slug": "oxyal-trehalos-duo-action-extra-9641"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "oxyal-trehalos-duo-action-extra-9641"
+        }
       ]
     },
     {
@@ -446,8 +608,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "OXYAL Trehalos Triple Action er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "oxyal-trehalos-triple-action-extra-9642"},
-        {"retailer": "lensway", "slug": "oxyal-trehalos-triple-action-extra-9642"}
+        {
+          "retailer": "lenson",
+          "slug": "oxyal-trehalos-triple-action-extra-9642"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "oxyal-trehalos-triple-action-extra-9642"
+        }
       ]
     },
     {
@@ -461,8 +629,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "OXYAL Triple Action er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "oxyal-triple-action-extra-9643"},
-        {"retailer": "lensway", "slug": "oxyal-triple-action-extra-9643"}
+        {
+          "retailer": "lenson",
+          "slug": "oxyal-triple-action-extra-9643"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "oxyal-triple-action-extra-9643"
+        }
       ]
     },
     {
@@ -476,8 +650,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "Tearsagain er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "tearsagain-extra-10572"},
-        {"retailer": "lensway", "slug": "tearsagain-extra-10572"}
+        {
+          "retailer": "lenson",
+          "slug": "tearsagain-extra-10572"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "tearsagain-extra-10572"
+        }
       ]
     },
     {
@@ -491,8 +671,14 @@
       "description": "Øyespray for tørre øyne, sprayes på lukket øyelokk.",
       "long_description": "Tearsagain Spray er en lipidbasert øyespray mot tørre øyne, som sprayes på lukket øyelokk, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "tearsagain-spray-extra-10571"},
-        {"retailer": "lensway", "slug": "tearsagain-spray-extra-10571"}
+        {
+          "retailer": "lenson",
+          "slug": "tearsagain-spray-extra-10571"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "tearsagain-spray-extra-10571"
+        }
       ]
     },
     {
@@ -506,8 +692,14 @@
       "description": "Øyespray for sensitive, tørre øyne, sprayes på lukket øyelokk.",
       "long_description": "Tearsagain Sensitive Spray er en lipidbasert øyespray for sensitive, tørre øyne, som sprayes på lukket øyelokk, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "tearsagain-sensitive-spray-extra-10570"},
-        {"retailer": "lensway", "slug": "tearsagain-sensitive-spray-extra-10570"}
+        {
+          "retailer": "lenson",
+          "slug": "tearsagain-sensitive-spray-extra-10570"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "tearsagain-sensitive-spray-extra-10570"
+        }
       ]
     },
     {
@@ -521,8 +713,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "EYZ Plus er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "eyz-plus-extra-10566"},
-        {"retailer": "lensway", "slug": "eyz-plus-extra-10566"}
+        {
+          "retailer": "lenson",
+          "slug": "eyz-plus-extra-10566"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "eyz-plus-extra-10566"
+        }
       ]
     },
     {
@@ -536,8 +734,14 @@
       "description": "Øyedråper for tørre øyne.",
       "long_description": "EYZ Protect er øyedråper mot tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "eyz-protect-extra-10569"},
-        {"retailer": "lensway", "slug": "eyz-protect-extra-10569"}
+        {
+          "retailer": "lenson",
+          "slug": "eyz-protect-extra-10569"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "eyz-protect-extra-10569"
+        }
       ]
     },
     {
@@ -551,8 +755,14 @@
       "description": "Komfortdråper fra Consol.",
       "long_description": "Add1 er komfortdråper fra Consol for tørre øyne, i praktisk 10 ml flaske.",
       "scrape_targets": [
-        {"retailer": "lenson", "slug": "add1-extra-6280"},
-        {"retailer": "lensway", "slug": "add1-extra-6280"}
+        {
+          "retailer": "lenson",
+          "slug": "add1-extra-6280"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "add1-extra-6280"
+        }
       ]
     },
     {
@@ -674,6 +884,32 @@
       "solution_category": "oyedraper",
       "description": "Naturlig øyedråpe basert på øyentrøst.",
       "long_description": "Euphrasia Pollendråper er en øyedråpe basert på øyentrøst (Euphrasia), tradisjonelt brukt ved pollenplager og øyeirritasjon, i praktisk 10 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "extend-355ml",
+      "slug": "extend-355-ml",
+      "name": "Extend 355 ml",
+      "brand_slug": "extend",
+      "brand_label": "Extend",
+      "size_ml": 355,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "description": "Multipurpose linsevæske fra Consol.",
+      "long_description": "Extend er en flerbruksløsning fra Consol for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser.",
+      "scrape_targets": []
+    },
+    {
+      "id": "extend-100ml",
+      "slug": "extend-100-ml",
+      "name": "Extend 100 ml",
+      "brand_slug": "extend",
+      "brand_label": "Extend",
+      "size_ml": 100,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "description": "Multipurpose linsevæske fra Consol.",
+      "long_description": "Extend er en flerbruksløsning fra Consol for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser, her i reisestørrelse.",
       "scrape_targets": []
     }
   ]
