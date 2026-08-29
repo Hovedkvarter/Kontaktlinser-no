@@ -2435,10 +2435,19 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-main {{ display: flex; flex-direction: column; gap: 20px; }}
 @media (min-width: 860px) {{
   .hero-card {{ padding: 28px; }}
-  .hero-main {{ display: grid; grid-template-columns: minmax(240px, 440px) 1fr minmax(250px, 320px); gap: 32px; align-items: start; }}
-  .hero-main .winner-band {{ margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 12px; }}
+  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
+     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
+     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
+     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
+     direkte barn siden auto-plassering ikke gir riktig resultat når
+     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
+  .hero-main {{ display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }}
+  .hero-main .hero-product-image {{ grid-column: 1; grid-row: 1 / 3; }}
+  .hero-main .hero-copy {{ grid-column: 2; grid-row: 1; }}
+  .hero-main .winner-band {{ grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 12px; }}
   .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 8px; }}
   .hero-main .winner-price-group {{ text-align: center; }}
+  .hero-main .product-ai-summary {{ grid-column: 2 / 4; grid-row: 2; margin: 0; }}
 }}
 /* wrap-product er delt med linsevæske-/private label-produktsider (som
    fortsatt bruker den gamle, smalere hero-layouten) -- utvider den KUN her,
@@ -2473,7 +2482,12 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
    her (i stedet for en fast px-verdi som før) lar bildet fylle hele kolonnen
    uansett hvor mye plass grid-en faktisk gir det, i stedet for å risikere
    enten overflow eller unødig tomrom rundt et mindre, fast-satt bilde. */
-@media (min-width: 860px) {{ .hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0; font-size: 3rem; }} }}
+/* Kvadratisk (aspect-ratio) helt til bildet blir en grid-rute som spenner
+   to rader (se .hero-main .hero-product-image over) -- da skal det heller
+   strekke seg i høyden til å fylle hele det spennet (tekstkolonne +
+   prisboks), ikke tvinges til et fast kvadrat uansett hvor høyt det er. */
+@media (min-width: 640px) and (max-width: 859px) {{ .hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0; }} }}
+@media (min-width: 860px) {{ .hero-product-image {{ width: 100%; height: 100%; margin: 0; font-size: 3rem; }} }}
 /* Produktbilder vi mottar har nesten alltid hvit bakgrunn -- en synlig
    firkant/ramme rundt bildet ser klumpete ut mot sidens bakgrunnsfarge.
    Fjerner boks/ramme for ekte bilder og maskerer i stedet kantene til
@@ -2525,9 +2539,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         <h1>{escape(product["name"])}</h1>
         <p>{escape(long_description)}</p>
         {badges_html}
-        {ai_summary_html}
       </div>
       {winner_html}
+      {ai_summary_html}
     </div>
   </div>
   {qty_html}
