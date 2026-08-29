@@ -370,7 +370,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/acuvue-oasys-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-6pk.jpg"
     },
     {
       "id": "acuvue-vita-6pk",
@@ -558,7 +559,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-moist-30pk.jpg"
     },
     {
       "id": "acuvue-oasys-max-1day-30pk",
@@ -709,7 +711,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-1day-hydraluxe-30pk.jpg"
     },
     {
       "id": "acuvue-oasys-astigmatism-6pk",
@@ -788,7 +791,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/acuvue-oasys-for-astigmatism-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-astigmatism-6pk.jpg"
     },
     {
       "id": "acuvue-moist-astigmatism-30pk",
@@ -863,7 +867,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-for-astigmatism-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-moist-astigmatism-30pk.jpg"
     },
     {
       "id": "biofinity-toric-6pk",
@@ -942,7 +947,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-toric-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biofinity-toric-6pk.jpg"
     },
     {
       "id": "air-optix-colors-2pk",
@@ -1236,7 +1242,8 @@
           "retailer": "brilleland",
           "slug": "iwear/iwear-oxygen-presbyopia-6-pack"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biofinity-multifocal-6pk.jpg"
     },
     {
       "id": "biofinity-energys-6pk",
@@ -1576,7 +1583,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/myday-multifocal-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/myday-multifocal.jpg"
     },
     {
       "id": "myday-toric-30pk",
@@ -1630,7 +1638,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/myday-toric-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/myday-toric.jpg"
     },
     {
       "id": "proclear-sphere-6pk",
@@ -1685,7 +1694,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/proclear-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-sphere-6pk.jpg"
     },
     {
       "id": "proclear-toric-6pk",
@@ -1736,7 +1746,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/proclear-toric-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-toric-6pk.jpg"
     },
     {
       "id": "clariti-1day-30pk",
@@ -2510,7 +2521,8 @@
           "slug": "soflens-59-prd20429154",
           "variant": "6"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-59-6pk.jpg"
     },
     {
       "id": "soflens-daily-disposable-30pk",
@@ -2561,7 +2573,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/soflens-daily-disposable-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-daily-disposable-30pk.jpg"
     },
     {
       "id": "soflens-toric-6pk",
@@ -2612,7 +2625,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/soflens-66-toric-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-toric-6pk.jpg"
     },
     {
       "id": "purevision2-6pk",
@@ -2679,7 +2693,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/purevision-2-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/purevision2-6pk.jpg"
     },
     {
       "id": "biotrue-oneday-30pk",
@@ -2738,7 +2753,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/biotrue-oneday-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-oneday-30pk.jpg"
     },
     {
       "id": "ultra-6pk",
@@ -2864,7 +2880,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/biomedics-55-evolution-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biomedics-55-evolution-6pk.jpg"
     },
     {
       "id": "air-optix-night-day-aqua-6pk",
@@ -2966,7 +2983,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/purevision-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/purevision-6pk.jpg"
     },
     {
       "id": "purevision-multifocal-6pk",
@@ -3013,7 +3031,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/purevision-multi-focal-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/purevision-multifocal-6pk.jpg"
     },
     {
       "id": "purevision2-astigmatism-6pk",
@@ -3123,7 +3142,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/purevision-2-multi-focal-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/purevision2-presbyopia-6pk.jpg"
     },
     {
       "id": "biotrue-oneday-astigmatism-30pk",
@@ -3237,7 +3257,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/progressive-linser/biotrue-oneday-presbyopia-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-oneday-presbyopia-30pk.jpg"
     },
     {
       "id": "ultra-oneday-30pk",
@@ -3445,7 +3466,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/biomedics-1-day-extra-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biomedics-1day-xtra-30pk.jpg"
     },
     {
       "id": "biomedics-1day-xtra-toric-30pk",
@@ -3488,7 +3510,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/toriske-linser/biomedics-1-day-extra-toric-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biomedics-1day-xtra-toric-30pk.jpg"
     },
     {
       "id": "biomedics-toric-6pk",
@@ -3543,7 +3566,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/toriske-linser/biomedics-toric-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biomedics-toric-6pk.jpg"
     },
     {
       "id": "total30-multifocal-6pk",
@@ -3987,7 +4011,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-moist-90pk.jpg"
     },
     {
       "id": "acuvue-moist-astigmatism-90pk",
@@ -4057,7 +4082,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/1-day-acuvue-moist-for-astigmatism-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-moist-astigmatism-90pk.jpg"
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-90pk",
@@ -4119,7 +4145,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-1day-hydraluxe-90pk.jpg"
     },
     {
       "id": "acuvue-oasys-max-1day-90pk",
@@ -4224,7 +4251,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/biomedics-1-day-extra-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biomedics-1day-xtra-90pk.jpg"
     },
     {
       "id": "biotrue-oneday-90pk",
@@ -4274,7 +4302,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/biotrue-oneday-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-oneday-90pk.jpg"
     },
     {
       "id": "biotrue-oneday-presbyopia-90pk",
@@ -4876,7 +4905,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/soflens-daily-disposable-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-daily-disposable-90pk.jpg"
     },
     {
       "id": "ultra-oneday-90pk",
@@ -5040,7 +5070,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-1day-astigmatism.jpg"
     },
     {
       "id": "acuvue-oasys-1day-astigmatism-90pk",
@@ -5149,7 +5180,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-xr-toric-3-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biofinity-xr-toric-3pk.jpg"
     },
     {
       "id": "biofinity-xr-3pk",
@@ -5204,7 +5236,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-xr-3-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biofinity-xr-3pk.jpg"
     },
     {
       "id": "dailies-aquacomfort-plus-180pk",
@@ -5346,7 +5379,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/dailies-aquacomfort-plus-multifocal-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg"
     },
     {
       "id": "dailies-aquacomfort-plus-toric-30pk",
@@ -5567,7 +5601,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/proclear-1-day-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-1day-30pk.jpg"
     },
     {
       "id": "proclear-1day-90pk",
@@ -5609,7 +5644,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/proclear-1-day-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-1day-90pk.jpg"
     },
     {
       "id": "proclear-1day-multifocal-30pk",
@@ -5651,7 +5687,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/proclear-1-day-multifocal-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-1day-multifocal-30pk.jpg"
     },
     {
       "id": "proclear-multifocal-6pk",
@@ -5689,7 +5726,8 @@
           "retailer": "lensway",
           "slug": "proclear-multifocal-lens-421"
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-multifocal-6pk.jpg"
     },
     {
       "id": "proclear-multifocal-toric-3pk",
@@ -5815,7 +5853,8 @@
           "retailer": "lensway",
           "slug": "soflens-38-lens-85"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-38-6pk.jpg"
     },
     {
       "id": "soflens-daily-disposable-astigmatism-30pk",
@@ -5862,7 +5901,7 @@
           "slug": "linsebutikk/dagslinser/soflens-daily-disposable-toric-30-linser"
         }
       ],
-      "manual_image": "/static/products/soflens-daily-disposable-astigmatism.jpg"
+      "manual_image": "/static/products/soflens-daily-disposable-astigmatism-30pk.jpg"
     },
     {
       "id": "soflens-multifocal-6pk",
@@ -5904,7 +5943,8 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/soflens-multifocal-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/soflens-multifocal-6pk.jpg"
     },
     {
       "id": "acuvue-oasys-max-1day-multifocal-30pk",
