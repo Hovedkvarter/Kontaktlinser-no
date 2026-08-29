@@ -29,9 +29,14 @@
   },
 
   "lensway": {
-    "$comment": "Bekreftet affiliate-program hos Lensway kjøres via Tradedoubler, men vi har ingen signert feed-avtale ennå. Scraper inntil videre -- bytt til affiliate_feed/tradedoubler den dagen avtalen er på plass. VIKTIG: Lensway er en React-app som ALDRI server-rendrer pris i DOM-en -- CSS-selectorer treffer ingenting uansett hvor riktige de er (verifisert 28.08.2026, brukte timevis på feil spor før dette ble oppdaget). price_source=embedded_json henter i stedet prisen ferdig utregnet fra deres egen analytics-JSON i <script>-taggen, som ligger i rå-HTML-en uavhengig av JS. Samme plattform som Lenson (LensGroup) -- identisk oppsett, til og med samme produkt-ID-er på tvers av de to sidene.",
+    "$comment": "Tradedoubler-feed AKTIVERT 2026-08-29 (fid=6884, samme token som Shopping4net/Lenson) -- bekreftet med brukeren, tidligere PF_392-feilen ('Requester is not connected to Feed') er borte. Bytt fra scraper til affiliate_feed. VIKTIG: Lensway sin feed er IKKE lense-eksklusiv -- 554 av 1000 rader er 'Briller' og 259 er 'Solbriller' (bekreftet 2026-08-29), category_prefixes under er derfor et reelt sikkerhetsnett her, ikke bare dobbel forsikring som hos Lenson. Kategoritaksonomien er ANNERLEDES enn Lenson sin -- 'Linser > ...' her, ikke 'Kontaktlinser > ...'. product_matching.json sin 'tradedoubler_lensway'-tabell er bygget PROGRAMMATISK fra de allerede verifiserte scrape_targets-slugene (products_meta.json/solutions_meta.json) -- Tradedoubler sin offers[0].sourceProductId er identisk med tall-suffikset i den scrapede URL-slugen (f.eks. 'hylo-fresh-extra-9887' -> sourceProductId '9887', bekreftet mot ekte feed-data for flere titalls produkter før dette ble stolt på i stor skala), IKKE gjettet fra navn. price_source=embedded_json-oppsettet under er BEHOLDT som dokumentasjon/fallback, men brukes ikke lenger siden default_source nå er affiliate_feed (should_scrape() i scraper.py returnerer false).",
     "display_name": "Lensway",
-    "default_source": "scraper",
+    "default_source": "affiliate_feed",
+    "network": "tradedoubler_lensway",
+    "feed_urls": ["https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"],
+    "category_prefixes": ["Linser >", "Tilbehør"],
+    "shipping": {"free_over": 1199, "fee_nok": 50},
+    "$shipping_comment": "Ingen offentlig oppgitt grense i kjøpsvilkårene (kun 'frakt vises i kassen') -- gebyret (50 kr) er bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Grensen på 1199 kr er overført fra Lenson (samme selskap/plattform/LensGroup, identisk gebyr ved identisk ordreverdi) siden Lensway ikke oppgir tallet selv -- noe lavere sikkerhet enn Lensons egen eksplisitte banner, men ikke gjettet fra tredjepart.",
     "scraper_config": {
       "base_url": "https://www.lensway.no",
       "price_source": "embedded_json",
@@ -40,14 +45,18 @@
       "product_url_pattern": "/{slug}",
       "shipping": {"free_over": 1199, "fee_nok": 50}
     },
-    "$shipping_comment": "Ingen offentlig oppgitt grense i kjøpsvilkårene (kun 'frakt vises i kassen') -- gebyret (50 kr) er bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Grensen på 1199 kr er overført fra Lenson (samme selskap/plattform/LensGroup, identisk gebyr ved identisk ordreverdi) siden Lensway ikke oppgir tallet selv -- noe lavere sikkerhet enn Lensons egen eksplisitte banner, men ikke gjettet fra tredjepart.",
     "brand_overrides": {}
   },
 
   "lenson": {
-    "$comment": "Bekreftet affiliate-program hos Lenson kjøres via Tradedoubler (aktiv siden 2008, lenson.com/no/affiliate). Ingen signert feed-avtale ennå -- scraper inntil videre. Samme React-app-arkitektur som Lensway: pris finnes ALDRI i server-rendret DOM, kun i en analytics-JSON-blob i <script>-taggen -- se price_source=embedded_json. Ingen 'utsolgt'-felt funnet i den blobben eller ellers på siden ved verifisering -- stock_selector er derfor utelatt, alle tilbud antas på lager inntil dette er sjekket mot et faktisk utsolgt produkt.",
+    "$comment": "Tradedoubler-feed AKTIVERT 2026-08-29 (fid=9560, samme token som Shopping4net/Lensway) -- bekreftet med brukeren, tidligere PF_392-feilen er borte. Bytt fra scraper til affiliate_feed. Hele katalogen (181 varer) er allerede rene kontaktlinse-/tilbehørsprodukter ('Kontaktlinser > ...' + 'Tilbehør', ingen briller) -- category_prefixes under er dermed dobbel forsikring, ikke et reelt behov, i motsetning til Lensway. product_matching.json sin 'tradedoubler_lenson'-tabell er bygget PROGRAMMATISK fra allerede verifiserte scrape_targets-slugs, se samme forklaring i lensway sin $comment (samme LensGroup-plattform, samme mønster bekreftet for begge).",
     "display_name": "Lenson",
-    "default_source": "scraper",
+    "default_source": "affiliate_feed",
+    "network": "tradedoubler_lenson",
+    "feed_urls": ["https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=9560?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"],
+    "category_prefixes": ["Kontaktlinser >", "Tilbehør"],
+    "shipping": {"free_over": 1199, "fee_nok": 50},
+    "$shipping_comment": "Bekreftet direkte -- eksplisitt banner i kassen 'Kjøp for minst 1199 kr for å få fri frakt', og 50 kr-gebyret bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Et tidligere tredjeparts-rykte om '799 kr' var feil -- det var faktisk en produktpris før rabatt, ikke en fraktgrense.",
     "scraper_config": {
       "base_url": "https://www.lenson.com",
       "price_source": "embedded_json",
@@ -56,7 +65,6 @@
       "product_url_pattern": "/no/{slug}",
       "shipping": {"free_over": 1199, "fee_nok": 50}
     },
-    "$shipping_comment": "Bekreftet direkte -- eksplisitt banner i kassen 'Kjøp for minst 1199 kr for å få fri frakt', og 50 kr-gebyret bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Et tidligere tredjeparts-rykte om '799 kr' var feil -- det var faktisk en produktpris før rabatt, ikke en fraktgrense.",
     "brand_overrides": {}
   },
 
@@ -84,8 +92,9 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=air%20optix?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=avaira?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
+    "category_prefixes": ["Kontaktlinser >", "Apotek > Allergi > Øyendråper", "Apotek > Øyne"],
     "shipping": {"free_over": 700, "fee_nok": 39},
-    "$shipping_comment": "Kontaktlinser-avdelingen har egen fri-frakt-grense (700 kr) -- ULIK Skjønnhet/Helsekost/Fitness sine 350 kr, bekreftet direkte sitert fra kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm) OG mot Shopping4net sin egen 'Fri Frakt'-info-modal (skjermbilde fra brukeren) 2026-08-20 ('Det er alltid den laveste grensen som gjelder hvis du kjøper fra forskjellige avdelinger'). Gebyret under grensen (39 kr) var ikke oppgitt i vilkårsteksten selv, men bekreftet direkte av brukeren 2026-08-20. NB: dette feltet er kun dokumentasjon her -- de faktiske verdiene som brukes er hardkodet direkte i map_tradedoubler_row() i ingest_feed.py, samme mønster som extraoptical.",
+    "$shipping_comment": "Kontaktlinser-avdelingen har egen fri-frakt-grense (700 kr) -- ULIK Skjønnhet/Helsekost/Fitness sine 350 kr, bekreftet direkte sitert fra kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm) OG mot Shopping4net sin egen 'Fri Frakt'-info-modal (skjermbilde fra brukeren) 2026-08-20 ('Det er alltid den laveste grensen som gjelder hvis du kjøper fra forskjellige avdelinger'). Gebyret under grensen (39 kr) var ikke oppgitt i vilkårsteksten selv, men bekreftet direkte av brukeren 2026-08-20. Leses nå direkte herfra av map_tradedoubler_row() i ingest_feed.py (2026-08-29: mapperen generalisert til å lese retailer_cfg i stedet for hardkodede tall, siden Lenson/Lensway kom til som nummer to og tre Tradedoubler-forhandler) -- ikke lenger bare dokumentasjon.",
     "commission_pct": 10,
     "$commission_comment": "Opptil 10% provisjon, tidligere dokumentert fra research før avtalen var reell (program-id 198299 stemmer med feedens egen p(198299) i tracking-lenkene). Rent dokumentasjonsfelt, ikke brukt i kodelogikk ennå -- se samme merknad hos extraoptical.",
     "brand_overrides": {}

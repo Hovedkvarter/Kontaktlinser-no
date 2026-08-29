@@ -51,12 +51,18 @@ def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[st
 
     def _ingest(network: str, cfg: dict) -> None:
         match_map = product_matching.get(network, {})
-        if network == "tradedoubler":
+        if "feed_urls" in cfg:
             # Paginert JSON-API, ikke en flat CSV-fil -- egen henter, se
             # load_tradedoubler_feed() i ingest_feed.py. feed_urls (flertall)
-            # siden ett enkelt søk ikke dekker både linser og øyeplager-
-            # produkter i denne feeden.
-            offers = load_tradedoubler_feed(cfg["feed_urls"], match_map)
+            # siden Shopping4net trenger flere søk for å dekke hele
+            # katalogen (ett enkelt søk dekker ikke både linser og
+            # øyeplager-produkter) -- Lenson/Lensway sine mindre kataloger
+            # hentes derimot fullt ut med kun ett usøkt/paginert kall, så
+            # for dem har feed_urls bare ett element. Nøkkelen på cfg
+            # ("feed_urls", flertall) i stedet for network=="tradedoubler"
+            # gjør dette forhandler-uavhengig -- samme prinsipp som feed_url/
+            # feed_path-grenene under.
+            offers = load_tradedoubler_feed(cfg["feed_urls"], match_map, cfg)
         elif "feed_url" in cfg:
             offers = load_feed_url(cfg["feed_url"], network, match_map, cfg)
         else:

@@ -126,19 +126,24 @@ def map_partner_ads_row(row: dict, product_match: dict[str, str], retailer_cfg: 
         return []
 
 
-def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> list[Offer]:
-    """Shopping4Net (Tradedoubler, program-id 198299, bekreftet 2026-08-20).
-    ANNERLEDES enn de andre nettverkene: hvert 'produkt' er et nøstet
-    JSON-objekt (offers[0] med pris/lenke/lagerstatus, categories[] med full
-    kategoristi, productImage.url), ikke en flat CSV-rad -- se
-    load_tradedoubler_feed() for selve HTTP/paginering-delen.
+def map_tradedoubler_row(product: dict, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
+    """Delt mapper for ALLE Tradedoubler-forhandlere (Shopping4net, Lenson,
+    Lensway, ...) -- samme feed-format uansett annonsør. Hvert 'produkt' er
+    et nøstet JSON-objekt (offers[0] med pris/lenke/lagerstatus,
+    categories[] med full kategoristi, productImage.url), ikke en flat
+    CSV-rad -- se load_tradedoubler_feed() for selve HTTP/paginering-delen.
 
-    Filtrerer ALLTID på kategoristi her ("Kontaktlinser > ..."), ikke bare i
-    søket som henter feeden -- q=kontaktlinser/øyedråper i feed_url er et
-    uverifisert/udokumentert søkefilter (Tradedoubler sitt API har ingen
-    dokumentert kategori-parameter), så dette er et sikkerhetsnett mot at et
-    løst relatert produkt (søket ga f.eks. også mascara og solkrem) noensinne
-    limes inn som en linse/væske ved en feiltakelse.
+    Filtrerer ALLTID på kategoristi her, ikke bare i søket som henter
+    feeden (q=... i feed_url er et uverifisert/udokumentert søkefilter,
+    Tradedoubler sitt API har ingen dokumentert kategori-parameter) --
+    dette er sikkerhetsnettet mot at et løst relatert produkt noensinne
+    limes inn som en linse/væske ved en feiltakelse. Gyldige kategoristi-
+    prefikser er FORHANDLER-SPESIFIKKE (retailer_cfg["category_prefixes"])
+    siden hver Tradedoubler-annonsør setter sin egen taksonomi -- Shopping4net
+    bruker "Kontaktlinser >"/"Apotek > ...", Lenson bruker "Kontaktlinser >"/
+    "Tilbehør", Lensway bruker "Linser >"/"Tilbehør" (bekreftet ulikt
+    2026-08-29 -- Lensway selger i tillegg briller/solbriller under helt
+    andre kategorier, som MÅ filtreres bort her).
 
     offers[0].sourceProductId brukes som SKU-nøkkel i product_matching.json
     (Tradedoubler sin egen, stabile produktkode -- mer robust enn Adtraction
@@ -149,7 +154,8 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> list[O
     (f.eks. bare 'Biofinity XR' uten 3-/6-pack-angivelse), er bevisst IKKE
     tatt med i product_matching -- samme prinsipp som Adtraction-feeden."""
     categories = [c.get("name", "") for c in product.get("categories", [])]
-    if not any(c.startswith(("Kontaktlinser >", "Apotek > Allergi > Øyendråper", "Apotek > Øyne")) for c in categories):
+    category_prefixes = tuple(retailer_cfg["category_prefixes"])
+    if not any(c.startswith(category_prefixes) for c in categories):
         return []
 
     offers = product.get("offers") or []
@@ -171,23 +177,24 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str]) -> list[O
 
     image_url = (product.get("productImage") or {}).get("url") or None
     checked_at = datetime.now(timezone.utc).isoformat()
+    shipping_policy = retailer_cfg.get("shipping")
+    # Ulike Tradedoubler-annonsører formaterer dette feltet ulikt -- bekreftet
+    # 2026-08-29: Shopping4net sier "in_stock"/"out_of_stock" (understrek,
+    # små bokstaver), Lenson/Lensway sier "In stock" (mellomrom, stor
+    # forbokstav). Normaliserer i stedet for å sammenligne mot én hardkodet
+    # streng -- den opprinnelige eksakte sammenligningen viste ALLE Lenson/
+    # Lensway-tilbud som utsolgt ved første forsøk, siden "In stock" != "in_stock".
+    availability = (offer.get("availability") or "").strip().lower().replace(" ", "_")
     return [mark_staleness(Offer(
-        retailer="Shopping4net",
+        retailer=retailer_cfg["display_name"],
         brand="",  # settes av build_catalog.py fra products_meta etter matching
         source="affiliate_feed",
         network="tradedoubler",
         price_nok=price_nok,
-        # Kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm,
-        # 2026-08-20): gratis frakt over 700 kr for Kontaktlinser-avdelingen
-        # spesifikt ("Kontaktlinser: kr 700" -- ulikt Skjønnhet/Helsekost sine
-        # 350 kr, bekreftet av brukeren mot Shopping4net sin egen
-        # "Fri Frakt"-info-modal samme dag). Selve vilkårsteksten oppga ikke
-        # et fast gebyr under grensen ("styres av postnummer og størrelse"),
-        # men brukeren bekreftet 39 kr direkte 2026-08-20.
-        shipping_nok=compute_shipping_nok(price_nok, {"free_over": 700, "fee_nok": 39}),
-        shipping_policy={"free_over": 700, "fee_nok": 39},
+        shipping_nok=compute_shipping_nok(price_nok, shipping_policy),
+        shipping_policy=shipping_policy,
         url=offer.get("productUrl"),
-        in_stock=offer.get("availability") == "in_stock",
+        in_stock=availability == "in_stock",
         checked_at=checked_at,
         image_url=image_url,
         image_source="affiliate_feed" if image_url else "unlicensed",
@@ -237,7 +244,7 @@ def load_feed_url(url: str, network: str, product_match: dict[str, str], retaile
     return _load_feed_rows(csv.DictReader(io.StringIO(resp.text)), network, product_match, url, retailer_cfg)
 
 
-def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[list[Offer], int]:
+def _load_tradedoubler_query(url: str, product_match: dict[str, str], retailer_cfg: dict) -> tuple[list[Offer], int]:
     """Henter ALLE sider for ETT søk (q=...) i Tradedoubler sin paginerte
     JSON-API. url skal IKKE inneholde et eget ;page=-segment -- det settes
     her per side, rett før ?token=... (Tradedoubler sitt matrix-parameter-
@@ -263,7 +270,7 @@ def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[l
             break
         products = data.get("products", [])
         for product in products:
-            product_offers = map_tradedoubler_row(product, product_match)
+            product_offers = map_tradedoubler_row(product, product_match, retailer_cfg)
             if product_offers:
                 offers.extend(product_offers)
             else:
@@ -274,7 +281,7 @@ def _load_tradedoubler_query(url: str, product_match: dict[str, str]) -> tuple[l
     return offers, skipped
 
 
-def load_tradedoubler_feed(urls: list[str], product_match: dict[str, str]) -> list[Offer]:
+def load_tradedoubler_feed(urls: list[str], product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
     """Shopping4Net sin feed dekkes ikke av ETT søk -- q=kontaktlinser og
     q=øyedråper gir DELVIS overlappende, men ikke identiske, treffsett
     (Tradedoubler sitt q-filter er et uverifisert/udokumentert
@@ -282,11 +289,14 @@ def load_tradedoubler_feed(urls: list[str], product_match: dict[str, str]) -> li
     flere søk (urls) og slår sammen -- samme produkt kan dukke opp i mer enn
     ett søk, så resultatet dedupliseres på product_id til slutt (siste
     treff vinner; prisen er uansett identisk siden det er samme rad i
-    Tradedoubler sin database uansett hvilket søk som fant den)."""
+    Tradedoubler sin database uansett hvilket søk som fant den). Lenson og
+    Lensway sine kataloger er derimot små nok til å hentes med ETT
+    usøkt/upaginert-filtrert kall (ren sideinndeling, ingen q=) -- urls har
+    da bare ett element."""
     all_offers: list[Offer] = []
     total_skipped = 0
     for url in urls:
-        offers, skipped = _load_tradedoubler_query(url, product_match)
+        offers, skipped = _load_tradedoubler_query(url, product_match, retailer_cfg)
         all_offers.extend(offers)
         total_skipped += skipped
     if total_skipped:
