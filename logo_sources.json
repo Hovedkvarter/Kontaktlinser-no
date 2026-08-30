@@ -1,0 +1,15 @@
+{
+  "$comment": "Proveniens-register for merkevare-logoene i static/logos/ som IKKE er egne, selvlagde illustrasjoner (se PRIVATE_LABEL_ILLUSTRATION_STYLE for de). Lagt til 2026-08-30 etter brukerens eget ønske om å dokumentere kilde/rettighetshaver/hentedato per fil, i stedet for kun å stole på ansvarsfraskrivelsen (/vilkar/). To kategorier av kilde: 'official' (produsentens egen presse-/partner-/ECP-portal, direkte nedlastbar fil) og 'crop_from_licensed_photo' (beskåret fra et produktbilde vi allerede har visningsrett til via en affiliate-feed, se LICENSED_IMAGE_SOURCES i render_templates.py -- brukt der ingen offisiell logo-fil ble funnet). Filer uten oppføring her er enten kjedelogoer (RETAILER_LOGOS, hentet fra forhandlerens egen nettside, se egen kommentar der) eller ikke undersøkt ennå.",
+  "logos": [
+    {
+      "brand": "Acuvue",
+      "rights_holder": "Johnson & Johnson Vision",
+      "file": "acuvue.png",
+      "source": "official",
+      "source_url": "https://www.jnjvisionpro.com/en-me/practice-centre/promotional-materials/brand-logos/",
+      "retrieved": "2026-08-30",
+      "usage": "product identification",
+      "notes": "Lastet ned fra J&J Vision sin egen 'Practice Centre'-side for forhandlere/fagpersoner ('ACUVUE-JJV-Brand-Logos.zip', filnavn 'RGB ACUVUE logo Navy.png'). Erstatter en tidligere håndtegnet SVG av ukjent opprinnelse (acuvue.svg, fra tidlig i prosjektet -- fjernet)."
+    }
+  ]
+}

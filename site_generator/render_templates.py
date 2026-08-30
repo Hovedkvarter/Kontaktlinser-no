@@ -468,7 +468,7 @@ CONSENT_SCRIPT = """<script>
 # brukes produsentens hovedlogo (CooperVision/Alcon/Bausch + Lomb) i
 # stedet, etter eksplisitt avklaring med brukeren 2026-08-10.
 BRAND_LOGOS = {
-    "acuvue": ("acuvue.svg", False),
+    "acuvue": ("acuvue.png", False),
     "adore": ("adore.png", False),
     "air-optix": ("air-optix.png", False),
     "avaira": ("avaira.png", False),
