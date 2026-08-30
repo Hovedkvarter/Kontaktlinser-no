@@ -86,7 +86,7 @@ a { color: inherit; }
 .mega-menu { position: absolute; top: 100%; left: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 14px 32px rgba(11, 37, 69, 0.14); padding: 14px; z-index: 50; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s; }
 .mega-menu-cols { display: flex; gap: 28px; }
 .mega-col { display: flex; flex-direction: column; gap: 1px; min-width: 170px; }
-.mega-col-title { font-weight: 700; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
+.mega-col-title { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 6px; }
 .mega-menu-link { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 0.88rem; padding: 7px 10px; margin: 0 -10px; border-radius: 8px; transition: background 0.12s ease, color 0.12s ease; }
 .mega-menu-link:hover { background: var(--mist); color: var(--blue); }
 .mega-see-all { display: block; text-align: center; margin: 10px 0 0; padding: 10px 16px; border-radius: 999px; background: var(--blue); color: white !important; font-weight: 700; }
@@ -107,7 +107,7 @@ a { color: inherit; }
   .mega-rich-grid-3col-plain { grid-template-columns: repeat(3, 150px); gap: 18px; }
 }
 .mega-rich-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.mega-panel-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
+.mega-panel-kicker { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
 .mega-panel-heading { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--ink); margin: 4px 0 0; }
 .mega-panel-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
 .mega-type-row { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 8px 10px; margin: 0 -10px; border-radius: 10px; transition: background 0.12s ease; }
@@ -116,7 +116,7 @@ a { color: inherit; }
 .mega-type-row-icon svg { width: 18px; height: 18px; }
 .mega-type-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .mega-type-row-label { font-weight: 600; font-size: 0.87rem; }
-.mega-type-row-desc { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+.mega-type-row-desc { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
 .mega-type-row-chevron { flex-shrink: 0; width: 15px; height: 15px; color: var(--muted); }
 .mega-brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .mega-brand-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; transition: border-color 0.15s; text-align: center; }
@@ -125,7 +125,7 @@ a { color: inherit; }
 .mega-brand-card-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .mega-brand-card-logo.has-logo-dark { background: var(--ink); border-radius: 6px; padding: 4px; }
 .mega-brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); }
-.mega-brand-card-name { font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+.mega-brand-card-name { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
 .mega-promo-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 150px; border-radius: 14px; background-size: cover; background-position: center; padding: 16px; color: white !important; text-decoration: none; }
 .mega-promo-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
 .mega-promo-text { font-size: 0.78rem; opacity: 0.92; margin-top: 4px; }
@@ -136,7 +136,7 @@ a { color: inherit; }
 .mega-link-row-icon svg { width: 14px; height: 14px; }
 .mega-link-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .mega-link-row-label { font-size: 0.83rem; font-weight: 600; }
-.mega-link-row-sub { font-size: 0.7rem; color: var(--muted); }
+.mega-link-row-sub { font-size: 0.75rem; color: var(--muted); }
 .mega-link-row-chevron { flex-shrink: 0; width: 14px; height: 14px; color: var(--muted); }
 @media (hover: hover) {
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
@@ -179,7 +179,7 @@ a { color: inherit; }
 .product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
-.lowest-tag { font-size: 0.68rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
+.lowest-tag { font-size: 0.75rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
@@ -263,7 +263,7 @@ a { color: inherit; }
 .product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
-.product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.68rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .product-tile-name-link { text-decoration: none; color: var(--ink); }
 .product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
 .product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
@@ -1938,7 +1938,7 @@ WINNER_WIDGET_STYLE = """
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
 .qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
-.qty-pill span { font-size: 0.68rem; font-weight: 400; color: var(--muted); }
+.qty-pill span { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
 .qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--blue) 100%); border-color: var(--blue); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
@@ -1949,7 +1949,7 @@ WINNER_WIDGET_STYLE = """
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
 .qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
 .qty-tip-icon { flex-shrink: 0; }
-.qty-static-fallback { font-size: 0.7rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
+.qty-static-fallback { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
 """
 
 
@@ -2807,7 +2807,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 .brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-.brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
+.brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 </style>
 </head>
@@ -3005,7 +3005,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-item-icon {{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; }}
 .trust-item-icon svg {{ width: 17px; height: 17px; }}
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--ink); }}
-.trust-item span {{ font-size: 0.74rem; color: var(--muted); }}
+.trust-item span {{ font-size: 0.75rem; color: var(--muted); }}
 .search-row {{ position: relative; }}
 .search-icon {{ position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }}
 .search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
@@ -3020,7 +3020,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .search-suggestion:hover {{ background: var(--mist); }}
 .search-suggestion .product-thumb {{ width: 36px; height: 36px; font-size: 0.68rem; }}
 .search-suggestion-name {{ font-weight: 600; font-size: 0.86rem; }}
-.search-suggestion-meta {{ font-size: 0.74rem; color: var(--muted); }}
+.search-suggestion-meta {{ font-size: 0.75rem; color: var(--muted); }}
 .search-no-match {{ padding: 14px; font-size: 0.84rem; color: var(--muted); }}
 .section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
@@ -3040,7 +3040,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-.brand-card-count {{ font-size: 0.74rem; color: var(--muted); }}
+.brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
 {GUIDE_TILE_STYLE}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 1024px) {{
