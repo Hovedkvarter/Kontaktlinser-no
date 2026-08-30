@@ -389,6 +389,7 @@ a { color: inherit; }
 .brand-card-info { min-width: 0; }
 .brand-card-name { font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .brand-card-count { font-size: 0.75rem; color: var(--muted); }
+.brand-card-photo { display: none; }
 
 .guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
 .guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
@@ -401,6 +402,26 @@ a { color: inherit; }
 @media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
 
+/* Merke-kortene på mobil: byttet fra en liten sirkel-logo til et større
+   produktbilde (2026-08-30, etter brukerens ønske om å ligne lenspricer.no
+   sin mobilside -- søk øverst, deretter store, bildeførte merke-kort). KUN
+   under 700px -- PC beholder den kompakte logo+navn-raden uendret, se
+   brukerens egen "på pc er det fint"-presisering. .trust-card er samtidig
+   skjult på mobil her: samme budskap ("uavhengig", "oppdateres hver 6.
+   time") gjentas uansett lenger ned i .trust-strip, så å fjerne den her
+   fjerner ikke informasjon fra siden -- den flytter bare lenger ned, i tråd
+   med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
+   øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
+   logo-sirkel-raden også på mobil -- ingen tomt/knekt kort. */
+@media (max-width: 699px) {
+  .trust-card { display: none; }
+  .brand-card.has-photo { flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }
+  .brand-card.has-photo .brand-card-photo { display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }
+  .brand-card.has-photo .brand-card-photo img { width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }
+  .brand-card.has-photo .brand-card-badge { display: none; }
+  .brand-card.has-photo .brand-card-info { padding: 12px 14px 14px; }
+  .brand-card.has-photo .brand-card-name { font-size: 0.98rem; white-space: normal; }
+}
 @media (min-width: 560px) { .brand-grid { grid-template-columns: repeat(3, 1fr); } .trust-strip { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1024px) {
   .brand-grid { grid-template-columns: repeat(4, 1fr); }
@@ -793,77 +814,88 @@ a { color: inherit; }
     <div class="brand-card-count">Coptikk · 9 egne merker</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/acuvue/">
+<a class="brand-card has-photo" href="/merke/acuvue/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/acuvue-oasys-6pk.webp" type="image/webp"><img src="/static/products/acuvue-oasys-6pk.jpg" alt="Acuvue" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Acuvue</div>
     <div class="brand-card-count">19 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/dailies/">
+<a class="brand-card has-photo" href="/merke/dailies/">
+  <div class="brand-card-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="Dailies" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Dailies</div>
     <div class="brand-card-count">19 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/biofinity/">
+<a class="brand-card has-photo" href="/merke/biofinity/">
+  <div class="brand-card-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity" loading="lazy"></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Biofinity</div>
     <div class="brand-card-count">8 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/proclear/">
+<a class="brand-card has-photo" href="/merke/proclear/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/proclear-sphere-6pk.webp" type="image/webp"><img src="/static/products/proclear-sphere-6pk.jpg" alt="Proclear" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Proclear</div>
     <div class="brand-card-count">9 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/soflens/">
+<a class="brand-card has-photo" href="/merke/soflens/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/soflens-59-6pk.webp" type="image/webp"><img src="/static/products/soflens-59-6pk.jpg" alt="SofLens" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">SofLens</div>
     <div class="brand-card-count">7 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/myday/">
+<a class="brand-card has-photo" href="/merke/myday/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg" alt="MyDay" loading="lazy"></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">MyDay</div>
     <div class="brand-card-count">6 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/everclear/">
+<a class="brand-card has-photo" href="/merke/everclear/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/7/8/0/6/everclear-adm-1362x795.jpg" alt="everclear" loading="lazy"></div>
   <div class="brand-card-badge">EV</div>
   <div class="brand-card-info">
     <div class="brand-card-name">everclear</div>
     <div class="brand-card-count">6 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/air-optix/">
+<a class="brand-card has-photo" href="/merke/air-optix/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/3/0/1/5/air-optix-colors-1362x795.jpg" alt="Air Optix" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Air Optix</div>
     <div class="brand-card-count">5 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/biomedics/">
+<a class="brand-card has-photo" href="/merke/biomedics/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/biomedics-55-evolution-6pk.webp" type="image/webp"><img src="/static/products/biomedics-55-evolution-6pk.jpg" alt="Biomedics" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Biomedics</div>
     <div class="brand-card-count">5 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/biotrue/">
+<a class="brand-card has-photo" href="/merke/biotrue/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/biotrue-oneday-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-30pk.jpg" alt="Biotrue" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Biotrue</div>
     <div class="brand-card-count">5 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/clariti/">
+<a class="brand-card has-photo" href="/merke/clariti/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="Clariti" loading="lazy"></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Clariti</div>
@@ -871,20 +903,23 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card" href="/merke/miru/">
+  
   <div class="brand-card-badge">MI</div>
   <div class="brand-card-info">
     <div class="brand-card-name">MIRU</div>
     <div class="brand-card-count">5 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/purevision/">
+<a class="brand-card has-photo" href="/merke/purevision/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/purevision2-6pk.webp" type="image/webp"><img src="/static/products/purevision2-6pk.jpg" alt="PureVision" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">PureVision</div>
     <div class="brand-card-count">5 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/ultra/">
+<a class="brand-card has-photo" href="/merke/ultra/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/5/1/9/ultra-1362x795.jpg" alt="ULTRA" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/bauschlomb.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">ULTRA</div>
@@ -892,90 +927,103 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card" href="/merke/clearlii/">
+  
   <div class="brand-card-badge">CL</div>
   <div class="brand-card-info">
     <div class="brand-card-name">Clearlii</div>
     <div class="brand-card-count">4 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/precision1/">
+<a class="brand-card has-photo" href="/merke/precision1/">
+  <div class="brand-card-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/alcon-precision1_main.jpg" alt="Precision1" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Precision1</div>
     <div class="brand-card-count">4 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/precision7/">
+<a class="brand-card has-photo" href="/merke/precision7/">
+  <div class="brand-card-photo"><picture><source srcset="/static/products/precision7-12pk.webp" type="image/webp"><img src="/static/products/precision7-12pk.jpg" alt="Precision7" loading="lazy"></picture></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Precision7</div>
     <div class="brand-card-count">4 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/total30/">
+<a class="brand-card has-photo" href="/merke/total30/">
+  <div class="brand-card-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total30_6pk1.jpg" alt="TOTAL30" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">TOTAL30</div>
     <div class="brand-card-count">3 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/adore/">
+<a class="brand-card has-photo" href="/merke/adore/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/6/4/2/3/adore-bi-tone-1362x795.jpg" alt="ADORE" loading="lazy"></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/adore.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">ADORE</div>
     <div class="brand-card-count">2 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/avaira/">
+<a class="brand-card has-photo" href="/merke/avaira/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg" alt="Avaira" loading="lazy"></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/coopervision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Avaira</div>
     <div class="brand-card-count">2 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/daysoft/">
+<a class="brand-card has-photo" href="/merke/daysoft/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/7/2/2/daysoft-silk-1362x795.jpg" alt="Daysoft" loading="lazy"></div>
   <div class="brand-card-badge">DA</div>
   <div class="brand-card-info">
     <div class="brand-card-name">Daysoft</div>
     <div class="brand-card-count">2 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/live/">
+<a class="brand-card has-photo" href="/merke/live/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/5/9/9/7/5/live-1362x795.jpg" alt="Live" loading="lazy"></div>
   <div class="brand-card-badge">LI</div>
   <div class="brand-card-info">
     <div class="brand-card-name">Live</div>
     <div class="brand-card-count">2 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/swati/">
+<a class="brand-card has-photo" href="/merke/swati/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/3/3/8/7350100163154-02-front.jpg" alt="SWATI" loading="lazy"></div>
   <div class="brand-card-badge">SW</div>
   <div class="brand-card-info">
     <div class="brand-card-name">SWATI</div>
     <div class="brand-card-count">2 produkter</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/acuvue-oasys-max/">
+<a class="brand-card has-photo" href="/merke/acuvue-oasys-max/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/1/8/2/8/8/image-original-maxastig.jpg" alt="Acuvue Oasys MAX" loading="lazy"></div>
   <div class="brand-card-badge">AC</div>
   <div class="brand-card-info">
     <div class="brand-card-name">Acuvue Oasys MAX</div>
     <div class="brand-card-count">1 produkt</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/clearlab/">
+<a class="brand-card has-photo" href="/merke/clearlab/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/4/7/2/5/clear-1-day-1362x795.jpg" alt="ClearLab" loading="lazy"></div>
   <div class="brand-card-badge">CL</div>
   <div class="brand-card-info">
     <div class="brand-card-name">ClearLab</div>
     <div class="brand-card-count">1 produkt</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/freshlook/">
+<a class="brand-card has-photo" href="/merke/freshlook/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/8/3/7/1/freshlook-oneday-color-1362x795.jpg" alt="FreshLook" loading="lazy"></div>
   <div class="brand-card-badge has-logo has-logo-dark"><img class="brand-logo-img" src="/static/logos/alcon.svg" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">FreshLook</div>
     <div class="brand-card-count">1 produkt</div>
   </div>
 </a>
-<a class="brand-card" href="/merke/queens-trilogy/">
+<a class="brand-card has-photo" href="/merke/queens-trilogy/">
+  <div class="brand-card-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/4/2/0/2/queen-s-trilogy-1362x795.jpg" alt="Queen&#x27;s Trilogy" loading="lazy"></div>
   <div class="brand-card-badge">QU</div>
   <div class="brand-card-info">
     <div class="brand-card-name">Queen&#x27;s Trilogy</div>
