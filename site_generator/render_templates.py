@@ -1112,6 +1112,19 @@ PRIVATE_LABEL_SUBBRANDS = {
     "Coptikk": "Ascend",
 }
 
+# Egne (ikke offisielle/registrerte) ordmerke-logoer for seriene, laget av
+# bruker 2026-08-30 -- IKKE hentet fra kjeden, se disclaimer-avsnittet i
+# render_illustration_disclaimer_page(). Filene er beskåret fra brukerens
+# eget bilde med (R)-merket fjernet (bevisst -- disse er ikke registrerte
+# varemerker, så et ® ville vært misvisende). Nøkkel er SERIENAVNET
+# (PRIVATE_LABEL_SUBBRANDS sin verdi), aldri kjeden. iWear/Lumiere7 mangler
+# fortsatt en fil/produktkobling.
+PRIVATE_LABEL_SUBBRAND_LOGOS: dict[str, str] = {
+    "EyeQ": "pl-eyeq.png",
+    "Easyvision": "pl-easyvision.png",
+    "Ascend": "pl-ascend.png",
+}
+
 # ---------------------------------------------------------------------------
 # Private label-illustrasjoner (2026-08-30). Kjedenes egne private
 # label-serier har ikke en egen ordmerke-logo eller eget produktbilde vi kan
@@ -1364,9 +1377,15 @@ def render_private_label_illustration(chain: str, slug: str) -> str | None:
 
 def render_illustration_disclaimer_page() -> str:
     """/om-produktillustrasjoner/ -- lenket fra hvert sted en egen
-    illustrasjon (ikke et ekte produktbilde) vises. Teksten er brukerens
-    egen, limt inn ordrett 2026-08-30."""
+    illustrasjon (ikke et ekte produktbilde) ELLER en egen serie-logo
+    (ikke kjedens offisielle/registrerte merke) vises. Første avsnitt er
+    brukerens egen tekst om illustrasjonene, limt inn ordrett 2026-08-30.
+    Andre avsnitt (om serie-logoene) er lagt til samme dag, etter
+    brukerens eget ønske om å utvide denne siden fremfor å lage en egen --
+    samme underliggende begrunnelse i begge tilfeller ("egen fremstilling,
+    ikke offisielt materiale")."""
     body = """<p>Kontaktlinser.no benytter både originale produktbilder og egne produktillustrasjoner. Når et originalt produktbilde ikke er tilgjengelig, kan vi bruke en egen illustrasjon for å gjøre det enklere å identifisere og sammenligne produkter. Slike illustrasjoner er ikke originale produktbilder eller offisiell produktemballasje fra produsenten. Utforming, farger, tekst og andre visuelle detaljer kan derfor avvike fra produktets faktiske emballasje.</p>
+  <p>Enkelte optikerkjeders egne merkenavn (private label-serier som EyeQ, Ascend og Easyvision) vises med en egen, selvlaget ordmerke-logo i stedet for kjedens offisielle logo. Dette er ikke et registrert varemerke eller en offisiell logo fra kjeden -- det er en egen visuell fremstilling laget av kontaktlinser.no for å gjøre seriene lettere å kjenne igjen.</p>
   <p>Produktnavn, logoer og varemerker tilhører sine respektive rettighetshavere. Kontaktlinser.no er en uavhengig prissammenlignings- og informasjonstjeneste og selger ikke kontaktlinser selv.</p>"""
     schema_json = f"""{{
   "@context": "https://schema.org",
@@ -3265,10 +3284,13 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         # til det lånte produktbildet + en initial-badge.
         n_label = "eget merke" if count == 1 else "egne merker"
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+        subbrand_logo = PRIVATE_LABEL_SUBBRAND_LOGOS.get(subbrand)
         if illustration_html:
             card_cls = "brand-card has-photo"
             photo_html = f'<div class="brand-card-photo pli-frame">{illustration_html}</div>'
-            badge_html = ""
+            badge_html = (f'<div class="brand-card-badge has-logo">'
+                          f'<img class="brand-logo-img" src="/static/logos/{subbrand_logo}" alt="" loading="lazy"></div>'
+                          if subbrand_logo else "")
         elif sample_image:
             card_cls = "brand-card has-photo"
             photo_html = f'<div class="brand-card-photo">{_img_tag(sample_image, subbrand)}</div>'
@@ -5110,7 +5132,7 @@ HOME_FAQ = [
     },
     {
         "question": "Hvorfor har noen kontaktlinser to forskjellige navn?",
-        "answer": "Flere optikerkjeder selger kjente kontaktlinser under sitt eget varenavn - for eksempel selger Brilleland Biofinity under navnet «iWear Oxygen». Det er samme fysiske produkt, bare med kjedens egen emballasje og navn. Vi har en egen oversikt over disse koblingene under Optikerkjedenes egne merker.",
+        "answer": "Flere optikerkjeder selger kjente kontaktlinser under sitt eget varenavn - for eksempel selges Biofinity også under navnet «iWear Oxygen». Det er samme fysiske produkt, bare med en annen emballasje og navn. Vi har en egen oversikt over disse koblingene under Optikerkjedenes egne merker.",
     },
     {
         "question": "Er Kontaktlinser.no en nettbutikk eller et apotek?",
@@ -6187,9 +6209,15 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     # Kjedens navn/logo (Synsam/Brilleland/Specsavers/Coptikk) vises IKKE
     # lenger her -- bruker ønsker (2026-08-30) at disse seriene fremstår
     # som egne merker på denne siden, på linje med ekte linsemerker. Full
-    # kobling til kjeden ligger fortsatt på /private-label/. Midlertidig
-    # initial-badge til brukeren sender egne logoer for disse seriene.
-    brand_logo_cls, brand_logo_content = "", escape(subbrand[:2].upper())
+    # kobling til kjeden ligger fortsatt på /private-label/. Bruker seriens
+    # EGEN logo (PRIVATE_LABEL_SUBBRAND_LOGOS) når vi har en, ellers en
+    # initial-badge (iWear/Lumiere7 -- ingen fil ennå).
+    subbrand_logo = PRIVATE_LABEL_SUBBRAND_LOGOS.get(subbrand)
+    if subbrand_logo:
+        brand_logo_cls = "has-logo"
+        brand_logo_content = f'<img class="brand-logo-img" src="/static/logos/{subbrand_logo}" alt="" loading="lazy">'
+    else:
+        brand_logo_cls, brand_logo_content = "", escape(subbrand[:2].upper())
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>'
 
     meta_description = f"{subbrand} er et eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
@@ -6367,17 +6395,23 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # merkene uten produsent-kobling i BRAND_TO_MANUFACTURER.
     manufacturer_slug = BRAND_TO_MANUFACTURER.get(real_product["brand_slug"])
     real_source = MANUFACTURERS[manufacturer_slug]["name"] if manufacturer_slug else real_brand
+    # Kjedenavnet (Synsam/Brilleland/Specsavers/Coptikk) skal IKKE nevnes på
+    # denne siden lenger (bruker-beslutning 2026-08-30) -- den eneste siden
+    # som fortsatt nevner kjeder er selve samlesiden /private-label/, som
+    # grupperer ALLE seriene til sammenligning. Denne siden (ett enkelt
+    # produkt) bruker objektiv ordlegging i stedet og lenker til samlesiden
+    # for hvem som faktisk står bak.
     meta_description = (
-        f'{private_name} fra {chain} er samme linse som {real_name} fra {real_source}. '
+        f'{private_name} er samme linse som {real_name} fra {real_source}. '
         f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
-    ) if best else f'{private_name} fra {chain} er samme linse som {real_name} fra {real_source} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
+    ) if best else f'{private_name} er samme linse som {real_name} fra {real_source} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
 
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "{escape(private_name)} ({escape(chain)}) er egentlig {escape(real_name)}",
+  "name": "{escape(private_name)} er egentlig {escape(real_name)}",
   "about": {{"@type": "{about_type}", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}{about_offers_schema}}},
   "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"{f', "dateModified": "{date_modified}"' if date_modified else ""}
 }}"""
@@ -6438,10 +6472,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(private_name)} ({escape(chain)}) – Hva heter den egentlig? | Kontaktlinser.no</title>
+<title>{escape(private_name)} – Hva heter den egentlig? | Kontaktlinser.no</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} ({chain}) – Hva heter den egentlig? | Kontaktlinser.no', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
+{_og_meta(f'{private_name} – Hva heter den egentlig? | Kontaktlinser.no', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
@@ -6463,9 +6497,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </p>
   <div class="hero">
     <div class="hero-copy">
-      <div class="kicker">{escape(chain)} sitt eget merkenavn</div>
+      <div class="kicker">Eget merkenavn</div>
       <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
-      <p>{escape(chain)} selger denne linsen under sitt eget navn, {escape(private_name)}. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning.</p>
+      <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
     </div>
   </div>
 
@@ -6477,11 +6511,11 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
 
   <div class="private-label-explainer">
-    <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for {escape(chain)}.</p>
+    <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for denne serien.</p>
   </div>
 
   <div class="private-label-caveat">
-    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
+    <strong>Vær obs på dette før du bytter:</strong> Denne koblingen er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med kjeden bak dette merkenavnet og kan ikke garantere at koblingen stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept at {escape(real_name)} faktisk er riktig erstatning for {escape(private_name)} før du bytter.
   </div>
 
   <p class="disclosure">
@@ -6492,7 +6526,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     har avtale med. Priser eldre enn 24 timer eller
     varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
-    forhandler, og har ingen avtale med {escape(chain)}.
+    forhandler, og har ingen avtale med kjeden bak dette merkenavnet.
   </p>
   {product_faq_html}
   {METHODOLOGY_HTML}
