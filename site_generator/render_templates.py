@@ -3454,32 +3454,26 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
    med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
    øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
    logo-sirkel-raden også på mobil -- ingen tomt/knekt kort.
-   Badgen (logo/initial) var opprinnelig skjult her (display:none) -- bruker
-   viste 2026-08-30 et mockup der merkelogoen ligger som en liten hvit lapp
-   OPPÅ produktbildet (øverst venstre), ikke fjernet. Endret til en absolutt
-   posisjonert "chip" over bildet i stedet for å skjule den. Samme endring
-   avdekket og fikset et reelt brukket kort samtidig: private label-kjedenes
+   Badgen (logo/initial) var opprinnelig skjult her (display:none). Prøvde
+   2026-08-30 en absolutt posisjonert "chip" oppå produktbildet (etter et
+   mockup brukeren viste) -- reversert samme dag: brukeren så resultatet
+   live og syntes det så dårlig ut (badgen ble for ofte for smal/kuttet av
+   for lange merkenavn/logo-proporsjoner, se skjermbilde). Tilbake til
+   display:none -- kort med bilde viser nå KUN bilde + navn/antall under,
+   ingen logo-overlay. Samme endring avdekket og fikset et reelt brukket
+   kort samtidig (uendret av denne reverseringen): private label-kjedenes
    kort (EyeQ/iWear/Easyvision/Ascend) hadde ALDRI fått .has-photo (ingen
    sample_image var regnet ut for dem) -- på mobil falt de tilbake til den
    gamle smale rad-layouten med en 52px logo-badge, som klemte navnet ned
-   til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har nå fått et ekte
-   produktbilde (samme bilde som allerede vises på det underliggende ekte
-   produktet -- gjenbruk, ikke ny lisensiering) pluss kjedens egen logo som
-   samme type overlay-chip. */
+   til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har fortsatt et ekte
+   produktbilde/illustrasjon, bare uten logo-overlayen oppå. */
 .mobile-only-block {{ display: none; }}
 @media (max-width: 699px) {{
   .trust-card {{ display: none; }}
   .brand-card.has-photo {{ position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
   .brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
   .brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
-  .brand-card.has-photo .brand-card-badge {{
-    position: absolute; top: 10px; left: 10px; z-index: 2;
-    width: auto; height: 24px; min-width: 24px; max-width: 74%;
-    border-radius: 7px; background: white; color: var(--ink);
-    padding: 4px 8px; box-shadow: 0 1px 5px rgba(11,37,69,0.2);
-    font-size: 0.68rem;
-  }}
-  .brand-card.has-photo .brand-card-badge img {{ width: auto; height: 100%; max-width: 100%; }}
+  .brand-card.has-photo .brand-card-badge {{ display: none; }}
   .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
   .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
   /* Kategorier flyttet under Merker på mobil, og selve "Merker"-
