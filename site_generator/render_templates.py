@@ -1245,7 +1245,15 @@ PRIVATE_LABEL_ILLUSTRATION_STYLE = """
    effekt på produktfliser (der boksen har fast høyde + sentrerer innholdet
    i stedet for aspect-ratio) ved å style bredden i stedet, med høyden
    utledet automatisk via cqw i selve illustrasjonen. */
-.brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
+/* .pli-frame er nå en INDRE wrapper inni .brand-card-photo (ikke lenger
+   satt direkte på .brand-card-photo selv) -- .brand-card-photo beholder
+   sin vanlige 4:3-boks som ALLE kort (bilde eller illustrasjon) deler,
+   slik at rutenettet stretcher til lik høyde uten å bli rotete (funnet
+   og fikset 2026-08-30: ulik boks-høyde mellom bilde-kort og
+   illustrasjon-kort ga et synlig ujevnt rutenett når PC-versjonen fikk
+   samme bildeførte kort som mobil). Illustrasjonen sentreres i stedet
+   for å strekkes/forvrenges, med sin egen naturlige 560:225-proporsjon
+   bevart inni den delte 4:3-boksen. */
 .pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
 
 /* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
@@ -3357,7 +3365,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         subbrand_logo = PRIVATE_LABEL_SUBBRAND_LOGOS.get(subbrand)
         if illustration_html:
             card_cls = "brand-card has-photo"
-            photo_html = f'<div class="brand-card-photo pli-frame">{illustration_html}</div>'
+            photo_html = f'<div class="brand-card-photo"><div class="pli-frame">{illustration_html}</div></div>'
             badge_html = (f'<div class="brand-card-badge has-logo">'
                           f'<img class="brand-logo-img" src="/static/logos/{subbrand_logo}" alt="" loading="lazy"></div>'
                           if subbrand_logo else "")
@@ -3560,8 +3568,9 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
    til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har fortsatt et ekte
    produktbilde/illustrasjon, bare uten logo-overlayen oppå. */
 .brand-card.has-photo {{ position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
-.brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
+.brand-card.has-photo .brand-card-photo {{ display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
 .brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
+.brand-card.has-photo .brand-card-photo .pli-frame {{ width: 100%; aspect-ratio: 560 / 225; container-type: inline-size; }}
 .brand-card.has-photo .brand-card-badge {{ display: none; }}
 .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
 .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
