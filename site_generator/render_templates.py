@@ -1503,7 +1503,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     (kategori-badge, "sekundærlinje" under produktnavnet: produsent/merke/
     ekte-produkt-lenke) sendes inn som ferdig HTML fra hver kallested."""
     href_esc = escape(href)
-    image_block = f'<img src="{escape(image_url)}" alt="{escape(name)}" loading="lazy">' if image_url \
+    image_block = _img_tag(image_url, name) if image_url \
         else f'<span class="product-tile-fallback">{escape(fallback_initials)}</span>'
     image_cls = "product-tile-image has-photo" if image_url else "product-tile-image"
     category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
@@ -1605,6 +1605,21 @@ def pick_product_image(offers: list[dict]) -> str | None:
         if o.get("image_source") in LICENSED_IMAGE_SOURCES and o.get("image_url"):
             return o["image_url"]
     return None
+
+
+def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy") -> str:
+    """<picture>+WebP for våre egne manuelt kuraterte bilder (static/products/*.jpg,
+    som ALLTID har en generert .webp ved siden av seg -- se scriptet som
+    konverterte hele mappen 2026-08-30), vanlig <img> for bilder vi henter
+    direkte fra en forhandlers feed (image_source affiliate_feed/
+    manufacturer_kit) -- vi kontrollerer ikke de filene og har ingen WebP-
+    variant av dem."""
+    cls_attr = f' class="{escape(css_class)}"' if css_class else ""
+    if image_url.startswith("/static/products/") and image_url.endswith(".jpg"):
+        webp_url = image_url[:-4] + ".webp"
+        return (f'<picture><source srcset="{escape(webp_url)}" type="image/webp">'
+                f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}" loading="{loading}"></picture>')
+    return f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}" loading="{loading}">'
 
 
 def _product_image(product: dict) -> str | None:
@@ -2215,7 +2230,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <div class="pack-size-callout-arrow">→</div>
 </a>"""
 
-    thumb = f'<img src="{escape(image_url)}" alt="{escape(product["name"])}" loading="lazy">' if image_url \
+    thumb = _img_tag(image_url, product["name"]) if image_url \
         else escape(product["brand_label"][:2].upper())
 
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
