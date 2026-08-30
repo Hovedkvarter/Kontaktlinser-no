@@ -1240,6 +1240,35 @@ PRIVATE_LABEL_ILLUSTRATION_STYLE = """
    utledet automatisk via cqw i selve illustrasjonen. */
 .brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
 .pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
+
+/* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
+   tekst-ordmerke (se _pli_iwear_logo_html()) siden brukerens fil selv sier
+   "ikke offisiell iWear-logo". Samme 560x225-canvas/cqw-teknikk som de tre
+   andre seriene. */
+.pli-iwear-pack{width:100%;height:100%;position:relative;overflow:hidden;background:#fff;border-radius:7px;--c1:#078e91;--c2:#11b8ad}
+.pli-iwear-band{height:3.214cqw;background:var(--c1)}
+.pli-iwear-copy{position:absolute;left:4.821cqw;top:8.393cqw;z-index:3}
+.pli-iwear-brand{font-size:8.393cqw;font-weight:750;letter-spacing:-.055em}
+.pli-iwear-brand i{font-style:normal;color:var(--c1)}
+.pli-iwear-variant{font-size:3.393cqw;color:var(--c1);text-transform:lowercase}
+.pli-iwear-kind{font-size:1.429cqw;color:#777;margin-top:1.071cqw}
+.pli-iwear-qty{position:absolute;left:5.000cqw;bottom:4.286cqw;font-size:5.000cqw;font-weight:750;z-index:3}
+.pli-iwear-qty span{display:block;font-size:1.250cqw;margin-top:0.893cqw}
+.pli-iwear-art{position:absolute;right:-2.679cqw;top:3.214cqw;width:48%;height:36.964cqw;background:radial-gradient(circle at 52% 50%,#fff 0 23%,transparent 24%),radial-gradient(ellipse at 55% 50%,transparent 0 31%,var(--c2) 32% 35%,transparent 36% 43%,var(--c1) 44% 53%,transparent 54%),linear-gradient(135deg,#fff 0 5%,var(--c2) 6% 44%,var(--c1) 45% 100%);border-radius:52% 0 0 52%}
+.pli-iwear-fit{--c1:#78b75a;--c2:#b7df83}
+.pli-iwear-fresh{--c1:#51a6c4;--c2:#94d4dd}
+.pli-iwear-activ{--c1:#087f82;--c2:#12b7a9}
+.pli-iwear-harmony{--c1:#6c258f;--c2:#a967c5}
+.pli-iwear-oxygen{--c1:#0b78a0;--c2:#52b6d0}
+.pli-iwear-balance{--c1:#489aa8;--c2:#91c6b5}
+.pli-iwear-oxygen-relax{--c1:#173d99;--c2:#32a6df}
+.pli-iwear-go-toric{--c1:#0b7561;--c2:#44b18c}
+.pli-iwear-fit-toric{--c1:#5d9e64;--c2:#8bc68b}
+.pli-iwear-activ-toric{--c1:#08709b;--c2:#16aaa8}
+.pli-iwear-harmony-toric{--c1:#6c168f;--c2:#b060c6}
+.pli-iwear-oxygen-toric{--c1:#11679e;--c2:#3b9fc7}
+.pli-iwear-balance-toric{--c1:#367b9c;--c2:#6eb4b4}
+.pli-iwear-oxygen-mf{--c1:#31539d;--c2:#658fd1}
 """
 
 # name -> (mark, wear, variant, family) hentet direkte fra brukerens
@@ -1362,11 +1391,48 @@ def _pli_easyvision(slug: str) -> str | None:
 </div>"""
 
 
+# Fra iwear-produktsett-og-logo-v1.html (2026-08-30).
+IWEAR_ILLUSTRATIONS: dict[str, dict] = {
+    "iwear-oxygen": {"variant": "Oxygen", "qty": "6", "kind": "MONTHLY LENSES", "family": "oxygen"},
+    "iwear-oxygen-astigmatism": {"variant": "Oxygen Astigmatism", "qty": "6", "kind": "FOR ASTIGMATISM", "family": "oxygen-toric"},
+    "iwear-oxygen-presbyopia": {"variant": "Oxygen Presbyopia", "qty": "6", "kind": "MULTIFOCAL LENSES", "family": "oxygen-mf"},
+    "iwear-oxygen-relax": {"variant": "Oxygen Relax", "qty": "3", "kind": "MONTHLY LENSES", "family": "oxygen-relax"},
+    "iwear-oxygen-xr": {"variant": "Oxygen XR", "qty": "3", "kind": "MONTHLY LENSES", "family": "oxygen"},
+    "iwear-balance-plus": {"variant": "Balance Plus", "qty": "6", "kind": "MONTHLY LENSES", "family": "balance"},
+    "iwear-balance-plus-astigmatism": {"variant": "Balance Plus Astigmatism", "qty": "6", "kind": "FOR ASTIGMATISM", "family": "balance-toric"},
+    "iwear-fit": {"variant": "Fit", "qty": "30", "kind": "DAILY LENSES", "family": "fit"},
+    "iwear-fit-astigmatism": {"variant": "Fit Astigmatism", "qty": "30", "kind": "FOR ASTIGMATISM", "family": "fit-toric"},
+    "iwear-go-astigmatism": {"variant": "Go Astigmatism", "qty": "6", "kind": "FOR ASTIGMATISM", "family": "go-toric"},
+    "iwear-harmony": {"variant": "Harmony", "qty": "30", "kind": "DAILY LENSES", "family": "harmony"},
+    "iwear-harmony-astigmatism": {"variant": "Harmony Astigmatism", "qty": "30", "kind": "FOR ASTIGMATISM", "family": "harmony-toric"},
+    "iwear-activ": {"variant": "Activ", "qty": "30", "kind": "DAILY LENSES", "family": "activ"},
+    "iwear-activ-astigmatism": {"variant": "Activ Astigmatism", "qty": "30", "kind": "FOR ASTIGMATISM", "family": "activ-toric"},
+    "iwear-fresh": {"variant": "Fresh", "qty": "30", "kind": "DAILY LENSES", "family": "fresh"},
+}
+
+
+def _pli_iwear(slug: str) -> str | None:
+    d = IWEAR_ILLUSTRATIONS.get(slug)
+    if not d:
+        return None
+    return f"""<div class="pli-iwear-pack pli-iwear-{d["family"]}" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">{escape(d["variant"])}</div>
+    <div class="pli-iwear-kind">{escape(d["kind"])}</div>
+  </div>
+  <div class="pli-iwear-qty">{escape(d["qty"])}<span>{escape(d["kind"])}</span></div>
+  <div class="pli-iwear-art"></div>
+</div>"""
+
+
 def render_private_label_illustration(chain: str, slug: str) -> str | None:
     """Returnerer illustrasjons-HTML for en private label-variant, eller None
-    hvis vi ikke har noen (f.eks. iWear/Brilleland -- ingen pakke levert
-    ennå). Kjeden brukes KUN til å velge riktig visuell familie, aldri vist
-    i selve illustrasjonen."""
+    hvis vi ikke har noen. Kjeden brukes KUN til å velge riktig visuell
+    familie, aldri vist i selve illustrasjonen."""
+    if chain == "Brilleland":
+        return _pli_iwear(slug)
     if chain == "Synsam":
         return _pli_eyeq(slug)
     if chain == "Coptikk":
@@ -6354,12 +6420,19 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     # lenger her -- bruker ønsker (2026-08-30) at disse seriene fremstår
     # som egne merker på denne siden, på linje med ekte linsemerker. Full
     # kobling til kjeden ligger fortsatt på /private-label/. Bruker seriens
-    # EGEN logo (PRIVATE_LABEL_SUBBRAND_LOGOS) når vi har en, ellers en
-    # initial-badge (iWear/Lumiere7 -- ingen fil ennå).
+    # EGEN logo (PRIVATE_LABEL_SUBBRAND_LOGOS) når vi har en ekte filbasert
+    # en, ellers iWear sitt midlertidige tekst-ordmerke (brukerens egen fil
+    # sier selv "ikke offisiell iWear-logo") for akkurat den serien, ellers
+    # en initial-badge (Lumiere7 -- ingen fil ennå).
     subbrand_logo = PRIVATE_LABEL_SUBBRAND_LOGOS.get(subbrand)
     if subbrand_logo:
         brand_logo_cls = "has-logo"
         brand_logo_content = f'<img class="brand-logo-img" src="/static/logos/{subbrand_logo}" alt="" loading="lazy">'
+    elif subbrand == "iWear":
+        brand_logo_cls = "has-logo"
+        brand_logo_content = ('<span style="font-family:\'Space Grotesk\',sans-serif;font-weight:700;'
+                               'font-size:1.9rem;letter-spacing:-.03em;color:var(--ink);">'
+                               '<span style="color:#078e91;">i</span>Wear</span>')
     else:
         brand_logo_cls, brand_logo_content = "", escape(subbrand[:2].upper())
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>'
