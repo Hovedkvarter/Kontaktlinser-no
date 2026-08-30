@@ -2908,7 +2908,9 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # etterspørselssignal -- IKKE bare et tall på hvor mange pakningsstørr-
     # elser/varianter VI har lagt inn av merket.
     brand_retailers: dict[str, set[str]] = {}
+    product_by_id: dict[str, dict] = {}
     for p in catalog["products"]:
+        product_by_id[p["id"]] = p
         brand_counts[p["brand_slug"]] = brand_counts.get(p["brand_slug"], 0) + 1
         brand_labels[p["brand_slug"]] = p["brand_label"]
         if p["brand_slug"] not in brand_sample_image:
@@ -2943,7 +2945,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 </a>"""
 
-    def render_private_label_chain_card(chain: str, count: int) -> str:
+    def render_private_label_chain_card(chain: str, count: int, sample_image: str | None) -> str:
         n_label = "eget merke" if count == 1 else "egne merker"
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
         logo_entry = RETAILER_LOGOS.get(chain)
@@ -2954,7 +2956,11 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         else:
             badge_class = "brand-card-badge"
             badge_content = escape(chain[:2].upper())
-        return f"""<a class="brand-card" href="/merke/{escape(subbrand.lower())}/">
+        card_cls = "brand-card has-photo" if sample_image else "brand-card"
+        photo_html = (f'<div class="brand-card-photo">{_img_tag(sample_image, subbrand)}</div>'
+                      if sample_image else "")
+        return f"""<a class="{card_cls}" href="/merke/{escape(subbrand.lower())}/">
+  {photo_html}
   <div class="{badge_class}">{badge_content}</div>
   <div class="brand-card-info">
     <div class="brand-card-name">{escape(subbrand)}</div>
@@ -2963,10 +2969,18 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 </a>"""
 
     chain_counts: dict[str, int] = {}
+    chain_sample_image: dict[str, str] = {}
     for label in (private_labels or []):
-        chain_counts[label["chain"]] = chain_counts.get(label["chain"], 0) + 1
+        chain = label["chain"]
+        chain_counts[chain] = chain_counts.get(chain, 0) + 1
+        if chain not in chain_sample_image:
+            real_product = product_by_id.get(label.get("real_product_id"))
+            if real_product:
+                img = _product_image(real_product)
+                if img:
+                    chain_sample_image[chain] = img
     private_label_chain_cards_html = "\n".join(
-        render_private_label_chain_card(chain, count)
+        render_private_label_chain_card(chain, count, chain_sample_image.get(chain))
         for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
     )
 
@@ -3086,14 +3100,33 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
    fjerner ikke informasjon fra siden -- den flytter bare lenger ned, i tråd
    med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
    øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
-   logo-sirkel-raden også på mobil -- ingen tomt/knekt kort. */
+   logo-sirkel-raden også på mobil -- ingen tomt/knekt kort.
+   Badgen (logo/initial) var opprinnelig skjult her (display:none) -- bruker
+   viste 2026-08-30 et mockup der merkelogoen ligger som en liten hvit lapp
+   OPPÅ produktbildet (øverst venstre), ikke fjernet. Endret til en absolutt
+   posisjonert "chip" over bildet i stedet for å skjule den. Samme endring
+   avdekket og fikset et reelt brukket kort samtidig: private label-kjedenes
+   kort (EyeQ/iWear/Easyvision/Ascend) hadde ALDRI fått .has-photo (ingen
+   sample_image var regnet ut for dem) -- på mobil falt de tilbake til den
+   gamle smale rad-layouten med en 52px logo-badge, som klemte navnet ned
+   til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har nå fått et ekte
+   produktbilde (samme bilde som allerede vises på det underliggende ekte
+   produktet -- gjenbruk, ikke ny lisensiering) pluss kjedens egen logo som
+   samme type overlay-chip. */
 .mobile-only-block {{ display: none; }}
 @media (max-width: 699px) {{
   .trust-card {{ display: none; }}
-  .brand-card.has-photo {{ flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
+  .brand-card.has-photo {{ position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
   .brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
   .brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
-  .brand-card.has-photo .brand-card-badge {{ display: none; }}
+  .brand-card.has-photo .brand-card-badge {{
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    width: auto; height: 24px; min-width: 24px; max-width: 74%;
+    border-radius: 7px; background: white; color: var(--ink);
+    padding: 4px 8px; box-shadow: 0 1px 5px rgba(11,37,69,0.2);
+    font-size: 0.68rem;
+  }}
+  .brand-card.has-photo .brand-card-badge img {{ width: auto; height: 100%; max-width: 100%; }}
   .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
   .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
   /* Kategorier flyttet under Merker på mobil, og selve "Merker"-
