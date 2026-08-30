@@ -461,31 +461,24 @@ CONSENT_SCRIPT = """<script>
 #
 # Nøytral, beskrivende bruk for å identifisere hvilket produkt/merke det
 # faktisk er snakk om - selve definisjonen av nominativ varemerkebruk.
-# Noen merker (Biofinity, Air Optix, Dailies, Precision1/7, Total30,
-# FreshLook, Avaira, Biomedics, Clariti, MyDay, Proclear, Biotrue,
-# PureVision, SofLens, Ultra) har ingen egen rendyrket ordmerke-logofil på
-# produsentens offisielle side (kun produktbilder av emballasjen) - der
-# brukes produsentens hovedlogo (CooperVision/Alcon/Bausch + Lomb) i
-# stedet, etter eksplisitt avklaring med brukeren 2026-08-10.
+#
+# 2026-08-30: 16 merker (Air Optix, Avaira, Biofinity, Biomedics, Biotrue,
+# Clariti, Dailies, FreshLook, MyDay, Precision1, Precision7, Proclear,
+# PureVision, SofLens, TOTAL30, ULTRA) hadde en periode en logo beskåret
+# fra et lisensiert produktbilde (se logo_sources.json-kommentaren og
+# git-historikken for teknikken) -- FJERNET igjen samme dag etter at
+# bruker testet resultatet live og fant kvaliteten for dårlig (utvasket
+# kontrast, beskjæringsartefakter som en gjenværende stripe/strek fra
+# emballasjedesignet). Disse 16 har derfor bevisst INGEN logofil her nå,
+# og faller tilbake til den vanlige initial-badgen inntil en ekte
+# offisiell kilde er funnet (se /vilkar/-diskusjonen om ECP-portaler --
+# Alcon/CooperVision/Bausch+Lomb sine er alle innloggingssperret for
+# fagpersoner, i motsetning til Acuvue sin åpne kilde under). Ikke legg
+# disse tilbake med samme beskjæringsteknikk uten en tydelig kvalitets-
+# forbedring først.
 BRAND_LOGOS = {
     "acuvue": ("acuvue.png", False),
     "adore": ("adore.png", False),
-    "air-optix": ("air-optix.png", False),
-    "avaira": ("avaira.png", False),
-    "biofinity": ("biofinity.png", False),
-    "biomedics": ("biomedics.png", False),
-    "biotrue": ("biotrue.png", False),
-    "clariti": ("clariti.png", False),
-    "dailies": ("dailies.png", False),
-    "freshlook": ("freshlook.png", False),
-    "myday": ("myday.png", False),
-    "precision1": ("precision1.png", False),
-    "precision7": ("precision7.png", False),
-    "proclear": ("proclear.png", False),
-    "purevision": ("purevision.png", False),
-    "soflens": ("soflens.png", False),
-    "total30": ("total30.png", False),
-    "ultra": ("ultra.png", False),
 }
 
 
