@@ -3248,10 +3248,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         for o in p.get("offers", []):
             if o.get("in_stock"):
                 retailers.add(o["retailer"])
-    brand_order = sorted(
-        brand_counts,
-        key=lambda b: (-len(brand_retailers.get(b, ())), -brand_counts[b], brand_labels[b]),
-    )
 
     def render_brand_card(slug: str) -> str:
         label = brand_labels[slug]
@@ -3325,10 +3321,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
                 img = _product_image(real_product)
                 if img:
                     chain_sample_image[chain] = img
-    private_label_chain_cards_html = "\n".join(
-        render_private_label_chain_card(chain, count, chain_sample_image.get(chain), chain_illustration.get(chain))
-        for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
-    )
     any_pli_illustration = bool(chain_illustration)
     pli_disclaimer_note = (
         '<p style="margin:10px 0 0;font-size:0.72rem;color:var(--muted);">'
@@ -3340,14 +3332,31 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # Tidligere (2026-08-15) pinnet vi tre merker manuelt øverst, basert på
     # brukerens egen smak siden et AI-generert "topp 6"-dokument den gangen
     # viste seg å inneholde en usann iWear/Interoptik-kobling og en død
-    # EyeQ-kilde. 2026-08-30: erstattet med brand_order sin faktiske
-    # forhandlerbredde-sortering over -- ingen manuell pinning lenger,
-    # samme begrunnelse (ikke stole på uverifiserte AI-populæritetstabeller)
-    # men nå med et ekte, systematisk datagrunnlag i stedet for et
-    # engangs-redaksjonelt valg.
-    remaining_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order)
-
-    brand_cards_html = private_label_chain_cards_html + "\n" + remaining_cards_html
+    # EyeQ-kilde. 2026-08-30: erstattet med en reell forhandlerbredde-
+    # sortering (se card_items under). Private label-seriene lå deretter en stund
+    # som en egen, alltid-øverst blokk foran denne rangeringen -- bruker ba
+    # (2026-08-30, samme dag) om at de i stedet smelter inn i ÉN felles
+    # rangering sammen med de ekte merkene, ikke ligge foran dem uansett.
+    # En privat label-serie selges per definisjon KUN hos den ene kjeden
+    # (ikke "flere uavhengige forhandlere"), så den får forhandlerbredde=1
+    # i samme sorteringsnøkkel -- ærlig konsekvens av samme prinsipp, ikke
+    # en ny/annen regel bare for disse. Det sender dem naturlig nedover
+    # rangeringen (Acuvue/Biofinity/Dailies med bred dekning havner øverst),
+    # uten at vi trenger å hardkode dem sist heller.
+    card_items: list[tuple[int, int, str, str]] = []
+    for slug in brand_counts:
+        card_items.append((
+            -len(brand_retailers.get(slug, ())), -brand_counts[slug], brand_labels[slug],
+            render_brand_card(slug),
+        ))
+    for chain, count in chain_counts.items():
+        subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+        card_items.append((
+            -1, -count, subbrand,
+            render_private_label_chain_card(chain, count, chain_sample_image.get(chain), chain_illustration.get(chain)),
+        ))
+    card_items.sort(key=lambda item: item[:3])
+    brand_cards_html = "\n".join(item[3] for item in card_items)
 
     def render_category_row(slug: str, category: dict) -> str:
         icon = CATEGORY_ICONS.get(slug, "")
