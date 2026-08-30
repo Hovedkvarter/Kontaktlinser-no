@@ -3145,6 +3145,8 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     </div>
   </div>
 
+  {METHODOLOGY_HTML}
+
   {home_faq_html}
 </div>
 
