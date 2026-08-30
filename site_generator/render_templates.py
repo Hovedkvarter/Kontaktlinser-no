@@ -1119,6 +1119,20 @@ PRIVATE_LABEL_SUBBRAND_LOGOS: dict[str, str] = {
     "Ascend": "pl-ascend.png",
 }
 
+# MIDLERTIDIG (2026-08-30) -- se den fyldige begrunnelsen i render_home_page()
+# der denne brukes. Lest direkte av lenspricer.no sin faktiske forside
+# (bilde-alt-tekster på merke-rutenettet, i den rekkefølgen de vises der)
+# samme dag, med to bevisste ombytter (Acuvue<->Dailies, Biomedics<->ULTRA)
+# for å ikke være en 1:1-kopi. Erstatt med ekte trafikkdata fra egen side
+# etter ca. 3 måneder -- ikke la denne stå ubrukt/glemt lenger enn det.
+LENSPRICER_INSPIRED_ORDER: list[str] = [
+    "acuvue", "dailies", "biofinity", "iwear", "easyvision", "eyeq",
+    "soflens", "biotrue", "clariti", "air-optix", "myday", "purevision",
+    "precision1", "proclear", "live", "biomedics", "ultra", "avaira",
+    "total30", "precision7",
+]
+_LENSPRICER_RANK: dict[str, int] = {slug: i for i, slug in enumerate(LENSPRICER_INSPIRED_ORDER)}
+
 # ---------------------------------------------------------------------------
 # Private label-illustrasjoner (2026-08-30). Kjedenes egne private
 # label-serier har ikke en egen ordmerke-logo eller eget produktbilde vi kan
@@ -3388,34 +3402,46 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         if any_pli_illustration else ""
     )
 
-    # Tidligere (2026-08-15) pinnet vi tre merker manuelt øverst, basert på
-    # brukerens egen smak siden et AI-generert "topp 6"-dokument den gangen
-    # viste seg å inneholde en usann iWear/Interoptik-kobling og en død
-    # EyeQ-kilde. 2026-08-30: erstattet med en reell forhandlerbredde-
-    # sortering (se card_items under). Private label-seriene lå deretter en stund
-    # som en egen, alltid-øverst blokk foran denne rangeringen -- bruker ba
-    # (2026-08-30, samme dag) om at de i stedet smelter inn i ÉN felles
-    # rangering sammen med de ekte merkene, ikke ligge foran dem uansett.
-    # En privat label-serie selges per definisjon KUN hos den ene kjeden
-    # (ikke "flere uavhengige forhandlere"), så den får forhandlerbredde=1
-    # i samme sorteringsnøkkel -- ærlig konsekvens av samme prinsipp, ikke
-    # en ny/annen regel bare for disse. Det sender dem naturlig nedover
-    # rangeringen (Acuvue/Biofinity/Dailies med bred dekning havner øverst),
-    # uten at vi trenger å hardkode dem sist heller.
-    card_items: list[tuple[int, int, str, str]] = []
+    # Sorteringshistorikk: 15.08 manuell pinning av 3 merker -> 30.08 reell
+    # forhandlerbredde-sortering (se git-historikk) -> 30.08 samme dag,
+    # private label-seriene smeltet inn i én felles rangering i stedet for
+    # en egen blokk øverst.
+    #
+    # 30.08 (samme dag, ny runde): bruker ønsker en tredje tilnærming --
+    # egne trafikktall finnes ikke ennå (ny side, lite trafikk), så vi
+    # "lar oss inspirere av" lenspricer.no sin faktiske, observerte
+    # forsiderekkefølge (lest av alt-tekst på deres bilderutenett
+    # 2026-08-30 -- IKKE en påstand om popularitet/salgstall, bare hva de
+    # faktisk viser, verifiserbart ved å besøke siden) som et MIDLERTIDIG
+    # utgangspunkt, med et par bevisste ombytter (Acuvue/Dailies og
+    # Biomedics/ULTRA) slik at det ikke er en 1:1-kopi. Etter ca. 3 måneder
+    # med egen trafikk skal dette erstattes med reelle tall fra egen side
+    # (krever GA4/GTM-statistikk faktisk satt opp og en viss datamengde --
+    # ikke gjort ennå, kun samtykke-infrastrukturen finnes per nå).
+    # LENSPRICER_INSPIRED_ORDER er derfor en eksplisitt MIDLERTIDIG liste,
+    # ikke en påstand om hva som faktisk er mest populært -- husk å fjerne/
+    # erstatte denne kommentaren og listen når ekte tall tas i bruk.
+    # Merker vi har som IKKE står i denne listen (enten fordi lenspricer.no
+    # ikke fører dem, eller fordi navnet deres ikke tydelig kunne kobles
+    # til et av våre merker, f.eks. deres "Lumiere"/"Freshtech") faller
+    # tilbake til den samme forhandlerbredde-sorteringen som før.
+    card_items: list[tuple[int, int, int, str, str]] = []
+    unranked = len(LENSPRICER_INSPIRED_ORDER)
     for slug in brand_counts:
+        rank = _LENSPRICER_RANK.get(slug, unranked)
         card_items.append((
-            -len(brand_retailers.get(slug, ())), -brand_counts[slug], brand_labels[slug],
+            rank, -len(brand_retailers.get(slug, ())), -brand_counts[slug], brand_labels[slug],
             render_brand_card(slug),
         ))
     for chain, count in chain_counts.items():
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
+        rank = _LENSPRICER_RANK.get(subbrand.lower(), unranked)
         card_items.append((
-            -1, -count, subbrand,
+            rank, -1, -count, subbrand,
             render_private_label_chain_card(chain, count, chain_sample_image.get(chain), chain_illustration.get(chain)),
         ))
-    card_items.sort(key=lambda item: item[:3])
-    brand_cards_html = "\n".join(item[3] for item in card_items)
+    card_items.sort(key=lambda item: item[:4])
+    brand_cards_html = "\n".join(item[4] for item in card_items)
 
     def render_category_row(slug: str, category: dict) -> str:
         icon = CATEGORY_ICONS.get(slug, "")
@@ -3512,17 +3538,14 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
 .brand-card-photo {{ display: none; }}
 {GUIDE_TILE_STYLE}
-/* Merke-kortene på mobil: byttet fra en liten sirkel-logo til et større
-   produktbilde (2026-08-30, etter brukerens ønske om å ligne lenspricer.no
-   sin mobilside -- søk øverst, deretter store, bildeførte merke-kort). KUN
-   under 700px -- PC beholder den kompakte logo+navn-raden uendret, se
-   brukerens egen "på pc er det fint"-presisering. .trust-card er samtidig
-   skjult på mobil her: samme budskap ("uavhengig", "oppdateres hver 6.
-   time") gjentas uansett lenger ned i .trust-strip, så å fjerne den her
-   fjerner ikke informasjon fra siden -- den flytter bare lenger ned, i tråd
-   med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
-   øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
-   logo-sirkel-raden også på mobil -- ingen tomt/knekt kort.
+/* Merke-kortene: byttet fra en liten sirkel-logo til et større produktbilde
+   (2026-08-30, etter brukerens ønske om å ligne lenspricer.no sin
+   mobilside). Opprinnelig KUN under 700px (PC beholdt den kompakte
+   logo+navn-raden), men bruker ba samme dag om at det bildeførte kortet
+   skal gjelde på PC også -- disse reglene er derfor UTEN media-query,
+   gjelder alle bredder. Kort UTEN et bilde (sample_image manglet)
+   beholder den vanlige logo-sirkel-raden uansett bredde -- ingen tomt/
+   knekt kort.
    Badgen (logo/initial) var opprinnelig skjult her (display:none). Prøvde
    2026-08-30 en absolutt posisjonert "chip" oppå produktbildet (etter et
    mockup brukeren viste) -- reversert samme dag: brukeren så resultatet
@@ -3536,15 +3559,15 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
    gamle smale rad-layouten med en 52px logo-badge, som klemte navnet ned
    til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har fortsatt et ekte
    produktbilde/illustrasjon, bare uten logo-overlayen oppå. */
+.brand-card.has-photo {{ position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
+.brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
+.brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
+.brand-card.has-photo .brand-card-badge {{ display: none; }}
+.brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
+.brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
 .mobile-only-block {{ display: none; }}
 @media (max-width: 699px) {{
   .trust-card {{ display: none; }}
-  .brand-card.has-photo {{ position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
-  .brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
-  .brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
-  .brand-card.has-photo .brand-card-badge {{ display: none; }}
-  .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
-  .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
   /* Kategorier flyttet under Merker på mobil, og selve "Merker"-
      overskriften skjules helt -- rett fra søk til merke-kortene, samme
      mønster som lenspricer.no sin mobilside (brukerens eget ønske,
