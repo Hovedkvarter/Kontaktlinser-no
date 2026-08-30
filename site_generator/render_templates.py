@@ -2893,6 +2893,21 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # feed-bilde via _product_image) fremfor bare det første produktet i
     # katalog-rekkefølgen, som kunne vært et uten bilde i det hele tatt.
     brand_sample_image: dict[str, str] = {}
+    # Antall DISTINKTE forhandlere som faktisk har merket på lager -- brukt
+    # til å sortere Merker-seksjonen (2026-08-30, etter brukerens ønske om
+    # en "mest populære i Norge"-rekkefølge). Vi har ingen egen trafikk å
+    # basere dette på ennå, og et par innlimte "AI-genererte populæritets-
+    # tabeller" samme dag inneholdt begge verifiserbart uriktige påstander
+    # (bl.a. iWear feilaktig knyttet til Interoptik, og everclear ELITE
+    # feilaktig kalt Lensway-eksklusiv når den faktisk selges hos BÅDE
+    # Lenson og Lensway) -- forkastet som datagrunnlag, samme prinsipp som
+    # tidligere avviste AI-dokumenter i dette prosjektet. Bredde i faktisk
+    # forhandlerdekning er derimot ekte data vi allerede har: forhandlere
+    # velger selv hva de fører basert på egne salgstall, så et merke som
+    # føres av mange uavhengige forhandlere er et reelt (om enn indirekte)
+    # etterspørselssignal -- IKKE bare et tall på hvor mange pakningsstørr-
+    # elser/varianter VI har lagt inn av merket.
+    brand_retailers: dict[str, set[str]] = {}
     for p in catalog["products"]:
         brand_counts[p["brand_slug"]] = brand_counts.get(p["brand_slug"], 0) + 1
         brand_labels[p["brand_slug"]] = p["brand_label"]
@@ -2900,7 +2915,14 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
             img = _product_image(p)
             if img:
                 brand_sample_image[p["brand_slug"]] = img
-    brand_order = sorted(brand_counts, key=lambda b: (-brand_counts[b], brand_labels[b]))
+        retailers = brand_retailers.setdefault(p["brand_slug"], set())
+        for o in p.get("offers", []):
+            if o.get("in_stock"):
+                retailers.add(o["retailer"])
+    brand_order = sorted(
+        brand_counts,
+        key=lambda b: (-len(brand_retailers.get(b, ())), -brand_counts[b], brand_labels[b]),
+    )
 
     def render_brand_card(slug: str) -> str:
         label = brand_labels[slug]
@@ -2948,21 +2970,17 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
     )
 
-    # Redaksjonell rekkefølge på forsidens Merker-seksjon (2026-08-15,
-    # eksplisitt bruker-valg) -- IKKE en påstand om bevist popularitet.
-    # Et AI-generert "topp 6 mest populære merker i Norge"-dokument ble
-    # sjekket kilde for kilde først: markedsandelstallet for Specsavers
-    # stemte, men iWear/Interoptik-koblingen var usann (motsagt av både
-    # kilden selv og vår egen re-verifiserte private_labels.json-data) og
-    # EyeQ-kilden var en død lenke -- forkastet som datagrunnlag. Dette er
-    # i stedet en bevisst plassering: fremhev de tre nye private label-
-    # seriene øverst, deretter tre kjente merker brukeren pekte ut selv.
-    PINNED_BRAND_SLUGS = ["acuvue", "dailies", "biofinity"]
-    pinned_cards_html = "\n".join(render_brand_card(slug) for slug in PINNED_BRAND_SLUGS if slug in brand_counts)
-    remaining_order = [b for b in brand_order if b not in PINNED_BRAND_SLUGS]
-    remaining_cards_html = "\n".join(render_brand_card(slug) for slug in remaining_order)
+    # Tidligere (2026-08-15) pinnet vi tre merker manuelt øverst, basert på
+    # brukerens egen smak siden et AI-generert "topp 6"-dokument den gangen
+    # viste seg å inneholde en usann iWear/Interoptik-kobling og en død
+    # EyeQ-kilde. 2026-08-30: erstattet med brand_order sin faktiske
+    # forhandlerbredde-sortering over -- ingen manuell pinning lenger,
+    # samme begrunnelse (ikke stole på uverifiserte AI-populæritetstabeller)
+    # men nå med et ekte, systematisk datagrunnlag i stedet for et
+    # engangs-redaksjonelt valg.
+    remaining_cards_html = "\n".join(render_brand_card(slug) for slug in brand_order)
 
-    brand_cards_html = private_label_chain_cards_html + "\n" + pinned_cards_html + "\n" + remaining_cards_html
+    brand_cards_html = private_label_chain_cards_html + "\n" + remaining_cards_html
 
     def render_category_row(slug: str, category: dict) -> str:
         icon = CATEGORY_ICONS.get(slug, "")
