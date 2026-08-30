@@ -431,7 +431,15 @@ a { color: inherit; }
    effekt på produktfliser (der boksen har fast høyde + sentrerer innholdet
    i stedet for aspect-ratio) ved å style bredden i stedet, med høyden
    utledet automatisk via cqw i selve illustrasjonen. */
-.brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
+/* .pli-frame er nå en INDRE wrapper inni .brand-card-photo (ikke lenger
+   satt direkte på .brand-card-photo selv) -- .brand-card-photo beholder
+   sin vanlige 4:3-boks som ALLE kort (bilde eller illustrasjon) deler,
+   slik at rutenettet stretcher til lik høyde uten å bli rotete (funnet
+   og fikset 2026-08-30: ulik boks-høyde mellom bilde-kort og
+   illustrasjon-kort ga et synlig ujevnt rutenett når PC-versjonen fikk
+   samme bildeførte kort som mobil). Illustrasjonen sentreres i stedet
+   for å strekkes/forvrenges, med sin egen naturlige 560:225-proporsjon
+   bevart inni den delte 4:3-boksen. */
 .pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
 
 /* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
@@ -552,8 +560,9 @@ a { color: inherit; }
    til 1-4 bokstaver ("E...", "i...", "Asc..."). Disse har fortsatt et ekte
    produktbilde/illustrasjon, bare uten logo-overlayen oppå. */
 .brand-card.has-photo { position: relative; flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }
-.brand-card.has-photo .brand-card-photo { display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }
+.brand-card.has-photo .brand-card-photo { display: flex; align-items: center; justify-content: center; overflow: hidden; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }
 .brand-card.has-photo .brand-card-photo img { width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }
+.brand-card.has-photo .brand-card-photo .pli-frame { width: 100%; aspect-ratio: 560 / 225; container-type: inline-size; }
 .brand-card.has-photo .brand-card-badge { display: none; }
 .brand-card.has-photo .brand-card-info { padding: 12px 14px 14px; }
 .brand-card.has-photo .brand-card-name { font-size: 0.98rem; white-space: normal; }
@@ -963,7 +972,7 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card has-photo" href="/merke/iwear/">
-  <div class="brand-card-photo pli-frame"><div class="pli-iwear-pack pli-iwear-oxygen" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="brand-card-photo"><div class="pli-frame"><div class="pli-iwear-pack pli-iwear-oxygen" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-iwear-band"></div>
   <div class="pli-iwear-copy">
     <div class="pli-iwear-brand"><i>i</i>Wear</div>
@@ -972,7 +981,7 @@ a { color: inherit; }
   </div>
   <div class="pli-iwear-qty">6<span>MONTHLY LENSES</span></div>
   <div class="pli-iwear-art"></div>
-</div></div>
+</div></div></div>
   
   <div class="brand-card-info">
     <div class="brand-card-name">iWear</div>
@@ -980,7 +989,7 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card has-photo" href="/merke/easyvision/">
-  <div class="brand-card-photo pli-frame"><div class="pli-ev-pack pli-ev-opteyes" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="brand-card-photo"><div class="pli-frame"><div class="pli-ev-pack pli-ev-opteyes" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-ev-pack-inner">
     <div class="pli-ev-left">
       <div class="pli-ev-count"><strong>6</strong>monthly<br>contact lenses</div>
@@ -992,7 +1001,7 @@ a { color: inherit; }
     </div>
     <div class="pli-ev-mosaic"><i class="pli-ev-tile pli-ev-t1"></i><i class="pli-ev-tile pli-ev-t2"></i><i class="pli-ev-tile pli-ev-t3"></i><i class="pli-ev-tile pli-ev-t4"></i><i class="pli-ev-tile pli-ev-t5"></i><i class="pli-ev-tile pli-ev-t6"></i><i class="pli-ev-tile pli-ev-t7"></i><i class="pli-ev-tile pli-ev-t8"></i><i class="pli-ev-tile pli-ev-t9"></i><i class="pli-ev-tile pli-ev-t10"></i></div>
   </div>
-</div></div>
+</div></div></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/pl-easyvision.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Easyvision</div>
@@ -1000,7 +1009,7 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card has-photo" href="/merke/eyeq/">
-  <div class="brand-card-photo pli-frame"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="brand-card-photo"><div class="pli-frame"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q4</div></div>
   <div class="pli-eyeq-copy">
     <div>
@@ -1011,7 +1020,7 @@ a { color: inherit; }
     
   </div>
   <div class="pli-eyeq-eyeq-vertical">EYEQ</div>
-</div></div>
+</div></div></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/pl-eyeq.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">EyeQ</div>
@@ -1195,7 +1204,7 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card has-photo" href="/merke/ascend/">
-  <div class="brand-card-photo pli-frame"><div class="pli-ascend-pack pli-ascend-premier" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="brand-card-photo"><div class="pli-frame"><div class="pli-ascend-pack pli-ascend-premier" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-ascend-content">
     <div class="pli-ascend-maker">CooperVision</div>
     <div class="pli-ascend-wordmark">ascend</div>
@@ -1206,7 +1215,7 @@ a { color: inherit; }
   <div class="pli-ascend-sweep1"></div>
   <div class="pli-ascend-sweep2"></div>
   <div class="pli-ascend-corner"></div>
-</div></div>
+</div></div></div>
   <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/pl-ascend.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Ascend</div>
