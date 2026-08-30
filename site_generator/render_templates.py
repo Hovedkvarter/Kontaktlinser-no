@@ -3087,6 +3087,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
    med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
    øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
    logo-sirkel-raden også på mobil -- ingen tomt/knekt kort. */
+.mobile-only-block {{ display: none; }}
 @media (max-width: 699px) {{
   .trust-card {{ display: none; }}
   .brand-card.has-photo {{ flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
@@ -3095,6 +3096,17 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   .brand-card.has-photo .brand-card-badge {{ display: none; }}
   .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
   .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
+  /* Kategorier flyttet under Merker på mobil, og selve "Merker"-
+     overskriften skjules helt -- rett fra søk til merke-kortene, samme
+     mønster som lenspricer.no sin mobilside (brukerens eget ønske,
+     2026-08-30). To kopier av kategori-blokken finnes i markupen
+     (desktop-only-block inni hero-panel, mobile-only-block rett etter
+     merke-rutenettet) -- kun CSS-display skiller dem, ingen JS. PC er
+     dermed fullstendig urørt: samme markup, samme klasser, disse reglene
+     gjelder kun under 700px. */
+  #merker {{ display: none; }}
+  .desktop-only-block {{ display: none; }}
+  .mobile-only-block {{ display: block; }}
 }}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 1024px) {{
@@ -3158,11 +3170,13 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       <p class="hero-photo-credit">Foto: Alexandru Zdrobău / Unsplash</p>
     </div>
 
-    <div class="section-header" id="kategorier" style="margin-top:20px;">
-      <h2>Kategorier</h2>
-    </div>
-    <div class="category-rows">
-      {category_rows_html}
+    <div class="kategorier-block desktop-only-block">
+      <div class="section-header" id="kategorier" style="margin-top:20px;">
+        <h2>Kategorier</h2>
+      </div>
+      <div class="category-rows">
+        {category_rows_html}
+      </div>
     </div>
   </div>
 
@@ -3171,6 +3185,15 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
   <div class="brand-grid">
     {brand_cards_html}
+  </div>
+
+  <div class="kategorier-block mobile-only-block">
+    <div class="section-header" style="margin-top:20px;">
+      <h2>Kategorier</h2>
+    </div>
+    <div class="category-rows">
+      {category_rows_html}
+    </div>
   </div>
 
   <div class="section-header">
