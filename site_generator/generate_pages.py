@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
@@ -261,6 +261,9 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     write_file(BUILD_DIR / "om-oss" / "index.html", render_about_page())
     print("  om oss   -> /om-oss/")
 
+    write_file(BUILD_DIR / "om-produktillustrasjoner" / "index.html", render_illustration_disclaimer_page())
+    print("  illustrasjoner -> /om-produktillustrasjoner/")
+
     write_file(BUILD_DIR / "404.html", render_404_page())
     print("  404      -> /404.html")
 
@@ -284,6 +287,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
             {"path": "/", "lastmod": today},
             {"path": "/personvern/", "lastmod": today},
             {"path": "/om-oss/", "lastmod": today},
+            {"path": "/om-produktillustrasjoner/", "lastmod": today},
         ] + [
             {"path": f"/{cat_slug}/", "lastmod": today} for cat_slug in solution_categories
         ] + ([{"path": "/private-label/", "lastmod": today}] if private_labels else []),

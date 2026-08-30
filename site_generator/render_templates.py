@@ -1099,17 +1099,310 @@ RETAILER_LOGOS = {
 }
 
 
-# Kjedenes egne private label-serier har ikke en egen ordmerke-logo --
-# kun produktbilder av emballasjen (sjekket på brilleland.no/kontaktlinser/
-# iwear 2026-08-15, samme situasjon som flere av BRAND_LOGOS-produsentene
-# over). Bruker derfor kjedens egen logo (som vi allerede har via
-# RETAILER_LOGOS) som visuelt merke, med selve serienavnet som tekst.
+# Kjedenavnet (Synsam/Brilleland/Specsavers/Coptikk) skal IKKE vises på disse
+# seriene ute på siden (bruker-beslutning 2026-08-30) -- de skal fremstå som
+# egne merker, på linje med ekte linsemerker. Full kobling til kjeden ligger
+# fortsatt på /private-label/, en egen side dedikert til akkurat den
+# forklaringen. PRIVATE_LABEL_SUBBRANDS brukes derfor kun til å slå opp
+# visningsnavnet (chain -> serienavn), aldri til å vise/nevne selve kjeden.
 PRIVATE_LABEL_SUBBRANDS = {
     "Brilleland": "iWear",
     "Synsam": "EyeQ",
     "Specsavers": "Easyvision",
     "Coptikk": "Ascend",
 }
+
+# ---------------------------------------------------------------------------
+# Private label-illustrasjoner (2026-08-30). Kjedenes egne private
+# label-serier har ikke en egen ordmerke-logo eller eget produktbilde vi kan
+# vise (kun produktbilder av det EKTE produktets emballasje, som ville vist
+# feil boks under feil navn) -- bruker har derfor levert egne, ikke-
+# fotografiske illustrasjoner per serie (EyeQ/Ascend/Easyvision), bygget som
+# CSS-farger/gradienter + tekst, ALDRI en påstand om ekte produktemballasje.
+# Se render_illustration_disclaimer_page() for teksten som forklarer dette
+# (lenket fra hvert sted en illustrasjon vises). Design-canvaset i de
+# originale mockupene var 560x225px -- alle mål under er konvertert til cqw
+# (container query width, relativt til elementets EGEN bredde via
+# container-type:inline-size) slik at illustrasjonen skalerer korrekt uansett
+# hvor liten/stor boksen den vises i er (mobil-merkekort vs. produktrutenett).
+# Klassenavn er prefikset (pli-eyeq-/pli-ascend-/pli-ev-) for å aldri kunne
+# kollidere med andre klasser i SHARED_STYLE (f.eks. .active/.variant/.count
+# er alle for generiske navn til å la stå uprefikset i en så stor stilark).
+PRIVATE_LABEL_ILLUSTRATION_STYLE = """
+.pli-eyeq-box{position:relative;width:100%;height:100%;background:#fff;border-radius:7px;overflow:hidden}
+.pli-eyeq-qbox{display:grid;grid-template-columns:58% 42%;align-items:stretch}
+.pli-eyeq-qvisual{display:flex;align-items:center;justify-content:center;padding:1.786cqw 0.714cqw 1.786cqw 2.5cqw;overflow:hidden}
+.pli-eyeq-qmark{font-size:23.571cqw;line-height:.8;font-weight:950;letter-spacing:-.105em;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pli-eyeq-copy{padding:6.071cqw 10.357cqw 4.286cqw 1.786cqw;display:flex;flex-direction:column;justify-content:space-between;min-width:0;height:100%;box-sizing:border-box}
+.pli-eyeq-wear,.pli-eyeq-variant{font-weight:850;letter-spacing:.03em;line-height:1.05}
+.pli-eyeq-wear{font-size:3.036cqw}
+.pli-eyeq-variant{font-size:2.857cqw;margin-top:.357cqw}
+.pli-eyeq-micro{font-size:1.25cqw;letter-spacing:.09em;margin-top:2.143cqw;color:#606770;font-weight:650}
+.pli-eyeq-eyeq-vertical{position:absolute;top:1.25cqw;right:.893cqw;bottom:1.25cqw;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:7.679cqw;font-weight:950;letter-spacing:.055em;line-height:.86;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pli-eyeq-q1{--g:radial-gradient(circle at 30% 18%,#f5cf84 0 10%,#dd8c67 24%,#9b5b8c 44%,#59356f 65%,#28274f 100%)}
+.pli-eyeq-q2{--g:radial-gradient(circle at 66% 22%,#80dadd 0 11%,#5caecb 22%,#7c5faa 45%,#3a427d 67%,#172750 100%)}
+.pli-eyeq-q3{--g:radial-gradient(circle at 35% 20%,#c9eb97 0 11%,#59c7aa 25%,#2a99aa 43%,#4c6ba8 65%,#352a60 100%)}
+.pli-eyeq-q4{--g:radial-gradient(circle at 31% 21%,#7bd9cf 0 10%,#2d8f9c 24%,#504c9d 43%,#8e358a 64%,#2b285f 100%)}
+.pli-eyeq-q5{--g:radial-gradient(circle at 27% 18%,#f9d68c 0 10%,#e47e94 25%,#b43876 44%,#672360 66%,#270d3d 100%)}
+.pli-eyeq-precision{display:grid;grid-template-columns:60% 40%;background:linear-gradient(112deg,#16bec3 0%,#0d91af 39%,#0a5ca1 60%,#fff 60.4%);--g:linear-gradient(90deg,#fff,#e1fbff)}
+.pli-eyeq-precision .pli-eyeq-qvisual{justify-content:flex-start;padding-left:4.286cqw}
+.pli-eyeq-precision .pli-eyeq-qmark{font-size:12.857cqw;letter-spacing:-.05em;color:#fff;background:none;-webkit-text-fill-color:#fff}
+.pli-eyeq-precision .pli-eyeq-copy{padding:6.071cqw 3.571cqw 4.286cqw 2.857cqw}
+.pli-eyeq-precision .pli-eyeq-wear,.pli-eyeq-precision .pli-eyeq-variant{color:#123c6e}
+.pli-eyeq-precision .pli-eyeq-micro{color:#567}
+.pli-eyeq-precision .pli-eyeq-eyeq-horizontal{font-size:5.536cqw;font-weight:950;letter-spacing:.06em;color:#12528a}
+.pli-eyeq-total30{display:grid;grid-template-columns:60% 40%;background:linear-gradient(118deg,#132b73 0 55%,#d7aa4d 55.4% 69%,#fff 69.4%);--g:linear-gradient(135deg,#fff,#c9d8ff)}
+.pli-eyeq-total30 .pli-eyeq-qvisual{justify-content:flex-start;padding-left:4.286cqw}
+.pli-eyeq-total30 .pli-eyeq-qmark{font-size:13.393cqw;letter-spacing:-.06em}
+.pli-eyeq-total30 .pli-eyeq-copy{padding:6.071cqw 3.393cqw 4.286cqw 2.5cqw}
+.pli-eyeq-total30 .pli-eyeq-wear,.pli-eyeq-total30 .pli-eyeq-variant{color:#17336e}
+.pli-eyeq-total30 .pli-eyeq-eyeq-horizontal{font-size:5.536cqw;font-weight:950;letter-spacing:.06em;color:#17336e}
+
+.pli-ascend-pack{width:100%;height:100%;background:#fff;border-radius:7px;overflow:hidden;position:relative}
+.pli-ascend-content{position:absolute;z-index:3;left:6.429cqw;top:6.607cqw}
+.pli-ascend-maker{font-size:1.964cqw;color:#777;margin-bottom:1.429cqw;letter-spacing:.01em}
+.pli-ascend-wordmark{font-size:9.643cqw;font-weight:300;letter-spacing:-.055em;line-height:.88;color:#707174}
+.pli-ascend-variant{font-size:3.75cqw;font-weight:400;color:var(--accent);margin-top:1.429cqw;letter-spacing:-.02em}
+.pli-ascend-desc{font-size:1.429cqw;color:#8b8c8f;margin-top:.893cqw}
+.pli-ascend-qty{position:absolute;right:3.929cqw;top:3.571cqw;font-size:1.964cqw;color:#85878a;z-index:4}
+.pli-ascend-sweep1,.pli-ascend-sweep2{position:absolute;left:-7%;width:118%;border-radius:0 0 55% 35%/0 0 90% 80%;transform:rotate(-2deg);transform-origin:center}
+.pli-ascend-sweep1{height:16.25cqw;bottom:4.464cqw;background:#c7c8ca;z-index:1}
+.pli-ascend-sweep2{height:14.643cqw;bottom:-3.571cqw;background:var(--accent);z-index:2}
+.pli-ascend-corner{position:absolute;right:2.857cqw;bottom:2.143cqw;z-index:4;width:16.964cqw;height:6.071cqw;border:2px solid rgba(255,255,255,.75);border-left-color:transparent;transform:skewX(-18deg)}
+.pli-ascend-active{--accent:#169348}
+.pli-ascend-active-mf{--accent:#078fa2}
+.pli-ascend-active-toric{--accent:#147ca4}
+.pli-ascend-evolve{--accent:#73a930}
+.pli-ascend-evolve-toric{--accent:#4f8fa7}
+.pli-ascend-premier{--accent:#2452a0}
+.pli-ascend-premier-toric{--accent:#2854a5}
+.pli-ascend-premier-mf{--accent:#283467}
+
+.pli-ev-pack{width:100%;height:100%;border-radius:7px;overflow:hidden;position:relative;background:var(--bg,#fff)}
+.pli-ev-pack-inner{position:absolute;inset:0;display:flex}
+.pli-ev-left{width:66%;padding:6.071cqw 3.571cqw 3.75cqw 5cqw;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2;box-sizing:border-box}
+.pli-ev-count{position:absolute;top:0;left:0;min-width:23.571cqw;padding:1.429cqw 3.214cqw 1.429cqw 3.571cqw;border-bottom-right-radius:28px;background:var(--count,#55c9c6);color:#fff;font-size:1.964cqw;font-weight:750;line-height:1.05}
+.pli-ev-count strong{font-size:4.107cqw;margin-right:.714cqw;vertical-align:-.357cqw}
+.pli-ev-brand{margin-top:6.071cqw}
+.pli-ev-easy{font-size:6.607cqw;font-weight:350;letter-spacing:-.045em;line-height:.88;color:var(--brand,#fff)}
+.pli-ev-easy b{font-weight:760}
+.pli-ev-variant{margin-top:1.964cqw;font-size:3.036cqw;font-weight:760;color:var(--accent,#fff)}
+.pli-ev-micro{font-size:1.25cqw;line-height:1.25;color:var(--micro,rgba(255,255,255,.75));max-width:41.071cqw}
+.pli-ev-mosaic{width:40%;position:absolute;right:-.357cqw;top:0;bottom:0;overflow:hidden}
+.pli-ev-tile{position:absolute;width:11.071cqw;height:11.071cqw;border-radius:0 0 62px 0;opacity:.98}
+.pli-ev-t1{right:20cqw;top:0;background:#fff}
+.pli-ev-t2{right:8.929cqw;top:0;background:#247aa1;transform:rotate(90deg)}
+.pli-ev-t3{right:-2.143cqw;top:0;background:#dce633;transform:rotate(180deg)}
+.pli-ev-t4{right:14.643cqw;top:11.071cqw;background:#52c4c0;transform:rotate(270deg)}
+.pli-ev-t5{right:3.571cqw;top:11.071cqw;background:#fff;transform:rotate(90deg)}
+.pli-ev-t6{right:-7.5cqw;top:11.071cqw;background:#20739a}
+.pli-ev-t7{right:20cqw;top:22.143cqw;background:#dce633;transform:rotate(180deg)}
+.pli-ev-t8{right:8.929cqw;top:22.143cqw;background:#2f86a6;transform:rotate(270deg)}
+.pli-ev-t9{right:-2.143cqw;top:22.143cqw;background:#d7eff0;transform:rotate(90deg)}
+.pli-ev-t10{right:3.214cqw;top:33.214cqw;background:#58c8c1;transform:rotate(180deg)}
+.pli-ev-vitrea,.pli-ev-umere,.pli-ev-vitrea-toric,.pli-ev-umere-toric,.pli-ev-vitrea-mf{--bg:#fff;--brand:#777d82;--micro:#9aa0a5;--count:#54c8c5;--accent:#43bdb9}
+.pli-ev-vitrea-toric,.pli-ev-umere-toric{--count:#1b9ab7;--accent:#168faf}
+.pli-ev-vitrea-mf{--count:#48a957;--accent:#4cab59}
+.pli-ev-vitrea .pli-ev-mosaic,.pli-ev-umere .pli-ev-mosaic,.pli-ev-vitrea-toric .pli-ev-mosaic,.pli-ev-umere-toric .pli-ev-mosaic,.pli-ev-vitrea-mf .pli-ev-mosaic{width:43%}
+.pli-ev-uvicia,.pli-ev-uvicia-toric{--bg:#62bdbc;--brand:#fff;--micro:rgba(255,255,255,.84);--count:#fff;--accent:#fff}
+.pli-ev-uvicia .pli-ev-count,.pli-ev-uvicia-toric .pli-ev-count{color:#57b9b8;background:#fff}
+.pli-ev-uvicia-toric{--bg:#5aa4be}
+.pli-ev-opteyes,.pli-ev-opteyes-toric,.pli-ev-opteyes-mf{--bg:#69c2c0;--brand:#fff;--micro:rgba(255,255,255,.82);--count:#fff;--accent:#fff}
+.pli-ev-opteyes .pli-ev-count,.pli-ev-opteyes-toric .pli-ev-count,.pli-ev-opteyes-mf .pli-ev-count{color:#58b9b8;background:#fff}
+.pli-ev-opteyes-toric{--bg:#5798b3}
+.pli-ev-opteyes-mf{--bg:#4f9ea1}
+.pli-ev-uvicia-toric .pli-ev-t4,.pli-ev-opteyes-toric .pli-ev-t4,.pli-ev-umere-toric .pli-ev-t4,.pli-ev-vitrea-toric .pli-ev-t4{background:#1d6fa0}
+.pli-ev-opteyes-mf .pli-ev-t3,.pli-ev-vitrea-mf .pli-ev-t3{background:#65b967}
+.pli-ev-opteyes-mf .pli-ev-t7,.pli-ev-vitrea-mf .pli-ev-t7{background:#dfe94a}
+.pli-caption{display:block;font-size:.68rem;color:var(--muted);margin-top:4px;text-decoration:none}
+.pli-caption:hover{text-decoration:underline}
+/* De 3 illustrasjons-familiene er tegnet for et 560x225px (~2.49:1) design-
+   canvas, MYE bredere/flatere enn de vanlige produktbilde-boksene (4:3 på
+   merkekort, fast 190px høyde på produktfliser) -- strekkes de inn i disse
+   uendret, blir de visuelt forvrengt. .pli-frame overstyrer merkekortets
+   aspect-ratio til illustrasjonens EGEN, og .pli-tile-wrap gir samme
+   effekt på produktfliser (der boksen har fast høyde + sentrerer innholdet
+   i stedet for aspect-ratio) ved å style bredden i stedet, med høyden
+   utledet automatisk via cqw i selve illustrasjonen. */
+.brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
+.pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
+"""
+
+# name -> (mark, wear, variant, family) hentet direkte fra brukerens
+# eyeq-illustrasjonspakke-v4.html sitt products-array, nøkkel byttet fra
+# navn til private_labels.json sin slug (samme 20 EyeQ/Synsam-oppføringer).
+EYEQ_ILLUSTRATIONS: dict[str, dict] = {
+    "eyeq-24": {"mark": "Q4", "wear": "MONTHLY", "variant": "24", "family": "q4"},
+    "eyeq-24-for-astigmatism": {"mark": "Q4", "wear": "MONTHLY", "variant": "ASTIGMATISM", "family": "q4"},
+    "eyeq-24-progressive": {"mark": "Q4", "wear": "MONTHLY", "variant": "PROGRESSIVE", "family": "q4"},
+    "eyeq-digital-focus": {"mark": "Q5", "wear": "MONTHLY", "variant": "DIGITAL FOCUS", "family": "q5"},
+    "eyeq-24-xr": {"mark": "Q4", "wear": "MONTHLY", "variant": "24 XR", "family": "q4"},
+    "eyeq-one-day-classic": {"mark": "Q2", "wear": "1-DAY", "variant": "CLASSIC", "family": "q2"},
+    "eyeq-one-day-classic-for-astigmatism": {"mark": "Q2", "wear": "1-DAY", "variant": "ASTIGMATISM", "family": "q2"},
+    "eyeq-toric-classic": {"mark": "Q1", "wear": "MONTHLY", "variant": "ASTIGMATISM", "family": "q1"},
+    "eyeq-one-day-premium": {"mark": "Q3", "wear": "1-DAY", "variant": "PREMIUM", "family": "q3"},
+    "eyeq-one-day-premium-progressive": {"mark": "Q3", "wear": "1-DAY", "variant": "PROGRESSIVE", "family": "q3"},
+    "eyeq-premium": {"mark": "Q2", "wear": "MONTHLY", "variant": "PREMIUM", "family": "q2"},
+    "eyeq-premium-for-astigmatism": {"mark": "Q2", "wear": "MONTHLY", "variant": "ASTIGMATISM", "family": "q2"},
+    "eyeq-premium-progressive": {"mark": "Q2", "wear": "MONTHLY", "variant": "PROGRESSIVE", "family": "q2"},
+    "eyeq-hydro": {"mark": "Q3", "wear": "MONTHLY", "variant": "HYDRO", "family": "q3"},
+    "eyeq-hydro-for-astigmatism": {"mark": "Q3", "wear": "MONTHLY", "variant": "ASTIGMATISM", "family": "q3"},
+    "eyeq-hydro-progressive": {"mark": "Q3", "wear": "MONTHLY", "variant": "PROGRESSIVE", "family": "q3"},
+    "eyeq-total30": {"mark": "T30", "wear": "MONTHLY", "variant": "TOTAL 30", "family": "total30"},
+    "eyeq-total30-for-astigmatism": {"mark": "T30", "wear": "MONTHLY", "variant": "FOR ASTIGMATISM", "family": "total30"},
+    "eyeq-precision1": {"mark": "P1", "wear": "1-DAY", "variant": "PRECISION 1", "family": "precision"},
+    "eyeq-precision1-for-astigmatism": {"mark": "P1", "wear": "1-DAY", "variant": "FOR ASTIGMATISM", "family": "precision"},
+}
+
+# Fra ascend-illustrasjonspakke-v1.html -- "maker" (CooperVision) er den
+# EKTE produsenten bak Ascend-serien, ikke kjeden (Coptikk), så den nevnes
+# fortsatt -- kun kjedenavnet (Coptikk) er det brukeren ikke vil ha med her.
+ASCEND_ILLUSTRATIONS: dict[str, dict] = {
+    "ascend-evolve-plus": {"variant": "evolve+", "qty": "6", "desc": "monthly contact lenses", "family": "evolve"},
+    "ascend-active-1-day": {"variant": "active", "qty": "30", "desc": "daily disposable contact lenses", "family": "active"},
+    "ascend-premier": {"variant": "premier", "qty": "6", "desc": "monthly contact lenses", "family": "premier"},
+    "ascend-active-multifocal-1-day": {"variant": "active multifocal", "qty": "30", "desc": "multifocal contact lenses", "family": "active-mf"},
+    "ascend-evolve-plus-toric": {"variant": "evolve+ toric", "qty": "6", "desc": "contact lenses for astigmatism", "family": "evolve-toric"},
+    "ascend-active-toric-1-day": {"variant": "active toric", "qty": "30", "desc": "contact lenses for astigmatism", "family": "active-toric"},
+    "ascend-premier-toric": {"variant": "premier toric", "qty": "6", "desc": "contact lenses for astigmatism", "family": "premier-toric"},
+    "ascend-premier-multifocal-distance": {"variant": "premier multifocal · distance", "qty": "6", "desc": "multifocal contact lenses", "family": "premier-mf"},
+    "ascend-premier-multifocal-near": {"variant": "premier multifocal · near", "qty": "6", "desc": "multifocal contact lenses", "family": "premier-mf"},
+}
+
+# Fra easyvision-illustrasjonspakke-v1.html. Den originale pakken hadde en
+# "Specsavers"-tekstlinje øverst i illustrasjonen -- FJERNET her med vilje
+# (bruker: "vi nevner igjen ikke specsavers"), resten av illustrasjonen er
+# uendret fra det brukeren sendte.
+EASYVISION_ILLUSTRATIONS: dict[str, dict] = {
+    "easyvision-opteyes": {"variant": "Opteyes", "qty": "6", "label": "monthly<br>contact lenses", "family": "opteyes"},
+    "easyvision-opteyes-toric": {"variant": "Opteyes Toric", "qty": "6", "label": "contact lenses<br>for astigmatism", "family": "opteyes-toric"},
+    "easyvision-opteyes-multifocal": {"variant": "Opteyes Multifocal", "qty": "6", "label": "multifocal<br>contact lenses", "family": "opteyes-mf"},
+    "easyvision-opteyes-xr": {"variant": "Opteyes XR", "qty": "3x", "label": "monthly<br>contact lenses", "family": "opteyes"},
+    "easyvision-uvicia-plus": {"variant": "Uvicia Plus", "qty": "6x", "label": "monthly<br>contact lenses", "family": "uvicia"},
+    "easyvision-uvicia-plus-toric": {"variant": "Uvicia Toric Plus", "qty": "6x", "label": "contact lenses<br>for astigmatism", "family": "uvicia-toric"},
+    "easyvision-umere": {"variant": "Umere", "qty": "30", "label": "daily disposable<br>contact lenses", "family": "umere"},
+    "easyvision-umere-toric": {"variant": "Umere Toric", "qty": "30", "label": "contact lenses<br>for astigmatism", "family": "umere-toric"},
+    "easyvision-vitrea": {"variant": "Vitrea", "qty": "30", "label": "daily disposable<br>contact lenses", "family": "vitrea"},
+    "easyvision-vitrea-toric": {"variant": "Vitrea Toric", "qty": "30", "label": "contact lenses<br>for astigmatism", "family": "vitrea-toric"},
+    "easyvision-vitrea-multifocal": {"variant": "Vitrea Multifocal", "qty": "30", "label": "multifocal<br>contact lenses", "family": "vitrea-mf"},
+}
+
+
+def _pli_eyeq(slug: str) -> str | None:
+    d = EYEQ_ILLUSTRATIONS.get(slug)
+    if not d:
+        return None
+    q_family = d["family"].startswith("q")
+    box_cls = f'pli-eyeq-box {"pli-eyeq-qbox " if q_family else ""}pli-eyeq-{d["family"]}'
+    vertical_html = '<div class="pli-eyeq-eyeq-vertical">EYEQ</div>' if q_family else ""
+    horizontal_html = "" if q_family else '<div class="pli-eyeq-eyeq-horizontal">EYEQ</div>'
+    return f"""<div class="{box_cls}" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">{escape(d["mark"])}</div></div>
+  <div class="pli-eyeq-copy">
+    <div>
+      <div class="pli-eyeq-wear">{escape(d["wear"])}</div>
+      <div class="pli-eyeq-variant">{escape(d["variant"])}</div>
+      <div class="pli-eyeq-micro">CONTACT LENS</div>
+    </div>
+    {horizontal_html}
+  </div>
+  {vertical_html}
+</div>"""
+
+
+def _pli_ascend(slug: str) -> str | None:
+    d = ASCEND_ILLUSTRATIONS.get(slug)
+    if not d:
+        return None
+    return f"""<div class="pli-ascend-pack pli-ascend-{d["family"]}" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-ascend-content">
+    <div class="pli-ascend-maker">CooperVision</div>
+    <div class="pli-ascend-wordmark">ascend</div>
+    <div class="pli-ascend-variant">{escape(d["variant"])}</div>
+    <div class="pli-ascend-desc">{escape(d["desc"])}</div>
+  </div>
+  <div class="pli-ascend-qty">{escape(d["qty"])} lenses</div>
+  <div class="pli-ascend-sweep1"></div>
+  <div class="pli-ascend-sweep2"></div>
+  <div class="pli-ascend-corner"></div>
+</div>"""
+
+
+def _pli_easyvision(slug: str) -> str | None:
+    d = EASYVISION_ILLUSTRATIONS.get(slug)
+    if not d:
+        return None
+    tiles = "".join(f'<i class="pli-ev-tile pli-ev-t{i}"></i>' for i in range(1, 11))
+    return f"""<div class="pli-ev-pack pli-ev-{d["family"]}" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-ev-pack-inner">
+    <div class="pli-ev-left">
+      <div class="pli-ev-count"><strong>{escape(d["qty"])}</strong>{d["label"]}</div>
+      <div class="pli-ev-brand">
+        <div class="pli-ev-easy">easy<b>vision</b></div>
+        <div class="pli-ev-variant">{escape(d["variant"])}</div>
+      </div>
+      <div class="pli-ev-micro">CONTACT LENS &middot; PRODUCT ILLUSTRATION</div>
+    </div>
+    <div class="pli-ev-mosaic">{tiles}</div>
+  </div>
+</div>"""
+
+
+def render_private_label_illustration(chain: str, slug: str) -> str | None:
+    """Returnerer illustrasjons-HTML for en private label-variant, eller None
+    hvis vi ikke har noen (f.eks. iWear/Brilleland -- ingen pakke levert
+    ennå). Kjeden brukes KUN til å velge riktig visuell familie, aldri vist
+    i selve illustrasjonen."""
+    if chain == "Synsam":
+        return _pli_eyeq(slug)
+    if chain == "Coptikk":
+        return _pli_ascend(slug)
+    if chain == "Specsavers":
+        return _pli_easyvision(slug)
+    return None
+
+
+def render_illustration_disclaimer_page() -> str:
+    """/om-produktillustrasjoner/ -- lenket fra hvert sted en egen
+    illustrasjon (ikke et ekte produktbilde) vises. Teksten er brukerens
+    egen, limt inn ordrett 2026-08-30."""
+    body = """<p>Kontaktlinser.no benytter både originale produktbilder og egne produktillustrasjoner. Når et originalt produktbilde ikke er tilgjengelig, kan vi bruke en egen illustrasjon for å gjøre det enklere å identifisere og sammenligne produkter. Slike illustrasjoner er ikke originale produktbilder eller offisiell produktemballasje fra produsenten. Utforming, farger, tekst og andre visuelle detaljer kan derfor avvike fra produktets faktiske emballasje.</p>
+  <p>Produktnavn, logoer og varemerker tilhører sine respektive rettighetshavere. Kontaktlinser.no er en uavhengig prissammenlignings- og informasjonstjeneste og selger ikke kontaktlinser selv.</p>"""
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Om produktillustrasjoner", "item": "{BASE_URL}/om-produktillustrasjoner/"}}
+  ]
+}}"""
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om produktillustrasjoner | Kontaktlinser.no</title>
+<meta name="description" content="Hvorfor kontaktlinser.no noen ganger viser en egen illustrasjon i stedet for et ekte produktbilde.">
+<link rel="canonical" href="{BASE_URL}/om-produktillustrasjoner/">
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Om produktillustrasjoner</p>
+  <div class="hero"><div class="hero-copy"><h1>Om produktillustrasjoner</h1></div></div>
+  <div style="max-width:720px;font-size:1rem;line-height:1.7;">
+    {body}
+  </div>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
 
 # Merke -> produsent-kobling (2026-08-18), verifisert ett og ett merke mot
 # offisielle produsentkilder (aldri gjettet på navnelikhet) -- se agent-logg
@@ -1496,16 +1789,25 @@ def _fmt_kr(n: float) -> str:
 
 def _render_product_tile(*, href: str, name: str, image_url: str | None, fallback_initials: str,
                           category_label: str | None, secondary_line_html: str,
-                          lowest: dict | None, other_count: int, data_attr: str = "") -> str:
+                          lowest: dict | None, other_count: int, data_attr: str = "",
+                          illustration_html: str | None = None) -> str:
     """Delt kortmarkup for merke-/kategori-/tilbehør-/private label-rutenett
     (render_brand_page, render_category_page, render_solution_category_page,
     render_private_label_brand_page) -- én mal, page-spesifikt innhold
     (kategori-badge, "sekundærlinje" under produktnavnet: produsent/merke/
-    ekte-produkt-lenke) sendes inn som ferdig HTML fra hver kallested."""
+    ekte-produkt-lenke) sendes inn som ferdig HTML fra hver kallested.
+    illustration_html (egen tegnet grafikk, se render_private_label_illustration)
+    vinner over både image_url og fallback_initials når den er satt."""
     href_esc = escape(href)
-    image_block = _img_tag(image_url, name) if image_url \
-        else f'<span class="product-tile-fallback">{escape(fallback_initials)}</span>'
-    image_cls = "product-tile-image has-photo" if image_url else "product-tile-image"
+    if illustration_html:
+        image_block = f'<div class="pli-tile-wrap">{illustration_html}</div>'
+        image_cls = "product-tile-image has-photo"
+    elif image_url:
+        image_block = _img_tag(image_url, name)
+        image_cls = "product-tile-image has-photo"
+    else:
+        image_block = f'<span class="product-tile-fallback">{escape(fallback_initials)}</span>'
+        image_cls = "product-tile-image"
     category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
 
     if lowest:
@@ -2870,9 +3172,14 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         }
 
     def build_private_label_search_entry(label: dict) -> dict:
+        # "meta" er den synlige undertekst-linjen i søkeforslags-dropdownen --
+        # kjedenavnet skal IKKE vises der (samme regel som resten av siden).
+        # "search" (kun brukt til å MATCHE søket, aldri vist) beholder
+        # kjedenavnet siden en bruker som søker "Synsam" fortsatt bør finne
+        # EyeQ -- det er et søkbarhets-hensyn, ikke en synlig kjede-nevning.
         return {
             "name": label["name"],
-            "meta": f'{label["chain"]} sitt eget merke',
+            "meta": "Eget merkenavn",
             "href": f'/private-label/{label["slug"]}/',
             "image": None,
             "search": f'{label["name"]} {label["chain"]}'.lower(),
@@ -2945,34 +3252,50 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 </a>"""
 
-    def render_private_label_chain_card(chain: str, count: int, sample_image: str | None) -> str:
+    def render_private_label_chain_card(chain: str, count: int, sample_image: str | None,
+                                         illustration_html: str | None) -> str:
+        # Kjedenavnet (Synsam/Brilleland/Specsavers/Coptikk) og kjedens egen
+        # logo skal IKKE vises her -- bruker ønsker (2026-08-30) at disse
+        # seriene fremstår som egne merker på linje med ekte linsemerker.
+        # Kobling til kjeden ligger fortsatt på /private-label/ (egen
+        # oversiktsside dedikert til akkurat den forklaringen). Illustrasjon
+        # (egen tegnet grafikk, se render_private_label_illustration) vinner
+        # alltid over et lånt bilde av det ekte produktet -- iWear/Brilleland
+        # har ingen illustrasjonspakke ennå og faller derfor fortsatt tilbake
+        # til det lånte produktbildet + en initial-badge.
         n_label = "eget merke" if count == 1 else "egne merker"
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
-        logo_entry = RETAILER_LOGOS.get(chain)
-        if logo_entry:
-            filename, dark_bg = logo_entry
-            badge_class = "brand-card-badge has-logo has-logo-dark" if dark_bg else "brand-card-badge has-logo"
-            badge_content = f'<img class="brand-logo-img" src="/static/logos/{filename}" alt="" loading="lazy">'
+        if illustration_html:
+            card_cls = "brand-card has-photo"
+            photo_html = f'<div class="brand-card-photo pli-frame">{illustration_html}</div>'
+            badge_html = ""
+        elif sample_image:
+            card_cls = "brand-card has-photo"
+            photo_html = f'<div class="brand-card-photo">{_img_tag(sample_image, subbrand)}</div>'
+            badge_html = f'<div class="brand-card-badge">{escape(subbrand[:2].upper())}</div>'
         else:
-            badge_class = "brand-card-badge"
-            badge_content = escape(chain[:2].upper())
-        card_cls = "brand-card has-photo" if sample_image else "brand-card"
-        photo_html = (f'<div class="brand-card-photo">{_img_tag(sample_image, subbrand)}</div>'
-                      if sample_image else "")
+            card_cls = "brand-card"
+            photo_html = ""
+            badge_html = f'<div class="brand-card-badge">{escape(subbrand[:2].upper())}</div>'
         return f"""<a class="{card_cls}" href="/merke/{escape(subbrand.lower())}/">
   {photo_html}
-  <div class="{badge_class}">{badge_content}</div>
+  {badge_html}
   <div class="brand-card-info">
     <div class="brand-card-name">{escape(subbrand)}</div>
-    <div class="brand-card-count">{escape(chain)} · {count} {n_label}</div>
+    <div class="brand-card-count">{count} {n_label}</div>
   </div>
 </a>"""
 
     chain_counts: dict[str, int] = {}
     chain_sample_image: dict[str, str] = {}
+    chain_illustration: dict[str, str] = {}
     for label in (private_labels or []):
         chain = label["chain"]
         chain_counts[chain] = chain_counts.get(chain, 0) + 1
+        if chain not in chain_illustration:
+            html = render_private_label_illustration(chain, label["slug"])
+            if html:
+                chain_illustration[chain] = html
         if chain not in chain_sample_image:
             real_product = product_by_id.get(label.get("real_product_id"))
             if real_product:
@@ -2980,8 +3303,15 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
                 if img:
                     chain_sample_image[chain] = img
     private_label_chain_cards_html = "\n".join(
-        render_private_label_chain_card(chain, count, chain_sample_image.get(chain))
+        render_private_label_chain_card(chain, count, chain_sample_image.get(chain), chain_illustration.get(chain))
         for chain, count in sorted(chain_counts.items(), key=lambda x: (-x[1], x[0]))
+    )
+    any_pli_illustration = bool(chain_illustration)
+    pli_disclaimer_note = (
+        '<p style="margin:10px 0 0;font-size:0.72rem;color:var(--muted);">'
+        'Noen merker over vises med en egen illustrasjon i stedet for et ekte produktbilde. '
+        '<a href="/om-produktillustrasjoner/" style="color:var(--muted);text-decoration:underline;">Les hvorfor →</a></p>'
+        if any_pli_illustration else ""
     )
 
     # Tidligere (2026-08-15) pinnet vi tre merker manuelt øverst, basert på
@@ -3034,6 +3364,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {home_faq_schema}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
+{PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .hero-panel {{ padding: 0; }}
 .hero {{
   padding: 8px 0 24px;
@@ -3219,6 +3550,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   <div class="brand-grid">
     {brand_cards_html}
   </div>
+  {pli_disclaimer_note}
 
   <div class="kategorier-block mobile-only-block">
     <div class="section-header" style="margin-top:20px;">
@@ -5835,33 +6167,32 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
             href=f'/private-label/{escape(label["slug"])}/',
             name=label["name"],
             image_url=None,
-            fallback_initials=chain[:2].upper(),
+            fallback_initials=subbrand[:2].upper(),
             category_label=categories.get(category_slug, {}).get("label"),
             secondary_line_html=real_product_link,
             lowest=lowest,
             other_count=len(real_product["offers"]) - 1,
             data_attr=f' data-category="{escape(category_slug)}"',
+            illustration_html=render_private_label_illustration(chain, label["slug"]),
         )
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
+    any_pli_illustration = any(render_private_label_illustration(chain, r["label"]["slug"]) for r in rows)
 
     category_slugs = sorted({r["real_product"]["category_slug"] for r in rows if "category_slug" in r["real_product"]})
     category_chips = "".join(
         f'<button class="chip" data-category="{escape(c)}">{escape(categories[c]["label"])}</button>' for c in category_slugs
     )
 
-    # _brand_badge() slår opp i BRAND_LOGOS (linsemerker), ikke
-    # RETAILER_LOGOS (kjeder) -- bygg badgen selv med kjedens logo i stedet.
-    logo_entry = RETAILER_LOGOS.get(chain)
-    if logo_entry:
-        filename, dark_bg = logo_entry
-        brand_logo_cls = "has-logo has-logo-dark" if dark_bg else "has-logo"
-        brand_logo_content = f'<img class="brand-logo-img" src="/static/logos/{filename}" alt="" loading="lazy">'
-    else:
-        brand_logo_cls, brand_logo_content = "", escape(chain[:2].upper())
+    # Kjedens navn/logo (Synsam/Brilleland/Specsavers/Coptikk) vises IKKE
+    # lenger her -- bruker ønsker (2026-08-30) at disse seriene fremstår
+    # som egne merker på denne siden, på linje med ekte linsemerker. Full
+    # kobling til kjeden ligger fortsatt på /private-label/. Midlertidig
+    # initial-badge til brukeren sender egne logoer for disse seriene.
+    brand_logo_cls, brand_logo_content = "", escape(subbrand[:2].upper())
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>'
 
-    meta_description = f"{subbrand} er {chain} sitt eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
+    meta_description = f"{subbrand} er et eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
 
     schema_items = ",\n      ".join(
         f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/private-label/{r["label"]["slug"]}/", "name": "{escape(r["label"]["name"])}"}}'''
@@ -5891,6 +6222,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
+{PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
@@ -5904,7 +6236,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     <div class="brand-hero-row">
       {brand_logo_block}
       <div class="hero-copy">
-        <div class="kicker">{escape(chain)} sitt eget merkenavn</div>
+        <div class="kicker">Eget merkenavn</div>
         <h1>{escape(subbrand)} kontaktlinser</h1>
         <p>Alle {escape(subbrand)}-varianter vi har identifisert, sortert etter lavest pris.</p>
       </div>
@@ -5912,7 +6244,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   </div>
 
   <div class="private-label-explainer">
-    <p><strong>Hva er {escape(subbrand)}?</strong> {escape(chain)} selger kontaktlinser under sitt eget varenavn, {escape(subbrand)}, i stedet for produsentens opprinnelige navn. Det er ikke en egen linseprodusent – hver {escape(subbrand)}-linse er identisk med en kjent linse fra en av de store produsentene, bare med {escape(chain)} sin egen emballasje og navn. Prisene under er hentet fra det ekte produktet, siden det er nøyaktig samme fysiske vare.</p>
+    <p><strong>Hva er {escape(subbrand)}?</strong> {escape(subbrand)} er et eget varenavn for kontaktlinser, i stedet for produsentens opprinnelige navn. Det er ikke en egen linseprodusent – hver {escape(subbrand)}-linse er identisk med en kjent linse fra en av de store produsentene, bare med egen emballasje og navn. Prisene under er hentet fra det ekte produktet, siden det er nøyaktig samme fysiske vare. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
   </div>
 
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
@@ -5928,9 +6260,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+  {'<p style="margin:10px 0 0;font-size:0.78rem;color:var(--muted);">Noen varianter over vises med en egen illustrasjon i stedet for et ekte produktbilde. <a href="/om-produktillustrasjoner/" style="color:var(--muted);text-decoration:underline;">Les hvorfor →</a></p>' if any_pli_illustration else ''}
 
   <div class="private-label-caveat">
-    <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med {escape(chain)} og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
+    <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med kjeden bak dette merkenavnet og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
   </div>
 
   <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
