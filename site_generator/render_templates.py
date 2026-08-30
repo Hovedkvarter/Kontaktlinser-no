@@ -2230,7 +2230,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <div class="pack-size-callout-arrow">→</div>
 </a>"""
 
-    thumb = _img_tag(image_url, product["name"]) if image_url \
+    thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
