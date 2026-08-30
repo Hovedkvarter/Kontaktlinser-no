@@ -407,6 +407,35 @@ a { color: inherit; }
 .brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
 .pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
 
+/* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
+   tekst-ordmerke (se _pli_iwear_logo_html()) siden brukerens fil selv sier
+   "ikke offisiell iWear-logo". Samme 560x225-canvas/cqw-teknikk som de tre
+   andre seriene. */
+.pli-iwear-pack{width:100%;height:100%;position:relative;overflow:hidden;background:#fff;border-radius:7px;--c1:#078e91;--c2:#11b8ad}
+.pli-iwear-band{height:3.214cqw;background:var(--c1)}
+.pli-iwear-copy{position:absolute;left:4.821cqw;top:8.393cqw;z-index:3}
+.pli-iwear-brand{font-size:8.393cqw;font-weight:750;letter-spacing:-.055em}
+.pli-iwear-brand i{font-style:normal;color:var(--c1)}
+.pli-iwear-variant{font-size:3.393cqw;color:var(--c1);text-transform:lowercase}
+.pli-iwear-kind{font-size:1.429cqw;color:#777;margin-top:1.071cqw}
+.pli-iwear-qty{position:absolute;left:5.000cqw;bottom:4.286cqw;font-size:5.000cqw;font-weight:750;z-index:3}
+.pli-iwear-qty span{display:block;font-size:1.250cqw;margin-top:0.893cqw}
+.pli-iwear-art{position:absolute;right:-2.679cqw;top:3.214cqw;width:48%;height:36.964cqw;background:radial-gradient(circle at 52% 50%,#fff 0 23%,transparent 24%),radial-gradient(ellipse at 55% 50%,transparent 0 31%,var(--c2) 32% 35%,transparent 36% 43%,var(--c1) 44% 53%,transparent 54%),linear-gradient(135deg,#fff 0 5%,var(--c2) 6% 44%,var(--c1) 45% 100%);border-radius:52% 0 0 52%}
+.pli-iwear-fit{--c1:#78b75a;--c2:#b7df83}
+.pli-iwear-fresh{--c1:#51a6c4;--c2:#94d4dd}
+.pli-iwear-activ{--c1:#087f82;--c2:#12b7a9}
+.pli-iwear-harmony{--c1:#6c258f;--c2:#a967c5}
+.pli-iwear-oxygen{--c1:#0b78a0;--c2:#52b6d0}
+.pli-iwear-balance{--c1:#489aa8;--c2:#91c6b5}
+.pli-iwear-oxygen-relax{--c1:#173d99;--c2:#32a6df}
+.pli-iwear-go-toric{--c1:#0b7561;--c2:#44b18c}
+.pli-iwear-fit-toric{--c1:#5d9e64;--c2:#8bc68b}
+.pli-iwear-activ-toric{--c1:#08709b;--c2:#16aaa8}
+.pli-iwear-harmony-toric{--c1:#6c168f;--c2:#b060c6}
+.pli-iwear-oxygen-toric{--c1:#11679e;--c2:#3b9fc7}
+.pli-iwear-balance-toric{--c1:#367b9c;--c2:#6eb4b4}
+.pli-iwear-oxygen-mf{--c1:#31539d;--c2:#658fd1}
+
 .private-label-explainer { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }
 .private-label-explainer strong { color: var(--ink); }
 .private-label-caveat { background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
@@ -458,7 +487,7 @@ a { color: inherit; }
           <span class="mega-brand-card-name">Biofinity</span>
         </a>
         <a class="mega-brand-card" href="/merke/acuvue/">
-          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></span>
           <span class="mega-brand-card-name">Acuvue</span>
         </a>
         <a class="mega-brand-card" href="/merke/air-optix/">
@@ -545,7 +574,7 @@ a { color: inherit; }
           <span class="mega-brand-card-name">Biofinity</span>
         </a>
         <a class="mega-brand-card" href="/merke/acuvue/">
-          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></span>
           <span class="mega-brand-card-name">Acuvue</span>
         </a>
         <a class="mega-brand-card" href="/merke/air-optix/">
@@ -659,7 +688,7 @@ a { color: inherit; }
   <p class="breadcrumb"><a href="/">Hjem</a> › iWear</p>
   <div class="hero">
     <div class="brand-hero-row">
-      <div class="brand-hero-logo ">IW</div>
+      <div class="brand-hero-logo has-logo"><span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.9rem;letter-spacing:-.03em;color:var(--ink);"><span style="color:#078e91;">i</span>Wear</span></div>
       <div class="hero-copy">
         <div class="kicker">Eget merkenavn</div>
         <h1>iWear kontaktlinser</h1>
@@ -683,7 +712,16 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-fit/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-fit/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-fit" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Fit</div>
+    <div class="pli-iwear-kind">DAILY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>DAILY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-fit/"><div class="product-name">iWear Fit</div></a>
@@ -694,7 +732,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-fit/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-xr/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-xr/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-oxygen" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen XR</div>
+    <div class="pli-iwear-kind">MONTHLY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">3<span>MONTHLY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-oxygen-xr/"><div class="product-name">iWear Oxygen XR</div></a>
@@ -705,7 +752,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-xr/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-balance-plus/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-balance-plus/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-balance" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Balance Plus</div>
+    <div class="pli-iwear-kind">MONTHLY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>MONTHLY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-balance-plus/"><div class="product-name">iWear Balance Plus</div></a>
@@ -716,7 +772,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-balance-plus/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-fresh/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-fresh/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-fresh" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Fresh</div>
+    <div class="pli-iwear-kind">DAILY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>DAILY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-fresh/"><div class="product-name">iWear Fresh</div></a>
@@ -727,7 +792,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-fresh/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-activ/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-activ/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-activ" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Activ</div>
+    <div class="pli-iwear-kind">DAILY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>DAILY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-activ/"><div class="product-name">iWear Activ</div></a>
@@ -738,7 +812,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-activ/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-fit-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-fit-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-fit-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Fit Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-fit-astigmatism/"><div class="product-name">iWear Fit Astigmatism</div></a>
@@ -749,7 +832,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-fit-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-harmony/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-harmony/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-harmony" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Harmony</div>
+    <div class="pli-iwear-kind">DAILY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>DAILY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-harmony/"><div class="product-name">iWear Harmony</div></a>
@@ -760,7 +852,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-harmony/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-oxygen/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-oxygen/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-oxygen" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen</div>
+    <div class="pli-iwear-kind">MONTHLY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>MONTHLY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-oxygen/"><div class="product-name">iWear Oxygen</div></a>
@@ -771,7 +872,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-oxygen/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-balance-plus-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-balance-plus-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-balance-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Balance Plus Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-balance-plus-astigmatism/"><div class="product-name">iWear Balance Plus Astigmatism</div></a>
@@ -782,7 +892,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-balance-plus-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-relax/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-relax/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-oxygen-relax" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen Relax</div>
+    <div class="pli-iwear-kind">MONTHLY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">3<span>MONTHLY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-oxygen-relax/"><div class="product-name">iWear Oxygen Relax</div></a>
@@ -793,7 +912,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-relax/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-activ-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-activ-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-activ-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Activ Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-activ-astigmatism/"><div class="product-name">iWear Activ Astigmatism</div></a>
@@ -804,7 +932,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-activ-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-go-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-go-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-go-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Go Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-go-astigmatism/"><div class="product-name">iWear Go Astigmatism</div></a>
@@ -815,7 +952,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-go-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-harmony-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-harmony-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-harmony-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Harmony Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">30<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-harmony-astigmatism/"><div class="product-name">iWear Harmony Astigmatism</div></a>
@@ -826,7 +972,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-harmony-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-astigmatism/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-oxygen-toric" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen Astigmatism</div>
+    <div class="pli-iwear-kind">FOR ASTIGMATISM</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>FOR ASTIGMATISM</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-oxygen-astigmatism/"><div class="product-name">iWear Oxygen Astigmatism</div></a>
@@ -837,7 +992,16 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-astigmatism/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-presbyopia/"><div class="product-tile-image"><span class="product-tile-fallback">IW</span></div></a>
+  <a class="product-tile-image-link" href="/private-label/iwear-oxygen-presbyopia/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-iwear-pack pli-iwear-oxygen-mf" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen Presbyopia</div>
+    <div class="pli-iwear-kind">MULTIFOCAL LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>MULTIFOCAL LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/private-label/iwear-oxygen-presbyopia/"><div class="product-name">iWear Oxygen Presbyopia</div></a>
@@ -849,7 +1013,7 @@ a { color: inherit; }
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
-  
+  <p style="margin:10px 0 0;font-size:0.78rem;color:var(--muted);">Noen varianter over vises med en egen illustrasjon i stedet for et ekte produktbilde. <a href="/om-produktillustrasjoner/" style="color:var(--muted);text-decoration:underline;">Les hvorfor →</a></p>
 
   <div class="private-label-caveat">
     <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med kjeden bak dette merkenavnet og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.

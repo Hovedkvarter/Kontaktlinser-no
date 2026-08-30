@@ -434,6 +434,35 @@ a { color: inherit; }
 .brand-card.has-photo .brand-card-photo.pli-frame{aspect-ratio:560/225;container-type:inline-size}
 .pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
 
+/* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
+   tekst-ordmerke (se _pli_iwear_logo_html()) siden brukerens fil selv sier
+   "ikke offisiell iWear-logo". Samme 560x225-canvas/cqw-teknikk som de tre
+   andre seriene. */
+.pli-iwear-pack{width:100%;height:100%;position:relative;overflow:hidden;background:#fff;border-radius:7px;--c1:#078e91;--c2:#11b8ad}
+.pli-iwear-band{height:3.214cqw;background:var(--c1)}
+.pli-iwear-copy{position:absolute;left:4.821cqw;top:8.393cqw;z-index:3}
+.pli-iwear-brand{font-size:8.393cqw;font-weight:750;letter-spacing:-.055em}
+.pli-iwear-brand i{font-style:normal;color:var(--c1)}
+.pli-iwear-variant{font-size:3.393cqw;color:var(--c1);text-transform:lowercase}
+.pli-iwear-kind{font-size:1.429cqw;color:#777;margin-top:1.071cqw}
+.pli-iwear-qty{position:absolute;left:5.000cqw;bottom:4.286cqw;font-size:5.000cqw;font-weight:750;z-index:3}
+.pli-iwear-qty span{display:block;font-size:1.250cqw;margin-top:0.893cqw}
+.pli-iwear-art{position:absolute;right:-2.679cqw;top:3.214cqw;width:48%;height:36.964cqw;background:radial-gradient(circle at 52% 50%,#fff 0 23%,transparent 24%),radial-gradient(ellipse at 55% 50%,transparent 0 31%,var(--c2) 32% 35%,transparent 36% 43%,var(--c1) 44% 53%,transparent 54%),linear-gradient(135deg,#fff 0 5%,var(--c2) 6% 44%,var(--c1) 45% 100%);border-radius:52% 0 0 52%}
+.pli-iwear-fit{--c1:#78b75a;--c2:#b7df83}
+.pli-iwear-fresh{--c1:#51a6c4;--c2:#94d4dd}
+.pli-iwear-activ{--c1:#087f82;--c2:#12b7a9}
+.pli-iwear-harmony{--c1:#6c258f;--c2:#a967c5}
+.pli-iwear-oxygen{--c1:#0b78a0;--c2:#52b6d0}
+.pli-iwear-balance{--c1:#489aa8;--c2:#91c6b5}
+.pli-iwear-oxygen-relax{--c1:#173d99;--c2:#32a6df}
+.pli-iwear-go-toric{--c1:#0b7561;--c2:#44b18c}
+.pli-iwear-fit-toric{--c1:#5d9e64;--c2:#8bc68b}
+.pli-iwear-activ-toric{--c1:#08709b;--c2:#16aaa8}
+.pli-iwear-harmony-toric{--c1:#6c168f;--c2:#b060c6}
+.pli-iwear-oxygen-toric{--c1:#11679e;--c2:#3b9fc7}
+.pli-iwear-balance-toric{--c1:#367b9c;--c2:#6eb4b4}
+.pli-iwear-oxygen-mf{--c1:#31539d;--c2:#658fd1}
+
 .hero-panel { padding: 0; }
 .hero {
   padding: 8px 0 24px;
@@ -620,7 +649,7 @@ a { color: inherit; }
           <span class="mega-brand-card-name">Biofinity</span>
         </a>
         <a class="mega-brand-card" href="/merke/acuvue/">
-          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></span>
           <span class="mega-brand-card-name">Acuvue</span>
         </a>
         <a class="mega-brand-card" href="/merke/air-optix/">
@@ -707,7 +736,7 @@ a { color: inherit; }
           <span class="mega-brand-card-name">Biofinity</span>
         </a>
         <a class="mega-brand-card" href="/merke/acuvue/">
-          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></span>
+          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></span>
           <span class="mega-brand-card-name">Acuvue</span>
         </a>
         <a class="mega-brand-card" href="/merke/air-optix/">
@@ -914,7 +943,7 @@ a { color: inherit; }
   <div class="brand-grid">
     <a class="brand-card has-photo" href="/merke/acuvue/">
   <div class="brand-card-photo"><picture><source srcset="/static/products/acuvue-oasys-6pk.webp" type="image/webp"><img src="/static/products/acuvue-oasys-6pk.jpg" alt="Acuvue" loading="lazy"></picture></div>
-  <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.svg" alt="" loading="lazy"></div>
+  <div class="brand-card-badge has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></div>
   <div class="brand-card-info">
     <div class="brand-card-name">Acuvue</div>
     <div class="brand-card-count">19 produkter</div>
@@ -1140,8 +1169,17 @@ a { color: inherit; }
   </div>
 </a>
 <a class="brand-card has-photo" href="/merke/iwear/">
-  <div class="brand-card-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="iWear" loading="lazy"></div>
-  <div class="brand-card-badge">IW</div>
+  <div class="brand-card-photo pli-frame"><div class="pli-iwear-pack pli-iwear-oxygen" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-iwear-band"></div>
+  <div class="pli-iwear-copy">
+    <div class="pli-iwear-brand"><i>i</i>Wear</div>
+    <div class="pli-iwear-variant">Oxygen</div>
+    <div class="pli-iwear-kind">MONTHLY LENSES</div>
+  </div>
+  <div class="pli-iwear-qty">6<span>MONTHLY LENSES</span></div>
+  <div class="pli-iwear-art"></div>
+</div></div>
+  
   <div class="brand-card-info">
     <div class="brand-card-name">iWear</div>
     <div class="brand-card-count">15 egne merker</div>
