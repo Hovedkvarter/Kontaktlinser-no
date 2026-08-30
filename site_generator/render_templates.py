@@ -1071,6 +1071,7 @@ def render_footer() -> str:
     <a href="/guider/">Guider</a>
     <a href="/om-oss/" rel="author">Om oss</a>
     <a href="/personvern/" rel="privacy-policy">Personvern og cookies</a>
+    <a href="/vilkar/" rel="terms-of-service">Vilkår og ansvarsfraskrivelse</a>
     {_contact_email_link()}
     <a href="https://www.facebook.com/kontaktlinser.no/" rel="me noopener" target="_blank" aria-label="Kontaktlinser.no på Facebook">Facebook</a>
   </div>
@@ -5651,6 +5652,146 @@ def render_privacy_page(now: datetime | None = None) -> str:
     <h2>Kontakt</h2>
     <p>Spørsmål om personvern eller cookies på Kontaktlinser.no? Send oss en
     e-post på {_contact_email_link()}.</p>
+
+    <p class="updated">Sist oppdatert: {updated}</p>
+  </div>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_terms_page(now: datetime | None = None) -> str:
+    """/vilkar/ -- juridisk informasjon og ansvarsfraskrivelse. Teksten er
+    brukerens egen, limt inn 2026-08-30 (kun konvertert fra markdown til
+    HTML, ordlyden er uendret). Fungerer som en paraply-side over de
+    kortere, kontekstuelle disclosure-avsnittene som allerede finnes på
+    produkt-/kategori-/private label-sider (footer-disclosure,
+    .disclosure-avsnitt, /om-produktillustrasjoner/) -- erstatter ingen av
+    dem, samler bare hele bildet ett sted. Kontaktpunktet i §11
+    (_contact_email_link()) er allerede reelt og synlig i footeren på alle
+    sider, ikke en tom påstand."""
+    now = now or datetime.now(timezone.utc)
+    updated = now.strftime("%d.%m.%Y")
+    contact = _contact_email_link()
+
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Vilkår og ansvarsfraskrivelse", "item": "{BASE_URL}/vilkar/"}}
+  ]
+}}"""
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vilkår og ansvarsfraskrivelse – Kontaktlinser.no</title>
+<meta name="description" content="Juridisk informasjon om Kontaktlinser.no: varemerker og logoer, produktbilder og -illustrasjoner, private label, prisinformasjon, affiliate-samarbeid og ansvarsforhold.">
+<link rel="canonical" href="{BASE_URL}/vilkar/">
+{_og_meta('Vilkår og ansvarsfraskrivelse – Kontaktlinser.no', 'Juridisk informasjon om Kontaktlinser.no: varemerker og logoer, produktbilder og -illustrasjoner, private label, prisinformasjon, affiliate-samarbeid og ansvarsforhold.', BASE_URL + '/vilkar/')}
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.privacy-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.privacy-body p {{ font-size: 0.92rem; line-height: 1.6; color: var(--ink); }}
+.privacy-body p.updated {{ color: var(--muted); font-size: 0.78rem; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 16px; }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › Vilkår og ansvarsfraskrivelse</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Juridisk informasjon</div>
+      <h1>Vilkår og ansvarsfraskrivelse</h1>
+      <p>Om Kontaktlinser.no, varemerker og bilder, private label-produkter, prisinformasjon og ansvarsforhold.</p>
+    </div>
+  </div>
+
+  <div class="privacy-body" style="max-width:680px;">
+    <p>Kontaktlinser.no er en uavhengig pris- og informasjonstjeneste for kontaktlinser. Formålet med tjenesten er å gjøre det enklere for forbrukere å finne informasjon om kontaktlinser, sammenligne produkter og sammenligne priser hos ulike forhandlere.</p>
+    <p>Kontaktlinser.no selger ikke kontaktlinser og er ikke part i kjøpsavtalen mellom brukeren og den aktuelle forhandleren. Kjøp gjennomføres hos forhandleren brukeren velger, og det er forhandlerens kjøpsvilkår, leveringsbetingelser, returregler og øvrige vilkår som gjelder for kjøpet.</p>
+
+    <h2>1. Varemerker, logoer og produktnavn</h2>
+    <p>Kontaktlinser.no omtaler og sammenligner produkter fra en rekke produsenter og merkevarer.</p>
+    <p>Varemerker, logoer, produktnavn, firmanavn og andre kjennetegn som vises på Kontaktlinser.no tilhører sine respektive rettighetshavere.</p>
+    <p>Slike kjennetegn benyttes for å identifisere og informere om produktene, produsentene og forhandlerne som omtales eller sammenlignes på tjenesten.</p>
+    <p>Bruk av et varemerke, en logo eller et produktnavn på Kontaktlinser.no innebærer ikke i seg selv at Kontaktlinser.no er eid av, tilknyttet, sponset, godkjent eller på annen måte offisielt forbundet med den aktuelle rettighetshaveren.</p>
+    <p>Der det foreligger et kommersielt samarbeid, for eksempel gjennom et affiliateprogram, kan Kontaktlinser.no motta godtgjørelse for trafikk eller kjøp som formidles til den aktuelle forhandleren.</p>
+
+    <h2>2. Produktbilder og annet visuelt materiale</h2>
+    <p>Kontaktlinser.no benytter visuelt materiale for å gjøre det enklere å identifisere og sammenligne produkter.</p>
+    <p>Produktbilder, logoer og annet visuelt materiale kan blant annet være gjort tilgjengelig gjennom produsenter, forhandlere, affiliateprogrammer, produktfeeder, mediebanker eller andre kilder.</p>
+    <p>Rettighetene til originale produktbilder, logoer, emballasjedesign og annet materiale tilhører de respektive rettighetshaverne.</p>
+    <p>Materialet brukes på Kontaktlinser.no i forbindelse med identifikasjon, informasjon og sammenligning av de aktuelle produktene og merkevarene.</p>
+
+    <h2>3. Egne produktillustrasjoner</h2>
+    <p>Når et egnet originalt produktbilde ikke er tilgjengelig, kan Kontaktlinser.no benytte en egen produktillustrasjon.</p>
+    <p>En slik illustrasjon er laget for å hjelpe brukeren med å identifisere og skille mellom produkter som omtales eller sammenlignes på tjenesten.</p>
+    <p>Produktillustrasjoner laget av Kontaktlinser.no er ikke originale produktbilder og skal ikke oppfattes som en nøyaktig gjengivelse av produsentens offisielle produktemballasje.</p>
+    <p>Farger, proporsjoner, grafiske elementer, tekst, emballasje og andre visuelle detaljer kan avvike fra det faktiske produktet.</p>
+    <p>Når Kontaktlinser.no benytter en egen produktillustrasjon, søker vi å gjøre dette tydelig for brukeren. Se <a href="/om-produktillustrasjoner/">om produktillustrasjoner</a> for mer informasjon.</p>
+
+    <h2>4. Private label og tilsvarende produkter</h2>
+    <p>Enkelte kontaktlinser selges under andre produktnavn eller som såkalte private-label-produkter.</p>
+    <p>Kontaktlinser.no kan vise informasjon om at et produkt tilsvarer, er relatert til eller kan være produsert på grunnlag av samme eller tilsvarende produkt som et annet kontaktlinseprodukt.</p>
+    <p>Slike koblinger bygger på informasjon og produktdata som Kontaktlinser.no har tilgjengelig. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for en samlet oversikt over disse koblingene.</p>
+    <p>Opplysninger om tilsvarende produkter er ment som informasjon og hjelp til produktidentifikasjon. Brukeren bør kontrollere relevante produktspesifikasjoner og sin kontaktlinseresept før bestilling.</p>
+    <p>Produkter bør ikke byttes utelukkende på grunnlag av produktnavn, pris eller informasjon om tilsvarende produkter på Kontaktlinser.no dersom dette innebærer endring fra produktet som er anbefalt eller tilpasset av optiker eller annet kvalifisert helsepersonell.</p>
+
+    <h2>5. Priser og prisinformasjon</h2>
+    <p>Kontaktlinser.no innhenter og behandler pris- og produktinformasjon fra blant annet forhandlere, produktfeeder, affiliateprogrammer og andre datakilder.</p>
+    <p>Vi arbeider for at informasjonen skal være korrekt og oppdatert, men priser, lagerstatus, fraktkostnader, rabattvilkår, kampanjer og andre forhold kan endres uten at dette umiddelbart gjenspeiles på Kontaktlinser.no.</p>
+    <p>Prisen og vilkårene som vises hos forhandleren på tidspunktet for kjøpet er derfor avgjørende.</p>
+    <p>Der Kontaktlinser.no viser totalpris inkludert beregnet frakt, bygger beregningen på den fraktinformasjonen og de vilkårene vi har tilgjengelig. Fri frakt, minimumsbeløp, geografiske begrensninger eller andre vilkår hos forhandleren kan påvirke den endelige prisen.</p>
+    <p>Kontaktlinser.no garanterer ikke at en oppgitt pris til enhver tid er markedets laveste pris.</p>
+    <p>Når uttrykk som «lavest pris», «billigst» eller tilsvarende benyttes, gjelder sammenligningen de forhandlerne og prisdataene som inngår i den aktuelle sammenligningen på det aktuelle tidspunktet, med mindre annet uttrykkelig fremgår.</p>
+
+    <h2>6. Affiliate-samarbeid og finansiering</h2>
+    <p>Kontaktlinser.no kan motta provisjon eller annen godtgjørelse når en bruker klikker seg videre til en forhandler eller gjennomfører et kjøp hos en forhandler via en lenke fra Kontaktlinser.no.</p>
+    <p>Dette kalles affiliate-markedsføring.</p>
+    <p>Slike samarbeid bidrar til å finansiere driften av Kontaktlinser.no og gjør det mulig å tilby tjenesten til brukerne uten betaling.</p>
+    <p>Ikke alle butikker, produkter eller priser på markedet er nødvendigvis inkludert på Kontaktlinser.no. Hvilke forhandlere som kan vises kan blant annet avhenge av tilgang til pålitelige produkt- og prisdata, teknisk integrasjon og kommersielle samarbeid.</p>
+    <p>Enkelte samarbeid kan også gi Kontaktlinser.no tilgang til egne produktfeeder, kampanjer, rabattkoder eller priser.</p>
+    <p>Kontaktlinser.no arbeider for at kommersielle samarbeid ikke skal gjøre prisinformasjonen misvisende.</p>
+
+    <h2>7. Produktinformasjon og helseinformasjon</h2>
+    <p>Informasjonen på Kontaktlinser.no er generell informasjon og erstatter ikke undersøkelse, tilpasning eller individuell rådgivning fra optiker, øyelege eller annet kvalifisert helsepersonell.</p>
+    <p>Kontaktlinser er produkter som brukes direkte på øyet. Feil bruk, feil styrke, feil passform eller mangelfull hygiene kan medføre problemer.</p>
+    <p>Brukere bør følge anbefalingene fra optiker eller annet kvalifisert helsepersonell samt produsentens bruksanvisning.</p>
+    <p>Kontaktlinser.no stiller ikke diagnose, tilpasser ikke kontaktlinser og gir ikke individuell medisinsk behandling.</p>
+
+    <h2>8. Forhandlernes ansvar</h2>
+    <p>Kontaktlinser.no formidler informasjon og lenker til eksterne forhandlere, men selger ikke produktene selv.</p>
+    <p>Den aktuelle forhandleren er ansvarlig for blant annet bestilling, betaling, levering, kundeservice, angrerett, retur, reklamasjon og øvrig håndtering av kjøpet.</p>
+    <p>Kontaktlinser.no er ikke ansvarlig for handlinger, tjenester, produkter eller innhold hos eksterne forhandlere.</p>
+    <p>Brukeren bør kontrollere pris, produkt, styrke, antall linser, leveringsbetingelser og øvrige kjøpsvilkår hos forhandleren før bestillingen fullføres.</p>
+
+    <h2>9. Feil og endringer</h2>
+    <p>Kontaktlinser.no arbeider kontinuerlig med å holde produktdata, priser og øvrig informasjon korrekt og oppdatert.</p>
+    <p>Det kan likevel forekomme feil, mangler, forsinkelser, tekniske problemer eller utdatert informasjon.</p>
+    <p>Kontaktlinser.no forbeholder seg retten til å korrigere, oppdatere eller fjerne informasjon når som helst.</p>
+
+    <h2>10. Eksterne nettsteder</h2>
+    <p>Kontaktlinser.no inneholder lenker til nettsteder som drives av andre virksomheter.</p>
+    <p>Når en bruker forlater Kontaktlinser.no, er det den eksterne virksomhetens egne vilkår og personvernregler som gjelder.</p>
+    <p>Kontaktlinser.no har ikke kontroll over og er ikke ansvarlig for innholdet eller tilgjengeligheten på eksterne nettsteder.</p>
+
+    <h2>11. Rettighetshavere</h2>
+    <p>Kontaktlinser.no respekterer immaterielle rettigheter.</p>
+    <p>Dersom du representerer en produsent, merkevare, forhandler eller annen rettighetshaver og mener at et varemerke, bilde, produktillustrasjon, produktopplysning eller annet materiale på Kontaktlinser.no brukes feil, ber vi deg kontakte oss på {contact}.</p>
+    <p>Vi vil gjennomgå henvendelsen og ved behov korrigere, oppdatere eller fjerne materialet så raskt som praktisk mulig.</p>
+
+    <h2>12. Endringer</h2>
+    <p>Denne informasjonen kan oppdateres når tjenesten, datakildene, samarbeidene eller relevante regler endres.</p>
 
     <p class="updated">Sist oppdatert: {updated}</p>
   </div>
