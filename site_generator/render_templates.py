@@ -2887,9 +2887,19 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
     brand_counts: dict[str, int] = {}
     brand_labels: dict[str, str] = {}
+    # Ett representativt produktbilde per merke -- til de nye, større
+    # merke-kortene på mobil (se render_brand_card under). Foretrekker et
+    # produkt som faktisk HAR et bilde (manuelt kuratert eller lisensiert
+    # feed-bilde via _product_image) fremfor bare det første produktet i
+    # katalog-rekkefølgen, som kunne vært et uten bilde i det hele tatt.
+    brand_sample_image: dict[str, str] = {}
     for p in catalog["products"]:
         brand_counts[p["brand_slug"]] = brand_counts.get(p["brand_slug"], 0) + 1
         brand_labels[p["brand_slug"]] = p["brand_label"]
+        if p["brand_slug"] not in brand_sample_image:
+            img = _product_image(p)
+            if img:
+                brand_sample_image[p["brand_slug"]] = img
     brand_order = sorted(brand_counts, key=lambda b: (-brand_counts[b], brand_labels[b]))
 
     def render_brand_card(slug: str) -> str:
@@ -2898,7 +2908,12 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         n_label = "produkt" if count == 1 else "produkter"
         extra_cls, badge_content = _brand_badge(slug, label)
         badge_class = ("brand-card-badge " + extra_cls).strip()
-        return f"""<a class="brand-card" href="/merke/{escape(slug)}/">
+        sample_image = brand_sample_image.get(slug)
+        card_cls = "brand-card has-photo" if sample_image else "brand-card"
+        photo_html = (f'<div class="brand-card-photo">{_img_tag(sample_image, label)}</div>'
+                      if sample_image else "")
+        return f"""<a class="{card_cls}" href="/merke/{escape(slug)}/">
+  {photo_html}
   <div class="{badge_class}">{badge_content}</div>
   <div class="brand-card-info">
     <div class="brand-card-name">{escape(label)}</div>
@@ -3041,7 +3056,28 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
+.brand-card-photo {{ display: none; }}
 {GUIDE_TILE_STYLE}
+/* Merke-kortene på mobil: byttet fra en liten sirkel-logo til et større
+   produktbilde (2026-08-30, etter brukerens ønske om å ligne lenspricer.no
+   sin mobilside -- søk øverst, deretter store, bildeførte merke-kort). KUN
+   under 700px -- PC beholder den kompakte logo+navn-raden uendret, se
+   brukerens egen "på pc er det fint"-presisering. .trust-card er samtidig
+   skjult på mobil her: samme budskap ("uavhengig", "oppdateres hver 6.
+   time") gjentas uansett lenger ned i .trust-strip, så å fjerne den her
+   fjerner ikke informasjon fra siden -- den flytter bare lenger ned, i tråd
+   med ønsket om å prioritere rask vei til merker/kategorier fremfor tekst
+   øverst. Kort UTEN et bilde (sample_image manglet) beholder den vanlige
+   logo-sirkel-raden også på mobil -- ingen tomt/knekt kort. */
+@media (max-width: 699px) {{
+  .trust-card {{ display: none; }}
+  .brand-card.has-photo {{ flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }}
+  .brand-card.has-photo .brand-card-photo {{ display: block; width: 100%; aspect-ratio: 4 / 3; background: var(--mist); }}
+  .brand-card.has-photo .brand-card-photo img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
+  .brand-card.has-photo .brand-card-badge {{ display: none; }}
+  .brand-card.has-photo .brand-card-info {{ padding: 12px 14px 14px; }}
+  .brand-card.has-photo .brand-card-name {{ font-size: 0.98rem; white-space: normal; }}
+}}
 @media (min-width: 560px) {{ .brand-grid {{ grid-template-columns: repeat(3, 1fr); }} .trust-strip {{ grid-template-columns: repeat(4, 1fr); }} }}
 @media (min-width: 1024px) {{
   .brand-grid {{ grid-template-columns: repeat(4, 1fr); }}
