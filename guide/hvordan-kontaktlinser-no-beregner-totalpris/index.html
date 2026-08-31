@@ -771,6 +771,27 @@ men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. 
     hide();
   });
 })();
+
+// Utgående-klikk-sporing (2026-08-31): pusher ETT dataLayer-event per
+// klikk på en tilbudslenke (data-retailer er satt av render_offer_card/
+// render_winner_widget), uansett om forhandleren har avtale eller ikke --
+// gir en per-forhandler klikkoversikt selv for de uten avtale, bl.a. som
+// dokumentasjon når vi ber om en avtale senere. Trygt å kjøre UBETINGET
+// (ikke bak samtykke-sjekk her): window.dataLayer.push() gjør ingenting i
+// seg selv, det bare legger til i et array i minnet -- selve sendingen
+// skjer først når GTM.js er lastet, og det skjer FORTSATT kun etter
+// samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
+// lest av noe, og forsvinner med siden ved neste navigasjon.
+window.dataLayer = window.dataLayer || [];
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[data-retailer]');
+  if (!link) return;
+  window.dataLayer.push({
+    event: 'outbound_click',
+    retailer: link.getAttribute('data-retailer'),
+    affiliate: link.getAttribute('data-affiliate') === '1'
+  });
+});
 </script>
 </body>
 </html>

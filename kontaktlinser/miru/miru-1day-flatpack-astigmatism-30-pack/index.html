@@ -48,7 +48,7 @@ function __loadGTM() {
         "seller": {"@type": "Organization", "name": "Interoptik"},
         "price": 399.0,
         "priceCurrency": "NOK",
-        "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/",
+        "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/?utm_source=kontaktlinserno&amp;utm_medium=referral&amp;utm_campaign=prissammenligning",
         "availability": "https://schema.org/InStock",
         "shippingDetails": {
           "@type": "OfferShippingDetails",
@@ -722,7 +722,7 @@ a { color: inherit; }
         <p>Miru 1day Flatpack Astigmatism er en torisk dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).</p>
         <div class="hero-badges"><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg><span>Toriske linser</span></span><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Dagslinser</span></span></div>
       </div>
-      <a class="winner-band" id="winner-band-link" href="https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/" rel="nofollow" aria-label="Gå til Interoptik for Miru 1day Flatpack Astigmatism 30-pack, 399 kr totalt inkl. frakt">
+      <a class="winner-band" id="winner-band-link" href="https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/?utm_source=kontaktlinserno&amp;utm_medium=referral&amp;utm_campaign=prissammenligning" rel="nofollow" aria-label="Gå til Interoptik for Miru 1day Flatpack Astigmatism 30-pack, 399 kr totalt inkl. frakt" data-retailer="Interoptik" data-affiliate="0">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
     <div class="label-group">
@@ -746,7 +746,7 @@ a { color: inherit; }
   
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
-    <a class="offer-card is-lowest" href="https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/" rel="nofollow" aria-label="Gå til Interoptik for Miru 1day Flatpack Astigmatism 30-pack, 399 kr" data-retailer="Interoptik">
+    <a class="offer-card is-lowest" href="https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/?utm_source=kontaktlinserno&amp;utm_medium=referral&amp;utm_campaign=prissammenligning" rel="nofollow" aria-label="Gå til Interoptik for Miru 1day Flatpack Astigmatism 30-pack, 399 kr" data-retailer="Interoptik" data-affiliate="0">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/interoptik.png" alt="Interoptik" loading="lazy"><span style="position:absolute;left:-9999px;">Interoptik</span> <span class="lowest-tag">Lavest totalpris</span></div>
     <div class="offer-meta">Sist oppdatert: akkurat nå</div>
@@ -1021,6 +1021,27 @@ a { color: inherit; }
     hide();
   });
 })();
+
+// Utgående-klikk-sporing (2026-08-31): pusher ETT dataLayer-event per
+// klikk på en tilbudslenke (data-retailer er satt av render_offer_card/
+// render_winner_widget), uansett om forhandleren har avtale eller ikke --
+// gir en per-forhandler klikkoversikt selv for de uten avtale, bl.a. som
+// dokumentasjon når vi ber om en avtale senere. Trygt å kjøre UBETINGET
+// (ikke bak samtykke-sjekk her): window.dataLayer.push() gjør ingenting i
+// seg selv, det bare legger til i et array i minnet -- selve sendingen
+// skjer først når GTM.js er lastet, og det skjer FORTSATT kun etter
+// samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
+// lest av noe, og forsvinner med siden ved neste navigasjon.
+window.dataLayer = window.dataLayer || [];
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[data-retailer]');
+  if (!link) return;
+  window.dataLayer.push({
+    event: 'outbound_click',
+    retailer: link.getAttribute('data-retailer'),
+    affiliate: link.getAttribute('data-affiliate') === '1'
+  });
+});
 </script>
 </body>
 </html>
