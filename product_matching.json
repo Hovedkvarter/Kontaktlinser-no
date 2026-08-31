@@ -1,5 +1,10 @@
 {
   "$comment": "Én tabell per nettverk. Nøkkelen er verdien i feedens egen SKU/produktnummer-kolonne, verdien er product.id fra products_meta.json. Oppdater denne når nye produkter legges til i en feed.",
+  "duplicate_products": {
+    "$comment": "Funnet 2026-08-31: Focus Dailies og Dailies All Day Comfort er bekreftet SAMME fysiske produkt, holdt som to separate katalog-oppføringer (bevisst, ikke slått sammen). En feed-tabell (f.eks. tradedoubler_lenson/tradedoubler_lensway) kan bare mappe én SKU til ÉN product_id, så Lenson/Lensway sin ene feed-oppføring for denne linsen (SKU 245) kunne aldri fylle ut BEGGE katalog-oppføringene samtidig via vanlig 1:1-matching -- den ene (focus-dailies-30pk) sto derfor alltid uten Lenson/Lensway-tilbud, selv om scrape_targets (nå død kode siden Lenson/Lensway byttet til affiliate_feed) fortsatt så identiske ut for begge. collect_feed_offers() i build_catalog.py kloner nå tilbudene fra nøkkelen (primær-id) til hver id i lista (alias-id-er) -- samme prinsipp som private_labels.json sin gjenbruk av et ekte produkts tilbud under et annet navn, bare mellom to EKTE katalogoppføringer i stedet. Legg til flere par her etter hvert som andre 'samme linse, to navn'-tilfeller oppdages -- ikke gjett, kun bekreftede par.",
+    "dailies-all-day-comfort-30pk": ["focus-dailies-30pk"],
+    "dailies-all-day-comfort-90pk": ["focus-dailies-90pk"]
+  },
   "adtraction": {
     "$comment": "ExtraOptical (Adtraction) -- verifisert mot ekte feed 2026-08-12. 26 av feedens 75 kontaktlinse-rader er IKKE med her: enten fordi vi ikke fører produktet i det hele tatt, fordi pakningsstørrelsen ikke matcher vårt produkt (samme prinsipp som Precision7/Interoptik-unntaket), eller fordi id/title i selve feed-raden motsier hverandre (f.eks. 'MyDay 1 Day Toric 30 stk' med tittel 'Biomedics 1 Day Extra Toric 30 stk', og to PureVision2/PureVision2-HD-rader med forvirrende id/title-par) -- disse gjettes IKKE inn, se CLAUDE.md.",
     "1-DAY ACUVUE MOIST 30 stk": "acuvue-moist-30pk",

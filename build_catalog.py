@@ -22,7 +22,7 @@ ikke med en gjettet eller gammel pris.
 """
 
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 from pathlib import Path
 
 from offer import Offer
@@ -83,6 +83,27 @@ def collect_feed_offers(sources_config: dict, product_matching: dict) -> dict[st
         for brand, override in cfg.get("brand_overrides", {}).items():
             if override.get("source") == "affiliate_feed":
                 _ingest(override["network"], override)
+
+    # Se product_matching.json sin "duplicate_products"-kommentar: en feed-
+    # tabell kan bare mappe én SKU til ÉN product_id, så et par som Focus
+    # Dailies / Dailies All Day Comfort (bekreftet samme fysiske vare, to
+    # katalog-oppføringer) kan aldri begge fylles av samme feed-rad via
+    # vanlig 1:1-matching. Kloner derfor tilbudene fra primær-id-en til
+    # hver alias-id, med riktig product_id satt på hver kopi -- men KUN for
+    # forhandlere alias-id-en ikke allerede har et EKTE, uavhengig treff
+    # for selv (f.eks. Extra Optical/Shopping4net har egne SKU-rader for
+    # begge navnene i sine feeds, og skal ikke overskrives/dupliseres).
+    duplicate_products = product_matching.get("duplicate_products", {})
+    for primary_id, alias_ids in duplicate_products.items():
+        if primary_id.startswith("$"):
+            continue
+        primary_offers = offers_by_product.get(primary_id, [])
+        for alias_id in alias_ids:
+            existing_retailers = {o.retailer for o in offers_by_product.get(alias_id, [])}
+            for offer in primary_offers:
+                if offer.retailer in existing_retailers:
+                    continue
+                offers_by_product.setdefault(alias_id, []).append(replace(offer, product_id=alias_id))
 
     return offers_by_product
 
