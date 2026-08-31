@@ -1960,17 +1960,17 @@ def _time_ago(checked_at: str, now: datetime) -> str:
 # rekkefølge/vinner ved eksakt lik totalpris (aldri prisen selv). Lavere tall
 # = vinner tidligere.
 #
-# Bruker bekreftet 2026-08-31: Lenson, Lensway og Shopping4net har alle
-# IDENTISK provisjonssats (8 %) til oss. Ved eksakt lik totalpris gir
-# derfor 8 % av samme kronebeløp samme reelle inntjening uansett hvilken
-# av de tre som vinner -- ingen prioritering mellom dem er meningsfull
-# eller nødvendig, så de er bevisst IKKE lagt inn her (alfabetisk
-# fallback i _tie_break_key() gir like riktig resultat som noe annet
-# ville gjort). Extra Optical og Apotekhjem sine satser er IKKE avklart
-# ennå -- fyll inn når/hvis bruker oppgir dem, f.eks.
-# {"Extra Optical": 0} hvis den skulle vise seg å ha høyere sats enn de
-# tre andre.
-AFFILIATE_TIE_PRIORITY: dict[str, int] = {}
+# Bruker bekreftet 2026-08-31 provisjonssatsene for samtlige fem
+# affiliate_feed-forhandlere: Lenson, Lensway, Shopping4net og Extra
+# Optical har alle 8 %, Apotekhjem har 10 %. Ved eksakt lik totalpris gir
+# en høyere prosentsats av samme kronebeløp reelt mer inntjening, så
+# Apotekhjem rangeres foran de fire andre. De fire med lik sats (8 %) er
+# bevisst IKKE innbyrdes rangert -- ingen prioritering mellom dem er
+# meningsfull siden 8 % av samme beløp er samme beløp uansett hvem som
+# vinner (alfabetisk fallback i _tie_break_key() holder for dem).
+AFFILIATE_TIE_PRIORITY: dict[str, int] = {
+    "Apotekhjem": 0,
+}
 
 
 def _tie_break_key(o: dict) -> tuple:
