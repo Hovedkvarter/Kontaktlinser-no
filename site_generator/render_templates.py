@@ -17,6 +17,7 @@ Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 import json
 from datetime import datetime, timezone
 from html import escape
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
 
@@ -452,6 +453,27 @@ CONSENT_SCRIPT = """<script>
     hide();
   });
 })();
+
+// Utgående-klikk-sporing (2026-08-31): pusher ETT dataLayer-event per
+// klikk på en tilbudslenke (data-retailer er satt av render_offer_card/
+// render_winner_widget), uansett om forhandleren har avtale eller ikke --
+// gir en per-forhandler klikkoversikt selv for de uten avtale, bl.a. som
+// dokumentasjon når vi ber om en avtale senere. Trygt å kjøre UBETINGET
+// (ikke bak samtykke-sjekk her): window.dataLayer.push() gjør ingenting i
+// seg selv, det bare legger til i et array i minnet -- selve sendingen
+// skjer først når GTM.js er lastet, og det skjer FORTSATT kun etter
+// samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
+// lest av noe, og forsvinner med siden ved neste navigasjon.
+window.dataLayer = window.dataLayer || [];
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[data-retailer]');
+  if (!link) return;
+  window.dataLayer.push({
+    event: 'outbound_click',
+    retailer: link.getAttribute('data-retailer'),
+    affiliate: link.getAttribute('data-affiliate') === '1'
+  });
+});
 </script>"""
 
 # BRAND_LOGOS/_brand_badge flyttet hit (fra sin opprinnelige plass lenger
@@ -2011,16 +2033,42 @@ def _pick_lowest(eligible: list[dict]) -> dict | None:
     return min(tied, key=_tie_break_key)
 
 
+def _add_utm_params(url: str) -> str:
+    """UTM-tagger utgående lenker til forhandlere UTEN avtale (skrapet
+    kilde) -- 2026-08-31, etter brukerønske. Gir forhandleren mulighet til
+    å se i egen analytics at besøket kom fra oss, selv uten aktiv
+    affiliate-avtale (nyttig dokumentasjon når vi ber om en avtale senere).
+    Affiliate-lenker (source == affiliate_feed) skal ALDRI røres her --
+    kalleren sjekker det -- de har allerede nettverkets egne
+    tracking-parametre, og å endre URL-en kan i verste fall ødelegge
+    attribusjonen av provisjonen vår."""
+    parsed = urlsplit(url)
+    query = [(k, v) for k, v in parse_qsl(parsed.query, keep_blank_values=True) if not k.startswith("utm_")]
+    query += [
+        ("utm_source", "kontaktlinserno"),
+        ("utm_medium", "referral"),
+        ("utm_campaign", "prissammenligning"),
+    ]
+    return urlunsplit(parsed._replace(query=urlencode(query)))
+
+
 def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) -> list[dict]:
     """Samme logikk som reconcile() i ingest_feed.py, men på rå dict-data
-    slik generatoren kan kjøre den direkte på catalog.json uten omveier."""
+    slik generatoren kan kjøre den direkte på catalog.json uten omveier.
+
+    UTM-tagger her (ETT sted, ikke i hver render-funksjon) siden ALLE
+    kallere -- render_offer_card, winner_band, qty-kalkulatorens JSON, og
+    JSON-LD-schemaet -- bruker o["url"] fra nettopp denne enrichede
+    listen. En feed-URL for et affiliate-tilbud får ALDRI UTM-parametre,
+    kun skrapede (ikke-avtale) tilbud."""
     enriched = []
     for o in offers:
         checked = datetime.fromisoformat(o["checked_at"])
         age_hours = (now - checked).total_seconds() / 3600
         is_stale = age_hours > stale_hours
         total = o["price_nok"] + o["shipping_nok"]
-        enriched.append({**o, "total": total, "is_stale": is_stale})
+        url = o["url"] if o.get("source") == "affiliate_feed" else _add_utm_params(o["url"])
+        enriched.append({**o, "total": total, "is_stale": is_stale, "url": url})
 
     eligible = [o for o in enriched if o["in_stock"]]
     winner = _pick_lowest(eligible)
@@ -2175,7 +2223,8 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
     # vonde touch-mål på mobil, og det gir uansett bare ett meningsfullt sted
     # å klikke per rad. price-pill er derfor et <span>, ikke en egen <a> --
     # nøstede <a>-tagger er ugyldig HTML og ville brutt visningen.
-    return f"""<a class="{css_class}" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}" data-retailer="{escape(retailer)}">
+    is_affiliate = "1" if o["source"] == "affiliate_feed" else "0"
+    return f"""<a class="{css_class}" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
@@ -2266,6 +2315,11 @@ _QTY_CALC_SCRIPT = r"""<script>
       winnerLink.setAttribute('href', best.o.url);
       winnerLink.setAttribute('rel', best.o.rel);
       winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
+      // Klikk-sporingen (se CONSENT_SCRIPT) leser disse to attributtene --
+      // må oppdateres her også, ellers rapporterer et klikk etter et
+      // antallsbytte fortsatt forrige vinners forhandler/avtale-status.
+      winnerLink.setAttribute('data-retailer', best.o.retailer);
+      winnerLink.setAttribute('data-affiliate', best.o.rel.indexOf('sponsored') !== -1 ? '1' : '0');
     }
 
     if (offersList && offerCards.length) {
@@ -2435,7 +2489,8 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # Hele banneret er selve lenken (ikke bare pris-pillen) -- samme
     # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
     # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
-    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}">
+    is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
+    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
