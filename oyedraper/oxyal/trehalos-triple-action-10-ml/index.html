@@ -829,7 +829,7 @@ a { color: inherit; }
     <a class="offer-card is-lowest" href="https://pin.apotekhjem.no/t/t?a=1487386095&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=92961&amp;fid=2510&amp;url=https://www.apotekhjem.no/oxyal-trehalos-triple-action-%C3%B8yedr%C3%A5per-10-ml" rel="sponsored nofollow" aria-label="Gå til Apotekhjem for OXYAL Trehalos Triple Action 10 ml, 179 kr" data-retailer="Apotekhjem" data-affiliate="1">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/apotekhjem.png" alt="Apotekhjem" loading="lazy"><span style="position:absolute;left:-9999px;">Apotekhjem</span> <span class="lowest-tag">Lavest totalpris</span></div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Frakt beregnes i kassen</span></div>
@@ -839,7 +839,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9642)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Foxyal-trehalos-triple-action-extra-9642)" rel="sponsored nofollow" aria-label="Gå til Lenson for OXYAL Trehalos Triple Action 10 ml, 207 kr" data-retailer="Lenson" data-affiliate="1">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -849,7 +849,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-9642)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Foxyal-trehalos-triple-action-extra-9642)" rel="sponsored nofollow" aria-label="Gå til Lensway for OXYAL Trehalos Triple Action 10 ml, 207 kr" data-retailer="Lensway" data-affiliate="1">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
-    <div class="offer-meta">Sist oppdatert: akkurat nå</div>
+    <div class="offer-meta">Sist oppdatert: 5 timer siden</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
@@ -1092,15 +1092,39 @@ a { color: inherit; }
 // skjer først når GTM.js er lastet, og det skjer FORTSATT kun etter
 // samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
 // lest av noe, og forsvinner med siden ved neste navigasjon.
+//
+// eventCallback/eventTimeout-mønsteret under (samme teknikk som GTM sin
+// egen "lenke klikket"-auto-sporing brukte i Universal Analytics-dagene)
+// er PÅKREVD, ikke valgfritt: tilbudslenkene navigerer i samme fane, så
+// uten dette rekker nettleseren ofte å forlate siden FØR GTM faktisk har
+// sendt hendelsen til GA4 -- bekreftet i praksis 2026-08-31 (klikk ga
+// aldri noe utslag i sanntidsrapporten). preventDefault() + maks 300ms
+// forsinket navigering løser det, og faller trygt tilbake til vanlig
+// navigering uten forsinkelse hvis GTM aldri lastes (intet samtykke).
 window.dataLayer = window.dataLayer || [];
 document.addEventListener('click', function (e) {
   var link = e.target.closest('a[data-retailer]');
   if (!link) return;
+  // Ctrl/Cmd/Shift-klikk, midtklikk eller lenker som allerede åpner i ny
+  // fane skal fungere helt normalt -- ingen forsinkelse å vente på når
+  // brukeren blir værende på denne siden uansett.
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if (link.target && link.target !== '_self') return;
+  e.preventDefault();
+  var navigated = false;
+  function go() {
+    if (navigated) return;
+    navigated = true;
+    window.location.href = link.href;
+  }
   window.dataLayer.push({
     event: 'outbound_click',
     retailer: link.getAttribute('data-retailer'),
-    affiliate: link.getAttribute('data-affiliate') === '1'
+    affiliate: link.getAttribute('data-affiliate') === '1',
+    eventCallback: go,
+    eventTimeout: 300
   });
+  setTimeout(go, 300);
 });
 </script>
 </body>
