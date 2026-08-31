@@ -6783,39 +6783,57 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
 def render_private_label_index_page(labels: list[dict], products_by_id: dict, categories: dict, now: datetime | None = None) -> str:
     """Oversiktsside -- gruppert per optikerkjede, lenker videre til hver
-    enkelt private label-side."""
+    enkelt private label-side. Tabellformat (2026-08-30, byttet fra en
+    product-tile-rutenett) -- bruker påpekte at rutenettet ble tungt/
+    plasskrevende for 55 rader (og vokser), spesielt siden disse kortene
+    ALDRI viser et ekte bilde (viser feil boks under feil navn -- se
+    render_private_label_page() sin egen kommentar om akkurat dette), så
+    bilde-plassen sto uansett ubrukt. En tabell er mer skannbar for det
+    dette faktisk er: et oppslagsverk ("hva heter linsen egentlig"), ikke
+    en browse-og-handle-side (det gjør /merke/ og /kontaktlinser/ allerede).
+    Hver rad har fortsatt BEGGE lenkene som fantes i kort-versjonen: til
+    vår egen private label-side (f.eks. /private-label/iwear-fit/) OG til
+    det virkelige produktets egen side (f.eks. /kontaktlinser/biomedics/...)."""
     now = now or datetime.now(timezone.utc)
 
     by_chain: dict[str, list[dict]] = {}
     for label in labels:
         by_chain.setdefault(label["chain"], []).append(label)
 
-    def render_card(chain: str, label: dict) -> str:
+    def render_row(chain: str, label: dict) -> str:
         real_product = products_by_id[label["real_product_id"]]
         offers = reconcile_product(real_product["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: o["total"], default=None)
         real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
-        real_product_link = f'<a class="product-tile-manufacturer" href="{escape(real_href)}">= {escape(real_product["name"])}</a>'
+        pl_href = f'/private-label/{escape(label["slug"])}/'
         category_slug = real_product.get("category_slug", "")
-        return _render_product_tile(
-            href=f'/private-label/{escape(label["slug"])}/',
-            name=label["name"],
-            image_url=None,
-            fallback_initials=chain[:2].upper(),
-            category_label=categories.get(category_slug, {}).get("label"),
-            secondary_line_html=real_product_link,
-            lowest=lowest,
-            other_count=len(real_product["offers"]) - 1,
+        category_label = categories.get(category_slug, {}).get("label", "")
+        price_cell = (
+            f'{_fmt_kr(lowest["price_nok"])} <span style="color:var(--muted);font-size:0.8em;">hos {escape(lowest["retailer"])}</span>'
+            if lowest else '<span style="color:var(--muted);">Ingen pris</span>'
         )
+        return f"""<tr>
+      <td><a href="{pl_href}" style="font-weight:600;color:var(--ink);text-decoration:none;">{escape(label["name"])}</a></td>
+      <td><a href="{escape(real_href)}" style="color:var(--blue);text-decoration:none;">{escape(real_product["name"])}</a></td>
+      <td>{escape(category_label)}</td>
+      <td style="white-space:nowrap;">{price_cell}</td>
+    </tr>"""
 
     sections_html = ""
     for chain in sorted(by_chain.keys()):
         chain_labels = sorted(by_chain[chain], key=lambda l: l["name"])
-        rows = "\n".join(render_card(chain, l) for l in chain_labels)
+        rows = "\n".join(render_row(chain, l) for l in chain_labels)
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
         sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--blue);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
-  <div class="product-tile-grid">{rows}</div>
+  <div style="overflow-x:auto;">
+  <table class="pl-table">
+    <thead><tr><th>Kjedens navn</th><th>Egentlig</th><th>Kategori</th><th>Fra pris</th></tr></thead>
+    <tbody>
+    {rows}
+    </tbody>
+  </table>
+  </div>
 """
 
     intro = "Flere optikerkjeder selger kontaktlinser under sitt eget merkenavn, selv om linsen er identisk med et kjent produkt fra produsenten. Her finner du oversikten – hvilket navn hos hvilken kjede tilsvarer hvilket produkt vi allerede sammenligner priser på."
@@ -6841,7 +6859,13 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
 {_og_meta('Optikerkjedenes egne merker – Hva heter linsen egentlig? | Kontaktlinser.no', intro, BASE_URL + '/private-label/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
-<style>{SHARED_STYLE}</style>
+<style>{SHARED_STYLE}
+.pl-table {{ width: 100%; min-width: 560px; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.88rem; margin: 12px 0 28px; }}
+.pl-table th, .pl-table td {{ text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }}
+.pl-table th {{ background: var(--mist); font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }}
+.pl-table tr:last-child td {{ border-bottom: none; }}
+.pl-table tr:hover td {{ background: var(--mist); }}
+</style>
 </head>
 <body>
 {TOPBAR_HTML}
