@@ -1119,12 +1119,18 @@ PRIVATE_LABEL_SUBBRAND_LOGOS: dict[str, str] = {
     "Ascend": "pl-ascend.png",
 }
 
-# MIDLERTIDIG (2026-08-30) -- se den fyldige begrunnelsen i render_home_page()
-# der denne brukes. Lest direkte av lenspricer.no sin faktiske forside
-# (bilde-alt-tekster på merke-rutenettet, i den rekkefølgen de vises der)
-# samme dag, med to bevisste ombytter (Acuvue<->Dailies, Biomedics<->ULTRA)
-# for å ikke være en 1:1-kopi. Erstatt med ekte trafikkdata fra egen side
-# etter ca. 3 måneder -- ikke la denne stå ubrukt/glemt lenger enn det.
+# LÅST rekkefølge (satt 2026-08-30, bekreftet låst -- ikke tidsstyrt --
+# 2026-08-31). Se den fyldige begrunnelsen i render_home_page() der denne
+# brukes. Lest direkte av lenspricer.no sin faktiske forside (bilde-
+# alt-tekster på merke-rutenettet, i den rekkefølgen de vises der)
+# 2026-08-30, med to bevisste ombytter (Acuvue<->Dailies, Biomedics<->ULTRA)
+# for å ikke være en 1:1-kopi. IKKE vist noe sted på siden -- brukeren har
+# eksplisitt bekreftet at dette forblir en ren intern/kode-detalj.
+# Opprinnelig tenkt som midlertidig (erstattes av ekte trafikktall etter
+# ~3 måneder), men bruker bestemte 2026-08-31 at rangeringen i stedet
+# skal stå fast ut 2026 -- ingen automatisk overgang til trafikkbasert
+# sortering er planlagt lenger. Endre kun denne listen når bruker
+# eksplisitt ber om det, ikke på en tidsfrist.
 LENSPRICER_INSPIRED_ORDER: list[str] = [
     "acuvue", "dailies", "biofinity", "iwear", "easyvision", "eyeq",
     "soflens", "biotrue", "clariti", "air-optix", "myday", "purevision",
@@ -3415,20 +3421,22 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # private label-seriene smeltet inn i én felles rangering i stedet for
     # en egen blokk øverst.
     #
-    # 30.08 (samme dag, ny runde): bruker ønsker en tredje tilnærming --
+    # 30.08 (samme dag, ny runde): bruker ønsket en tredje tilnærming --
     # egne trafikktall finnes ikke ennå (ny side, lite trafikk), så vi
     # "lar oss inspirere av" lenspricer.no sin faktiske, observerte
     # forsiderekkefølge (lest av alt-tekst på deres bilderutenett
     # 2026-08-30 -- IKKE en påstand om popularitet/salgstall, bare hva de
-    # faktisk viser, verifiserbart ved å besøke siden) som et MIDLERTIDIG
-    # utgangspunkt, med et par bevisste ombytter (Acuvue/Dailies og
-    # Biomedics/ULTRA) slik at det ikke er en 1:1-kopi. Etter ca. 3 måneder
-    # med egen trafikk skal dette erstattes med reelle tall fra egen side
-    # (krever GA4/GTM-statistikk faktisk satt opp og en viss datamengde --
-    # ikke gjort ennå, kun samtykke-infrastrukturen finnes per nå).
-    # LENSPRICER_INSPIRED_ORDER er derfor en eksplisitt MIDLERTIDIG liste,
-    # ikke en påstand om hva som faktisk er mest populært -- husk å fjerne/
-    # erstatte denne kommentaren og listen når ekte tall tas i bruk.
+    # faktisk viser, verifiserbart ved å besøke siden), med et par bevisste
+    # ombytter (Acuvue/Dailies og Biomedics/ULTRA) slik at det ikke er en
+    # 1:1-kopi. IKKE nevnt/vist noe sted på selve siden -- ren intern
+    # sorteringslogikk, bekreftet av bruker at det skal forbli slik.
+    #
+    # 31.08: opprinnelig tenkt midlertidig (erstattes av egne trafikktall
+    # etter ~3 måneder), men bruker bestemte at LENSPRICER_INSPIRED_ORDER
+    # i stedet skal stå FAST ut 2026 -- ingen automatisk overgang til
+    # trafikkbasert sortering er planlagt lenger (uansett om GA4/GTM-
+    # statistikk skulle bli satt opp i mellomtiden). Endre kun rangeringen
+    # når bruker eksplisitt ber om det, ikke på en tidsfrist.
     # Merker vi har som IKKE står i denne listen (enten fordi lenspricer.no
     # ikke fører dem, eller fordi navnet deres ikke tydelig kunne kobles
     # til et av våre merker, f.eks. deres "Lumiere"/"Freshtech") faller
