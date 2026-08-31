@@ -1958,14 +1958,18 @@ def _time_ago(checked_at: str, now: datetime) -> str:
 
 # Rangering blant forhandlere MED affiliate-avtale, brukt KUN til å avgjøre
 # rekkefølge/vinner ved eksakt lik totalpris (aldri prisen selv). Lavere tall
-# = vinner tidligere. MIDLERTIDIG TOM (2026-08-31) -- bruker har bekreftet
-# regelen ("den vi tjener mest på skal vinne blant flere med avtale"), men
-# jeg har ingen reelle provisjonstall å rangere etter og skal ikke gjette.
-# Fyll inn eksplisitt når bruker oppgir faktisk rangering, f.eks.
-# {"Lensway": 0, "Lenson": 1, "Extra Optical": 2, ...}. Til den dagen
-# avgjøres rekkefølgen blant flere affiliate-avtaler av _tie_break_key()
-# sitt sekundære kriterium (retailer-navn, kun for et forutsigbart/stabilt
-# resultat -- IKKE en påstand om at det er riktig prioritert).
+# = vinner tidligere.
+#
+# Bruker bekreftet 2026-08-31: Lenson, Lensway og Shopping4net har alle
+# IDENTISK provisjonssats (8 %) til oss. Ved eksakt lik totalpris gir
+# derfor 8 % av samme kronebeløp samme reelle inntjening uansett hvilken
+# av de tre som vinner -- ingen prioritering mellom dem er meningsfull
+# eller nødvendig, så de er bevisst IKKE lagt inn her (alfabetisk
+# fallback i _tie_break_key() gir like riktig resultat som noe annet
+# ville gjort). Extra Optical og Apotekhjem sine satser er IKKE avklart
+# ennå -- fyll inn når/hvis bruker oppgir dem, f.eks.
+# {"Extra Optical": 0} hvis den skulle vise seg å ha høyere sats enn de
+# tre andre.
 AFFILIATE_TIE_PRIORITY: dict[str, int] = {}
 
 
