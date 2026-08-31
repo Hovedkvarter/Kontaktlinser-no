@@ -1956,26 +1956,55 @@ def _time_ago(checked_at: str, now: datetime) -> str:
     return f"{round(hrs / 24)} dager siden"
 
 
+# Rangering blant forhandlere MED affiliate-avtale, brukt KUN til å avgjøre
+# rekkefølge/vinner ved eksakt lik totalpris (aldri prisen selv). Lavere tall
+# = vinner tidligere. MIDLERTIDIG TOM (2026-08-31) -- bruker har bekreftet
+# regelen ("den vi tjener mest på skal vinne blant flere med avtale"), men
+# jeg har ingen reelle provisjonstall å rangere etter og skal ikke gjette.
+# Fyll inn eksplisitt når bruker oppgir faktisk rangering, f.eks.
+# {"Lensway": 0, "Lenson": 1, "Extra Optical": 2, ...}. Til den dagen
+# avgjøres rekkefølgen blant flere affiliate-avtaler av _tie_break_key()
+# sitt sekundære kriterium (retailer-navn, kun for et forutsigbart/stabilt
+# resultat -- IKKE en påstand om at det er riktig prioritert).
+AFFILIATE_TIE_PRIORITY: dict[str, int] = {}
+
+
+def _tie_break_key(o: dict) -> tuple:
+    """Sorteringsnøkkel for eksakt lik totalpris -- brukt av BÅDE
+    _pick_lowest() (hvem får "Lavest pris"-merket) og reconcile_product()
+    sin hovedsortering (rekkefølgen tilbudene faktisk VISES i på siden).
+    Disse to brukte ULIK logikk frem til 2026-08-31 -- bruker oppdaget at
+    en forhandler UTEN avtale (skrapet) kunne vises FØR en med avtale i
+    selve listen (kun alfabetisk/opprinnelig rekkefølge ved lik pris),
+    selv om _pick_lowest() allerede korrekt ga badgen til avtale-
+    forhandleren. Nå deler begge samme regel:
+    1) affiliate-avtale (source == "affiliate_feed") før ingen avtale,
+    2) blant flere avtaler, se AFFILIATE_TIE_PRIORITY over,
+    3) alfabetisk som siste, forutsigbare fallback."""
+    is_affiliate = o.get("source") == "affiliate_feed"
+    return (
+        0 if is_affiliate else 1,
+        AFFILIATE_TIE_PRIORITY.get(o["retailer"], 999),
+        o["retailer"],
+    )
+
+
 def _pick_lowest(eligible: list[dict]) -> dict | None:
     """Velger ÉN vinner blant tilbud på lager og ikke utdaterte, ved eksakt
-    lik totalpris (2026-08-18, etter avtale med brukeren):
-    1) foretrekk et tilbud vi har en affiliate-avtale med (source ==
-       "affiliate_feed") fremfor et vi ikke har,
-    2) blant flere med avtale, velg den med best provisjon for oss --
-       IKKE implementert ennå, kun Extra Optical har avtale i dag, så det
-       finnes ingenting å sammenligne. Bygges når en to. avtale finnes.
-    Prisen er identisk for kunden i alle disse tilfellene uansett -- regelen
-    avgjør kun hvem som får "Lavest pris"-merket når det ikke er noen reell
-    prisforskjell å vise frem. Se disclosure-teksten på produktsidene, som
-    er oppdatert til å nevne dette eksplisitt."""
+    lik totalpris (2026-08-18, etter avtale med brukeren) -- se
+    _tie_break_key() for selve regelen, delt med reconcile_product() sin
+    hovedsortering siden 2026-08-31. Prisen er identisk for kunden i alle
+    disse tilfellene uansett -- regelen avgjør kun hvem som får "Lavest
+    pris"-merket (og hvem som vises først i listen) når det ikke er noen
+    reell prisforskjell å vise frem. Se disclosure-teksten på
+    produktsidene, som nevner dette eksplisitt."""
     if not eligible:
         return None
     lowest_total = min(o["total"] for o in eligible)
     tied = [o for o in eligible if o["total"] == lowest_total]
     if len(tied) == 1:
         return tied[0]
-    with_deal = [o for o in tied if o["source"] == "affiliate_feed"]
-    return with_deal[0] if with_deal else tied[0]
+    return min(tied, key=_tie_break_key)
 
 
 def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) -> list[dict]:
@@ -1995,7 +2024,7 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
     for o in enriched:
         o["is_lowest"] = winner is not None and o is winner
 
-    return sorted(enriched, key=lambda o: o["total"])
+    return sorted(enriched, key=lambda o: (o["total"],) + _tie_break_key(o))
 
 
 # Shopping4Net sine produktbilder ER hvitere enn Extra Optical sine
