@@ -2711,7 +2711,7 @@
     },
     {
       "date": "2026-09-01",
-      "price": 527.0,
+      "price": 532.0,
       "store": "Synsam"
     }
   ],
@@ -3681,7 +3681,7 @@
     },
     {
       "date": "2026-09-01",
-      "price": 411.0,
+      "price": 412.0,
       "store": "Synsam"
     }
   ],
@@ -4942,7 +4942,7 @@
     },
     {
       "date": "2026-09-01",
-      "price": 524.0,
+      "price": 509.0,
       "store": "Synsam"
     }
   ],
@@ -5039,8 +5039,8 @@
     },
     {
       "date": "2026-09-01",
-      "price": 676.0,
-      "store": "Synsam"
+      "price": 697.0,
+      "store": "Lensit"
     }
   ],
   "biomedics-1day-xtra-30pk": [
@@ -6615,7 +6615,7 @@
     },
     {
       "date": "2026-09-01",
-      "price": 532.0,
+      "price": 533.0,
       "store": "Synsam"
     }
   ],
@@ -7391,7 +7391,7 @@
     },
     {
       "date": "2026-09-01",
-      "price": 441.0,
+      "price": 442.0,
       "store": "Synsam"
     }
   ],
@@ -14571,8 +14571,8 @@
     },
     {
       "date": "2026-09-01",
-      "price": 197.0,
-      "store": "Apotek For Deg"
+      "price": 239.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-daily-90pk": [
@@ -14638,8 +14638,8 @@
     },
     {
       "date": "2026-09-01",
-      "price": 509.0,
-      "store": "Apotek For Deg"
+      "price": 629.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-monthly-6pk": [
@@ -14705,8 +14705,8 @@
     },
     {
       "date": "2026-09-01",
-      "price": 219.0,
-      "store": "Apotek For Deg"
+      "price": 289.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-vitamin-30pk": [
@@ -14772,8 +14772,8 @@
     },
     {
       "date": "2026-09-01",
-      "price": 249.0,
-      "store": "Apotek For Deg"
+      "price": 299.0,
+      "store": "Vitusapotek"
     }
   ],
   "clearlii-multipurpose-100ml": [
