@@ -2036,7 +2036,7 @@
     {
       "date": "2026-09-02",
       "price": 425.0,
-      "store": "Extra Optical"
+      "store": "Synsam"
     }
   ],
   "myday-toric-30pk": [
@@ -2851,8 +2851,8 @@
     },
     {
       "date": "2026-09-02",
-      "price": 532.0,
-      "store": "Synsam"
+      "price": 576.0,
+      "store": "Lensit"
     }
   ],
   "dailies-total1-30pk": [
@@ -3871,7 +3871,7 @@
     },
     {
       "date": "2026-09-02",
-      "price": 412.0,
+      "price": 409.0,
       "store": "Synsam"
     }
   ],
@@ -6955,7 +6955,7 @@
     },
     {
       "date": "2026-09-02",
-      "price": 533.0,
+      "price": 530.0,
       "store": "Synsam"
     }
   ],
@@ -7771,7 +7771,7 @@
     },
     {
       "date": "2026-09-02",
-      "price": 442.0,
+      "price": 439.0,
       "store": "Synsam"
     }
   ],
@@ -15351,8 +15351,8 @@
     },
     {
       "date": "2026-09-02",
-      "price": 239.0,
-      "store": "Vitusapotek"
+      "price": 197.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-daily-90pk": [
@@ -15423,8 +15423,8 @@
     },
     {
       "date": "2026-09-02",
-      "price": 629.0,
-      "store": "Vitusapotek"
+      "price": 509.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-monthly-6pk": [
@@ -15495,8 +15495,8 @@
     },
     {
       "date": "2026-09-02",
-      "price": 289.0,
-      "store": "Vitusapotek"
+      "price": 219.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-vitamin-30pk": [
@@ -15567,8 +15567,8 @@
     },
     {
       "date": "2026-09-02",
-      "price": 299.0,
-      "store": "Vitusapotek"
+      "price": 249.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-multipurpose-100ml": [
