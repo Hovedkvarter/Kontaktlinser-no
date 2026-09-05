@@ -2854,13 +2854,27 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     # lager -- et konkret, sant "sist bekreftet"-tidspunkt, ikke en gjettet
     # eller statisk dato. Freshness-signal for AI-siteringstillit.
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
-    schema_json = f"""{{
-  "@context": "https://schema.org",
+    product_href = f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/'
+    # BreadcrumbList manglet her (fantes allerede på kategori-/merke-/
+    # produsent-/private label-sider, men ikke på selve produktsiden --
+    # funnet 2026-09-05). Speiler nøyaktig den synlige brødsmulen under
+    # (Hjem > kategori > merke > produktnavn).
+    breadcrumb_schema = f'''{{"@type": "BreadcrumbList", "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "{_json_str(categories[product["category_slug"]]["label"])}", "item": "{BASE_URL}/kontaktlinser/{product["category_slug"]}/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{_json_str(product["brand_label"])}", "item": "{BASE_URL}/merke/{product["brand_slug"]}/"}},
+    {{"@type": "ListItem", "position": 4, "name": "{_json_str(product["name"])}", "item": "{product_href}"}}
+  ]}}'''
+    product_schema = f'''{{
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
   "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}{schema_props}
-}}"""
+}}'''
+    schema_json = f'''{{
+  "@context": "https://schema.org",
+  "@graph": [{breadcrumb_schema}, {product_schema}]
+}}'''
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
     specs_html = ""
@@ -6447,12 +6461,22 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
   }}'''
 
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
+    # BreadcrumbList (samme fiks som render_product_page 2026-09-05) --
+    # speiler den synlige brødsmulen (Hjem > kategori > produktnavn, ingen
+    # eget merke-nivå her siden linsevæske/øyedråper-sider ikke har det).
+    breadcrumb_schema = f'''{{"@type": "BreadcrumbList", "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "{_json_str(cat["label"])}", "item": "{BASE_URL}/{cat_slug}/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{_json_str(product["name"])}", "item": "{BASE_URL}{base_url_path}"}}
+  ]}}'''
     schema_json = f"""{{
   "@context": "https://schema.org",
+  "@graph": [{breadcrumb_schema}, {{
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
   "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}
+  }}]
 }}"""
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
 
