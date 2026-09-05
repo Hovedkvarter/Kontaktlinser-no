@@ -6913,10 +6913,21 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # grupperer ALLE seriene til sammenligning. Denne siden (ett enkelt
     # produkt) bruker objektiv ordlegging i stedet og lenker til samlesiden
     # for hvem som faktisk står bak.
+    # Pris/salgs-hook FØRST i tittel og meta-beskrivelse, identitets-
+    # avsløringen ("er egentlig X") KUN i H1/brødtekst -- brukerbeslutning
+    # 2026-09-05: målet med SERP-teksten er å få folk til å klikke, ikke å
+    # svare på spørsmålet før de i det hele tatt er inne på siden. Forrige
+    # variant ("Hva heter den egentlig?") var riktignok ikke en avsløring i
+    # seg selv, men Google erstattet den likevel ofte med H1-en (som ER en
+    # avsløring) i søketreff -- trolig fordi samme tittelmal gikk igjen
+    # identisk på alle 64 private label-sidene. Denne nye teksten er
+    # prisdrevet, samme stil som render_product_page allerede bruker
+    # ("» Sammenlign og få billigste pris"), for konsistens på tvers av
+    # siden og fordi det er en allerede etablert, fungerende ramme.
     meta_description = (
-        f'{private_name} er samme linse som {real_name} fra {real_source}. '
-        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
-    ) if best else f'{private_name} er samme linse som {real_name} fra {real_source} – bare i egen innpakning. Sammenlign priser på det ekte merkenavnet.'
+        f'Se laveste pris på {private_name} blant norske nettbutikker – fra '
+        f'{_fmt_kr(best["price_nok"])} hos {best["retailer"]}. Oppdatert flere ganger daglig.'
+    ) if best else f'Sammenlign priser på {private_name} blant norske nettbutikker.'
 
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
@@ -6984,10 +6995,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(private_name)} – Hva heter den egentlig? | Kontaktlinser.no</title>
+<title>{escape(private_name)} » Sammenlign og få billigste pris</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} – Hva heter den egentlig? | Kontaktlinser.no', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
+{_og_meta(f'{private_name} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
