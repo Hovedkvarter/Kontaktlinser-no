@@ -6945,6 +6945,23 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         f'{_fmt_kr(best["price_nok"])} hos {best["retailer"]}. Oppdatert flere ganger daglig.'
     ) if best else f'Sammenlign priser på {private_name} blant norske nettbutikker.'
 
+    # Synlig, CRAWLBAR tekst med de samme fakta som SERP-teksten over
+    # (pris/antall butikker/oppdateringsfrekvens) -- Google genererer ofte
+    # selve snippeten fra INNHOLDET på siden, ikke meta-beskrivelsen (kun
+    # brukt når Google selv mener den passer bedre), så disse fakta bør stå
+    # som ekte tekst her også, ikke bare i en meta-tag. Samme mønster som
+    # .product-ai-summary på render_product_page/render_solution_product_
+    # page (lagt til her 2026-09-05 -- private label-sidene manglet denne
+    # boksen helt).
+    if best:
+        ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) fra {len(real_product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres flere ganger daglig.</p>
+</section>"""
+    else:
+        ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
+  <p>Vi følger prisen på <strong>{escape(real_name)}</strong> ({escape(private_name)}), men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
+</section>"""
+
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     schema_json = f"""{{
@@ -7023,6 +7040,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary p {{ margin: 0; }}
+.product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 {WINNER_WIDGET_STYLE}
 </style>
 </head>
@@ -7041,6 +7061,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
       <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
     </div>
   </div>
+  {ai_summary_html}
 
   <h2>Sammenlign priser på {escape(real_name)}, sortert etter total pris</h2>
   {best_band}
