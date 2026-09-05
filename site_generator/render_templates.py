@@ -1173,6 +1173,13 @@ def render_footer() -> str:
       <a href="/guide/hvordan-velge-kontaktlinser/">Hvordan velge kontaktlinser</a>
       <a href="/private-label/">Optikerkjedenes egne merker</a>
     </div>
+    <div class="footer-col">
+      <h3>Metodikk</h3>
+      <a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser</a>
+      <a href="/slik-matcher-vi-produkter/">Slik matcher vi produkter</a>
+      <a href="/redaksjonelle-prinsipper/">Redaksjonelle prinsipper</a>
+      <a href="/affiliate-og-finansiering/">Affiliate og finansiering</a>
+    </div>
   </div>
   <p class="footer-disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
@@ -1189,6 +1196,7 @@ def render_footer() -> str:
     <a href="/om-oss/" rel="author">Om oss</a>
     <a href="/personvern/" rel="privacy-policy">Personvern og cookies</a>
     <a href="/vilkar/" rel="terms-of-service">Vilkår og ansvarsfraskrivelse</a>
+    <a href="/meld-feil/">Meld feil</a>
     {_contact_email_link()}
     <a href="https://www.facebook.com/kontaktlinser.no/" rel="me noopener" target="_blank" aria-label="Kontaktlinser.no på Facebook">Facebook</a>
   </div>
@@ -2014,6 +2022,16 @@ def _contact_email_link(css_class: str = "") -> str:
     return f'<a href="mailto:{obf}"{cls}>{obf}</a>'
 
 
+def _mailto_link(subject: str, label: str, css_class: str = "") -> str:
+    """Som _contact_email_link(), men med et forhåndsutfylt emnefelt og en
+    egen lenketekst i stedet for å gjenta selve e-postadressen -- brukt av
+    /meld-feil/ sine tre snarveier (feil pris/feil produktmatching/annet)."""
+    obf = _obfuscate_email("kontakt@kontaktlinser.no")
+    cls = f' class="{css_class}"' if css_class else ""
+    subject_q = subject.replace(" ", "%20")
+    return f'<a href="mailto:{obf}?subject={subject_q}"{cls}>{escape(label)}</a>'
+
+
 def _fmt_kr(n: float) -> str:
     return f"{n:,.0f}".replace(",", " ") + " kr"
 
@@ -2511,6 +2529,7 @@ METHODOLOGY_HTML = """<div class="methodology">
       <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
       <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres hver 6. time.</dd></div>
     </dl>
+    <a href="/slik-sammenligner-vi-priser/" style="font-size:0.85rem;font-weight:600;color:var(--blue);text-decoration:none;">Les mer om metodikken vår →</a>
   </div>"""
 
 
@@ -5559,7 +5578,7 @@ def render_guide_page(slug: str) -> str | None:
     <div class="hero-copy">
       <div class="kicker">Guide</div>
       <h1>{escape(guide["title"])}</h1>
-      <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert {updated_display}</p>
+      <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert {updated_display} · <a href="/redaksjonelle-prinsipper/" style="color:inherit;">Redaksjonelle prinsipper</a></p>
     </div>
   </div>
   <div style="max-width:640px;">
@@ -5860,6 +5879,22 @@ def render_about_page() -> str:
     ikke medisinske råd: kontaktlinser er reseptvare, så rådfør deg alltid med
     optiker ved valg av linsetype og styrke.</p>
 
+    <h2>Hvem driver Kontaktlinser.no?</h2>
+    <p>Kontaktlinser.no drives som et selvstendig, uavhengig prosjekt - ikke av
+    en optikerkjede eller en av forhandlerne vi sammenligner priser fra. Har du
+    spørsmål om hvem som står bak, ta kontakt på e-posten under.</p>
+
+    <h2>Les mer</h2>
+    <p>Vi prøver å være mer åpne om hvordan tjenesten faktisk fungerer enn det
+    som er vanlig for en prissammenligningsside:</p>
+    <ul style="padding-left:20px;font-size:0.92rem;line-height:1.9;color:var(--ink);">
+      <li><a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser</a></li>
+      <li><a href="/slik-matcher-vi-produkter/">Slik matcher vi produkter</a></li>
+      <li><a href="/redaksjonelle-prinsipper/">Redaksjonelle prinsipper</a></li>
+      <li><a href="/affiliate-og-finansiering/">Affiliate og finansiering</a></li>
+      <li><a href="/meld-feil/">Meld feil</a></li>
+    </ul>
+
     <h2>Kontakt</h2>
     <p>Spørsmål, feilmelding eller tips om et tilbud som ikke stemmer? Send oss
     en e-post på {_contact_email_link()}.</p>
@@ -5870,6 +5905,237 @@ def render_about_page() -> str:
 {CONSENT_SCRIPT}
 </body>
 </html>"""
+
+
+def _trust_page(slug: str, title: str, kicker: str, lead: str, body_html: str) -> str:
+    """Delt mal for de 5 nye tillit-/metodikksidene -- samme skjelett som
+    render_privacy_page()/render_terms_page() (TOPBAR_HTML > brødsmule > hero
+    > innholdsdiv > footer), men uten now-parameter siden ingen av disse
+    trenger en "sist oppdatert"-dato (statisk prinsipp-tekst, ikke
+    tidsstemplet innhold som guidene)."""
+    full_title = f'{title} – Kontaktlinser.no'
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(full_title)}</title>
+<meta name="description" content="{escape(lead)}">
+<link rel="canonical" href="{BASE_URL}/{slug}/">
+{_og_meta(full_title, lead, f'{BASE_URL}/{slug}/')}
+{FONT_LINKS}
+<style>{SHARED_STYLE}
+.about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.about-body p {{ font-size: 0.92rem; line-height: 1.65; color: var(--ink); }}
+.about-body li {{ font-size: 0.92rem; line-height: 1.7; color: var(--ink); }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap">
+  <p class="breadcrumb"><a href="/">Hjem</a> › <a href="/om-oss/">Om oss</a> › {escape(title)}</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">{escape(kicker)}</div>
+      <h1>{escape(title)}</h1>
+      <p>{escape(lead)}</p>
+    </div>
+  </div>
+
+  <div class="about-body" style="max-width:640px;">
+    {body_html}
+  </div>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
+def render_pricing_methodology_page() -> str:
+    body = """
+<p>Dette er den fulle versjonen av metodikk-boksen du ser på hver produktside -- samme
+fem punkter, litt mer utdypet.</p>
+
+<h2>Produktpris</h2>
+<p>Prisen butikken selv oppgir for produktet, uten frakt. Dette er tallet som vises
+øverst på hvert tilbudskort.</p>
+
+<h2>Frakt</h2>
+<p>Fraktkostnaden beregnes ut fra antallet esker du har valgt, og hver butikks egen
+fri-frakt-grense. Kjøper du f.eks. 2 esker til 300 kr stykket hos en butikk med gratis
+frakt over 500 kr, blir totalprisen 600 kr uten frakt lagt til -- kjøper du bare 1 eske
+(300 kr, under grensen), kommer fraktkostnaden med i totalen. Grensene varierer mye
+mellom butikkene (noen har alltid gratis frakt, én har aldri gratis frakt uansett
+beløp), så hvem som er billigst kan endre seg avhengig av hvor mange esker du trenger.</p>
+
+<h2>Totalpris</h2>
+<p>Produktpris multiplisert med antall, pluss eventuell frakt for akkurat det antallet.
+Dette er tallet vi faktisk sorterer etter -- ikke produktprisen alene.</p>
+
+<h2>Sortering og "laveste pris"</h2>
+<p>Tilbudene sorteres alltid etter lavest totalpris. Et tilbud som er utsolgt, eller
+ikke bekreftet de siste 24 timene, kan aldri vinne "laveste pris"-merket, uansett hvor
+lavt tallet er -- det vises fortsatt i listen, bare uten merket. Ved eksakt lik
+totalpris mellom to butikker, se
+<a href="/affiliate-og-finansiering/">Affiliate og finansiering</a> for hvordan vi da
+avgjør rekkefølgen.</p>
+
+<h2>Kilder og oppdateringsfrekvens</h2>
+<p>Prisene hentes automatisk hver 6. time, enten direkte fra en forhandlers egen
+produktfeed (der vi har en slik avtale) eller ved å lese av prisen på forhandlerens
+egen produktside. Begge kildetypene oppdateres like ofte, og et produkt uten en
+pålitelig pris publiseres uten pris -- vi gjetter eller gjenbruker aldri en gammel
+pris.</p>
+"""
+    return _trust_page(
+        "slik-sammenligner-vi-priser",
+        "Slik sammenligner vi priser",
+        "Metodikk",
+        "Metodikken bak «laveste pris»-merket og sorteringen du ser på hver produktside.",
+        body,
+    )
+
+
+def render_product_matching_page() -> str:
+    body = """
+<p>Et produkt på Kontaktlinser.no har alltid én fast, intern identitet -- uavhengig av
+hvilket navn en butikk eller optikerkjede selger det under, og uavhengig av selve
+nettadressen til produktsiden.</p>
+
+<h2>Hvordan et tilbud kobles til riktig produkt</h2>
+<p>Når vi henter priser fra en forhandlers produktfeed, matches hver rad mot en
+manuelt vedlikeholdt tabell med kjente produktnumre/SKU-er. En rad med et ukjent
+produktnummer blir <strong>aldri</strong> gjettet inn på et produkt den kan ligne på --
+den hoppes over og logges, i stedet for å risikere å vise feil pris på feil vare.</p>
+
+<h2>Optikerkjedenes egne merkenavn (private label)</h2>
+<p>Flere optikerkjeder selger kjente kontaktlinser under sitt eget varenavn --
+f.eks. er en linse som "EyeQ 24" hos Synsam faktisk Biofinity fra CooperVision, bare i
+egen innpakning. Vi kobler kun disse to sammen når det er bekreftet direkte mot en
+uavhengig kilde som eksplisitt oppgir hvilket produsentnavn den aktuelle
+private label-linsen tilsvarer -- vi gjetter aldri en kobling basert på at navnene
+"høres like ut".</p>
+
+<p>Vi bruker <strong>ikke</strong> GTIN/EAN-koder til denne matchingen i dag -- det er
+ikke et datafelt vi har tilgang til fra forhandlernes feeds. Koblingen bygger i stedet
+på produsentnavn og produktspesifikasjoner fra kilden nevnt over.</p>
+
+<div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
+Kontaktlinser.no har ingen avtale med optikerkjedene, og kan ikke garantere at en
+private label-kobling stemmer i alle tilfeller -- pakningsstørrelse eller tilgjengelige
+styrker kan i sjeldne tilfeller avvike. Bekreft alltid med din optiker eller
+synsresept før du bytter til et produkt du har funnet via en slik kobling.
+</div>
+
+<p>Se <a href="/private-label/">full oversikt over optikerkjedenes egne merker</a> vi
+har koblet så langt.</p>
+"""
+    return _trust_page(
+        "slik-matcher-vi-produkter",
+        "Slik matcher vi produkter",
+        "Metodikk",
+        "Hvordan vi identifiserer produkter på tvers av forhandlere, og hvordan private label-koblinger verifiseres.",
+        body,
+    )
+
+
+def render_editorial_principles_page() -> str:
+    body = """
+<p>Guidene på Kontaktlinser.no er egenskrevne, ikke kopiert fra andre nettsteder.</p>
+
+<h2>Kilder</h2>
+<p>Der en guide oppgir et konkret faktapåstand som ikke er allment kjent, forsøker vi å
+vise til en anerkjent kilde -- typisk Norsk Helseinformatikk (NHI) eller Helsenorge,
+med direkte sitat og lenke til originalkilden. Generelle, godt etablerte fakta (f.eks.
+hvordan et linsemateriale fungerer) siteres ikke nødvendigvis punkt for punkt, men er
+kryssjekket mot offentlig produsent-/faginformasjon før publisering.</p>
+
+<h2>Ingen individuelle medisinske råd</h2>
+<p>Guidene gir generell informasjon, ikke råd tilpasset din egen situasjon.
+Alt som krever en individuell vurdering -- valg av linsetype, styrke, eller om et
+symptom er noe å bekymre seg for -- henvises alltid videre til optiker eller
+øyelege, aldri besvart direkte i teksten.</p>
+
+<h2>Oppdatering</h2>
+<p>Hver guide viser datoen den sist ble oppdatert. Faktafeil vi blir gjort
+oppmerksom på rettes fortløpende.</p>
+
+<h2>Fant du en feil?</h2>
+<p>Se noe som virker faktisk feil i en guide? Vi vil gjerne rette det --
+<a href="/meld-feil/">meld fra her</a>.</p>
+"""
+    return _trust_page(
+        "redaksjonelle-prinsipper",
+        "Redaksjonelle prinsipper",
+        "Metodikk",
+        "Hvordan guidene på Kontaktlinser.no lages, hvilke kilder vi bruker, og hvordan feil rettes.",
+        body,
+    )
+
+
+def render_affiliate_disclosure_page() -> str:
+    body = """
+<p>Kontaktlinser.no er gratis å bruke. Slik finansieres tjenesten:</p>
+
+<h2>Hvordan vi tjener penger</h2>
+<p>Vi kan motta provisjon fra enkelte forhandlere når du handler via en lenke fra oss,
+gjennom vanlige affiliate-nettverk. Dette koster deg ingenting ekstra -- prisen du
+betaler hos forhandleren er nøyaktig den samme som om du hadde funnet frem dit selv.</p>
+
+<h2>Påvirker det rangeringen?</h2>
+<p><strong>Nei.</strong> Tilbud sorteres alltid etter faktisk totalpris, uavhengig av om
+vi har en avtale med forhandleren eller ikke -- se
+<a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser</a>. Det ene
+unntaket: ved <em>eksakt</em> lik totalpris mellom to eller flere butikker (ingen reell
+prisforskjell for deg som kunde) kan vi prioritere en forhandler vi har en
+affiliate-avtale med i rekkefølgen. Er det en reell prisforskjell, uansett hvor liten,
+vinner alltid laveste totalpris -- avtale eller ei.</p>
+
+<h2>rel="sponsored" og rel="nofollow"</h2>
+<p>Lenker til forhandlere vi har en affiliate-avtale med er merket
+<code>rel="sponsored"</code>, i tråd med Googles egne retningslinjer for betalte/
+provisjonsbaserte lenker. Lenker til forhandlere uten avtale er merket
+<code>rel="nofollow"</code>. Vi blander aldri disse to.</p>
+
+<p>For informasjon om cookies og sporing knyttet til affiliate-nettverkene, se
+<a href="/personvern/">Personvern og cookies</a>.</p>
+"""
+    return _trust_page(
+        "affiliate-og-finansiering",
+        "Affiliate og finansiering",
+        "Metodikk",
+        "Hvordan Kontaktlinser.no tjener penger, og hvorfor det aldri påvirker hvilket tilbud som vises som billigst.",
+        body,
+    )
+
+
+def render_report_error_page() -> str:
+    body = f"""
+<p>Har du oppdaget en feil pris, en feil produktkobling, eller noe annet som ikke
+stemmer? Vi vil gjerne rette det -- jo mer presis melding, jo raskere kan vi finne
+feilen.</p>
+
+<h2>Velg det som passer best</h2>
+<ul style="padding-left:20px;">
+  <li>{_mailto_link("Feil pris", "Meld feil pris →")}</li>
+  <li>{_mailto_link("Feil produktmatching", "Meld feil produktmatching (f.eks. private label-kobling) →")}</li>
+  <li>{_mailto_link("Annet", "Meld noe annet →")}</li>
+</ul>
+
+<p>Alle tre åpner e-postprogrammet ditt med et ferdig utfylt emnefelt til
+{_contact_email_link()} -- inkluder gjerne lenken til siden det gjelder, og hvilken
+butikk/pris det er snakk om.</p>
+"""
+    return _trust_page(
+        "meld-feil",
+        "Meld feil",
+        "Meld feil",
+        "Funnet en feil pris, feil produktkobling eller noe annet som ikke stemmer? Meld fra her.",
+        body,
+    )
 
 
 def render_404_page() -> str:
@@ -7157,6 +7423,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
   <div class="private-label-explainer">
     <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for denne serien.</p>
+    <p style="margin-top:10px;"><a href="/slik-matcher-vi-produkter/" style="color:var(--blue);font-weight:600;text-decoration:none;">Hvordan vet vi at dette er samme linse? →</a></p>
   </div>
 
   <div class="private-label-caveat">

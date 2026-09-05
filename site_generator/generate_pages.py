@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
@@ -325,6 +325,21 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     write_file(BUILD_DIR / "om-oss" / "index.html", render_about_page())
     print("  om oss   -> /om-oss/")
 
+    write_file(BUILD_DIR / "slik-sammenligner-vi-priser" / "index.html", render_pricing_methodology_page())
+    print("  metodikk -> /slik-sammenligner-vi-priser/")
+
+    write_file(BUILD_DIR / "slik-matcher-vi-produkter" / "index.html", render_product_matching_page())
+    print("  metodikk -> /slik-matcher-vi-produkter/")
+
+    write_file(BUILD_DIR / "redaksjonelle-prinsipper" / "index.html", render_editorial_principles_page())
+    print("  metodikk -> /redaksjonelle-prinsipper/")
+
+    write_file(BUILD_DIR / "affiliate-og-finansiering" / "index.html", render_affiliate_disclosure_page())
+    print("  metodikk -> /affiliate-og-finansiering/")
+
+    write_file(BUILD_DIR / "meld-feil" / "index.html", render_report_error_page())
+    print("  metodikk -> /meld-feil/")
+
     write_file(BUILD_DIR / "om-produktillustrasjoner" / "index.html", render_illustration_disclaimer_page())
     print("  illustrasjoner -> /om-produktillustrasjoner/")
 
@@ -356,6 +371,11 @@ def update_site_content(catalog: dict, now: datetime) -> None:
             {"path": "/", "lastmod": today},
             {"path": "/personvern/", "lastmod": today},
             {"path": "/om-oss/", "lastmod": today},
+            {"path": "/slik-sammenligner-vi-priser/", "lastmod": today},
+            {"path": "/slik-matcher-vi-produkter/", "lastmod": today},
+            {"path": "/redaksjonelle-prinsipper/", "lastmod": today},
+            {"path": "/affiliate-og-finansiering/", "lastmod": today},
+            {"path": "/meld-feil/", "lastmod": today},
             {"path": "/om-produktillustrasjoner/", "lastmod": today},
             {"path": "/vilkar/", "lastmod": today},
         ] + [
