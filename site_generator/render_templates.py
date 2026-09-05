@@ -2298,6 +2298,16 @@ DIAMETER_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
 TAG_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg>'
 RESET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.6 5.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 X_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
+# To overlappende kontaktlinser -- egen tegnet illustrasjon (se
+# /om-produktillustrasjoner/) brukt i "Hva er X?"-boksen på kategorisidene.
+# Bevisst generisk (samme for alle 5 kategorier), ekte hex i stedet for
+# currentColor siden illustrasjonen bruker to ulike blåtoner samtidig.
+LENS_PAIR_ILLUSTRATION_SVG = '''<svg viewBox="0 0 120 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="46" cy="48" rx="34" ry="26" fill="#E8EFFE" stroke="#2563EB" stroke-width="2.2"/>
+  <ellipse cx="76" cy="40" rx="34" ry="26" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.2"/>
+  <path d="M30 36a26 20 0 0 1 18-9" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M60 28a26 20 0 0 1 18-9" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+</svg>'''
 CALENDAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
 
 # Badger på produktsidens hero -- KUN utledet fra verifiserte spesifikasjons-
@@ -6674,15 +6684,16 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     )
 
     # "Hva er X?"-boks: kort, faktabasert forklaring + lenke til første guide
-    # i kategoriens egen guide-liste (ingen hardkodet guide-slug her).
+    # i kategoriens egen guide-liste (ingen hardkodet guide-slug her). Egen
+    # tegnet linse-illustrasjon (to overlappende linser) i stedet for en
+    # liten ikon-badge -- samme generiske motiv for alle 5 kategorier, siden
+    # dette handler om at det ER en kontaktlinse, ikke om selve kategorien.
     explainer_text = CATEGORY_EXPLAINERS.get(category_slug, "")
     category_guides = category.get("guides", [])
     explainer_html = ""
     if explainer_text and category_guides:
-        icon = CATEGORY_ICONS.get(category_slug, "")
-        color = CATEGORY_COLORS.get(category_slug, "blue")
         explainer_html = f'''<div class="category-explainer">
-    <div class="category-explainer-icon" style="background:var(--{color}-tint);color:var(--{color});"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{icon}</svg></div>
+    <div class="category-explainer-illustration">{LENS_PAIR_ILLUSTRATION_SVG}</div>
     <div>
       <h2>Hva er {escape(category["label"].lower())}?</h2>
       <p>{escape(explainer_text)}</p>
@@ -6746,14 +6757,15 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }}
 .hero-copy {{ flex: 1 1 320px; }}
-.category-stats {{ display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }}
-.category-stat {{ display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }}
+.category-stats {{ display: flex; flex-wrap: wrap; margin: 18px 0 8px; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }}
+.category-stat {{ display: flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; padding: 8px 14px; border-right: 1px solid var(--border); font-size: 0.8rem; color: var(--ink); font-family: 'Inter', sans-serif; white-space: nowrap; }}
+.category-stat:last-child {{ border-right: none; }}
 .category-stat svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
-.category-explainer {{ flex: 0 1 300px; display: flex; gap: 12px; background: var(--blue-tint); border-radius: 14px; padding: 16px 18px; }}
-.category-explainer-icon {{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
-.category-explainer-icon svg {{ width: 18px; height: 18px; }}
-.category-explainer h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 4px; }}
-.category-explainer p {{ margin: 0 0 8px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }}
+.category-explainer {{ flex: 0 1 300px; display: flex; flex-direction: column; gap: 10px; background: var(--blue-tint); border-radius: 14px; padding: 18px 20px; }}
+.category-explainer-illustration {{ align-self: flex-start; }}
+.category-explainer-illustration svg {{ width: 110px; height: 72px; display: block; }}
+.category-explainer h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0; }}
+.category-explainer p {{ margin: 0 0 4px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }}
 .category-explainer a {{ font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }}
 .category-explainer a:hover {{ text-decoration: underline; }}
 .category-filters-bar {{ margin: 26px 0 20px; }}
@@ -6817,13 +6829,14 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
       <div class="kicker">Kategori</div>
       <h1>{escape(category["label"])}</h1>
       <p>{escape(intro_text)}</p>
-      <div class="category-stats">
-        <span class="category-stat">{BOX_ICON_SVG}<span>{n_products} produkter</span></span>
-        <span class="category-stat">{TAG_ICON_SVG}<span>{n_brands} merker</span></span>
-        <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres flere ganger daglig</span></span>
-      </div>
     </div>
     {explainer_html}
+  </div>
+  <div class="category-stats">
+    <span class="category-stat">{BOX_ICON_SVG}<span>{n_products} produkter</span></span>
+    <span class="category-stat">{TAG_ICON_SVG}<span>{n_brands} merker</span></span>
+    <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{_BUILDING_ICON}</svg><span>Norske nettbutikker</span></span>
+    <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres daglig</span></span>
   </div>
 
   <div class="category-filters-bar">
