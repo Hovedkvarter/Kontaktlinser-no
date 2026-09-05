@@ -124,7 +124,15 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
   opp i dette dokumentet) -- og Lensit bidrar uansett reell bredde/
   troverdighet til sammenligningen. Konkret kontaktinfo funnet om noen vil
   prøve igjen senere: kundeservice@lensit.no, tlf. 788 96 888 (man–tor
-  09–15, fre 09–14), org.nr 960 985 532 (Lensit.no AS).
+  09–15, fre 09–14), org.nr 960 985 532 (Lensit.no AS). Brønnøysund-sjekk
+  samme dag: ny styreleder registrert april 2026 (Tim Gerlach), tidligere
+  daglig leder (Carl Erik Pontus Lindbom) avregistrert uten erstatning --
+  tyder på et ferskt eier-/ledelsesskifte, ikke bekreftet hvem som faktisk
+  eier selskapet nå (aksjonærregisteret er ikke sjekket). Brukeren har
+  sendt 2 henvendelser til Lensit uten svar per 2026-09-05, prøver igjen
+  senere. **Ikke avgjort, men vurderes:** fjerne Lensit helt og erstatte
+  med en annen forhandler hvis kontaktforsøkene fortsetter å være
+  resultatløse over tid -- ingen tidsfrist satt ennå.
 - Specsavers er IKKE lagt til: siden sitter bak en Cloudflare bot-utfordring
   ("Just a moment...", `Cf-Mitigated: challenge`) -- vi løser ikke
   CAPTCHA/bot-utfordringer. Selectorene i `sources_config.json` er fortsatt
