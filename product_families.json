@@ -109,6 +109,167 @@
         "proclear-1day-90pk",
         "proclear-1day-multifocal-30pk"
       ]
+    },
+    {
+      "slug": "acuvue-oasys-1day-hydraluxe",
+      "name": "Acuvue Oasys 1-Day with Hydraluxe",
+      "member_ids": [
+        "acuvue-oasys-1day-hydraluxe-30pk",
+        "acuvue-oasys-1day-hydraluxe-90pk",
+        "acuvue-oasys-1day-astigmatism-30pk",
+        "acuvue-oasys-1day-astigmatism-90pk"
+      ]
+    },
+    {
+      "slug": "acuvue-oasys-max-1day",
+      "name": "Acuvue Oasys MAX 1-Day",
+      "member_ids": [
+        "acuvue-oasys-max-1day-30pk",
+        "acuvue-oasys-max-1day-90pk",
+        "acuvue-oasys-max-1day-multifocal-30pk",
+        "acuvue-oasys-max-1day-multifocal-90pk",
+        "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+        "acuvue-oasys-max-1day-astigmatism-30pk"
+      ]
+    },
+    {
+      "slug": "dailies-total1",
+      "name": "Dailies Total1",
+      "member_ids": [
+        "dailies-total1-30pk",
+        "dailies-total1-90pk",
+        "dailies-total1-180pk",
+        "dailies-total1-multifocal-30pk",
+        "dailies-total1-multifocal-90pk",
+        "dailies-total1-astigmatism-30pk",
+        "dailies-total1-astigmatism-90pk"
+      ]
+    },
+    {
+      "slug": "total30",
+      "name": "TOTAL30",
+      "member_ids": [
+        "total30-6pk",
+        "total30-multifocal-6pk",
+        "total30-astigmatism-6pk"
+      ]
+    },
+    {
+      "slug": "precision1",
+      "name": "Precision1",
+      "member_ids": [
+        "precision1-30pk",
+        "precision1-90pk",
+        "precision1-astigmatism-30pk",
+        "precision1-astigmatism-90pk"
+      ]
+    },
+    {
+      "slug": "precision7",
+      "name": "Precision7",
+      "member_ids": [
+        "precision7-12pk",
+        "precision7-27pk",
+        "precision7-astigmatism-12pk",
+        "precision7-astigmatism-27pk"
+      ]
+    },
+    {
+      "slug": "soflens-daily-disposable",
+      "name": "SofLens Daily Disposable",
+      "member_ids": [
+        "soflens-daily-disposable-30pk",
+        "soflens-daily-disposable-90pk",
+        "soflens-daily-disposable-astigmatism-30pk"
+      ]
+    },
+    {
+      "slug": "soflens-59",
+      "name": "SofLens 59",
+      "member_ids": [
+        "soflens-59-6pk",
+        "soflens-toric-6pk",
+        "soflens-multifocal-6pk"
+      ]
+    },
+    {
+      "slug": "purevision",
+      "name": "PureVision",
+      "member_ids": [
+        "purevision-6pk",
+        "purevision-multifocal-6pk"
+      ]
+    },
+    {
+      "slug": "purevision2",
+      "name": "PureVision2",
+      "member_ids": [
+        "purevision2-6pk",
+        "purevision2-astigmatism-6pk",
+        "purevision2-presbyopia-6pk"
+      ]
+    },
+    {
+      "slug": "biotrue-oneday",
+      "name": "Biotrue ONEday",
+      "member_ids": [
+        "biotrue-oneday-30pk",
+        "biotrue-oneday-90pk",
+        "biotrue-oneday-astigmatism-30pk",
+        "biotrue-oneday-presbyopia-30pk",
+        "biotrue-oneday-presbyopia-90pk"
+      ]
+    },
+    {
+      "slug": "ultra",
+      "name": "ULTRA",
+      "member_ids": [
+        "ultra-6pk",
+        "ultra-astigmatism-6pk",
+        "ultra-presbyopia-6pk"
+      ]
+    },
+    {
+      "slug": "ultra-oneday",
+      "name": "ULTRA ONE DAY",
+      "member_ids": [
+        "ultra-oneday-30pk",
+        "ultra-oneday-90pk"
+      ]
+    },
+    {
+      "slug": "biomedics",
+      "name": "Biomedics 55 Evolution",
+      "member_ids": [
+        "biomedics-55-evolution-6pk",
+        "biomedics-toric-6pk"
+      ]
+    },
+    {
+      "slug": "biomedics-1day-xtra",
+      "name": "Biomedics 1Day Extra",
+      "member_ids": [
+        "biomedics-1day-xtra-30pk",
+        "biomedics-1day-xtra-90pk",
+        "biomedics-1day-xtra-toric-30pk"
+      ]
+    },
+    {
+      "slug": "miru-1day-upside",
+      "name": "Miru 1day UpSide",
+      "member_ids": [
+        "miru-1day-upside-30pk",
+        "miru-1day-upside-astigmatism-30pk",
+        "miru-1day-upside-multifocal-30pk"
+      ]
+    },
+    {
+      "slug": "proclear-xr",
+      "name": "Proclear Multifocal XR",
+      "member_ids": [
+        "proclear-multifocal-xr-3pk",
+        "proclear-toric-xr-3pk"
+      ]
     }
   ]
 }

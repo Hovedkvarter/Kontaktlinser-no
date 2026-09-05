@@ -482,23 +482,37 @@ CONSENT_SCRIPT = """<script>
 // samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
 // lest av noe, og forsvinner med siden ved neste navigasjon.
 //
-// eventCallback/eventTimeout-mønsteret under (samme teknikk som GTM sin
-// egen "lenke klikket"-auto-sporing brukte i Universal Analytics-dagene)
-// er PÅKREVD, ikke valgfritt: tilbudslenkene navigerer i samme fane, så
-// uten dette rekker nettleseren ofte å forlate siden FØR GTM faktisk har
-// sendt hendelsen til GA4 -- bekreftet i praksis 2026-08-31 (klikk ga
-// aldri noe utslag i sanntidsrapporten). preventDefault() + maks 300ms
-// forsinket navigering løser det, og faller trygt tilbake til vanlig
-// navigering uten forsinkelse hvis GTM aldri lastes (intet samtykke).
+// Forhandlerlenker åpnes i ny fane (target="_blank", se render_offer_card/
+// render_winner_widget) -- brukeren beholder Kontaktlinser.no åpent og kan
+// sammenligne flere butikker uten å miste sammenligningen, samme mønster
+// bekreftet hos andre prissammenligningstjenester. Siden fanen med DENNE
+// siden ALDRI navigerer bort, er det ingen kappløp mot GTM-sendingen lenger
+// -- vanlig window.open()/target="_blank"-navigering kan skje helt normalt,
+// vi trenger bare å pushe dataLayer-eventet ved siden av.
+//
+// eventCallback/eventTimeout-mønsteret under er likevel beholdt som
+// fallback for en lenke uten target="_blank" (skulle en sånn dukke opp et
+// sted): tilbudslenker som navigerer i SAMME fane rekker ofte å forlate
+// siden FØR GTM faktisk har sendt hendelsen til GA4 -- bekreftet i praksis
+// 2026-08-31 (klikk ga aldri noe utslag i sanntidsrapporten). preventDefault()
+// + maks 300ms forsinket navigering løser det for det tilfellet.
 window.dataLayer = window.dataLayer || [];
 document.addEventListener('click', function (e) {
   var link = e.target.closest('a[data-retailer]');
   if (!link) return;
-  // Ctrl/Cmd/Shift-klikk, midtklikk eller lenker som allerede åpner i ny
-  // fane skal fungere helt normalt -- ingen forsinkelse å vente på når
-  // brukeren blir værende på denne siden uansett.
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-  if (link.target && link.target !== '_self') return;
+
+  if (link.target === '_blank') {
+    // Nettleseren håndterer selve navigeringen til den nye fanen -- vi
+    // pusher bare sporingseventet ved siden av, ingen forsinkelse nødvendig.
+    window.dataLayer.push({
+      event: 'outbound_click',
+      retailer: link.getAttribute('data-retailer'),
+      affiliate: link.getAttribute('data-affiliate') === '1'
+    });
+    return;
+  }
+
   e.preventDefault();
   var navigated = false;
   function go() {
@@ -2333,7 +2347,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
     # merket (ALLTID totalpris-basert, se reconcile()) er dermed fortsatt
     # etterprøvbart uten at hvert enkelt kort må gjenta regnestykket.
     shipping_text = _shipping_note(o["shipping_nok"], o.get("shipping_policy"))
-    rel = "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow"
+    rel = "sponsored" if o["source"] == "affiliate_feed" else "nofollow"
     price_label = (
         f'Gå til {escape(retailer)} for {escape(product_name)}, {_fmt_kr(o["price_nok"])}'
         if product_name else f'Se hos {escape(retailer)}, {_fmt_kr(o["price_nok"])}'
@@ -2344,7 +2358,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
     # å klikke per rad. price-pill er derfor et <span>, ikke en egen <a> --
     # nøstede <a>-tagger er ugyldig HTML og ville brutt visningen.
     is_affiliate = "1" if o["source"] == "affiliate_feed" else "0"
-    return f"""<a class="{css_class}" href="{escape(o["url"])}" rel="{rel}" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
+    return f"""<a class="{css_class}" href="{escape(o["url"])}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
@@ -2600,7 +2614,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     if not best:
         return "", ""
 
-    rel = "sponsored nofollow" if best["source"] == "affiliate_feed" else "nofollow"
+    rel = "sponsored" if best["source"] == "affiliate_feed" else "nofollow"
     shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
     winner_aria = (
         f'Gå til {escape(best["retailer"])} for {escape(product_name)}, {_fmt_kr(best["total"])} totalt inkl. frakt'
@@ -2611,7 +2625,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
     # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
-    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" rel="{rel}" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2663,7 +2677,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
             "price_nok": o["price_nok"],
             "shipping_policy": o.get("shipping_policy"),
             "url": o["url"],
-            "rel": "sponsored nofollow" if o["source"] == "affiliate_feed" else "nofollow",
+            "rel": ("sponsored" if o["source"] == "affiliate_feed" else "nofollow") + " noopener",
             "logo_file": logo_entry[0] if logo_entry else None,
             "logo_dark": logo_entry[1] if logo_entry else False,
             "in_stock": o["in_stock"],

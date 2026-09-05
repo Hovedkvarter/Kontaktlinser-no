@@ -1231,6 +1231,63 @@ statusnotat:
   bare indekserings-/cache-forsinkelse, samme kategori som prisvisnings-
   forsinkelsen over -- ingen kodeendring nødvendig.
 
+## Utgående forhandlerlenker åpnes nå i ny fane + rel-fiks (2026-09-05)
+
+Brukeren observerte at andre norske prissammenligningstjenester konsekvent åpner
+forhandleren i ny fane (bekreftet ved egen sjekk: "alle jeg har sjekket ... åpner ny
+fane og brukeren følger etter"), og at dette passer godt til brukerreisen for en
+sammenligningstjeneste (sammenlign → besøk butikk → kom tilbake → besøk neste butikk)
+selv om `target="_blank"` ikke er en dokumentert SEO-fordel i seg selv.
+
+- **`render_offer_card()` og `render_winner_widget()`** (begge i `render_templates.py`)
+  fikk `target="_blank"` + `rel="... noopener"` på selve tilbudslenken. `noopener` er
+  ren browser-sikkerhetshygiene ved ny-fane-åpning (reverse tabnabbing), ikke et
+  SEO-signal. Kun UTGÅENDE forhandlerlenker endret -- interne lenker (merker,
+  kategorier, guider, andre produkter) er UENDRET, åpnes fortsatt i samme fane.
+- **Samtidig rel-fiks:** koden brukte faktisk `"sponsored nofollow"` kombinert for
+  affiliate-lenker, i strid med den faste regelen lenger opp i dette dokumentet
+  ("rel="sponsored" på affiliate-lenker, rel="nofollow" på scrapede -- ikke bland
+  disse"). Rettet til rendyrket `sponsored` (affiliate) / `nofollow` (skrapet), pluss
+  `noopener` på begge nå som de åpnes i ny fane.
+- **Klikk-sporing** (`outbound_click`-dataLayer-pushen i `CONSENT_SCRIPT`) måtte
+  justeres: det gamle preventDefault()+300ms-forsinkelses-mønsteret var bygget for å
+  vinne et kappløp mot samme-fane-navigering (se punktet fra 2026-08-31 lenger opp) --
+  med `target="_blank"` navigerer IKKE denne fanen bort i det hele tatt, så
+  klikk-handleren sjekker nå `link.target === '_blank'` og pusher eventet direkte uten
+  forsinkelse/preventDefault i det tilfellet (fallback-grenen med forsinkelse er
+  beholdt for en eventuell fremtidig lenke uten `target="_blank"`). Uendret opprinnelig
+  bug ville ellers stille droppet all sporing for disse lenkene, siden handleren fra
+  før returnerte tidlig på `link.target !== '_self'`.
+- Quantity-kalkulatorens JS (`_QTY_CALC_SCRIPT`) skriver `rel` på nytt ved antallsbytte
+  (leser fra `calc_offers`-listen) -- oppdatert til samme `sponsored`/`nofollow` +
+  `noopener`-mønster der også, men rører ALDRI `target`-attributtet (satt kun én gang
+  ved førstegangsrendring, DOM-elementet gjenbrukes ved sortering).
+
+## Utvidet produktserie-katalog: 17 nye familier (2026-09-05)
+
+Fulgte opp pilotrunden (11 familier, se product_families.json sin `$comment`) med
+brukerens "vi skal lage dette for alle der det er mulig"-instruks. Samme
+verifiseringsdisiplin: kun sfærisk/torisk/multifokal/XR-varianter av SAMME
+linsedesign, materialkonsistens sjekket programmatisk per familie før den ble lagt
+til. 17 nye familier lagt til (28 totalt): Acuvue Oasys 1-Day w/ Hydraluxe, Acuvue
+Oasys MAX 1-Day, Dailies Total1, TOTAL30, Precision1, Precision7, SofLens Daily
+Disposable, SofLens 59, PureVision, PureVision2, Biotrue ONEday, ULTRA, ULTRA ONE DAY,
+Biomedics 55 Evolution, Biomedics 1Day Extra, Miru 1day UpSide, Proclear Multifocal XR.
+3 av disse fikk automatisk en ekstra privat-label-variant-side (samme
+kryssreferanse-mekanisme som pilotrunden): TOTAL30→Synsam (`eyeq-total30`),
+Precision1→Synsam (`eyeq-precision1`), Biomedics 1Day Extra→Brilleland (`iwear-fit`)
+OG Synsam (`eyeq-one-day-classic`).
+
+**Bevisst holdt separate familier** (samme prinsipp som Biofinity/Biofinity XR i
+pilotrunden -- delt materiale betyr ikke samme produktlinje): PureVision vs.
+PureVision2 (samme "Balafilcon A", men egen produktgenerasjon), ULTRA vs. ULTRA ONE
+DAY (samme "Samfilcon A med MoistureSeal", men månedslinse vs. dagslinse), SofLens 59
+vs. SofLens 38 (SofLens 38 bevisst utelatt -- uverifisert/annet materiale).
+**Bevisst utelatt helt:** Miru "Flatpack"-variantene (ingen sfærisk Flatpack finnes å
+anker familien i, uklart om Upside/Flatpack er samme linse), `focus-dailies-*`/
+`dailies-all-day-comfort-*` (rene ALIASER av Dailies AquaComfort Plus via
+`duplicate_products`, ikke en egen variant-familie).
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
