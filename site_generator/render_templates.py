@@ -6756,8 +6756,8 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
 .hero {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }}
-.hero-copy {{ flex: 1 1 320px; }}
-.category-stats {{ display: flex; flex-wrap: wrap; margin: 18px 0 8px; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }}
+.hero-copy {{ flex: 1 1 320px; max-width: 680px; }}
+.category-stats {{ display: flex; flex-wrap: wrap; margin-top: 18px; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }}
 .category-stat {{ display: flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; padding: 8px 14px; border-right: 1px solid var(--border); font-size: 0.8rem; color: var(--ink); font-family: 'Inter', sans-serif; white-space: nowrap; }}
 .category-stat:last-child {{ border-right: none; }}
 .category-stat svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
@@ -6829,14 +6829,14 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
       <div class="kicker">Kategori</div>
       <h1>{escape(category["label"])}</h1>
       <p>{escape(intro_text)}</p>
+      <div class="category-stats">
+        <span class="category-stat">{BOX_ICON_SVG}<span>{n_products} produkter</span></span>
+        <span class="category-stat">{TAG_ICON_SVG}<span>{n_brands} merker</span></span>
+        <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{_BUILDING_ICON}</svg><span>Norske nettbutikker</span></span>
+        <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres daglig</span></span>
+      </div>
     </div>
     {explainer_html}
-  </div>
-  <div class="category-stats">
-    <span class="category-stat">{BOX_ICON_SVG}<span>{n_products} produkter</span></span>
-    <span class="category-stat">{TAG_ICON_SVG}<span>{n_brands} merker</span></span>
-    <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{_BUILDING_ICON}</svg><span>Norske nettbutikker</span></span>
-    <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres daglig</span></span>
   </div>
 
   <div class="category-filters-bar">
