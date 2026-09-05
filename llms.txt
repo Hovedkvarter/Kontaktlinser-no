@@ -22,9 +22,17 @@ frakt) - den påvirkes ikke av om vi har en affiliate-avtale med forhandleren.
 - Merker: https://kontaktlinser.no/merke/
 - Full produktoversikt: https://kontaktlinser.no/sitemap.xml
 - Guider: https://kontaktlinser.no/guide/
+- Om oss: https://kontaktlinser.no/om-oss/
+- Slik sammenligner vi priser: https://kontaktlinser.no/slik-sammenligner-vi-priser/
+- Slik matcher vi produkter: https://kontaktlinser.no/slik-matcher-vi-produkter/
+- Redaksjonelle prinsipper: https://kontaktlinser.no/redaksjonelle-prinsipper/
+- Affiliate og finansiering: https://kontaktlinser.no/affiliate-og-finansiering/
+- Personvern og cookies: https://kontaktlinser.no/personvern/
 
 ## Om oss
 
 Kontaktlinser.no er en uavhengig, norsk prissammenligningstjeneste. Vi kan
 motta provisjon fra forhandlere via affiliate-lenker; dette påvirker ikke
-prisen kunden betaler og ikke rangeringen av tilbud.
+prisen kunden betaler og ikke rangeringen av tilbud. Se
+https://kontaktlinser.no/slik-sammenligner-vi-priser/ og
+https://kontaktlinser.no/slik-matcher-vi-produkter/ for full metodikk.
