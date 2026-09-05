@@ -6617,7 +6617,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     sorted_brands = sorted(brand_counts, key=lambda b: (-brand_counts[b], brand_labels[b]))
     n_brands = len(sorted_brands)
     n_products = len(products)
-    POPULAR_N = 8
+    POPULAR_N = 6
     popular_brands = sorted_brands[:POPULAR_N]
     rest_brands = sorted_brands[POPULAR_N:]
 
@@ -6769,7 +6769,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 .category-explainer a {{ font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }}
 .category-explainer a:hover {{ text-decoration: underline; }}
 .category-filters-bar {{ margin: 26px 0 20px; }}
-.category-brand-row {{ margin-bottom: 14px; }}
+.category-brand-row {{ margin-top: 18px; }}
 .category-filters-label {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }}
 .brand-chip-row {{ display: flex; gap: 8px; flex-wrap: wrap; }}
 .brand-chip-row[hidden] {{ display: none; }}
@@ -6835,22 +6835,21 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
         <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{_BUILDING_ICON}</svg><span>Norske nettbutikker</span></span>
         <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres daglig</span></span>
       </div>
+      <div class="category-brand-row">
+        <span class="category-filters-label">Populære merker</span>
+        <div class="brand-chip-row">
+          {popular_chips_html}
+          {show_all_toggle_html}
+        </div>
+        <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
+          {rest_chips_html}
+        </div>
+      </div>
     </div>
     {explainer_html}
   </div>
 
   <div class="category-filters-bar">
-    <div class="category-brand-row">
-      <span class="category-filters-label">Populære merker</span>
-      <div class="brand-chip-row">
-        {popular_chips_html}
-        {show_all_toggle_html}
-      </div>
-      <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
-        {rest_chips_html}
-      </div>
-    </div>
-
     <button type="button" class="filter-trigger" id="filter-trigger">
       Filtrer produkter
       <span class="filter-trigger-badge" id="filter-trigger-badge" hidden>0</span>
