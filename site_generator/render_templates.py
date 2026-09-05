@@ -15,6 +15,7 @@ Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
 import json
+import re
 from datetime import datetime, timezone
 from html import escape
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -3917,6 +3918,9 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
   <li>Lavere risiko for øyeinfeksjon siden linsen aldri gjenbrukes</li>
   <li>Høyere kostnad per linse, og mer emballasjeavfall ved daglig bruk</li>
 </ul>
+<p style="font-size:0.95rem;line-height:1.7;">Et eksempel på en mye brukt dagslinse er
+<a href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">SofLens Daily Disposable</a>
+– sammenlign priser og se hvor mange forhandlere som fører den akkurat nå.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Månedslinser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
@@ -3926,6 +3930,8 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
   <li>Mange moderne månedslinser (silikonhydrogel) slipper gjennom mer oksygen enn eldre
   materialer, noe som kan gi bedre komfort ved lange dager med linser</li>
 </ul>
+<p style="font-size:0.95rem;line-height:1.7;">Et eksempel på en moderne silikonhydrogel-månedslinse er
+<a href="/kontaktlinser/ultra/ultra-6-pack/">Ultra 6-pack</a> fra Bausch + Lomb.</p>
 
 <p style="margin-top:24px;">Uansett type: følg alltid byttefrekvensen optikeren har satt for
 akkurat din linse og resept – det er ikke bare et prisspørsmål, men avgjørende for
@@ -4508,9 +4514,9 @@ etterpå.</p>
         ],
     },
     "kan-man-dusje-med-kontaktlinser": {
-        "title": "Kan man dusje, bade eller svømme med kontaktlinser?",
-        "updated": "2026-08-16",
-        "description": "Hvorfor vann og kontaktlinser bør unngås sammen, og hva du bør gjøre hvis linsene blir våte.",
+        "title": "Dusje med kontaktlinser? Slik unngår du problemer",
+        "updated": "2026-09-05",
+        "description": "Kort svar: unngå vann i linsene hvis du kan. Se hvorfor, og nøyaktig hva du skal gjøre hvis de blir våte likevel.",
         "body_html": """
 <p>Det anbefales å unngå at kontaktlinsene kommer i kontakt med vann – enten det er
 dusjvann, bassengvann eller vann fra sjø/innsjø. Vann kan inneholde mikroorganismer
@@ -4843,6 +4849,12 @@ fra rundt ±4,00 dioptrier og oppover blir forskjellen merkbar).</p>
 – mål som en brilleresept ikke har. Dette krever en egen synsundersøkelse/linsetilpasning,
 ikke bare et gjenbruk av brilletallene.</p>
 
+<p style="margin-top:16px;">Når du har fått en egen kontaktlinseresept, kan du søke opp nøyaktig det produktet
+optikeren har satt deg opp med – for eksempel er
+<a href="/kontaktlinser/dailies/focus-dailies-90-pack/">Focus Dailies 90-pack</a> en mye
+brukt dagslinse blant nye linsebrukere – og sammenligne priser fra flere norske
+nettbutikker.</p>
+
 <p style="margin-top:16px;">Kort sagt: bruk alltid en resept som er satt opp spesifikt for kontaktlinser, ikke
 brillestyrken din.</p>
 """,
@@ -5130,9 +5142,9 @@ optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – s
         ],
     },
     "linse-sitter-fast-i-oyet": {
-        "title": "Linsen sitter fast i øyet – hva gjør du?",
-        "updated": "2026-08-17",
-        "description": "Slik løsner du en kontaktlinse som kjennes fastsittende trygt, og når du bør oppsøke optiker med det samme.",
+        "title": "Linse sitter fast i øyet? Gjør dette (og ikke dette)",
+        "updated": "2026-09-05",
+        "description": "Som regel ufarlig – linsen har bare tørket ut eller flyttet seg. Se de trygge stegene for å løsne den, og når du heller bør oppsøke optiker med det samme.",
         "body_html": """
 <p>Kjennes linsen "fastlåst" i øyet, har den som regel bare tørket litt ut eller flyttet seg
 til et annet sted i øyet enn du er vant til å finne den. Det er ikke farlig i seg selv, men
@@ -5203,6 +5215,11 @@ og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på al
   <li>Ta ut linsen, sjekk at den ikke er vrengt, rengjør og sett den inn på nytt</li>
   <li>Bytt til en ny linse hvis den nærmer seg slutten av byttesyklusen</li>
 </ol>
+
+<p style="margin-top:16px;">Går avleiringer på linseoverflaten igjen ofte, kan en dagslinse være verdt å vurdere –
+med f.eks. <a href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">SofLens Daily
+Disposable</a> setter du inn et helt nytt, rent par hver dag, så problemet oppstår
+sjeldnere.</p>
 
 <div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
 Kommer det uklare synet <strong>plutselig, sammen med smerte, rødhet, lysfølsomhet eller
@@ -6023,6 +6040,40 @@ def render_terms_page(now: datetime | None = None) -> str:
 </html>"""
 
 
+_SPEC_NUMBER_RE = re.compile(r"\d+(?:,\d+)?")
+
+
+def _parse_spec_numbers(raw: str | None) -> list[str]:
+    """Trekker ut tallverdier fra en fritekst-spec-streng ('8,4 / 8,8 mm',
+    '38 %', '51 % i kjernen, over 80 % på overflaten') -- håndterer norsk
+    komma-desimal og fler-verdi-felt (dobbel basiskurve, kjerne/overflate-
+    vanninnhold). Returnerer normaliserte streng-verdier (punktum som
+    desimaltegn, sortert numerisk) -- KUN til filter-matching/visning, ikke
+    videre utregning. Tom liste hvis produktet mangler dette spec-feltet
+    (specs er fritekst, ikke strukturerte felt -- ca. halvparten av
+    katalogen mangler Basiskurve/Diameter pr. 2026-09-05, se
+    passform-filter-notatet i CLAUDE.md)."""
+    if not raw:
+        return []
+    return sorted({m.replace(",", ".") for m in _SPEC_NUMBER_RE.findall(raw)}, key=float)
+
+
+def _fit_filter_values(products: list[dict], spec_label: str) -> tuple[list[str], dict[str, list[str]]]:
+    """For ett spec-felt (f.eks. 'Vanninnhold'): finner alle distinkte
+    tallverdier blant PRODUKTENE PÅ DENNE KATEGORISIDEN (ikke hele
+    katalogen -- en toriske-linser-side skal ikke tilby et basiskurve-tall
+    som bare finnes hos en dagslinse), pluss et oppslag produkt-id -> dets
+    egne verdier (til data-attributter på hvert kort)."""
+    all_values: set[str] = set()
+    by_product: dict[str, list[str]] = {}
+    for p in products:
+        specs = {label: value for label, value in p.get("specs", [])}
+        values = _parse_spec_numbers(specs.get(spec_label))
+        by_product[p["id"]] = values
+        all_values.update(values)
+    return sorted(all_values, key=float), by_product
+
+
 def render_category_page(category_slug: str, category: dict, products: list[dict], now: datetime | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
@@ -6038,6 +6089,19 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     # og brukere uten JS faktisk ser.
     rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
 
+    # Passform-filter (2026-09-05): vanninnhold/basiskurve/diameter, i
+    # tillegg til det eksisterende merke-filteret -- ingen annen norsk
+    # kontaktlinse-prissammenligning har dette pr. i dag. Verdiene finnes
+    # KUN som fritekst i specs (se _parse_spec_numbers), og dekningen
+    # varierer mye per kategori (toriske/multifokale har langt færre
+    # Basiskurve/Diameter-oppføringer enn dags-/månedslinser) -- derfor
+    # regnet ut PER kategori og filteret utelates helt der færre enn 2
+    # distinkte verdier finnes, i stedet for å vise et filter som uansett
+    # ikke gjør noe.
+    wc_values, wc_by_id = _fit_filter_values(products, "Vanninnhold")
+    bc_values, bc_by_id = _fit_filter_values(products, "Basiskurve")
+    dia_values, dia_by_id = _fit_filter_values(products, "Diameter")
+
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
         # På kategorisider (i motsetning til merkesider) er MERKET det som
@@ -6046,6 +6110,11 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
         # MyDay/...), så merkenavnet fyller samme "nyttig, varierende info
         # rett under tittelen"-rolle som produsent gjorde på merkesiden.
         brand_link = f'<a class="product-tile-manufacturer" href="/merke/{escape(p["brand_slug"])}/">{escape(p["brand_label"])}</a>'
+        fit_attrs = (
+            f' data-wc="{" ".join(wc_by_id.get(p["id"], []))}"'
+            f' data-bc="{" ".join(bc_by_id.get(p["id"], []))}"'
+            f' data-dia="{" ".join(dia_by_id.get(p["id"], []))}"'
+        )
         return _render_product_tile(
             href=f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
             name=p["name"],
@@ -6055,7 +6124,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
             secondary_line_html=brand_link,
             lowest=lowest,
             other_count=len(p["offers"]) - 1,
-            data_attr=f' data-brand="{escape(p["brand_slug"])}"',
+            data_attr=f' data-brand="{escape(p["brand_slug"])}"{fit_attrs}',
         )
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
@@ -6064,6 +6133,25 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     brand_chips = "".join(
         f'<button class="chip" data-brand="{escape(b)}">{escape(b.capitalize())}</button>' for b in brand_slugs
     )
+
+    def fit_filter_row_html(key: str, values: list[str], all_label: str, aria_label: str, fmt) -> str:
+        # Utelates helt (ikke bare tom rad) hvis under 2 distinkte verdier
+        # finnes for denne kategorien -- et filter med 0-1 valg gjør
+        # ingenting nyttig, bare rot.
+        if len(values) < 2:
+            return ""
+        chips = "".join(
+            f'<button class="chip" data-{key}="{escape(v)}">{escape(fmt(v))}</button>' for v in values
+        )
+        return f"""<div class="filter-row" id="filter-row-{key}" data-filter-key="{key}" role="group" aria-label="{aria_label}">
+    <button class="chip active" data-{key}="all">{all_label}</button>
+    {chips}
+  </div>"""
+
+    wc_filter_html = fit_filter_row_html("wc", wc_values, "Alt vanninnhold", "Filtrer etter vanninnhold", lambda v: f"{v.replace('.', ',')} %")
+    bc_filter_html = fit_filter_row_html("bc", bc_values, "Alle basiskurver", "Filtrer etter basiskurve", lambda v: f"{v.replace('.', ',')} mm")
+    dia_filter_html = fit_filter_row_html("dia", dia_values, "Alle diametere", "Filtrer etter diameter", lambda v: f"{v.replace('.', ',')} mm")
+    fit_filters_html = wc_filter_html + bc_filter_html + dia_filter_html
 
     guides_html = "\n".join(
         f'<li><a href="/guide/{escape(g["slug"])}/">{escape(g["title"])}</a></li>' for g in category.get("guides", [])
@@ -6110,10 +6198,11 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
+  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
     {brand_chips}
   </div>
+  {fit_filters_html}
 
   <div class="list-header">
     <h2 id="result-count">{len(products)} produkter</h2>
@@ -6143,24 +6232,39 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
   // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
   // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
   // scratch, så innholdet er identisk med eller uten JS.
-  const filterRow = document.getElementById('filter-row');
+  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
+  // filter-rader utover merke rendres kun når kategorien faktisk har nok
+  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
+  // querySelectorAll under finner alltid minst brand-raden.
+  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
   const list = document.getElementById('product-list');
   const sortToggle = document.getElementById('sort-toggle');
   let ascending = true;
 
-  filterRow.addEventListener('click', e => {{
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    const brand = btn.dataset.brand;
+  function applyFilters() {{
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {{
-      const show = brand === 'all' || card.dataset.brand === brand;
+      const show = filterGroups.every(group => {{
+        const active = group.querySelector('.chip.active');
+        const key = group.dataset.filterKey;
+        const want = active ? active.dataset[key] : 'all';
+        if (want === 'all') return true;
+        return (card.dataset[key] || '').split(' ').includes(want);
+      }});
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     }});
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }}
+
+  filterGroups.forEach(group => {{
+    group.addEventListener('click', e => {{
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    }});
   }});
 
   sortToggle.addEventListener('click', () => {{
