@@ -18,4 +18,7 @@
   <sitemap>
     <loc>https://kontaktlinser.no/sitemap-private-label.xml</loc>
   </sitemap>
+  <sitemap>
+    <loc>https://kontaktlinser.no/sitemap-serier.xml</loc>
+  </sitemap>
 </sitemapindex>
