@@ -105,6 +105,26 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
 - SmartBuyGlasses er IKKE lagt til: robots.txt blokkerer `/product/` for
   vanlige botter, kun Googlebot har unntak. Prospekt for affiliate-avtale,
   men ingen skraping uten å utgi seg for å være Googlebot.
+  **Status 2026-09-05:** brukeren har søkt om affiliate-program for
+  smartbuyglasses.no via CJ (Commission Junction) -- fikk først avslag, har
+  tatt kontakt og søkt på nytt, svar avventes. Legg til som `affiliate_feed`
+  i `sources_config.json`/`product_matching.json` den dagen en avtale
+  faktisk er godkjent -- ikke før.
+- **Lensit-avtale undersøkt og forkastet 2026-09-05:** brukeren fant at
+  Lensit (lensit.no) har hatt et Tradedoubler-partnerprogram tidligere
+  (død `/pages/tradedoubler`-landingsside fra 2020, personvernerklæringen
+  deres nevner fortsatt "d) Affiliates. Vi samarbeider med tradedoubler"),
+  men alle gamle Tradedoubler-lenker til Lensit man finner på nettet er nå
+  bekreftet ikke-fungerende -- programmet er reelt inaktivt. Lensit svarer
+  heller ikke på henvendelser. **Beslutning: Lensit beholdes likevel som
+  skrapet (ikke-avtale) kilde** -- dropper man dem for å "stoppe lekkasjen"
+  av gratis trafikk til en billig, ikke-monetisert forhandler, bryter man
+  sidens eget publiserte løfte om at rangeringen aldri påvirkes av
+  provisjon (se disclosure-teksten / Forbrukertilsynet-veiledningen lenger
+  opp i dette dokumentet) -- og Lensit bidrar uansett reell bredde/
+  troverdighet til sammenligningen. Konkret kontaktinfo funnet om noen vil
+  prøve igjen senere: kundeservice@lensit.no, tlf. 788 96 888 (man–tor
+  09–15, fre 09–14), org.nr 960 985 532 (Lensit.no AS).
 - Specsavers er IKKE lagt til: siden sitter bak en Cloudflare bot-utfordring
   ("Just a moment...", `Cf-Mitigated: challenge`) -- vi løser ikke
   CAPTCHA/bot-utfordringer. Selectorene i `sources_config.json` er fortsatt
