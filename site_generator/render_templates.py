@@ -22,6 +22,22 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
 
+
+def _json_str(s: str) -> str:
+    """JSON-escaper for strengverdier som limes inn i håndbygde JSON-LD
+    <script>-blokker -- IKKE html.escape() (som escape()-navnet ellers
+    brukes til overalt på siden for vanlig HTML-markup). html.escape()
+    gjør "&" om til bokstavelig "&amp;"-TEKST, som blir stående som feil
+    tegn inni selve JSON-en (gyldig JSON-syntaks, men feil VERDI -- en
+    lenke med "&amp;" i stedet for "&" er en ødelagt URL). Oppdaget
+    2026-09-05: rammet fra før kun det fåtallet affiliate-URL-er med "&" i
+    seg, men ble et utbredt, reelt problem samme dag UTM-parametre
+    (utm_source&utm_medium&utm_campaign) ble lagt til på nesten alle
+    ikke-affiliate tilbudslenker. Returnerer STRENGEN UTEN omsluttende
+    anførselstegn -- malene rundt legger selv til `"..."`."""
+    return json.dumps(s)[1:-1]
+
+
 BASE_URL = "https://kontaktlinser.no"
 
 
@@ -2781,7 +2797,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
         "price": {o["price_nok"]},
         "priceCurrency": "NOK",
-        "url": "{escape(o["url"])}",
+        "url": "{_json_str(o["url"])}",
         "availability": "https://schema.org/InStock",
         "shippingDetails": {{
           "@type": "OfferShippingDetails",
@@ -3304,9 +3320,9 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
   "@graph": [
     {{"@type": "BreadcrumbList", "itemListElement": [
       {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
-      {{"@type": "ListItem", "position": 2, "name": "{escape(name)}", "item": "{BASE_URL}/produsent/{manufacturer_slug}/"}}
+      {{"@type": "ListItem", "position": 2, "name": "{_json_str(name)}", "item": "{BASE_URL}/produsent/{manufacturer_slug}/"}}
     ]}},
-    {{"@type": "Organization", "name": "{escape(name)}", "url": "{escape(data['official_url'])}"}}
+    {{"@type": "Organization", "name": "{_json_str(name)}", "url": "{_json_str(data['official_url'])}"}}
   ]
 }}"""
 
@@ -6407,7 +6423,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
         "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
         "price": {o["price_nok"]},
         "priceCurrency": "NOK",
-        "url": "{escape(o["url"])}",
+        "url": "{_json_str(o["url"])}",
         "availability": "https://schema.org/InStock",
         "shippingDetails": {{
           "@type": "OfferShippingDetails",
@@ -6866,7 +6882,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
           "seller": {{"@type": "Organization", "name": "{escape(o["retailer"])}"}},
           "price": {o["price_nok"]},
           "priceCurrency": "NOK",
-          "url": "{escape(o["url"])}",
+          "url": "{_json_str(o["url"])}",
           "availability": "https://schema.org/InStock",
           "shippingDetails": {{
             "@type": "OfferShippingDetails",
