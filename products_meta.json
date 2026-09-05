@@ -299,7 +299,7 @@
   "products": [
     {
       "id": "acuvue-oasys-6pk",
-      "slug": "oasys-6-pack",
+      "slug": "acuvue-oasys-6-pack",
       "name": "Acuvue Oasys 6-pack",
       "description": "Silikonhydrogel, UV-beskyttelse.",
       "long_description": "Acuvue Oasys er en silikonhydrogel-linse (senofilcon A) med UV-filter, offisielt en 14-dagerslinse, men brukes i praksis ofte som ukelinse. Slipper gjennom mye oksygen og passer godt for aktive brukere og for deg med noe tørre øyne.",
@@ -375,7 +375,7 @@
     },
     {
       "id": "acuvue-vita-6pk",
-      "slug": "vita-6-pack",
+      "slug": "acuvue-vita-6-pack",
       "name": "Acuvue Vita 6-pack",
       "description": "Månedslinse med HydraMax-teknologi.",
       "long_description": "Acuvue Vita er en månedslinse i senofilcon C, en videreutvikling av materialet i Oasys med noe høyere vanninnhold (41 %). Passer for deg som ønsker en tradisjonell månedlig bytterutine fremfor ukentlig eller daglig bytte.",
@@ -496,7 +496,7 @@
     },
     {
       "id": "acuvue-moist-30pk",
-      "slug": "moist-30-pack",
+      "slug": "1-day-acuvue-moist-30-pack",
       "name": "1-Day Acuvue Moist 30-pack",
       "description": "Endagslinse med LACREON-fuktighetsteknologi.",
       "long_description": "1-Day Acuvue Moist er en dagslinse i etafilcon A med LACREON-teknologi, som binder et fuktighetsbevarende stoff (PVP) inn i linsen. Høyt vanninnhold (58 %) gjør den godt egnet for deg med normale til noe tørre øyne som foretrekker å bytte linse hver dag.",
@@ -564,7 +564,7 @@
     },
     {
       "id": "acuvue-oasys-max-1day-30pk",
-      "slug": "oasys-max-1-day-30-pack",
+      "slug": "acuvue-oasys-max-1-day-30-pack",
       "name": "Acuvue Oasys MAX 1-Day 30-pack",
       "description": "Endagslinse med TearStable-teknologi og UV-beskyttelse.",
       "long_description": "Acuvue Oasys MAX 1-Day er Johnson & Johnsons nyeste dagslinse i senofilcon A, med TearStable-teknologi for jevnere fuktighet gjennom dagen. Litt bredere diameter enn standard Oasys-linsene gir god sentrering på øyet.",
@@ -640,7 +640,7 @@
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-30pk",
-      "slug": "oasys-1-day-hydraluxe-30-pack",
+      "slug": "acuvue-oasys-1-day-with-hydraluxe-30-pack",
       "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
       "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
       "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
@@ -716,7 +716,7 @@
     },
     {
       "id": "acuvue-oasys-astigmatism-6pk",
-      "slug": "oasys-astigmatism-6-pack",
+      "slug": "acuvue-oasys-for-astigmatism-6-pack",
       "name": "Acuvue Oasys for Astigmatism 6-pack",
       "description": "Torisk linse for astigmatisme, silikonhydrogel.",
       "long_description": "Acuvue Oasys for Astigmatism er den toriske varianten av Oasys, formet for å ligge stabilt ved skjev hornhinne. Dekker sylinderstyrke fra -0,75 til -2,75 og brukes offisielt som 14-dagerslinse.",
@@ -796,7 +796,7 @@
     },
     {
       "id": "acuvue-moist-astigmatism-30pk",
-      "slug": "moist-astigmatism-30-pack",
+      "slug": "1-day-acuvue-moist-for-astigmatism-30-pack",
       "name": "1-Day Acuvue Moist for Astigmatism 30-pack",
       "description": "Endagslinse med torisk design for astigmatisme.",
       "long_description": "1-Day Acuvue Moist for Astigmatism er den toriske dagslinsen i serien, med samme LACREON-fuktighetsteknologi som standard Moist. Dekker sylinderstyrke fra -0,75 til -2,25 og byttes hver dag.",
@@ -952,7 +952,7 @@
     },
     {
       "id": "air-optix-colors-2pk",
-      "slug": "colors-2-pack",
+      "slug": "air-optix-colors-2-pack",
       "name": "Air Optix Colors 2-pack",
       "description": "Fargede månedslinser, med og uten styrke.",
       "long_description": "Air Optix Colors er en farget månedslinse fra Alcon i lotrafilcon B, med en tre-lags fargeteknologi som skal gi et naturlig utseende. Fås både med og uten styrke, men krever resept uansett.",
@@ -1007,7 +1007,7 @@
     },
     {
       "id": "adore-bi-tone-2pk",
-      "slug": "bi-tone-2-pack",
+      "slug": "adore-bi-tone-2-pack",
       "name": "ADORE Bi-tone 2-pack",
       "description": "Fargede endagslinser uten styrke.",
       "long_description": "ADORE Bi-tone er en farget linse fra den italienske produsenten Eyemed Technologies, i polymacon med 38 % vanninnhold. Bi-tone-designet kombinerer to fargetoner for en fyldigere, mer flerdimensjonal effekt enn en enkelt flat farge.",
@@ -1061,7 +1061,7 @@
     },
     {
       "id": "adore-dare-2pk",
-      "slug": "dare-2-pack",
+      "slug": "adore-dare-2-pack",
       "name": "ADORE Dare 2-pack",
       "description": "Fargede endagslinser uten styrke.",
       "long_description": "ADORE Dare er en farget linse fra samme serie som ADORE Bi-tone (Eyemed Technologies, polymacon, 38 % vanninnhold), men med et mer markant fargemønster for en tydeligere endring av øyefargen.",
@@ -1115,7 +1115,7 @@
     },
     {
       "id": "acuvue-oasys-multifocal-6pk",
-      "slug": "oasys-multifocal-6-pack",
+      "slug": "acuvue-oasys-multifocal-6-pack",
       "name": "Acuvue Oasys Multifocal 6-pack",
       "description": "Multifokal månedslinse for alderssyn.",
       "long_description": "Acuvue Oasys Multifocal er den progressive varianten av Oasys for deg med alderssyn, bygget på samme senofilcon A-materiale. Fås i tre addisjonsstyrker (lav, middels, høy) og brukes offisielt som 14-dagerslinse.",
@@ -1247,7 +1247,7 @@
     },
     {
       "id": "biofinity-energys-6pk",
-      "slug": "energys-6-pack",
+      "slug": "biofinity-energys-6-pack",
       "name": "Biofinity Energys 6-pack",
       "description": "Månedslinse for deg som sitter mye foran skjerm.",
       "long_description": "Biofinity Energys er CooperVisions skjermtilpassede variant av Biofinity, med samme comfilcon A-materiale men en linsedesign ment å redusere anstrengelse ved mye nærarbeid foran skjerm. Samme brukstid og oksygengjennomstrømning som standard Biofinity.",
@@ -1310,7 +1310,7 @@
     },
     {
       "id": "biofinity-xr-6pk",
-      "slug": "xr-6-pack",
+      "slug": "biofinity-xr-6-pack",
       "name": "Biofinity XR 6-pack",
       "description": "Månedslinse for ekstreme styrker.",
       "long_description": "Biofinity XR er CooperVisions utvidede styrkeserie av Biofinity, samme comfilcon A-materiale men produsert for høyere plusstyrker og minusstyrker enn standardserien dekker. Nyttig for deg med sterk brytningsfeil som ikke fås i vanlig Biofinity.",
@@ -2885,7 +2885,7 @@
     },
     {
       "id": "air-optix-night-day-aqua-6pk",
-      "slug": "night-day-aqua-6-pack",
+      "slug": "air-optix-night-day-aqua-6-pack",
       "name": "Air Optix Night & Day Aqua 6-pack",
       "description": "Månedslinse for kontinuerlig bruk.",
       "long_description": "Air Optix Night & Day Aqua er Alcons månedslinse i lotrafilcon A, godkjent for kontinuerlig bruk i inntil 30 dager/netter etter avtale med optiker. Lavere vanninnhold enn nyere Air Optix-linser, men svært høy oksygengjennomstrømning.",
@@ -3423,7 +3423,7 @@
     },
     {
       "id": "biomedics-1day-xtra-30pk",
-      "slug": "biomedics-1-day-xtra-30-pack",
+      "slug": "biomedics-1day-extra-30-pack",
       "name": "Biomedics 1Day Extra 30-pack",
       "description": "Dagslinse fra CooperVision.",
       "long_description": "Biomedics 1Day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
@@ -3471,7 +3471,7 @@
     },
     {
       "id": "biomedics-1day-xtra-toric-30pk",
-      "slug": "biomedics-1-day-xtra-toric-30-pack",
+      "slug": "biomedics-1day-extra-toric-30-pack",
       "name": "Biomedics 1Day Extra Toric 30-pack",
       "description": "Torisk dagslinse fra CooperVision.",
       "long_description": "Biomedics 1Day Extra Toric er den toriske dagslinsen fra CooperVision, samme materiale som standard 1Day Extra, formet for astigmatisme.",
@@ -3953,7 +3953,7 @@
     },
     {
       "id": "acuvue-moist-90pk",
-      "slug": "moist-90-pack",
+      "slug": "1-day-acuvue-moist-90-pack",
       "name": "1-Day Acuvue Moist 90-pack",
       "description": "Endagslinse med LACREON-fuktighetsteknologi.",
       "long_description": "1-Day Acuvue Moist er en dagslinse i etafilcon A med LACREON-teknologi, som binder et fuktighetsbevarende stoff (PVP) inn i linsen. Høyt vanninnhold (58 %) gjør den godt egnet for deg med normale til noe tørre øyne som foretrekker å bytte linse hver dag.",
@@ -4016,7 +4016,7 @@
     },
     {
       "id": "acuvue-moist-astigmatism-90pk",
-      "slug": "moist-astigmatism-90-pack",
+      "slug": "1-day-acuvue-moist-for-astigmatism-90-pack",
       "name": "1-Day Acuvue Moist for Astigmatism 90-pack",
       "description": "Endagslinse med torisk design for astigmatisme.",
       "long_description": "1-Day Acuvue Moist for Astigmatism er den toriske dagslinsen i serien, med samme LACREON-fuktighetsteknologi som standard Moist. Dekker sylinderstyrke fra -0,75 til -2,25 og byttes hver dag.",
@@ -4087,7 +4087,7 @@
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-90pk",
-      "slug": "oasys-1-day-hydraluxe-90-pack",
+      "slug": "acuvue-oasys-1-day-with-hydraluxe-90-pack",
       "name": "Acuvue Oasys 1-Day with Hydraluxe 90-pack",
       "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
       "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
@@ -4150,7 +4150,7 @@
     },
     {
       "id": "acuvue-oasys-max-1day-90pk",
-      "slug": "oasys-max-1-day-90-pack",
+      "slug": "acuvue-oasys-max-1-day-90-pack",
       "name": "Acuvue Oasys MAX 1-Day 90-pack",
       "description": "Endagslinse med TearStable-teknologi og UV-beskyttelse.",
       "long_description": "Acuvue Oasys MAX 1-Day er Johnson & Johnsons nyeste dagslinse i senofilcon A, med TearStable-teknologi for jevnere fuktighet gjennom dagen. Litt bredere diameter enn standard Oasys-linsene gir god sentrering på øyet.",
@@ -4213,7 +4213,7 @@
     },
     {
       "id": "biomedics-1day-xtra-90pk",
-      "slug": "biomedics-1-day-xtra-90-pack",
+      "slug": "biomedics-1day-extra-90-pack",
       "name": "Biomedics 1Day Extra 90-pack",
       "description": "Dagslinse fra CooperVision.",
       "long_description": "Biomedics 1Day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
@@ -4948,7 +4948,7 @@
     },
     {
       "id": "acuvue-moist-multifocal-30pk",
-      "slug": "moist-multifocal-30-pack",
+      "slug": "1-day-acuvue-moist-multifocal-30-pack",
       "name": "1-Day Acuvue Moist Multifocal 30-pack",
       "description": "Multifokal endagslinse med LACREON-fuktighetsteknologi.",
       "long_description": "1-Day Acuvue Moist Multifocal er den progressive dagslinsen i Moist-serien, samme etafilcon A-materiale og LACREON-teknologi som standard Moist, tilpasset alderssyn.",
@@ -4990,7 +4990,7 @@
     },
     {
       "id": "acuvue-moist-multifocal-90pk",
-      "slug": "moist-multifocal-90-pack",
+      "slug": "1-day-acuvue-moist-multifocal-90-pack",
       "name": "1-Day Acuvue Moist Multifocal 90-pack",
       "description": "Multifokal endagslinse med LACREON-fuktighetsteknologi.",
       "long_description": "1-Day Acuvue Moist Multifocal er den progressive dagslinsen i Moist-serien, samme etafilcon A-materiale og LACREON-teknologi som standard Moist, tilpasset alderssyn.",
@@ -5032,7 +5032,7 @@
     },
     {
       "id": "acuvue-oasys-1day-astigmatism-30pk",
-      "slug": "oasys-1-day-for-astigmatism-30-pack",
+      "slug": "acuvue-oasys-1-day-for-astigmatism-30-pack",
       "name": "Acuvue Oasys 1-Day for Astigmatism 30-pack",
       "description": "Torisk endagslinse fra Acuvue.",
       "long_description": "Acuvue Oasys 1-Day for Astigmatism er den toriske dagslinsen i Oasys 1-Day-serien, adskilt fra den vanlige (månedlige) Acuvue Oasys for Astigmatism -- denne byttes hver dag.",
@@ -5075,7 +5075,7 @@
     },
     {
       "id": "acuvue-oasys-1day-astigmatism-90pk",
-      "slug": "oasys-1-day-for-astigmatism-90-pack",
+      "slug": "acuvue-oasys-1-day-for-astigmatism-90-pack",
       "name": "Acuvue Oasys 1-Day for Astigmatism 90-pack",
       "description": "Torisk endagslinse fra Acuvue.",
       "long_description": "Acuvue Oasys 1-Day for Astigmatism er den toriske dagslinsen i Oasys 1-Day-serien, adskilt fra den vanlige (månedlige) Acuvue Oasys for Astigmatism -- denne byttes hver dag.",
@@ -5113,7 +5113,7 @@
     },
     {
       "id": "biofinity-multifocal-toric-3pk",
-      "slug": "multifocal-toric-3-pack",
+      "slug": "biofinity-multifocal-toric-3-pack",
       "name": "Biofinity Multifocal Toric 3-pack",
       "description": "Multifokal og torisk månedslinse fra CooperVision.",
       "long_description": "Biofinity Multifocal Toric kombinerer Biofinitys progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
@@ -5142,7 +5142,7 @@
     },
     {
       "id": "biofinity-xr-toric-3pk",
-      "slug": "xr-toric-3-pack",
+      "slug": "biofinity-xr-toric-3-pack",
       "name": "Biofinity XR Toric 3-pack",
       "description": "Torisk månedslinse for ekstreme styrker fra CooperVision.",
       "long_description": "Biofinity XR Toric kombinerer Biofinity XR sitt utvidede styrkeområde med et torisk design for astigmatisme, samme comfilcon A-materiale som standard Biofinity.",
@@ -5185,7 +5185,7 @@
     },
     {
       "id": "biofinity-xr-3pk",
-      "slug": "xr-3-pack",
+      "slug": "biofinity-xr-3-pack",
       "name": "Biofinity XR 3-pack",
       "description": "Månedslinse for ekstreme styrker.",
       "long_description": "Biofinity XR er CooperVisions utvidede styrkeserie av Biofinity, samme comfilcon A-materiale men produsert for høyere plusstyrker og minusstyrker enn standardserien dekker. Nyttig for deg med sterk brytningsfeil som ikke fås i vanlig Biofinity.",
@@ -5563,7 +5563,7 @@
     },
     {
       "id": "proclear-1day-30pk",
-      "slug": "1-day-30-pack",
+      "slug": "proclear-1-day-30-pack",
       "name": "Proclear 1 Day 30-pack",
       "description": "Dagslinse fra CooperVision.",
       "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
@@ -5606,7 +5606,7 @@
     },
     {
       "id": "proclear-1day-90pk",
-      "slug": "1-day-90-pack",
+      "slug": "proclear-1-day-90-pack",
       "name": "Proclear 1 Day 90-pack",
       "description": "Dagslinse fra CooperVision.",
       "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
@@ -5649,7 +5649,7 @@
     },
     {
       "id": "proclear-1day-multifocal-30pk",
-      "slug": "1-day-multifocal-30-pack",
+      "slug": "proclear-1-day-multifocal-30-pack",
       "name": "Proclear 1 Day Multifocal 30-pack",
       "description": "Multifokal dagslinse fra CooperVision.",
       "long_description": "Proclear 1 Day Multifocal er den progressive dagslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
@@ -5692,7 +5692,7 @@
     },
     {
       "id": "proclear-multifocal-6pk",
-      "slug": "multifocal-6-pack",
+      "slug": "proclear-multifocal-6-pack",
       "name": "Proclear Multifocal 6-pack",
       "description": "Multifokal månedslinse fra CooperVision.",
       "long_description": "Proclear Multifocal er den progressive månedslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
@@ -5731,7 +5731,7 @@
     },
     {
       "id": "proclear-multifocal-toric-3pk",
-      "slug": "multifocal-toric-3-pack",
+      "slug": "proclear-multifocal-toric-3-pack",
       "name": "Proclear Multifocal Toric 3-pack",
       "description": "Multifokal og torisk månedslinse fra CooperVision.",
       "long_description": "Proclear Multifocal Toric kombinerer Proclears progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
@@ -5760,7 +5760,7 @@
     },
     {
       "id": "proclear-multifocal-xr-3pk",
-      "slug": "multifocal-xr-3-pack",
+      "slug": "proclear-multifocal-xr-3-pack",
       "name": "Proclear Multifocal XR 3-pack",
       "description": "Multifokal månedslinse for ekstreme styrker fra CooperVision.",
       "long_description": "Proclear Multifocal XR er den progressive varianten av Proclears utvidede styrkeserie, for deg med sterk brytningsfeil og alderssyn som ikke dekkes av standard Multifocal.",
@@ -5789,7 +5789,7 @@
     },
     {
       "id": "proclear-toric-xr-3pk",
-      "slug": "toric-xr-3-pack",
+      "slug": "proclear-toric-xr-3-pack",
       "name": "Proclear Toric XR 3-pack",
       "description": "Torisk månedslinse for ekstreme styrker fra CooperVision.",
       "long_description": "Proclear Toric XR er den toriske varianten av Proclears utvidede styrkeserie, for deg med sterk brytningsfeil og astigmatisme som ikke dekkes av standard Toric.",
@@ -5823,7 +5823,7 @@
     },
     {
       "id": "soflens-38-6pk",
-      "slug": "38-6-pack",
+      "slug": "soflens-38-6-pack",
       "name": "SofLens 38 6-pack",
       "description": "Månedslinse fra Bausch + Lomb.",
       "long_description": "SofLens 38 er en av de eldre, rimeligere månedslinsene fra Bausch + Lomb, oppkalt etter sitt vanninnhold.",
@@ -5858,7 +5858,7 @@
     },
     {
       "id": "soflens-daily-disposable-astigmatism-30pk",
-      "slug": "daily-disposable-for-astigmatism-30-pack",
+      "slug": "soflens-daily-disposable-for-astigmatism-30-pack",
       "name": "SofLens Daily Disposable for Astigmatism 30-pack",
       "description": "Torisk dagslinse fra Bausch + Lomb.",
       "long_description": "SofLens Daily Disposable for Astigmatism er den toriske dagslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som standard SofLens Daily Disposable, formet for astigmatisme.",
@@ -5905,7 +5905,7 @@
     },
     {
       "id": "soflens-multifocal-6pk",
-      "slug": "multifocal-6-pack",
+      "slug": "soflens-multifocal-6-pack",
       "name": "SofLens Multifocal 6-pack",
       "description": "Multifokal månedslinse fra Bausch + Lomb.",
       "long_description": "SofLens Multifocal er den progressive månedslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som SofLens 59, tilpasset alderssyn.",
@@ -6552,7 +6552,7 @@
     },
     {
       "id": "clearlii-monthly-6pk",
-      "slug": "clearlii-monthly-6-pack",
+      "slug": "clearlii-hydrogel-manedslinser-6-pack",
       "name": "Clearlii Hydrogel Månedslinser 6-pack",
       "description": "Månedslinse fra Pegavision.",
       "long_description": "Clearlii Hydrogel Månedslinser er en månedslinse fra Pegavision i polymacon-hydrogel med 38 % vanninnhold og myk kant-design. Selges under apotek-merket Clearlii, opprinnelig lansert i Sverige i 2011.",
@@ -6905,7 +6905,7 @@
     },
     {
       "id": "queens-trilogy-2pk",
-      "slug": "queens-trilogy-2-pack",
+      "slug": "queen-s-trilogy-2-pack",
       "name": "Queen's Trilogy 2-pack",
       "description": "Fargede månedslinser fra Soleko.",
       "long_description": "Queen's Trilogy er en farget månedslinse fra det italienske merket Soleko, tilgjengelig i ni farger (Amber, Blue, Choco, Dark green, Light green, Ocean, Pearl, Violet, Yellow), med eller uten styrke.",
@@ -7066,7 +7066,7 @@
     },
     {
       "id": "acuvue-oasys-max-1day-astigmatism-30pk",
-      "slug": "oasys-max-1-day-astigmatism-30-pack",
+      "slug": "acuvue-oasys-max-1-day-for-astigmatism-30-pack",
       "name": "Acuvue Oasys MAX 1-Day for Astigmatism 30-pack",
       "description": "Torisk dagslinse fra Johnson & Johnson Vision.",
       "long_description": "Acuvue Oasys MAX 1-Day for Astigmatism er den toriske varianten av Acuvue Oasys MAX 1-Day, en dagslinse fra Johnson & Johnson Vision i senofilcon A med TearStable-teknologi.",

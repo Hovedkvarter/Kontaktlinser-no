@@ -69,7 +69,7 @@
     },
     {
       "id": "optifree-puremoist-90ml",
-      "slug": "puremoist-90-ml",
+      "slug": "opti-free-puremoist-90-ml",
       "name": "Opti-Free PureMoist 90 ml",
       "brand_slug": "opti-free",
       "brand_label": "Opti-Free",
@@ -91,7 +91,7 @@
     },
     {
       "id": "optifree-puremoist-300ml",
-      "slug": "puremoist-300-ml",
+      "slug": "opti-free-puremoist-300-ml",
       "name": "Opti-Free PureMoist 300 ml",
       "brand_slug": "opti-free",
       "brand_label": "Opti-Free",
@@ -113,7 +113,7 @@
     },
     {
       "id": "optifree-express-355ml",
-      "slug": "express-355-ml",
+      "slug": "opti-free-express-355-ml",
       "name": "Opti-Free Express 355 ml",
       "brand_slug": "opti-free",
       "brand_label": "Opti-Free",
@@ -135,7 +135,7 @@
     },
     {
       "id": "optifree-express-120ml",
-      "slug": "express-120-ml",
+      "slug": "opti-free-express-120-ml",
       "name": "Opti-Free Express 120 ml",
       "brand_slug": "opti-free",
       "brand_label": "Opti-Free",
@@ -258,7 +258,7 @@
     },
     {
       "id": "everclear-refresh-250ml",
-      "slug": "refresh-250-ml",
+      "slug": "everclear-refresh-250-ml",
       "name": "everclear REFRESH 250 ml",
       "brand_slug": "everclear",
       "brand_label": "everclear",
@@ -302,7 +302,7 @@
     },
     {
       "id": "acuvue-revitalens-100ml",
-      "slug": "revitalens-100-ml",
+      "slug": "acuvue-revitalens-100-ml",
       "name": "Acuvue RevitaLens 100 ml",
       "brand_slug": "acuvue-revitalens",
       "brand_label": "Acuvue RevitaLens",
@@ -324,7 +324,7 @@
     },
     {
       "id": "acuvue-revitalens-300ml",
-      "slug": "revitalens-300-ml",
+      "slug": "acuvue-revitalens-300-ml",
       "name": "Acuvue RevitaLens 300 ml",
       "brand_slug": "acuvue-revitalens",
       "brand_label": "Acuvue RevitaLens",
@@ -346,7 +346,7 @@
     },
     {
       "id": "swati-lens-solution-100ml",
-      "slug": "lens-solution-100-ml",
+      "slug": "swati-lens-solution-100-ml",
       "name": "SWATI Lens Solution 100 ml",
       "brand_slug": "swati",
       "brand_label": "SWATI",
@@ -578,7 +578,7 @@
     },
     {
       "id": "oxyal-trehalos-duo-action-10ml",
-      "slug": "trehalos-duo-action-10-ml",
+      "slug": "oxyal-trehalos-duo-action-10-ml",
       "name": "OXYAL Trehalos Duo Action 10 ml",
       "brand_slug": "oxyal",
       "brand_label": "OXYAL",
@@ -599,7 +599,7 @@
     },
     {
       "id": "oxyal-trehalos-triple-action-10ml",
-      "slug": "trehalos-triple-action-10-ml",
+      "slug": "oxyal-trehalos-triple-action-10-ml",
       "name": "OXYAL Trehalos Triple Action 10 ml",
       "brand_slug": "oxyal",
       "brand_label": "OXYAL",
@@ -620,7 +620,7 @@
     },
     {
       "id": "oxyal-triple-action-10ml",
-      "slug": "triple-action-10-ml",
+      "slug": "oxyal-triple-action-10-ml",
       "name": "OXYAL Triple Action 10 ml",
       "brand_slug": "oxyal",
       "brand_label": "OXYAL",
@@ -780,7 +780,7 @@
     },
     {
       "id": "artelac-10ml",
-      "slug": "artelac-10-ml",
+      "slug": "artelac-oyedraper-10-ml",
       "name": "Artelac Øyedråper 10 ml",
       "brand_slug": "artelac",
       "brand_label": "Artelac",
@@ -792,7 +792,7 @@
     },
     {
       "id": "viscotears-10ml",
-      "slug": "viscotears-10-g",
+      "slug": "viscotears-oyegel-10-g",
       "name": "Viscotears Øyegel 10 g",
       "brand_slug": "viscotears",
       "brand_label": "Viscotears",
@@ -816,7 +816,7 @@
     },
     {
       "id": "hyprosan-10ml",
-      "slug": "hyprosan-10-ml",
+      "slug": "hyprosan-oyedraper-10-ml",
       "name": "Hyprosan Øyedråper 10 ml",
       "brand_slug": "hyprosan",
       "brand_label": "Hyprosan",
@@ -852,7 +852,7 @@
     },
     {
       "id": "desodrop-8ml",
-      "slug": "desodrop-8-ml",
+      "slug": "desodrop-oyedraper-8-ml",
       "name": "Desodrop Øyedråper 8 ml",
       "brand_slug": "desodrop",
       "brand_label": "Desodrop",
@@ -864,7 +864,7 @@
     },
     {
       "id": "cleye-10ml",
-      "slug": "cleye-10-ml",
+      "slug": "cleye-oyedraper-10-ml",
       "name": "Cleye Øyedråper 10 ml",
       "brand_slug": "cleye",
       "brand_label": "Cleye",
