@@ -358,7 +358,7 @@ a { color: inherit; }
 .category-explainer a { font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }
 .category-explainer a:hover { text-decoration: underline; }
 .category-filters-bar { margin: 26px 0 20px; }
-.category-brand-row { margin-bottom: 14px; }
+.category-brand-row { margin-top: 18px; }
 .category-filters-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }
 .brand-chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .brand-chip-row[hidden] { display: none; }
@@ -665,6 +665,16 @@ a { color: inherit; }
         <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg><span>Norske nettbutikker</span></span>
         <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Priser oppdateres daglig</span></span>
       </div>
+      <div class="category-brand-row">
+        <span class="category-filters-label">Populære merker</span>
+        <div class="brand-chip-row">
+          <button type="button" class="chip" data-group="brand" data-value="dailies" aria-pressed="false">Dailies <span class="chip-count">11</span></button><button type="button" class="chip" data-group="brand" data-value="acuvue" aria-pressed="false">Acuvue <span class="chip-count">6</span></button><button type="button" class="chip" data-group="brand" data-value="myday" aria-pressed="false">MyDay <span class="chip-count">4</span></button><button type="button" class="chip" data-group="brand" data-value="everclear" aria-pressed="false">everclear <span class="chip-count">4</span></button><button type="button" class="chip" data-group="brand" data-value="clearlii" aria-pressed="false">Clearlii <span class="chip-count">3</span></button><button type="button" class="chip" data-group="brand" data-value="biomedics" aria-pressed="false">Biomedics <span class="chip-count">2</span></button>
+          <button type="button" class="chip chip-ghost" id="brand-toggle-more" aria-expanded="false">Alle merker (16) <span aria-hidden="true">+</span></button>
+        </div>
+        <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
+          <button type="button" class="chip" data-group="brand" data-value="biotrue" aria-pressed="false">Biotrue <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="clariti" aria-pressed="false">Clariti <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="daysoft" aria-pressed="false">Daysoft <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="live" aria-pressed="false">Live <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="precision1" aria-pressed="false">Precision1 <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="proclear" aria-pressed="false">Proclear <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="soflens" aria-pressed="false">SofLens <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="ultra" aria-pressed="false">ULTRA <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="clearlab" aria-pressed="false">ClearLab <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="miru" aria-pressed="false">MIRU <span class="chip-count">1</span></button>
+        </div>
+      </div>
     </div>
     <div class="category-explainer">
     <div class="category-explainer-illustration"><svg viewBox="0 0 120 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -682,17 +692,6 @@ a { color: inherit; }
   </div>
 
   <div class="category-filters-bar">
-    <div class="category-brand-row">
-      <span class="category-filters-label">Populære merker</span>
-      <div class="brand-chip-row">
-        <button type="button" class="chip" data-group="brand" data-value="dailies" aria-pressed="false">Dailies <span class="chip-count">11</span></button><button type="button" class="chip" data-group="brand" data-value="acuvue" aria-pressed="false">Acuvue <span class="chip-count">6</span></button><button type="button" class="chip" data-group="brand" data-value="myday" aria-pressed="false">MyDay <span class="chip-count">4</span></button><button type="button" class="chip" data-group="brand" data-value="everclear" aria-pressed="false">everclear <span class="chip-count">4</span></button><button type="button" class="chip" data-group="brand" data-value="clearlii" aria-pressed="false">Clearlii <span class="chip-count">3</span></button><button type="button" class="chip" data-group="brand" data-value="biomedics" aria-pressed="false">Biomedics <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="biotrue" aria-pressed="false">Biotrue <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="clariti" aria-pressed="false">Clariti <span class="chip-count">2</span></button>
-        <button type="button" class="chip chip-ghost" id="brand-toggle-more" aria-expanded="false">Alle merker (16) <span aria-hidden="true">+</span></button>
-      </div>
-      <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
-        <button type="button" class="chip" data-group="brand" data-value="daysoft" aria-pressed="false">Daysoft <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="live" aria-pressed="false">Live <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="precision1" aria-pressed="false">Precision1 <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="proclear" aria-pressed="false">Proclear <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="soflens" aria-pressed="false">SofLens <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="ultra" aria-pressed="false">ULTRA <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="clearlab" aria-pressed="false">ClearLab <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="miru" aria-pressed="false">MIRU <span class="chip-count">1</span></button>
-      </div>
-    </div>
-
     <button type="button" class="filter-trigger" id="filter-trigger">
       Filtrer produkter
       <span class="filter-trigger-badge" id="filter-trigger-badge" hidden>0</span>
