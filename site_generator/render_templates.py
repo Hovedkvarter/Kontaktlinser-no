@@ -2869,7 +2869,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -2920,8 +2920,17 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     # ned på siden) -- ustabilt, siden det er opp til Google om den
     # omskriver. Gir Google et sterkt, riktig signal direkte i meta-taggen
     # i stedet for å stole på at den finner riktig avsnitt selv.
+    #
+    # Antall forhandlere (len(product["offers"])) er BEVISST fjernet fra
+    # denne setningen (2026-09-05, brukeren oppdaget et ekte Google-treff
+    # som sa "fra 2 norske nettbutikker" for en produktvariant med lav
+    # dekning) -- tallet varierer sterkt per pakningsstørrelse/variant og
+    # kan se svakt ut i SERP for et produkt som tilfeldigvis føres av få
+    # forhandlere, mens et sitewide-tall ville vært misvisende for et
+    # produkt som ikke føres av alle. Selve verdien i setningen (pris +
+    # hvilken butikk) krever ikke tallet i det hele tatt.
     meta_description = (
-        f'Vi sammenligner priser på {product["name"]} fra {len(product["offers"])} norske nettbutikker. '
+        f'Vi sammenligner priser på {product["name"]} hos norske nettbutikker. '
         f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
     ) if best else long_description[:155]
 
@@ -2950,9 +2959,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
     product_href = f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/'
     # BreadcrumbList manglet her (fantes allerede på kategori-/merke-/
-    # produsent-/private label-sider, men ikke på selve produktsiden --
-    # funnet 2026-09-05). Speiler nøyaktig den synlige brødsmulen under
-    # (Hjem > kategori > merke > produktnavn).
+    # produsent-sider, men ikke på selve produktsiden -- funnet 2026-09-05;
+    # samme mangel ble senere samme dag funnet på private label-sidene også,
+    # se render_private_label_page). Speiler nøyaktig den synlige
+    # brødsmulen under (Hjem > kategori > merke > produktnavn).
     breadcrumb_schema = f'''{{"@type": "BreadcrumbList", "itemListElement": [
     {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
     {{"@type": "ListItem", "position": 2, "name": "{_json_str(categories[product["category_slug"]]["label"])}", "item": "{BASE_URL}/kontaktlinser/{product["category_slug"]}/"}},
@@ -6733,9 +6743,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
     long_description = product.get("long_description", product.get("description", ""))
     # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
-    # lede med selve prissammenligningen, ikke produktbeskrivelsen.
+    # lede med selve prissammenligningen, ikke produktbeskrivelsen. Antall
+    # forhandlere er bevisst utelatt her også (2026-09-05, samme fiks).
     meta_description = (
-        f'Vi sammenligner priser på {product["name"]} fra {len(product["offers"])} norske nettbutikker. '
+        f'Vi sammenligner priser på {product["name"]} hos norske nettbutikker. '
         f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
     ) if best else long_description[:155]
     cat_slug = product["solution_category"]
@@ -6745,7 +6756,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> fra {len(product["offers"])} norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -7320,7 +7331,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # boksen helt).
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) fra {len(real_product["offers"])} norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres flere ganger daglig.</p>
+  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres flere ganger daglig.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -7329,12 +7340,25 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
     about_type = "Product" if in_stock_offers else "Thing"
     date_modified = max((o["checked_at"] for o in in_stock_offers), default=None)
-    schema_json = f"""{{
-  "@context": "https://schema.org",
+    # BreadcrumbList manglet her (fantes på kategori-/merke-/produsent-sider,
+    # men den tidligere kommentaren om at private label-sider allerede hadde
+    # den var feil -- funnet 2026-09-05 ved en systematisk gjennomgang av
+    # strukturert data på tvers av ALLE sidetyper). Speiler nøyaktig den
+    # synlige brødsmulen under (Hjem > Optikerkjedenes egne merker > navn).
+    breadcrumb_schema = f'''{{"@type": "BreadcrumbList", "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "Optikerkjedenes egne merker", "item": "{BASE_URL}/private-label/"}},
+    {{"@type": "ListItem", "position": 3, "name": "{_json_str(private_name)}", "item": "{BASE_URL}/private-label/{label["slug"]}/"}}
+  ]}}'''
+    webpage_schema = f'''{{
   "@type": "WebPage",
   "name": "{escape(private_name)} er egentlig {escape(real_name)}",
   "about": {{"@type": "{about_type}", "name": "{escape(real_name)}", "brand": {{"@type": "Brand", "name": "{escape(real_brand)}"}}{about_offers_schema}}},
   "mainEntityOfPage": "{BASE_URL}/private-label/{label["slug"]}/"{f', "dateModified": "{date_modified}"' if date_modified else ""}
+}}'''
+    schema_json = f"""{{
+  "@context": "https://schema.org",
+  "@graph": [{breadcrumb_schema}, {webpage_schema}]
 }}"""
 
     # Samme dynamiske FAQ-mønster som render_product_page/render_solution_
