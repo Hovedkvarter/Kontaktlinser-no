@@ -17,10 +17,10 @@ function __loadGTM() {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Billige månedslinser – Sammenlign priser | Kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.">
+<meta name="description" content="Sammenlign priser på månedslinser fra 13 merker og 22 produkter. Vi viser alltid billigste tilgjengelige tilbud per produkt.">
 <link rel="canonical" href="https://kontaktlinser.no/kontaktlinser/manedslinser/">
 <meta property="og:title" content="Billige månedslinser – Sammenlign priser | Kontaktlinser.no">
-<meta property="og:description" content="Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.">
+<meta property="og:description" content="Sammenlign priser på månedslinser fra 13 merker og 22 produkter. Vi viser alltid billigste tilgjengelige tilbud per produkt.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://kontaktlinser.no/kontaktlinser/manedslinser/">
 <meta property="og:image" content="https://kontaktlinser.no/static/logo.png">
@@ -227,7 +227,7 @@ a { color: inherit; }
 .product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
-.chip.active { background: var(--ink); border-color: var(--ink); color: white; }
+.chip.active { background: var(--blue); border-color: var(--blue); color: white; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 24px; }
 .list-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
 .list-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
@@ -291,6 +291,9 @@ a { color: inherit; }
 .product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
 .product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
 .product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-specs-row { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+.product-tile-spec { display: flex; align-items: center; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+.product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
@@ -314,6 +317,69 @@ a { color: inherit; }
 .methodology-row:last-child { border-bottom: none; }
 .methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+.hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.hero-copy { flex: 1 1 320px; }
+.category-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+.category-stat { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.category-stat svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
+.category-explainer { flex: 0 1 300px; display: flex; gap: 12px; background: var(--blue-tint); border-radius: 14px; padding: 16px 18px; }
+.category-explainer-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.category-explainer-icon svg { width: 18px; height: 18px; }
+.category-explainer h2 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 4px; }
+.category-explainer p { margin: 0 0 8px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }
+.category-explainer a { font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }
+.category-explainer a:hover { text-decoration: underline; }
+.category-filters-bar { margin: 26px 0 20px; }
+.category-brand-row { margin-bottom: 14px; }
+.category-filters-label { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }
+.brand-chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.brand-chip-row[hidden] { display: none; }
+.brand-more-wrap { margin-top: 8px; }
+.chip-count { opacity: 0.6; font-weight: 500; }
+.chip.active .chip-count { opacity: 0.85; }
+.chip-ghost { background: transparent; border-style: dashed; color: var(--blue); }
+.filter-trigger { display: none; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 16px; background: var(--blue-tint); color: var(--blue); border: none; border-radius: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer; }
+.filter-trigger-badge { background: var(--blue); color: white; font-size: 0.72rem; min-width: 18px; height: 18px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 5px; }
+.filter-trigger-badge[hidden] { display: none; }
+.filter-backdrop { display: none; }
+.category-filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.filter-sheet-header, .filter-sheet-footer { display: none; }
+.filter-dd { position: relative; }
+.filter-dd > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 0.85rem; user-select: none; }
+.filter-dd > summary::-webkit-details-marker { display: none; }
+.filter-dd-icon { display: flex; color: var(--blue); flex-shrink: 0; }
+.filter-dd-icon svg { width: 16px; height: 16px; }
+.filter-dd-text { display: flex; flex-direction: column; line-height: 1.3; }
+.filter-dd-label { font-weight: 700; }
+.filter-dd-sub { font-size: 0.74rem; color: var(--muted); }
+.filter-dd-chevron { margin-left: auto; color: var(--muted); transition: transform 0.15s; }
+.filter-dd[open] .filter-dd-chevron { transform: rotate(180deg); }
+.filter-dd-panel { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 4px 2px; }
+.active-filters-wrap { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0 20px; }
+.active-filters-wrap[hidden] { display: none; }
+.active-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.active-filter-chip { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-tint); color: var(--blue-dark); border: none; border-radius: 999px; padding: 6px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; }
+.filter-reset-link { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--blue); font-size: 0.78rem; font-weight: 700; cursor: pointer; padding: 0; }
+.filter-reset-link svg { width: 14px; height: 14px; }
+.sort-select { font-size: 0.82rem; font-weight: 600; color: var(--ink); border: 1px solid var(--border); border-radius: 999px; padding: 8px 30px 8px 14px; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center / 14px 14px; appearance: none; cursor: pointer; }
+@media (min-width: 1024px) {
+  .filter-dd-panel { position: absolute; top: calc(100% + 6px); left: 0; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; box-shadow: var(--card-shadow); min-width: 260px; z-index: 20; }
+}
+@media (max-width: 1023px) {
+  .filter-trigger { display: flex; }
+  .category-filters { position: fixed; left: 0; right: 0; bottom: 0; background: white; border-radius: 18px 18px 0 0; padding: 18px; flex-direction: column; gap: 10px; max-height: 82vh; overflow-y: auto; transform: translateY(105%); transition: transform 0.25s ease; z-index: 60; box-shadow: 0 -8px 30px rgba(11,37,69,0.18); }
+  .category-filters.is-open { transform: translateY(0); }
+  .filter-dd { width: 100%; }
+  .filter-sheet-header { display: flex; align-items: center; justify-content: space-between; }
+  .filter-sheet-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+  .filter-sheet-close { background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px; }
+  .filter-sheet-close svg { width: 20px; height: 20px; }
+  .filter-sheet-footer { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; position: sticky; bottom: 0; background: white; padding-top: 10px; }
+  .btn-primary-block { background: var(--blue); color: white; border: none; border-radius: 10px; padding: 13px; font-weight: 700; font-size: 0.92rem; cursor: pointer; }
+  .filter-backdrop { position: fixed; inset: 0; background: rgba(11,37,69,0.35); z-index: 55; }
+  .filter-backdrop[hidden] { display: none; }
+}
 </style>
 </head>
 <body>
@@ -565,32 +631,101 @@ a { color: inherit; }
     <div class="hero-copy">
       <div class="kicker">Kategori</div>
       <h1>Månedslinser</h1>
-      <p>Sammenlign priser på månedslinser fra alle merker vi følger. Vi viser alltid billigste tilgjengelige tilbud per produkt.</p>
+      <p>Sammenlign priser på månedslinser fra 13 merker og 22 produkter. Vi viser alltid billigste tilgjengelige tilbud per produkt.</p>
+      <div class="category-stats">
+        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg><span>22 produkter</span></span>
+        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><span>13 merker</span></span>
+        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Priser oppdateres flere ganger daglig</span></span>
+      </div>
+    </div>
+    <div class="category-explainer">
+    <div class="category-explainer-icon" style="background:var(--blue-tint);color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div>
+    <div>
+      <h2>Hva er månedslinser?</h2>
+      <p>Månedslinser brukes i inntil 30 dager (følg alltid optikerens anbefaling) før de byttes ut, og rengjøres og oppbevares i linsevæske mellom hver bruk. Ofte rimeligere per dag enn dagslinser.</p>
+      <a href="/guide/manedslinser-vs-dagslinser/">Les mer →</a>
+    </div>
+  </div>
+  </div>
+
+  <div class="category-filters-bar">
+    <div class="category-brand-row">
+      <span class="category-filters-label">Populære merker</span>
+      <div class="brand-chip-row">
+        <button type="button" class="chip" data-group="brand" data-value="biofinity" aria-pressed="false">Biofinity <span class="chip-count">4</span></button><button type="button" class="chip" data-group="brand" data-value="acuvue" aria-pressed="false">Acuvue <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="air-optix" aria-pressed="false">Air Optix <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="precision7" aria-pressed="false">Precision7 <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="purevision" aria-pressed="false">PureVision <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="soflens" aria-pressed="false">SofLens <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="everclear" aria-pressed="false">everclear <span class="chip-count">2</span></button><button type="button" class="chip" data-group="brand" data-value="avaira" aria-pressed="false">Avaira <span class="chip-count">1</span></button>
+        <button type="button" class="chip chip-ghost" id="brand-toggle-more" aria-expanded="false">Alle merker (13) <span aria-hidden="true">+</span></button>
+      </div>
+      <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
+        <button type="button" class="chip" data-group="brand" data-value="biomedics" aria-pressed="false">Biomedics <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="clearlii" aria-pressed="false">Clearlii <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="proclear" aria-pressed="false">Proclear <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="total30" aria-pressed="false">TOTAL30 <span class="chip-count">1</span></button><button type="button" class="chip" data-group="brand" data-value="ultra" aria-pressed="false">ULTRA <span class="chip-count">1</span></button>
+      </div>
+    </div>
+
+    <button type="button" class="filter-trigger" id="filter-trigger">
+      Filtrer produkter
+      <span class="filter-trigger-badge" id="filter-trigger-badge" hidden>0</span>
+    </button>
+    <div class="filter-backdrop" id="filter-backdrop" hidden></div>
+    <div class="category-filters" id="category-filters">
+      <div class="filter-sheet-header">
+        <h2>Filtrer produkter</h2>
+        <button type="button" class="filter-sheet-close" id="filter-sheet-close" aria-label="Lukk filter"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg></button>
+      </div>
+      <details class="filter-dd" data-filter-dd="bc">
+    <summary>
+      <span class="filter-dd-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+      <span class="filter-dd-text">
+        <span class="filter-dd-label">Basiskurve (BC)</span>
+        <span class="filter-dd-sub" data-summary-for="bc">Velg én eller flere verdier</span>
+      </span>
+      <span class="filter-dd-chevron" aria-hidden="true">▾</span>
+    </summary>
+    <div class="filter-dd-panel" role="group" aria-label="Filtrer etter basiskurve (bc)"><button type="button" class="chip" data-group="bc" data-value="8.4" aria-pressed="false">8,4 mm</button><button type="button" class="chip" data-group="bc" data-value="8.5" aria-pressed="false">8,5 mm</button><button type="button" class="chip" data-group="bc" data-value="8.6" aria-pressed="false">8,6 mm</button><button type="button" class="chip" data-group="bc" data-value="8.7" aria-pressed="false">8,7 mm</button><button type="button" class="chip" data-group="bc" data-value="8.8" aria-pressed="false">8,8 mm</button><button type="button" class="chip" data-group="bc" data-value="8.9" aria-pressed="false">8,9 mm</button></div>
+  </details><details class="filter-dd" data-filter-dd="dia">
+    <summary>
+      <span class="filter-dd-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></span>
+      <span class="filter-dd-text">
+        <span class="filter-dd-label">Diameter (DIA)</span>
+        <span class="filter-dd-sub" data-summary-for="dia">Velg én eller flere verdier</span>
+      </span>
+      <span class="filter-dd-chevron" aria-hidden="true">▾</span>
+    </summary>
+    <div class="filter-dd-panel" role="group" aria-label="Filtrer etter diameter (dia)"><button type="button" class="chip" data-group="dia" data-value="13.8" aria-pressed="false">13,8 mm</button><button type="button" class="chip" data-group="dia" data-value="14.0" aria-pressed="false">14,0 mm</button><button type="button" class="chip" data-group="dia" data-value="14.2" aria-pressed="false">14,2 mm</button><button type="button" class="chip" data-group="dia" data-value="14.5" aria-pressed="false">14,5 mm</button></div>
+  </details><details class="filter-dd" data-filter-dd="wc">
+    <summary>
+      <span class="filter-dd-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></span>
+      <span class="filter-dd-text">
+        <span class="filter-dd-label">Vanninnhold</span>
+        <span class="filter-dd-sub" data-summary-for="wc">Velg én eller flere verdier (valgfritt)</span>
+      </span>
+      <span class="filter-dd-chevron" aria-hidden="true">▾</span>
+    </summary>
+    <div class="filter-dd-panel" role="group" aria-label="Filtrer etter vanninnhold"><button type="button" class="chip" data-group="wc" data-value="24" aria-pressed="false">24 %</button><button type="button" class="chip" data-group="wc" data-value="33" aria-pressed="false">33 %</button><button type="button" class="chip" data-group="wc" data-value="36" aria-pressed="false">36 %</button><button type="button" class="chip" data-group="wc" data-value="38" aria-pressed="false">38 %</button><button type="button" class="chip" data-group="wc" data-value="41" aria-pressed="false">41 %</button><button type="button" class="chip" data-group="wc" data-value="46" aria-pressed="false">46 %</button><button type="button" class="chip" data-group="wc" data-value="48" aria-pressed="false">48 %</button><button type="button" class="chip" data-group="wc" data-value="55" aria-pressed="false">55 %</button><button type="button" class="chip" data-group="wc" data-value="59" aria-pressed="false">59 %</button><button type="button" class="chip" data-group="wc" data-value="60" aria-pressed="false">60 %</button></div>
+  </details>
+      <div class="filter-sheet-footer">
+        <button type="button" class="btn-primary-block" id="sheet-show-count">Vis 22 produkter</button>
+        <button type="button" class="filter-reset-link" data-reset-filters style="justify-content:center;"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.6 5.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Nullstill alle filtre</button>
+      </div>
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
-    <button class="chip active" data-brand="all">Alle merker</button>
-    <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="avaira">Avaira</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="biomedics">Biomedics</button><button class="chip" data-brand="clearlii">Clearlii</button><button class="chip" data-brand="everclear">Everclear</button><button class="chip" data-brand="precision7">Precision7</button><button class="chip" data-brand="proclear">Proclear</button><button class="chip" data-brand="purevision">Purevision</button><button class="chip" data-brand="soflens">Soflens</button><button class="chip" data-brand="total30">Total30</button><button class="chip" data-brand="ultra">Ultra</button>
-  </div>
-  <div class="filter-row" id="filter-row-wc" data-filter-key="wc" role="group" aria-label="Filtrer etter vanninnhold">
-    <button class="chip active" data-wc="all">Alt vanninnhold</button>
-    <button class="chip" data-wc="24">24 %</button><button class="chip" data-wc="33">33 %</button><button class="chip" data-wc="36">36 %</button><button class="chip" data-wc="38">38 %</button><button class="chip" data-wc="41">41 %</button><button class="chip" data-wc="46">46 %</button><button class="chip" data-wc="48">48 %</button><button class="chip" data-wc="55">55 %</button><button class="chip" data-wc="59">59 %</button><button class="chip" data-wc="60">60 %</button>
-  </div><div class="filter-row" id="filter-row-bc" data-filter-key="bc" role="group" aria-label="Filtrer etter basiskurve">
-    <button class="chip active" data-bc="all">Alle basiskurver</button>
-    <button class="chip" data-bc="8.4">8,4 mm</button><button class="chip" data-bc="8.5">8,5 mm</button><button class="chip" data-bc="8.6">8,6 mm</button><button class="chip" data-bc="8.7">8,7 mm</button><button class="chip" data-bc="8.8">8,8 mm</button><button class="chip" data-bc="8.9">8,9 mm</button>
-  </div><div class="filter-row" id="filter-row-dia" data-filter-key="dia" role="group" aria-label="Filtrer etter diameter">
-    <button class="chip active" data-dia="all">Alle diametere</button>
-    <button class="chip" data-dia="13.8">13,8 mm</button><button class="chip" data-dia="14.0">14,0 mm</button><button class="chip" data-dia="14.2">14,2 mm</button><button class="chip" data-dia="14.5">14,5 mm</button>
+  <div class="active-filters-wrap" id="active-filters-wrap" hidden>
+    <div class="active-filters" id="active-filters"></div>
+    <button type="button" class="filter-reset-link" data-reset-filters><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.6 5.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Nullstill alle filtre</button>
   </div>
 
   <div class="list-header">
     <h2 id="result-count">22 produkter</h2>
-    <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
+    <select id="sort-select" class="sort-select" aria-label="Sorter produkter">
+      <option value="price-asc">Sorter: Laveste pris</option>
+      <option value="price-desc">Sorter: Høyeste pris</option>
+    </select>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
-       (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
+       (filter/re-sortering) ovenpå dette - fungerer uten JS også. Alle
+       filterverdier over er ekte, server-rendrede knapper (ikke hentet via
+       JS) -- kun VISNINGEN (åpen/lukket dropdown, sheet på mobil) er en
+       CSS/JS-forbedring. -->
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-brand="soflens" data-wc="59" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-59-6pk.webp" type="image/webp"><img src="/static/products/soflens-59-6pk.jpg" alt="SofLens 59 6-pack" loading="lazy"></picture></div></a>
@@ -598,6 +733,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-name">SofLens 59 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/soflens/">SofLens</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>59 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">186</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
@@ -609,6 +745,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-name">Biomedics 55 Evolution 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/biomedics/">Biomedics</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">206</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
@@ -620,6 +757,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-name">Biofinity XR 3-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,5 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
@@ -631,6 +769,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-name">Avaira Vitality 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/avaira/">Avaira</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>46 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
   </div>
@@ -642,6 +781,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-name">Proclear Sphere 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">224</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
@@ -653,6 +793,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/"><div class="product-name">Acuvue Oasys 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">262</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
   </div>
@@ -664,6 +805,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-name">everclear PLUS 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/everclear/">everclear</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">215</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
@@ -675,6 +817,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/"><div class="product-name">Clearlii Hydrogel Månedslinser 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/clearlii/">Clearlii</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">219</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Apotek For Deg</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
@@ -686,6 +829,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-name">Biofinity 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 8 butikker</span></div></a>
   </div>
@@ -697,6 +841,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/purevision/purevision2-6-pack/"><div class="product-name">PureVision2 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>36 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">337</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
@@ -708,6 +853,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-name">Air Optix plus HydraGlyde 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/air-optix/">Air Optix</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>33 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
@@ -719,6 +865,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-name">SofLens 38 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/soflens/">SofLens</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
@@ -730,6 +877,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-name">everclear AIR 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/everclear/">everclear</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">303</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
@@ -741,6 +889,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/purevision/purevision-6-pack/"><div class="product-name">PureVision 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
+    
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">366</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
@@ -752,6 +901,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/"><div class="product-name">Acuvue Vita 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>41 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
@@ -763,6 +913,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-name">Biofinity Energys 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
@@ -774,6 +925,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/ultra/ultra-6-pack/"><div class="product-name">ULTRA 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/ultra/">ULTRA</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>46 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,5 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/ultra/ultra-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">396</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
@@ -785,6 +937,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-name">Precision7 12-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/precision7/">Precision7</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
@@ -796,6 +949,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/total30/total30-6-pack/"><div class="product-name">TOTAL30 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/total30/">TOTAL30</a>
+    
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/total30/total30-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">494</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
@@ -807,6 +961,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-name">Biofinity XR 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,5 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">649</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Coptikk</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
@@ -818,6 +973,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-name">Air Optix Night &amp; Day Aqua 6-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/air-optix/">Air Optix</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>24 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>13,8 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">676</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensit</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
@@ -829,6 +985,7 @@ a { color: inherit; }
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-name">Precision7 27-pack</div></a>
     <a class="product-tile-manufacturer" href="/merke/precision7/">Precision7</a>
+    <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">879</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
@@ -836,6 +993,10 @@ a { color: inherit; }
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  <section class="product-ai-summary" aria-label="Om utvalget">
+  <p><strong>Om utvalget:</strong> Kontaktlinser.no sammenligner for tiden 22 månedslinser fra 13 merker. Produktene i oversikten har basiskurve fra 8,4–8,9 mm, diameter fra 13,8–14,5 mm og vanninnhold fra 24–60 %.</p>
+</section>
 
   <div class="guides">
     <h2>Guider</h2>
@@ -879,55 +1040,175 @@ a { color: inherit; }
 </div>
 
 <script>
-  // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
-  // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
-  // scratch, så innholdet er identisk med eller uten JS.
-  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
-  // filter-rader utover merke rendres kun når kategorien faktisk har nok
-  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
-  // querySelectorAll under finner alltid minst brand-raden.
-  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
+(function () {
   const list = document.getElementById('product-list');
-  const sortToggle = document.getElementById('sort-toggle');
-  let ascending = true;
+  const resultCount = document.getElementById('result-count');
+  const groupLabels = { brand: 'Merke', bc: 'Basiskurve', dia: 'Diameter', wc: 'Vanninnhold' };
+  const selections = { brand: new Set(), bc: new Set(), dia: new Set(), wc: new Set() };
+  const activeFiltersWrap = document.getElementById('active-filters-wrap');
+  const activeChipsEl = document.getElementById('active-filters');
+
+  function fmtValue(key, v) {
+    if (key === 'wc') return v.replace('.', ',') + ' %';
+    if (key === 'bc' || key === 'dia') return v.replace('.', ',') + ' mm';
+    const chip = document.querySelector('.chip[data-group="' + key + '"][data-value="' + CSS.escape(v) + '"]');
+    return chip ? chip.textContent.replace(/\s*\d+\s*$/, '').trim() : v;
+  }
+
+  function syncChipsFor(group, value) {
+    const pressed = selections[group].has(value);
+    document.querySelectorAll('.chip[data-group="' + group + '"][data-value="' + CSS.escape(value) + '"]').forEach(el => {
+      el.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+      el.classList.toggle('active', pressed);
+    });
+  }
+
+  const filterDdSubtitles = {};
+  document.querySelectorAll('[data-filter-dd]').forEach(dd => {
+    const key = dd.dataset.filterDd;
+    filterDdSubtitles[key] = dd.querySelector('[data-summary-for="' + key + '"]');
+  });
+
+  function updateDropdownSubtitles() {
+    Object.keys(filterDdSubtitles).forEach(key => {
+      const el = filterDdSubtitles[key];
+      if (!el) return;
+      const set = selections[key];
+      if (!set.size) {
+        el.textContent = 'Velg én eller flere verdier' + (key === 'wc' ? ' (valgfritt)' : '');
+      } else {
+        el.textContent = Array.from(set).map(v => fmtValue(key, v)).join(', ');
+      }
+    });
+  }
+
+  function updateFilterBadge() {
+    const count = selections.bc.size + selections.dia.size + selections.wc.size;
+    const badge = document.getElementById('filter-trigger-badge');
+    if (badge) { badge.textContent = count; badge.hidden = count === 0; }
+  }
+
+  function renderActiveFilters() {
+    const parts = [];
+    Object.keys(selections).forEach(group => {
+      selections[group].forEach(value => parts.push({ group, value }));
+    });
+    if (!parts.length) {
+      activeFiltersWrap.hidden = true;
+      activeChipsEl.innerHTML = '';
+    } else {
+      activeFiltersWrap.hidden = false;
+      activeChipsEl.innerHTML = parts.map(p =>
+        '<button type="button" class="active-filter-chip" data-remove-group="' + p.group + '" data-remove-value="' + p.value.replace(/"/g, '&quot;') + '">' +
+        groupLabels[p.group] + ': ' + fmtValue(p.group, p.value) + ' <span aria-hidden="true">✕</span></button>'
+      ).join('');
+    }
+    updateFilterBadge();
+    updateDropdownSubtitles();
+  }
 
   function applyFilters() {
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
-      const show = filterGroups.every(group => {
-        const active = group.querySelector('.chip.active');
-        const key = group.dataset.filterKey;
-        const want = active ? active.dataset[key] : 'all';
-        if (want === 'all') return true;
-        return (card.dataset[key] || '').split(' ').includes(want);
+      const show = Object.keys(selections).every(group => {
+        const set = selections[group];
+        if (!set.size) return true;
+        const cardValues = (card.dataset[group] || '').split(' ');
+        return cardValues.some(v => set.has(v));
       });
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
-    document.getElementById('result-count').textContent = visible + ' produkter';
+    resultCount.textContent = visible + ' produkter';
+    const sheetShow = document.getElementById('sheet-show-count');
+    if (sheetShow) sheetShow.textContent = 'Vis ' + visible + ' produkter';
   }
 
-  filterGroups.forEach(group => {
-    group.addEventListener('click', e => {
-      const btn = e.target.closest('.chip');
-      if (!btn) return;
-      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
+  document.querySelectorAll('.chip[data-group]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const group = btn.dataset.group, value = btn.dataset.value;
+      if (selections[group].has(value)) selections[group].delete(value);
+      else selections[group].add(value);
+      syncChipsFor(group, value);
+      renderActiveFilters();
       applyFilters();
     });
   });
 
-  sortToggle.addEventListener('click', () => {
-    ascending = !ascending;
-    sortToggle.textContent = 'Sorter: Lavest pris ' + (ascending ? '↑' : '↓');
+  activeChipsEl.addEventListener('click', e => {
+    const btn = e.target.closest('[data-remove-group]');
+    if (!btn) return;
+    selections[btn.dataset.removeGroup].delete(btn.dataset.removeValue);
+    syncChipsFor(btn.dataset.removeGroup, btn.dataset.removeValue);
+    renderActiveFilters();
+    applyFilters();
+  });
+
+  document.querySelectorAll('[data-reset-filters]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Object.keys(selections).forEach(group => {
+        Array.from(selections[group]).forEach(value => { selections[group].delete(value); syncChipsFor(group, value); });
+      });
+      renderActiveFilters();
+      applyFilters();
+      closeSheet();
+    });
+  });
+
+  // Kun BC/DIA/Vanninnhold ligger i "Filtrer produkter"-arket på mobil --
+  // merke-chipsene er allerede direkte synlige/trykkbare på selve siden.
+  const sheetTrigger = document.getElementById('filter-trigger');
+  const filterPanel = document.getElementById('category-filters');
+  const sheetBackdrop = document.getElementById('filter-backdrop');
+  const sheetClose = document.getElementById('filter-sheet-close');
+  const sheetShowBtn = document.getElementById('sheet-show-count');
+
+  function openSheet() { filterPanel.classList.add('is-open'); sheetBackdrop.hidden = false; document.body.style.overflow = 'hidden'; }
+  function closeSheet() { filterPanel.classList.remove('is-open'); sheetBackdrop.hidden = true; document.body.style.overflow = ''; }
+  if (sheetTrigger) sheetTrigger.addEventListener('click', openSheet);
+  if (sheetClose) sheetClose.addEventListener('click', closeSheet);
+  if (sheetBackdrop) sheetBackdrop.addEventListener('click', closeSheet);
+  if (sheetShowBtn) sheetShowBtn.addEventListener('click', closeSheet);
+
+  // "Alle merker"-utvidelse -- de øvrige merke-chipsene ligger allerede i
+  // DOM-en (ekte, crawlbar HTML), kun synligheten endres.
+  const brandMoreToggle = document.getElementById('brand-toggle-more');
+  const brandMoreWrap = document.getElementById('brand-more-wrap');
+  if (brandMoreToggle && brandMoreWrap) {
+    const initialLabel = brandMoreToggle.innerHTML;
+    brandMoreToggle.addEventListener('click', () => {
+      const expanded = brandMoreToggle.getAttribute('aria-expanded') === 'true';
+      brandMoreToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      brandMoreWrap.hidden = expanded;
+      brandMoreToggle.innerHTML = expanded ? initialLabel : 'Skjul flere merker <span aria-hidden="true">−</span>';
+    });
+  }
+
+  // Kun ett dropdown-filter åpent om gangen (desktop-mønster) + lukk ved
+  // klikk utenfor.
+  document.querySelectorAll('.filter-dd').forEach(dd => {
+    dd.addEventListener('toggle', () => {
+      if (dd.open) document.querySelectorAll('.filter-dd').forEach(other => { if (other !== dd) other.open = false; });
+    });
+  });
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.filter-dd')) {
+      document.querySelectorAll('.filter-dd[open]').forEach(dd => { dd.open = false; });
+    }
+  });
+
+  const sortSelect = document.getElementById('sort-select');
+  sortSelect.addEventListener('change', () => {
+    const desc = sortSelect.value === 'price-desc';
     const cards = Array.from(list.querySelectorAll('.product-tile'));
     cards.sort((a, b) => {
       const av = parseFloat(a.querySelector('.product-tile-price')?.textContent.replace(/\D/g, '')) || Infinity;
       const bv = parseFloat(b.querySelector('.product-tile-price')?.textContent.replace(/\D/g, '')) || Infinity;
-      return ascending ? av - bv : bv - av;
+      return desc ? bv - av : av - bv;
     });
     cards.forEach(c => list.appendChild(c));
   });
+})();
 </script>
 <footer class="site-footer">
   <div class="footer-inner">
