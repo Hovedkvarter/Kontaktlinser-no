@@ -222,7 +222,7 @@ a { color: inherit; }
 .product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
-.chip.active { background: var(--ink); border-color: var(--ink); color: white; }
+.chip.active { background: var(--blue); border-color: var(--blue); color: white; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 24px; }
 .list-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
 .list-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
@@ -286,6 +286,9 @@ a { color: inherit; }
 .product-tile-name-link .product-name { font-size: 1.05rem; line-height: 1.35; font-weight: 700; min-height: 2.7em; }
 .product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
 .product-tile-manufacturer:hover { text-decoration: underline; }
+.product-tile-specs-row { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
+.product-tile-spec { display: flex; align-items: center; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+.product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
@@ -595,6 +598,20 @@ CATEGORY_TAGLINES = {
     "toriske-linser": "For deg med astigmatisme",
     "fargede-linser": "Endre eller forsterk øyefargen",
     "multifokale-linser": "For nær, mellom og fjern",
+}
+
+# Kort, faktabasert "hva er X"-forklaring per kategori -- vises i en egen
+# boks på kategorisiden (2026-09-05, del av kategorisideredesignet). Samme
+# forsiktige stil som GUIDE_CONTENT: generelle, godt etablerte fakta, ingen
+# spesifikke medisinske råd. "les_mer_slug" er bevisst IKKE hardkodet til én
+# fast guide -- render_category_page faller tilbake til første guide i
+# kategoriens egen guides-liste hvis ingen egen verdi er satt her.
+CATEGORY_EXPLAINERS = {
+    "dagslinser": "Dagslinser, også kalt endagslinser eller 1-dagslinser, brukes én dag og kastes etter bruk. De gir god hygiene, høy komfort og krever ikke rengjøring eller oppbevaring i linsevæske.",
+    "manedslinser": "Månedslinser brukes i inntil 30 dager (følg alltid optikerens anbefaling) før de byttes ut, og rengjøres og oppbevares i linsevæske mellom hver bruk. Ofte rimeligere per dag enn dagslinser.",
+    "toriske-linser": "Toriske linser er utformet for å korrigere astigmatisme (skjevhet i hornhinnen) i tillegg til vanlig nær- eller langsynthet. De har en spesiell form som gjør at de ikke roterer fritt i øyet.",
+    "fargede-linser": "Fargede kontaktlinser endrer eller forsterker øyenfargen, og finnes både med og uten styrke. Følg alltid bruksanvisningen nøye, også for linser uten synskorrigering.",
+    "multifokale-linser": "Multifokale linser korrigerer alderssyn (presbyopi) ved å kombinere flere styrker i samme linse, slik at du kan se skarpt på flere avstander uten lesebriller.",
 }
 
 _SHIELD_ICON = '<path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/>'
@@ -2053,7 +2070,7 @@ def _fmt_kr(n: float) -> str:
 def _render_product_tile(*, href: str, name: str, image_url: str | None, fallback_initials: str,
                           category_label: str | None, secondary_line_html: str,
                           lowest: dict | None, other_count: int, data_attr: str = "",
-                          illustration_html: str | None = None) -> str:
+                          illustration_html: str | None = None, specs_row_html: str = "") -> str:
     """Delt kortmarkup for merke-/kategori-/tilbehør-/private label-rutenett
     (render_brand_page, render_category_page, render_solution_category_page,
     render_private_label_brand_page) -- én mal, page-spesifikt innhold
@@ -2093,6 +2110,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     {category_badge}
     <a class="product-tile-name-link" href="{href_esc}"><div class="product-name">{escape(name)}</div></a>
     {secondary_line_html}
+    {specs_row_html}
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="{href_esc}">{price_block}</a>
   </div>
@@ -2275,6 +2293,11 @@ TROPHY_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" a
 # kalender-ikon for brukstid-badger (dagslinser/månedslinser/ukelinser) --
 # se _product_type_badges().
 DROPLET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>'
+BASISKURVE_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+DIAMETER_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>'
+TAG_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg>'
+RESET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.6 5.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+X_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 CALENDAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
 
 # Badger på produktsidens hero -- KUN utledet fra verifiserte spesifikasjons-
@@ -6516,18 +6539,33 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     # og brukere uten JS faktisk ser.
     rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
 
-    # Passform-filter (2026-09-05): vanninnhold/basiskurve/diameter, i
-    # tillegg til det eksisterende merke-filteret -- ingen annen norsk
-    # kontaktlinse-prissammenligning har dette pr. i dag. Verdiene finnes
-    # KUN som fritekst i specs (se _parse_spec_numbers), og dekningen
-    # varierer mye per kategori (toriske/multifokale har langt færre
-    # Basiskurve/Diameter-oppføringer enn dags-/månedslinser) -- derfor
-    # regnet ut PER kategori og filteret utelates helt der færre enn 2
-    # distinkte verdier finnes, i stedet for å vise et filter som uansett
-    # ikke gjør noe.
+    # Passform-filter: vanninnhold/basiskurve/diameter, i tillegg til
+    # merke-filteret -- ingen annen norsk kontaktlinse-prissammenligning har
+    # dette pr. i dag. Verdiene finnes KUN som fritekst i specs (se
+    # _parse_spec_numbers), og dekningen varierer mye per kategori (toriske/
+    # multifokale har langt færre Basiskurve/Diameter-oppføringer enn dags-/
+    # månedslinser) -- derfor regnet ut PER kategori og filteret utelates
+    # helt der færre enn 2 distinkte verdier finnes.
     wc_values, wc_by_id = _fit_filter_values(products, "Vanninnhold")
     bc_values, bc_by_id = _fit_filter_values(products, "Basiskurve")
     dia_values, dia_by_id = _fit_filter_values(products, "Diameter")
+
+    def spec_row_html_for(p: dict) -> str:
+        # Kompakt spesifikasjonsrad på selve produktkortet -- eksplisitte
+        # produktegenskaper er nyttige for mennesker OG for AI-retrieval
+        # (2026-09-05-redesignet, se CLAUDE.md). Viser kun feltene produktet
+        # faktisk har (mange produkter mangler BC/DIA, se notatet over).
+        bits = []
+        wc_v = wc_by_id.get(p["id"], [])
+        bc_v = bc_by_id.get(p["id"], [])
+        dia_v = dia_by_id.get(p["id"], [])
+        if wc_v:
+            bits.append(f'<span class="product-tile-spec">{DROPLET_ICON_SVG}{escape(wc_v[0].replace(".", ","))} %</span>')
+        if bc_v:
+            bits.append(f'<span class="product-tile-spec">{BASISKURVE_ICON_SVG}{escape(bc_v[0].replace(".", ","))} mm</span>')
+        if dia_v:
+            bits.append(f'<span class="product-tile-spec">{DIAMETER_ICON_SVG}{escape(dia_v[0].replace(".", ","))} mm</span>')
+        return f'<div class="product-tile-specs-row">{"".join(bits)}</div>' if bits else ""
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
@@ -6552,37 +6590,131 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
             lowest=lowest,
             other_count=len(p["offers"]) - 1,
             data_attr=f' data-brand="{escape(p["brand_slug"])}"{fit_attrs}',
+            specs_row_html=spec_row_html_for(p),
         )
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
 
-    brand_slugs = sorted({p["brand_slug"] for p in products})
-    brand_chips = "".join(
-        f'<button class="chip" data-brand="{escape(b)}">{escape(b.capitalize())}</button>' for b in brand_slugs
+    # Merker: ekte antall produkter per merke (populære merker = flest
+    # produkter i DENNE kategorien, ikke en gjettet/manuelt satt liste) --
+    # og ekte visningsnavn (brand_label), ikke en .capitalize()-gjetning på
+    # slugen som tidligere ga feil for f.eks. "ClearLab".
+    brand_counts: dict[str, int] = {}
+    brand_labels: dict[str, str] = {}
+    for p in products:
+        brand_counts[p["brand_slug"]] = brand_counts.get(p["brand_slug"], 0) + 1
+        brand_labels[p["brand_slug"]] = p["brand_label"]
+    sorted_brands = sorted(brand_counts, key=lambda b: (-brand_counts[b], brand_labels[b]))
+    n_brands = len(sorted_brands)
+    n_products = len(products)
+    POPULAR_N = 8
+    popular_brands = sorted_brands[:POPULAR_N]
+    rest_brands = sorted_brands[POPULAR_N:]
+
+    def brand_chip(b: str) -> str:
+        return (
+            f'<button type="button" class="chip" data-group="brand" data-value="{escape(b)}" '
+            f'aria-pressed="false">{escape(brand_labels[b])} <span class="chip-count">{brand_counts[b]}</span></button>'
+        )
+
+    popular_chips_html = "".join(brand_chip(b) for b in popular_brands)
+    rest_chips_html = "".join(brand_chip(b) for b in rest_brands)
+    show_all_toggle_html = (
+        f'<button type="button" class="chip chip-ghost" id="brand-toggle-more" aria-expanded="false">'
+        f'Alle merker ({n_brands}) <span aria-hidden="true">+</span></button>'
+        if rest_brands else ""
     )
 
-    def fit_filter_row_html(key: str, values: list[str], all_label: str, aria_label: str, fmt) -> str:
+    def fit_dropdown_html(key: str, label: str, values: list[str], fmt, icon: str, optional: bool = False) -> str:
         # Utelates helt (ikke bare tom rad) hvis under 2 distinkte verdier
         # finnes for denne kategorien -- et filter med 0-1 valg gjør
         # ingenting nyttig, bare rot.
         if len(values) < 2:
             return ""
         chips = "".join(
-            f'<button class="chip" data-{key}="{escape(v)}">{escape(fmt(v))}</button>' for v in values
+            f'<button type="button" class="chip" data-group="{key}" data-value="{escape(v)}" '
+            f'aria-pressed="false">{escape(fmt(v))}</button>'
+            for v in values
         )
-        return f"""<div class="filter-row" id="filter-row-{key}" data-filter-key="{key}" role="group" aria-label="{aria_label}">
-    <button class="chip active" data-{key}="all">{all_label}</button>
-    {chips}
-  </div>"""
+        subtitle = "Velg én eller flere verdier" + (" (valgfritt)" if optional else "")
+        return f'''<details class="filter-dd" data-filter-dd="{key}">
+    <summary>
+      <span class="filter-dd-icon">{icon}</span>
+      <span class="filter-dd-text">
+        <span class="filter-dd-label">{escape(label)}</span>
+        <span class="filter-dd-sub" data-summary-for="{key}">{subtitle}</span>
+      </span>
+      <span class="filter-dd-chevron" aria-hidden="true">▾</span>
+    </summary>
+    <div class="filter-dd-panel" role="group" aria-label="Filtrer etter {escape(label.lower())}">{chips}</div>
+  </details>'''
 
-    wc_filter_html = fit_filter_row_html("wc", wc_values, "Alt vanninnhold", "Filtrer etter vanninnhold", lambda v: f"{v.replace('.', ',')} %")
-    bc_filter_html = fit_filter_row_html("bc", bc_values, "Alle basiskurver", "Filtrer etter basiskurve", lambda v: f"{v.replace('.', ',')} mm")
-    dia_filter_html = fit_filter_row_html("dia", dia_values, "Alle diametere", "Filtrer etter diameter", lambda v: f"{v.replace('.', ',')} mm")
-    fit_filters_html = wc_filter_html + bc_filter_html + dia_filter_html
+    # Rekkefølge BC -> DIA -> Vanninnhold sist (2026-09-05, avtalt med
+    # bruker): BC/DIA er en reell tilpasningsegenskap (nyttig for å finne
+    # produkter med bestemte spesifikasjoner -- IKKE en påstand om at samme
+    # tall gjør produkter medisinsk utbyttbare), vanninnhold er en mykere,
+    # mer sekundær egenskap og derfor markert "(valgfritt)" og plassert sist.
+    # Alle tre er multi-select (kan velge flere verdier samtidig per felt).
+    bc_dd_html = fit_dropdown_html("bc", "Basiskurve (BC)", bc_values, lambda v: f"{v.replace('.', ',')} mm", BASISKURVE_ICON_SVG)
+    dia_dd_html = fit_dropdown_html("dia", "Diameter (DIA)", dia_values, lambda v: f"{v.replace('.', ',')} mm", DIAMETER_ICON_SVG)
+    wc_dd_html = fit_dropdown_html("wc", "Vanninnhold", wc_values, lambda v: f"{v.replace('.', ',')} %", DROPLET_ICON_SVG, optional=True)
+    filter_dd_html = bc_dd_html + dia_dd_html + wc_dd_html
 
     guides_html = "\n".join(
         f'<li><a href="/guide/{escape(g["slug"])}/">{escape(g["title"])}</a></li>' for g in category.get("guides", [])
     )
+
+    # Datadrevet intro -- alle 5 kategori-introer i products_meta.json deler
+    # nøyaktig denne halen ("fra alle merker vi følger"), erstattet med
+    # ekte, live tall (2026-09-05-redesignet). Samme tekst brukes i
+    # meta-description/og-meta, ikke bare i synlig H1-intro.
+    intro_text = category["intro"].replace(
+        "fra alle merker vi følger",
+        f"fra {n_brands} merker og {n_products} produkter",
+    )
+
+    # "Hva er X?"-boks: kort, faktabasert forklaring + lenke til første guide
+    # i kategoriens egen guide-liste (ingen hardkodet guide-slug her).
+    explainer_text = CATEGORY_EXPLAINERS.get(category_slug, "")
+    category_guides = category.get("guides", [])
+    explainer_html = ""
+    if explainer_text and category_guides:
+        icon = CATEGORY_ICONS.get(category_slug, "")
+        color = CATEGORY_COLORS.get(category_slug, "blue")
+        explainer_html = f'''<div class="category-explainer">
+    <div class="category-explainer-icon" style="background:var(--{color}-tint);color:var(--{color});"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{icon}</svg></div>
+    <div>
+      <h2>Hva er {escape(category["label"].lower())}?</h2>
+      <p>{escape(explainer_text)}</p>
+      <a href="/guide/{escape(category_guides[0]["slug"])}/">Les mer →</a>
+    </div>
+  </div>'''
+
+    # "Om utvalget"-oppsummering under produktlisten: ekte beregnede spenn
+    # (aldri egne sonebolker/klassifiseringer -- ekte tallverdier er
+    # produktegenskaper, en sonebolk ville vært en tolkning vi selv
+    # introduserer). Samme "utelat helt der for lite data"-prinsipp som
+    # filtrene -- kun spenn med >=2 distinkte verdier vises.
+    def _range_text(values: list[str], unit: str) -> str | None:
+        if len(values) < 2:
+            return None
+        lo, hi = values[0].replace(".", ","), values[-1].replace(".", ",")
+        return None if lo == hi else f"{lo}–{hi} {unit}"
+
+    range_bits = []
+    bc_range, dia_range, wc_range = _range_text(bc_values, "mm"), _range_text(dia_values, "mm"), _range_text(wc_values, "%")
+    if bc_range:
+        range_bits.append(f"basiskurve fra {bc_range}")
+    if dia_range:
+        range_bits.append(f"diameter fra {dia_range}")
+    if wc_range:
+        range_bits.append(f"vanninnhold fra {wc_range}")
+    category_summary_html = ""
+    if range_bits:
+        bits_text = range_bits[0] if len(range_bits) == 1 else ", ".join(range_bits[:-1]) + " og " + range_bits[-1]
+        category_summary_html = f'''<section class="product-ai-summary" aria-label="Om utvalget">
+  <p><strong>Om utvalget:</strong> Kontaktlinser.no sammenligner for tiden {n_products} {escape(category["label"].lower())} fra {n_brands} merker. Produktene i oversikten har {bits_text}.</p>
+</section>'''
 
     schema_items = ",\n      ".join(
         f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/", "name": "{escape(p["name"])}"}}'''
@@ -6606,12 +6738,75 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Billige {escape(category["label"].lower())} – Sammenlign priser | Kontaktlinser.no</title>
-<meta name="description" content="{escape(category["intro"])}">
+<meta name="description" content="{escape(intro_text)}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{category_slug}/">
-{_og_meta(f'Billige {category["label"].lower()} – Sammenlign priser | Kontaktlinser.no', category["intro"], f'{BASE_URL}/kontaktlinser/{category_slug}/')}
+{_og_meta(f'Billige {category["label"].lower()} – Sammenlign priser | Kontaktlinser.no', intro_text, f'{BASE_URL}/kontaktlinser/{category_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
-<style>{SHARED_STYLE}</style>
+<style>{SHARED_STYLE}
+.hero {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }}
+.hero-copy {{ flex: 1 1 320px; }}
+.category-stats {{ display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }}
+.category-stat {{ display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }}
+.category-stat svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
+.category-explainer {{ flex: 0 1 300px; display: flex; gap: 12px; background: var(--blue-tint); border-radius: 14px; padding: 16px 18px; }}
+.category-explainer-icon {{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
+.category-explainer-icon svg {{ width: 18px; height: 18px; }}
+.category-explainer h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 4px; }}
+.category-explainer p {{ margin: 0 0 8px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }}
+.category-explainer a {{ font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }}
+.category-explainer a:hover {{ text-decoration: underline; }}
+.category-filters-bar {{ margin: 26px 0 20px; }}
+.category-brand-row {{ margin-bottom: 14px; }}
+.category-filters-label {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }}
+.brand-chip-row {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+.brand-chip-row[hidden] {{ display: none; }}
+.brand-more-wrap {{ margin-top: 8px; }}
+.chip-count {{ opacity: 0.6; font-weight: 500; }}
+.chip.active .chip-count {{ opacity: 0.85; }}
+.chip-ghost {{ background: transparent; border-style: dashed; color: var(--blue); }}
+.filter-trigger {{ display: none; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 16px; background: var(--blue-tint); color: var(--blue); border: none; border-radius: 10px; font-weight: 700; font-size: 0.88rem; cursor: pointer; }}
+.filter-trigger-badge {{ background: var(--blue); color: white; font-size: 0.72rem; min-width: 18px; height: 18px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; padding: 0 5px; }}
+.filter-trigger-badge[hidden] {{ display: none; }}
+.filter-backdrop {{ display: none; }}
+.category-filters {{ display: flex; flex-wrap: wrap; gap: 10px; }}
+.filter-sheet-header, .filter-sheet-footer {{ display: none; }}
+.filter-dd {{ position: relative; }}
+.filter-dd > summary {{ list-style: none; display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; font-size: 0.85rem; user-select: none; }}
+.filter-dd > summary::-webkit-details-marker {{ display: none; }}
+.filter-dd-icon {{ display: flex; color: var(--blue); flex-shrink: 0; }}
+.filter-dd-icon svg {{ width: 16px; height: 16px; }}
+.filter-dd-text {{ display: flex; flex-direction: column; line-height: 1.3; }}
+.filter-dd-label {{ font-weight: 700; }}
+.filter-dd-sub {{ font-size: 0.74rem; color: var(--muted); }}
+.filter-dd-chevron {{ margin-left: auto; color: var(--muted); transition: transform 0.15s; }}
+.filter-dd[open] .filter-dd-chevron {{ transform: rotate(180deg); }}
+.filter-dd-panel {{ display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 4px 2px; }}
+.active-filters-wrap {{ display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px 0 20px; }}
+.active-filters-wrap[hidden] {{ display: none; }}
+.active-filters {{ display: flex; gap: 8px; flex-wrap: wrap; }}
+.active-filter-chip {{ display: inline-flex; align-items: center; gap: 6px; background: var(--blue-tint); color: var(--blue-dark); border: none; border-radius: 999px; padding: 6px 10px; font-size: 0.78rem; font-weight: 600; cursor: pointer; }}
+.filter-reset-link {{ display: inline-flex; align-items: center; gap: 6px; background: none; border: none; color: var(--blue); font-size: 0.78rem; font-weight: 700; cursor: pointer; padding: 0; }}
+.filter-reset-link svg {{ width: 14px; height: 14px; }}
+.sort-select {{ font-size: 0.82rem; font-weight: 600; color: var(--ink); border: 1px solid var(--border); border-radius: 999px; padding: 8px 30px 8px 14px; background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center / 14px 14px; appearance: none; cursor: pointer; }}
+@media (min-width: 1024px) {{
+  .filter-dd-panel {{ position: absolute; top: calc(100% + 6px); left: 0; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; box-shadow: var(--card-shadow); min-width: 260px; z-index: 20; }}
+}}
+@media (max-width: 1023px) {{
+  .filter-trigger {{ display: flex; }}
+  .category-filters {{ position: fixed; left: 0; right: 0; bottom: 0; background: white; border-radius: 18px 18px 0 0; padding: 18px; flex-direction: column; gap: 10px; max-height: 82vh; overflow-y: auto; transform: translateY(105%); transition: transform 0.25s ease; z-index: 60; box-shadow: 0 -8px 30px rgba(11,37,69,0.18); }}
+  .category-filters.is-open {{ transform: translateY(0); }}
+  .filter-dd {{ width: 100%; }}
+  .filter-sheet-header {{ display: flex; align-items: center; justify-content: space-between; }}
+  .filter-sheet-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+  .filter-sheet-close {{ background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px; }}
+  .filter-sheet-close svg {{ width: 20px; height: 20px; }}
+  .filter-sheet-footer {{ display: flex; flex-direction: column; gap: 10px; margin-top: 6px; position: sticky; bottom: 0; background: white; padding-top: 10px; }}
+  .btn-primary-block {{ background: var(--blue); color: white; border: none; border-radius: 10px; padding: 13px; font-weight: 700; font-size: 0.92rem; cursor: pointer; }}
+  .filter-backdrop {{ position: fixed; inset: 0; background: rgba(11,37,69,0.35); z-index: 55; }}
+  .filter-backdrop[hidden] {{ display: none; }}
+}}
+</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -6621,27 +6816,70 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     <div class="hero-copy">
       <div class="kicker">Kategori</div>
       <h1>{escape(category["label"])}</h1>
-      <p>{escape(category["intro"])}</p>
+      <p>{escape(intro_text)}</p>
+      <div class="category-stats">
+        <span class="category-stat">{BOX_ICON_SVG}<span>{n_products} produkter</span></span>
+        <span class="category-stat">{TAG_ICON_SVG}<span>{n_brands} merker</span></span>
+        <span class="category-stat">{CALENDAR_ICON_SVG}<span>Priser oppdateres flere ganger daglig</span></span>
+      </div>
+    </div>
+    {explainer_html}
+  </div>
+
+  <div class="category-filters-bar">
+    <div class="category-brand-row">
+      <span class="category-filters-label">Populære merker</span>
+      <div class="brand-chip-row">
+        {popular_chips_html}
+        {show_all_toggle_html}
+      </div>
+      <div class="brand-chip-row brand-more-wrap" id="brand-more-wrap" hidden>
+        {rest_chips_html}
+      </div>
+    </div>
+
+    <button type="button" class="filter-trigger" id="filter-trigger">
+      Filtrer produkter
+      <span class="filter-trigger-badge" id="filter-trigger-badge" hidden>0</span>
+    </button>
+    <div class="filter-backdrop" id="filter-backdrop" hidden></div>
+    <div class="category-filters" id="category-filters">
+      <div class="filter-sheet-header">
+        <h2>Filtrer produkter</h2>
+        <button type="button" class="filter-sheet-close" id="filter-sheet-close" aria-label="Lukk filter">{X_ICON_SVG}</button>
+      </div>
+      {filter_dd_html}
+      <div class="filter-sheet-footer">
+        <button type="button" class="btn-primary-block" id="sheet-show-count">Vis {n_products} produkter</button>
+        <button type="button" class="filter-reset-link" data-reset-filters style="justify-content:center;">{RESET_ICON_SVG} Nullstill alle filtre</button>
+      </div>
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
-    <button class="chip active" data-brand="all">Alle merker</button>
-    {brand_chips}
+  <div class="active-filters-wrap" id="active-filters-wrap" hidden>
+    <div class="active-filters" id="active-filters"></div>
+    <button type="button" class="filter-reset-link" data-reset-filters>{RESET_ICON_SVG} Nullstill alle filtre</button>
   </div>
-  {fit_filters_html}
 
   <div class="list-header">
-    <h2 id="result-count">{len(products)} produkter</h2>
-    <button class="sort-toggle" id="sort-toggle" style="font-size:0.78rem;font-weight:600;color:var(--blue);background:none;border:none;cursor:pointer;">Sorter: Lavest pris ↑</button>
+    <h2 id="result-count">{n_products} produkter</h2>
+    <select id="sort-select" class="sort-select" aria-label="Sorter produkter">
+      <option value="price-asc">Sorter: Laveste pris</option>
+      <option value="price-desc">Sorter: Høyeste pris</option>
+    </select>
   </div>
 
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
-       (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
+       (filter/re-sortering) ovenpå dette - fungerer uten JS også. Alle
+       filterverdier over er ekte, server-rendrede knapper (ikke hentet via
+       JS) -- kun VISNINGEN (åpen/lukket dropdown, sheet på mobil) er en
+       CSS/JS-forbedring. -->
   <div id="product-list" class="product-tile-grid">
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  {category_summary_html}
 
   <div class="guides">
     <h2>Guider</h2>
@@ -6656,55 +6894,175 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 </div>
 
 <script>
-  // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
-  // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
-  // scratch, så innholdet er identisk med eller uten JS.
-  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
-  // filter-rader utover merke rendres kun når kategorien faktisk har nok
-  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
-  // querySelectorAll under finner alltid minst brand-raden.
-  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
+(function () {{
   const list = document.getElementById('product-list');
-  const sortToggle = document.getElementById('sort-toggle');
-  let ascending = true;
+  const resultCount = document.getElementById('result-count');
+  const groupLabels = {{ brand: 'Merke', bc: 'Basiskurve', dia: 'Diameter', wc: 'Vanninnhold' }};
+  const selections = {{ brand: new Set(), bc: new Set(), dia: new Set(), wc: new Set() }};
+  const activeFiltersWrap = document.getElementById('active-filters-wrap');
+  const activeChipsEl = document.getElementById('active-filters');
+
+  function fmtValue(key, v) {{
+    if (key === 'wc') return v.replace('.', ',') + ' %';
+    if (key === 'bc' || key === 'dia') return v.replace('.', ',') + ' mm';
+    const chip = document.querySelector('.chip[data-group="' + key + '"][data-value="' + CSS.escape(v) + '"]');
+    return chip ? chip.textContent.replace(/\\s*\\d+\\s*$/, '').trim() : v;
+  }}
+
+  function syncChipsFor(group, value) {{
+    const pressed = selections[group].has(value);
+    document.querySelectorAll('.chip[data-group="' + group + '"][data-value="' + CSS.escape(value) + '"]').forEach(el => {{
+      el.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+      el.classList.toggle('active', pressed);
+    }});
+  }}
+
+  const filterDdSubtitles = {{}};
+  document.querySelectorAll('[data-filter-dd]').forEach(dd => {{
+    const key = dd.dataset.filterDd;
+    filterDdSubtitles[key] = dd.querySelector('[data-summary-for="' + key + '"]');
+  }});
+
+  function updateDropdownSubtitles() {{
+    Object.keys(filterDdSubtitles).forEach(key => {{
+      const el = filterDdSubtitles[key];
+      if (!el) return;
+      const set = selections[key];
+      if (!set.size) {{
+        el.textContent = 'Velg én eller flere verdier' + (key === 'wc' ? ' (valgfritt)' : '');
+      }} else {{
+        el.textContent = Array.from(set).map(v => fmtValue(key, v)).join(', ');
+      }}
+    }});
+  }}
+
+  function updateFilterBadge() {{
+    const count = selections.bc.size + selections.dia.size + selections.wc.size;
+    const badge = document.getElementById('filter-trigger-badge');
+    if (badge) {{ badge.textContent = count; badge.hidden = count === 0; }}
+  }}
+
+  function renderActiveFilters() {{
+    const parts = [];
+    Object.keys(selections).forEach(group => {{
+      selections[group].forEach(value => parts.push({{ group, value }}));
+    }});
+    if (!parts.length) {{
+      activeFiltersWrap.hidden = true;
+      activeChipsEl.innerHTML = '';
+    }} else {{
+      activeFiltersWrap.hidden = false;
+      activeChipsEl.innerHTML = parts.map(p =>
+        '<button type="button" class="active-filter-chip" data-remove-group="' + p.group + '" data-remove-value="' + p.value.replace(/"/g, '&quot;') + '">' +
+        groupLabels[p.group] + ': ' + fmtValue(p.group, p.value) + ' <span aria-hidden="true">✕</span></button>'
+      ).join('');
+    }}
+    updateFilterBadge();
+    updateDropdownSubtitles();
+  }}
 
   function applyFilters() {{
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {{
-      const show = filterGroups.every(group => {{
-        const active = group.querySelector('.chip.active');
-        const key = group.dataset.filterKey;
-        const want = active ? active.dataset[key] : 'all';
-        if (want === 'all') return true;
-        return (card.dataset[key] || '').split(' ').includes(want);
+      const show = Object.keys(selections).every(group => {{
+        const set = selections[group];
+        if (!set.size) return true;
+        const cardValues = (card.dataset[group] || '').split(' ');
+        return cardValues.some(v => set.has(v));
       }});
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     }});
-    document.getElementById('result-count').textContent = visible + ' produkter';
+    resultCount.textContent = visible + ' produkter';
+    const sheetShow = document.getElementById('sheet-show-count');
+    if (sheetShow) sheetShow.textContent = 'Vis ' + visible + ' produkter';
   }}
 
-  filterGroups.forEach(group => {{
-    group.addEventListener('click', e => {{
-      const btn = e.target.closest('.chip');
-      if (!btn) return;
-      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
+  document.querySelectorAll('.chip[data-group]').forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      const group = btn.dataset.group, value = btn.dataset.value;
+      if (selections[group].has(value)) selections[group].delete(value);
+      else selections[group].add(value);
+      syncChipsFor(group, value);
+      renderActiveFilters();
       applyFilters();
     }});
   }});
 
-  sortToggle.addEventListener('click', () => {{
-    ascending = !ascending;
-    sortToggle.textContent = 'Sorter: Lavest pris ' + (ascending ? '↑' : '↓');
+  activeChipsEl.addEventListener('click', e => {{
+    const btn = e.target.closest('[data-remove-group]');
+    if (!btn) return;
+    selections[btn.dataset.removeGroup].delete(btn.dataset.removeValue);
+    syncChipsFor(btn.dataset.removeGroup, btn.dataset.removeValue);
+    renderActiveFilters();
+    applyFilters();
+  }});
+
+  document.querySelectorAll('[data-reset-filters]').forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      Object.keys(selections).forEach(group => {{
+        Array.from(selections[group]).forEach(value => {{ selections[group].delete(value); syncChipsFor(group, value); }});
+      }});
+      renderActiveFilters();
+      applyFilters();
+      closeSheet();
+    }});
+  }});
+
+  // Kun BC/DIA/Vanninnhold ligger i "Filtrer produkter"-arket på mobil --
+  // merke-chipsene er allerede direkte synlige/trykkbare på selve siden.
+  const sheetTrigger = document.getElementById('filter-trigger');
+  const filterPanel = document.getElementById('category-filters');
+  const sheetBackdrop = document.getElementById('filter-backdrop');
+  const sheetClose = document.getElementById('filter-sheet-close');
+  const sheetShowBtn = document.getElementById('sheet-show-count');
+
+  function openSheet() {{ filterPanel.classList.add('is-open'); sheetBackdrop.hidden = false; document.body.style.overflow = 'hidden'; }}
+  function closeSheet() {{ filterPanel.classList.remove('is-open'); sheetBackdrop.hidden = true; document.body.style.overflow = ''; }}
+  if (sheetTrigger) sheetTrigger.addEventListener('click', openSheet);
+  if (sheetClose) sheetClose.addEventListener('click', closeSheet);
+  if (sheetBackdrop) sheetBackdrop.addEventListener('click', closeSheet);
+  if (sheetShowBtn) sheetShowBtn.addEventListener('click', closeSheet);
+
+  // "Alle merker"-utvidelse -- de øvrige merke-chipsene ligger allerede i
+  // DOM-en (ekte, crawlbar HTML), kun synligheten endres.
+  const brandMoreToggle = document.getElementById('brand-toggle-more');
+  const brandMoreWrap = document.getElementById('brand-more-wrap');
+  if (brandMoreToggle && brandMoreWrap) {{
+    const initialLabel = brandMoreToggle.innerHTML;
+    brandMoreToggle.addEventListener('click', () => {{
+      const expanded = brandMoreToggle.getAttribute('aria-expanded') === 'true';
+      brandMoreToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      brandMoreWrap.hidden = expanded;
+      brandMoreToggle.innerHTML = expanded ? initialLabel : 'Skjul flere merker <span aria-hidden="true">−</span>';
+    }});
+  }}
+
+  // Kun ett dropdown-filter åpent om gangen (desktop-mønster) + lukk ved
+  // klikk utenfor.
+  document.querySelectorAll('.filter-dd').forEach(dd => {{
+    dd.addEventListener('toggle', () => {{
+      if (dd.open) document.querySelectorAll('.filter-dd').forEach(other => {{ if (other !== dd) other.open = false; }});
+    }});
+  }});
+  document.addEventListener('click', e => {{
+    if (!e.target.closest('.filter-dd')) {{
+      document.querySelectorAll('.filter-dd[open]').forEach(dd => {{ dd.open = false; }});
+    }}
+  }});
+
+  const sortSelect = document.getElementById('sort-select');
+  sortSelect.addEventListener('change', () => {{
+    const desc = sortSelect.value === 'price-desc';
     const cards = Array.from(list.querySelectorAll('.product-tile'));
     cards.sort((a, b) => {{
       const av = parseFloat(a.querySelector('.product-tile-price')?.textContent.replace(/\\D/g, '')) || Infinity;
       const bv = parseFloat(b.querySelector('.product-tile-price')?.textContent.replace(/\\D/g, '')) || Infinity;
-      return ascending ? av - bv : bv - av;
+      return desc ? bv - av : av - bv;
     }});
     cards.forEach(c => list.appendChild(c));
   }});
+}})();
 </script>
 {render_footer()}
 {CONSENT_BANNER_HTML}

@@ -1288,6 +1288,57 @@ anker familien i, uklart om Upside/Flatpack er samme linse), `focus-dailies-*`/
 `dailies-all-day-comfort-*` (rene ALIASER av Dailies AquaComfort Plus via
 `duplicate_products`, ikke en egen variant-familie).
 
+## Kategorisideredesign: datadrevet intro, kompakt filter, mobil bottom sheet (2026-09-05)
+
+Kai la fram (og diskuterte med en AI) en kritikk av dagens `/kontaktlinser/{kategori}/`-sider:
+fine designforslag må ikke gå på bekostning av crawlbart innhold. Etter flere runder med
+skjermbilde-mockuper (desktop og mobil) landet vi på en konkret spesifikasjon, implementert i
+`render_category_page()`:
+
+- **Datadrevet intro**: alle 5 kategori-introer i `products_meta.json` deler nøyaktig halen
+  "fra alle merker vi følger" -- erstattes nå ved rendring med ekte, live tall
+  ("fra 16 merker og 48 produkter"), samme tekst brukes i meta description/og-meta.
+- **Statlinje** (produkter/merker/oppdateringsfrekvens) + en ny **"Hva er X?"-forklaringsboks**
+  (`CATEGORY_EXPLAINERS`-dict, kort faktabasert tekst, lenker til første guide i kategoriens
+  egen guide-liste -- ingen hardkodet guide-slug).
+- **Populære merker**: chips sortert etter faktisk antall produkter PER KATEGORI (ikke en
+  manuelt satt liste), med ekte `brand_label` (fikset en gammel `.capitalize()`-gjetning som
+  ga feil for f.eks. "ClearLab"). "Alle merker (N) +" utvider samme rad -- alle merkene ligger
+  allerede i DOM-en, kun synligheten endres med JS.
+- **Basiskurve/Diameter/Vanninnhold er nå EKTE multi-select** (kan velge flere verdier per
+  felt samtidig, ikke bare én "aktiv chip" som før), bygget som `<details>`/`<summary>` --
+  lukket som standard, ekte HTML-verdier i alle tilfeller (ALDRI hentet via JS først når
+  brukeren åpner). Rekkefølge BC -> DIA -> Vanninnhold sist, vanninnhold markert
+  "(valgfritt)" -- bevisst valg: BC/DIA er en reell tilpasningsegenskap (finne produkter med
+  bestemte spesifikasjoner), IKKE en påstand om at samme tall gjør produkter medisinsk
+  utbyttbare (presisert av bruker). Vanninnhold beholder eksakte verdier (33 %, 38 %, 51 % …),
+  bevisst IKKE gruppert i sonebolker ("50-70 %") -- en eksakt verdi er en ekte produktegenskap,
+  en sonebolk er en klassifisering Kontaktlinser.no selv ville introdusert.
+- **Mobil**: "Filtrer produkter"-knapp (med antall-badge) åpner BC/DIA/Vanninnhold som et
+  slide-up-ark (kun CSS `transform`, samme DOM som desktop sine inline-dropdowns -- innholdet
+  er identisk med eller uten JS). Merke-chipsene ligger UTENFOR arket, alltid synlige/
+  trykkbare direkte på siden. **Desktop**: samme `<details>`-elementer vises som 3 uavhengige
+  inline dropdown-knapper i en rad (posisjon `absolute`-popover ved `min-width:1024px`).
+- **Aktive filtre**-chips ("Basiskurve: 8,7 mm ✕") bygges dynamisk av JS og fjerner ett og ett
+  filter -- men blir ALDRI til egne URL-er/query-parametre (ren klientside-tilstand, samme
+  prinsipp som det opprinnelige merke-filteret) -- ingen fare for at Google skal indeksere
+  tusenvis av filterkombinasjoner (`?bc=8.6&dia=14.2` osv.).
+- **Sortering** byttet fra en tekstknapp til en ekte `<select>` (styles som en pen dropdown-pille).
+- **Ny "Om utvalget"-boks** under produktlisten: ekte beregnet spenn
+  ("basiskurve fra 8,3–9,0 mm, diameter fra 13,8–14,3 mm og vanninnhold fra 33–100 %"),
+  samme "utelat helt der for lite data"-prinsipp som filtrene selv.
+- **Produktkortene** har nå en kompakt spesifikasjonsrad (vanninnhold/BC/DIA-ikoner) --
+  `_render_product_tile()` fikk et nytt valgfritt `specs_row_html`-parameter, tomt (uendret)
+  for alle andre kallesteder (merke-/tilbehør-/private label-sider).
+- Global `.chip.active`-farge byttet fra navy til blå (matcher mockupene, brukes nå
+  konsekvent på tvers av merke-/kategori-filtre alle steder `.chip` gjenbrukes).
+
+**Bevisst IKKE bygget denne runden** (vurdert og lagt til side, ikke glemt): "Mest populære"/
+"Beste komfort"/"Bestselger"-merker på produktkort (krever ekte, veldefinert førstepartsdata --
+ikke bare "flest klikk", siden posisjon i lista i seg selv påvirker klikk) og et
+favoritt/hjerte-ikon (ingen SEO-verdi, ekstra vedlikehold, ikke forespurt av bruker som en
+reell prioritet nå). Prishistorikk-lenken på produktkortet er derimot reell og allerede bygget.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
