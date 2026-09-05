@@ -278,6 +278,60 @@
       "real_product_id": "dailies-aquacomfort-plus-multifocal-30pk"
     },
     {
+      "slug": "easyvision-clearus",
+      "name": "Easyvision Clearus",
+      "chain": "Specsavers",
+      "real_product_id": "soflens-daily-disposable-30pk"
+    },
+    {
+      "slug": "easyvision-linarial",
+      "name": "Easyvision Linarial",
+      "chain": "Specsavers",
+      "real_product_id": "myday-30pk"
+    },
+    {
+      "slug": "easyvision-linarial-toric",
+      "name": "Easyvision Linarial Toric",
+      "chain": "Specsavers",
+      "real_product_id": "myday-toric-30pk"
+    },
+    {
+      "slug": "easyvision-linarial-multifocal",
+      "name": "Easyvision Linarial Multifocal",
+      "chain": "Specsavers",
+      "real_product_id": "myday-multifocal-30pk"
+    },
+    {
+      "slug": "easyvision-natural",
+      "name": "Easyvision Natural",
+      "chain": "Specsavers",
+      "real_product_id": "biomedics-55-evolution-6pk"
+    },
+    {
+      "slug": "easyvision-sential",
+      "name": "Easyvision Sential",
+      "chain": "Specsavers",
+      "real_product_id": "clariti-1day-30pk"
+    },
+    {
+      "slug": "easyvision-irisian-plus",
+      "name": "Easyvision Irisian Plus",
+      "chain": "Specsavers",
+      "real_product_id": "air-optix-hydraglyde-6pk"
+    },
+    {
+      "slug": "easyvision-irisian-plus-toric",
+      "name": "Easyvision Irisian Plus Toric",
+      "chain": "Specsavers",
+      "real_product_id": "air-optix-hydraglyde-astigmatism-6pk"
+    },
+    {
+      "slug": "easyvision-umere-multifocal",
+      "name": "Easyvision Umere Multifocal",
+      "chain": "Specsavers",
+      "real_product_id": "clariti-1day-multifocal-30pk"
+    },
+    {
       "slug": "ascend-premier",
       "name": "Ascend Premier",
       "chain": "Coptikk",
