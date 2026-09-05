@@ -554,9 +554,19 @@ a { color: inherit; }
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
+  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
     <button class="chip" data-brand="adore">Adore</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="freshlook">Freshlook</button><button class="chip" data-brand="queens-trilogy">Queens-trilogy</button><button class="chip" data-brand="swati">Swati</button>
+  </div>
+  <div class="filter-row" id="filter-row-wc" data-filter-key="wc" role="group" aria-label="Filtrer etter vanninnhold">
+    <button class="chip active" data-wc="all">Alt vanninnhold</button>
+    <button class="chip" data-wc="33">33 %</button><button class="chip" data-wc="38">38 %</button>
+  </div><div class="filter-row" id="filter-row-bc" data-filter-key="bc" role="group" aria-label="Filtrer etter basiskurve">
+    <button class="chip active" data-bc="all">Alle basiskurver</button>
+    <button class="chip" data-bc="8.6">8,6 mm</button><button class="chip" data-bc="8.7">8,7 mm</button>
+  </div><div class="filter-row" id="filter-row-dia" data-filter-key="dia" role="group" aria-label="Filtrer etter diameter">
+    <button class="chip active" data-dia="all">Alle diametere</button>
+    <button class="chip" data-dia="14.0">14,0 mm</button><button class="chip" data-dia="14.2">14,2 mm</button>
   </div>
 
   <div class="list-header">
@@ -567,7 +577,7 @@ a { color: inherit; }
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list" class="product-tile-grid">
-    <div class="product-tile" data-brand="freshlook">
+    <div class="product-tile" data-brand="freshlook" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/freshlook/freshlook-oneday-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/8/3/7/1/freshlook-oneday-color-1362x795.jpg" alt="FreshLook ONEday 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -578,7 +588,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/freshlook/freshlook-oneday-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="queens-trilogy">
+<div class="product-tile" data-brand="queens-trilogy" data-wc="" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/queens-trilogy/queens-trilogy-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/4/2/0/2/queen-s-trilogy-1362x795.jpg" alt="Queen&#x27;s Trilogy 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -589,7 +599,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/queens-trilogy/queens-trilogy-2-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="air-optix">
+<div class="product-tile" data-brand="air-optix" data-wc="33" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/colors-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/3/0/1/5/air-optix-colors-1362x795.jpg" alt="Air Optix Colors 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -600,7 +610,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/air-optix/colors-2-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="adore">
+<div class="product-tile" data-brand="adore" data-wc="38" data-bc="8.6" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/adore/bi-tone-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/6/4/2/3/adore-bi-tone-1362x795.jpg" alt="ADORE Bi-tone 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -611,7 +621,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/adore/bi-tone-2-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="adore">
+<div class="product-tile" data-brand="adore" data-wc="38" data-bc="8.6" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/adore/dare-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/2/3/2/9/5/adore-dare-1362x795.jpg" alt="ADORE Dare 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -622,7 +632,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/adore/dare-2-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="swati">
+<div class="product-tile" data-brand="swati" data-wc="" data-bc="8.7" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/swati/swati-coloured-lenses-1-month-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/3/3/8/7350100163154-02-front.jpg" alt="SWATI Coloured Lenses 1 month 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -633,7 +643,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/swati/swati-coloured-lenses-1-month-2-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="swati">
+<div class="product-tile" data-brand="swati" data-wc="" data-bc="8.7" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/swati/swati-coloured-lenses-6-months-2-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/1/0/8/7350100161303-02-front.jpg" alt="SWATI Coloured Lenses 6 months 2-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Fargede linser</div>
@@ -664,24 +674,39 @@ a { color: inherit; }
   // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
   // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
   // scratch, så innholdet er identisk med eller uten JS.
-  const filterRow = document.getElementById('filter-row');
+  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
+  // filter-rader utover merke rendres kun når kategorien faktisk har nok
+  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
+  // querySelectorAll under finner alltid minst brand-raden.
+  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
   const list = document.getElementById('product-list');
   const sortToggle = document.getElementById('sort-toggle');
   let ascending = true;
 
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    const brand = btn.dataset.brand;
+  function applyFilters() {
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
-      const show = brand === 'all' || card.dataset.brand === brand;
+      const show = filterGroups.every(group => {
+        const active = group.querySelector('.chip.active');
+        const key = group.dataset.filterKey;
+        const want = active ? active.dataset[key] : 'all';
+        if (want === 'all') return true;
+        return (card.dataset[key] || '').split(' ').includes(want);
+      });
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }
+
+  filterGroups.forEach(group => {
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
   });
 
   sortToggle.addEventListener('click', () => {

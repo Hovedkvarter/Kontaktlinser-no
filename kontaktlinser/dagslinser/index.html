@@ -595,9 +595,19 @@ a { color: inherit; }
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
+  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
     <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="biomedics">Biomedics</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="clariti">Clariti</button><button class="chip" data-brand="clearlab">Clearlab</button><button class="chip" data-brand="clearlii">Clearlii</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="daysoft">Daysoft</button><button class="chip" data-brand="everclear">Everclear</button><button class="chip" data-brand="live">Live</button><button class="chip" data-brand="miru">Miru</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="precision1">Precision1</button><button class="chip" data-brand="proclear">Proclear</button><button class="chip" data-brand="soflens">Soflens</button><button class="chip" data-brand="ultra">Ultra</button>
+  </div>
+  <div class="filter-row" id="filter-row-wc" data-filter-key="wc" role="group" aria-label="Filtrer etter vanninnhold">
+    <button class="chip active" data-wc="all">Alt vanninnhold</button>
+    <button class="chip" data-wc="33">33 %</button><button class="chip" data-wc="38">38 %</button><button class="chip" data-wc="51">51 %</button><button class="chip" data-wc="54">54 %</button><button class="chip" data-wc="56">56 %</button><button class="chip" data-wc="58">58 %</button><button class="chip" data-wc="59">59 %</button><button class="chip" data-wc="60">60 %</button><button class="chip" data-wc="69">69 %</button><button class="chip" data-wc="78">78 %</button><button class="chip" data-wc="80">80 %</button><button class="chip" data-wc="100">100 %</button>
+  </div><div class="filter-row" id="filter-row-bc" data-filter-key="bc" role="group" aria-label="Filtrer etter basiskurve">
+    <button class="chip active" data-bc="all">Alle basiskurver</button>
+    <button class="chip" data-bc="8.3">8,3 mm</button><button class="chip" data-bc="8.4">8,4 mm</button><button class="chip" data-bc="8.5">8,5 mm</button><button class="chip" data-bc="8.6">8,6 mm</button><button class="chip" data-bc="8.7">8,7 mm</button><button class="chip" data-bc="8.8">8,8 mm</button><button class="chip" data-bc="9.0">9,0 mm</button>
+  </div><div class="filter-row" id="filter-row-dia" data-filter-key="dia" role="group" aria-label="Filtrer etter diameter">
+    <button class="chip active" data-dia="all">Alle diametere</button>
+    <button class="chip" data-dia="13.8">13,8 mm</button><button class="chip" data-dia="14.0">14,0 mm</button><button class="chip" data-dia="14.1">14,1 mm</button><button class="chip" data-dia="14.2">14,2 mm</button><button class="chip" data-dia="14.3">14,3 mm</button>
   </div>
 
   <div class="list-header">
@@ -608,7 +618,7 @@ a { color: inherit; }
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list" class="product-tile-grid">
-    <div class="product-tile" data-brand="biomedics">
+    <div class="product-tile" data-brand="biomedics" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-30pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-30pk.jpg" alt="Biomedics 1Day Extra 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -619,7 +629,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="soflens">
+<div class="product-tile" data-brand="soflens" data-wc="59" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-daily-disposable-30pk.webp" type="image/webp"><img src="/static/products/soflens-daily-disposable-30pk.jpg" alt="SofLens Daily Disposable 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -630,7 +640,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="everclear">
+<div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-adm-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/7/8/0/6/everclear-adm-1362x795.jpg" alt="everclear ADM 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -641,7 +651,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-adm-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.7" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg" alt="Dailies AquaComfort Plus 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -652,7 +662,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="8.5 9.0" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/moist-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-moist-30pk.webp" type="image/webp"><img src="/static/products/acuvue-moist-30pk.jpg" alt="1-Day Acuvue Moist 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -663,7 +673,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/moist-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="live">
+<div class="product-tile" data-brand="live" data-wc="56" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/live/live-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/5/9/9/7/5/live-1362x795.jpg" alt="Live 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -674,7 +684,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/live/live-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.6" data-dia="13.8">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Focus Dailies 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -685,7 +695,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.6" data-dia="13.8">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Dailies All Day Comfort 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -696,7 +706,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clearlii">
+<div class="product-tile" data-brand="clearlii" data-wc="58" data-bc="8.5" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-daily-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/clearlii-daily-30pk.webp" type="image/webp"><img src="/static/products/clearlii-daily-30pk.jpg" alt="Clearlii Daily 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -707,7 +717,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clearlii/clearlii-daily-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/1-day-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-30pk.jpg" alt="Proclear 1 Day 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -718,7 +728,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/1-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biotrue">
+<div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-30pk.jpg" alt="Biotrue ONEday 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -729,7 +739,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clariti">
+<div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="Clariti 1 day 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -740,7 +750,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.5 9.0" data-dia="14.3">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-1day-hydraluxe-30pk.webp" type="image/webp"><img src="/static/products/acuvue-oasys-1day-hydraluxe-30pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -751,7 +761,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="precision1">
+<div class="product-tile" data-brand="precision1" data-wc="51 80" data-bc="8.3" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/precision1/precision1-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/alcon-precision1_main.jpg" alt="Precision1 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -762,7 +772,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision1/precision1-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="daysoft">
+<div class="product-tile" data-brand="daysoft" data-wc="" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/daysoft/daysoft-silk-32-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/7/2/2/daysoft-silk-1362x795.jpg" alt="Daysoft SILK 32-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -773,7 +783,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/daysoft/daysoft-silk-32-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clearlii">
+<div class="product-tile" data-brand="clearlii" data-wc="58" data-bc="8.5" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-vitamin-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -784,7 +794,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clearlii/clearlii-vitamin-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="everclear">
+<div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.8" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-elite-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/5/2/2/everclear-elite-1362x795.jpg" alt="everclear ELITE 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -795,7 +805,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-elite-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clearlab">
+<div class="product-tile" data-brand="clearlab" data-wc="" data-bc="8.7" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/clearlab/clear-1-day-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/4/7/2/5/clear-1-day-1362x795.jpg" alt="Clear 1-day 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -806,7 +816,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clearlab/clear-1-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="myday">
+<div class="product-tile" data-brand="myday" data-wc="54" data-bc="8.4" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg" alt="MyDay 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -817,7 +827,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/myday/myday-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.5 9.0" data-dia="14.3">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/oasys-max-1-day-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-1day.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-1day.jpg" alt="Acuvue Oasys MAX 1-Day 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -828,7 +838,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/oasys-max-1-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="8.5" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="Dailies Total1 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -839,7 +849,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="miru">
+<div class="product-tile" data-brand="miru" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/miru/miru-1day-upside-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/miru-1day-upside-30pk.webp" type="image/webp"><img src="/static/products/miru-1day-upside-30pk.jpg" alt="Miru 1day UpSide 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -850,7 +860,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-upside-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="myday">
+<div class="product-tile" data-brand="myday" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-misight-1-day-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MY</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -861,7 +871,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/myday/myday-misight-1-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biomedics">
+<div class="product-tile" data-brand="biomedics" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-90pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-90pk.jpg" alt="Biomedics 1Day Extra 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -872,7 +882,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1-day-xtra-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="ultra">
+<div class="product-tile" data-brand="ultra" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/ultra/ultra-one-day-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/7/1/6/9/lw-ultra-oneday-image-original.jpg" alt="ULTRA ONE DAY 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -883,7 +893,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-one-day-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="soflens">
+<div class="product-tile" data-brand="soflens" data-wc="59" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-daily-disposable-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-daily-disposable-90pk.webp" type="image/webp"><img src="/static/products/soflens-daily-disposable-90pk.jpg" alt="SofLens Daily Disposable 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -894,7 +904,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-daily-disposable-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="everclear">
+<div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-adm-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/0/8/5/5/everclear-adm-1362x795.jpg" alt="everclear ADM 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -905,7 +915,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-adm-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="live">
+<div class="product-tile" data-brand="live" data-wc="56" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/live/live-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/3/8/3/8/6/live-1362x795.jpg" alt="Live 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -916,7 +926,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/live/live-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/1-day-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-90pk.webp" type="image/webp"><img src="/static/products/proclear-1day-90pk.jpg" alt="Proclear 1 Day 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -927,7 +937,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/1-day-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.7" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_90pk.jpg" alt="Dailies AquaComfort Plus 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -938,7 +948,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clearlii">
+<div class="product-tile" data-brand="clearlii" data-wc="58" data-bc="8.5" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-daily-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -949,7 +959,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clearlii/clearlii-daily-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="daysoft">
+<div class="product-tile" data-brand="daysoft" data-wc="" data-bc="8.6" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/daysoft/daysoft-silk-96-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/1/0/2/daysoft-silk-1362x795.jpg" alt="Daysoft SILK 96-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -960,7 +970,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/daysoft/daysoft-silk-96-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biotrue">
+<div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-90pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-90pk.jpg" alt="Biotrue ONEday 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -971,7 +981,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="8.5 9.0" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/moist-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-moist-90pk.webp" type="image/webp"><img src="/static/products/acuvue-moist-90pk.jpg" alt="1-Day Acuvue Moist 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -982,7 +992,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/moist-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.6" data-dia="13.8">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-CB_1.jpg" alt="Focus Dailies 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -993,7 +1003,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.6" data-dia="13.8">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg" alt="Dailies All Day Comfort 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1004,7 +1014,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="everclear">
+<div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.8" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-elite-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/0/8/8/1/everclear-elite-1362x795.jpg" alt="everclear ELITE 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1015,7 +1025,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-elite-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clariti">
+<div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/7/1/8/4/clariti-1-day-1362x795.jpg" alt="Clariti 1 day 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1026,7 +1036,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="precision1">
+<div class="product-tile" data-brand="precision1" data-wc="51 80" data-bc="8.3" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/precision1/precision1-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/alcon-precision1_90_main.jpg" alt="Precision1 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1037,7 +1047,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision1/precision1-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.5 9.0" data-dia="14.3">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-1day-hydraluxe-90pk.webp" type="image/webp"><img src="/static/products/acuvue-oasys-1day-hydraluxe-90pk.jpg" alt="Acuvue Oasys 1-Day with Hydraluxe 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1048,7 +1058,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/oasys-1-day-hydraluxe-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="myday">
+<div class="product-tile" data-brand="myday" data-wc="54" data-bc="8.4" data-dia="14.2">
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/6/3/0/myday-daily-disposable-1362x795.jpg" alt="MyDay 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1059,7 +1069,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/myday/myday-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="8.5" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-90-180.jpg" alt="Dailies Total1 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1070,7 +1080,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.5 9.0" data-dia="14.3">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/oasys-max-1-day-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-1day.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-1day.jpg" alt="Acuvue Oasys MAX 1-Day 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1081,7 +1091,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/oasys-max-1-day-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="myday">
+<div class="product-tile" data-brand="myday" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-misight-1-day-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MY</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1092,7 +1102,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/myday/myday-misight-1-day-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="ultra">
+<div class="product-tile" data-brand="ultra" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/ultra/ultra-one-day-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/2/0/3/3/ultra-one-day-90-image-original.jpg" alt="ULTRA ONE DAY 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1103,7 +1113,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-one-day-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.7" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg" alt="Dailies AquaComfort Plus 180-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1114,7 +1124,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="8.6" data-dia="13.8">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-180-2.jpg" alt="Focus Dailies 180-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1125,7 +1135,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-180-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="8.5" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-180_main.jpg" alt="Dailies Total1 180-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1177,24 +1187,39 @@ a { color: inherit; }
   // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
   // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
   // scratch, så innholdet er identisk med eller uten JS.
-  const filterRow = document.getElementById('filter-row');
+  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
+  // filter-rader utover merke rendres kun når kategorien faktisk har nok
+  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
+  // querySelectorAll under finner alltid minst brand-raden.
+  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
   const list = document.getElementById('product-list');
   const sortToggle = document.getElementById('sort-toggle');
   let ascending = true;
 
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    const brand = btn.dataset.brand;
+  function applyFilters() {
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
-      const show = brand === 'all' || card.dataset.brand === brand;
+      const show = filterGroups.every(group => {
+        const active = group.querySelector('.chip.active');
+        const key = group.dataset.filterKey;
+        const want = active ? active.dataset[key] : 'all';
+        if (want === 'all') return true;
+        return (card.dataset[key] || '').split(' ').includes(want);
+      });
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }
+
+  filterGroups.forEach(group => {
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
   });
 
   sortToggle.addEventListener('click', () => {

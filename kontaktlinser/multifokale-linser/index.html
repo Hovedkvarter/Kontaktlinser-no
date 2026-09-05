@@ -576,9 +576,19 @@ a { color: inherit; }
     </div>
   </div>
 
-  <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter merke">
+  <div class="filter-row" id="filter-row" data-filter-key="brand" role="group" aria-label="Filtrer etter merke">
     <button class="chip active" data-brand="all">Alle merker</button>
     <button class="chip" data-brand="acuvue">Acuvue</button><button class="chip" data-brand="air-optix">Air-optix</button><button class="chip" data-brand="biofinity">Biofinity</button><button class="chip" data-brand="biotrue">Biotrue</button><button class="chip" data-brand="clariti">Clariti</button><button class="chip" data-brand="dailies">Dailies</button><button class="chip" data-brand="miru">Miru</button><button class="chip" data-brand="myday">Myday</button><button class="chip" data-brand="proclear">Proclear</button><button class="chip" data-brand="purevision">Purevision</button><button class="chip" data-brand="soflens">Soflens</button><button class="chip" data-brand="total30">Total30</button><button class="chip" data-brand="ultra">Ultra</button>
+  </div>
+  <div class="filter-row" id="filter-row-wc" data-filter-key="wc" role="group" aria-label="Filtrer etter vanninnhold">
+    <button class="chip active" data-wc="all">Alt vanninnhold</button>
+    <button class="chip" data-wc="33">33 %</button><button class="chip" data-wc="36">36 %</button><button class="chip" data-wc="38">38 %</button><button class="chip" data-wc="46">46 %</button><button class="chip" data-wc="48">48 %</button><button class="chip" data-wc="54">54 %</button><button class="chip" data-wc="56">56 %</button><button class="chip" data-wc="58">58 %</button><button class="chip" data-wc="59">59 %</button><button class="chip" data-wc="60">60 %</button><button class="chip" data-wc="69">69 %</button><button class="chip" data-wc="78">78 %</button><button class="chip" data-wc="100">100 %</button>
+  </div><div class="filter-row" id="filter-row-bc" data-filter-key="bc" role="group" aria-label="Filtrer etter basiskurve">
+    <button class="chip active" data-bc="all">Alle basiskurver</button>
+    <button class="chip" data-bc="8.4">8,4 mm</button><button class="chip" data-bc="8.6">8,6 mm</button>
+  </div><div class="filter-row" id="filter-row-dia" data-filter-key="dia" role="group" aria-label="Filtrer etter diameter">
+    <button class="chip active" data-dia="all">Alle diametere</button>
+    <button class="chip" data-dia="14.0">14,0 mm</button><button class="chip" data-dia="14.1">14,1 mm</button><button class="chip" data-dia="14.3">14,3 mm</button>
   </div>
 
   <div class="list-header">
@@ -589,7 +599,7 @@ a { color: inherit; }
   <!-- Statisk, allerede sortert lavest-først. JS under er kun en forbedring
        (filter/re-sortering) ovenpå dette - fungerer uten JS også. -->
   <div id="product-list" class="product-tile-grid">
-    <div class="product-tile" data-brand="biotrue">
+    <div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-presbyopia-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-presbyopia-30pk.jpg" alt="Biotrue ONEday for Presbyopia 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -600,7 +610,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/moist-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg" alt="1-Day Acuvue Moist Multifocal 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -611,7 +621,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/moist-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-multifocal-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="Proclear 1 Day Multifocal 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -622,7 +632,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/1-day-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="miru">
+<div class="product-tile" data-brand="miru" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -633,7 +643,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg" alt="Dailies AquaComfort Plus Multifocal 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -644,7 +654,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clariti">
+<div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -655,7 +665,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="myday">
+<div class="product-tile" data-brand="myday" data-wc="54" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/myday-multifocal.webp" type="image/webp"><img src="/static/products/myday-multifocal.jpg" alt="MyDay Multifocal 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -666,7 +676,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/myday/myday-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg" alt="Dailies Total1 Multifocal 30-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -677,7 +687,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.4" data-dia="14.3">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-multifocal.jpg" alt="Acuvue Oasys Multifocal 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -688,7 +698,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -699,7 +709,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal-astigmatism.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal-astigmatism.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -710,7 +720,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="miru">
+<div class="product-tile" data-brand="miru" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -721,7 +731,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-multifocal-6pk.webp" type="image/webp"><img src="/static/products/proclear-multifocal-6pk.jpg" alt="Proclear Multifocal 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -732,7 +742,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="soflens">
+<div class="product-tile" data-brand="soflens" data-wc="59" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-multifocal-6pk.webp" type="image/webp"><img src="/static/products/soflens-multifocal-6pk.jpg" alt="SofLens Multifocal 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -743,7 +753,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/soflens/multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="purevision">
+<div class="product-tile" data-brand="purevision" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision-multifocal-6pk.webp" type="image/webp"><img src="/static/products/purevision-multifocal-6pk.jpg" alt="PureVision Multifocal 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -754,7 +764,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="purevision">
+<div class="product-tile" data-brand="purevision" data-wc="36" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision2-presbyopia-6pk.webp" type="image/webp"><img src="/static/products/purevision2-presbyopia-6pk.jpg" alt="PureVision2 for Presbyopia 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -765,7 +775,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="air-optix">
+<div class="product-tile" data-brand="air-optix" data-wc="33" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_hydraglyde_multifocal_6.jpg" alt="Air Optix plus HydraGlyde Multifocal 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -776,7 +786,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biofinity">
+<div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.6" data-dia="14.0">
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-multifocal-6pk.webp" type="image/webp"><img src="/static/products/biofinity-multifocal-6pk.jpg" alt="Biofinity Multifocal 6-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -787,7 +797,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="ultra">
+<div class="product-tile" data-brand="ultra" data-wc="46" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/0/9/7/3/ultra-for-presbyopia-1362x795.jpg" alt="ULTRA for Presbyopia 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -798,7 +808,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="total30">
+<div class="product-tile" data-brand="total30" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/total30/total30-multifocal-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/1/1/2/total30-multifocal-image-original.jpg" alt="TOTAL30 Multifocal 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -809,7 +819,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/total30/total30-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/moist-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg" alt="1-Day Acuvue Moist Multifocal 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -820,7 +830,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/moist-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biotrue">
+<div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -831,7 +841,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg" alt="Proclear Multifocal Toric 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -842,7 +852,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/multifocal-toric-3-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="proclear">
+<div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/multifocal-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -853,7 +863,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/multifocal-xr-3-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="clariti">
+<div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -864,7 +874,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="acuvue">
+<div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -875,7 +885,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="69" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/dailies-aquacomfort-plus-multifocal-90pk.webp" type="image/webp"><img src="/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg" alt="Dailies AquaComfort Plus Multifocal 90-pack" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -886,7 +896,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="biofinity">
+<div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -897,7 +907,7 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/multifocal-toric-3-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-brand="dailies">
+<div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="" data-dia="">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -931,24 +941,39 @@ a { color: inherit; }
   // Progressiv forbedring: alle produktkort finnes allerede i DOM-en over.
   // Denne koden skjuler/viser og re-sorterer dem - den bygger dem aldri fra
   // scratch, så innholdet er identisk med eller uten JS.
-  const filterRow = document.getElementById('filter-row');
+  // Ett filter-oppslag per rad (merke/vanninnhold/basiskurve/diameter) --
+  // filter-rader utover merke rendres kun når kategorien faktisk har nok
+  // distinkte verdier (se fit_filter_row_html() i render_templates.py), så
+  // querySelectorAll under finner alltid minst brand-raden.
+  const filterGroups = Array.from(document.querySelectorAll('.filter-row[data-filter-key]'));
   const list = document.getElementById('product-list');
   const sortToggle = document.getElementById('sort-toggle');
   let ascending = true;
 
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    const brand = btn.dataset.brand;
+  function applyFilters() {
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
-      const show = brand === 'all' || card.dataset.brand === brand;
+      const show = filterGroups.every(group => {
+        const active = group.querySelector('.chip.active');
+        const key = group.dataset.filterKey;
+        const want = active ? active.dataset[key] : 'all';
+        if (want === 'all') return true;
+        return (card.dataset[key] || '').split(' ').includes(want);
+      });
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }
+
+  filterGroups.forEach(group => {
+    group.addEventListener('click', e => {
+      const btn = e.target.closest('.chip');
+      if (!btn) return;
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      applyFilters();
+    });
   });
 
   sortToggle.addEventListener('click', () => {
