@@ -320,14 +320,15 @@ a { color: inherit; }
 
 .hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
 .hero-copy { flex: 1 1 320px; }
-.category-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
-.category-stat { display: flex; align-items: center; gap: 7px; font-size: 0.82rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+.category-stats { display: flex; flex-wrap: wrap; margin: 18px 0 8px; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
+.category-stat { display: flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; padding: 8px 14px; border-right: 1px solid var(--border); font-size: 0.8rem; color: var(--ink); font-family: 'Inter', sans-serif; white-space: nowrap; }
+.category-stat:last-child { border-right: none; }
 .category-stat svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
-.category-explainer { flex: 0 1 300px; display: flex; gap: 12px; background: var(--blue-tint); border-radius: 14px; padding: 16px 18px; }
-.category-explainer-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.category-explainer-icon svg { width: 18px; height: 18px; }
-.category-explainer h2 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 4px; }
-.category-explainer p { margin: 0 0 8px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }
+.category-explainer { flex: 0 1 300px; display: flex; flex-direction: column; gap: 10px; background: var(--blue-tint); border-radius: 14px; padding: 18px 20px; }
+.category-explainer-illustration { align-self: flex-start; }
+.category-explainer-illustration svg { width: 110px; height: 72px; display: block; }
+.category-explainer h2 { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0; }
+.category-explainer p { margin: 0 0 4px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }
 .category-explainer a { font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }
 .category-explainer a:hover { text-decoration: underline; }
 .category-filters-bar { margin: 26px 0 20px; }
@@ -632,20 +633,26 @@ a { color: inherit; }
       <div class="kicker">Kategori</div>
       <h1>Månedslinser</h1>
       <p>Sammenlign priser på månedslinser fra 13 merker og 22 produkter. Vi viser alltid billigste tilgjengelige tilbud per produkt.</p>
-      <div class="category-stats">
-        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg><span>22 produkter</span></span>
-        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><span>13 merker</span></span>
-        <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Priser oppdateres flere ganger daglig</span></span>
-      </div>
     </div>
     <div class="category-explainer">
-    <div class="category-explainer-icon" style="background:var(--blue-tint);color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></div>
+    <div class="category-explainer-illustration"><svg viewBox="0 0 120 88" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <ellipse cx="46" cy="48" rx="34" ry="26" fill="#E8EFFE" stroke="#2563EB" stroke-width="2.2"/>
+  <ellipse cx="76" cy="40" rx="34" ry="26" fill="#FFFFFF" stroke="#2563EB" stroke-width="2.2"/>
+  <path d="M30 36a26 20 0 0 1 18-9" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+  <path d="M60 28a26 20 0 0 1 18-9" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.45"/>
+</svg></div>
     <div>
       <h2>Hva er månedslinser?</h2>
       <p>Månedslinser brukes i inntil 30 dager (følg alltid optikerens anbefaling) før de byttes ut, og rengjøres og oppbevares i linsevæske mellom hver bruk. Ofte rimeligere per dag enn dagslinser.</p>
       <a href="/guide/manedslinser-vs-dagslinser/">Les mer →</a>
     </div>
   </div>
+  </div>
+  <div class="category-stats">
+    <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg><span>22 produkter</span></span>
+    <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><span>13 merker</span></span>
+    <span class="category-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg><span>Norske nettbutikker</span></span>
+    <span class="category-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Priser oppdateres daglig</span></span>
   </div>
 
   <div class="category-filters-bar">
