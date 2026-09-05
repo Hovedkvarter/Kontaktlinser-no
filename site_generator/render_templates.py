@@ -3968,7 +3968,8 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
   <li><strong>Alderssyn</strong> (vansker med å se på nært hold fra ca. 40–45 år) →
   multifokale/progressive linser</li>
   <li><strong>Sfærisk syn</strong> uten astigmatisme eller alderssyn → vanlige sfæriske
-  linser, det enkleste og billigste utvalget</li>
+  linser, det enkleste og billigste utvalget – f.eks.
+  <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a></li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
@@ -4017,8 +4018,10 @@ Mange barn ned i 8–10-årsalderen fungerer fint med linser, mens andre bør ve
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myopikontroll</h2>
 <p style="font-size:1rem;line-height:1.7;">Enkelte dagslinser er i dag også godkjent spesifikt for å bremse utvikling av
-nærsynthet (myopikontroll) hos barn og unge. Dette er noe en optiker eller øyelege
-vurderer og følger opp individuelt, ikke noe man velger selv.</p>
+nærsynthet (myopikontroll) hos barn og unge – f.eks.
+<a href="/kontaktlinser/myday/myday-misight-1-day-30-pack/">MyDay MiSight</a>, spesifikt
+utviklet for dette formålet. Dette er noe en optiker eller øyelege vurderer og følger opp
+individuelt, ikke noe man velger selv.</p>
 
 <p style="margin-top:24px;">Uansett alder: en synsundersøkelse hos optiker er alltid første steg, og barnet bør
 følges opp jevnlig så lenge det bruker linser.</p>
@@ -4047,9 +4050,10 @@ følges opp jevnlig så lenge det bruker linser.</p>
         "description": "Forskjellen på myke og harde (gassgjennomtrengelige) kontaktlinser, og hvorfor de aller fleste i dag bruker myke linser.",
         "body_html": """
 <p>De aller fleste kontaktlinser som selges i dag – og alt vi sammenligner priser på her
-på Kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikonhydrogel).
-Harde (gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag først og
-fremst til spesielle synsforhold.</p>
+på Kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikonhydrogel), som
+<a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a>. Harde
+(gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag først og fremst til
+spesielle synsforhold.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myke linser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
@@ -4162,8 +4166,9 @@ skal vare lenge.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Grunnregler</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
-  <li>Bruk alltid <strong>fersk</strong> linsevæske – fyll aldri på gammel væske i etuiet
-  («topping off»), skift den helt hver gang</li>
+  <li>Bruk alltid <strong>fersk</strong> linsevæske, som
+  <a href="/linsevaeske/renu/renu-multi-purpose-360-ml/">ReNu Multi-Purpose</a> – fyll
+  aldri på gammel væske i etuiet («topping off»), skift den helt hver gang</li>
   <li>Følg optikerens anbefalte gni-og-skyll-rutine hvis væsken tilsier det, selv om
   enkelte væsker markedsføres som "no-rub"</li>
   <li>Skift oppbevaringsetui jevnlig (følg produsentens anbefaling, ofte hver 1.–3. måned)</li>
@@ -4214,7 +4219,8 @@ skal vare lenge.</p>
   <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
   flyvninger – ha øyedråper eller briller tilgjengelig</li>
   <li>Dagslinser er ofte praktiske på reise, siden du slipper å ha med etui og
-  oppbevaringsvæske</li>
+  oppbevaringsvæske – f.eks. <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue
+  Moist</a></li>
 </ul>
 """,
         "faq": [
@@ -4240,7 +4246,9 @@ utstyr og krever samme tilpasning og hygiene som synskorrigerende linser.</p>
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kjøp alltid fra seriøse forhandlere</h2>
 <p style="font-size:1rem;line-height:1.7;">Ukvalifiserte "festivallinser" eller kostymelinser kjøpt uten tilpasning (f.eks. fra
 useriøse utenlandske nettbutikker) har vesentlig høyere risiko for feil passform og
-øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr.</p>
+øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr –
+som f.eks. <a href="/kontaktlinser/freshlook/freshlook-oneday-30-pack/">FreshLook
+OneDay</a>.</p>
 
 <p style="margin-top:16px;">Samme regler som for vanlige linser gjelder: synsundersøkelse/tilpasning hos optiker
 først, og samme hygienerutiner ved bruk.</p>
@@ -4267,8 +4275,9 @@ blodårer.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
 <p style="font-size:1rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
-her). Slipper gjennom vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan
-gi bedre komfort ved lange dager med linser i.</p>
+her, som <a href="/kontaktlinser/acuvue/oasys-6-pack/">Acuvue Oasys</a>). Slipper gjennom
+vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan gi bedre komfort ved
+lange dager med linser i.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlig hydrogel</h2>
 <p style="font-size:1rem;line-height:1.7;">Eldre, men fortsatt i bruk i enkelte linser. Har typisk høyere vanninnhold, som for
@@ -4296,12 +4305,14 @@ synsforhold krever egne, mer avanserte linsetyper.</p>
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Toriske linser (astigmatisme)</h2>
 <p style="font-size:1rem;line-height:1.7;">Ved astigmatisme (skjev hornhinne) må linsen ha ulik styrke i ulike retninger, og
 ligge stabilt uten å rotere i øyet. Toriske linser er formet spesielt for dette, og
-krever en mer nøyaktig tilpasning enn vanlige sfæriske linser.</p>
+krever en mer nøyaktig tilpasning enn vanlige sfæriske linser – f.eks.
+<a href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">Biofinity Toric</a>.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Multifokale/progressive linser (alderssyn)</h2>
 <p style="font-size:1rem;line-height:1.7;">Fra rundt 40–45-årsalderen svekkes øyets evne til å stille skarpt på nært hold.
 Multifokale linser har flere styrkesoner i samme linse (typisk for nært, mellomdistanse
-og langt hold), og kan kreve en kort tilvenningsperiode før hjernen lærer å bruke sonene
+og langt hold, som <a href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Biofinity
+Multifocal</a>), og kan kreve en kort tilvenningsperiode før hjernen lærer å bruke sonene
 riktig.</p>
 
 <p style="margin-top:16px;">Begge typer krever en presis resept fra optiker – dette er ikke noe man kan
@@ -4418,7 +4429,9 @@ nært og langt hold – ikke bare det ene, som ved vanlig nær- eller langsynthe
 til en vanlig sfærisk linse (som har lik styrke i alle retninger og kan rotere fritt uten
 at det merkes) må en torisk linse ha ulik styrke i ulike retninger, og den må ligge stabilt
 i riktig posisjon for å virke. Linsene er derfor bygget med en litt tyngre nedre kant eller
-tynnsoner som gjør at de "retter seg selv opp" på øyet.</p>
+tynnsoner som gjør at de "retter seg selv opp" på øyet – f.eks.
+<a href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/">Acuvue Oasys for
+Astigmatism</a>.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
 <p style="font-size:1rem;line-height:1.7;">Fordi linsen må stå riktig vei, trenger optikeren mer presis informasjon fra
@@ -4452,8 +4465,9 @@ Multifokale kontaktlinser er laget for å korrigere dette.</p>
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
 <p style="font-size:1rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
 multifokale linser flere styrkesoner tilgjengelig samtidig (for nært, mellomdistanse og
-langt hold). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på –
-dette kalles simultanvisjon.</p>
+langt hold, som i <a href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/">Acuvue Oasys
+Multifocal</a>). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på
+– dette kalles simultanvisjon.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tilvenning</h2>
 <p style="font-size:1rem;line-height:1.7;">De fleste bruker 1–2 uker på å venne seg til multifokale linser. Ulike design (f.eks.
@@ -4564,8 +4578,9 @@ sjeldnere) forsterker ofte problemet.</p>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Moderne silikonhydrogel-linser er ofte mer komfortable ved tørre øyne enn eldre
   materialer – se vår <a href="/guide/kontaktlinsens-materiale/">guide om linsematerialer</a></li>
-  <li>Bruk kun øyedråper/fukterdråper beregnet for bruk sammen med kontaktlinser –
-  ikke alle øyedråper er trygge å bruke med linsen i</li>
+  <li>Bruk kun øyedråper/fukterdråper beregnet for bruk sammen med kontaktlinser, som
+  <a href="/oyedraper/systane/systane-ultra-10-ml/">Systane Ultra</a> – ikke alle
+  øyedråper er trygge å bruke med linsen i</li>
   <li>Kortere brukstid enkelte dager, med bevisste pauser fra linser</li>
   <li>Husk å blunke bevisst oftere ved lengre skjermøkter</li>
 </ul>
@@ -4625,7 +4640,9 @@ multifokale linser (alderssyn).</p>
 
 <p style="margin-top:16px;">Alle verdiene fastsettes av optikeren din under synsundersøkelsen, og skal alltid
 stemme nøyaktig med det du bestiller – se også <a href="/guide/samme-styrke-briller-og-linser/">hvorfor
-en brilleresept ikke er det samme som en kontaktlinseresept</a>.</p>
+en brilleresept ikke er det samme som en kontaktlinseresept</a>. Se f.eks.
+spesifikasjonstabellen på <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity
+sin produktside</a> for å se hvordan disse verdiene faktisk oppgis på en ekte linse.</p>
 """,
         "faq": [
             {
@@ -4652,7 +4669,9 @@ tett, noe som kan gi ubehag eller redusert oksygentilførsel til hornhinnen.</p>
 
 <p style="margin-top:16px;">BC fastsettes av optikeren din under synsundersøkelsen/linsetilpasningen, og skal
 alltid stemme nøyaktig med det som står på resepten din – se også vår
-<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.
+Et eksempel på en linse med BC 8,6 mm er
+<a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a>.</p>
 """,
         "faq": [
             {
@@ -4679,7 +4698,9 @@ hornhinnen den dekker. Sammen med BC (base-kurve) avgjør DIA hvor godt linsen p
 
 <p style="margin-top:16px;">DIA fastsettes av optikeren din under synsundersøkelsen, og skal alltid stemme
 nøyaktig med resepten din – se også vår
-<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.
+Et eksempel på en linse med DIA 14,0 mm er
+<a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a>.</p>
 """,
         "faq": [
             {
@@ -4705,7 +4726,9 @@ nærsynthet. Et <strong>positivt tall</strong> (f.eks. +1,50) betyr at den korri
 langsynthet. Jo høyere tall, jo sterkere korreksjon.</p>
 
 <p style="margin-top:16px;">PWR/SPH fastsettes av optikeren din under synsundersøkelsen – se også vår
-<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.</p>
+<a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>.
+Styrkeområdet en linse dekker står oppgitt under spesifikasjoner på hver produktside,
+f.eks. hos <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a>.</p>
 """,
         "faq": [
             {
@@ -4732,7 +4755,9 @@ som angir i hvilken retning korreksjonen skal ligge. De to henger sammen og må 
 stemme for at linsen skal fungere riktig.</p>
 
 <p style="margin-top:16px;">Se vår <a href="/guide/kontaktlinser-med-astigmatisme/">guide om toriske linser og
-astigmatisme</a> for mer om hvordan dette fungerer i praksis.</p>
+astigmatisme</a> for mer om hvordan dette fungerer i praksis, eller sammenlign priser på
+en torisk linse som <a href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/">Acuvue
+Oasys for Astigmatism</a>.</p>
 """,
         "faq": [
             {
@@ -4760,7 +4785,8 @@ linsen nøyaktig hvilken retning den skal stå i for at korreksjonen skal funger
 
 <p style="margin-top:16px;">Se vår <a href="/guide/kontaktlinser-med-astigmatisme/">guide om toriske linser og
 astigmatisme</a> for mer om hvorfor dette er litt mer krevende å tilpasse enn vanlige
-linser.</p>
+linser, eller sammenlign priser på en torisk linse som
+<a href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">Biofinity Toric</a>.</p>
 """,
         "faq": [
             {
@@ -4787,7 +4813,9 @@ styrke øyet trenger for å se skarpt på nært hold, i tillegg til grunnkorreks
 langt hold.</p>
 
 <p style="margin-top:16px;">Se vår <a href="/guide/multifokale-kontaktlinser/">guide om multifokale kontaktlinser
-ved alderssyn</a> for mer om hvordan disse linsene fungerer.</p>
+ved alderssyn</a> for mer om hvordan disse linsene fungerer, eller sammenlign priser på en
+multifokal linse som
+<a href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/">Acuvue Oasys Multifocal</a>.</p>
 """,
         "faq": [
             {
@@ -4820,7 +4848,9 @@ for akkurat dine linser – følg alltid den anbefalingen fremfor et generelt ta
 <p style="margin-top:16px;">Gi gjerne øynene linsefri tid når du kan, for eksempel om kvelden hjemme. Uansett
 brukstid gjelder samme regel: vanlige linser er ikke ment for sammenhengende bruk døgnet
 rundt – se vår <a href="/guide/kan-man-sove-med-kontaktlinser/">guide om å sove med
-kontaktlinser</a>.</p>
+kontaktlinser</a>. Bruker du en dagslinse som
+<a href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">SofLens Daily
+Disposable</a>, setter du uansett inn et helt nytt par neste dag.</p>
 """,
         "faq": [
             {
@@ -4891,7 +4921,9 @@ kontaktlinser kan koste svært forskjellig selv om de dekker samme synsbehov.</p
 
 <p style="margin-top:16px;">Den mest pålitelige måten å finne riktig pris for akkurat dine linser er å søke dem
 opp direkte – bruk søkefeltet på <a href="/">forsiden</a> for å sammenligne
-oppdaterte priser fra norske nettbutikker.</p>
+oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
+<a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> eller
+<a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a> som konkrete eksempler.</p>
 """,
         "faq": [
             {
@@ -4921,7 +4953,10 @@ faktisk sjekke pris per linse for pakningsstørrelsene du vurderer, i stedet for
 </ul>
 
 <p style="margin-top:16px;">Se vår <a href="/guide/pris-per-linse-slik-sammenligner-du/">guide om å sammenligne
-pris per linse</a> for hvordan du regner ut det reelle sammenligningsgrunnlaget.</p>
+pris per linse</a> for hvordan du regner ut det reelle sammenligningsgrunnlaget. Et
+eksempel på et produkt som finnes i begge størrelser er
+<a href="/kontaktlinser/dailies/focus-dailies-30-pack/">Focus Dailies 30-pack</a> og
+<a href="/kontaktlinser/dailies/focus-dailies-90-pack/">90-pack</a>.</p>
 """,
         "faq": [
             {
@@ -4954,7 +4989,9 @@ antall linser i pakningen for en reell sammenligning.</p>
 <p style="font-size:1rem;line-height:1.7;">Gang pris per linse med hvor mange du faktisk bruker per måned. Dette varierer mye
 mellom dagslinser (én linse per brukt dag) og månedslinser (typisk to linser per måned,
 én per øye) – se vår <a href="/guide/manedslinser-vs-dagslinser/">guide om månedslinser
-vs. dagslinser</a> for brukshyppighet.</p>
+vs. dagslinser</a> for brukshyppighet. Se ekte, oppdatert pris per pakning for en
+månedslinse som <a href="/kontaktlinser/ultra/ultra-6-pack/">Ultra 6-pack</a> som
+konkret eksempel.</p>
 """,
         "faq": [
             {
@@ -4983,7 +5020,9 @@ vs. dagslinser</a> for brukshyppighet.</p>
 
 <p style="margin-top:16px;">Dette er nettopp derfor det lønner seg å sammenligne på tvers av butikker i stedet for
 å handle hos den første man kommer over. Prisene kan også endre seg fra dag til dag – vi
-henter oppdaterte priser hver 6. time.</p>
+henter oppdaterte priser hver 6. time. Se f.eks.
+<a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> for et konkret
+eksempel på hvor mye prisen faktisk varierer mellom butikkene akkurat nå.</p>
 """,
         "faq": [
             {
@@ -5015,7 +5054,9 @@ med. Ser du kun på produktprisen direkte hos hver butikk, kan du lett ende opp 
 dyreste alternativet uten å vite det.</p>
 
 <p style="margin-top:16px;">Priser eldre enn 24 timer, eller uten bekreftet lagerstatus, vises fortsatt hos oss,
-men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. time.</p>
+men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. time. Se et
+ekte eksempel på <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a> sin
+produktside for å se totalpris-regnestykket i praksis.</p>
 """,
         "faq": [
             {
@@ -5045,8 +5086,9 @@ rabatt. Om det lønner seg avhenger av hva du prioriterer.</p>
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør vite</h2>
 <p style="font-size:1rem;line-height:1.7;">Et abonnement binder deg til én forhandlers pris, mens priser generelt varierer
 mellom butikker og over tid. Abonnementsprisen er derfor ikke nødvendigvis den laveste
-tilgjengelige til enhver tid. Sjekk gjerne jevnlig om abonnementsprisen din fortsatt er
-konkurransedyktig ved å sammenligne hos oss.</p>
+tilgjengelige til enhver tid. Sjekk gjerne jevnlig om abonnementsprisen din for f.eks.
+<a href="/kontaktlinser/ultra/ultra-6-pack/">Ultra 6-pack</a> fortsatt er
+konkurransedyktig ved å sammenligne <a href="/">hos oss</a>.</p>
 """,
         "faq": [
             {
@@ -5069,7 +5111,8 @@ konkurransedyktig ved å sammenligne hos oss.</p>
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.9;">
   <li>Ha en gyldig resept fra optiker eller øyelege (styrke, BC, DIA, og ev. CYL/AXIS/ADD
   – se vår <a href="/guide/forsta-kontaktlinseresepten/">guide om å lese resepten din</a>)</li>
-  <li>Finn riktig produkt – søk opp navnet fra esken din på <a href="/">forsiden</a> vår</li>
+  <li>Finn riktig produkt – søk opp navnet fra esken din på <a href="/">forsiden</a> vår,
+  f.eks. <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a></li>
   <li>Sammenlign totalpris hos norske forhandlere</li>
   <li>Velg forhandler og fullfør kjøpet hos dem</li>
 </ol>
@@ -5100,7 +5143,9 @@ styrke, som fargede kosmetiske linser.</p>
 
 <p style="font-size:1rem;line-height:1.7;">Seriøse forhandlere ber om resept-informasjon ved bestilling. Kjøp fra useriøse
 kilder som ikke krever dette frarådes – det øker risikoen for feil passform eller styrke,
-og dermed for øyeirritasjon eller -skade.</p>
+og dermed for øyeirritasjon eller -skade. Selv en fargelinse uten styrke, som
+<a href="/kontaktlinser/freshlook/freshlook-oneday-30-pack/">FreshLook OneDay</a>, krever
+altså gyldig resept.</p>
 """,
         "faq": [
             {
@@ -5268,7 +5313,8 @@ linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ta av linsen med en gang du kjenner ubehag</li>
   <li>Gi øyet en pause – ikke sett inn en ny linse samme dag hvis irritasjonen ikke er helt borte</li>
-  <li>Bruk fukterdråper beregnet for kontaktlinser om det hjelper</li>
+  <li>Bruk fukterdråper beregnet for kontaktlinser om det hjelper, som
+  <a href="/oyedraper/systane/systane-ultra-10-ml/">Systane Ultra</a></li>
 </ol>
 
 <div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
