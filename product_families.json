@@ -1,0 +1,114 @@
+{
+  "$comment": "Manuelt kuraterte produktserier -- grupperer sfærisk/torisk/multifokal/XR-varianter av SAMME linsedesign under én side (/serie/{slug}/), inspirert av at lenspricer.no får ekstra søketreff på nøyaktig denne sidetypen (funnet 2026-09-05, se 'easyvision vitrea' i CLAUDE.md). IKKE auto-utledet fra id-/brand_slug-mønster -- id-ene er for inkonsekvente til at det er trygt (fant bl.a. at myday-misight-1day-* deler prefiks med MyDay uten å faktisk være en variant, og at Biofinity Energys/Biofinity XR er egne linsedesign, ikke enkle varianter av grunnleggende Biofinity). member_ids peker til products_meta.json. Private label-versjon av en serie genereres AUTOMATISK i build_catalog/generate_pages der private_labels.json har minst 2 oppføringer som peker til samme families sine member_ids for én kjede -- ikke legg til egne private label-familier her, det ville duplisert data. Dette er en pilotrunde (11 familier, verifisert 2026-09-05) -- resten av katalogen (bl.a. Acuvue Oasys 1-Day/MAX-linjene, Proclear XR-paret, bredere iWear/EyeQ-kryssjekk) er bevisst ikke med ennå, egen oppfølgingsjobb.",
+  "families": [
+    {
+      "slug": "dailies-aquacomfort-plus",
+      "name": "Dailies AquaComfort Plus",
+      "member_ids": [
+        "dailies-aquacomfort-plus-30pk",
+        "dailies-aquacomfort-plus-90pk",
+        "dailies-aquacomfort-plus-180pk",
+        "dailies-aquacomfort-plus-toric-30pk",
+        "dailies-aquacomfort-plus-toric-90pk",
+        "dailies-aquacomfort-plus-multifocal-30pk",
+        "dailies-aquacomfort-plus-multifocal-90pk"
+      ]
+    },
+    {
+      "slug": "biofinity",
+      "name": "Biofinity",
+      "member_ids": [
+        "biofinity-6pk",
+        "biofinity-toric-6pk",
+        "biofinity-multifocal-6pk",
+        "biofinity-multifocal-toric-3pk"
+      ]
+    },
+    {
+      "slug": "biofinity-xr",
+      "name": "Biofinity XR",
+      "member_ids": [
+        "biofinity-xr-6pk",
+        "biofinity-xr-3pk",
+        "biofinity-xr-toric-3pk"
+      ]
+    },
+    {
+      "slug": "clariti-1day",
+      "name": "Clariti 1 day",
+      "member_ids": [
+        "clariti-1day-30pk",
+        "clariti-1day-90pk",
+        "clariti-1day-toric-30pk",
+        "clariti-1day-multifocal-30pk",
+        "clariti-1day-multifocal-90pk"
+      ]
+    },
+    {
+      "slug": "avaira-vitality",
+      "name": "Avaira Vitality",
+      "member_ids": [
+        "avaira-vitality-6pk",
+        "avaira-vitality-toric-6pk"
+      ]
+    },
+    {
+      "slug": "myday",
+      "name": "MyDay",
+      "member_ids": [
+        "myday-30pk",
+        "myday-90pk",
+        "myday-multifocal-30pk",
+        "myday-toric-30pk"
+      ]
+    },
+    {
+      "slug": "air-optix-hydraglyde",
+      "name": "Air Optix plus HydraGlyde",
+      "member_ids": [
+        "air-optix-hydraglyde-6pk",
+        "air-optix-hydraglyde-multifocal-6pk",
+        "air-optix-hydraglyde-astigmatism-6pk"
+      ]
+    },
+    {
+      "slug": "acuvue-oasys",
+      "name": "Acuvue Oasys",
+      "member_ids": [
+        "acuvue-oasys-6pk",
+        "acuvue-oasys-astigmatism-6pk",
+        "acuvue-oasys-multifocal-6pk"
+      ]
+    },
+    {
+      "slug": "acuvue-moist",
+      "name": "1-Day Acuvue Moist",
+      "member_ids": [
+        "acuvue-moist-30pk",
+        "acuvue-moist-90pk",
+        "acuvue-moist-astigmatism-30pk",
+        "acuvue-moist-astigmatism-90pk",
+        "acuvue-moist-multifocal-30pk",
+        "acuvue-moist-multifocal-90pk"
+      ]
+    },
+    {
+      "slug": "proclear",
+      "name": "Proclear",
+      "member_ids": [
+        "proclear-sphere-6pk",
+        "proclear-toric-6pk",
+        "proclear-multifocal-6pk"
+      ]
+    },
+    {
+      "slug": "proclear-1day",
+      "name": "Proclear 1 Day",
+      "member_ids": [
+        "proclear-1day-30pk",
+        "proclear-1day-90pk",
+        "proclear-1day-multifocal-30pk"
+      ]
+    }
+  ]
+}

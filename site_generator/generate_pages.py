@@ -22,13 +22,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
 SITE_CONTENT_PATH = Path(__file__).parent.parent / "site_content.json"
 PRIVATE_LABELS_PATH = Path(__file__).parent.parent / "private_labels.json"
+PRODUCT_FAMILIES_PATH = Path(__file__).parent.parent / "product_families.json"
 
 
 def write_file(path: Path, content: str) -> None:
@@ -243,6 +244,66 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
             write_file(BUILD_DIR / "merke" / slug / "index.html", html)
             print(f"  merke    -> /merke/{slug}/ ({chain})")
 
+    # Produktserie-sider (/serie/{slug}/) -- se product_families.json sin
+    # $comment for hvorfor familiene er manuelt kuratert (id-mønstrene er
+    # for inkonsekvente til trygg auto-utledning). For HVER kuraterte
+    # familie bygges én side under det ekte merkenavnet, PLUSS én ekstra
+    # side per optikerkjede der private_labels.json har minst 2 av
+    # familiens medlemmer koblet inn -- avledet automatisk, ingen egen
+    # private label-kurering trengs (se render_family_page sin docstring).
+    product_families = json.loads(PRODUCT_FAMILIES_PATH.read_text(encoding="utf-8"))["families"] if PRODUCT_FAMILIES_PATH.exists() else []
+    families_written: list[str] = []
+    if product_families:
+        for family in product_families:
+            member_products = []
+            for member_id in family["member_ids"]:
+                p = products_by_id.get(member_id)
+                if p is None:
+                    print(f"  [advarsel] produktserie '{family['slug']}' peker til ukjent produkt-id: {member_id}")
+                    continue
+                member_products.append(p)
+            if len(member_products) < 2:
+                print(f"  [advarsel] produktserie '{family['slug']}' har færre enn 2 gyldige medlemmer, hoppes over")
+                continue
+
+            real_members = [
+                {"display_name": p["name"], "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/', "product": p}
+                for p in member_products
+            ]
+            html = render_family_page(family["name"], family["slug"], real_members, catalog["categories"], now=now)
+            write_file(BUILD_DIR / "serie" / family["slug"] / "index.html", html)
+            families_written.append(family["slug"])
+            print(f"  serie    -> /serie/{family['slug']}/")
+
+            # Private label-variant: grupper denne familiens matchende
+            # private_labels.json-oppføringer per kjede, dedupliser på
+            # real_product_id (noen kjeder har flere alias-navn for samme
+            # ekte produkt, f.eks. Specsavers sin Easyvision Umere/Sential
+            # -- begge er Clariti 1 day, vi bygger kun ÉN serieside for de).
+            member_id_set = {p["id"] for p in member_products}
+            labels_for_family_by_chain: dict[str, dict[str, dict]] = {}
+            for label in private_labels:
+                if label["real_product_id"] not in member_id_set:
+                    continue
+                by_product = labels_for_family_by_chain.setdefault(label["chain"], {})
+                by_product.setdefault(label["real_product_id"], label)
+            for chain, by_product in labels_for_family_by_chain.items():
+                if len(by_product) < 2:
+                    continue
+                matched_labels = list(by_product.values())
+                # Korteste slug er (empirisk bekreftet mot alle 11 pilot-
+                # familiene) alltid den sfæriske/base-varianten -- brukes
+                # som navn/slug for selve serie-siden.
+                primary_label = min(matched_labels, key=lambda l: len(l["slug"]))
+                pl_members = [
+                    {"display_name": label["name"], "href": f'/private-label/{label["slug"]}/', "product": products_by_id[label["real_product_id"]]}
+                    for label in matched_labels
+                ]
+                pl_html = render_family_page(primary_label["name"], primary_label["slug"], pl_members, catalog["categories"], chain=chain, now=now)
+                write_file(BUILD_DIR / "serie" / primary_label["slug"] / "index.html", pl_html)
+                families_written.append(primary_label["slug"])
+                print(f"  serie    -> /serie/{primary_label['slug']}/ ({chain})")
+
     guide_slugs = {g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])}
     for slug in guide_slugs:
         html = render_guide_page(slug)
@@ -274,6 +335,11 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     if static_src.exists():
         static_out = BUILD_DIR / "static"
         shutil.copytree(static_src, static_out, dirs_exist_ok=True)
+    # Brukes KUN av update_site_content() rett under -- unngår å måtte
+    # gjenta hele familie/private-label-kryssrefererings-logikken der (ville
+    # driftet fra hverandre over tid). Havner aldri i data/catalog.json,
+    # siden den bygges separat fra lens_products/solution_products direkte.
+    catalog["_family_slugs_written"] = families_written
     return catalog
 
 
@@ -323,6 +389,9 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         ],
         "private_labels": [
             {"slug": label["slug"], "lastmod": today} for label in private_labels
+        ],
+        "product_families": [
+            {"slug": slug, "lastmod": today} for slug in catalog.get("_family_slugs_written", [])
         ],
     }
     SITE_CONTENT_PATH.write_text(json.dumps(site_content, indent=2, ensure_ascii=False), encoding="utf-8")

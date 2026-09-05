@@ -83,11 +83,17 @@ def main(content_path: str = "site_content.json") -> None:
     ]
     write_urlset("sitemap-private-label.xml", private_label_entries)
 
+    family_entries = [
+        url_entry(f"/serie/{f['slug']}/", f["lastmod"])
+        for f in content.get("product_families", [])
+    ]
+    write_urlset("sitemap-serier.xml", family_entries)
+
     write_sitemap_index(
         "sitemap.xml",
-        ["sitemap-statiske.xml", "sitemap-kategorier.xml", "sitemap-produkter.xml", "sitemap-guider.xml", "sitemap-linsevaeske.xml", "sitemap-private-label.xml"],
+        ["sitemap-statiske.xml", "sitemap-kategorier.xml", "sitemap-produkter.xml", "sitemap-guider.xml", "sitemap-linsevaeske.xml", "sitemap-private-label.xml", "sitemap-serier.xml"],
     )
-    print("Generert: sitemap.xml + 4 delte sitemaps")
+    print("Generert: sitemap.xml + 5 delte sitemaps")
 
 
 if __name__ == "__main__":

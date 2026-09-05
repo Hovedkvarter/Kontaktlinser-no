@@ -7123,6 +7123,224 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 </html>"""
 
 
+def render_family_page(
+    family_name: str,
+    family_slug: str,
+    members: list[dict],
+    categories: dict,
+    chain: str | None = None,
+    now: datetime | None = None,
+) -> str:
+    """Produktserie-side (/serie/{slug}/) -- samler sfærisk/torisk/
+    multifokal/XR-variantene av SAMME linsedesign på én side, med en ekte
+    sammenligningstabell (ikke bare en lenkeliste). Lagt til 2026-09-05
+    etter at lenspricer.no ble observert å få et ekstra søketreff nettopp
+    fra denne sidetypen for "easyvision vitrea" -- se product_families.json
+    for kureringsprinsippet (manuelt, IKKE auto-utledet fra id-mønster).
+
+    members: liste av {"display_name", "href", "product"} -- "product" er
+    ALLTID det ekte produktet (for pris/spec-fakta), "display_name"/"href"
+    er enten det ekte produktnavnet (chain=None) eller et private
+    label-navn/lenke (chain satt) -- samme "vis under annet navn, bruk ekte
+    tilbud"-prinsipp som render_private_label_page().
+    chain: satt kun for private label-varianten av en familie (f.eks.
+    "Specsavers") -- endrer tittel/forklaringsboks, ikke selve tabellen."""
+    now = now or datetime.now(timezone.utc)
+
+    rows = []
+    for m in members:
+        product = m["product"]
+        offers = reconcile_product(product["offers"], now)
+        eligible = [o for o in offers if o["in_stock"]]
+        best = min(eligible, key=lambda o: o["total"], default=None)
+        pack = _pack_size_from_id(product["id"])
+        specs = {label: value for label, value in product.get("specs", [])}
+        rows.append({
+            "display_name": m["display_name"],
+            "href": m["href"],
+            "product": product,
+            "best": best,
+            "pack_size": pack[1] if pack else None,
+            "category_label": categories.get(product["category_slug"], {}).get("label", ""),
+            "wc": _parse_spec_numbers(specs.get("Vanninnhold")),
+            "bc": _parse_spec_numbers(specs.get("Basiskurve")),
+            "material": specs.get("Materiale"),
+        })
+
+    # Kolonner med 0 dekning blant DENNE familiens medlemmer utelates helt
+    # -- bedre å vise færre, fylte kolonner enn tomme celler over hele
+    # tabellen (samme prinsipp som passform-filteret på kategorisidene).
+    show_wc = any(r["wc"] for r in rows)
+    show_bc = any(r["bc"] for r in rows)
+    show_material = any(r["material"] for r in rows)
+
+    manufacturer_slug = BRAND_TO_MANUFACTURER.get(rows[0]["product"]["brand_slug"]) if rows else None
+    manufacturer_name = MANUFACTURERS[manufacturer_slug]["name"] if manufacturer_slug else None
+
+    prices = [r["best"]["total"] for r in rows if r["best"]]
+    lowest_row = min((r for r in rows if r["best"]), key=lambda r: r["best"]["total"], default=None)
+
+    def table_row(r: dict) -> str:
+        pack_txt = f'{r["pack_size"]}-pakning' if r["pack_size"] else "–"
+        price_txt = f'{_fmt_kr(r["best"]["total"])}' if r["best"] else "Ingen pris"
+        wc_txt = " / ".join(f"{v.replace('.', ',')} %" for v in r["wc"]) if r["wc"] else "–"
+        bc_txt = " / ".join(f"{v.replace('.', ',')} mm" for v in r["bc"]) if r["bc"] else "–"
+        material_txt = escape(r["material"]) if r["material"] else "–"
+        cells = f'''<td class="spec-value">{escape(r["category_label"])}</td>
+    <td class="spec-value">{pack_txt}</td>'''
+        if show_material:
+            cells += f'\n    <td class="spec-value">{material_txt}</td>'
+        if show_wc:
+            cells += f'\n    <td class="spec-value">{wc_txt}</td>'
+        if show_bc:
+            cells += f'\n    <td class="spec-value">{bc_txt}</td>'
+        return f'''<tr>
+    <th scope="row" class="spec-label"><a href="{escape(r["href"])}">{escape(r["display_name"])}</a></th>
+    {cells}
+    <td class="spec-value">{price_txt}</td>
+  </tr>'''
+
+    table_header_extra = ""
+    if show_material:
+        table_header_extra += "<th>Materiale</th>"
+    if show_wc:
+        table_header_extra += "<th>Vanninnhold</th>"
+    if show_bc:
+        table_header_extra += "<th>Basiskurve</th>"
+
+    comparison_table = f'''<div style="overflow-x:auto;">
+  <table class="spec-table" style="width:100%;border-collapse:collapse;">
+    <thead>
+      <tr><th>Variant</th><th>Type</th><th>Pakning</th>{table_header_extra}<th>Fra pris (frakt inkl.)</th></tr>
+    </thead>
+    <tbody>
+      {"".join(table_row(r) for r in rows)}
+    </tbody>
+  </table>
+</div>'''
+
+    guide_links = []
+    if any("toric" in r["product"]["id"] or "astigmatism" in r["product"]["id"] for r in rows):
+        guide_links.append('<a href="/guide/kontaktlinser-med-astigmatisme/">toriske linser og astigmatisme</a>')
+    if any("multifocal" in r["product"]["id"] for r in rows):
+        guide_links.append('<a href="/guide/multifokale-kontaktlinser/">multifokale linser ved alderssyn</a>')
+    guide_html = (
+        f'<p style="margin-top:16px;">Usikker på hvilken variant du trenger? Se vår guide om {" og ".join(guide_links)} -- '
+        f'det er alltid optikeren din som fastsetter riktig type ut fra synsundersøkelsen.</p>'
+    ) if guide_links else ""
+
+    material_sentence = f' i {rows[0]["material"]}' if show_material and rows[0]["material"] else ""
+    manufacturer_sentence = f' fra {escape(manufacturer_name)}' if manufacturer_name else ""
+    intro = (
+        f'<p>{escape(family_name)} er en linseserie{manufacturer_sentence}{material_sentence} som finnes i flere '
+        f'varianter -- sfærisk, og der det finnes: torisk (astigmatisme) og/eller multifokal (alderssyn). '
+        f'Grunnmaterialet og teknologien er delt på tvers av variantene; det som skiller dem er styrkeprofilen '
+        f'linsen er formet for å korrigere.</p>'
+    )
+
+    chain_html = ""
+    display_name_for_title = family_name
+    if chain:
+        chain_html = f'''<div class="private-label-explainer">
+    <p><strong>Om navnet:</strong> {escape(family_name)} er navnet denne serien selges under. Se hver enkelt variants
+    side for hvilket ekte produkt den tilsvarer og hvilken kjede som står bak.</p>
+  </div>'''
+
+    ai_summary_html = ""
+    if lowest_row and lowest_row["best"]:
+        n_variants = len(rows)
+        ai_summary_html = f'''<section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på alle {n_variants} variantene i {escape(family_name)}-serien. Billigst akkurat nå er
+  <strong>{escape(lowest_row["display_name"])}</strong> fra <strong>{_fmt_kr(lowest_row["best"]["total"])}</strong>
+  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres flere ganger daglig.</p>
+</section>'''
+
+    meta_description = (
+        f'Sammenlign priser på hele {family_name}-serien -- sfærisk, torisk og/eller multifokal -- '
+        f'fra {_fmt_kr(min(prices))} kr. Oppdatert flere ganger daglig.'
+    ) if prices else f'Sammenlign priser på hele {family_name}-serien.'
+
+    item_list_items = []
+    schema_offers_by_member = []
+    for i, r in enumerate(rows, start=1):
+        p = r["product"]
+        p_offers = reconcile_product(p["offers"], now)
+        p_in_stock = [o for o in p_offers if o["in_stock"]]
+        offers_field = ""
+        if p_in_stock:
+            low = min(o["price_nok"] for o in p_in_stock)
+            high = max(o["price_nok"] for o in p_in_stock)
+            offers_field = f''', "offers": {{"@type": "AggregateOffer", "priceCurrency": "NOK", "lowPrice": {low}, "highPrice": {high}, "offerCount": {len(p_in_stock)}}}'''
+        item_list_items.append(f'''{{"@type": "ListItem", "position": {i}, "item": {{
+      "@type": "Product", "name": "{_json_str(r["display_name"])}", "url": "{BASE_URL}{r["href"]}"{offers_field}
+    }}}}''')
+    schema_json = f'''{{
+  "@context": "https://schema.org",
+  "@graph": [
+    {{"@type": "BreadcrumbList", "itemListElement": [
+      {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+      {{"@type": "ListItem", "position": 2, "name": "{_json_str(family_name)}", "item": "{BASE_URL}/serie/{family_slug}/"}}
+    ]}},
+    {{"@type": "CollectionPage", "name": "{_json_str(family_name)}", "mainEntity": {{
+      "@type": "ItemList", "itemListElement": [{",".join(item_list_items)}]
+    }}}}
+  ]
+}}'''
+
+    return f"""<!DOCTYPE html>
+<html lang="nb">
+<head>
+{GTM_HEAD}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{escape(display_name_for_title)}-serien » Sammenlign og få billigste pris</title>
+<meta name="description" content="{escape(meta_description)}">
+<link rel="canonical" href="{BASE_URL}/serie/{family_slug}/">
+{_og_meta(f'{display_name_for_title}-serien » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/serie/{family_slug}/')}
+{FONT_LINKS}
+<script type="application/ld+json">{schema_json}</script>
+<style>{SHARED_STYLE}
+.spec-table th, .spec-table td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
+.spec-table thead th {{ font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }}
+.spec-table tbody tr:hover {{ background: var(--mist); }}
+.spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
+.product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
+.product-ai-summary p {{ margin: 0; }}
+.private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
+</style>
+</head>
+<body>
+{TOPBAR_HTML}
+<div class="wrap wrap-product">
+  <p class="breadcrumb"><a href="/">Hjem</a> › {escape(family_name)}-serien</p>
+  <div class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Produktserie</div>
+      <h1>{escape(family_name)}-serien</h1>
+      {intro}
+    </div>
+  </div>
+  {ai_summary_html}
+  {chain_html}
+
+  <h2>Sammenlign variantene</h2>
+  {comparison_table}
+  {guide_html}
+
+  <p class="disclosure">
+    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Priser eldre enn 24 timer eller varer uten bekreftet lager vises,
+    men kan ikke vinne «laveste pris».
+  </p>
+</div>
+{render_footer()}
+{CONSENT_BANNER_HTML}
+{CONSENT_SCRIPT}
+</body>
+</html>"""
+
+
 def render_private_label_index_page(labels: list[dict], products_by_id: dict, categories: dict, now: datetime | None = None) -> str:
     """Oversiktsside -- gruppert per optikerkjede, lenker videre til hver
     enkelt private label-side. Tabellformat (2026-08-30, byttet fra en
