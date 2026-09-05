@@ -1145,23 +1145,37 @@ a { color: inherit; }
 // samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
 // lest av noe, og forsvinner med siden ved neste navigasjon.
 //
-// eventCallback/eventTimeout-mønsteret under (samme teknikk som GTM sin
-// egen "lenke klikket"-auto-sporing brukte i Universal Analytics-dagene)
-// er PÅKREVD, ikke valgfritt: tilbudslenkene navigerer i samme fane, så
-// uten dette rekker nettleseren ofte å forlate siden FØR GTM faktisk har
-// sendt hendelsen til GA4 -- bekreftet i praksis 2026-08-31 (klikk ga
-// aldri noe utslag i sanntidsrapporten). preventDefault() + maks 300ms
-// forsinket navigering løser det, og faller trygt tilbake til vanlig
-// navigering uten forsinkelse hvis GTM aldri lastes (intet samtykke).
+// Forhandlerlenker åpnes i ny fane (target="_blank", se render_offer_card/
+// render_winner_widget) -- brukeren beholder Kontaktlinser.no åpent og kan
+// sammenligne flere butikker uten å miste sammenligningen, samme mønster
+// bekreftet hos andre prissammenligningstjenester. Siden fanen med DENNE
+// siden ALDRI navigerer bort, er det ingen kappløp mot GTM-sendingen lenger
+// -- vanlig window.open()/target="_blank"-navigering kan skje helt normalt,
+// vi trenger bare å pushe dataLayer-eventet ved siden av.
+//
+// eventCallback/eventTimeout-mønsteret under er likevel beholdt som
+// fallback for en lenke uten target="_blank" (skulle en sånn dukke opp et
+// sted): tilbudslenker som navigerer i SAMME fane rekker ofte å forlate
+// siden FØR GTM faktisk har sendt hendelsen til GA4 -- bekreftet i praksis
+// 2026-08-31 (klikk ga aldri noe utslag i sanntidsrapporten). preventDefault()
+// + maks 300ms forsinket navigering løser det for det tilfellet.
 window.dataLayer = window.dataLayer || [];
 document.addEventListener('click', function (e) {
   var link = e.target.closest('a[data-retailer]');
   if (!link) return;
-  // Ctrl/Cmd/Shift-klikk, midtklikk eller lenker som allerede åpner i ny
-  // fane skal fungere helt normalt -- ingen forsinkelse å vente på når
-  // brukeren blir værende på denne siden uansett.
   if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-  if (link.target && link.target !== '_self') return;
+
+  if (link.target === '_blank') {
+    // Nettleseren håndterer selve navigeringen til den nye fanen -- vi
+    // pusher bare sporingseventet ved siden av, ingen forsinkelse nødvendig.
+    window.dataLayer.push({
+      event: 'outbound_click',
+      retailer: link.getAttribute('data-retailer'),
+      affiliate: link.getAttribute('data-affiliate') === '1'
+    });
+    return;
+  }
+
   e.preventDefault();
   var navigated = false;
   function go() {
