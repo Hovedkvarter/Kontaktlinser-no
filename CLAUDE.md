@@ -1367,6 +1367,58 @@ ikke bare "flest klikk", siden posisjon i lista i seg selv påvirker klikk) og e
 favoritt/hjerte-ikon (ingen SEO-verdi, ekstra vedlikehold, ikke forespurt av bruker som en
 reell prioritet nå). Prishistorikk-lenken på produktkortet er derimot reell og allerede bygget.
 
+## Kontaktlinser.no flyttet til Chillout Labs/Sjekkpris-kontoene (2026-09-10)
+
+Kontaktlinser.no administreres nå under nye kontoer i samme konsern (Kai, via
+kai@sjekkpris.no) -- **ingen endring av GitHub-org (fortsatt Hovedkvarter),
+domeneeierskap, hosting eller merkenavn på selve siden.**
+
+- **GTM-beholder byttet**: `GTM-KGPF68` -> `GTM-5RZFVNQM` (Chillout Labs-
+  kontoen). Ren én-linje-ID-bytte i `GTM_HEAD` i render_templates.py --
+  samme last-etter-samtykke-mekanikk (`window.__loadGTM()` kalt fra
+  `CONSENT_SCRIPT`), fortsatt ingen `<noscript>`-fallback (bevisst policy,
+  uendret). GA4-ID (G-ELJYYBLS6H), CartBooster (lastes som en GTM Custom
+  HTML-tag mot `s.cartbooster.io/preload`, IKKE i vår kode) og
+  `outbound_click`-eventet (retailer+affiliate) er alle videreført i den
+  nye beholderen, verifisert live av Kai i GA4 etter bytte.
+  **Reelt funn ved verifisering:** den GAMLE beholderens `outbound_click`-
+  tag hadde en skrivefeil i variabelnavnet for affiliate-parameteren
+  (`"affilaite"` i stedet for `"affiliate"` -- bokstavene byttet om), som
+  betyr at `affiliate`-verdien trolig alltid var `undefined` i GA4
+  historisk. Bekreftet rettet i den nye beholderen ved verifisering
+  (Kai bekreftet "riktige retailer-verdier og affiliate true/false").
+- **Google tag gateway**: Cloudflare sin første-parts-proxy for GTM ER
+  aktiv -- oppdaget/bekreftet ved å faktisk simulere samtykke og se hva som
+  lastes live: en obfuskert sti (`kontaktlinser.no/4pvl/...`) proxyer hele
+  GTM-konfigurasjonen gjennom eget domene. Dette er REN Cloudflare-side
+  infrastruktur (injisert på edge-nivå), usynlig i dette repoet -- **fravær
+  av gateway-kode her betyr IKKE at gateway er av**, sjekk alltid Cloudflare
+  sitt eget dashbord ("Google tag gateway"-innstillinger) for sannheten.
+- **Cloudflare-sonen flyttet til Sjekkpris-kontoen** (samme konto som
+  sjekkpris.no allerede ligger under). DNS-poster/proxy-status/SSL (Full)
+  importert uendret, nye navnetjenere `katelyn.ns.cloudflare.com`/
+  `pedro.ns.cloudflare.com`, ny zone-ID `781afbccaf00dd078337a0f0c8ca1cc8`.
+  **Bekreftet ved gjennomgang: INGEN kode, CI-workflow, secret eller
+  variabel i dette repoet refererer til noen Cloudflare-konto/sone-ID/API-
+  token noe sted** (`gh secret list`/`gh variable list` begge tomme, kun
+  det innebygde `GITHUB_TOKEN` brukes, og det er GitHub sitt eget). Alt
+  Cloudflare-relatert (redirects, SSL, gateway, robots-policy-brytere) er
+  og har alltid vært ren dashbord-konfigurasjon utenfor dette repoet --
+  ingenting her trenger endres ved et kontobytte. Samme kjente fallgruve
+  som ved forrige Cloudflare-oppsett (2026-08-18) gjelder fortsatt: en
+  FERSK sone kan ha "AI Crawl Control -> Managed robots.txt" slått PÅ som
+  standard, som da ville overstyrt policyen under stille -- må sjekkes
+  manuelt i det nye dashbordet, kan ikke bekreftes/avkreftes herfra.
+- **robots.txt sin AI-treningsrobot-policy reversert 2026-09-10**
+  (konsernbeslutning): GPTBot/ClaudeBot/Google-Extended/anthropic-ai/
+  Applebot-Extended gikk fra `Allow: /` til `Disallow: /` -- reverserer
+  den opprinnelige "åpen som standard"-avgjørelsen fra 2026-08-15 (som
+  fortsatt sto begrunnet i selve filen). AI-SØK/agent-roboter
+  (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User,
+  PerplexityBot) er UENDRET tillatt, det samme er Googlebot/Bingbot --
+  `Google-Extended` styrer kun Gemini/Vertex AI-trening, ikke vanlig
+  Google-søkeindeksering, så Googlebot sin tilgang er upåvirket.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
