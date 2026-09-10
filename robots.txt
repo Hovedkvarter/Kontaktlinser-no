@@ -26,23 +26,24 @@ User-agent: PerplexityBot
 Allow: /
 
 # --- AI: trenings-roboter (samler innhold til fremtidig modelltrening) ---
-# Åpne som standard siden korrekte, oppdaterte priser er nyttig kunnskap å
-# spre - men det er en bevisst avgjørelse, ikke en selvfølge. Sett til
-# "Disallow: /" per bot under hvis du heller vil holde treningsdata unna.
+# Blokkert 2026-09-10 (Chillout Labs/Sjekkpris-konsernpolicy) -- reverserer
+# den tidligere "åpen som standard"-avgjørelsen fra lanseringen. Googlebot
+# selv (søkeindeksering) er UPÅVIRKET av dette -- Google-Extended styrer kun
+# Gemini/Vertex AI-trening, ikke vanlig Google-søk.
 User-agent: GPTBot
-Allow: /
+Disallow: /
 
 User-agent: ClaudeBot
-Allow: /
+Disallow: /
 
 User-agent: Google-Extended
-Allow: /
+Disallow: /
 
 User-agent: anthropic-ai
-Allow: /
+Disallow: /
 
 User-agent: Applebot-Extended
-Allow: /
+Disallow: /
 
 # --- Kjent dårlig oppførsel: blokkeres uavhengig av strategi over ---
 # Bytespider har historisk ignorert disallow-regler og genererer uforholds-
