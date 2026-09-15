@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-09-15T21:02:10Z",
+  "generated_at": "2026-09-15T22:04:32Z",
   "currency": "NOK",
   "products": [
     {
@@ -13,15 +13,6 @@
         "manufacturer": "Johnson & Johnson Vision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 262.0,
-          "shipping": 0.0,
-          "total_price": 262.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-prd19897602?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:54:50.086390+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 262.0,
@@ -137,15 +128,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 331.0,
-          "shipping": 0.0,
-          "total_price": 331.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biofinity-prd39456092?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:54:55.777284+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 331.0,
           "shipping": 50,
@@ -230,15 +212,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 232.0,
-          "shipping": 0.0,
-          "total_price": 232.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/1-day-acuvue-moist-prd43800736?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:02.442569+00:00"
-        },
-        {
           "merchant": "Interoptik",
           "price": 257.0,
           "shipping": 0.0,
@@ -314,15 +287,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 344.0,
-          "shipping": 0.0,
-          "total_price": 344.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-max-1-day?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:07.161841+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 344.0,
           "shipping": 50,
@@ -379,15 +343,6 @@
         "manufacturer": "Johnson & Johnson Vision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 276.0,
-          "shipping": 0.0,
-          "total_price": 276.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-1-day-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:12.137735+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 276.0,
@@ -464,15 +419,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 351.0,
-          "shipping": 0.0,
-          "total_price": 351.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-for-astigmatism-prd42172188-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:17.708377+00:00"
-        },
-        {
           "merchant": "Extra Optical",
           "price": 345.0,
           "shipping": 45,
@@ -548,15 +494,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 297.0,
-          "shipping": 0.0,
-          "total_price": 297.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/1-day-acuvue-moist-for-astigmatism-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:22.486932+00:00"
-        },
-        {
           "merchant": "Interoptik",
           "price": 332.0,
           "shipping": 0.0,
@@ -622,15 +559,6 @@
         "manufacturer": "CooperVision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 454.0,
-          "shipping": 0.0,
-          "total_price": 454.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biofinity-toric-prd14312049?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:27.394111+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 454.0,
@@ -715,15 +643,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 292.0,
-          "shipping": 0.0,
-          "total_price": 292.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/air-optix-colors-aoa286142?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:38.990165+00:00"
-        },
         {
           "merchant": "Shopping4net",
           "price": 279.0,
@@ -881,15 +800,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 659.0,
-          "shipping": 0.0,
-          "total_price": 659.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biofinity-multifocal-pd12345678-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:45.195950+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 659.0,
           "shipping": 50,
@@ -955,15 +865,6 @@
         "manufacturer": "CooperVision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 387.0,
-          "shipping": 0.0,
-          "total_price": 387.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biofinity-energys-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:49.066038+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 387.0,
@@ -1052,15 +953,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 223.0,
-          "shipping": 0.0,
-          "total_price": 223.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/avaira-vitality-prd91397419-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:55:57.085870+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 223.0,
           "shipping": 50,
@@ -1135,15 +1027,6 @@
         "manufacturer": "CooperVision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 373.0,
-          "shipping": 0.0,
-          "total_price": 373.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/avaira-vitality-toric-lavarvt685-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:03.148048+00:00"
-        },
         {
           "merchant": "Shopping4net",
           "price": 349.0,
@@ -1400,15 +1283,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 224.0,
-          "shipping": 0.0,
-          "total_price": 224.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/proclear-sphere-prd34870918?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:22.788124+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 223.0,
           "shipping": 50,
@@ -1523,15 +1397,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 254.0,
-          "shipping": 0.0,
-          "total_price": 254.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/clariti-1-day?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:28.764320+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 254.0,
           "shipping": 50,
@@ -1628,15 +1493,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 339.0,
-          "shipping": 0.0,
-          "total_price": 339.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/air-optix-plus-hydraglyde-prd666600001236-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:36.595277+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 339.0,
           "shipping": 50,
@@ -1702,15 +1558,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 629.0,
-          "shipping": 0.0,
-          "total_price": 629.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/air-optix-hydraglyde-multif-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:40.143441+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 629.0,
@@ -1853,15 +1700,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 344.0,
-          "shipping": 0.0,
-          "total_price": 344.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/dailies-total-1-dt1030912?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:46.745013+00:00"
-        },
-        {
           "merchant": "Interoptik",
           "price": 359.0,
           "shipping": 0.0,
@@ -1928,15 +1766,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 469.0,
-          "shipping": 0.0,
-          "total_price": 469.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/dailies-total-1-multifocal-dt1m85141-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:51.605940+00:00"
-        },
-        {
           "merchant": "Brilleland",
           "price": 422.0,
           "shipping": 59,
@@ -2002,15 +1831,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 489.0,
-          "shipping": 0.0,
-          "total_price": 489.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/dailies-total-1-for-astigmatism?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:56:56.565839+00:00"
-        },
         {
           "merchant": "Interoptik",
           "price": 493.0,
@@ -2144,15 +1964,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 494.0,
-          "shipping": 0.0,
-          "total_price": 494.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/total-30?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:08.298858+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 529.0,
           "shipping": 50,
@@ -2200,15 +2011,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 277.0,
-          "shipping": 0.0,
-          "total_price": 277.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/precision-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:11.622015+00:00"
-        },
         {
           "merchant": "Interoptik",
           "price": 322.0,
@@ -2258,15 +2060,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 329.0,
-          "shipping": 0.0,
-          "total_price": 329.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/precision-1-toric?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:14.752155+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 329.0,
           "shipping": 50,
@@ -2315,15 +2108,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 186.0,
-          "shipping": 0.0,
-          "total_price": 186.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/soflens-59-prd20429154?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:18.120677+00:00"
-        },
-        {
           "merchant": "Shopping4net",
           "price": 179.0,
           "shipping": 39,
@@ -2371,15 +2155,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 178.0,
-          "shipping": 0.0,
-          "total_price": 178.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/soflens-daily-disposable-prd59328065?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:21.103597+00:00"
-        },
         {
           "merchant": "Shopping4net",
           "price": 179.0,
@@ -2503,15 +2278,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 337.0,
-          "shipping": 0.0,
-          "total_price": 337.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/purevision-2-hd-prd22187187?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:27.154468+00:00"
-        },
         {
           "merchant": "Shopping4net",
           "price": 359.0,
@@ -2645,15 +2411,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 396.0,
-          "shipping": 0.0,
-          "total_price": 396.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/ultra-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:36.670054+00:00"
-        },
-        {
           "merchant": "Synsam",
           "price": 375.0,
           "shipping": 39,
@@ -2711,15 +2468,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 206.0,
-          "shipping": 0.0,
-          "total_price": 206.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biomedics-55-evolution-prd65532469?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:42.099266+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 206.0,
           "shipping": 50,
@@ -2776,15 +2524,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 676.0,
-          "shipping": 0.0,
-          "total_price": 676.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/air-optix-night-day-aqua-prd33155936?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:45.252531+00:00"
-        },
         {
           "merchant": "Synsam",
           "price": 679.0,
@@ -2851,15 +2590,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 366.0,
-          "shipping": 0.0,
-          "total_price": 366.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/purevision-prd19104790?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:48.253452+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 366.0,
@@ -2975,15 +2705,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 505.0,
-          "shipping": 0.0,
-          "total_price": 505.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/purevision-2hd-for-astigmatism-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:54.373308+00:00"
-        },
-        {
           "merchant": "Shopping4net",
           "price": 589.0,
           "shipping": 39,
@@ -3013,15 +2734,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 607.0,
-          "shipping": 0.0,
-          "total_price": 607.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/purevision-2-hd-multifocal-purevision2hdmf?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:57:57.361337+00:00"
-        },
         {
           "merchant": "Synsam",
           "price": 632.0,
@@ -3070,15 +2782,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 298.0,
-          "shipping": 0.0,
-          "total_price": 298.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biotrue-oneday-for-astigmatism?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:02.013823+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 298.0,
@@ -3136,15 +2839,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 322.0,
-          "shipping": 0.0,
-          "total_price": 322.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biotrue-oneday-for-presbyopia-biop30pk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:06.322039+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 322.0,
@@ -3220,15 +2914,6 @@
         "manufacturer": "Bausch + Lomb"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 438.0,
-          "shipping": 0.0,
-          "total_price": 438.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/ultra-oneday?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:10.941827+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 429.0,
@@ -3449,15 +3134,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 301.0,
-          "shipping": 0.0,
-          "total_price": 301.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biomedics-1-day-extra-toric-b1detoric?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:27.934633+00:00"
-        },
-        {
           "merchant": "Interoptik",
           "price": 325.0,
           "shipping": 0.0,
@@ -3523,15 +3199,6 @@
         "manufacturer": "CooperVision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 398.0,
-          "shipping": 0.0,
-          "total_price": 398.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biomedics-toric-prd23084202?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:30.990599+00:00"
-        },
         {
           "merchant": "Shopping4net",
           "price": 429.0,
@@ -3608,15 +3275,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 699.0,
-          "shipping": 0.0,
-          "total_price": 699.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/total30-multifocal-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:35.587795+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 699.0,
           "shipping": 50,
@@ -3655,15 +3313,6 @@
         "manufacturer": "Alcon"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 599.0,
-          "shipping": 0.0,
-          "total_price": 599.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/total-30-for-astigmatism?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T20:58:39.201558+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 599.0,
@@ -5270,15 +4919,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 222.0,
-          "shipping": 0.0,
-          "total_price": 222.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/biofinity-xr-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T21:00:28.855512+00:00"
-        },
-        {
           "merchant": "Lenson",
           "price": 199.0,
           "shipping": 50,
@@ -6008,15 +5648,6 @@
       },
       "offers": [
         {
-          "merchant": "Lensit",
-          "price": 479.0,
-          "shipping": 0.0,
-          "total_price": 479.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-max-1-day-multifocal?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T21:01:09.959362+00:00"
-        },
-        {
           "merchant": "Coptikk",
           "price": 519.0,
           "shipping": 0.0,
@@ -6073,15 +5704,6 @@
         "manufacturer": "Johnson & Johnson Vision"
       },
       "offers": [
-        {
-          "merchant": "Lensit",
-          "price": 999.0,
-          "shipping": 0.0,
-          "total_price": 999.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/acuvue-oasys-max-1-day-multifocal?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T21:01:13.230094+00:00"
-        },
         {
           "merchant": "Lenson",
           "price": 1359.0,
@@ -6483,15 +6105,6 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-7639)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Flive-lens-7639)",
           "checked_at": "2026-09-15T20:54:35.945728+00:00"
-        },
-        {
-          "merchant": "Lensit",
-          "price": 249.0,
-          "shipping": 0.0,
-          "total_price": 249.0,
-          "availability": "in_stock",
-          "url": "https://www.lensit.no/products/live?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
-          "checked_at": "2026-09-15T21:01:53.040393+00:00"
         }
       ]
     },
