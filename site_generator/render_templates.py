@@ -2223,6 +2223,19 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
         enriched.append({**o, "total": total, "is_stale": is_stale, "url": url})
 
     eligible = [o for o in enriched if o["in_stock"]]
+
+    # Lensit svarer ikke på gjentatte avtaleforespørsler (4-5 henvendelser
+    # uten svar, 2026-09-16) -- etter brukerønske skal de ikke lenger vises
+    # når de er billigst (ville gitt dem gratis salg uten noen avtale).
+    # De vises fortsatt som et vanlig, ikke-vinnende tilbud når de IKKE er
+    # billigst. "Billigst" avgjøres på selve prisen (inkl. evt. uavgjort),
+    # ikke bare hvem som til slutt får trofé-merket via tie-break.
+    if eligible:
+        lowest_total = min(o["total"] for o in eligible)
+        if any(o["retailer"] == "Lensit" and o["total"] == lowest_total for o in eligible):
+            enriched = [o for o in enriched if o["retailer"] != "Lensit"]
+            eligible = [o for o in enriched if o["in_stock"]]
+
     winner = _pick_lowest(eligible)
 
     for o in enriched:
