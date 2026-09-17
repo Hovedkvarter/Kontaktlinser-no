@@ -1418,6 +1418,21 @@ domeneeierskap, hosting eller merkenavn på selve siden.**
   PerplexityBot) er UENDRET tillatt, det samme er Googlebot/Bingbot --
   `Google-Extended` styrer kun Gemini/Vertex AI-trening, ikke vanlig
   Google-søkeindeksering, så Googlebot sin tilgang er upåvirket.
+- **Opprinnelig gratis-Cloudflare-sonen auto-slettet av Cloudflare selv
+  (2026-09-17).** E-post fra Cloudflare varslet at kontaktlinser.no-sonen
+  ble fjernet fra "Partner@kontaktlinser.no's Account" -- kontoen Kai
+  bekreftet var den aller første, opprinnelige gratis-Cloudflare-kontoen
+  siden ble satt opp med i sin tid (altså den GAMLE kontoen sonen nettopp
+  ble flyttet bort fra over, inkl. `legacy_aspx_redirects`-lista). Årsaken
+  er nettopp at navneserverne ikke lenger peker dit etter migreringen til
+  Sjekkpris-kontoen -- helt forventet automatisk opprydning, ikke et
+  driftsavbrudd (levende side bekreftet upåvirket: 200 OK, fortsatt
+  Cloudflare-proxyet, riktige navnetjenere `katelyn`/`pedro`). Løser samme
+  implisitt det tidligere åpne spørsmålet om opprydning av den gamle
+  kontoens duplikate/utdaterte Bulk-Redirect-liste -- den er nå borte uansett.
+  **Ikke trykk "Add the domain again" i en slik e-post** -- det ville bare
+  gjenskapt en ubrukt sone i en forlatt konto, uten noen funksjon siden den
+  faktiske, aktive sonen allerede ligger riktig under Sjekkpris-kontoen.
 
 ## Arbeidsspråk og autorisasjon
 
