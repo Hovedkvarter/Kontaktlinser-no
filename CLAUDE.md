@@ -1433,6 +1433,9 @@ domeneeierskap, hosting eller merkenavn på selve siden.**
   **Ikke trykk "Add the domain again" i en slik e-post** -- det ville bare
   gjenskapt en ubrukt sone i en forlatt konto, uten noen funksjon siden den
   faktiske, aktive sonen allerede ligger riktig under Sjekkpris-kontoen.
+  Kai bekreftet selv (innlogget på partner@kontaktlinser.no) at kontoen sto
+  helt tom for domener, og slettet den samme dag -- saken er dermed
+  fullstendig avsluttet.
 
 ## Arbeidsspråk og autorisasjon
 
