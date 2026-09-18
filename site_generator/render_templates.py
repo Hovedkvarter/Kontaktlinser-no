@@ -2867,7 +2867,7 @@ def _render_price_history_chart(history: list[dict]) -> str:
   </div>"""
 
 
-def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None) -> str:
+def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None, family: dict | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
@@ -2904,6 +2904,15 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
                 pack_size_callout = f"""<a class="pack-size-callout" href="{escape(sibling_href)}">
   <div class="pack-size-callout-text">
     Finnes også i <strong>{sibling_pack_size}-pakning</strong> — {per_lens_str} ({comparison})
+  </div>
+  <div class="pack-size-callout-arrow">→</div>
+</a>"""
+
+    family_callout = ""
+    if family:
+        family_callout = f"""<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/">
+  <div class="pack-size-callout-text">
+    Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter
   </div>
   <div class="pack-size-callout-arrow">→</div>
 </a>"""
@@ -3265,6 +3274,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>
   {qty_html}
   {pack_size_callout}
+  {family_callout}
   <div class="offers">
     <h2>Alle tilbud, sortert etter total pris</h2>
     {offer_cards_html}
@@ -7619,7 +7629,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 </html>"""
 
 
-def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None) -> str:
+def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None) -> str:
     """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget
     merkenavn (f.eks. Synsam sin "EyeQ 24" er egentlig Biofinity fra
     CooperVision). private_labels.json holder KUN høy-sikkerhet-koblinger,
@@ -7812,6 +7822,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+.pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
+.pack-size-callout:hover {{ border-color: var(--blue); }}
+.pack-size-callout-arrow {{ color: var(--blue); font-size: 1.1rem; flex-shrink: 0; }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
@@ -7841,6 +7854,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     {offer_cards_html}
   </div>
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
+  {f'<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/"><div class="pack-size-callout-text">Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>' if family else ''}
 
   <div class="private-label-explainer">
     <p><strong>Hvorfor har den to navn?</strong> Mange optikerkjeder kjøper kontaktlinser fra de samme produsentene som selger under egne kjente merker, og pakker dem om under et eget varenavn. Selve linsen – materiale, styrkeområde og spesifikasjoner – er den samme. Det er bare emballasjen og navnet som er unikt for denne serien.</p>

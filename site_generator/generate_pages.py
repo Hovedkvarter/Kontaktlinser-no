@@ -150,6 +150,42 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
 
     products_by_id = {p["id"]: p for p in lens_products}
 
+    # Lastes tidlig (ikke bare ved serie-side-bygget lenger nede) slik at
+    # produktsidene kan lenke til sin egen serieside -- serie-sidene hadde
+    # tidligere INGEN innkommende interne lenker noe sted (kun i sitemap.xml),
+    # og ble derfor stort sett sittende som "Oppdaget - ikke indeksert" i
+    # Search Console (2026-09-18, 47 av 49 serie-sider berørt) -- klassisk
+    # foreldreløs-side-problem, ikke et innholds- eller kvalitetsproblem.
+    product_families = json.loads(PRODUCT_FAMILIES_PATH.read_text(encoding="utf-8"))["families"] if PRODUCT_FAMILIES_PATH.exists() else []
+    family_by_product_id: dict[str, dict] = {}
+    # Samme, for private label-varianten av en serieside (f.eks. EyeQ/iWear/
+    # Ascend/Easyvision) -- disse manglet lenker enda mer systematisk, siden
+    # de ikke en gang har en tilsvarende ekte-produkt-side å arve fra. Speiler
+    # nøyaktig samme gruppering/primær-slug-logikk som selve serie-side-
+    # bygget lenger nede (min(slug) = alltid sfærisk/base-varianten).
+    label_family_by_slug: dict[str, dict] = {}
+    for family in product_families:
+        valid_member_ids = [mid for mid in family["member_ids"] if mid in products_by_id]
+        if len(valid_member_ids) < 2:
+            continue
+        for mid in valid_member_ids:
+            family_by_product_id[mid] = {"slug": family["slug"], "name": family["name"]}
+
+        member_id_set = set(valid_member_ids)
+        labels_for_family_by_chain: dict[str, dict[str, dict]] = {}
+        for label in private_labels:
+            if label["real_product_id"] not in member_id_set:
+                continue
+            by_product = labels_for_family_by_chain.setdefault(label["chain"], {})
+            by_product.setdefault(label["real_product_id"], label)
+        for chain, by_product in labels_for_family_by_chain.items():
+            if len(by_product) < 2:
+                continue
+            matched_labels = list(by_product.values())
+            primary_label = min(matched_labels, key=lambda l: len(l["slug"]))
+            for matched_label in matched_labels:
+                label_family_by_slug[matched_label["slug"]] = {"slug": primary_label["slug"], "name": primary_label["name"]}
+
     price_history = load_history()
     today = now.date().isoformat()
 
@@ -166,7 +202,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
             cheapest = min(eligible, key=lambda o: o["price_nok"])
             record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
 
-        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []))
+        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []), family_by_product_id.get(product["id"]))
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)
@@ -228,7 +264,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
             if real_product is None:
                 print(f"  [advarsel] private label '{label['slug']}' peker til ukjent produkt-id: {label['real_product_id']}")
                 continue
-            html = render_private_label_page(label, real_product, catalog["categories"], now)
+            html = render_private_label_page(label, real_product, catalog["categories"], now, label_family_by_slug.get(label["slug"]))
             write_file(BUILD_DIR / "private-label" / label["slug"] / "index.html", html)
             print(f"  private-label -> /private-label/{label['slug']}/")
 
@@ -251,7 +287,6 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
     # side per optikerkjede der private_labels.json har minst 2 av
     # familiens medlemmer koblet inn -- avledet automatisk, ingen egen
     # private label-kurering trengs (se render_family_page sin docstring).
-    product_families = json.loads(PRODUCT_FAMILIES_PATH.read_text(encoding="utf-8"))["families"] if PRODUCT_FAMILIES_PATH.exists() else []
     families_written: list[str] = []
     if product_families:
         for family in product_families:
