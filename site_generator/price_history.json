@@ -3635,7 +3635,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 419.0,
+      "price": 421.0,
       "store": "Synsam"
     }
   ],
@@ -5091,7 +5091,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 552.0,
+      "price": 517.0,
       "store": "Synsam"
     }
   ],
@@ -6911,7 +6911,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 404.0,
+      "price": 405.0,
       "store": "Synsam"
     }
   ],
@@ -9277,7 +9277,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 480.0,
+      "price": 529.0,
       "store": "Synsam"
     }
   ],
@@ -11849,7 +11849,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 605.0,
+      "price": 620.0,
       "store": "Synsam"
     }
   ],
@@ -12395,7 +12395,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 524.0,
+      "price": 525.0,
       "store": "Synsam"
     }
   ],
@@ -13305,8 +13305,8 @@
     },
     {
       "date": "2026-09-18",
-      "price": 849.0,
-      "store": "Lenson"
+      "price": 762.0,
+      "store": "Synsam"
     }
   ],
   "precision1-90pk": [
@@ -13851,7 +13851,7 @@
     },
     {
       "date": "2026-09-18",
-      "price": 433.0,
+      "price": 434.0,
       "store": "Synsam"
     }
   ],
@@ -27831,8 +27831,8 @@
     },
     {
       "date": "2026-09-18",
-      "price": 239.0,
-      "store": "Vitusapotek"
+      "price": 197.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-daily-90pk": [
@@ -27983,8 +27983,8 @@
     },
     {
       "date": "2026-09-18",
-      "price": 629.0,
-      "store": "Vitusapotek"
+      "price": 509.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-monthly-6pk": [
@@ -28135,8 +28135,8 @@
     },
     {
       "date": "2026-09-18",
-      "price": 289.0,
-      "store": "Vitusapotek"
+      "price": 219.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-vitamin-30pk": [
@@ -28287,8 +28287,8 @@
     },
     {
       "date": "2026-09-18",
-      "price": 299.0,
-      "store": "Vitusapotek"
+      "price": 249.0,
+      "store": "Apotek For Deg"
     }
   ],
   "clearlii-multipurpose-100ml": [
