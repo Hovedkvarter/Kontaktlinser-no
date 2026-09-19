@@ -213,13 +213,24 @@ def _load_feed_rows(rows: csv.DictReader, network: str, product_match: dict[str,
     mapper = NETWORK_MAPPERS[network]
     offers = []
     skipped = 0
+    total = 0
     for row in rows:
+        total += 1
         row_offers = mapper(row, product_match, retailer_cfg)
         if row_offers:
             offers.extend(row_offers)
         else:
             skipped += 1
-    if skipped:
+    if total == 0:
+        # Skiller seg bevisst fra "alle rader hoppet over" (skipped == total,
+        # men total > 0) under -- 0 rader i det hele tatt betyr feeden kom
+        # tilbake TOM (f.eks. et midlertidig tomt 200-svar fra leverandøren),
+        # ikke at produktkatalogen vår ikke traff noe i en ellers fylt feed.
+        # Fanget i praksis 2026-09-19: Extra Optical-feeden ga 0 rader i én
+        # kjøring uten noen feilmelding, siden en tom feed ikke er et HTTP-
+        # eller parse-avvik -- kun synlig ved å faktisk telle radene.
+        print(f"  [{network}] ADVARSEL: {source_label} returnerte 0 rader totalt (mulig midlertidig tom feed hos leverandøren)")
+    elif skipped:
         print(f"  [{network}] {skipped} rad(er) i {source_label} kunne ikke matches til et kjent produkt")
     return offers
 
