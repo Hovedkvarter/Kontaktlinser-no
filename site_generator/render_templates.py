@@ -2376,7 +2376,8 @@ def _render_product_badges(specs: list[tuple[str, str]]) -> str:
     return f'<div class="hero-badges">{items}</div>'
 
 
-def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -> str:
+def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
+                      product_id: str | None = None) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
         else '<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if o["is_stale"]
@@ -2404,7 +2405,37 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None) -
     # å klikke per rad. price-pill er derfor et <span>, ikke en egen <a> --
     # nøstede <a>-tagger er ugyldig HTML og ville brutt visningen.
     is_affiliate = "1" if o["source"] == "affiliate_feed" else "0"
-    return f"""<a class="{css_class}" href="{escape(o["url"])}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
+
+    # FORSTE KONTROLLERTE CHILLOUT-CLICKOUT -- ETT kort, ETT produkt.
+    #
+    # /go/ er kontaktlinser.no sitt eget, forstepartsledd ut: Chillout mynter
+    # sin egen click_id FOR nettverket rutes, og 302-redirecter deretter til
+    # noyaktig den tracking-URL-en som ellers hadde statt her. Malet ble
+    # verifisert ende-til-ende mot produksjonskanten 2026-09-23 (19 sjekker),
+    # og lesekontrakten eksponerer samme token for dette tilbudet.
+    #
+    # Alt annet pa kortet er bevisst urort: rel, target, data-retailer,
+    # data-affiliate, klasser og markup. data-affiliate kommer fra
+    # o["source"], ikke fra URL-en, sa outbound_click-eventet rapporterer
+    # noyaktig som for. GA4s automatiske Enhanced Measurement "click" slutter
+    # a fyre for DENNE lenken fordi /go/ er samme domene -- kontrollert
+    # 2026-09-23: ingen key event, ingen audience, ingen exploration leser
+    # den.
+    #
+    # BOOTSTRAP, IKKE ARKITEKTUR. Tokenet star hardkodet her fordi dette er
+    # ett kort. Den permanente losningen er at generatoren leser clickout_url
+    # fra Chillouts lesekontrakt pa byggetidspunktet -- feltet finnes allerede.
+    # Ikke kopier dette monsteret til flere tilbud.
+    href = (
+        "/go/tgt_01M35ASH8Q3MH7WKCAMGGHVXFH"
+        if (
+            retailer == "Lensway"
+            and product_id == "biofinity-toric-6pk"
+            and o["source"] == "affiliate_feed"
+        )
+        else escape(o["url"])
+    )
+    return f"""<a class="{css_class}" href="{href}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
     {status_note}
@@ -2920,7 +2951,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
+    offer_cards_html = "\n".join(
+        render_offer_card(o, o["retailer"], product["name"], product["id"]) for o in offers
+    )
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
