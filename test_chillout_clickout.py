@@ -43,14 +43,15 @@ THIRD = "/go/tgt_TREDJETILBUDETXXXXXXXXXXXXX"
 THIRD_PRODUCT = "acuvue-oasys-6pk"
 
 
-def required_products() -> set:
-    """Produktene dekningen faktisk krever -- utledet, som i modulen.
+def requested_products(products=None) -> set:
+    """Produktene bygget faktisk spor om -- utledet, som i modulen.
 
-    Testene under sier `len(required_products())` framfor et tall, sa a
-    utvide dekningen ikke river i seks tester som egentlig handler om noe
-    annet."""
+    Ikke en dekningsliste. Et produkt spørres om nar en tilbudsnokkel i det
+    hele tatt kan peke pa et kort der; om Chillout HAR en clickout for noe av
+    det er spørsmalet, ikke forutsetningen."""
     keys = chillout_clickout._renderer_keys()
-    return {k[0] for o in chillout_clickout.CONVERTED if o in keys for k in keys[o]}
+    catalogue = {p["id"] for p in (CATALOGUE if products is None else products)}
+    return {card[0] for cards in keys.values() for card in cards} & catalogue
 
 
 def answers_per_product(urls: dict) -> dict:
@@ -62,10 +63,9 @@ def answers_per_product(urls: dict) -> dict:
     """
     keys = chillout_clickout._renderer_keys()
     grouped: dict = {}
-    for offer_id in sorted(chillout_clickout.CONVERTED):
-        for product_id, advertiser in keys[offer_id]:
-            platform_id = chillout_clickout.PRODUCTS[product_id]
-            body = grouped.setdefault(platform_id, {"offers": [], "excluded": []})
+    for offer_id in sorted(urls):
+        for product_id, advertiser in keys.get(offer_id, ()):
+            body = grouped.setdefault(product_id, {"offers": [], "excluded": []})
             body["offers"].append(
                 {"offer_id": offer_id, "advertiser": advertiser,
                  "link": {"clickout_available": True, "clickout_url": urls[offer_id]}}
@@ -79,7 +79,7 @@ def every_offer(urls: dict) -> dict:
     return {"offers": [
         {"offer_id": o, "advertiser": keys[o][0][1],
          "link": {"clickout_available": True, "clickout_url": urls[o]}}
-        for o in sorted(chillout_clickout.CONVERTED) if o in keys and o in urls
+        for o in sorted(urls) if o in keys
     ], "excluded": []}
 
 
@@ -142,7 +142,18 @@ class Recorder:
 ORIGIN = "https://chillout.example"
 
 
-def run(monkey, *, key=KEY, responder=None, origin=ORIGIN):
+#: **En liten katalog: bare produktene testene handler om.** Den ekte
+#: katalogen har 186 produkter, og de fleste testene her handler om EN ting
+#: -- en advarsel, en header, en URL. Der antallet er selve poenget brukes
+#: den ekte katalogen i stedet, og de testene sier det.
+CATALOGUE = [
+    {"id": "biofinity-toric-6pk", "category_slug": "toriske-linser"},
+    {"id": "biofinity-6pk", "category_slug": "dagslinser"},
+    {"id": "acuvue-oasys-6pk", "category_slug": "dagslinser"},
+]
+
+
+def run(monkey, *, key=KEY, responder=None, origin=ORIGIN, products=None):
     """`clickout_urls()` with the network and the environment stubbed."""
     printed = Recorder()
     monkey["print"] = printed
@@ -159,7 +170,9 @@ def run(monkey, *, key=KEY, responder=None, origin=ORIGIN):
             chillout_clickout.os.environ[chillout_clickout.KEY_VARIABLE] = key
         if responder is not None:
             chillout_clickout.urllib.request.urlopen = responder
-        return chillout_clickout.clickout_urls(), printed
+        return chillout_clickout.clickout_urls(
+            CATALOGUE if products is None else products
+        ), printed
     finally:
         chillout_clickout.ORIGIN = original_origin
         chillout_clickout.urllib.request.urlopen = original_open
@@ -224,15 +237,13 @@ def test_the_one_pair_is_resolved() -> None:
     assert found == {(PRODUCT, RETAILER): TOKEN}
 
 
-def test_every_approved_offer_comes_through() -> None:
-    """Hvert godkjent offer_id gir sitt eget kort, og ingen andre."""
+def test_every_confirmed_offer_comes_through() -> None:
+    """Hvert bekreftet offer_id gir sitt eget kort, og ingen andre."""
     keys = chillout_clickout._renderer_keys()
     found, printed = run({}, responder=answering(every_offer(URLS)))
 
-    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
-    n = len(chillout_clickout.CONVERTED)
-    assert f"{n}/{n} godkjente tilbud lost" in printed.text
-
+    assert found == {k: URLS[o] for o in URLS if o in keys for k in keys[o]}
+    assert f"{len(found)} kort med bekreftet clickout" in printed.text
 
 def test_the_second_offer_reaches_its_own_card_and_no_other() -> None:
     body = {"offers": [
@@ -275,6 +286,20 @@ def test_an_excluded_offer_is_still_read() -> None:
 
 
 # ---------------------------------------------------------- every failure mode
+def _no_link(found, printed) -> None:
+    """Ikke konvertert, og det er **ikke** en feil.
+
+    Dette er det vanlige utfallet na. Et tilbud uten bekreftet clickout
+    beholder leverandor-URL-en sin, og a advare om hvert av dem ville fylt
+    byggeloggen med hundrevis av linjer som alle sier at alt er som det skal.
+    Advarslene er reservert for det andre tilfellet: at vi ikke FIKK spurt.
+    """
+    assert found == {}
+    assert href_of(card(PRODUCT, RETAILER, found)).startswith("https://")
+    assert "/go/" not in card(PRODUCT, RETAILER, found)
+    assert printed.annotations == [], printed.annotations
+
+
 def _falls_back(found, printed, *, category: str) -> None:
     assert found == {}
     assert href_of(card(PRODUCT, RETAILER, found)).startswith("https://")
@@ -312,13 +337,18 @@ def test_an_unexpected_status() -> None:
     _falls_back(found, printed, category="418")
 
 
-def test_no_confirmed_clickout() -> None:
+def test_no_confirmed_clickout_is_not_a_warning() -> None:
+    """**Det vanlige utfallet, og derfor ikke en advarsel.**
+
+    Med en tillatelsesliste var "godkjent, men ingen clickout" verdt a rope
+    om. Uten en er det bare svaret for de fleste tilbud, og hundrevis av
+    identiske advarsler ville skjult den ene som betydde noe."""
     body = {"offers": [{"offer_id": "6884:1442", "advertiser": "Lensway",
                         "link": {"clickout_available": False, "clickout_url": None}}],
             "excluded": []}
     found, printed = run({}, responder=answering(body))
-    _falls_back(found, printed, category="ingen bekreftet clickout")
 
+    _no_link(found, printed)
 
 def test_a_url_without_the_flag_is_not_taken() -> None:
     """**Flagget leses, ikke bare URL-en.**
@@ -337,8 +367,8 @@ def test_a_url_without_the_flag_is_not_taken() -> None:
                         "link": {"clickout_available": False, "clickout_url": TOKEN}}],
             "excluded": []}
     found, printed = run({}, responder=answering(body))
-    _falls_back(found, printed, category="ingen bekreftet clickout")
 
+    _no_link(found, printed)
 
 def test_the_advertiser_name_is_no_longer_part_of_the_decision() -> None:
     """**Visningsnavnet avgjor ingenting lenger.**
@@ -357,48 +387,54 @@ def test_the_advertiser_name_is_no_longer_part_of_the_decision() -> None:
         assert found == {(PRODUCT, RETAILER): TOKEN}, advertiser
 
 
-def test_the_right_name_on_the_wrong_offer_is_refused() -> None:
-    """Den andre retningen, og den som betyr noe: riktig annonsornavn kan
-    ikke lenger slippe gjennom et tilbud vi ikke har godkjent."""
+def test_the_right_name_on_an_unmapped_offer_is_refused() -> None:
+    """Riktig annonsornavn slipper ikke gjennom et tilbud oppslaget ikke kan
+    koble. Sammenkoblingen er offer_id, og bare den."""
     body = {"offers": [{"offer_id": "6884:9999", "advertiser": "Lensway",
                         "link": {"clickout_available": True, "clickout_url": TOKEN}}],
             "excluded": []}
     found, printed = run({}, responder=answering(body))
-    _falls_back(found, printed, category="ingen bekreftet clickout")
 
+    _no_link(found, printed)
 
 def test_another_feeds_offer_with_the_same_sku_is_refused() -> None:
-    """**Hvorfor feed-id-en ma være med.** Lenson har fid 9560 og selger
-    samme produkt; SKU 1442 alene ville vært tvetydig mellom de to feedene.
-    Chillouts nokkel er feed PLUSS external_id nettopp derfor."""
+    """**Hvorfor feed-id-en ma vare med.** Lenson har fid 9560 og selger
+    samme produkt; SKU 1442 alene ville vart tvetydig mellom de to feedene.
+    Chillouts nokkel er feed PLUSS external_id nettopp derfor.
+
+    Steg 4 gjorde dette viktigere, ikke mindre: na finnes ingen
+    tillatelsesliste bak oppslaget, sa nokkelen er det eneste som star
+    mellom et fremmed tilbud og et kort."""
     body = {"offers": [{"offer_id": "9560:1442", "advertiser": "Lenson",
                         "link": {"clickout_available": True, "clickout_url": TOKEN}}],
             "excluded": []}
     found, printed = run({}, responder=answering(body))
-    _falls_back(found, printed, category="ingen bekreftet clickout")
 
+    _no_link(found, printed)
 
-def test_a_known_offer_outside_the_allowlist_is_refused() -> None:
-    """**Dekningen, ikke bare oppslaget.**
+def test_a_known_offer_chillout_confirms_is_now_converted() -> None:
+    """**Den testen som star igjen etter at tillatelseslista forsvant.**
 
-    `6884:16` er et EKTE Lensway-tilbud: feed-id-en er var, SKU-en star i
-    tabellen, og oppslaget finner et kort a legge lenken pa. Det eneste som
-    holder den tilbake er CONVERTED. En mutasjon som droppet den sjekken
-    overlevde alt annet, fordi de andre tilbudene i stubben tilhorer feeder
-    uten chillout_feed_id og derfor aldri nadde oppslaget i det hele tatt.
+    Den het en gang "et kjent tilbud utenfor lista avvises", og beviste at
+    CONVERTED holdt igjen et ekte Lensway-tilbud som oppslaget kunne koble.
+    Steg 4 fjernet den lista, sa den samme situasjonen har motsatt fasit: et
+    tilbud Chillout bekrefter, som oppslaget kan koble, far lenken sin.
+
+    Den gamle pastanden er ikke slettet fordi den ble ubekvem -- den ble
+    usann, og den nye sier hva som gjelder i stedet.
     """
     other = "6884:16"  # biomedics-55-evolution-6pk
+    url = "/go/tgt_ANNETXXXXXXXXXXXXXXXXXXXXX"
     body = {"offers": [
         {"offer_id": other, "advertiser": "Lensway",
-         "link": {"clickout_available": True, "clickout_url": "/go/tgt_ANNETXXXXXXXXXXXXXXXXXXXXX"}},
+         "link": {"clickout_available": True, "clickout_url": url}},
     ], "excluded": []}
-    found, printed = run({}, responder=answering(body))
+    found, printed = run({}, responder=answering(body),
+                         products=[{"id": "biomedics-55-evolution-6pk",
+                                    "category_slug": "manedslinser"}])
 
-    assert other not in str(found)
-    assert found == {}
-    assert "/go/" not in card("biomedics-55-evolution-6pk", RETAILER, found)
-    _falls_back(found, printed, category="ingen bekreftet clickout")
-
+    assert found == {("biomedics-55-evolution-6pk", "Lensway"): url}
+    assert printed.annotations == [], printed.annotations
 
 def test_only_configured_feeds_contribute_lookup_keys() -> None:
     """En kilde uten chillout_feed_id skal ikke bidra med nokler i det hele
@@ -684,118 +720,69 @@ def test_a_successful_run_says_so_with_numbers_only() -> None:
     """
     found, printed = run({}, responder=answering(every_offer(URLS)))
 
-    assert f"{len(found)}/{len(chillout_clickout.CONVERTED)} godkjente tilbud lost" in printed.text
+    assert f"Chillout clickout: {len(found)} kort med bekreftet clickout" in printed.text
+    assert "produkter svarte" in printed.text
     assert printed.annotations == [], "en vellykket kjoring skal ikke annotere"
     assert KEY not in printed.text
     assert ORIGIN not in printed.text
     assert TOKEN not in printed.text
     assert SECOND not in printed.text
-    assert len(found) == len(chillout_clickout.CONVERTED)
-
 
 def test_the_count_tells_the_truth_when_nothing_resolves() -> None:
-    """0/1 og 1/1 ma kunne skilles, ellers er tallet dekorasjon."""
+    """0 og 4 ma kunne skilles, ellers er tallet dekorasjon -- og "0 kort"
+    sammen med "0 produkter svarte" er en annen historie enn "0 kort" sammen
+    med "160 produkter svarte"."""
     _, printed = run({}, responder=refusing(503))
 
-    assert f"Chillout clickout: 0/{len(chillout_clickout.CONVERTED)} godkjente" in printed.text
+    assert "Chillout clickout: 0 kort med bekreftet clickout" in printed.text
+    assert f"0/{len(requested_products())} produkter svarte" in printed.text
 
+def test_the_request_set_is_the_mapping_tables_met_by_the_catalogue() -> None:
+    """**Spørsmalssettet er en utledning, ikke en liste.**
 
-def test_the_requested_products_are_derived_from_the_coverage() -> None:
-    """**To lister som ma stemme overens er en list for mye.**
+    Det fantes en gang to lister som matte stemme overens, og de gjorde det
+    ikke. Na finnes ingen: et produkt spørres om nar en tilbudsnokkel kan
+    peke pa et kort der og katalogen har produktet.
 
-    6884:347 ble lagt til dekningen uten at produktet ble lagt til
-    forespørselslista, sa kontrakten ble aldri spurt om biofinity-6pk. Na
-    finnes ikke den lista: den utledes.
+    Mot den EKTE katalogen, fordi antallet er selve poenget her."""
+    responder = answering({"offers": [], "excluded": []})
+    products = CATALOG["products"]
+    run({}, responder=responder, products=products)
+
+    asked = set(responder.urls)
+    expected = requested_products(products)
+    assert len(asked) == len(expected), (len(asked), len(expected))
+    assert len(expected) > 100, len(expected)
+    # Hvert spurt produkt er et katalogprodukt et oppslag kan na.
+    for product_id in expected:
+        assert any(f"/{product_id}/offers" in u for u in asked), product_id
+
+def test_a_product_no_offer_key_can_reach_is_not_requested() -> None:
+    """Spørsmalssettet er utledet av oppslagstabellene, ikke av katalogen.
+
+    Et produkt ingen tilbudsnokkel peker pa kan ikke fa en lenke uansett hva
+    kontrakten svarer, sa a spørre om det er en forespørsel til ingen nytte.
     """
     responder = answering(BODY)
-    run({}, responder=responder)
+    run({}, responder=responder,
+        products=[*CATALOGUE, {"id": "et-produkt-ingen-feed-selger",
+                               "category_slug": "dagslinser"}])
 
     asked = set(responder.urls)
-    assert len(asked) == len(required_products()), asked
-    for product_id in required_products():
-        platform_id = chillout_clickout.PRODUCTS[product_id]
-        assert any(platform_id in u for u in asked), platform_id
+    assert not any("et-produkt-ingen-feed-selger" in u for u in asked)
+    assert asked, "kontrollen er tom om ingenting ble spurt om"
 
 
-def test_a_mapped_product_no_offer_needs_is_not_requested() -> None:
-    """**PRODUCTS er et oppslag, ikke en forespørselsliste.**
-
-    Det er her de to formene faktisk skiller lag: sa lenge de to settene er
-    like, gir det samme svar a løkke over hvilket som helst av dem -- og en
-    mutasjon som gikk tilbake til PRODUCTS overlevde alt annet. Et produkt
-    ingen godkjent tilbud trenger skal ikke koste en forespørsel.
-    """
-    original = dict(chillout_clickout.PRODUCTS)
-    try:
-        chillout_clickout.PRODUCTS["renu-multipurpose-60ml"] = "prd_INGEN_TILBUD_TRENGER_DETTE"
-        responder = answering(BODY)
-        run({}, responder=responder)
-    finally:
-        chillout_clickout.PRODUCTS.clear()
-        chillout_clickout.PRODUCTS.update(original)
-
-    asked = set(responder.urls)
-    assert len(asked) == len(required_products()), asked
-    assert not any("INGEN_TILBUD_TRENGER_DETTE" in u for u in asked)
-
-
-def test_an_approved_offer_whose_product_is_not_mapped_says_so() -> None:
-    """**Advarselen som manglet.**
-
-    "Vi spurte ikke" er noe helt annet enn "vi spurte og fikk ingen
-    clickout", og a si det forste som det andre sendte en
-    produksjonsundersøkelse gjennom hele serveringskjeden der ingenting var
-    galt.
-    """
-    original = dict(chillout_clickout.PRODUCTS)
-    try:
-        chillout_clickout.PRODUCTS.pop(SECOND_PRODUCT)
-        responder = answering(BODY)
-        found, printed = run({}, responder=responder)
-    finally:
-        chillout_clickout.PRODUCTS.clear()
-        chillout_clickout.PRODUCTS.update(original)
-
-    assert "blir ikke spurt om" in printed.text
-    assert "6884:347" in printed.text
-    # Og den forveksles ikke med den andre grunnen.
-    assert "ingen bekreftet clickout -- lenker falt tilbake" not in printed.text.split(
-        "blir ikke spurt om"
-    )[0]
-    # Det umappede produktet spørres da heller ikke om -- men det ANDRE
-    # godkjente tilbudet lases fortsatt opp. Ett umappet produkt skal ikke
-    # ta med seg resten.
-    assert len(set(responder.urls)) == len(required_products()) - 1
-    assert (SECOND_PRODUCT, RETAILER) not in found
-    assert (PRODUCT, RETAILER) in found
-
-
-def test_an_approved_offer_unknown_to_the_lookup_says_so() -> None:
-    """Et godkjent offer_id som ikke finnes i katalogoppslaget -- en feed
-    uten chillout_feed_id, eller en SKU som ikke star i tabellen."""
-    original = set(chillout_clickout.CONVERTED)
-    try:
-        chillout_clickout.CONVERTED.add("99999:ukjent")
-        _, printed = run({}, responder=answering(BODY))
-    finally:
-        chillout_clickout.CONVERTED.clear()
-        chillout_clickout.CONVERTED.update(original)
-
-    assert "finnes ikke i katalogoppslaget" in printed.text
-    assert "99999:ukjent" in printed.text
-
-
-def test_one_products_answer_does_not_warn_about_another_products_offer() -> None:
-    """Uten avgrensningen ville hvert produkt advart om de andres tilbud, sa
-    en vellykket kjoring hadde sett ut som en rekke feil."""
+def test_a_successful_broad_run_emits_no_warnings() -> None:
+    """Hvert produkt svarer for seg, og ingen av dem advarer om de andres
+    tilbud -- ellers hadde en vellykket kjoring sett ut som en rekke feil."""
     keys = chillout_clickout._renderer_keys()
     answers = answers_per_product(URLS)
     found, printed = run({}, responder=answering({"offers": [], "excluded": []},
                                                  per_product=answers))
 
-    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
+    assert found == {k: URLS[o] for o in URLS if o in keys for k in keys[o]}
     assert printed.annotations == [], printed.annotations
-
 
 def test_one_external_id_may_name_two_cards() -> None:
     """**Fire EKTE oppforinger peker pa to interne produkter.**
@@ -849,46 +836,60 @@ def test_a_clickout_for_an_aliased_offer_reaches_both_cards() -> None:
         assert href_of(card(product_id, "Shopping4net", resolved)).startswith("/go/")
 
 
-def test_the_alias_entries_are_reachable_and_cost_nothing() -> None:
-    """**Robusthetsfiksen kom akkurat i tide, og na er alle fire naabare.**
+def test_the_alias_entries_reach_both_cards() -> None:
+    """**Fire oppforinger peker pa to interne produkter hver.**
 
     Da Extra Optical fikk en feed-id ble adtraction-tabellen naabar, og to av
-    de fire alias-oppforingene med den. Uten fiksen ville en liste da havnet i
-    oppslagsnokkelen og kastet TypeError ut av byggingen -- null sider
-    skrevet, pa forste bygg etter den endringen. Shopping4net sin feed-id gjor
-    na det samme med den generiske tradedoubler-tabellen, og de to siste --
-    CA og CB -- kommer inn.
+    de fire alias-oppforingene med den; Shopping4net sin feed-id tok de to
+    siste. Uten robusthetsfiksen ville en liste havnet i oppslagsnokkelen og
+    kastet TypeError ut av byggingen -- null sider skrevet.
 
-    De koster ingenting: ingen av dem star i CONVERTED, sa ingen av dem
-    rendres. Det er nettopp skillet mellom robusthet og dekning."""
+    De kostet ingenting sa lenge de sto utenfor tillatelseslista. **Na koster
+    de noe, og det er riktig:** samme fysiske produkt holdes med vilje under
+    to id-er, sa et bekreftet tilbud hører hjemme pa begge kortene."""
     keys = chillout_clickout._renderer_keys()
     multi = {o: v for o, v in keys.items() if len(v) > 1}
 
     assert len(multi) == 4, sorted(multi)
-    # Begge tabellene bidrar na, og det er hele poenget med kontrollen.
     assert {o.split(":")[0] for o in multi} == {"extraoptical", "14910"}
     for offer_id, cards in multi.items():
         assert len(cards) == 2
-        assert offer_id not in chillout_clickout.CONVERTED
     # Og hver eneste verdi er fortsatt en tuple av par -- aldri en liste.
     for value in keys.values():
         assert isinstance(value, tuple)
         assert all(isinstance(c, tuple) and len(c) == 2 for c in value)
 
+    # Et bekreftet alias-tilbud nar begge kortene.
+    alias, cards = sorted(multi.items())[0]
+    url = "/go/tgt_ALIASXXXXXXXXXXXXXXXXXXXXX"
+    body = {"offers": [{"offer_id": alias, "advertiser": cards[0][1],
+                        "link": {"clickout_available": True, "clickout_url": url}}],
+            "excluded": []}
+    found, _ = run({}, responder=answering(body),
+                   products=[{"id": p, "category_slug": "dagslinser"} for p, _ in cards])
+
+    assert found == {card_key: url for card_key in cards}
 
 # ------------------------------------------------------- the request it sends
-def test_it_asks_the_right_property_product_and_origin() -> None:
-    """Uten dette kunne PROPERTY, PRODUCTS eller ruta endres til noe galt og
-    hele suiten forble gronn -- mens produksjon falt stille tilbake."""
+def test_it_asks_the_right_property_namespace_and_origin() -> None:
+    """Uten dette kunne PROPERTY, navnerommet eller ruta endres til noe galt
+    og hele suiten forble gronn -- mens produksjon falt stille tilbake.
+
+    **Katalogruta, med propertyens egen id.** Ingen plattform-id gar ut
+    herfra i det hele tatt, og det er hele grunnen til at PRODUCTS kunne
+    forsvinne."""
     responder = answering(BODY)
     run({}, responder=responder)
 
-    url = responder.seen.full_url
-
-    assert url.startswith(ORIGIN + "/")
-    assert "/properties/kontaktlinser-no/" in url
-    assert "/products/prd_01M2ZP0SREXS63NNMW6YBKRZ9S/offers" in url
-
+    urls = set(responder.urls)
+    assert urls
+    for url in urls:
+        assert url.startswith(ORIGIN + "/")
+        assert "/properties/kontaktlinser-no/catalogue/" in url
+        assert url.endswith("/offers")
+        assert "prd_" not in url, url
+    assert any(f"/catalogue/{chillout_clickout.LENS_NAMESPACE}/biofinity-toric-6pk/" in u
+               for u in urls), sorted(urls)
 
 def test_the_request_carries_a_timeout() -> None:
     """Et Chillout som henger ville ellers hengt bygget til jobbens egen
@@ -930,6 +931,47 @@ def test_an_ampersand_in_a_provider_url_is_escaped() -> None:
 
 
 # ------------------------------------------------------------- the credential
+def test_a_solution_product_is_asked_for_in_its_own_namespace() -> None:
+    """**To navnerom, og de er ikke utskiftbare.**
+
+    Linsevaeske ligger i solutions_meta og kontaktlinser i products_meta. A
+    spørre om det ene i det andres navnerom gir 404 -- og 404 faller tilbake
+    til leverandor-URL-en, stille nok til at en hel produkttype kunne mistet
+    dekningen uten at noe sa fra.
+    """
+    responder = answering({"offers": [], "excluded": []})
+    products = [
+        {"id": "biofinity-toric-6pk", "category_slug": "toriske-linser"},
+        {"id": "easysept-120ml"},  # ingen category_slug -- altsa en losning
+    ]
+    run({}, responder=responder, products=products)
+
+    urls = set(responder.urls)
+    assert any(
+        f"/catalogue/{chillout_clickout.LENS_NAMESPACE}/biofinity-toric-6pk/" in u
+        for u in urls
+    ), sorted(urls)
+    assert any(
+        f"/catalogue/{chillout_clickout.SOLUTION_NAMESPACE}/easysept-120ml/" in u
+        for u in urls
+    ), sorted(urls)
+
+
+def test_the_answered_count_is_counted_and_not_assumed() -> None:
+    """**"Chillout sa nei" og "vi fikk ikke spurt" ser like ut i antall
+    kort.** Produkttallet er det eneste som skiller dem, sa et tall som ikke
+    telles ville gjort bygglinja til dekorasjon nettopp der den betyr mest.
+    """
+    asked = len(requested_products())
+    _, good = run({}, responder=answering({"offers": [], "excluded": []}))
+    _, bad = run({}, responder=refusing(503))
+
+    assert f"{asked}/{asked} produkter svarte" in good.text, good.text
+    assert good.annotations == []
+    assert f"0/{asked} produkter svarte" in bad.text, bad.text
+    assert bad.annotations
+
+
 def test_the_key_reaches_the_header_and_nothing_else() -> None:
     responder = answering(BODY)
     found, printed = run({}, responder=responder)
@@ -939,10 +981,9 @@ def test_the_key_reaches_the_header_and_nothing_else() -> None:
     # med en tuple som bearer token -- mens den forste sa helt riktig ut.
     for seen in responder.requests:
         assert seen.get_header("Authorization") == f"Bearer {KEY}"
-    assert len(responder.requests) == len(required_products())
+    assert len(responder.requests) == len(requested_products())
     assert KEY not in printed.text
     assert found  # the control: the call really happened
-
 
 def test_no_failure_path_prints_the_key() -> None:
     for responder in (refusing(401), refusing(403), refusing(503),
@@ -977,8 +1018,8 @@ def test_the_whole_catalogue_has_exactly_one_converted_card() -> None:
     assert converted == [(PRODUCT, RETAILER)]
 
 
-def test_every_approved_offer_reaches_its_own_product() -> None:
-    """Hvert godkjent tilbud far SIN lenke, pa SITT produkt.
+def test_every_confirmed_offer_reaches_its_own_product() -> None:
+    """Hvert bekreftet tilbud far SIN lenke, pa SITT produkt.
 
     Bygget sporr per produkt, sa svarene stubbes per produkt. En feil som ga
     alle kortene samme URL ville bestatt en test som bare talte dem.
@@ -988,28 +1029,15 @@ def test_every_approved_offer_reaches_its_own_product() -> None:
     responder = answering({"offers": [], "excluded": []}, per_product=answers)
     found, printed = run({}, responder=responder)
 
-    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
-    for o in chillout_clickout.CONVERTED:
-        for key in keys[o]:
-            assert href_of(card(*key, found)) == URLS[o], o
-    n = len(chillout_clickout.CONVERTED)
-    assert f"{n}/{n} godkjente tilbud lost" in printed.text
-    assert printed.annotations == []
-    assert len(set(responder.urls)) == len(required_products())
+    assert found == {k: URLS[o] for o in URLS if o in keys for k in keys[o]}
+    for o in URLS:
+        for card_key in keys.get(o, ()):
+            assert href_of(card(*card_key, found)) == URLS[o], o
+    assert printed.annotations == [], printed.annotations
 
-
-def test_the_platform_ids_come_from_chillouts_own_seed() -> None:
-    """Verdiene er ikke gjettet. To av dem ble uavhengig bekreftet mot
-    produksjonsdatabasen for de ble brukt, og seeden stemte begge ganger."""
-    for platform_id in chillout_clickout.PRODUCTS.values():
-        assert platform_id.startswith("prd_")
-        assert len(platform_id) == 30
-    assert len(set(chillout_clickout.PRODUCTS.values())) == len(chillout_clickout.PRODUCTS)
-
-
-def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
-    """Hele katalogen mot HELE dekningen: ett kort per godkjent tilbud, og
-    ingen av de andre hundrevis rort."""
+def test_the_catalogue_converts_exactly_what_chillout_confirmed() -> None:
+    """Hele katalogen mot hele svaret: ett kort per bekreftet tilbud som
+    oppslaget kan koble, og ingen av de andre hundrevis rort."""
     keys = chillout_clickout._renderer_keys()
     found, _ = run({}, responder=answering(every_offer(URLS)))
 
@@ -1019,10 +1047,15 @@ def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
             if "/go/" in render_offer_card(o, o["retailer"], p["name"], p["id"], found):
                 converted.append((p["id"], o["retailer"]))
 
-    assert sorted(converted) == sorted(
-        k for o in chillout_clickout.CONVERTED for k in keys[o]
-    )
-
+    expected = [k for o in URLS if o in keys for k in keys[o]]
+    # Bare de kortene katalogen faktisk rendrer -- et oppslag kan navngi et
+    # produkt som ikke har det tilbudet i dag.
+    rendered = {
+        (p["id"], o["retailer"])
+        for p in CATALOG["products"]
+        for o in reconcile_product(p.get("offers", []), NOW)
+    }
+    assert sorted(converted) == sorted(k for k in expected if k in rendered)
 
 def test_only_the_href_differs_on_the_converted_card() -> None:
     found, _ = run({}, responder=answering(BODY))
