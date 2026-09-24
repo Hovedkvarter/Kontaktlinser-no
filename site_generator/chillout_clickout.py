@@ -56,8 +56,13 @@ import urllib.request
 CONVERTED = {
     "6884:1442",  # Biofinity Toric 6-pack -- det forste, verifisert i nettleser
     "6884:347",   # Biofinity 6-pack -- verifisert i nettleser
-    "6884:154",   # Acuvue Oasys 6-pack -- annen produktfamilie, samme feed
 }
+# 6884:154 (Acuvue Oasys 6-pack) ble lagt til 2026-09-24 og fjernet samme dag.
+# Chillout HOLDER IKKE det tilbudet: oppslaget i produksjon ga offer_row False
+# -- ingen tilbudsrad i det hele tatt, mot to friske kontroller pa samme feed.
+# Det er et utvalgssporsmal og ikke en defekt: at et tilbud rendres pa siden
+# betyr ikke at plattformen har det. Legg det inn igjen nar det finnes, ikke
+# for a fa det til a finnes.
 
 #: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,6 +88,9 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRODUCTS = {
     "biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S",
     "biofinity-6pk": "prd_01M2ZP0SREARN6N3NETCB2DZYP",
+    # Beholdt selv om ingen godkjent tilbud trenger den na: id-en er slatt opp
+    # og bekreftet, PRODUCTS er et oppslag og ikke en forespørselsliste, og en
+    # test viser at et produkt ingen trenger ikke koster en forespørsel.
     "acuvue-oasys-6pk": "prd_01M2ZP0SREYPDDNRE2W7SCR8BC",
 }
 

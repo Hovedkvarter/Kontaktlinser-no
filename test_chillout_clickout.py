@@ -725,28 +725,21 @@ def test_an_approved_offer_unknown_to_the_lookup_says_so() -> None:
 
 def test_one_products_answer_does_not_warn_about_another_products_offer() -> None:
     """Uten avgrensningen ville hvert produkt advart om de andres tilbud, sa
-    en vellykket kjoring hadde sett ut som to feil."""
-    toric = {"offers": [{"offer_id": "6884:1442", "advertiser": "Lensway",
-                         "link": {"clickout_available": True, "clickout_url": TOKEN}}],
-             "excluded": []}
-    plain = {"offers": [{"offer_id": "6884:347", "advertiser": "Lensway",
-                         "link": {"clickout_available": True, "clickout_url": SECOND}}],
-             "excluded": []}
-    oasys = {"offers": [{"offer_id": "6884:154", "advertiser": "Lensway",
-                         "link": {"clickout_available": True, "clickout_url": THIRD}}],
-             "excluded": []}
-    responder = answering({"offers": [], "excluded": []}, per_product={
-        chillout_clickout.PRODUCTS[PRODUCT]: toric,
-        chillout_clickout.PRODUCTS[SECOND_PRODUCT]: plain,
-        chillout_clickout.PRODUCTS[THIRD_PRODUCT]: oasys,
-    })
-    found, printed = run({}, responder=responder)
+    en vellykket kjoring hadde sett ut som en rekke feil."""
+    keys = chillout_clickout._renderer_keys()
+    answers = {
+        chillout_clickout.PRODUCTS[keys[o][0]]: {
+            "offers": [{"offer_id": o, "advertiser": keys[o][1],
+                        "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
+            "excluded": [],
+        }
+        for o in chillout_clickout.CONVERTED
+    }
+    found, printed = run({}, responder=answering({"offers": [], "excluded": []},
+                                                 per_product=answers))
 
-    assert found == {(PRODUCT, RETAILER): TOKEN, (SECOND_PRODUCT, RETAILER): SECOND,
-                     (THIRD_PRODUCT, RETAILER): THIRD}
+    assert found == {keys[o]: URLS[o] for o in chillout_clickout.CONVERTED}
     assert printed.annotations == [], printed.annotations
-    n = len(chillout_clickout.CONVERTED)
-    assert f"{n}/{n} godkjente tilbud lost" in printed.text
 
 
 # ------------------------------------------------------- the request it sends
@@ -846,35 +839,30 @@ def test_the_whole_catalogue_has_exactly_one_converted_card() -> None:
 
 
 def test_every_approved_offer_reaches_its_own_product() -> None:
-    """Tre tilbud, tre produkter, tre kort -- og hvert kort far SIN lenke.
+    """Hvert godkjent tilbud far SIN lenke, pa SITT produkt.
 
-    Med ett produkt kunne et forvekslet oppslag ikke ses. Med tre kan det:
-    en feil som ga alle kortene samme URL ville bestatt en test som bare
-    talte dem.
+    Bygget sporr per produkt, sa svarene stubbes per produkt. En feil som ga
+    alle kortene samme URL ville bestatt en test som bare talte dem.
     """
+    keys = chillout_clickout._renderer_keys()
     answers = {
-        chillout_clickout.PRODUCTS[PRODUCT]: {"offers": [
-            {"offer_id": "6884:1442", "advertiser": "Lensway",
-             "link": {"clickout_available": True, "clickout_url": TOKEN}}], "excluded": []},
-        chillout_clickout.PRODUCTS[SECOND_PRODUCT]: {"offers": [
-            {"offer_id": "6884:347", "advertiser": "Lensway",
-             "link": {"clickout_available": True, "clickout_url": SECOND}}], "excluded": []},
-        chillout_clickout.PRODUCTS[THIRD_PRODUCT]: {"offers": [
-            {"offer_id": "6884:154", "advertiser": "Lensway",
-             "link": {"clickout_available": True, "clickout_url": THIRD}}], "excluded": []},
+        chillout_clickout.PRODUCTS[keys[o][0]]: {
+            "offers": [{"offer_id": o, "advertiser": keys[o][1],
+                        "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
+            "excluded": [],
+        }
+        for o in chillout_clickout.CONVERTED
     }
     responder = answering({"offers": [], "excluded": []}, per_product=answers)
     found, printed = run({}, responder=responder)
 
-    assert found == {
-        (PRODUCT, RETAILER): TOKEN,
-        (SECOND_PRODUCT, RETAILER): SECOND,
-        (THIRD_PRODUCT, RETAILER): THIRD,
-    }
-    assert href_of(card(THIRD_PRODUCT, RETAILER, found)) == THIRD
-    assert f"{len(chillout_clickout.CONVERTED)}/{len(chillout_clickout.CONVERTED)}" in printed.text
+    assert found == {keys[o]: URLS[o] for o in chillout_clickout.CONVERTED}
+    for o in chillout_clickout.CONVERTED:
+        assert href_of(card(*keys[o], found)) == URLS[o], o
+    n = len(chillout_clickout.CONVERTED)
+    assert f"{n}/{n} godkjente tilbud lost" in printed.text
     assert printed.annotations == []
-    assert len(set(responder.urls)) == 3
+    assert len(set(responder.urls)) == len(required_products())
 
 
 def test_the_platform_ids_come_from_chillouts_own_seed() -> None:
@@ -887,17 +875,10 @@ def test_the_platform_ids_come_from_chillouts_own_seed() -> None:
 
 
 def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
-    """Hele katalogen mot HELE dekningen: to godkjente tilbud, to kort, og
-    ingen andre av de 678 kortene rort."""
-    body = {"offers": [
-        {"offer_id": "6884:1442", "advertiser": "Lensway",
-         "link": {"clickout_available": True, "clickout_url": TOKEN}},
-        {"offer_id": "6884:347", "advertiser": "Lensway",
-         "link": {"clickout_available": True, "clickout_url": SECOND}},
-        {"offer_id": "6884:154", "advertiser": "Lensway",
-         "link": {"clickout_available": True, "clickout_url": THIRD}},
-    ], "excluded": []}
-    found, _ = run({}, responder=answering(body))
+    """Hele katalogen mot HELE dekningen: ett kort per godkjent tilbud, og
+    ingen av de andre hundrevis rort."""
+    keys = chillout_clickout._renderer_keys()
+    found, _ = run({}, responder=answering(every_offer(URLS)))
 
     converted = []
     for p in CATALOG["products"]:
@@ -905,9 +886,7 @@ def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
             if "/go/" in render_offer_card(o, o["retailer"], p["name"], p["id"], found):
                 converted.append((p["id"], o["retailer"]))
 
-    assert sorted(converted) == sorted(
-        [(PRODUCT, RETAILER), (SECOND_PRODUCT, RETAILER), (THIRD_PRODUCT, RETAILER)]
-    )
+    assert sorted(converted) == sorted(keys[o] for o in chillout_clickout.CONVERTED)
 
 
 def test_only_the_href_differs_on_the_converted_card() -> None:
