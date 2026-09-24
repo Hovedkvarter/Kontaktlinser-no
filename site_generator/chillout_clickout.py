@@ -63,7 +63,15 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRODUCTS = {"biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S"}
 
 PROPERTY = "kontaktlinser-no"
-ORIGIN = os.environ.get("CHILLOUT_ORIGIN", "https://backoffice-test-d71d.up.railway.app")
+#: **Ingen default.** Originet var hardkodet her, arvet fra en midlertidig
+#: verifisering framfor valgt -- og en default i kildekoden er nettopp det
+#: som gjor at ingen tar avgjørelsen. Cloudflare-workeren gjor det allerede
+#: riktig: `CLICKOUT_ORIGIN` er en variabel uten default, sa a flytte
+#: originet er a endre en verdi og ikke a redigere kode.
+#:
+#: Ikke en secret. Den er ikke hemmelig, og a gjore den til en ville skjult
+#: den i en logg der den nettopp er det man vil se.
+ORIGIN = os.environ.get("CHILLOUT_ORIGIN", "").strip().rstrip("/")
 KEY_VARIABLE = "CHILLOUT_READ_KEY"
 TIMEOUT = 20
 
@@ -187,6 +195,15 @@ def clickout_urls() -> dict[tuple[str, str], str]:
     Tom dict er et gyldig og trygt svar: hvert kort faller da tilbake til sin
     egen leverandor-URL, som er det siden rendret for bootstrap-en.
     """
+    if not ORIGIN:
+        # Samme trygge utgang som alt annet her, og samme skille: lokalt er
+        # dette normalen, i CI betyr det at variabelen ikke er satt.
+        if os.environ.get("GITHUB_ACTIONS") == "true":
+            _warn("CHILLOUT_ORIGIN er ikke satt for dette steget", "intet origin")
+        else:
+            print("Chillout-clickout: CHILLOUT_ORIGIN er ikke satt -- bruker leverandor-URL-er")
+        return {}
+
     key = os.environ.get(KEY_VARIABLE, "").strip()
     if not key:
         # **Lokalt er dette normalt. I CI er det en feil.**

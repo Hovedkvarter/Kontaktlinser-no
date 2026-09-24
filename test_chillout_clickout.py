@@ -85,7 +85,10 @@ class Recorder:
         return [line for line in self.lines if line.startswith("::")]
 
 
-def run(monkey, *, key=KEY, responder=None):
+ORIGIN = "https://chillout.example"
+
+
+def run(monkey, *, key=KEY, responder=None, origin=ORIGIN):
     """`clickout_urls()` with the network and the environment stubbed."""
     printed = Recorder()
     monkey["print"] = printed
@@ -93,7 +96,9 @@ def run(monkey, *, key=KEY, responder=None):
     chillout_clickout.print = printed  # type: ignore[attr-defined]
     original_env = chillout_clickout.os.environ.get(chillout_clickout.KEY_VARIABLE)
     original_open = chillout_clickout.urllib.request.urlopen
+    original_origin = chillout_clickout.ORIGIN
     try:
+        chillout_clickout.ORIGIN = origin
         if key is None:
             chillout_clickout.os.environ.pop(chillout_clickout.KEY_VARIABLE, None)
         else:
@@ -102,6 +107,7 @@ def run(monkey, *, key=KEY, responder=None):
             chillout_clickout.urllib.request.urlopen = responder
         return chillout_clickout.clickout_urls(), printed
     finally:
+        chillout_clickout.ORIGIN = original_origin
         chillout_clickout.urllib.request.urlopen = original_open
         if original_print is None:
             del chillout_clickout.print  # type: ignore[attr-defined]
@@ -357,6 +363,62 @@ def test_the_sku_mapping_inverts_uniquely() -> None:
     assert [s for s, p in skus.items() if p == PRODUCT] == ["1442"]
 
 
+def test_there_is_no_hard_coded_origin() -> None:
+    """**Originet var arvet, ikke valgt.**
+
+    En default i kildekoden er nettopp det som gjor at ingen tar
+    avgjørelsen: verdien virker, sa den blir staende. Workeren gjorde det
+    allerede riktig -- CLICKOUT_ORIGIN er en variabel uten default -- og na
+    gjor dette det ogsa. A flytte API-et er a endre en verdi.
+    """
+    source = (ROOT / "site_generator" / "chillout_clickout.py").read_text(encoding="utf-8")
+
+    assert "railway.app" not in source
+    assert 'os.environ.get("CHILLOUT_ORIGIN", "")' in source
+
+
+def test_no_origin_configured_falls_back_safely() -> None:
+    found, printed = run({}, origin="", responder=answering(BODY))
+
+    assert found == {}
+    assert "CHILLOUT_ORIGIN" in printed.text
+    assert "/go/" not in card(PRODUCT, RETAILER, found)
+
+
+def test_a_missing_origin_in_ci_is_a_warning() -> None:
+    """Lokalt normalt, i CI en feil -- samme skille som for nokkelen, fordi
+    de to feiler pa nøyaktig samme mate og betyr ulike ting."""
+    import os
+
+    was = os.environ.get("GITHUB_ACTIONS")
+    os.environ["GITHUB_ACTIONS"] = "true"
+    try:
+        found, printed = run({}, origin="", responder=answering(BODY))
+    finally:
+        if was is None:
+            os.environ.pop("GITHUB_ACTIONS", None)
+        else:
+            os.environ["GITHUB_ACTIONS"] = was
+
+    assert found == {}
+    assert printed.annotations
+    assert all(a.startswith("::warning::") for a in printed.annotations)
+
+
+def test_the_build_workflow_supplies_the_origin() -> None:
+    """Som nokkelen: koden kan ikke lese en variabel steget ikke har fatt.
+    Og den er en VARIABLE, ikke en secret -- originet er ikke hemmelig, og
+    en secret ville blitt maskert i loggen der den nettopp skal kunne ses."""
+    workflow = (ROOT / ".github" / "workflows" / "build-and-deploy.yml").read_text(
+        encoding="utf-8"
+    )
+    step = workflow[workflow.index("Generer statiske sider"):]
+    step = step[: step.index("      - name:", 1)]
+
+    assert "CHILLOUT_ORIGIN: ${{ vars.CHILLOUT_ORIGIN }}" in step
+    assert "secrets.CHILLOUT_ORIGIN" not in workflow
+
+
 def test_a_missing_key_in_ci_is_a_warning() -> None:
     """**I CI er en manglende nokkel en feil, ikke normalen.**
 
@@ -501,7 +563,7 @@ def test_a_successful_run_says_so_with_numbers_only() -> None:
     assert "Chillout clickout: 1/1 godkjente tilbud lost" in printed.text
     assert printed.annotations == [], "en vellykket kjoring skal ikke annotere"
     assert KEY not in printed.text
-    assert chillout_clickout.ORIGIN not in printed.text
+    assert ORIGIN not in printed.text
     assert TOKEN not in printed.text
     assert found
 
@@ -522,7 +584,7 @@ def test_it_asks_the_right_property_product_and_origin() -> None:
 
     url = responder.seen.full_url
 
-    assert url.startswith(chillout_clickout.ORIGIN + "/")
+    assert url.startswith(ORIGIN + "/")
     assert "/properties/kontaktlinser-no/" in url
     assert "/products/prd_01M2ZP0SREXS63NNMW6YBKRZ9S/offers" in url
 

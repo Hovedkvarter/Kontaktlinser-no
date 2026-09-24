@@ -63,6 +63,10 @@ jobs:
           # kortet ved neste bygg. GitHub maskerer verdien i loggen; koden
           # skriver den uansett aldri ut.
           CHILLOUT_READ_KEY: ${{ secrets.CHILLOUT_READ_KEY }}
+          # Ikke en secret: originet er ikke hemmelig, og en secret ville
+          # blitt maskert i loggen der den nettopp er det man vil se. En
+          # repository VARIABLE, sa a flytte API-et er a endre en verdi.
+          CHILLOUT_ORIGIN: ${{ vars.CHILLOUT_ORIGIN }}
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
       - name: Lagre oppdatert prishistorikk tilbake til repoet
