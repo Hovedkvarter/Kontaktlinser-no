@@ -133,7 +133,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     # leverandor-URL.
     if clickouts is None:
         import chillout_clickout
-        clickouts = chillout_clickout.clickout_urls()
+        clickouts = chillout_clickout.clickout_urls(catalog["products"])
 
     # Linsevæske o.l. (fra solutions_meta.json, slått sammen inn i samme
     # katalog av build_catalog.py) har en annen datamodell -- ingen

@@ -7,18 +7,33 @@ en streng Chillout har returnert, eller ingenting.
 
 ## Hva den ber om
 
-Ett kall, for ETT produkt, mot den interne produktruta. Ikke katalogruta:
-den krever at products_meta-aliaset finnes, og et manglende alias svarer 404,
-som ikke kan skilles fra en odelagt nokkel. Verdt a revurdere nar dekningen
-utvides; ikke verdt tvetydigheten for ett produkt.
+Ett kall per produkt siden kan koble et tilbud pa, mot **katalogruta**. Den
+tar propertyens egen identifikator, sa generatoren holder ingen plattform-id
+og vedlikeholder ingen tabell over dem.
+
+Denne modulen argumenterte en gang mot nettopp den ruta: et manglende alias
+svarer 404, som ikke kunne skilles fra en odelagt nokkel. Innvendingen var
+riktig da den gjaldt ETT produkt. Den forsvinner nar vi spor om hundre og
+seksti: en odelagt nokkel gir 401 pa alle, en manglende alias gir 404 pa ett,
+og bygglinja viser hvor mange som svarte.
 
 ## Hva den slipper gjennom
 
-CONVERTED er en tillatelsesliste pa ett par. Den anvendes ETTER svaret, sa
-selv om kontrakten tilbyr clickouts for Shopping4net og Extra Optical -- og
-det gjor den -- rendres bare det ene kortet. Det er det som holder dekningen
-pa ett kort i KODE og ikke i intensjon. A utvide er a slette en linje herfra,
-og det er en handling noen kan se i en diff.
+**Ingenting velges her.** Et tilbud rendres gjennom Clickout nar Chillouts
+lesekontrakt sier at denne propertyen har en servable clickout for det, og
+flaten star pa. Det fantes en tillatelsesliste -- CONVERTED, ett tilbud om
+gangen -- og den var riktig mens spørsmalet var "virker dette i det hele
+tatt". Na er den borte, og det er hele poenget med steg 4.
+
+Fire fakta som fortsatt ikke er hverandre: at vi HAR tilbudet er ikke at
+propertyen far selge det; at den far selge det er ikke at et servable mal
+finnes; at malet finnes er ikke at vi har bestemt oss for a bruke det. Det
+siste er flatebryteren, og den er det eneste dette repoet eier.
+
+Annonsor og leverandor er ingen av dem en dekningsakse. En annonsor uten
+`chillout_feed_id` far ingen lenke -- ikke fordi noen har valgt bort
+annonsoren, men fordi ADR-031s nokkel er feed pluss external_id og vi da ikke
+kan koble svaret til et kort.
 
 ## Nar noe gar galt
 
@@ -47,62 +62,23 @@ import os
 import urllib.error
 import urllib.request
 
-#: **Dekningen, som Chillouts egne tilbudsnokler.** Ett tilbud.
-#:
-#: `feed:external_id` er ADR-031s stabile nokkel: den bestar bare av felter
-#: en prisendring ikke kan endre. Den erstatter matching pa annonsorens
-#: VISNINGSNAVN, som var det eneste felles feltet for -- og som ingen av
-#: sidene lovet a fortsette a stave likt.
-CONVERTED = {
-    "6884:1442",  # Biofinity Toric 6-pack -- det forste, verifisert i nettleser
-    "6884:347",   # Biofinity 6-pack -- verifisert i nettleser
-    # Forste tilbud hos en ANNEN annonsor og et ANNET nettverk. Adtraction
-    # sine external_id-er er annonsorens produktnavn, ikke tall -- derfor
-    # mellomrom i nokkelen. Bade id og prefiks er lest av
-    # produksjonssvaret 2026-09-24.
-    "extraoptical:Biofinity 6 stk-1",
-    # Tredje annonsor, og den andre pa Tradedoubler. Samme nettverk som
-    # Lensway, egen feed: nokkelen er feed pluss external_id, aldri
-    # nettverk pluss external_id (ADR-031). fid 14910 star bade i
-    # feed_urls og i produksjonssvaret.
-    "14910:LBF",  # Biofinity 6-pack hos Shopping4net
-}
-# 6884:154 (Acuvue Oasys 6-pack) ble lagt til 2026-09-24 og fjernet samme dag.
-# Chillout HOLDER IKKE det tilbudet: oppslaget i produksjon ga offer_row False
-# -- ingen tilbudsrad i det hele tatt, mot to friske kontroller pa samme feed.
-# Det er et utvalgssporsmal og ikke en defekt: at et tilbud rendres pa siden
-# betyr ikke at plattformen har det. Legg det inn igjen nar det finnes, ikke
-# for a fa det til a finnes.
+#: **Produktnavnerommene siden har.** Katalogruta tar propertyens EGEN
+#: identifikator, sa generatoren trenger ingen plattform-id -- den spor med
+#: den id-en den allerede har i URL-ene sine.
+LENS_NAMESPACE = "products_meta"
+SOLUTION_NAMESPACE = "solutions_meta"
+
+#: **Flatene, og hva de heter i oppsettet.** Rekkefølgen er lesbarheten sin;
+#: koden bryr seg bare om navnene. En ny flate ma sta her OG i
+#: clickout_surfaces.json, sa en flate som glemmer det ene er av og ikke
+#: stille pa.
+SURFACES = ("offer_card", "winner_band", "quantity_calculator")
+
+#: Filen som holder tilstanden. I DETTE repoet, med vilje -- se $comment der.
+SURFACES_FILE = "clickout_surfaces.json"
 
 #: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-#: Sidens produkt-id til Chillouts plattform-id. **Et oppslag, ikke en
-#: forespørselsliste.** Hvilke produkter bygget faktisk spor om utledes fra
-#: CONVERTED lenger nede.
-#:
-#: Det var to lister som matte stemme overens, og ingenting som sorget for
-#: det: 6884:347 ble lagt til dekningen uten at produktet ble lagt til her,
-#: sa kontrakten ble aldri spurt om biofinity-6pk -- og advarselen sa "ingen
-#: bekreftet clickout", som er noe helt annet enn "vi spurte ikke". Den
-#: meldingen sendte en produksjonsundersøkelse gjennom hele serveringskjeden
-#: der ingenting var galt.
-#:
-#: Offentlige identifikatorer, ikke kapabiliteter.
-#: Verdiene er hentet fra Chillouts egen seed
-#: (src/chillout/seed/kontaktlinser_product_aliases.json), som sier om seg
-#: selv at product_id-ene ER sannheten og aldri skal regenereres. De to
-#: forste ble uavhengig bekreftet mot produksjonsdatabasen for de ble brukt,
-#: og seeden stemte begge ganger -- derfor slas den tredje opp der framfor a
-#: koste enda en produksjonsforespørsel.
-PRODUCTS = {
-    "biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S",
-    "biofinity-6pk": "prd_01M2ZP0SREARN6N3NETCB2DZYP",
-    # Beholdt selv om ingen godkjent tilbud trenger den na: id-en er slatt opp
-    # og bekreftet, PRODUCTS er et oppslag og ikke en forespørselsliste, og en
-    # test viser at et produkt ingen trenger ikke koster en forespørsel.
-    "acuvue-oasys-6pk": "prd_01M2ZP0SREYPDDNRE2W7SCR8BC",
-}
 
 PROPERTY = "kontaktlinser-no"
 #: **Ingen default.** Originet var hardkodet her, arvet fra en midlertidig
@@ -131,8 +107,9 @@ SURFACES_FILE = "clickout_surfaces.json"
 class Clickouts(dict):
     """De loste clickout-URL-ene, og hvilke flater som far bruke dem.
 
-    **To spørsmal, ett objekt, fordi de alltid reiser sammen.** Dekningen
-    ("hvilke tilbud") er CONVERTED; flatene ("hvor de vises") er denne fila.
+    **To spørsmal, ett objekt, fordi de alltid reiser sammen.** Hvilke tilbud
+    som HAR en clickout er Chillouts svar; hvilke flater som far vise den er
+    clickout_surfaces.json.
     Rendreren ma kunne svare pa begge pa samme kall, og a tre en ekstra
     parameter gjennom seks kallsteder ville gjort det lett a glemme pa den
     sjuende.
@@ -269,9 +246,17 @@ def _warn(category: str, detail: str) -> None:
     print(f"::warning::{message}")
 
 
-def _fetch(product_id: str, platform_id: str, key: str) -> tuple[dict | None, str]:
-    """Ett produkts sammenligning, eller en navngitt grunn til at den mangler."""
-    url = f"{ORIGIN}/api/v1/properties/{PROPERTY}/products/{platform_id}/offers"
+def _fetch(namespace: str, local: str, key: str) -> tuple[dict | None, str]:
+    """Ett produkts sammenligning, eller en navngitt grunn til at den mangler.
+
+    **Katalogruta, ikke den interne.** Den tar propertyens egen identifikator,
+    sa generatoren holder ingen plattform-id og vedlikeholder ingen tabell
+    over dem. Den gamle innvendingen mot ruta -- at en manglende alias svarer
+    404, som ikke kan skilles fra en odelagt nokkel -- er borte i det vi spor
+    om 160 produkter: en odelagt nokkel gir 401 pa alle, en manglende alias
+    gir 404 pa ett. Tallet skiller dem, og bygglinja viser tallet.
+    """
+    url = f"{ORIGIN}/api/v1/properties/{PROPERTY}/catalogue/{namespace}/{local}/offers"
     request = urllib.request.Request(url, headers={"authorization": f"Bearer {key}"})
     try:
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
@@ -283,6 +268,7 @@ def _fetch(product_id: str, platform_id: str, key: str) -> tuple[dict | None, st
         return None, {
             401: "autentisering avvist (401)",
             403: "nokkelen gjelder en annen Property (403)",
+            404: "produktet finnes ikke i Chillouts katalog (404)",
             503: "Chillout utilgjengelig (503)",
         }.get(refusal.code, f"uventet svar ({refusal.code})")
     except Exception as error:
@@ -328,11 +314,26 @@ def _clickouts_in(body: object) -> dict[str, str]:
     return found
 
 
-def clickout_urls() -> dict[tuple[str, str], str]:
-    """(produkt-id, forhandler) -> /go/-sti, for det som er bekreftet.
+def clickout_urls(products) -> Clickouts:
+    """(produkt-id, forhandler) -> /go/-sti, for det Chillout bekrefter.
+
+    **Dekningen er ikke lenger en liste.** Et tilbud rendres gjennom Clickout
+    nar Chillouts lesekontrakt sier at DENNE propertyen har en servable
+    clickout for det, og flaten star pa. Ingenting her velger tilbud, og det
+    finnes ikke lenger et sted a velge dem.
+
+    De fire skillene som ma bli staende, fordi de er fire forskjellige fakta:
+    at vi HAR tilbudet er ikke at propertyen far selge det; at den far selge
+    det er ikke at et mal finnes; at malet finnes er ikke at vi har bestemt
+    oss for a bruke det. Det siste er flatebryteren, og det er det eneste
+    dette repoet eier.
+
+    `products` er sidens egen katalog. Den brukes til to ting og ingenting
+    annet: hvilke produkter som spørres om, og hvilket navnerom hvert av dem
+    ligger i.
 
     Tom dict er et gyldig og trygt svar: hvert kort faller da tilbake til sin
-    egen leverandor-URL, som er det siden rendret for bootstrap-en.
+    egen leverandor-URL, som er det siden rendret for clickout fantes.
     """
     if not ORIGIN:
         # Samme trygge utgang som alt annet her, og samme skille: lokalt er
@@ -362,50 +363,45 @@ def clickout_urls() -> dict[tuple[str, str], str]:
     keys = _renderer_keys()
     resolved: dict[tuple[str, str], str] = {}
 
-    # **Hvilke produkter som spørres om, utledes av dekningen.** To lister som
-    # ma stemme overens er en list for mye; her finnes bare en.
-    wanted: dict[str, str] = {}
-    for offer_id in sorted(CONVERTED):
-        if offer_id not in keys:
-            # Godkjent, men ukjent i katalogoppslaget: enten en feed uten
-            # chillout_feed_id, eller en SKU som ikke star i tabellen.
-            _warn("godkjent tilbud finnes ikke i katalogoppslaget", offer_id)
-            continue
-        # Ett godkjent tilbud kan hore til flere produkter; da ma alle
-        # spørres om, ellers rendres bare det ene kortet.
-        missing = [p for p, _ in keys[offer_id] if not PRODUCTS.get(p)]
-        if missing:
-            # **Den advarselen som manglet.** "Vi spurte ikke" er noe helt
-            # annet enn "vi spurte og fikk ingen clickout", og a si det forste
-            # som det andre sender folk gjennom serveringskjeden forgjeves.
-            _warn("produktet blir ikke spurt om (mangler plattform-id)",
-                  f"{offer_id} -> {', '.join(missing)}")
-            continue
-        for product_id, _ in keys[offer_id]:
-            wanted[product_id] = PRODUCTS[product_id]
+    # **Hvilke produkter som spørres om, utledes av oppslaget.** Et produkt
+    # spørres om nar en tilbudsnokkel i det hele tatt kan peke pa et kort der.
+    # Det er ikke en godkjenningsliste: den sier ingenting om hvorvidt
+    # Chillout HAR en clickout for tilbudet, bare at svaret kan kobles til et
+    # kort hvis det kommer et.
+    catalogue = {p["id"]: p for p in products if isinstance(p, dict) and p.get("id")}
+    wanted = sorted({card[0] for cards in keys.values() for card in cards} & set(catalogue))
 
-    for product_id, platform_id in sorted(wanted.items()):
-        body, reason = _fetch(product_id, platform_id, key)
+    failures: dict[str, int] = {}
+    answered = 0
+    for product_id in wanted:
+        namespace = (
+            LENS_NAMESPACE
+            if "category_slug" in catalogue[product_id]
+            else SOLUTION_NAMESPACE
+        )
+        body, reason = _fetch(namespace, product_id, key)
         if body is None:
-            _warn(reason, product_id)
+            # **Aggregert, ikke en linje per produkt.** 160 identiske
+            # advarsler ville begravd den ene som var annerledes.
+            failures[reason] = failures.get(reason, 0) + 1
             continue
-        offered = _clickouts_in(body)
-        for offer_id, url in offered.items():
+        answered += 1
+        for offer_id, url in _clickouts_in(body).items():
             # **Sammenkoblingen er offer_id, og ingenting annet.** Ingen
-            # annonsor, intet visningsnavn, ingen normalisering av tekst.
-            if offer_id in CONVERTED:
-                # **Ikke `key`.** Legitimasjonen heter `key` i denne
-                # funksjonen, og en løkkevariabel med samme navn overskrev
-                # den: neste produkt ble da spurt med en tuple som bearer
-                # token. Testen som sjekker headeren fanget det.
-                for card_key in keys.get(offer_id, ()):
-                    resolved[card_key] = url
-        for offer_id in sorted(CONVERTED):
-            # Bare tilbudene som hører til DETTE produktet. Uten den
-            # avgrensningen ville hvert produkt advart om de andres tilbud.
-            here = [k for k in keys.get(offer_id, ()) if k[0] == product_id]
-            if here and any(k not in resolved for k in here):
-                _warn("ingen bekreftet clickout", offer_id)
+            # annonsor, intet visningsnavn, ingen normalisering av tekst. Et
+            # tilbud vi ikke kan slaa opp far ingen lenke -- det er en
+            # manglende kobling, ikke en avvisning av annonsoren.
+            #
+            # **Ikke `key`.** Legitimasjonen heter `key` i denne funksjonen,
+            # og en løkkevariabel med samme navn overskrev den en gang.
+            for card_key in keys.get(offer_id, ()):
+                # Samme tilbud kan rendres pa to produktsider (samme fysiske
+                # produkt, to interne id-er). Malet er property-scopet og
+                # produktuavhengig, sa lenken gjelder begge steder.
+                resolved[card_key] = url
+
+    for reason, count in sorted(failures.items()):
+        _warn(f"kunne ikke spørre Chillout: {reason}", f"{count} produkt(er)")
 
     # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**
     # Modulen sa ingenting nar alt gikk bra, sa byggeloggen sa likt ut enten
@@ -415,8 +411,13 @@ def clickout_urls() -> dict[tuple[str, str], str]:
     # bekreftes uten a lese HTML -- linja er kvitteringen for at bryteren
     # faktisk ble lest.
     surfaces = enabled_surfaces()
+    # Tallene, og ingenting annet: ingen token, ingen URL, ingen legitimasjon,
+    # ingen annonsor. `svarte` er det som skiller "Chillout sa nei" fra "vi
+    # fikk ikke spurt" -- uten det tallet ser en stille utelatelse ut som et
+    # tilbud uten clickout.
     print(
-        f"Chillout clickout: {len(resolved)}/{len(CONVERTED)} godkjente tilbud lost"
+        f"Chillout clickout: {len(resolved)} kort med bekreftet clickout"
+        f", {answered}/{len(wanted)} produkter svarte"
         f", flater pa: {', '.join(sorted(surfaces)) or 'ingen'}"
     )
     return Clickouts(resolved, surfaces)
