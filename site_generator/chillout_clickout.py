@@ -55,7 +55,8 @@ import urllib.request
 #: sidene lovet a fortsette a stave likt.
 CONVERTED = {
     "6884:1442",  # Biofinity Toric 6-pack -- det forste, verifisert i nettleser
-    "6884:347",   # Biofinity 6-pack -- samme feed, annet produkt
+    "6884:347",   # Biofinity 6-pack -- verifisert i nettleser
+    "6884:154",   # Acuvue Oasys 6-pack -- annen produktfamilie, samme feed
 }
 
 #: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
@@ -73,9 +74,16 @@ _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #: der ingenting var galt.
 #:
 #: Offentlige identifikatorer, ikke kapabiliteter.
+#: Verdiene er hentet fra Chillouts egen seed
+#: (src/chillout/seed/kontaktlinser_product_aliases.json), som sier om seg
+#: selv at product_id-ene ER sannheten og aldri skal regenereres. De to
+#: forste ble uavhengig bekreftet mot produksjonsdatabasen for de ble brukt,
+#: og seeden stemte begge ganger -- derfor slas den tredje opp der framfor a
+#: koste enda en produksjonsforespørsel.
 PRODUCTS = {
     "biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S",
     "biofinity-6pk": "prd_01M2ZP0SREARN6N3NETCB2DZYP",
+    "acuvue-oasys-6pk": "prd_01M2ZP0SREYPDDNRE2W7SCR8BC",
 }
 
 PROPERTY = "kontaktlinser-no"
