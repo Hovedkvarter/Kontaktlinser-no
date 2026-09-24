@@ -2211,7 +2211,9 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
     UTM-tagger her (ETT sted, ikke i hver render-funksjon) siden ALLE
     kallere -- render_offer_card, winner_band, qty-kalkulatorens JSON, og
     JSON-LD-schemaet -- bruker o["url"] fra nettopp denne enrichede
-    listen. En feed-URL for et affiliate-tilbud får ALDRI UTM-parametre,
+    listen. De tre forste gar na gjennom outbound_url(), som kan bytte
+    den ut med en clickout fra Chillout; JSON-LD gjor det ikke. o["url"]
+    her er fortsatt leverandorens URL og den eneste kilden til den. En feed-URL for et affiliate-tilbud får ALDRI UTM-parametre,
     kun skrapede (ikke-avtale) tilbud."""
     enriched = []
     for o in offers:
@@ -2376,6 +2378,32 @@ def _render_product_badges(specs: list[tuple[str, str]]) -> str:
     return f'<div class="hero-badges">{items}</div>'
 
 
+def outbound_url(o: dict, retailer: str, product_id: str | None, clickouts: dict | None) -> str:
+    """Den utgaende URL-en for ETT tilbud pa EN flate: clickout eller leverandor.
+
+    **Alle kommersielle klikkflater kaller denne, og bare denne.** Kortet,
+    vinnerbandet og antallskalkulatorens JSON gikk hver sin vei til
+    `o["url"]`, og resultatet var at et konvertert tilbud kunne bli klikket
+    gjennom leverandoren fra den mest fremtredende lenken pa siden. En flate
+    som rendrer leverandor-URL-en skal gjore det fordi svaret var ingenting,
+    aldri fordi kartet ikke nadde fram til den.
+
+    **JSON-LD kaller den ikke, og det er en uttalt policy.** Strukturerte
+    data er ikke en klikkflate: `offers.url` leses av sokemotorer, og en
+    forstepartsredirect der er en annen avgjorelse med andre konsekvenser.
+
+    Det tredje leddet -- `source == "affiliate_feed"` -- er ikke oppslaget.
+    Et skrapet tilbud har ingen avtale bak seg og ingen provisjon a
+    attribuere, sa /go/ ville myntet en click_id for en lenke ingen
+    nettverkspartner noen gang ser.
+
+    Generatoren kan fortsatt ikke LAGE en /go/-lenke: den har en streng
+    Chillout returnerte, eller ingenting.
+    """
+    resolved = (clickouts or {}).get((product_id, retailer))
+    return (resolved if o["source"] == "affiliate_feed" else None) or o["url"]
+
+
 def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
                       product_id: str | None = None,
                       clickouts: dict | None = None) -> str:
@@ -2439,8 +2467,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
     # lenke ingen nettverkspartner noen gang ser. Kontrakten ville neppe
     # tilby en clickout for et slikt tilbud -- men "neppe" er ikke en
     # garanti siden dette rendres pa denne siden av HTTP.
-    resolved = (clickouts or {}).get((product_id, retailer))
-    href = escape((resolved if o["source"] == "affiliate_feed" else None) or o["url"])
+    href = escape(outbound_url(o, retailer, product_id, clickouts))
     return f"""<a class="{css_class}" href="{href}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
@@ -2667,7 +2694,7 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker") -> tuple[str, str]:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None) -> tuple[str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple i stedet for én
     sammenslått streng -- render_product_page sin nye hero-layout plasserer
     trofé-boksen (winner_band) INNE i hero-kortet, mens antallsvelgeren
@@ -2708,7 +2735,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
     # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
-    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(best["url"])}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2759,7 +2786,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
             "retailer": o["retailer"],
             "price_nok": o["price_nok"],
             "shipping_policy": o.get("shipping_policy"),
-            "url": o["url"],
+            "url": outbound_url(o, o["retailer"], product_id, clickouts),
             "rel": ("sponsored" if o["source"] == "affiliate_feed" else "nofollow") + " noopener",
             "logo_file": logo_entry[0] if logo_entry else None,
             "logo_dark": logo_entry[1] if logo_entry else False,
@@ -2971,7 +2998,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
 </section>"""
 
-    winner_html, qty_html = render_winner_widget(best, offers, product["name"])
+    winner_html, qty_html = render_winner_widget(best, offers, product["name"], product_id=product["id"], clickouts=clickouts)
     badges_html = _render_product_badges(product.get("specs", []))
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
@@ -7165,7 +7192,7 @@ SOLUTION_CATEGORIES = {
 }
 
 
-def render_solution_product_page(product: dict, now: datetime | None = None) -> str:
+def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None) -> str:
     """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
     kontaktlinser (size_ml/solution_type/solution_category i stedet for
     category_slug/specs), men samme pris-/tilbudslogikk (reconcile_product,
@@ -7173,7 +7200,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"]) for o in offers)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts) for o in offers)
     long_description = product.get("long_description", product.get("description", ""))
     # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
     # lede med selve prissammenligningen, ikke produktbeskrivelsen. Antall
@@ -7201,7 +7228,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None) -> 
     # (samme behandling for alle produkttyper). "flaske"/"flasker" i stedet for
     # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
     # kontaktlinseesker.
-    winner_html, qty_html = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker")
+    winner_html, qty_html = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker", product_id=product["id"], clickouts=clickouts)
     best_band = f"{winner_html}\n{qty_html}"
 
     size_ml = product.get("size_ml")
@@ -7669,7 +7696,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 </html>"""
 
 
-def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None) -> str:
+def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None, clickouts: dict | None = None) -> str:
     """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget
     merkenavn (f.eks. Synsam sin "EyeQ 24" er egentlig Biofinity fra
     CooperVision). private_labels.json holder KUN høy-sikkerhet-koblinger,
@@ -7681,7 +7708,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], real_product["name"]) for o in offers)
+    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], real_product["name"], real_product["id"], clickouts) for o in offers)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -7717,7 +7744,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html = render_winner_widget(best, offers, real_product["name"])
+    winner_html, qty_html = render_winner_widget(best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
     best_band = f"{winner_html}\n{qty_html}"
 
     # Samme prinsipp som render_product_page/render_solution_product_page --

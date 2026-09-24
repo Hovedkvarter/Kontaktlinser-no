@@ -1,10 +1,18 @@
-"""Regresjonsbevis for det ene konverterte /go/-kortet.
+"""Regresjonsbevis for de konverterte /go/-lenkene.
 
-**Oppdatert for Steg B.** Tokenet er ikke lenger hardkodet; det kommer fra
-Chillouts lesekontrakt pa byggetidspunktet. Kortet som rendres er det samme,
-og hele nettstedet er bevist byte-identisk med bootstrap-utgaven, sa hver
-pastand under gjelder fortsatt -- de far na kartet inn i stedet for a stole
-pa en konstant. Feilsituasjonene ligger i test_chillout_clickout.py.
+**Oppdatert for Steg 1 (flatekonsistens).** Filen het en gang "det ene
+konverterte kortet", og det stemmer ikke lenger: fire godkjente tilbud
+rendres na pa tre flater -- vanlig tilbudskort, vinnerband og
+antallskalkulatorens JSON -- pa alle sidene tilbudet forekommer, inkludert
+de atte private-label-sidene som gjenbruker et konvertert produkts tilbud.
+Dekningen er uendret; antallet steder som bruker den er det som vokste.
+
+JSON-LD er med vilje ikke med. Det er ikke en klikkflate, og en
+forstepartsredirect i `offers.url` er en annen avgjorelse.
+
+Tokenet star null steder i kildekoden -- det kommer fra Chillouts
+lesekontrakt pa byggetidspunktet. Feilsituasjonene ligger i
+test_chillout_clickout.py.
 
 Opprinnelig docstring:
 
@@ -19,9 +27,10 @@ Bevisene rendres fra site_generator/catalog_live.json, altsa ekte katalogdata
 og ekte leverandor-URL-er, ikke oppdiktede fixtures. Et bevis bygget pa en
 fixture ville bare bevist at fixturen var riktig.
 
-**Tokenet er hardkodet i render_templates.py, og det er bevisst midlertidig.**
-Den permanente losningen er at generatoren leser clickout_url fra Chillouts
-lesekontrakt pa byggetidspunktet. Ikke kopier monsteret til flere tilbud.
+Den avsluttende linja i den opprinnelige docstringen sa at tokenet var
+hardkodet og bevisst midlertidig. Det var sant da og er det ikke lenger --
+Steg B fjernet konstanten. Den star her strokent framfor slettet, slik at
+endringen er synlig.
 """
 
 from __future__ import annotations
@@ -41,6 +50,12 @@ GO = "/go/tgt_01M35ASH8Q3MH7WKCAMGGHVXFH"
 #: Det kontrakten ville returnert for dette ene paret. Testene under gir det
 #: inn direkte, slik generatoren gjor etter a ha spurt.
 CLICKOUTS = {("biofinity-toric-6pk", "Lensway"): GO}
+
+from datetime import datetime, timezone
+
+#: Frossen klokke. reconcile_product avgjor ferskhet mot den, og en
+#: test som leser veggklokka beviser noe litt annet hver gang.
+NOW = datetime(2026, 9, 24, 12, 0, tzinfo=timezone.utc)
 
 TARGET_PRODUCT = "biofinity-toric-6pk"
 TARGET_RETAILER = "Lensway"
@@ -81,8 +96,29 @@ def card(product_id: str, retailer: str) -> str:
     )
 
 
+def calculator_offers(html: str) -> dict:
+    """Retailer -> URL fra antallskalkulatorens innebygde JSON.
+
+    JSON-en escaper `</` som `<\\/` sa den ikke kan lukke script-taggen, og
+    det ma reverseres for json.loads ser den."""
+    found = re.search(
+        r'<script type="application/json" id="qty-offers-data"[^>]*>(.*?)</script>',
+        html, re.S,
+    )
+    assert found, "fant ikke kalkulatorens JSON"
+    return {o["retailer"]: o["url"] for o in json.loads(found.group(1).replace("<\\/", "</"))}
+
+
 def href_of(html: str) -> str:
     return re.search(r'<a class="[^"]*" href="([^"]*)"', html).group(1)
+
+
+def band_href_of(html: str) -> str:
+    """Banneret har `id` mellom class og href, sa href_of bommer pa det --
+    og bommer ved a returnere None, ikke ved a si fra."""
+    found = re.search(r'<a class="winner-band"[^>]*? href="([^"]*)"', html)
+    assert found, "fant ikke vinnerbanneret"
+    return found.group(1)
 
 
 def attr(html: str, name: str) -> str | None:
@@ -229,32 +265,47 @@ def test_the_four_named_attributes_are_unchanged() -> None:
 
 
 # ------------------------------------------------------------ the winner band
-def test_the_winner_band_is_untouched() -> None:
-    """Vinnerbanneret rendres av en annen funksjon som aldri fikk product_id,
-    sa det KAN ikke konverteres. Bevist mot den faktiske kildekoden framfor
-    ved a rendre den, fordi det er signaturen som er garantien."""
-    import inspect
+def test_the_winner_band_is_untouched_on_a_page_whose_winner_is_not_converted() -> None:
+    """**Denne testen het "vinnerbanneret er urort" og beviste noe sterkere
+    enn den sa.**
 
-    from site_generator import render_templates
+    Den leste kildekoden og slo fast at banneret ikke KUNNE konverteres --
+    funksjonen tok ikke imot product_id. Det var sant og var med vilje mens
+    utrullingen holdt til ett kort. Steg 1 ga banneret bade product_id og
+    kartet, sa den gamle pastanden ville na bare bestatt hvis endringen ikke
+    virket.
 
-    source = inspect.getsource(render_templates)
-    band = source[source.index('winner_band = f"""<a class="winner-band"'):][:400]
+    Det som fortsatt skal vare sant, og som er det denne siden faktisk
+    rendrer, er det svakere: nar vinneren ikke er et godkjent tilbud, star
+    leverandor-URL-en. Lenson er billigst pa begge de konverterte produktene,
+    sa det er tilstanden pa nettstedet i dag.
+    """
+    from site_generator.render_templates import reconcile_product, render_product_page
 
-    assert "/go/" not in band
-    # Banneret bygger fortsatt sin egen href fra tilbudets URL, ikke fra
-    # href-variabelen som bare finnes inne i render_offer_card.
-    assert 'href="{escape(best["url"])}"' in band
+    target = product(TARGET_PRODUCT)
+    rendered = {**target, "offers": reconcile_product(target["offers"], NOW)}
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, CLICKOUTS,
+    )
+
+    assert GO in html, "forutsetningen faller bort om siden ikke konverterte noe"
+    winner = re.search(r'<a class="winner-band"[^>]*>', html).group(0)
+    assert "/go/" not in winner, winner
+    assert 'data-retailer="Lensway"' not in winner, "vinneren er ikke Lensway i dag"
 
 
-def test_json_ld_and_the_quantity_calculator_still_use_the_provider_url() -> None:
-    """De to andre forbrukerne av o["url"]. Begge er uendret, og det er en
-    bevisst konsekvens av a holde utrullingen til ett kort: for dette ene
-    produktet peker kortet pa /go/ mens schema og kalkulatoren peker pa
-    nettverket.
+def test_only_json_ld_still_builds_its_own_url() -> None:
+    """**Den pastanden denne testen gjorde for, er na feil, og det er poenget.**
 
-    **Etter Steg B star tokenet null steder i kildekoden** -- det kommer fra
-    kontrakten. Pastanden er derfor at ingen av de to andre forbrukerne har
-    fatt en /go/-sti, ikke lenger en telling av en konstant som ikke finnes.
+    For Steg 1 sa den at vinnerbanneret og antallskalkulatoren fortsatt
+    bygget sin egen href fra `o["url"]`, og det var riktig: utrullingen holdt
+    med vilje til ett kort. Steg 1 flyttet begge over pa den delte
+    resolveren, sa den gamle pastanden ville na bestatt bare hvis endringen
+    ikke virket.
+
+    Det som star igjen er JSON-LD, som fortsatt leser `o["url"]` direkte --
+    ikke fordi ingen kom sa langt, men fordi det er en uttalt policy.
     """
     import inspect
 
@@ -263,17 +314,173 @@ def test_json_ld_and_the_quantity_calculator_still_use_the_provider_url() -> Non
     source = inspect.getsource(render_templates)
 
     assert GO not in source, "tokenet skal ikke sta i kildekoden i det hele tatt"
-    # De to forbrukerne bygger fortsatt sin egen href fra tilbudets URL. `if
-    # consumer in source` ville gjort pastanden tom om en av dem forsvant --
-    # den skal feile da, ikke hoppe over.
-    # Vinnerbanneret, antallskalkulatorens JSON og JSON-LD-schemaet --
-    # de tre andre forbrukerne av tilbudets URL, alle uendret.
-    for consumer in (
-        'href="{escape(best["url"])}"',        # vinnerbanneret
-        '"url": o["url"],',                    # antallskalkulatoren
-        '"url": "{_json_str(o["url"])}",',     # JSON-LD
-    ):
-        assert consumer in source, consumer
+    assert '"url": "{_json_str(o["url"])}",' in source, "JSON-LD skal lese o[url]"
+    # Og de to andre skal IKKE gjore det lenger.
+    assert 'href="{escape(best["url"])}"' not in source, "vinnerbanneret bygger fortsatt sin egen"
+    assert '            "url": o["url"],' not in source, "kalkulatoren bygger fortsatt sin egen"
+
+
+# ------------------------------------------------- alle flater, samme mal
+def test_the_winner_band_uses_the_clickout_when_the_winner_is_converted() -> None:
+    """**Den ene flaten katalogen ikke kan bevise for oss.**
+
+    Lenson er billigst pa begge de konverterte produktene, sa ingen ekte side
+    har i dag et konvertert tilbud som vinner -- og et band som aldri ble
+    konvertert ville sett nøyaktig ut som et band som ikke KAN konverteres.
+    Her gis tilbudet inn som `best` direkte, som er det samme kallet
+    render_product_page gjor nar prisene en dag snur.
+    """
+    from site_generator.render_templates import reconcile_product, render_winner_widget
+
+    offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
+    winner = next(o for o in offers if o["retailer"] == TARGET_RETAILER)
+
+    band, _ = render_winner_widget(
+        winner, offers, product(TARGET_PRODUCT)["name"],
+        product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
+    )
+
+    assert band_href_of(band) == GO, band_href_of(band)
+    assert 'data-retailer="Lensway"' in band
+    assert "sponsored" in band
+    for fragment in ("pdt.tradedoubler.com", "a(3494407)", "ttid("):
+        assert fragment not in band.split(">")[0], fragment
+
+
+def test_the_product_page_converts_the_band_when_the_converted_offer_wins() -> None:
+    """**Gapet muteringstesten fant.**
+
+    De to bannertestene kaller render_winner_widget direkte, sa de bestar
+    selv om render_product_page slutter a sende product_id og kartet videre.
+    Og katalogen kan ikke fange det: Lenson er billigst pa begge de
+    konverterte produktene, sa ingen ekte side rendrer et konvertert band i
+    dag.
+
+    Her beholdes de EKTE tilbudene, men bare de som er dyrere enn Lensway --
+    sa Lensway vinner. Ingen oppdiktede priser, ingen oppdiktet forhandler:
+    et utsnitt av katalogen, ikke en fixture.
+    """
+    from site_generator.render_templates import reconcile_product, render_product_page
+
+    target = product(TARGET_PRODUCT)
+    reconciled = reconcile_product(target["offers"], NOW)
+    lensway = next(o for o in reconciled if o["retailer"] == TARGET_RETAILER)
+    kept = [
+        o["retailer"] for o in reconciled
+        if o["retailer"] == TARGET_RETAILER or o["total"] > lensway["total"]
+    ]
+    assert len(kept) > 1, "utsnittet ma ha noen a vinne over"
+
+    subset = {**target, "offers": [o for o in target["offers"] if o["retailer"] in kept]}
+    rendered = {**subset, "offers": reconcile_product(subset["offers"], NOW)}
+    winner = next(o for o in rendered["offers"] if o["is_lowest"])
+    assert winner["retailer"] == TARGET_RETAILER, winner["retailer"]
+
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, CLICKOUTS,
+    )
+
+    assert band_href_of(html) == GO, band_href_of(html)
+    assert calculator_offers(html)[TARGET_RETAILER] == GO
+    print(f"      vinner {TARGET_RETAILER} over {len(kept) - 1} dyrere tilbud -> band {GO}")
+
+
+def test_the_winner_band_keeps_the_provider_url_for_an_unconverted_winner() -> None:
+    """Halve gjerdet: et band som konverterte alt ville ogsa bestatt testen
+    over."""
+    from site_generator.render_templates import reconcile_product, render_winner_widget
+
+    offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
+    winner = next(o for o in offers if o["retailer"] != TARGET_RETAILER)
+
+    band, _ = render_winner_widget(
+        winner, offers, product(TARGET_PRODUCT)["name"],
+        product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
+    )
+
+    assert "/go/" not in band_href_of(band)
+    assert band_href_of(band).startswith("https://")
+
+
+def test_the_calculator_carries_the_same_target_as_the_card() -> None:
+    """Kalkulatorens JSON skriver bandets href pa nytt ved antallsbytte. Uten
+    denne ville konverteringen forsvunnet i det noen trykket "2 esker" -- en
+    lenke som slutter a virke ved forste interaksjon er verre enn en som
+    aldri virket, fordi ingen ser den skje."""
+    from site_generator.render_templates import reconcile_product, render_winner_widget
+
+    offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
+    _, qty = render_winner_widget(
+        offers[0], offers, product(TARGET_PRODUCT)["name"],
+        product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
+    )
+
+    data = calculator_offers(qty)
+    assert data[TARGET_RETAILER] == GO, data[TARGET_RETAILER]
+    assert data[TARGET_RETAILER] == href_of(card(TARGET_PRODUCT, TARGET_RETAILER))
+    others = {r: u for r, u in data.items() if r != TARGET_RETAILER}
+    assert others, "kontrollen er tom uten minst en annen forhandler"
+    assert not [u for u in others.values() if "/go/" in u], others
+
+
+def test_a_private_label_page_resolves_on_the_real_products_id() -> None:
+    """Et private-label-produkt GJENBRUKER det ekte produktets tilbud, sa det
+    samme konverterte tilbudet forekommer pa en side med en annen id. Slas
+    kartet opp pa merkevarens id, bommer det -- stille, fordi resultatet da
+    bare er leverandor-URL-en."""
+    import json
+
+    from site_generator.render_templates import render_private_label_page
+
+    labels = json.loads((ROOT / "private_labels.json").read_text(encoding="utf-8"))["labels"]
+    label = next(l for l in labels if l["real_product_id"] == TARGET_PRODUCT)
+    real = product(TARGET_PRODUCT)
+
+    html = render_private_label_page(
+        label, real, CATALOG["categories"], NOW, None, CLICKOUTS
+    )
+
+    hrefs = dict(
+        (retailer, href) for href, retailer in re.findall(
+            r'<a class="offer-card[^"]*" href="([^"]*)"[^>]*data-retailer="([^"]*)"', html
+        )
+    )
+    assert hrefs[TARGET_RETAILER] == GO, hrefs[TARGET_RETAILER]
+    assert label["slug"] != TARGET_PRODUCT, "kontrollen er tom om id-ene er like"
+    print(f"      {label['slug']} -> {TARGET_PRODUCT} / {TARGET_RETAILER}")
+
+
+def test_a_solution_page_gets_the_map_and_converts_nothing() -> None:
+    """Linsevæskesider far kartet av samme grunn som alle andre flater: en
+    side som rendrer leverandor-URL-en skal gjore det fordi svaret var
+    ingenting, ikke fordi kartet aldri nadde fram. Ingen av de fire godkjente
+    tilbudene er linsevæske, sa svaret ER ingenting."""
+    from site_generator.render_templates import render_solution_product_page
+
+    solutions = [p for p in CATALOG["products"] if "category_slug" not in p]
+    assert solutions, "ingen linsevæskeprodukter i katalogen"
+
+    for solution in solutions[:5]:
+        html = render_solution_product_page(solution, NOW, CLICKOUTS)
+        assert "/go/" not in html, solution["id"]
+
+
+def test_json_ld_never_carries_a_clickout() -> None:
+    """Uttalt policy, ikke en utelatelse."""
+    from site_generator.render_templates import reconcile_product, render_product_page
+
+    target = product(TARGET_PRODUCT)
+    rendered = {**target, "offers": reconcile_product(target["offers"], NOW)}
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, CLICKOUTS,
+    )
+
+    assert GO in html, "forutsetningen faller bort om siden ikke konverterte noe"
+    schema_urls = re.findall(r'"@type": "Offer".*?"url": "([^"]*)"', html, re.S)
+    assert schema_urls, "ingen JSON-LD-tilbud a kontrollere"
+    assert not [u for u in schema_urls if "/go/" in u], schema_urls
 
 
 def main() -> int:
@@ -287,6 +494,12 @@ def main() -> int:
         except AssertionError as error:
             failed += 1
             print(f"  [FEIL] {fn.__name__}: {error}")
+        except Exception as error:  # noqa: BLE001
+            # En test som KRASJER er ikke en test som ikke kjorte. Uten dette
+            # avbrot den forste uventede feilen hele kjoringen, og alle
+            # testene etter den var stille fravarende framfor bestatt.
+            failed += 1
+            print(f"  [KRASJ] {fn.__name__}: {type(error).__name__}: {error}")
     print("\n" + ("alle bestatt" if not failed else f"{failed} feilet"))
     return 1 if failed else 0
 

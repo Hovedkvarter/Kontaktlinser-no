@@ -491,6 +491,44 @@ def test_a_missing_origin_in_ci_is_a_warning() -> None:
     assert all(a.startswith("::warning::") for a in printed.annotations)
 
 
+def test_every_page_type_is_handed_the_clickout_map() -> None:
+    """**Den regresjonen ingen rendertest kan se.**
+
+    Testene over kaller rendrerne direkte og sender inn kartet selv, sa de
+    ville alle bestatt mens generate_pages.py hadde sluttet a sende det. Det
+    er nøyaktig formen pa feilen Steg 1 rettet: losnings- og
+    private-label-sidene hadde aldri fatt kartet i det hele tatt, og
+    resultatet var ikke en feil -- bare leverandor-URL-er, tause og
+    plausible.
+
+    En ny sidetype som glemmer parameteren faller her.
+    """
+    import ast
+
+    source = (ROOT / "site_generator" / "generate_pages.py").read_text(encoding="utf-8")
+    renderers = {
+        "render_product_page",
+        "render_solution_product_page",
+        "render_private_label_page",
+    }
+
+    calls = {}
+    for node in ast.walk(ast.parse(source)):
+        if not isinstance(node, ast.Call):
+            continue
+        name = getattr(node.func, "id", None) or getattr(node.func, "attr", None)
+        if name not in renderers:
+            continue
+        passed = [
+            getattr(a, "id", None) for a in node.args
+        ] + [k.arg for k in node.keywords]
+        calls[name] = "clickouts" in passed
+
+    assert set(calls) == renderers, f"fant ikke alle kallene: {sorted(calls)}"
+    missing = sorted(name for name, ok in calls.items() if not ok)
+    assert not missing, f"far ikke clickouts: {missing}"
+
+
 def test_the_build_workflow_supplies_the_origin() -> None:
     """Som nokkelen: koden kan ikke lese en variabel steget ikke har fatt.
     Og den er en VARIABLE, ikke en secret -- originet er ikke hemmelig, og
@@ -998,7 +1036,19 @@ def test_only_the_href_differs_on_the_converted_card() -> None:
     assert converted.replace(TOKEN, o["url"], 1) == plain
 
 
-def test_the_winner_band_is_untouched() -> None:
+def test_the_winner_band_resolves_through_the_shared_path() -> None:
+    """**Denne testen sa at banneret ikke kunne konverteres, og det stemmer
+    ikke lenger.**
+
+    Den leste kildekoden og slo fast at banneret bygget sin egen href fra
+    `o["url"]`. Det var sant mens utrullingen holdt til ett kort. Steg 1
+    flyttet det over pa outbound_url() sammen med kortet og kalkulatoren, sa
+    den gamle pastanden ville na bare bestatt hvis endringen ikke virket.
+
+    Pastanden som erstatter den er den som faktisk betyr noe: banneret gar
+    gjennom den samme delte resolveren som alt annet, og kan derfor hverken
+    bygge en sti selv eller bli glemt.
+    """
     import inspect
 
     from site_generator import render_templates
@@ -1006,8 +1056,9 @@ def test_the_winner_band_is_untouched() -> None:
     source = inspect.getsource(render_templates)
     band = source[source.index('winner_band = f"""<a class="winner-band"'):][:400]
 
-    assert "/go/" not in band
-    assert 'href="{escape(best["url"])}"' in band
+    assert "/go/" not in band, "banneret skal ikke kunne sette sammen en sti"
+    assert "outbound_url(best" in band, band[:200]
+    assert 'href="{escape(best["url"])}"' not in band, "banneret bygger fortsatt sin egen"
 
 
 def test_the_generator_cannot_build_a_go_link() -> None:
@@ -1019,10 +1070,28 @@ def test_the_generator_cannot_build_a_go_link() -> None:
     det telles. En gjeninnfort `href = "/go/" + token` ville vært kode og
     ville falt her.
     """
+    import ast
+
     source = (ROOT / "site_generator" / "render_templates.py").read_text(encoding="utf-8")
+    lines = source.splitlines()
+
+    # **Docstrings telles som kommentarer, slik testens egen regel sier.**
+    # Den strippet bare #-linjer, sa en forklaring i en docstring falt her --
+    # og testen sa selv at forklaringen hører hjemme i en kommentar. Den var
+    # strengere enn sin egen beskrivelse, og oppdaget det forst da noen
+    # skrev forklaringen der den skulle sta.
+    prose = set()
+    for node in ast.walk(ast.parse(source)):
+        if not isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)):
+            continue
+        first = node.body[0] if node.body else None
+        if isinstance(first, ast.Expr) and isinstance(first.value, ast.Constant) \
+                and isinstance(first.value.value, str):
+            prose.update(range(first.lineno, (first.end_lineno or first.lineno) + 1))
+
     code = [
-        line for line in source.splitlines()
-        if not line.lstrip().startswith("#")
+        line for number, line in enumerate(lines, start=1)
+        if number not in prose and not line.lstrip().startswith("#")
     ]
 
     assert "tgt_" not in source, "et token er tilbake i kildekoden"

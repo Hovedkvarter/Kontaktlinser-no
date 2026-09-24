@@ -227,7 +227,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
             record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
 
         cat_slug = product["solution_category"]
-        html = render_solution_product_page(product, now)
+        html = render_solution_product_page(product, now, clickouts)
         out_path = BUILD_DIR / cat_slug / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         solutions_written.append(product)
@@ -273,7 +273,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
             if real_product is None:
                 print(f"  [advarsel] private label '{label['slug']}' peker til ukjent produkt-id: {label['real_product_id']}")
                 continue
-            html = render_private_label_page(label, real_product, catalog["categories"], now, label_family_by_slug.get(label["slug"]))
+            html = render_private_label_page(label, real_product, catalog["categories"], now, label_family_by_slug.get(label["slug"]), clickouts)
             write_file(BUILD_DIR / "private-label" / label["slug"] / "index.html", html)
             print(f"  private-label -> /private-label/{label['slug']}/")
 
