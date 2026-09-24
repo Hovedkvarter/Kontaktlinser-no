@@ -53,7 +53,10 @@ import urllib.request
 #: en prisendring ikke kan endre. Den erstatter matching pa annonsorens
 #: VISNINGSNAVN, som var det eneste felles feltet for -- og som ingen av
 #: sidene lovet a fortsette a stave likt.
-CONVERTED = {"6884:1442"}
+CONVERTED = {
+    "6884:1442",  # Biofinity Toric 6-pack -- det forste, verifisert i nettleser
+    "6884:347",   # Biofinity 6-pack -- samme feed, annet produkt
+}
 
 #: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

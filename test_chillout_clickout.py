@@ -34,6 +34,11 @@ NOW = datetime(2026, 9, 24, 12, 0, tzinfo=timezone.utc)
 TOKEN = "/go/tgt_01M35ASH8Q3MH7WKCAMGGHVXFH"
 PRODUCT = "biofinity-toric-6pk"
 RETAILER = "Lensway"
+
+#: Det andre godkjente tilbudet: samme feed, annet produkt. Tokenet er
+#: konstruert -- kontrakten gir det ekte pa byggetidspunktet.
+SECOND = "/go/tgt_ANDRETILBUDETXXXXXXXXXXXXXX"
+SECOND_PRODUCT = "biofinity-6pk"
 KEY = "apk_" + "K" * 43
 
 #: Et svar fra lesekontrakten, med tre annonsorer -- fordi det ER det
@@ -159,6 +164,39 @@ def test_the_one_pair_is_resolved() -> None:
     found, _ = run({}, responder=answering(BODY))
 
     assert found == {(PRODUCT, RETAILER): TOKEN}
+
+
+def test_both_approved_offers_resolve_when_the_contract_returns_both() -> None:
+    """**Dekningen er to tilbud na, og begge skal komme igjennom.**
+
+    Bygget sporr per produkt, sa dette svaret er det samlede resultatet:
+    hvert godkjent offer_id gir sitt eget kort, og ingen andre."""
+    body = {"offers": [
+        {"offer_id": "6884:1442", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": TOKEN}},
+        {"offer_id": "6884:347", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": SECOND}},
+    ], "excluded": []}
+    found, printed = run({}, responder=answering(body))
+
+    assert found == {
+        (PRODUCT, RETAILER): TOKEN,
+        (SECOND_PRODUCT, RETAILER): SECOND,
+    }
+    assert "2/2 godkjente tilbud lost" in printed.text
+
+
+def test_the_second_offer_reaches_its_own_card_and_no_other() -> None:
+    body = {"offers": [
+        {"offer_id": "6884:347", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": SECOND}},
+    ], "excluded": []}
+    found, _ = run({}, responder=answering(body))
+
+    assert href_of(card(SECOND_PRODUCT, RETAILER, found)) == SECOND
+    # Og ingen av de andre forhandlerne pa den samme siden.
+    for other in ("Lenson", "Shopping4net", "Extra Optical"):
+        assert "/go/" not in card(SECOND_PRODUCT, other, found)
 
 
 def test_the_card_carries_what_chillout_returned() -> None:
@@ -558,21 +596,28 @@ def test_a_successful_run_says_so_with_numbers_only() -> None:
     legitimasjon, og ingen annonsor- eller produktnavn -- den skal kunne leses
     av hvem som helst som apner en byggelogg.
     """
-    found, printed = run({}, responder=answering(BODY))
+    body = {"offers": [
+        {"offer_id": "6884:1442", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": TOKEN}},
+        {"offer_id": "6884:347", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": SECOND}},
+    ], "excluded": []}
+    found, printed = run({}, responder=answering(body))
 
-    assert "Chillout clickout: 1/1 godkjente tilbud lost" in printed.text
+    assert f"{len(found)}/{len(chillout_clickout.CONVERTED)} godkjente tilbud lost" in printed.text
     assert printed.annotations == [], "en vellykket kjoring skal ikke annotere"
     assert KEY not in printed.text
     assert ORIGIN not in printed.text
     assert TOKEN not in printed.text
-    assert found
+    assert SECOND not in printed.text
+    assert len(found) == len(chillout_clickout.CONVERTED)
 
 
 def test_the_count_tells_the_truth_when_nothing_resolves() -> None:
     """0/1 og 1/1 ma kunne skilles, ellers er tallet dekorasjon."""
     _, printed = run({}, responder=refusing(503))
 
-    assert "Chillout clickout: 0/1 godkjente tilbud lost" in printed.text
+    assert f"Chillout clickout: 0/{len(chillout_clickout.CONVERTED)} godkjente" in printed.text
 
 
 # ------------------------------------------------------- the request it sends
@@ -669,6 +714,28 @@ def test_the_whole_catalogue_has_exactly_one_converted_card() -> None:
                 converted.append((p["id"], o["retailer"]))
 
     assert converted == [(PRODUCT, RETAILER)]
+
+
+def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
+    """Hele katalogen mot HELE dekningen: to godkjente tilbud, to kort, og
+    ingen andre av de 678 kortene rort."""
+    body = {"offers": [
+        {"offer_id": "6884:1442", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": TOKEN}},
+        {"offer_id": "6884:347", "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": SECOND}},
+    ], "excluded": []}
+    found, _ = run({}, responder=answering(body))
+
+    converted = []
+    for p in CATALOG["products"]:
+        for o in reconcile_product(p.get("offers", []), NOW):
+            if "/go/" in render_offer_card(o, o["retailer"], p["name"], p["id"], found):
+                converted.append((p["id"], o["retailer"]))
+
+    assert sorted(converted) == sorted(
+        [(PRODUCT, RETAILER), (SECOND_PRODUCT, RETAILER)]
+    )
 
 
 def test_only_the_href_differs_on_the_converted_card() -> None:
