@@ -61,9 +61,22 @@ CONVERTED = {
 #: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-#: Hvilket produkt bygget spor om. En offentlig identifikator, ikke en
-#: kapabilitet -- i motsetning til tokenet den erstatter.
-PRODUCTS = {"biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S"}
+#: Sidens produkt-id til Chillouts plattform-id. **Et oppslag, ikke en
+#: forespørselsliste.** Hvilke produkter bygget faktisk spor om utledes fra
+#: CONVERTED lenger nede.
+#:
+#: Det var to lister som matte stemme overens, og ingenting som sorget for
+#: det: 6884:347 ble lagt til dekningen uten at produktet ble lagt til her,
+#: sa kontrakten ble aldri spurt om biofinity-6pk -- og advarselen sa "ingen
+#: bekreftet clickout", som er noe helt annet enn "vi spurte ikke". Den
+#: meldingen sendte en produksjonsundersøkelse gjennom hele serveringskjeden
+#: der ingenting var galt.
+#:
+#: Offentlige identifikatorer, ikke kapabiliteter.
+PRODUCTS = {
+    "biofinity-toric-6pk": "prd_01M2ZP0SREXS63NNMW6YBKRZ9S",
+    "biofinity-6pk": "prd_01M2ZP0SREARN6N3NETCB2DZYP",
+}
 
 PROPERTY = "kontaktlinser-no"
 #: **Ingen default.** Originet var hardkodet her, arvet fra en midlertidig
@@ -225,7 +238,28 @@ def clickout_urls() -> dict[tuple[str, str], str]:
 
     keys = _renderer_keys()
     resolved: dict[tuple[str, str], str] = {}
-    for product_id, platform_id in PRODUCTS.items():
+
+    # **Hvilke produkter som spørres om, utledes av dekningen.** To lister som
+    # ma stemme overens er en list for mye; her finnes bare en.
+    wanted: dict[str, str] = {}
+    for offer_id in sorted(CONVERTED):
+        if offer_id not in keys:
+            # Godkjent, men ukjent i katalogoppslaget: enten en feed uten
+            # chillout_feed_id, eller en SKU som ikke star i tabellen.
+            _warn("godkjent tilbud finnes ikke i katalogoppslaget", offer_id)
+            continue
+        product_id = keys[offer_id][0]
+        platform_id = PRODUCTS.get(product_id)
+        if not platform_id:
+            # **Den advarselen som manglet.** "Vi spurte ikke" er noe helt
+            # annet enn "vi spurte og fikk ingen clickout", og a si det forste
+            # som det andre sender folk gjennom serveringskjeden forgjeves.
+            _warn("produktet blir ikke spurt om (mangler plattform-id)",
+                  f"{offer_id} -> {product_id}")
+            continue
+        wanted[product_id] = platform_id
+
+    for product_id, platform_id in sorted(wanted.items()):
         body, reason = _fetch(product_id, platform_id, key)
         if body is None:
             _warn(reason, product_id)
@@ -237,9 +271,13 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             if offer_id in CONVERTED and offer_id in keys:
                 resolved[keys[offer_id]] = url
         for offer_id in sorted(CONVERTED):
-            if offer_id in keys and keys[offer_id] not in resolved:
-                # Kontrakten svarte, men uten en clickout for dette tilbudet:
-                # ingen servable target. Trygt, og verdt a si.
+            # Bare tilbudene som hører til DETTE produktet. Uten den
+            # avgrensningen ville hvert produkt advart om de andres tilbud.
+            if (
+                offer_id in keys
+                and keys[offer_id][0] == product_id
+                and keys[offer_id] not in resolved
+            ):
                 _warn("ingen bekreftet clickout", offer_id)
 
     # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**

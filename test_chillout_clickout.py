@@ -124,12 +124,15 @@ def run(monkey, *, key=KEY, responder=None, origin=ORIGIN):
             chillout_clickout.os.environ[chillout_clickout.KEY_VARIABLE] = original_env
 
 
-def answering(body: dict):
+def answering(body: dict, per_product: dict | None = None):
     class Response:
         status = 200
 
+        def __init__(self, answer=None):
+            self._body = body if answer is None else answer
+
         def read(self):
-            return json.dumps(body).encode("utf-8")
+            return json.dumps(self._body).encode("utf-8")
 
         def __enter__(self):
             return self
@@ -140,6 +143,11 @@ def answering(body: dict):
     def responder(request, timeout=None):
         responder.seen = request
         responder.timeout = timeout
+        responder.urls = getattr(responder, "urls", []) + [request.full_url]
+        if per_product:
+            for platform_id, answer in per_product.items():
+                if platform_id in request.full_url:
+                    return Response(answer)
         return Response()
 
     return responder
@@ -618,6 +626,109 @@ def test_the_count_tells_the_truth_when_nothing_resolves() -> None:
     _, printed = run({}, responder=refusing(503))
 
     assert f"Chillout clickout: 0/{len(chillout_clickout.CONVERTED)} godkjente" in printed.text
+
+
+def test_the_requested_products_are_derived_from_the_coverage() -> None:
+    """**To lister som ma stemme overens er en list for mye.**
+
+    6884:347 ble lagt til dekningen uten at produktet ble lagt til
+    forespørselslista, sa kontrakten ble aldri spurt om biofinity-6pk. Na
+    finnes ikke den lista: den utledes.
+    """
+    responder = answering(BODY)
+    run({}, responder=responder)
+
+    asked = set(responder.urls)
+    assert len(asked) == 2, asked
+    for platform_id in chillout_clickout.PRODUCTS.values():
+        assert any(platform_id in u for u in asked), platform_id
+
+
+def test_a_mapped_product_no_offer_needs_is_not_requested() -> None:
+    """**PRODUCTS er et oppslag, ikke en forespørselsliste.**
+
+    Det er her de to formene faktisk skiller lag: sa lenge de to settene er
+    like, gir det samme svar a løkke over hvilket som helst av dem -- og en
+    mutasjon som gikk tilbake til PRODUCTS overlevde alt annet. Et produkt
+    ingen godkjent tilbud trenger skal ikke koste en forespørsel.
+    """
+    original = dict(chillout_clickout.PRODUCTS)
+    try:
+        chillout_clickout.PRODUCTS["renu-multipurpose-60ml"] = "prd_INGEN_TILBUD_TRENGER_DETTE"
+        responder = answering(BODY)
+        run({}, responder=responder)
+    finally:
+        chillout_clickout.PRODUCTS.clear()
+        chillout_clickout.PRODUCTS.update(original)
+
+    asked = set(responder.urls)
+    assert len(asked) == 2, asked
+    assert not any("INGEN_TILBUD_TRENGER_DETTE" in u for u in asked)
+
+
+def test_an_approved_offer_whose_product_is_not_mapped_says_so() -> None:
+    """**Advarselen som manglet.**
+
+    "Vi spurte ikke" er noe helt annet enn "vi spurte og fikk ingen
+    clickout", og a si det forste som det andre sendte en
+    produksjonsundersøkelse gjennom hele serveringskjeden der ingenting var
+    galt.
+    """
+    original = dict(chillout_clickout.PRODUCTS)
+    try:
+        chillout_clickout.PRODUCTS.pop(SECOND_PRODUCT)
+        responder = answering(BODY)
+        found, printed = run({}, responder=responder)
+    finally:
+        chillout_clickout.PRODUCTS.clear()
+        chillout_clickout.PRODUCTS.update(original)
+
+    assert "blir ikke spurt om" in printed.text
+    assert "6884:347" in printed.text
+    # Og den forveksles ikke med den andre grunnen.
+    assert "ingen bekreftet clickout -- lenker falt tilbake" not in printed.text.split(
+        "blir ikke spurt om"
+    )[0]
+    # Det umappede produktet spørres da heller ikke om -- men det ANDRE
+    # godkjente tilbudet lases fortsatt opp. Ett umappet produkt skal ikke
+    # ta med seg resten.
+    assert len(set(responder.urls)) == 1
+    assert found == {(PRODUCT, RETAILER): TOKEN}
+
+
+def test_an_approved_offer_unknown_to_the_lookup_says_so() -> None:
+    """Et godkjent offer_id som ikke finnes i katalogoppslaget -- en feed
+    uten chillout_feed_id, eller en SKU som ikke star i tabellen."""
+    original = set(chillout_clickout.CONVERTED)
+    try:
+        chillout_clickout.CONVERTED.add("99999:ukjent")
+        _, printed = run({}, responder=answering(BODY))
+    finally:
+        chillout_clickout.CONVERTED.clear()
+        chillout_clickout.CONVERTED.update(original)
+
+    assert "finnes ikke i katalogoppslaget" in printed.text
+    assert "99999:ukjent" in printed.text
+
+
+def test_one_products_answer_does_not_warn_about_another_products_offer() -> None:
+    """Uten avgrensningen ville hvert produkt advart om de andres tilbud, sa
+    en vellykket kjoring hadde sett ut som to feil."""
+    toric = {"offers": [{"offer_id": "6884:1442", "advertiser": "Lensway",
+                         "link": {"clickout_available": True, "clickout_url": TOKEN}}],
+             "excluded": []}
+    plain = {"offers": [{"offer_id": "6884:347", "advertiser": "Lensway",
+                         "link": {"clickout_available": True, "clickout_url": SECOND}}],
+             "excluded": []}
+    responder = answering({"offers": [], "excluded": []}, per_product={
+        chillout_clickout.PRODUCTS[PRODUCT]: toric,
+        chillout_clickout.PRODUCTS[SECOND_PRODUCT]: plain,
+    })
+    found, printed = run({}, responder=responder)
+
+    assert found == {(PRODUCT, RETAILER): TOKEN, (SECOND_PRODUCT, RETAILER): SECOND}
+    assert printed.annotations == [], printed.annotations
+    assert "2/2 godkjente tilbud lost" in printed.text
 
 
 # ------------------------------------------------------- the request it sends
