@@ -174,4 +174,10 @@ def clickout_urls() -> dict[tuple[str, str], str]:
                     "annonsornavnet matchet ikke" if offered else "ingen bekreftet clickout",
                     f"{wanted_product}/{advertiser}",
                 )
+
+    # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**
+    # Modulen sa ingenting nar alt gikk bra, sa byggeloggen sa likt ut enten
+    # nokkelen virket eller koden ikke ble kalt i det hele tatt. Tallene, og
+    # ingenting annet: ingen token, ingen URL, ingen legitimasjon.
+    print(f"Chillout clickout: {len(resolved)}/{len(CONVERTED)} godkjente tilbud lost")
     return resolved

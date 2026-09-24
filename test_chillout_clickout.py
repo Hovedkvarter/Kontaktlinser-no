@@ -391,6 +391,30 @@ def test_a_malformed_answer_still_renders_the_whole_page() -> None:
     assert "/go/" not in html
 
 
+def test_a_successful_run_says_so_with_numbers_only() -> None:
+    """En stille suksess er ikke til a skille fra et steg som aldri kjorte.
+
+    Linja er tall og ingenting annet: ingen token, ingen URL, ingen
+    legitimasjon, og ingen annonsor- eller produktnavn -- den skal kunne leses
+    av hvem som helst som apner en byggelogg.
+    """
+    found, printed = run({}, responder=answering(BODY))
+
+    assert "Chillout clickout: 1/1 godkjente tilbud lost" in printed.text
+    assert printed.annotations == [], "en vellykket kjoring skal ikke annotere"
+    assert KEY not in printed.text
+    assert chillout_clickout.ORIGIN not in printed.text
+    assert TOKEN not in printed.text
+    assert found
+
+
+def test_the_count_tells_the_truth_when_nothing_resolves() -> None:
+    """0/1 og 1/1 ma kunne skilles, ellers er tallet dekorasjon."""
+    _, printed = run({}, responder=refusing(503))
+
+    assert "Chillout clickout: 0/1 godkjente tilbud lost" in printed.text
+
+
 # ------------------------------------------------------- the request it sends
 def test_it_asks_the_right_property_product_and_origin() -> None:
     """Uten dette kunne PROPERTY, PRODUCTS eller ruta endres til noe galt og
