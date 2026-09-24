@@ -2377,7 +2377,8 @@ def _render_product_badges(specs: list[tuple[str, str]]) -> str:
 
 
 def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
-                      product_id: str | None = None) -> str:
+                      product_id: str | None = None,
+                      clickouts: dict | None = None) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
         else '<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if o["is_stale"]
@@ -2406,35 +2407,40 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
     # nøstede <a>-tagger er ugyldig HTML og ville brutt visningen.
     is_affiliate = "1" if o["source"] == "affiliate_feed" else "0"
 
-    # FORSTE KONTROLLERTE CHILLOUT-CLICKOUT -- ETT kort, ETT produkt.
+    # CHILLOUT-CLICKOUT, HENTET -- IKKE HARDKODET.
     #
     # /go/ er kontaktlinser.no sitt eget, forstepartsledd ut: Chillout mynter
     # sin egen click_id FOR nettverket rutes, og 302-redirecter deretter til
-    # noyaktig den tracking-URL-en som ellers hadde statt her. Malet ble
-    # verifisert ende-til-ende mot produksjonskanten 2026-09-23 (19 sjekker),
-    # og lesekontrakten eksponerer samme token for dette tilbudet.
+    # noyaktig den tracking-URL-en som ellers hadde statt her.
+    #
+    # `clickouts` kommer fra chillout_clickout.clickout_urls(), som spor
+    # lesekontrakten pa byggetidspunktet. **Denne funksjonen kan ikke lage en
+    # /go/-lenke.** Det finnes ingen formatstreng, ingen prefiks og ingen
+    # token her lenger: den har enten en streng Chillout har returnert, eller
+    # ingenting. Et Chillout som ikke svarer kan derfor ikke produsere en
+    # lenke, bare la være a produsere en -- og da star leverandor-URL-en igjen,
+    # som er det siden rendret for utrullingen.
+    #
+    # Dekningen ligger i chillout_clickout.CONVERTED, ett par. Den anvendes
+    # pa svaret, sa kontrakten kan gjerne tilby clickouts for Shopping4net og
+    # Extra Optical -- det gjor den -- uten at noe mer rendres.
     #
     # Alt annet pa kortet er bevisst urort: rel, target, data-retailer,
     # data-affiliate, klasser og markup. data-affiliate kommer fra
     # o["source"], ikke fra URL-en, sa outbound_click-eventet rapporterer
-    # noyaktig som for. GA4s automatiske Enhanced Measurement "click" slutter
-    # a fyre for DENNE lenken fordi /go/ er samme domene -- kontrollert
+    # noyaktig som for. GA4s automatiske Enhanced Measurement "click" fyrer
+    # ikke for en konvertert lenke fordi /go/ er samme domene -- kontrollert
     # 2026-09-23: ingen key event, ingen audience, ingen exploration leser
     # den.
-    #
-    # BOOTSTRAP, IKKE ARKITEKTUR. Tokenet star hardkodet her fordi dette er
-    # ett kort. Den permanente losningen er at generatoren leser clickout_url
-    # fra Chillouts lesekontrakt pa byggetidspunktet -- feltet finnes allerede.
-    # Ikke kopier dette monsteret til flere tilbud.
-    href = (
-        "/go/tgt_01M35ASH8Q3MH7WKCAMGGHVXFH"
-        if (
-            retailer == "Lensway"
-            and product_id == "biofinity-toric-6pk"
-            and o["source"] == "affiliate_feed"
-        )
-        else escape(o["url"])
-    )
+    # **`source` er fortsatt med i betingelsen.** Kartet er nokkelt pa
+    # (produkt, forhandler), og bootstrap-porten hadde et tredje ledd som et
+    # oppslag alene mister: et SKRAPET tilbud har ingen avtale bak seg og
+    # ingen provisjon a attribuere, og /go/ ville myntet en click_id for en
+    # lenke ingen nettverkspartner noen gang ser. Kontrakten ville neppe
+    # tilby en clickout for et slikt tilbud -- men "neppe" er ikke en
+    # garanti siden dette rendres pa denne siden av HTTP.
+    resolved = (clickouts or {}).get((product_id, retailer))
+    href = escape((resolved if o["source"] == "affiliate_feed" else None) or o["url"])
     return f"""<a class="{css_class}" href="{href}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
@@ -2898,7 +2904,7 @@ def _render_price_history_chart(history: list[dict]) -> str:
   </div>"""
 
 
-def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None, family: dict | None = None) -> str:
+def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None, family: dict | None = None, clickouts: dict | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
@@ -2952,7 +2958,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         else escape(product["brand_label"][:2].upper())
 
     offer_cards_html = "\n".join(
-        render_offer_card(o, o["retailer"], product["name"], product["id"]) for o in offers
+        render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts)
+        for o in offers
     )
 
     if best:

@@ -1,4 +1,12 @@
-"""Regresjonsbevis for den forste kontrollerte /go/-utrullingen.
+"""Regresjonsbevis for det ene konverterte /go/-kortet.
+
+**Oppdatert for Steg B.** Tokenet er ikke lenger hardkodet; det kommer fra
+Chillouts lesekontrakt pa byggetidspunktet. Kortet som rendres er det samme,
+og hele nettstedet er bevist byte-identisk med bootstrap-utgaven, sa hver
+pastand under gjelder fortsatt -- de far na kartet inn i stedet for a stole
+pa en konstant. Feilsituasjonene ligger i test_chillout_clickout.py.
+
+Opprinnelig docstring:
 
 ETT kort, pa ETT produkt, hos EN forhandler. Denne filen finnes for a bevise
 nettopp det -- at endringen traff det den skulle og ingenting annet -- og for
@@ -29,6 +37,10 @@ CATALOG = json.loads((ROOT / "site_generator" / "catalog_live.json").read_text(e
 
 #: Det ene malet. Verifisert ende-til-ende mot produksjonskanten 2026-09-23.
 GO = "/go/tgt_01M35ASH8Q3MH7WKCAMGGHVXFH"
+
+#: Det kontrakten ville returnert for dette ene paret. Testene under gir det
+#: inn direkte, slik generatoren gjor etter a ha spurt.
+CLICKOUTS = {("biofinity-toric-6pk", "Lensway"): GO}
 
 TARGET_PRODUCT = "biofinity-toric-6pk"
 TARGET_RETAILER = "Lensway"
@@ -64,7 +76,9 @@ def offer(product_id: str, retailer: str) -> dict:
 
 def card(product_id: str, retailer: str) -> str:
     o = offer(product_id, retailer)
-    return render_offer_card(o, o["retailer"], product(product_id)["name"], product_id)
+    return render_offer_card(
+        o, o["retailer"], product(product_id)["name"], product_id, CLICKOUTS
+    )
 
 
 def href_of(html: str) -> str:
@@ -148,7 +162,7 @@ def test_every_other_card_in_the_catalogue_is_untouched() -> None:
     for p in CATALOG["products"]:
         for o in reconcile_product(p.get("offers", []), now):
             cards += 1
-            html = render_offer_card(o, o["retailer"], p["name"], p["id"])
+            html = render_offer_card(o, o["retailer"], p["name"], p["id"], CLICKOUTS)
             if "/go/" in html:
                 converted.append((p["id"], o["retailer"]))
 
@@ -170,7 +184,9 @@ def test_a_scraped_offer_is_never_converted() -> None:
     myntet en click_id for en lenke ingen nettverkspartner noen gang ser.
     """
     o = dict(offer(TARGET_PRODUCT, TARGET_RETAILER), source="scraper")
-    html = render_offer_card(o, TARGET_RETAILER, product(TARGET_PRODUCT)["name"], TARGET_PRODUCT)
+    html = render_offer_card(
+        o, TARGET_RETAILER, product(TARGET_PRODUCT)["name"], TARGET_PRODUCT, CLICKOUTS
+    )
 
     assert "/go/" not in html
     assert attr(html, "data-affiliate") == "0"
@@ -190,7 +206,7 @@ def test_only_the_href_differs_on_the_converted_card() -> None:
     o = offer(TARGET_PRODUCT, TARGET_RETAILER)
     name = product(TARGET_PRODUCT)["name"]
 
-    before = render_offer_card(o, o["retailer"], name)  # product_id=None
+    before = render_offer_card(o, o["retailer"], name)  # ingen clickouts
     after = card(TARGET_PRODUCT, TARGET_RETAILER)
 
     assert before != after, "kortet ble ikke konvertert i det hele tatt"
@@ -234,15 +250,30 @@ def test_json_ld_and_the_quantity_calculator_still_use_the_provider_url() -> Non
     """De to andre forbrukerne av o["url"]. Begge er uendret, og det er en
     bevisst konsekvens av a holde utrullingen til ett kort: for dette ene
     produktet peker kortet pa /go/ mens schema og kalkulatoren peker pa
-    nettverket."""
+    nettverket.
+
+    **Etter Steg B star tokenet null steder i kildekoden** -- det kommer fra
+    kontrakten. Pastanden er derfor at ingen av de to andre forbrukerne har
+    fatt en /go/-sti, ikke lenger en telling av en konstant som ikke finnes.
+    """
     import inspect
 
     from site_generator import render_templates
 
     source = inspect.getsource(render_templates)
-    occurrences = source.count(GO)
 
-    assert occurrences == 1, f"tokenet star {occurrences} steder; det skal sta ETT"
+    assert GO not in source, "tokenet skal ikke sta i kildekoden i det hele tatt"
+    # De to forbrukerne bygger fortsatt sin egen href fra tilbudets URL. `if
+    # consumer in source` ville gjort pastanden tom om en av dem forsvant --
+    # den skal feile da, ikke hoppe over.
+    # Vinnerbanneret, antallskalkulatorens JSON og JSON-LD-schemaet --
+    # de tre andre forbrukerne av tilbudets URL, alle uendret.
+    for consumer in (
+        'href="{escape(best["url"])}"',        # vinnerbanneret
+        '"url": o["url"],',                    # antallskalkulatoren
+        '"url": "{_json_str(o["url"])}",',     # JSON-LD
+    ):
+        assert consumer in source, consumer
 
 
 def main() -> int:

@@ -56,6 +56,13 @@ jobs:
           git push
 
       - name: Generer statiske sider
+        env:
+          # Chillouts lesenokkel. Uten denne linja ser generatoren den ikke i
+          # det hele tatt -- en secret er ikke automatisk tilgjengelig for et
+          # steg -- og /go/-lenken ville stille forsvunnet fra det konverterte
+          # kortet ved neste bygg. GitHub maskerer verdien i loggen; koden
+          # skriver den uansett aldri ut.
+          CHILLOUT_READ_KEY: ${{ secrets.CHILLOUT_READ_KEY }}
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
       - name: Lagre oppdatert prishistorikk tilbake til repoet

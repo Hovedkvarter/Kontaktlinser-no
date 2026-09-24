@@ -122,9 +122,18 @@ def build_public_catalog(lens_products: list[dict], solution_products: list[dict
     }
 
 
-def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dict:
+def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
+          clickouts: dict | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
+
+    # Chillout-clickouts, hentet EN gang for hele bygget. `None` betyr "sporr
+    # kontrakten"; en dict betyr "bruk denne" og er hvordan testene kjorer
+    # uten nett. Tom dict er trygt og betyr at hvert kort beholder sin egen
+    # leverandor-URL.
+    if clickouts is None:
+        import chillout_clickout
+        clickouts = chillout_clickout.clickout_urls()
 
     # Linsevæske o.l. (fra solutions_meta.json, slått sammen inn i samme
     # katalog av build_catalog.py) har en annen datamodell -- ingen
@@ -202,7 +211,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None) -> dic
             cheapest = min(eligible, key=lambda o: o["price_nok"])
             record_price(price_history, product["id"], today, cheapest["price_nok"], cheapest["retailer"])
 
-        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []), family_by_product_id.get(product["id"]))
+        html = render_product_page(product, catalog["categories"], products_by_id, price_history.get(product["id"], []), now, aliases_by_product_id.get(product["id"], []), family_by_product_id.get(product["id"]), clickouts)
         out_path = BUILD_DIR / "kontaktlinser" / product["brand_slug"] / product["slug"] / "index.html"
         write_file(out_path, html)
         products_written.append(product)

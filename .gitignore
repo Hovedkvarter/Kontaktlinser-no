@@ -1,1 +1,3 @@
 CONTACTLINSER_PLATFORM_INTEGRATION_AUDIT.md
+__pycache__/
+*.pyc
