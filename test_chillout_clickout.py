@@ -85,8 +85,9 @@ def every_offer(urls: dict) -> dict:
 
 #: En URL per godkjent tilbud, sa en forveksling mellom dem er synlig.
 EXTRA = "/go/tgt_EXTRAOPTICALBIOFINITYXXXXX"
+S4N = "/go/tgt_SHOPPING4NETBIOFINITYXXXXX"
 URLS = {"6884:1442": TOKEN, "6884:347": SECOND, "6884:154": THIRD,
-        "extraoptical:Biofinity 6 stk-1": EXTRA}
+        "extraoptical:Biofinity 6 stk-1": EXTRA, "14910:LBF": S4N}
 KEY = "apk_" + "K" * 43
 
 #: Et svar fra lesekontrakten, med tre annonsorer -- fordi det ER det
@@ -811,21 +812,24 @@ def test_a_clickout_for_an_aliased_offer_reaches_both_cards() -> None:
 
 
 def test_the_alias_entries_are_reachable_and_cost_nothing() -> None:
-    """**Robusthetsfiksen kom akkurat i tide.**
+    """**Robusthetsfiksen kom akkurat i tide, og na er alle fire naabare.**
 
     Da Extra Optical fikk en feed-id ble adtraction-tabellen naabar, og to av
-    de fire alias-oppforingene med den. Uten fiksen ville en liste na havnet i
+    de fire alias-oppforingene med den. Uten fiksen ville en liste da havnet i
     oppslagsnokkelen og kastet TypeError ut av byggingen -- null sider
-    skrevet, pa forste bygg etter denne endringen.
+    skrevet, pa forste bygg etter den endringen. Shopping4net sin feed-id gjor
+    na det samme med den generiske tradedoubler-tabellen, og de to siste --
+    CA og CB -- kommer inn.
 
     De koster ingenting: ingen av dem star i CONVERTED, sa ingen av dem
     rendres. Det er nettopp skillet mellom robusthet og dekning."""
     keys = chillout_clickout._renderer_keys()
     multi = {o: v for o, v in keys.items() if len(v) > 1}
 
-    assert len(multi) == 2, sorted(multi)
+    assert len(multi) == 4, sorted(multi)
+    # Begge tabellene bidrar na, og det er hele poenget med kontrollen.
+    assert {o.split(":")[0] for o in multi} == {"extraoptical", "14910"}
     for offer_id, cards in multi.items():
-        assert offer_id.startswith("extraoptical:")
         assert len(cards) == 2
         assert offer_id not in chillout_clickout.CONVERTED
     # Og hver eneste verdi er fortsatt en tuple av par -- aldri en liste.

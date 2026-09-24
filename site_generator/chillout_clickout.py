@@ -61,6 +61,11 @@ CONVERTED = {
     # mellomrom i nokkelen. Bade id og prefiks er lest av
     # produksjonssvaret 2026-09-24.
     "extraoptical:Biofinity 6 stk-1",
+    # Tredje annonsor, og den andre pa Tradedoubler. Samme nettverk som
+    # Lensway, egen feed: nokkelen er feed pluss external_id, aldri
+    # nettverk pluss external_id (ADR-031). fid 14910 star bade i
+    # feed_urls og i produksjonssvaret.
+    "14910:LBF",  # Biofinity 6-pack hos Shopping4net
 }
 # 6884:154 (Acuvue Oasys 6-pack) ble lagt til 2026-09-24 og fjernet samme dag.
 # Chillout HOLDER IKKE det tilbudet: oppslaget i produksjon ga offer_row False
