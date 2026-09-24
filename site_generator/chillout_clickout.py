@@ -118,6 +118,76 @@ KEY_VARIABLE = "CHILLOUT_READ_KEY"
 TIMEOUT = 20
 
 
+#: **Flatene, og hva de heter i oppsettet.** Rekkefølgen er lesbarheten sin;
+#: koden bryr seg bare om navnene. En ny flate ma sta her OG i
+#: clickout_surfaces.json, sa en flate som glemmer det ene er av og ikke
+#: stille pa.
+SURFACES = ("offer_card", "winner_band", "quantity_calculator")
+
+#: Filen som holder tilstanden. I DETTE repoet, med vilje -- se $comment der.
+SURFACES_FILE = "clickout_surfaces.json"
+
+
+class Clickouts(dict):
+    """De loste clickout-URL-ene, og hvilke flater som far bruke dem.
+
+    **To spørsmal, ett objekt, fordi de alltid reiser sammen.** Dekningen
+    ("hvilke tilbud") er CONVERTED; flatene ("hvor de vises") er denne fila.
+    Rendreren ma kunne svare pa begge pa samme kall, og a tre en ekstra
+    parameter gjennom seks kallsteder ville gjort det lett a glemme pa den
+    sjuende.
+
+    Den ER en dict, sa alt som tok imot kartet for tar det fortsatt imot. Et
+    vanlig dict -- som testene og eldre kallere sender -- har ingen `enabled`,
+    og leses da som "alle flater pa": det er nøyaktig det de mente for denne
+    bryteren fantes.
+    """
+
+    def __init__(self, resolved: dict, enabled) -> None:
+        super().__init__(resolved)
+        self.enabled = frozenset(enabled)
+
+
+def enabled_surfaces() -> frozenset[str]:
+    """Hvilke flater som star pa for DENNE propertyen.
+
+    **Ingenting star pa ved et uhell.** En manglende fil, en manglende
+    property, en ukjent verdi eller en skrivefeil gir av -- og en synlig
+    advarsel. Det motsatte valget ville betydd at en odelagt fil kunne sla
+    clickout PA et sted noen hadde skrudd det av, som er den ene retningen en
+    bryter aldri skal kunne feile i.
+
+    Av er alltid trygt: leverandor-URL-en er det siden rendret for clickout
+    fantes, og den virker.
+    """
+    try:
+        raw = open(os.path.join(_ROOT, SURFACES_FILE), encoding="utf-8").read()
+        states = json.loads(raw)[PROPERTY]
+    except Exception as error:
+        _warn(f"kunne ikke lese flateoppsettet ({type(error).__name__})", "ingen flater")
+        return frozenset()
+
+    if not isinstance(states, dict):
+        _warn("flateoppsettet har feil form", "ingen flater")
+        return frozenset()
+
+    on = set()
+    for surface in SURFACES:
+        value = states.get(surface)
+        if value == "on":
+            on.add(surface)
+        elif value not in (None, "off"):
+            # **En skrivefeil skal aldri kunne sla noe pa.** Den leses som av,
+            # og den sies hoyt: en flate som forsvant uten at noen ba om det
+            # ser ellers ut som en flate noen skrudde av med vilje.
+            _warn("ukjent verdi i flateoppsettet, lest som av", f"{surface}={value!r}")
+
+    unknown = sorted(set(states) - set(SURFACES) - {"$comment"})
+    if unknown:
+        _warn("ukjent flate i oppsettet, ignorert", ", ".join(unknown))
+    return frozenset(on)
+
+
 def _renderer_keys() -> dict[str, tuple[str, str]]:
     """Chillouts tilbudsnokkel til den nokkelen kortet kan sla opp pa.
 
@@ -271,7 +341,7 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             _warn("CHILLOUT_ORIGIN er ikke satt for dette steget", "intet origin")
         else:
             print("Chillout-clickout: CHILLOUT_ORIGIN er ikke satt -- bruker leverandor-URL-er")
-        return {}
+        return Clickouts({}, ())
 
     key = os.environ.get(KEY_VARIABLE, "").strip()
     if not key:
@@ -287,7 +357,7 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             _warn(f"{KEY_VARIABLE} er ikke tilgjengelig for dette steget", "ingen nokkel")
         else:
             print(f"Chillout-clickout: {KEY_VARIABLE} er ikke satt -- bruker leverandor-URL-er")
-        return {}
+        return Clickouts({}, ())
 
     keys = _renderer_keys()
     resolved: dict[tuple[str, str], str] = {}
@@ -339,7 +409,14 @@ def clickout_urls() -> dict[tuple[str, str], str]:
 
     # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**
     # Modulen sa ingenting nar alt gikk bra, sa byggeloggen sa likt ut enten
-    # nokkelen virket eller koden ikke ble kalt i det hele tatt. Tallene, og
-    # ingenting annet: ingen token, ingen URL, ingen legitimasjon.
-    print(f"Chillout clickout: {len(resolved)}/{len(CONVERTED)} godkjente tilbud lost")
-    return resolved
+    # nokkelen virket eller koden ikke ble kalt i det hele tatt. Tallene og
+    # flatenavnene, og ingenting annet: ingen token, ingen URL, ingen
+    # legitimasjon. Flatene star her fordi en tilbakerulling ellers ikke kan
+    # bekreftes uten a lese HTML -- linja er kvitteringen for at bryteren
+    # faktisk ble lest.
+    surfaces = enabled_surfaces()
+    print(
+        f"Chillout clickout: {len(resolved)}/{len(CONVERTED)} godkjente tilbud lost"
+        f", flater pa: {', '.join(sorted(surfaces)) or 'ingen'}"
+    )
+    return Clickouts(resolved, surfaces)

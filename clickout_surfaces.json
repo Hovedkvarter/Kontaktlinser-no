@@ -1,0 +1,13 @@
+{
+  "$comment": "Hvilke kommersielle klikkflater som bruker Chillout-clickout, per Property. Dette er utrullingsbryteren fra Clickout v1 steg 3, og den er en TILSTAND -- ikke en liste over tilbud. Dekningen avgjores fortsatt av CONVERTED i site_generator/chillout_clickout.py; denne fila avgjor bare hvilke FLATER som far lov til a bruke den. De to sporsmalene er med vilje adskilt: 'hvilke tilbud er godkjent' og 'hvilke flater viser dem' er forskjellige avgjorelser med forskjellig blast radius. Tilbakerulling er a sette en flate til 'off' og bygge pa nytt -- ingen kodeendring, ingen Chillout-endring, ingen migrasjon. Bygget gar hver 6. time og kan startes manuelt, sa verste fall er ett bygg. Verdien ma vare noyaktig 'on' eller 'off'; alt annet leses som 'off' og gir en synlig advarsel i byggeloggen, fordi en skrivefeil aldri skal kunne sla noe PA. Mangler fila, eller mangler denne propertyen i den, er alle flater av -- samme trygge utgang som resten av clickout-modulen: leverandor-URL-en virker alltid. Fila ligger i dette repoet og ikke i Chillout med vilje (Clickout v1, steg 3): lesekontrakten har i dag bare produktscopede ruter og eksponerer ingen property-konfigurasjon for en maskinnokkel, sa a legge bryteren der ville betydd ny rute, ny migrasjon og en editor -- altsa a bygge grensen framfor a passe inn i en. Prisen er notert: tilbakerulling krever da en commit pluss et bygg, framfor en verdi pluss et bygg.",
+  "$surfaces": {
+    "offer_card": "Det vanlige tilbudskortet i sammenligningslista.",
+    "winner_band": "Vinnerbanneret ovest pa produktsiden -- sidens mest fremtredende lenke.",
+    "quantity_calculator": "Antallskalkulatorens innebygde JSON, som skriver vinnerbanneret sin href pa nytt nar noen bytter antall. Star den av mens winner_band star pa, faller banneret tilbake til leverandor-URL-en i det noen trykker '2 esker' -- de to hører sammen."
+  },
+  "kontaktlinser-no": {
+    "offer_card": "on",
+    "winner_band": "on",
+    "quantity_calculator": "on"
+  }
+}

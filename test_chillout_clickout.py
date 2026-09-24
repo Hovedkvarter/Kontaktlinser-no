@@ -1099,6 +1099,155 @@ def test_the_generator_cannot_build_a_go_link() -> None:
     assert offenders == [], offenders
 
 
+# ------------------------------------------------- flatebryteren (steg 3)
+def surfaces_from(states, monkey=None):
+    """`enabled_surfaces()` mot et oppsett gitt her, ikke mot repoets egen fil.
+
+    Skriver en ekte fil i et midlertidig rot og peker modulen dit, framfor a
+    stubbe json.loads: da er det filhandteringen som testes og ikke en attrapp
+    av den."""
+    import tempfile
+
+    printed = Recorder()
+    original_root = chillout_clickout._ROOT
+    original_print = getattr(chillout_clickout, "print", None)
+    chillout_clickout.print = printed  # type: ignore[attr-defined]
+    try:
+        with tempfile.TemporaryDirectory() as folder:
+            if states is not None:
+                (Path(folder) / chillout_clickout.SURFACES_FILE).write_text(
+                    json.dumps(states), encoding="utf-8"
+                )
+            chillout_clickout._ROOT = folder
+            return chillout_clickout.enabled_surfaces(), printed
+    finally:
+        chillout_clickout._ROOT = original_root
+        if original_print is None:
+            del chillout_clickout.print  # type: ignore[attr-defined]
+        else:
+            chillout_clickout.print = original_print  # type: ignore[attr-defined]
+
+
+def test_the_shipped_configuration_has_every_surface_on() -> None:
+    """**Steg 3 endrer ingenting den dagen den lander.** En bryter som slar av
+    noe idet den innføres er ikke en kontroll, den er en endring."""
+    surfaces = chillout_clickout.enabled_surfaces()
+
+    assert surfaces == frozenset(chillout_clickout.SURFACES), sorted(surfaces)
+
+
+def test_the_configuration_file_names_exactly_the_surfaces_the_code_knows() -> None:
+    """To lister som ma stemme overens er en list for mye -- men her ER det to
+    steder, fordi den ene er kode og den andre er en verdi noen redigerer. Da
+    er kontrollen at de stemmer, ikke at de er en."""
+    config = json.loads(
+        (ROOT / chillout_clickout.SURFACES_FILE).read_text(encoding="utf-8")
+    )
+    states = config[chillout_clickout.PROPERTY]
+
+    assert set(states) == set(chillout_clickout.SURFACES), sorted(states)
+    assert set(states.values()) <= {"on", "off"}, states
+    # Dokumentasjonsnøkkelen beskriver hver flate; en ny flate uten forklaring
+    # er en flate den neste ikke vet hva gjor.
+    assert set(config["$surfaces"]) == set(chillout_clickout.SURFACES)
+
+
+def test_a_missing_file_turns_everything_off_and_says_so() -> None:
+    """Av er alltid trygt: leverandor-URL-en er det siden rendret for clickout
+    fantes. PA ved et uhell er den ene retningen en bryter ikke skal feile i."""
+    surfaces, printed = surfaces_from(None)
+
+    assert surfaces == frozenset()
+    assert printed.annotations, "en manglende fil skal vare synlig"
+    assert "flateoppsettet" in printed.text
+
+
+def test_a_missing_property_turns_everything_off() -> None:
+    surfaces, printed = surfaces_from({"apotekvarer-no": {"offer_card": "on"}})
+
+    assert surfaces == frozenset()
+    assert printed.annotations
+
+
+def test_a_typo_is_read_as_off_and_never_as_on() -> None:
+    """`On`, `true`, `yes`, `1` -- alle plausible, ingen av dem "on"."""
+    for value in ("On", "ON", "true", "yes", "1", 1, True, None):
+        surfaces, printed = surfaces_from(
+            {chillout_clickout.PROPERTY: {"offer_card": value}}
+        )
+        assert "offer_card" not in surfaces, value
+        if value is not None:
+            assert printed.annotations, value
+
+
+def test_one_surface_off_leaves_the_others_on() -> None:
+    surfaces, _ = surfaces_from(
+        {chillout_clickout.PROPERTY: {
+            "offer_card": "on", "winner_band": "off", "quantity_calculator": "on",
+        }}
+    )
+
+    assert surfaces == frozenset({"offer_card", "quantity_calculator"})
+
+
+def test_an_unknown_surface_is_ignored_and_reported() -> None:
+    """En flate som ikke finnes er som regel en skrivefeil pa en som gjor."""
+    surfaces, printed = surfaces_from(
+        {chillout_clickout.PROPERTY: {"offer_card": "on", "winnerband": "on"}}
+    )
+
+    assert surfaces == frozenset({"offer_card"})
+    assert "winnerband" in printed.text
+
+
+#: Det ene paret, slik kortet slar det opp.
+ONE_PAIR = {(PRODUCT, RETAILER): TOKEN}
+
+
+def test_a_surface_that_is_off_renders_the_provider_url() -> None:
+    """Hele veien gjennom: bryteren av, kortet tilbake pa leverandor-URL-en."""
+    off = chillout_clickout.Clickouts(ONE_PAIR, ("winner_band",))
+    on = chillout_clickout.Clickouts(ONE_PAIR, ("offer_card",))
+
+    assert "/go/" not in card(PRODUCT, RETAILER, off)
+    assert TOKEN in card(PRODUCT, RETAILER, on)
+
+
+def test_a_plain_dict_still_means_every_surface() -> None:
+    """**Bakoverkompatibiliteten er ikke en hoflighet.** Et vanlig dict er det
+    enhver kaller fra for bryteren fantes sender, og den trygge lesningen av
+    "ingen konfigurasjon her" er oppførselen som allerede var utrullet."""
+    assert TOKEN in card(PRODUCT, RETAILER, dict(ONE_PAIR))
+
+
+def test_an_empty_configuration_is_a_decision_and_not_a_default() -> None:
+    """Lest og tomt er ikke det samme som ikke lest. Det forste er noen som
+    skrudde alt av; det andre er en kaller fra for bryteren."""
+    nothing = chillout_clickout.Clickouts(ONE_PAIR, ())
+
+    assert "/go/" not in card(PRODUCT, RETAILER, nothing)
+
+
+def test_every_fallback_returns_a_clickouts_and_not_a_bare_dict() -> None:
+    """Et tomt dict ville lest som "alle flater pa" hos rendreren -- riktig
+    svar ved tilbakefall (ingen URL-er a vise uansett), men feil TYPE a love,
+    og en senere kaller som la noe i det ville fatt flater ingen skrudde pa."""
+    for kwargs in ({"origin": ""}, {"key": None}):
+        resolved, _ = run({}, **kwargs)
+        assert isinstance(resolved, chillout_clickout.Clickouts), kwargs
+        assert resolved == {}
+
+
+def test_the_build_line_names_the_surfaces() -> None:
+    """Uten dette kan en tilbakerulling ikke bekreftes uten a lese HTML."""
+    _, printed = run({}, responder=answering(every_offer(URLS)))
+
+    assert "flater pa:" in printed.text
+    for surface in chillout_clickout.SURFACES:
+        assert surface in printed.text
+    assert KEY not in printed.text
+
+
 def main() -> int:
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     failed = 0

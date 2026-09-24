@@ -483,6 +483,95 @@ def test_json_ld_never_carries_a_clickout() -> None:
     assert not [u for u in schema_urls if "/go/" in u], schema_urls
 
 
+def surfaces(*enabled):
+    """The clickout map with only these surfaces switched on."""
+    from site_generator.chillout_clickout import Clickouts
+
+    return Clickouts(CLICKOUTS, enabled)
+
+
+def test_the_winner_band_answers_to_its_own_switch() -> None:
+    """**A surface reading another surface's state is invisible in lockstep.**
+
+    Every other test here turns surfaces on and off together, so a band that
+    consulted `offer_card` would have passed all of them. Here they disagree:
+    the card is on, the band is off, and the page has to show both.
+
+    Uses the subset where Lensway genuinely wins, because no live page renders
+    a converted band.
+    """
+    from site_generator.render_templates import reconcile_product, render_product_page
+
+    target = product(TARGET_PRODUCT)
+    reconciled = reconcile_product(target["offers"], NOW)
+    lensway = next(o for o in reconciled if o["retailer"] == TARGET_RETAILER)
+    kept = [
+        o["retailer"] for o in reconciled
+        if o["retailer"] == TARGET_RETAILER or o["total"] > lensway["total"]
+    ]
+    subset = {**target, "offers": [o for o in target["offers"] if o["retailer"] in kept]}
+    rendered = {**subset, "offers": reconcile_product(subset["offers"], NOW)}
+
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, surfaces("offer_card", "quantity_calculator"),
+    )
+
+    assert "/go/" not in band_href_of(html), band_href_of(html)
+    assert band_href_of(html).startswith("https://")
+    # ...while the card for the same offer on the same page is still converted.
+    cards = dict(
+        (retailer, href) for href, retailer in re.findall(
+            r'<a class="offer-card[^"]*" href="([^"]*)"[^>]*data-retailer="([^"]*)"', html
+        )
+    )
+    assert cards[TARGET_RETAILER] == GO, cards[TARGET_RETAILER]
+
+
+def test_the_calculator_answers_to_its_own_switch() -> None:
+    """The other half: calculator off, card on, on an ordinary page."""
+    from site_generator.render_templates import reconcile_product, render_product_page
+
+    target = product(TARGET_PRODUCT)
+    rendered = {**target, "offers": reconcile_product(target["offers"], NOW)}
+
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, surfaces("offer_card", "winner_band"),
+    )
+
+    data = calculator_offers(html)
+    assert "/go/" not in data[TARGET_RETAILER], data[TARGET_RETAILER]
+    cards = dict(
+        (retailer, href) for href, retailer in re.findall(
+            r'<a class="offer-card[^"]*" href="([^"]*)"[^>]*data-retailer="([^"]*)"', html
+        )
+    )
+    assert cards[TARGET_RETAILER] == GO
+
+
+def test_the_card_answers_to_its_own_switch() -> None:
+    """And the third leg, so no pair of surfaces can be swapped for another."""
+    from site_generator.render_templates import reconcile_product, render_product_page
+
+    target = product(TARGET_PRODUCT)
+    rendered = {**target, "offers": reconcile_product(target["offers"], NOW)}
+
+    html = render_product_page(
+        rendered, CATALOG["categories"], {p["id"]: p for p in CATALOG["products"]},
+        [], NOW, [], None, surfaces("winner_band", "quantity_calculator"),
+    )
+
+    cards = dict(
+        (retailer, href) for href, retailer in re.findall(
+            r'<a class="offer-card[^"]*" href="([^"]*)"[^>]*data-retailer="([^"]*)"', html
+        )
+    )
+    assert "/go/" not in cards[TARGET_RETAILER], cards[TARGET_RETAILER]
+    # The calculator is on, so its entry for the same offer still is converted.
+    assert calculator_offers(html)[TARGET_RETAILER] == GO
+
+
 def main() -> int:
     tests = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
     failed = 0

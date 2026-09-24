@@ -2378,7 +2378,9 @@ def _render_product_badges(specs: list[tuple[str, str]]) -> str:
     return f'<div class="hero-badges">{items}</div>'
 
 
-def outbound_url(o: dict, retailer: str, product_id: str | None, clickouts: dict | None) -> str:
+def outbound_url(
+    o: dict, retailer: str, product_id: str | None, clickouts: dict | None, surface: str
+) -> str:
     """Den utgaende URL-en for ETT tilbud pa EN flate: clickout eller leverandor.
 
     **Alle kommersielle klikkflater kaller denne, og bare denne.** Kortet,
@@ -2400,8 +2402,23 @@ def outbound_url(o: dict, retailer: str, product_id: str | None, clickouts: dict
     Generatoren kan fortsatt ikke LAGE en /go/-lenke: den har en streng
     Chillout returnerte, eller ingenting.
     """
+    if not _surface_is_on(clickouts, surface):
+        return o["url"]
     resolved = (clickouts or {}).get((product_id, retailer))
     return (resolved if o["source"] == "affiliate_feed" else None) or o["url"]
+
+
+def _surface_is_on(clickouts, surface: str) -> bool:
+    """Om DENNE flaten far bruke clickout-kartet.
+
+    **Et vanlig dict betyr alle flater.** Det er det testene og enhver kaller
+    fra for bryteren fantes sender, og den trygge lesningen av "ingen
+    konfigurasjon her" er oppførselen som allerede var utrullet -- ikke a sla
+    av noe stille. Er oppsettet derimot lest og tomt, er det en avgjørelse
+    noen tok, og da er alt av.
+    """
+    enabled = getattr(clickouts, "enabled", None)
+    return True if enabled is None else surface in enabled
 
 
 def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
@@ -2467,7 +2484,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
     # lenke ingen nettverkspartner noen gang ser. Kontrakten ville neppe
     # tilby en clickout for et slikt tilbud -- men "neppe" er ikke en
     # garanti siden dette rendres pa denne siden av HTTP.
-    href = escape(outbound_url(o, retailer, product_id, clickouts))
+    href = escape(outbound_url(o, retailer, product_id, clickouts, "offer_card"))
     return f"""<a class="{css_class}" href="{href}" target="_blank" rel="{rel} noopener" aria-label="{price_label}" data-retailer="{escape(retailer)}" data-affiliate="{is_affiliate}">
   <div class="offer-main">
     <div class="offer-retailer">{_retailer_badge_html(retailer)} {lowest_tag}</div>
@@ -2735,7 +2752,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
     # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
-    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2786,7 +2803,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
             "retailer": o["retailer"],
             "price_nok": o["price_nok"],
             "shipping_policy": o.get("shipping_policy"),
-            "url": outbound_url(o, o["retailer"], product_id, clickouts),
+            "url": outbound_url(o, o["retailer"], product_id, clickouts, "quantity_calculator"),
             "rel": ("sponsored" if o["source"] == "affiliate_feed" else "nofollow") + " noopener",
             "logo_file": logo_entry[0] if logo_entry else None,
             "logo_dark": logo_entry[1] if logo_entry else False,

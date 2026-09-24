@@ -1437,6 +1437,39 @@ domeneeierskap, hosting eller merkenavn på selve siden.**
   helt tom for domener, og slettet den samme dag -- saken er dermed
   fullstendig avsluttet.
 
+## Chillout-clickout: sa ruller du tilbake (2026-09-25)
+
+Noen kommersielle lenker peker pa `/go/{token}` framfor rett til nettverket.
+Tokenet kommer fra Chillouts lesekontrakt pa byggetidspunktet; generatoren kan
+ikke lage en slik lenke selv.
+
+**Tilbakerulling er en verdi, ikke en kodeendring.** `clickout_surfaces.json`
+i repoets rot holder en tilstand per flate:
+
+| Flate | Hva den er |
+|---|---|
+| `offer_card` | Det vanlige tilbudskortet |
+| `winner_band` | Vinnerbanneret ovest -- sidens mest fremtredende lenke |
+| `quantity_calculator` | JSON-en som skriver banneret om nar noen bytter antall |
+
+Sett en til `"off"` og bygg. Da rendrer den flaten leverandor-URL-ene igjen --
+akkurat som for clickout fantes -- uten at noe annet flytter seg. Bygget gar
+hver 6. time og kan startes manuelt, sa verste fall er ett bygg.
+
+Tre ting som er lette a ta feil av:
+
+- **`winner_band` og `quantity_calculator` hører sammen.** Star banneret pa
+  mens kalkulatoren er av, faller banneret tilbake i det noen trykker "2
+  esker".
+- **Alt annet enn `"on"` leses som av**, og sier fra i byggeloggen. En
+  skrivefeil skal aldri kunne sla noe PA.
+- **A gjore et mal userverlig i Chillout er IKKE tilbakerulling.** Da svarer
+  `/go/` 404 mens siden fortsatt lenker dit, som er verre enn a gjore
+  ingenting. Bryteren over er den eneste tilbakerullingen.
+
+Hvilke TILBUD som er godkjent er et annet sporsmal, og det bor i `CONVERTED` i
+`site_generator/chillout_clickout.py`.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
