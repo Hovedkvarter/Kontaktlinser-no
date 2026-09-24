@@ -50,14 +50,14 @@ def required_products() -> set:
     utvide dekningen ikke river i seks tester som egentlig handler om noe
     annet."""
     keys = chillout_clickout._renderer_keys()
-    return {keys[o][0] for o in chillout_clickout.CONVERTED if o in keys}
+    return {k[0] for o in chillout_clickout.CONVERTED if o in keys for k in keys[o]}
 
 
 def every_offer(urls: dict) -> dict:
     """Ett svar som inneholder hvert godkjent tilbud, med sin egen URL."""
     keys = chillout_clickout._renderer_keys()
     return {"offers": [
-        {"offer_id": o, "advertiser": keys[o][1],
+        {"offer_id": o, "advertiser": keys[o][0][1],
          "link": {"clickout_available": True, "clickout_url": urls[o]}}
         for o in sorted(chillout_clickout.CONVERTED) if o in keys and o in urls
     ], "excluded": []}
@@ -168,6 +168,7 @@ def answering(body: dict, per_product: dict | None = None):
 
     def responder(request, timeout=None):
         responder.seen = request
+        responder.requests = getattr(responder, "requests", []) + [request]
         responder.timeout = timeout
         responder.urls = getattr(responder, "urls", []) + [request.full_url]
         if per_product:
@@ -205,7 +206,7 @@ def test_every_approved_offer_comes_through() -> None:
     keys = chillout_clickout._renderer_keys()
     found, printed = run({}, responder=answering(every_offer(URLS)))
 
-    assert found == {keys[o]: URLS[o] for o in chillout_clickout.CONVERTED}
+    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
     n = len(chillout_clickout.CONVERTED)
     assert f"{n}/{n} godkjente tilbud lost" in printed.text
 
@@ -728,8 +729,8 @@ def test_one_products_answer_does_not_warn_about_another_products_offer() -> Non
     en vellykket kjoring hadde sett ut som en rekke feil."""
     keys = chillout_clickout._renderer_keys()
     answers = {
-        chillout_clickout.PRODUCTS[keys[o][0]]: {
-            "offers": [{"offer_id": o, "advertiser": keys[o][1],
+        chillout_clickout.PRODUCTS[keys[o][0][0]]: {
+            "offers": [{"offer_id": o, "advertiser": keys[o][0][1],
                         "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
             "excluded": [],
         }
@@ -738,8 +739,77 @@ def test_one_products_answer_does_not_warn_about_another_products_offer() -> Non
     found, printed = run({}, responder=answering({"offers": [], "excluded": []},
                                                  per_product=answers))
 
-    assert found == {keys[o]: URLS[o] for o in chillout_clickout.CONVERTED}
+    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
     assert printed.annotations == [], printed.annotations
+
+
+def test_one_external_id_may_name_two_cards() -> None:
+    """**Fire EKTE oppforinger peker pa to interne produkter.**
+
+    Det samme fysiske produktet holdes med vilje under to id-er av
+    søkegrunner, og siden rendrer da samme tilbud pa begge produktsidene --
+    begge har seks tilbud hver, med de samme forhandlerne.
+
+    Det er ikke tvetydighet om hvilket TILBUD som menes: offer_id er feed
+    pluss external_id og er entydig. Det som er flertall er hvor siden viser
+    det, og svaret er begge steder.
+
+    Testen gir en kilde som bruker den delte tabellen en feed-id, mot den
+    EKTE matching-tabellen. Ingen dekning endres av det.
+    """
+    import json
+
+    matching = json.loads((ROOT / "product_matching.json").read_text(encoding="utf-8"))
+    sources = {"s4n": {"network": "tradedoubler", "display_name": "Shopping4net",
+                       "chillout_feed_id": "14910"}}
+
+    keys = chillout_clickout._keys_from(sources, matching)
+
+    assert keys["14910:CA"] == (
+        ("focus-dailies-30pk", "Shopping4net"),
+        ("dailies-all-day-comfort-30pk", "Shopping4net"),
+    )
+    assert keys["14910:LBF"] == (("biofinity-6pk", "Shopping4net"),)
+    # Og ingenting er en liste: en liste her ble brukt som dict-nokkel og
+    # kastet TypeError ut av byggingen, med null sider skrevet.
+    for value in keys.values():
+        assert isinstance(value, tuple)
+        for entry in value:
+            assert isinstance(entry, tuple) and len(entry) == 2
+            assert all(isinstance(x, str) for x in entry)
+
+
+def test_a_clickout_for_an_aliased_offer_reaches_both_cards() -> None:
+    """Samme tilbud, samme servable target, to kort. En bekreftet clickout
+    hører hjemme pa begge."""
+    import json
+
+    matching = json.loads((ROOT / "product_matching.json").read_text(encoding="utf-8"))
+    sources = {"s4n": {"network": "tradedoubler", "display_name": "Shopping4net",
+                       "chillout_feed_id": "14910"}}
+    keys = chillout_clickout._keys_from(sources, matching)
+
+    resolved = dict.fromkeys(keys["14910:CA"], "/go/tgt_DELTTILBUDXXXXXXXXXXXXXXX")
+
+    for product_id in ("focus-dailies-30pk", "dailies-all-day-comfort-30pk"):
+        assert href_of(card(product_id, "Shopping4net", resolved)).startswith("/go/")
+
+
+def test_the_shared_table_is_not_reachable_today() -> None:
+    """Defekten var latent, og skal fortsatt være det: ingen kilde pa den
+    delte tabellen har en feed-id, sa ingen av de fire oppforingene nas.
+    Dette er robusthet, ikke dekning."""
+    import json
+
+    sources = json.loads((ROOT / "sources_config.json").read_text(encoding="utf-8"))
+    configured = {
+        c.get("network") for c in sources.values()
+        if isinstance(c, dict) and c.get("chillout_feed_id")
+    }
+
+    assert configured == {"tradedoubler_lensway"}
+    keys = chillout_clickout._renderer_keys()
+    assert all(len(v) == 1 for v in keys.values()), "ingen alias i dagens oppslag"
 
 
 # ------------------------------------------------------- the request it sends
@@ -800,7 +870,12 @@ def test_the_key_reaches_the_header_and_nothing_else() -> None:
     responder = answering(BODY)
     found, printed = run({}, responder=responder)
 
-    assert responder.seen.get_header("Authorization") == f"Bearer {KEY}"
+    # **Hver** forespørsel, ikke bare den siste. En løkkevariabel som het det
+    # samme som legitimasjonen overskrev den, og da gikk produkt nummer to ut
+    # med en tuple som bearer token -- mens den forste sa helt riktig ut.
+    for seen in responder.requests:
+        assert seen.get_header("Authorization") == f"Bearer {KEY}"
+    assert len(responder.requests) == len(required_products())
     assert KEY not in printed.text
     assert found  # the control: the call really happened
 
@@ -846,8 +921,8 @@ def test_every_approved_offer_reaches_its_own_product() -> None:
     """
     keys = chillout_clickout._renderer_keys()
     answers = {
-        chillout_clickout.PRODUCTS[keys[o][0]]: {
-            "offers": [{"offer_id": o, "advertiser": keys[o][1],
+        chillout_clickout.PRODUCTS[keys[o][0][0]]: {
+            "offers": [{"offer_id": o, "advertiser": keys[o][0][1],
                         "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
             "excluded": [],
         }
@@ -856,9 +931,10 @@ def test_every_approved_offer_reaches_its_own_product() -> None:
     responder = answering({"offers": [], "excluded": []}, per_product=answers)
     found, printed = run({}, responder=responder)
 
-    assert found == {keys[o]: URLS[o] for o in chillout_clickout.CONVERTED}
+    assert found == {k: URLS[o] for o in chillout_clickout.CONVERTED for k in keys[o]}
     for o in chillout_clickout.CONVERTED:
-        assert href_of(card(*keys[o], found)) == URLS[o], o
+        for key in keys[o]:
+            assert href_of(card(*key, found)) == URLS[o], o
     n = len(chillout_clickout.CONVERTED)
     assert f"{n}/{n} godkjente tilbud lost" in printed.text
     assert printed.annotations == []
@@ -886,7 +962,9 @@ def test_the_catalogue_converts_exactly_the_approved_offers() -> None:
             if "/go/" in render_offer_card(o, o["retailer"], p["name"], p["id"], found):
                 converted.append((p["id"], o["retailer"]))
 
-    assert sorted(converted) == sorted(keys[o] for o in chillout_clickout.CONVERTED)
+    assert sorted(converted) == sorted(
+        k for o in chillout_clickout.CONVERTED for k in keys[o]
+    )
 
 
 def test_only_the_href_differs_on_the_converted_card() -> None:

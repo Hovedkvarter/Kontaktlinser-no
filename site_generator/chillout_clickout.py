@@ -135,8 +135,29 @@ def _renderer_keys() -> dict[str, tuple[str, str]]:
     except Exception as error:
         _warn(f"kunne ikke lese katalogoppsettet ({type(error).__name__})", "oppslag")
         return {}
+    return _keys_from(sources, matching)
 
-    keys: dict[str, tuple[str, str]] = {}
+
+def _keys_from(sources: dict, matching: dict) -> dict[str, tuple[tuple[str, str], ...]]:
+    """Den rene delen av oppslaget, skilt ut sa den kan testes mot de EKTE
+    tabellene uten a lese filer.
+
+    **Ett offer_id kan gi FLERE kort.** Fire ekte oppforinger i
+    product_matching.json peker pa TO interne produkter: det samme fysiske
+    produktet holdes med vilje under to id-er av søkegrunner, og siden rendrer
+    da samme tilbud pa begge produktsidene.
+
+    Det er ikke tvetydighet om hvilket TILBUD som menes -- offer_id er feed
+    pluss external_id og er entydig -- men om hvor siden viser det. Svaret er
+    begge steder, og en bekreftet clickout hører derfor hjemme pa begge
+    kortene: det er samme tilbud hos samme annonsor, og samme servable target.
+
+    Forste utgave antok en streng og ville lagt en LISTE inn i
+    oppslagsnokkelen. Den hadde sa blitt brukt som dict-nokkel og kastet
+    `TypeError: unhashable type: 'list'` ut av byggingen -- null sider skrevet.
+    Latent til na bare fordi ingen kilde pa den tabellen har en feed-id.
+    """
+    keys: dict[str, tuple[tuple[str, str], ...]] = {}
     for config in sources.values():
         if not isinstance(config, dict):
             continue
@@ -146,8 +167,14 @@ def _renderer_keys() -> dict[str, tuple[str, str]]:
         if not (feed_id and isinstance(table, dict) and retailer):
             continue
         for sku, product_id in table.items():
-            if not sku.startswith("$"):
-                keys[f"{feed_id}:{sku}"] = (product_id, retailer)
+            if sku.startswith("$"):
+                continue
+            products = product_id if isinstance(product_id, list) else [product_id]
+            named = tuple(
+                (p, retailer) for p in products if isinstance(p, str) and p
+            )
+            if named:
+                keys[f"{feed_id}:{sku}"] = named
     return keys
 
 
@@ -264,16 +291,18 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             # chillout_feed_id, eller en SKU som ikke star i tabellen.
             _warn("godkjent tilbud finnes ikke i katalogoppslaget", offer_id)
             continue
-        product_id = keys[offer_id][0]
-        platform_id = PRODUCTS.get(product_id)
-        if not platform_id:
+        # Ett godkjent tilbud kan hore til flere produkter; da ma alle
+        # spørres om, ellers rendres bare det ene kortet.
+        missing = [p for p, _ in keys[offer_id] if not PRODUCTS.get(p)]
+        if missing:
             # **Den advarselen som manglet.** "Vi spurte ikke" er noe helt
             # annet enn "vi spurte og fikk ingen clickout", og a si det forste
             # som det andre sender folk gjennom serveringskjeden forgjeves.
             _warn("produktet blir ikke spurt om (mangler plattform-id)",
-                  f"{offer_id} -> {product_id}")
+                  f"{offer_id} -> {', '.join(missing)}")
             continue
-        wanted[product_id] = platform_id
+        for product_id, _ in keys[offer_id]:
+            wanted[product_id] = PRODUCTS[product_id]
 
     for product_id, platform_id in sorted(wanted.items()):
         body, reason = _fetch(product_id, platform_id, key)
@@ -284,16 +313,18 @@ def clickout_urls() -> dict[tuple[str, str], str]:
         for offer_id, url in offered.items():
             # **Sammenkoblingen er offer_id, og ingenting annet.** Ingen
             # annonsor, intet visningsnavn, ingen normalisering av tekst.
-            if offer_id in CONVERTED and offer_id in keys:
-                resolved[keys[offer_id]] = url
+            if offer_id in CONVERTED:
+                # **Ikke `key`.** Legitimasjonen heter `key` i denne
+                # funksjonen, og en løkkevariabel med samme navn overskrev
+                # den: neste produkt ble da spurt med en tuple som bearer
+                # token. Testen som sjekker headeren fanget det.
+                for card_key in keys.get(offer_id, ()):
+                    resolved[card_key] = url
         for offer_id in sorted(CONVERTED):
             # Bare tilbudene som hører til DETTE produktet. Uten den
             # avgrensningen ville hvert produkt advart om de andres tilbud.
-            if (
-                offer_id in keys
-                and keys[offer_id][0] == product_id
-                and keys[offer_id] not in resolved
-            ):
+            here = [k for k in keys.get(offer_id, ()) if k[0] == product_id]
+            if here and any(k not in resolved for k in here):
                 _warn("ingen bekreftet clickout", offer_id)
 
     # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**
