@@ -16,6 +16,8 @@
   },
 
   "extraoptical": {
+    "$chillout_comment": "chillout_feed_id er Chillouts feed-resource-id for denne kilden, ikke et tall: Adtraction-tilbudenes offer_id i lesekontrakten er 'extraoptical:<annonsorens produktnavn>'. Verdien er lest av det faktiske svaret fra produksjon 2026-09-24, ikke utledet av noe monster.",
+    "chillout_feed_id": "extraoptical",
     "$comment": "FØRSTE ekte affiliate-avtale på siden (godkjent i Adtraction 2026-08-12). Tidligere blokkert for skraping (ren React-app uten server-rendret prisdata) -- løst av seg selv nå som de har egen feed i stedet. feed_url hentes FERSK ved hver bygging (se load_feed_url() i ingest_feed.py), ikke en fil som må lastes ned manuelt. Feeden er Adtraction sitt Google Shopping-formaterte eksport, forhandler-spesifikk (kun ExtraOptical, ingen egen merchant-navn-kolonne) -- se map_adtraction_row() i ingest_feed.py for feltnavn. cdelim=comma&tdelim=doublequote gir en standard CSV Python sin csv-modul leser uten spesialtilpasning (feeden støtter også tab/enkeltfnutt, men det krever egen dialect). display_name må være nøyaktig 'Extra Optical' -- det er nøkkelen extraoptical.svg-logoen er registrert under i RETAILER_LOGOS (render_templates.py). Apotekhjem kom til som nummer to Adtraction-forhandler 2026-08-28 (egen 'network': 'adtraction_apotekhjem' -- IKKE samme network-nøkkel som denne, siden Adtraction sitt 'id'-navnerom ikke er delt på tvers av forhandlere og product_matching.json derfor trenger separate oppslagstabeller per forhandler).",
     "display_name": "Extra Optical",
     "default_source": "affiliate_feed",

@@ -53,6 +53,26 @@ def required_products() -> set:
     return {k[0] for o in chillout_clickout.CONVERTED if o in keys for k in keys[o]}
 
 
+def answers_per_product(urls: dict) -> dict:
+    """Ett svar per produkt, med ALLE godkjente tilbud som hører til det.
+
+    To godkjente tilbud kan dele produkt -- Lensway og Extra Optical selger
+    begge Biofinity 6-pack -- og et oppsett med ett tilbud per produkt ville
+    stilltiende overskrevet det ene.
+    """
+    keys = chillout_clickout._renderer_keys()
+    grouped: dict = {}
+    for offer_id in sorted(chillout_clickout.CONVERTED):
+        for product_id, advertiser in keys[offer_id]:
+            platform_id = chillout_clickout.PRODUCTS[product_id]
+            body = grouped.setdefault(platform_id, {"offers": [], "excluded": []})
+            body["offers"].append(
+                {"offer_id": offer_id, "advertiser": advertiser,
+                 "link": {"clickout_available": True, "clickout_url": urls[offer_id]}}
+            )
+    return grouped
+
+
 def every_offer(urls: dict) -> dict:
     """Ett svar som inneholder hvert godkjent tilbud, med sin egen URL."""
     keys = chillout_clickout._renderer_keys()
@@ -64,7 +84,9 @@ def every_offer(urls: dict) -> dict:
 
 
 #: En URL per godkjent tilbud, sa en forveksling mellom dem er synlig.
-URLS = {"6884:1442": TOKEN, "6884:347": SECOND, "6884:154": THIRD}
+EXTRA = "/go/tgt_EXTRAOPTICALBIOFINITYXXXXX"
+URLS = {"6884:1442": TOKEN, "6884:347": SECOND, "6884:154": THIRD,
+        "extraoptical:Biofinity 6 stk-1": EXTRA}
 KEY = "apk_" + "K" * 43
 
 #: Et svar fra lesekontrakten, med tre annonsorer -- fordi det ER det
@@ -728,14 +750,7 @@ def test_one_products_answer_does_not_warn_about_another_products_offer() -> Non
     """Uten avgrensningen ville hvert produkt advart om de andres tilbud, sa
     en vellykket kjoring hadde sett ut som en rekke feil."""
     keys = chillout_clickout._renderer_keys()
-    answers = {
-        chillout_clickout.PRODUCTS[keys[o][0][0]]: {
-            "offers": [{"offer_id": o, "advertiser": keys[o][0][1],
-                        "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
-            "excluded": [],
-        }
-        for o in chillout_clickout.CONVERTED
-    }
+    answers = answers_per_product(URLS)
     found, printed = run({}, responder=answering({"offers": [], "excluded": []},
                                                  per_product=answers))
 
@@ -795,21 +810,28 @@ def test_a_clickout_for_an_aliased_offer_reaches_both_cards() -> None:
         assert href_of(card(product_id, "Shopping4net", resolved)).startswith("/go/")
 
 
-def test_the_shared_table_is_not_reachable_today() -> None:
-    """Defekten var latent, og skal fortsatt være det: ingen kilde pa den
-    delte tabellen har en feed-id, sa ingen av de fire oppforingene nas.
-    Dette er robusthet, ikke dekning."""
-    import json
+def test_the_alias_entries_are_reachable_and_cost_nothing() -> None:
+    """**Robusthetsfiksen kom akkurat i tide.**
 
-    sources = json.loads((ROOT / "sources_config.json").read_text(encoding="utf-8"))
-    configured = {
-        c.get("network") for c in sources.values()
-        if isinstance(c, dict) and c.get("chillout_feed_id")
-    }
+    Da Extra Optical fikk en feed-id ble adtraction-tabellen naabar, og to av
+    de fire alias-oppforingene med den. Uten fiksen ville en liste na havnet i
+    oppslagsnokkelen og kastet TypeError ut av byggingen -- null sider
+    skrevet, pa forste bygg etter denne endringen.
 
-    assert configured == {"tradedoubler_lensway"}
+    De koster ingenting: ingen av dem star i CONVERTED, sa ingen av dem
+    rendres. Det er nettopp skillet mellom robusthet og dekning."""
     keys = chillout_clickout._renderer_keys()
-    assert all(len(v) == 1 for v in keys.values()), "ingen alias i dagens oppslag"
+    multi = {o: v for o, v in keys.items() if len(v) > 1}
+
+    assert len(multi) == 2, sorted(multi)
+    for offer_id, cards in multi.items():
+        assert offer_id.startswith("extraoptical:")
+        assert len(cards) == 2
+        assert offer_id not in chillout_clickout.CONVERTED
+    # Og hver eneste verdi er fortsatt en tuple av par -- aldri en liste.
+    for value in keys.values():
+        assert isinstance(value, tuple)
+        assert all(isinstance(c, tuple) and len(c) == 2 for c in value)
 
 
 # ------------------------------------------------------- the request it sends
@@ -920,14 +942,7 @@ def test_every_approved_offer_reaches_its_own_product() -> None:
     alle kortene samme URL ville bestatt en test som bare talte dem.
     """
     keys = chillout_clickout._renderer_keys()
-    answers = {
-        chillout_clickout.PRODUCTS[keys[o][0][0]]: {
-            "offers": [{"offer_id": o, "advertiser": keys[o][0][1],
-                        "link": {"clickout_available": True, "clickout_url": URLS[o]}}],
-            "excluded": [],
-        }
-        for o in chillout_clickout.CONVERTED
-    }
+    answers = answers_per_product(URLS)
     responder = answering({"offers": [], "excluded": []}, per_product=answers)
     found, printed = run({}, responder=responder)
 
@@ -1022,6 +1037,12 @@ def main() -> int:
         except AssertionError as error:
             failed += 1
             print(f"  [FEIL] {fn.__name__}: {error}")
+        except Exception as error:
+            # Ikke bare AssertionError. En KeyError avbrot hele kjoringen og
+            # alt etter den ble aldri rapportert -- hverken bestatt eller
+            # feilet, bare borte.
+            failed += 1
+            print(f"  [KRASJ] {fn.__name__}: {type(error).__name__}: {error}")
     print("\n" + ("alle bestatt" if not failed else f"{failed} feilet"))
     return 1 if failed else 0
 

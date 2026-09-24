@@ -56,6 +56,11 @@ import urllib.request
 CONVERTED = {
     "6884:1442",  # Biofinity Toric 6-pack -- det forste, verifisert i nettleser
     "6884:347",   # Biofinity 6-pack -- verifisert i nettleser
+    # Forste tilbud hos en ANNEN annonsor og et ANNET nettverk. Adtraction
+    # sine external_id-er er annonsorens produktnavn, ikke tall -- derfor
+    # mellomrom i nokkelen. Bade id og prefiks er lest av
+    # produksjonssvaret 2026-09-24.
+    "extraoptical:Biofinity 6 stk-1",
 }
 # 6884:154 (Acuvue Oasys 6-pack) ble lagt til 2026-09-24 og fjernet samme dag.
 # Chillout HOLDER IKKE det tilbudet: oppslaget i produksjon ga offer_row False
