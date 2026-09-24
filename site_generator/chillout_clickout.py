@@ -47,8 +47,16 @@ import os
 import urllib.error
 import urllib.request
 
-#: Ett par. Dekningen for forste Step B-deploy, uendret fra bootstrap-en.
-CONVERTED = {("biofinity-toric-6pk", "Lensway")}
+#: **Dekningen, som Chillouts egne tilbudsnokler.** Ett tilbud.
+#:
+#: `feed:external_id` er ADR-031s stabile nokkel: den bestar bare av felter
+#: en prisendring ikke kan endre. Den erstatter matching pa annonsorens
+#: VISNINGSNAVN, som var det eneste felles feltet for -- og som ingen av
+#: sidene lovet a fortsette a stave likt.
+CONVERTED = {"6884:1442"}
+
+#: Repoets rot. Modulen ligger i site_generator/, oppsettfilene et niva over.
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 #: Hvilket produkt bygget spor om. En offentlig identifikator, ikke en
 #: kapabilitet -- i motsetning til tokenet den erstatter.
@@ -58,6 +66,49 @@ PROPERTY = "kontaktlinser-no"
 ORIGIN = os.environ.get("CHILLOUT_ORIGIN", "https://backoffice-test-d71d.up.railway.app")
 KEY_VARIABLE = "CHILLOUT_READ_KEY"
 TIMEOUT = 20
+
+
+def _renderer_keys() -> dict[str, tuple[str, str]]:
+    """Chillouts tilbudsnokkel til den nokkelen kortet kan sla opp pa.
+
+    **Dette er ikke en sammenkobling mellom to systemer.** Begge sidene av
+    denne funksjonen er sidens egne filer: `sources_config.json` eier bade
+    `chillout_feed_id` og `display_name`, og `retailer` pa et tilbud ER
+    `display_name` (ingest_feed.py setter det derfra). `product_matching.json`
+    eier SKU-til-produkt. Sammenkoblingen mot Chillout skjer pa `offer_id`
+    alene, lenger nede.
+
+    Grunnen til at kortet ikke bare slas opp pa offer_id: et tilbud i
+    katalogen har ingen SKU. Kortet vet produkt og forhandler, og det er den
+    nokkelen det kan sporre med.
+
+    Feiler aldri. Mangler en fil eller et felt, blir kartet tomt, og da star
+    leverandor-URL-ene -- samme trygge utgang som alt annet her.
+    """
+    try:
+        sources = json.loads(
+            open(os.path.join(_ROOT, "sources_config.json"), encoding="utf-8").read()
+        )
+        matching = json.loads(
+            open(os.path.join(_ROOT, "product_matching.json"), encoding="utf-8").read()
+        )
+    except Exception as error:
+        _warn(f"kunne ikke lese katalogoppsettet ({type(error).__name__})", "oppslag")
+        return {}
+
+    keys: dict[str, tuple[str, str]] = {}
+    for config in sources.values():
+        if not isinstance(config, dict):
+            continue
+        feed_id = config.get("chillout_feed_id")
+        table = matching.get(config.get("network") or "")
+        retailer = config.get("display_name")
+        if not (feed_id and isinstance(table, dict) and retailer):
+            continue
+        for sku, product_id in table.items():
+            if not sku.startswith("$"):
+                keys[f"{feed_id}:{sku}"] = (product_id, retailer)
+    return keys
 
 
 def _warn(category: str, detail: str) -> None:
@@ -92,7 +143,7 @@ def _fetch(product_id: str, platform_id: str, key: str) -> tuple[dict | None, st
 
 
 def _clickouts_in(body: object) -> dict[str, str]:
-    """Annonsor til clickout-URL, for de tilbudene som faktisk har en.
+    """**offer_id** til clickout-URL, for de tilbudene som faktisk har en.
 
     Bade `offers` og `excluded`: et ekskludert tilbud er tatt ut av den
     sammenlignbare sorteringen, ikke gjort uneabart, og a holde tilbake lenken
@@ -118,15 +169,15 @@ def _clickouts_in(body: object) -> dict[str, str]:
             if not isinstance(offer, dict):
                 continue
             link = offer.get("link")
-            advertiser = offer.get("advertiser")
+            offer_id = offer.get("offer_id")
             url = link.get("clickout_url") if isinstance(link, dict) else None
             if (
                 isinstance(link, dict)
                 and link.get("clickout_available")
                 and isinstance(url, str)
-                and isinstance(advertiser, str)
+                and isinstance(offer_id, str)
             ):
-                found[advertiser] = url
+                found[offer_id] = url
     return found
 
 
@@ -152,6 +203,7 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             print(f"Chillout-clickout: {KEY_VARIABLE} er ikke satt -- bruker leverandor-URL-er")
         return {}
 
+    keys = _renderer_keys()
     resolved: dict[tuple[str, str], str] = {}
     for product_id, platform_id in PRODUCTS.items():
         body, reason = _fetch(product_id, platform_id, key)
@@ -159,21 +211,16 @@ def clickout_urls() -> dict[tuple[str, str], str]:
             _warn(reason, product_id)
             continue
         offered = _clickouts_in(body)
-        for advertiser, url in offered.items():
-            if (product_id, advertiser) in CONVERTED:
-                resolved[(product_id, advertiser)] = url
-        for wanted_product, advertiser in CONVERTED:
-            if wanted_product == product_id and (product_id, advertiser) not in resolved:
-                # Kontrakten svarte, men uten en clickout for akkurat dette
-                # paret: enten ingen servable target, eller et annonsornavn
-                # som ikke matcher. Begge er trygge og begge er verdt a si.
-                # `offered` holder annonsorene kontrakten faktisk ga en
-                # clickout for. Er var annonsor ikke blant dem, men andre er
-                # det, sa stavet de to sidene navnet ulikt.
-                _warn(
-                    "annonsornavnet matchet ikke" if offered else "ingen bekreftet clickout",
-                    f"{wanted_product}/{advertiser}",
-                )
+        for offer_id, url in offered.items():
+            # **Sammenkoblingen er offer_id, og ingenting annet.** Ingen
+            # annonsor, intet visningsnavn, ingen normalisering av tekst.
+            if offer_id in CONVERTED and offer_id in keys:
+                resolved[keys[offer_id]] = url
+        for offer_id in sorted(CONVERTED):
+            if offer_id in keys and keys[offer_id] not in resolved:
+                # Kontrakten svarte, men uten en clickout for dette tilbudet:
+                # ingen servable target. Trygt, og verdt a si.
+                _warn("ingen bekreftet clickout", offer_id)
 
     # **En stille suksess er ikke til a skille fra et steg som aldri kjorte.**
     # Modulen sa ingenting nar alt gikk bra, sa byggeloggen sa likt ut enten

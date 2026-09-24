@@ -29,6 +29,8 @@
   },
 
   "lensway": {
+    "$chillout_comment": "chillout_feed_id er Tradedoubler-feedens fid, som allerede stod i $comment over. Chillout bygger sin stabile tilbudsnokkel som feed:external_id (ADR-031), sa 6884 pluss sourceProductId gir nøyaktig det offer_id lesekontrakten returnerer. Den star her som et felt fordi kode ikke kan lese en kommentar.",
+    "chillout_feed_id": "6884",
     "$comment": "Tradedoubler-feed AKTIVERT 2026-08-29 (fid=6884, samme token som Shopping4net/Lenson) -- bekreftet med brukeren, tidligere PF_392-feilen ('Requester is not connected to Feed') er borte. Bytt fra scraper til affiliate_feed. VIKTIG: Lensway sin feed er IKKE lense-eksklusiv -- 554 av 1000 rader er 'Briller' og 259 er 'Solbriller' (bekreftet 2026-08-29), category_prefixes under er derfor et reelt sikkerhetsnett her, ikke bare dobbel forsikring som hos Lenson. Kategoritaksonomien er ANNERLEDES enn Lenson sin -- 'Linser > ...' her, ikke 'Kontaktlinser > ...'. product_matching.json sin 'tradedoubler_lensway'-tabell er bygget PROGRAMMATISK fra de allerede verifiserte scrape_targets-slugene (products_meta.json/solutions_meta.json) -- Tradedoubler sin offers[0].sourceProductId er identisk med tall-suffikset i den scrapede URL-slugen (f.eks. 'hylo-fresh-extra-9887' -> sourceProductId '9887', bekreftet mot ekte feed-data for flere titalls produkter før dette ble stolt på i stor skala), IKKE gjettet fra navn. price_source=embedded_json-oppsettet under er BEHOLDT som dokumentasjon/fallback, men brukes ikke lenger siden default_source nå er affiliate_feed (should_scrape() i scraper.py returnerer false).",
     "display_name": "Lensway",
     "default_source": "affiliate_feed",

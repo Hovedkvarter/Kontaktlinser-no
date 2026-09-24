@@ -43,11 +43,11 @@ BODY = {
     "offers": [
         {"offer_id": "6884:1442", "advertiser": "Lensway",
          "link": {"clickout_available": True, "clickout_url": TOKEN}},
-        {"offer_id": "22008:x", "advertiser": "Shopping4net",
+        {"offer_id": "9560:1442", "advertiser": "Shopping4net",
          "link": {"clickout_available": True, "clickout_url": "/go/tgt_SHOPPING4NETXXXXXXXXXXXXX"}},
     ],
     "excluded": [
-        {"offer_id": "extraoptical:y", "advertiser": "Extra Optical",
+        {"offer_id": "2510:77", "advertiser": "Extra Optical",
          "link": {"clickout_available": True, "clickout_url": "/go/tgt_EXTRAOPTICALXXXXXXXXXXXXX"}},
     ],
 }
@@ -248,15 +248,113 @@ def test_a_url_without_the_flag_is_not_taken() -> None:
     _falls_back(found, printed, category="ingen bekreftet clickout")
 
 
-def test_the_advertiser_name_does_not_match() -> None:
-    """Sammenkoblingen gar pa annonsornavn, og ingenting handhever at de to
-    sidene fortsetter a stave det likt. En uenighet er en navngitt,
-    trygg utgang -- ikke en feil lenke."""
-    body = {"offers": [{"offer_id": "6884:1442", "advertiser": "LensWay AB",
+def test_the_advertiser_name_is_no_longer_part_of_the_decision() -> None:
+    """**Visningsnavnet avgjor ingenting lenger.**
+
+    For matchet vi pa `advertiser`, og et navn stavet annerledes pa den ene
+    siden ga ingen lenke. Na er sammenkoblingen offer_id, sa det samme
+    tilbudet lases opp uansett hva annonsoren kalles -- eller om feltet
+    mangler helt.
+    """
+    for advertiser in ("LensWay AB", "lensway", "", None):
+        body = {"offers": [{"offer_id": "6884:1442", "advertiser": advertiser,
+                            "link": {"clickout_available": True, "clickout_url": TOKEN}}],
+                "excluded": []}
+        found, _ = run({}, responder=answering(body))
+
+        assert found == {(PRODUCT, RETAILER): TOKEN}, advertiser
+
+
+def test_the_right_name_on_the_wrong_offer_is_refused() -> None:
+    """Den andre retningen, og den som betyr noe: riktig annonsornavn kan
+    ikke lenger slippe gjennom et tilbud vi ikke har godkjent."""
+    body = {"offers": [{"offer_id": "6884:9999", "advertiser": "Lensway",
                         "link": {"clickout_available": True, "clickout_url": TOKEN}}],
             "excluded": []}
     found, printed = run({}, responder=answering(body))
-    _falls_back(found, printed, category="annonsornavnet matchet ikke")
+    _falls_back(found, printed, category="ingen bekreftet clickout")
+
+
+def test_another_feeds_offer_with_the_same_sku_is_refused() -> None:
+    """**Hvorfor feed-id-en ma være med.** Lenson har fid 9560 og selger
+    samme produkt; SKU 1442 alene ville vært tvetydig mellom de to feedene.
+    Chillouts nokkel er feed PLUSS external_id nettopp derfor."""
+    body = {"offers": [{"offer_id": "9560:1442", "advertiser": "Lenson",
+                        "link": {"clickout_available": True, "clickout_url": TOKEN}}],
+            "excluded": []}
+    found, printed = run({}, responder=answering(body))
+    _falls_back(found, printed, category="ingen bekreftet clickout")
+
+
+def test_a_known_offer_outside_the_allowlist_is_refused() -> None:
+    """**Dekningen, ikke bare oppslaget.**
+
+    `6884:16` er et EKTE Lensway-tilbud: feed-id-en er var, SKU-en star i
+    tabellen, og oppslaget finner et kort a legge lenken pa. Det eneste som
+    holder den tilbake er CONVERTED. En mutasjon som droppet den sjekken
+    overlevde alt annet, fordi de andre tilbudene i stubben tilhorer feeder
+    uten chillout_feed_id og derfor aldri nadde oppslaget i det hele tatt.
+    """
+    other = "6884:16"  # biomedics-55-evolution-6pk
+    body = {"offers": [
+        {"offer_id": other, "advertiser": "Lensway",
+         "link": {"clickout_available": True, "clickout_url": "/go/tgt_ANNETXXXXXXXXXXXXXXXXXXXXX"}},
+    ], "excluded": []}
+    found, printed = run({}, responder=answering(body))
+
+    assert other not in str(found)
+    assert found == {}
+    assert "/go/" not in card("biomedics-55-evolution-6pk", RETAILER, found)
+    _falls_back(found, printed, category="ingen bekreftet clickout")
+
+
+def test_only_configured_feeds_contribute_lookup_keys() -> None:
+    """En kilde uten chillout_feed_id skal ikke bidra med nokler i det hele
+    tatt. Uten dette ville en kilde uten feed-id gitt nokler som `None:1442`
+    -- ufarlige, men stille, og de skjuler at oppsettet mangler noe."""
+    import json
+
+    keys = chillout_clickout._renderer_keys()
+    sources = json.loads((ROOT / "sources_config.json").read_text(encoding="utf-8"))
+    configured = {
+        c["chillout_feed_id"] for c in sources.values()
+        if isinstance(c, dict) and c.get("chillout_feed_id")
+    }
+
+    assert configured, "minst en kilde skal ha en feed-id"
+    assert keys, "oppslaget skal ikke være tomt"
+    for key in keys:
+        assert key.split(":")[0] in configured, key
+
+
+def test_the_feed_id_is_a_field_and_not_a_comment() -> None:
+    """Verdien stod allerede i repoet -- i en fritekstkommentar, der kode
+    ikke kan lese den. Dette er hele endringen pa oppsettsiden."""
+    import json
+
+    sources = json.loads((ROOT / "sources_config.json").read_text(encoding="utf-8"))
+
+    assert sources["lensway"]["chillout_feed_id"] == "6884"
+    assert sources["lensway"]["network"] == "tradedoubler_lensway"
+    # Og forhandlernavnet pa et tilbud ER display_name (ingest_feed.py), sa
+    # oppslagsnokkelen er sidens egen, ikke en avtale med Chillout.
+    assert sources["lensway"]["display_name"] == RETAILER
+
+
+def test_the_sku_mapping_inverts_uniquely() -> None:
+    """Sjekken som ble kjort for denne endringen, na fast.
+
+    Kartet gar SKU -> produkt. Skulle to SKU-er peke pa samme produkt, ville
+    det ikke lenger være entydig hvilket tilbud et kort svarer til."""
+    import collections
+    import json
+
+    table = json.loads((ROOT / "product_matching.json").read_text(encoding="utf-8"))
+    skus = {k: v for k, v in table["tradedoubler_lensway"].items() if not k.startswith("$")}
+    by_product = collections.Counter(skus.values())
+
+    assert [p for p, n in by_product.items() if n > 1] == []
+    assert [s for s, p in skus.items() if p == PRODUCT] == ["1442"]
 
 
 def test_a_missing_key_in_ci_is_a_warning() -> None:
@@ -443,7 +541,7 @@ def test_the_fetched_url_is_escaped_into_the_attribute() -> None:
     """Den hentede URL-en er den ENESTE fjernstyrte strengen som havner
     inne i et HTML-attributt. Den skal gjennom escape() som alt annet."""
     hostile = '/go/x" onmouseover="evil()'
-    body = {"offers": [{"advertiser": "Lensway",
+    body = {"offers": [{"offer_id": "6884:1442", "advertiser": "Lensway",
                         "link": {"clickout_available": True, "clickout_url": hostile}}],
             "excluded": []}
     found, _ = run({}, responder=answering(body))
