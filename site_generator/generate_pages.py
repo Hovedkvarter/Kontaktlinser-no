@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index
 from price_history import load_history, record_price, save_history
 
 BUILD_DIR = Path(__file__).parent / "build"
@@ -156,6 +156,13 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
+
+    # Guide-sidene henter denne først når noen fokuserer søkefeltet (forsiden
+    # har samme indeks innebygd) -- holder guide-HTML-en lett.
+    write_file(
+        BUILD_DIR / "data" / "search-index.json",
+        json.dumps(build_search_index(lens_products, private_labels), ensure_ascii=False, separators=(",", ":")),
+    )
 
     products_by_id = {p["id"]: p for p in lens_products}
 

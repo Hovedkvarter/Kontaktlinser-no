@@ -1470,6 +1470,31 @@ Tre ting som er lette a ta feil av:
 Hvilke TILBUD som er godkjent er et annet sporsmal, og det bor i `CONVERTED` i
 `site_generator/chillout_clickout.py`.
 
+## Søkeboks-CTA på guide-sider (2026-09-25)
+
+Guide-sidene får mest organisk trafikk (bl.a. `/guide/linse-sitter-fast-i-oyet/`),
+men mange forlater siden rett etter å ha lest svaret. Alle 40 guider har nå
+en søkeboks ("Bruker du kontaktlinser? Finn laveste pris"): en kompakt versjon
+rett etter første avsnitt (alle guider åpner med et `<p>`) og en full versjon
+med snarveier til kategorier nederst.
+
+- Delt kode i render_templates.py: `LENS_SEARCH_STYLE`, `LENS_SEARCH_JS`,
+  `build_search_index()`, `render_guide_search_card()`. Forsiden bruker nå
+  samme CSS/JS/indeks-bygger (innebygd JSON som før); guide-sidene henter
+  `/data/search-index.json` (skrives av generate_pages.py) først når feltet
+  får fokus, så guide-HTML forblir lett.
+- **SEO/AI-sikring (Kai krevde at dette ikke skulle gå ut over SEO/AI):**
+  verifisert mot produksjon at title, meta description, canonical, H1, H2-er,
+  JSON-LD og all brødtekst (utenom selve boksen) er byte-identiske, og at
+  svar-avsnittet fortsatt er første innhold i artikkelen. Boksene er
+  `<aside data-nosnippet>` (holdes utenfor Google-snutter, semantisk
+  "tilleggsinnhold" for AI-roboter), ingenting hentes ved sidelasting
+  (indeksen lastes kun ved fokus -> ingen LCP/CLS-effekt), og ingen nye
+  indekserbare URL-er. Pris: ca. +8,8 KB HTML per guide (ukomprimert).
+- Søket pusher `guide_search_click` til dataLayer (guide, product, source =
+  suggestion/button). **Krever en GA4-event-tag + trigger i GTM-beholderen
+  (GTM-5RZFVNQM) for å havne i Analytics** -- ikke laget ennå.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

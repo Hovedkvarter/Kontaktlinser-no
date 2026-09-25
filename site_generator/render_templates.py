@@ -3648,6 +3648,195 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 </html>"""
 
 
+# Delt mellom forsiden og guide-sidene (2026-09-25): guide-sidene får mest
+# organisk trafikk, men mange forlater siden rett etter å ha lest svaret --
+# søkeboksen gir dem en naturlig neste handling ("finn laveste pris på
+# linsene mine") uten å ligge i veien for selve guiden.
+LENS_SEARCH_STYLE = """
+.search-row { position: relative; }
+.search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
+.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }
+.search-input:hover { border-color: var(--blue-dark); }
+.search-input:focus { outline: none; border-color: var(--blue-dark); box-shadow: 0 0 0 4px var(--blue-tint); }
+.search-row:focus-within .search-icon { color: var(--blue); }
+.search-btn { position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }
+.search-btn:hover { background: var(--blue-dark); }
+.search-suggestions { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }
+.search-suggestion { display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }
+.search-suggestion:last-child { border-bottom: none; }
+.search-suggestion:hover { background: var(--mist); }
+.search-suggestion .product-thumb { width: 36px; height: 36px; font-size: 0.68rem; }
+.search-suggestion-name { font-weight: 600; font-size: 0.86rem; }
+.search-suggestion-meta { font-size: 0.75rem; color: var(--muted); }
+.search-no-match { padding: 14px; font-size: 0.84rem; color: var(--muted); }
+.guide-cta { background: var(--blue-tint); border: 1px solid var(--border); border-radius: 16px; padding: 18px 18px 16px; margin: 22px 0; }
+.guide-cta-compact { padding: 14px 16px; }
+.guide-cta-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0 0 4px; }
+.guide-cta-compact .guide-cta-title { margin-bottom: 10px; }
+.guide-cta-text { font-size: 0.88rem; line-height: 1.5; color: var(--muted); margin: 0 0 12px; }
+.guide-cta .search-input { font-size: 1rem; padding: 14px 92px 14px 46px; }
+.guide-cta .search-icon { left: 16px; width: 18px; height: 18px; }
+.guide-cta-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 12px; font-size: 0.82rem; color: var(--muted); }
+.guide-cta-links a { padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: white; color: var(--ink); text-decoration: none; font-weight: 600; }
+.guide-cta-links a:hover { border-color: var(--blue); color: var(--blue); }
+"""
+
+LENS_SEARCH_JS = """
+(function () {
+  var rows = document.querySelectorAll('.search-row');
+  if (!rows.length) return;
+
+  // Forsiden har indeksen innebygd som skjult JSON; guide-sidene henter den
+  // først når noen faktisk fokuserer søkefeltet (holder guide-HTML-en lett).
+  var dataPromise = null;
+  function loadData() {
+    if (dataPromise) return dataPromise;
+    var inlineProducts = document.getElementById('product-search-data');
+    if (inlineProducts) {
+      var inlineLabels = document.getElementById('private-label-search-data');
+      dataPromise = Promise.resolve(
+        JSON.parse(inlineProducts.textContent).concat(inlineLabels ? JSON.parse(inlineLabels.textContent) : [])
+      );
+    } else {
+      dataPromise = fetch('/data/search-index.json')
+        .then(function (r) { return r.json(); })
+        .catch(function () { dataPromise = null; return []; });
+    }
+    return dataPromise;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+    });
+  }
+
+  function track(row, name, source) {
+    var guide = row.getAttribute('data-guide');
+    if (!guide) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+  }
+
+  rows.forEach(function (row) {
+    var input = row.querySelector('.search-input');
+    var suggestions = row.querySelector('.search-suggestions');
+    var button = row.querySelector('.search-btn');
+
+    function hide() { suggestions.style.display = 'none'; suggestions.innerHTML = ''; }
+
+    function render(q) {
+      if (!q) { hide(); return; }
+      loadData().then(function (all) {
+        if (input.value.trim().toLowerCase() !== q) return;
+        var matches = all.filter(function (item) { return item.search.indexOf(q) !== -1; }).slice(0, 8);
+        if (matches.length === 0) {
+          suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
+          suggestions.style.display = 'block';
+          return;
+        }
+        suggestions.innerHTML = matches.map(function (item) {
+          var thumb = item.image
+            ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
+            : '<div class="product-thumb">' + esc(item.meta.slice(0, 2).toUpperCase()) + '</div>';
+          return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
+            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
+            '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
+        }).join('');
+        suggestions.style.display = 'block';
+      });
+    }
+
+    input.addEventListener('input', function () { render(input.value.trim().toLowerCase()); });
+    input.addEventListener('focus', function () {
+      loadData();
+      if (input.value.trim()) render(input.value.trim().toLowerCase());
+    });
+    document.addEventListener('click', function (e) { if (!row.contains(e.target)) suggestions.style.display = 'none'; });
+    suggestions.addEventListener('click', function (e) {
+      var link = e.target.closest('.search-suggestion');
+      if (link) track(row, link.getAttribute('data-name'), 'suggestion');
+    });
+
+    // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
+    // klikke første forslag -- vi har ingen egen søkeresultat-side, kun
+    // autofullføring, så dette er nærmeste naturlige "søk"-handling.
+    function goToBestMatch() {
+      var q = input.value.trim().toLowerCase();
+      if (!q) { input.focus(); return; }
+      loadData().then(function (all) {
+        var best = all.find(function (item) { return item.search.indexOf(q) !== -1; });
+        if (best) { track(row, best.name, 'button'); window.location.href = best.href; }
+        else { render(q); }
+      });
+    }
+    button.addEventListener('click', goToBestMatch);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
+    });
+  });
+})();
+"""
+
+
+def build_search_index(products: list[dict], private_labels: list[dict] | None = None) -> list[dict]:
+    """Søkeindeksen som driver autofullføringen (forside: innebygd som
+    skjult JSON; guide-sider: hentes fra /data/search-index.json).
+    "meta" er den synlige undertekst-linjen i forslagene -- kjedenavnet
+    skal IKKE vises der (samme regel som resten av siden), men "search"
+    (kun brukt til å MATCHE, aldri vist) beholder det, siden en bruker som
+    søker "Synsam" fortsatt bør finne EyeQ."""
+    entries = [
+        {
+            "name": p["name"],
+            "meta": p["brand_label"],
+            "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
+            "image": _product_image(p),
+            "search": f'{p["name"]} {p["brand_label"]}'.lower(),
+        }
+        for p in products
+    ]
+    entries += [
+        {
+            "name": label["name"],
+            "meta": "Eget merkenavn",
+            "href": f'/private-label/{label["slug"]}/',
+            "image": None,
+            "search": f'{label["name"]} {label["chain"]}'.lower(),
+        }
+        for label in (private_labels or [])
+    ]
+    return entries
+
+
+def render_guide_search_card(guide_slug: str, compact: bool = False) -> str:
+    title = "Bruker du kontaktlinser? Finn laveste pris"
+    row = f"""<div class="search-row" data-guide="{escape(guide_slug)}">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+      <input type="search" class="search-input" placeholder="Søk linse eller merke" aria-label="Søk etter linse eller merke" autocomplete="off">
+      <button type="button" class="search-btn">Søk</button>
+      <div class="search-suggestions"></div>
+    </div>"""
+    if compact:
+        return f"""<aside class="guide-cta guide-cta-compact" aria-label="Sammenlign priser" data-nosnippet>
+    <p class="guide-cta-title">{title}</p>
+    {row}
+  </aside>"""
+    return f"""<aside class="guide-cta" aria-label="Sammenlign priser" data-nosnippet>
+    <p class="guide-cta-title">{title}</p>
+    <p class="guide-cta-text">Søk på linsen eller merket du bruker – vi sammenligner norske nettbutikker og viser totalpris inkludert frakt.</p>
+    {row}
+    <div class="guide-cta-links">
+      <span>Eller bla etter type:</span>
+      <a href="/kontaktlinser/dagslinser/">Dagslinser</a>
+      <a href="/kontaktlinser/manedslinser/">Månedslinser</a>
+      <a href="/kontaktlinser/toriske-linser/">Toriske</a>
+      <a href="/kontaktlinser/multifokale-linser/">Multifokale</a>
+      <a href="/#merker">Alle merker</a>
+    </div>
+  </aside>"""
+
+
 def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
@@ -3656,34 +3845,11 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # sendes som skjult JSON i stedet for synlige kort, slik at søket
     # fortsatt dekker alt uten at forsidens HTML/DOM må inneholde hvert
     # eneste produkt (dårlig for sidevekt og for topisk SEO-fokus).
-    def build_search_entry(p: dict) -> dict:
-        return {
-            "name": p["name"],
-            "meta": p["brand_label"],
-            "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/',
-            "image": _product_image(p),
-            "search": f'{p["name"]} {p["brand_label"]}'.lower(),
-        }
-
-    def build_private_label_search_entry(label: dict) -> dict:
-        # "meta" er den synlige undertekst-linjen i søkeforslags-dropdownen --
-        # kjedenavnet skal IKKE vises der (samme regel som resten av siden).
-        # "search" (kun brukt til å MATCHE søket, aldri vist) beholder
-        # kjedenavnet siden en bruker som søker "Synsam" fortsatt bør finne
-        # EyeQ -- det er et søkbarhets-hensyn, ikke en synlig kjede-nevning.
-        return {
-            "name": label["name"],
-            "meta": "Eget merkenavn",
-            "href": f'/private-label/{label["slug"]}/',
-            "image": None,
-            "search": f'{label["name"]} {label["chain"]}'.lower(),
-        }
-
     search_index_json = json.dumps(
-        [build_search_entry(p) for p in catalog["products"]], ensure_ascii=False
+        build_search_index(catalog["products"]), ensure_ascii=False
     ).replace("</", "<\\/")
     private_label_search_index_json = json.dumps(
-        [build_private_label_search_entry(l) for l in (private_labels or [])], ensure_ascii=False
+        build_search_index([], private_labels), ensure_ascii=False
     ).replace("</", "<\\/")
 
     brand_counts: dict[str, int] = {}
@@ -3904,22 +4070,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-item-icon svg {{ width: 17px; height: 17px; }}
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--ink); }}
 .trust-item span {{ font-size: 0.75rem; color: var(--muted); }}
-.search-row {{ position: relative; }}
-.search-icon {{ position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }}
-.search-input {{ width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }}
-.search-input:hover {{ border-color: var(--blue-dark); }}
-.search-input:focus {{ outline: none; border-color: var(--blue-dark); box-shadow: 0 0 0 4px var(--blue-tint); }}
-.search-row:focus-within .search-icon {{ color: var(--blue); }}
-.search-btn {{ position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }}
-.search-btn:hover {{ background: var(--blue-dark); }}
-.search-suggestions {{ display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }}
-.search-suggestion {{ display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }}
-.search-suggestion:last-child {{ border-bottom: none; }}
-.search-suggestion:hover {{ background: var(--mist); }}
-.search-suggestion .product-thumb {{ width: 36px; height: 36px; font-size: 0.68rem; }}
-.search-suggestion-name {{ font-weight: 600; font-size: 0.86rem; }}
-.search-suggestion-meta {{ font-size: 0.75rem; color: var(--muted); }}
-.search-no-match {{ padding: 14px; font-size: 0.84rem; color: var(--muted); }}
+{LENS_SEARCH_STYLE}
 .section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
@@ -4107,66 +4258,14 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 <script type="application/json" id="product-search-data">{search_index_json}</script>
 <script type="application/json" id="private-label-search-data">{private_label_search_index_json}</script>
 <script>
-  // Søket kjører mot en liten skjult JSON-indeks (under), ikke mot synlige
+  // Søket kjører mot en liten skjult JSON-indeks (over), ikke mot synlige
   // produktkort -- forsiden viser bevisst IKKE lenger alle {n_products}
   // linsene (fjernet 2026-08-15, se CLAUDE.md): en forside stappet full av
   // hvert eneste produkt utvannet det topiske fokuset for SEO/AI-sitering
   // og konkurrerte med egne kategori-/merkesider om de samme søkene.
   // Kategoriene og merkene under er nå den reelle "se alt"-inngangen.
-  const searchInput = document.getElementById('lens-search');
-  const suggestions = document.getElementById('search-suggestions');
-  const productData = JSON.parse(document.getElementById('product-search-data').textContent);
-  const privateLabelData = JSON.parse(document.getElementById('private-label-search-data').textContent);
-  const allSearchable = productData.concat(privateLabelData);
-
-  function renderSuggestions(q) {{
-    if (!q) {{
-      suggestions.style.display = 'none';
-      suggestions.innerHTML = '';
-      return;
-    }}
-    const matches = allSearchable.filter(item => item.search.includes(q)).slice(0, 8);
-    if (matches.length === 0) {{
-      suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
-      suggestions.style.display = 'block';
-      return;
-    }}
-    suggestions.innerHTML = matches.map(item => {{
-      const thumbHtml = item.image
-        ? `<div class="product-thumb"><img src="${{item.image}}" alt="" loading="lazy"></div>`
-        : `<div class="product-thumb">${{item.meta.slice(0, 2).toUpperCase()}}</div>`;
-      return `<a class="search-suggestion" href="${{item.href}}">${{thumbHtml}}` +
-        `<div><div class="search-suggestion-name">${{item.name}}</div>` +
-        `<div class="search-suggestion-meta">${{item.meta}}</div></div></a>`;
-    }}).join('');
-    suggestions.style.display = 'block';
-  }}
-
-  searchInput.addEventListener('input', () => {{
-    renderSuggestions(searchInput.value.trim().toLowerCase());
-  }});
-
-  searchInput.addEventListener('focus', () => {{
-    if (searchInput.value.trim()) renderSuggestions(searchInput.value.trim().toLowerCase());
-  }});
-
-  document.addEventListener('click', e => {{
-    if (!e.target.closest('.search-row')) suggestions.style.display = 'none';
-  }});
-
-  // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
-  // klikke første forslag i dropdownen -- vi har ingen egen søkeresultat-
-  // side, kun autofullføring, så dette er nærmeste naturlige "søk"-handling.
-  function goToBestMatch() {{
-    const q = searchInput.value.trim().toLowerCase();
-    if (!q) {{ searchInput.focus(); return; }}
-    const best = allSearchable.find(item => item.search.includes(q));
-    if (best) window.location.href = best.href;
-  }}
-  document.getElementById('search-btn').addEventListener('click', goToBestMatch);
-  searchInput.addEventListener('keydown', e => {{
-    if (e.key === 'Enter') {{ e.preventDefault(); goToBestMatch(); }}
-  }});
+  // Selve søkelogikken er delt med guide-sidene, se LENS_SEARCH_JS.
+{LENS_SEARCH_JS}
 </script>
 {render_footer()}
 {CONSENT_BANNER_HTML}
@@ -5717,6 +5816,11 @@ def render_guide_page(slug: str) -> str | None:
   "dateModified": "{updated_iso}"
 }}</script>"""
 
+    # Kompakt søkeboks rett etter første avsnitt (alle guider åpner med et
+    # <p> som svarer på spørsmålet) -- synlig uten å skyve svaret bort; den
+    # fulle boksen med snarveier ligger nederst.
+    body_with_cta = guide["body_html"].replace("</p>", "</p>\n    " + render_guide_search_card(slug, compact=True), 1)
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -5732,6 +5836,7 @@ def render_guide_page(slug: str) -> str | None:
 {article_schema}
 <style>{SHARED_STYLE}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
+{LENS_SEARCH_STYLE}
 </style>
 </head>
 <body>
@@ -5746,10 +5851,12 @@ def render_guide_page(slug: str) -> str | None:
     </div>
   </div>
   <div style="max-width:640px;">
-    {guide["body_html"]}
+    {body_with_cta}
     {faq_html}
+    {render_guide_search_card(slug)}
   </div>
 </div>
+<script>{LENS_SEARCH_JS}</script>
 {render_footer()}
 {CONSENT_BANNER_HTML}
 {CONSENT_SCRIPT}
