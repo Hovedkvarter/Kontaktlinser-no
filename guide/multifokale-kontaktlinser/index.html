@@ -314,6 +314,34 @@ a { color: inherit; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
 .guide-byline { font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }
+
+.search-row { position: relative; }
+.search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
+.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }
+.search-input:hover { border-color: var(--blue-dark); }
+.search-input:focus { outline: none; border-color: var(--blue-dark); box-shadow: 0 0 0 4px var(--blue-tint); }
+.search-row:focus-within .search-icon { color: var(--blue); }
+.search-btn { position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }
+.search-btn:hover { background: var(--blue-dark); }
+.search-suggestions { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }
+.search-suggestion { display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }
+.search-suggestion:last-child { border-bottom: none; }
+.search-suggestion:hover { background: var(--mist); }
+.search-suggestion .product-thumb { width: 36px; height: 36px; font-size: 0.68rem; }
+.search-suggestion-name { font-weight: 600; font-size: 0.86rem; }
+.search-suggestion-meta { font-size: 0.75rem; color: var(--muted); }
+.search-no-match { padding: 14px; font-size: 0.84rem; color: var(--muted); }
+.guide-cta { background: var(--blue-tint); border: 1px solid var(--border); border-radius: 16px; padding: 18px 18px 16px; margin: 22px 0; }
+.guide-cta-compact { padding: 14px 16px; }
+.guide-cta-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0 0 4px; }
+.guide-cta-compact .guide-cta-title { margin-bottom: 10px; }
+.guide-cta-text { font-size: 0.88rem; line-height: 1.5; color: var(--muted); margin: 0 0 12px; }
+.guide-cta .search-input { font-size: 1rem; padding: 14px 92px 14px 46px; }
+.guide-cta .search-icon { left: 16px; width: 18px; height: 18px; }
+.guide-cta-links { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 12px; font-size: 0.82rem; color: var(--muted); }
+.guide-cta-links a { padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: white; color: var(--ink); text-decoration: none; font-weight: 600; }
+.guide-cta-links a:hover { border-color: var(--blue); color: var(--blue); }
+
 </style>
 </head>
 <body>
@@ -573,6 +601,15 @@ a { color: inherit; }
 <p>Alderssyn (presbyopi) er en naturlig, aldersrelatert svekkelse av øyets evne til å
 stille skarpt på nært hold, som de fleste merker fra rundt 40–45-årsalderen.
 Multifokale kontaktlinser er laget for å korrigere dette.</p>
+    <aside class="guide-cta guide-cta-compact" aria-label="Sammenlign priser" data-nosnippet>
+    <p class="guide-cta-title">Bruker du kontaktlinser? Finn laveste pris</p>
+    <div class="search-row" data-guide="multifokale-kontaktlinser">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+      <input type="search" class="search-input" placeholder="Søk linse eller merke" aria-label="Søk etter linse eller merke" autocomplete="off">
+      <button type="button" class="search-btn">Søk</button>
+      <div class="search-suggestions"></div>
+    </div>
+  </aside>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
 <p style="font-size:1rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
@@ -600,8 +637,122 @@ for å sammenligne priser.</p>
   <p>Vanligvis 1–2 uker, men det varierer fra person til person. Ulike linsedesign passer ulikt, og optikeren hjelper deg å finne riktig type.</p>
 </div>
   </div>
+    <aside class="guide-cta" aria-label="Sammenlign priser" data-nosnippet>
+    <p class="guide-cta-title">Bruker du kontaktlinser? Finn laveste pris</p>
+    <p class="guide-cta-text">Søk på linsen eller merket du bruker – vi sammenligner norske nettbutikker og viser totalpris inkludert frakt.</p>
+    <div class="search-row" data-guide="multifokale-kontaktlinser">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+      <input type="search" class="search-input" placeholder="Søk linse eller merke" aria-label="Søk etter linse eller merke" autocomplete="off">
+      <button type="button" class="search-btn">Søk</button>
+      <div class="search-suggestions"></div>
+    </div>
+    <div class="guide-cta-links">
+      <span>Eller bla etter type:</span>
+      <a href="/kontaktlinser/dagslinser/">Dagslinser</a>
+      <a href="/kontaktlinser/manedslinser/">Månedslinser</a>
+      <a href="/kontaktlinser/toriske-linser/">Toriske</a>
+      <a href="/kontaktlinser/multifokale-linser/">Multifokale</a>
+      <a href="/#merker">Alle merker</a>
+    </div>
+  </aside>
   </div>
 </div>
+<script>
+(function () {
+  var rows = document.querySelectorAll('.search-row');
+  if (!rows.length) return;
+
+  // Forsiden har indeksen innebygd som skjult JSON; guide-sidene henter den
+  // først når noen faktisk fokuserer søkefeltet (holder guide-HTML-en lett).
+  var dataPromise = null;
+  function loadData() {
+    if (dataPromise) return dataPromise;
+    var inlineProducts = document.getElementById('product-search-data');
+    if (inlineProducts) {
+      var inlineLabels = document.getElementById('private-label-search-data');
+      dataPromise = Promise.resolve(
+        JSON.parse(inlineProducts.textContent).concat(inlineLabels ? JSON.parse(inlineLabels.textContent) : [])
+      );
+    } else {
+      dataPromise = fetch('/data/search-index.json')
+        .then(function (r) { return r.json(); })
+        .catch(function () { dataPromise = null; return []; });
+    }
+    return dataPromise;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+    });
+  }
+
+  function track(row, name, source) {
+    var guide = row.getAttribute('data-guide');
+    if (!guide) return;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+  }
+
+  rows.forEach(function (row) {
+    var input = row.querySelector('.search-input');
+    var suggestions = row.querySelector('.search-suggestions');
+    var button = row.querySelector('.search-btn');
+
+    function hide() { suggestions.style.display = 'none'; suggestions.innerHTML = ''; }
+
+    function render(q) {
+      if (!q) { hide(); return; }
+      loadData().then(function (all) {
+        if (input.value.trim().toLowerCase() !== q) return;
+        var matches = all.filter(function (item) { return item.search.indexOf(q) !== -1; }).slice(0, 8);
+        if (matches.length === 0) {
+          suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
+          suggestions.style.display = 'block';
+          return;
+        }
+        suggestions.innerHTML = matches.map(function (item) {
+          var thumb = item.image
+            ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
+            : '<div class="product-thumb">' + esc(item.meta.slice(0, 2).toUpperCase()) + '</div>';
+          return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
+            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
+            '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
+        }).join('');
+        suggestions.style.display = 'block';
+      });
+    }
+
+    input.addEventListener('input', function () { render(input.value.trim().toLowerCase()); });
+    input.addEventListener('focus', function () {
+      loadData();
+      if (input.value.trim()) render(input.value.trim().toLowerCase());
+    });
+    document.addEventListener('click', function (e) { if (!row.contains(e.target)) suggestions.style.display = 'none'; });
+    suggestions.addEventListener('click', function (e) {
+      var link = e.target.closest('.search-suggestion');
+      if (link) track(row, link.getAttribute('data-name'), 'suggestion');
+    });
+
+    // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
+    // klikke første forslag -- vi har ingen egen søkeresultat-side, kun
+    // autofullføring, så dette er nærmeste naturlige "søk"-handling.
+    function goToBestMatch() {
+      var q = input.value.trim().toLowerCase();
+      if (!q) { input.focus(); return; }
+      loadData().then(function (all) {
+        var best = all.find(function (item) { return item.search.indexOf(q) !== -1; });
+        if (best) { track(row, best.name, 'button'); window.location.href = best.href; }
+        else { render(q); }
+      });
+    }
+    button.addEventListener('click', goToBestMatch);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
+    });
+  });
+})();
+</script>
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-col">
