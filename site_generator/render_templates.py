@@ -8204,11 +8204,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     ]
     illustration = render_private_label_illustration(chain, label["slug"])
     if illustration:
-        hero_visual = f'<div class="pli-tile-wrap">{illustration}</div>'
-        illustration_note = '<p class="illustration-note">Egen illustrasjon, ikke et ekte produktbilde. <a href="/om-produktillustrasjoner/">Les mer</a></p>'
+        hero_visual = (f'<div class="pli-tile-wrap">{illustration}</div>'
+                       '<p class="illustration-note">Egen illustrasjon, ikke et ekte produktbilde. <a href="/om-produktillustrasjoner/">Les mer</a></p>')
     else:
         hero_visual = escape(private_name[:2].upper())
-        illustration_note = ""
     subbrand_slug = PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower()
     related_items.append((f'/merke/{subbrand_slug}/', f'Flere {PRIVATE_LABEL_SUBBRANDS.get(chain, chain)}-produkter'))
     related_links = "\n    ".join(f'<li><a href="{escape(href)}">{escape(label_text)}</a></li>' for href, label_text in related_items)
@@ -8237,7 +8236,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .hero-card-solution .hero-product-image.pli-hero {{ padding: 8px; }}
 .hero-card-solution .pli-hero .pli-tile-wrap {{ width: 100%; }}
-.illustration-note {{ margin: 12px 0 0; font-size: 0.78rem; color: var(--muted); }}
+.hero-card-solution .hero-product-image.pli-hero {{ flex-direction: column; gap: 10px; }}
+.illustration-note {{ margin: 0; padding: 0 8px; font-size: 0.68rem; line-height: 1.4; color: var(--muted); text-align: center; font-family: 'Inter', sans-serif; font-weight: 400; }}
 .illustration-note a {{ color: var(--blue); }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
@@ -8267,7 +8267,6 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
       <div class="kicker">Eget merkenavn</div>
       <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
       <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
-      {illustration_note}
       </div>
       {winner_html}
       {ai_summary_html}
