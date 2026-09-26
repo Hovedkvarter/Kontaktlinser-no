@@ -2623,7 +2623,7 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None) -> tuple[str, str]:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False) -> tuple[str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple: vinnerkortet står i toppen av
     siden, antallsvelgeren (qty_box) som egen seksjon under.
 
@@ -2652,7 +2652,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     n_shops = len([o for o in offers if o["in_stock"]])
     # Kortet er en <div>; selve KNAPPEN er lenken (id + tracking-attributter), slik at
     # "Sammenlign alle butikker"-lenken ikke havner nøstet inni en annen <a>.
-    winner_band = f"""<div class="winner-band winner-band-cta">
+    winner_band = f"""<div class="winner-band winner-band-cta{' winner-band-wide' if wide else ''}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2761,6 +2761,15 @@ PRICE_LIST_STYLE = """
 .winner-more { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 .winner-more:hover { text-decoration: underline; }
 #tilbud { scroll-margin-top: 16px; }
+/* Sider uten hero-kolonne (linsevæske, øyedråper, private label): kortet blir en bred stripe */
+@media (min-width: 700px) {
+  .winner-band-wide { max-width: none; margin: 16px 0; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "left btn" "left more"; align-items: center; text-align: left; column-gap: 28px; row-gap: 8px; padding: 18px 24px; }
+  .winner-band-wide .winner-left { grid-area: left; flex-direction: row; align-items: center; gap: 16px; }
+  .winner-band-wide .label-group { align-items: flex-start; }
+  .winner-band-wide .retailer { justify-content: flex-start; margin-top: 8px; }
+  .winner-band-wide .winner-btn { grid-area: btn; width: auto; min-width: 210px; }
+  .winner-band-wide .winner-more { grid-area: more; text-align: center; }
+}
 @media (min-width: 860px) {
   /* align-self: center -- kortet er kun så høyt som innholdet og flyter midt i
      kolonnen, i stedet for å strekkes til hele hero-radens høyde (ga et stort
@@ -7462,6 +7471,53 @@ SOLUTION_CATEGORIES = {
 }
 
 
+# Hero-kort med produktbilde + tekst + vinnerkort, delt av lens- og tilbehørssider
+# (kopi av reglene i render_product_page sin <style>, uten f-string-escaping).
+HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+.hero-card .hero-copy h1 { font-size: 1.6rem; }
+.hero-main { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 860px) {
+  .hero-card { padding: 28px; }
+  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
+     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
+     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
+     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
+     direkte barn siden auto-plassering ikke gir riktig resultat når
+     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
+  .hero-main { display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }
+  .hero-main .hero-product-image { grid-column: 1; grid-row: 1 / 3; }
+  .hero-main .hero-copy { grid-column: 2; grid-row: 1; }
+  .hero-main .winner-band { grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }
+  .hero-main .winner-left { flex-direction: column; align-items: center; gap: 0; }
+  .hero-main .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
+  .hero-main .winner-band .label { margin-top: 0; }
+  .hero-main .winner-band .retailer { justify-content: center; margin-top: 10px; }
+  .hero-main .winner-band .winner-shipping { margin-top: 10px; }
+  .hero-main .winner-price-group { text-align: center; }
+  .hero-main .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
+  .hero-main .winner-price-note { margin-top: 7px; line-height: 1; }
+  .hero-main .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
+  .hero-main .product-ai-summary { grid-column: 2 / 4; grid-row: 2; margin: 0; }
+}
+.hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
+.hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
+@media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
+@media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
+/* Fade-masken (radial gradient som lot hvite produktbilder smelte inn i
+   siden) er fjernet -- den var designet for å blande hvitt inn i en FARGET
+   hero-bakgrunn, men heroen er nå selv hvit (se .hero-card), så masken
+   gjorde ingenting nyttig lenger og risikerte i tillegg å dempe kantene på
+   bilder som IKKE er helt rene hvite (se SofLens-bildet med grå bakgrunn
+   som avslørte den "blob"-formede kanteffekten tidligere i dag). Minimal
+   padding (6px, ikke 0) kun for å unngå at bildet klipper helt inntil
+   kortkanten -- ellers skal bildet fylle mest mulig av ruta, som ønsket. */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 6px; }
+.hero-product-image.has-photo img { object-fit: contain; }
+@media (min-width: 1024px) { .wrap-product { max-width: 1280px; } }
+.hero-card .product-ai-summary { background: var(--blue-tint); border-left: none; border-radius: 10px; margin: 16px 0 0; }
+"""
+
+
 def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None) -> str:
     """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
     kontaktlinser (size_ml/solution_type/solution_category i stedet for
@@ -7499,13 +7555,13 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
     # kontaktlinseesker.
     winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], unit_singular="flaske", unit_plural="flasker", product_id=product["id"], clickouts=clickouts)
-    best_band = f"{winner_html}\n{qty_html}"
-
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
     if size_ml and ex_best:
         per_100 = ex_best["price_nok"] / size_ml * 100
         price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris (uten frakt)</p>'
+    thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
+        else escape(product["brand_label"][:2].upper())
 
     safety_notice = ""
     if product.get("solution_type") == "peroxide":
@@ -7626,10 +7682,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 {schema_json_html}
 {product_faq_schema}
 <style>{SHARED_STYLE}
+{HERO_IMAGE_STYLE}
 {WINNER_WIDGET_STYLE}
 {PRICE_LIST_STYLE}
-.hero {{ display: flex; align-items: center; gap: 20px; }}
-.price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
+.price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: 12px 0 0; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
@@ -7644,16 +7700,20 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     <a href="/{cat_slug}/">{escape(cat["label"])}</a> ›
     {escape(product["name"])}
   </p>
-  <div class="hero">
-    <div class="hero-copy">
-      <div class="kicker">{escape(product["brand_label"])}</div>
-      <h1>{escape(product["name"])}</h1>
-      <p>{escape(long_description)}</p>
+  <div class="hero-card">
+    <div class="hero-main">
+      <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+      <div class="hero-copy">
+        <div class="kicker">{escape(product["brand_label"])}</div>
+        <h1>{escape(product["name"])}</h1>
+        <p>{escape(long_description)}</p>
+        {price_per_unit_html}
+      </div>
+      {winner_html}
+      {ai_summary_html}
     </div>
   </div>
-  {ai_summary_html}
-  {best_band}
-  {price_per_unit_html}
+  {qty_html}
   {safety_notice}
   {offers_block}
   {PRICE_DISCLOSURE_HTML}
@@ -8007,7 +8067,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
+    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts, wide=True)
     best_band = f"{winner_html}\n{qty_html}"
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
