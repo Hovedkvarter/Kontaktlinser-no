@@ -8086,8 +8086,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts, wide=True)
-    best_band = f"{winner_html}\n{qty_html}"
+    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
@@ -8203,6 +8202,13 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         (f'/merke/{real_product["brand_slug"]}/', f'Alle {real_brand}-kontaktlinser'),
         (f'/kontaktlinser/{real_product["category_slug"]}/', f'Alle {category_label.lower()}'),
     ]
+    illustration = render_private_label_illustration(chain, label["slug"])
+    if illustration:
+        hero_visual = f'<div class="pli-tile-wrap">{illustration}</div>'
+        illustration_note = '<p class="illustration-note">Egen illustrasjon, ikke et ekte produktbilde. <a href="/om-produktillustrasjoner/">Les mer</a></p>'
+    else:
+        hero_visual = escape(private_name[:2].upper())
+        illustration_note = ""
     subbrand_slug = PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower()
     related_items.append((f'/merke/{subbrand_slug}/', f'Flere {PRIVATE_LABEL_SUBBRANDS.get(chain, chain)}-produkter'))
     related_links = "\n    ".join(f'<li><a href="{escape(href)}">{escape(label_text)}</a></li>' for href, label_text in related_items)
@@ -8227,7 +8233,12 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
 <style>{SHARED_STYLE}
-.hero {{ display: flex; align-items: center; gap: 20px; }}
+{HERO_IMAGE_STYLE}
+{PRIVATE_LABEL_ILLUSTRATION_STYLE}
+.hero-card-solution .hero-product-image.pli-hero {{ padding: 8px; }}
+.hero-card-solution .pli-hero .pli-tile-wrap {{ width: 100%; }}
+.illustration-note {{ margin: 12px 0 0; font-size: 0.78rem; color: var(--muted); }}
+.illustration-note a {{ color: var(--blue); }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
@@ -8249,16 +8260,20 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     <a href="/private-label/">Optikerkjedenes egne merker</a> ›
     {escape(private_name)}
   </p>
-  <div class="hero">
-    <div class="hero-copy">
+  <div class="hero-card hero-card-solution">
+    <div class="hero-main">
+      <div class="hero-product-image pli-hero">{hero_visual}</div>
+      <div class="hero-copy">
       <div class="kicker">Eget merkenavn</div>
       <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
       <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
+      {illustration_note}
+      </div>
+      {winner_html}
+      {ai_summary_html}
     </div>
   </div>
-  {ai_summary_html}
-
-  {best_band}
+  {qty_html}
   {offers_block}
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
   {f'<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/"><div class="pack-size-callout-text">Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>' if family else ''}
