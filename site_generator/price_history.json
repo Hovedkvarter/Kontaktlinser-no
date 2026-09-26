@@ -35255,8 +35255,8 @@
     },
     {
       "date": "2026-09-26",
-      "price": 261.0,
-      "store": "Apotekhjem"
+      "price": 209.0,
+      "store": "Shopping4net"
     }
   ],
   "hyprosan-10ml": [
@@ -38745,6 +38745,34 @@
       "date": "2026-09-26",
       "price": 155.0,
       "store": "Shopping4net"
+    }
+  ],
+  "clariti-1day-multifocal-3add-30pk": [
+    {
+      "date": "2026-09-26",
+      "price": 374.0,
+      "store": "Lenson"
+    }
+  ],
+  "swati-lens-case-tweezers": [
+    {
+      "date": "2026-09-26",
+      "price": 67.0,
+      "store": "Lenson"
+    }
+  ],
+  "ezy-drop-eye-drop-guide": [
+    {
+      "date": "2026-09-26",
+      "price": 100.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "drop-it-20x5ml": [
+    {
+      "date": "2026-09-26",
+      "price": 52.0,
+      "store": "Apotekhjem"
     }
   ]
 }
