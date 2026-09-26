@@ -22,8 +22,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT
 from price_history import load_history, record_price, save_history
+from lastmod import resolve_lastmods
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog.json"
@@ -367,10 +368,10 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     write_file(BUILD_DIR / "guider" / "index.html", render_guides_index_page())
     print("  guider   -> /guider/")
 
-    write_file(BUILD_DIR / "personvern" / "index.html", render_privacy_page(now))
+    write_file(BUILD_DIR / "personvern" / "index.html", render_privacy_page())
     print("  personvern -> /personvern/")
 
-    write_file(BUILD_DIR / "vilkar" / "index.html", render_terms_page(now))
+    write_file(BUILD_DIR / "vilkar" / "index.html", render_terms_page())
     print("  vilkar   -> /vilkar/")
 
     write_file(BUILD_DIR / "om-oss" / "index.html", render_about_page())
@@ -410,60 +411,59 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
 
 
 def update_site_content(catalog: dict, now: datetime) -> None:
-    """Skriver site_content.json på nytt fra katalogen, med lastmod = nå,
-    slik at generate_sitemap.py alltid reflekterer det som faktisk ble bygget."""
+    """Skriver site_content.json på nytt fra katalogen. lastmod er ÆRLIG (se
+    lastmod.py): guider bruker sin redaksjonelle "updated"-dato, alle andre
+    sider får ny dato kun når den ferdige HTML-en faktisk har endret seg --
+    ikke "i dag" ved hvert bygg."""
     today = now.date().isoformat()
     lens_products = [p for p in catalog["products"] if "category_slug" in p]
     solution_products = [p for p in catalog["products"] if "category_slug" not in p]
     solution_categories = sorted({p["solution_category"] for p in solution_products})
     private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"] if PRIVATE_LABELS_PATH.exists() else []
+
+    static_paths = [
+        "/", "/personvern/", "/om-oss/", "/slik-sammenligner-vi-priser/", "/slik-matcher-vi-produkter/",
+        "/redaksjonelle-prinsipper/", "/affiliate-og-finansiering/", "/meld-feil/", "/om-produktillustrasjoner/", "/vilkar/",
+    ] + [f"/{cat_slug}/" for cat_slug in solution_categories] + (["/private-label/"] if private_labels else [])
+    category_slugs = list(catalog["categories"].keys())
+    brand_slugs = sorted({p["brand_slug"] for p in lens_products}) + [
+        PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower() for chain in sorted({label["chain"] for label in private_labels})
+    ]
+    manufacturer_slugs = list(MANUFACTURERS)
+    # dict.fromkeys: samme guide ligger i flere kategorier, men skal kun stå én gang i sitemap
+    guide_slugs = list(dict.fromkeys(g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])))
+    product_paths = {p["id"]: f"/kontaktlinser/{p['brand_slug']}/{p['slug']}/" for p in lens_products}
+    solution_paths = {p["id"]: f"/{p['solution_category']}/{p['brand_slug']}/{p['slug']}/" for p in solution_products}
+    label_paths = [f"/private-label/{label['slug']}/" for label in private_labels]
+    family_paths = [f"/serie/{slug}/" for slug in catalog.get("_family_slugs_written", [])]
+
+    all_paths = (
+        static_paths
+        + [f"/kontaktlinser/{s}/" for s in category_slugs]
+        + [f"/merke/{s}/" for s in brand_slugs]
+        + [f"/produsent/{s}/" for s in manufacturer_slugs]
+        + [f"/guide/{s}/" for s in guide_slugs]
+        + list(product_paths.values()) + list(solution_paths.values()) + label_paths + family_paths
+    )
+    fixed = {f"/guide/{s}/": GUIDE_CONTENT.get(s, {}).get("updated", today) for s in guide_slugs}
+    lm = resolve_lastmods(BUILD_DIR, all_paths, today, fixed)
+
     site_content = {
-        "static_pages": [
-            {"path": "/", "lastmod": today},
-            {"path": "/personvern/", "lastmod": today},
-            {"path": "/om-oss/", "lastmod": today},
-            {"path": "/slik-sammenligner-vi-priser/", "lastmod": today},
-            {"path": "/slik-matcher-vi-produkter/", "lastmod": today},
-            {"path": "/redaksjonelle-prinsipper/", "lastmod": today},
-            {"path": "/affiliate-og-finansiering/", "lastmod": today},
-            {"path": "/meld-feil/", "lastmod": today},
-            {"path": "/om-produktillustrasjoner/", "lastmod": today},
-            {"path": "/vilkar/", "lastmod": today},
-        ] + [
-            {"path": f"/{cat_slug}/", "lastmod": today} for cat_slug in solution_categories
-        ] + ([{"path": "/private-label/", "lastmod": today}] if private_labels else []),
-        "categories": [
-            {"slug": slug, "lastmod": today} for slug in catalog["categories"].keys()
-        ],
-        "brands": [
-            {"slug": b, "lastmod": today}
-            for b in sorted({p["brand_slug"] for p in lens_products})
-        ] + [
-            {"slug": PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower(), "lastmod": today}
-            for chain in sorted({label["chain"] for label in private_labels})
-        ],
-        "manufacturers": [
-            {"slug": slug, "lastmod": today} for slug in MANUFACTURERS
-        ],
-        "guides": [
-            {"slug": g["slug"], "lastmod": today}
-            for cat in catalog["categories"].values()
-            for g in cat.get("guides", [])
-        ],
+        "static_pages": [{"path": path, "lastmod": lm[path]} for path in static_paths],
+        "categories": [{"slug": s, "lastmod": lm[f"/kontaktlinser/{s}/"]} for s in category_slugs],
+        "brands": [{"slug": s, "lastmod": lm[f"/merke/{s}/"]} for s in brand_slugs],
+        "manufacturers": [{"slug": s, "lastmod": lm[f"/produsent/{s}/"]} for s in manufacturer_slugs],
+        "guides": [{"slug": s, "lastmod": lm[f"/guide/{s}/"]} for s in guide_slugs],
         "products": [
-            {"brand_slug": p["brand_slug"], "product_slug": p["slug"], "lastmod": today}
+            {"brand_slug": p["brand_slug"], "product_slug": p["slug"], "lastmod": lm[product_paths[p["id"]]]}
             for p in lens_products
         ],
         "solutions": [
-            {"solution_category": p["solution_category"], "brand_slug": p["brand_slug"], "slug": p["slug"], "lastmod": today}
+            {"solution_category": p["solution_category"], "brand_slug": p["brand_slug"], "slug": p["slug"], "lastmod": lm[solution_paths[p["id"]]]}
             for p in solution_products
         ],
-        "private_labels": [
-            {"slug": label["slug"], "lastmod": today} for label in private_labels
-        ],
-        "product_families": [
-            {"slug": slug, "lastmod": today} for slug in catalog.get("_family_slugs_written", [])
-        ],
+        "private_labels": [{"slug": label["slug"], "lastmod": lm[f"/private-label/{label['slug']}/"]} for label in private_labels],
+        "product_families": [{"slug": slug, "lastmod": lm[f"/serie/{slug}/"]} for slug in catalog.get("_family_slugs_written", [])],
     }
     SITE_CONTENT_PATH.write_text(json.dumps(site_content, indent=2, ensure_ascii=False), encoding="utf-8")
 

@@ -3,8 +3,9 @@ generate_sitemap.py
 
 Genererer sitemap-indeks og delte sitemaps fra site_content.json.
 
-Kjør denne på nytt hver gang produktlisten endres. lastmod på en produktside
-bør settes til tidspunktet prisen sist ble bekreftet, ikke dagens dato.
+Kjør denne på nytt hver gang produktlisten endres. lastmod kommer fra
+site_content.json og er ÆRLIG (se site_generator/lastmod.py): en side får ny
+dato kun når innholdet faktisk har endret seg, aldri bare fordi bygget kjørte.
 
 BASE_URL må matche produksjonsdomenet nøyaktig, inkludert https og uten
 etterslash.

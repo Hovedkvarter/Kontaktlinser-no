@@ -1609,6 +1609,34 @@ full skraping annenhver dag. Beregnet: ca. 49 -> ca. 8 avregnede min/døgn (−8
   Tradedoublers `modified`-felt; Lensway sto på 09:15 UTC. Verifiser etter noen
   dager i GA/prishistorikk at riktig kjøretidspunkt er valgt.
 
+## Ærlig lastmod i sitemap (2026-09-26)
+
+Før stod alle 401 URL-er på «i dag» ved hvert bygg (også guider urørt siden
+august) -- Google slutter å stole på lastmod da, og en dato som ikke stemmer er
+misvisende data til søkemotorene (Kai påpekte dette). Nå:
+
+- **Guider:** lastmod = guidens redaksjonelle `updated`-dato (samme dato som
+  byline og Article-schema).
+- **Alle andre sider:** `site_generator/lastmod.py` lager en signatur (hash) av
+  den ferdige HTML-en, uten flyktige deler («Sist oppdatert: N timer siden»,
+  prisutviklingsgrafen, JSON-LD `dateModified`). Ny signatur = ny lastmod (ny
+  pris, ny tekst, ny mal); ellers beholdes forrige dato fra
+  `site_generator/lastmod_state.json` (committes av CI sammen med
+  price_history.json). Testet: ferske `checked_at` med uendrede priser gir 0
+  endrede sider, og én reell prisendring endrer nøyaktig sidene som viser den
+  (produkt, kategori, merke, serie).
+- Første sporing setter dagens dato på alle ikke-guide-sider én gang (vi vet ikke
+  når de sist endret seg), deretter er datoene stabile.
+- Rettet i samme slengen: `/personvern/` og `/vilkar/` viste «Sist oppdatert:
+  <dagens dato>» hver dag; viser nå siste faktiske endring (30.08. / 05.09.2026,
+  fra git). **`PRIVACY_UPDATED`/`TERMS_UPDATED` i render_templates.py må endres
+  manuelt når teksten endres.** Sitemapen hadde også 19 dupliserte guide-URL-er
+  (samme guide i flere kategorier) -- nå 40 unike.
+- Åpent: produktsidenes JSON-LD `dateModified` = nyeste `checked_at`, altså når
+  vi sist BEKREFTET prisene, og endrer seg derfor hver kjøring. Uendret (er
+  «sist verifisert», ikke «sist endret»), men bør vurderes justert slik at det
+  ikke motsier lastmod.
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.

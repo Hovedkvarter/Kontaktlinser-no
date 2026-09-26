@@ -6491,9 +6491,20 @@ def render_404_page() -> str:
 # Tradedoubler-spesifikt krav. Ingen samtykkebanner ennå (bevisst utsatt,
 # avklart med bruker 2026-08-11): GTM settes derfor fortsatt før samtykke i
 # dag - siden må ikke late som noe annet i teksten under.
-def render_privacy_page(now: datetime | None = None) -> str:
-    now = now or datetime.now(timezone.utc)
-    updated = now.strftime("%d.%m.%Y")
+# Vises som "Sist oppdatert" på de juridiske sidene. Var tidligere alltid
+# dagens dato (hvert bygg), som er misvisende for en tekst som ikke er endret --
+# 2026-09-26 satt til siste faktiske endring (fra git-historikken). ENDRE
+# MANUELT når teksten i selve siden endres.
+PRIVACY_UPDATED = "2026-08-30"
+TERMS_UPDATED = "2026-09-05"
+
+
+def _legal_date(iso: str) -> str:
+    return datetime.strptime(iso, "%Y-%m-%d").strftime("%d.%m.%Y")
+
+
+def render_privacy_page() -> str:
+    updated = _legal_date(PRIVACY_UPDATED)
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -6585,7 +6596,7 @@ def render_privacy_page(now: datetime | None = None) -> str:
 </html>"""
 
 
-def render_terms_page(now: datetime | None = None) -> str:
+def render_terms_page() -> str:
     """/vilkar/ -- juridisk informasjon og ansvarsfraskrivelse. Teksten er
     brukerens egen, limt inn 2026-08-30 (kun konvertert fra markdown til
     HTML, ordlyden er uendret). Fungerer som en paraply-side over de
@@ -6595,8 +6606,7 @@ def render_terms_page(now: datetime | None = None) -> str:
     dem, samler bare hele bildet ett sted. Kontaktpunktet i §11
     (_contact_email_link()) er allerede reelt og synlig i footeren på alle
     sider, ikke en tom påstand."""
-    now = now or datetime.now(timezone.utc)
-    updated = now.strftime("%d.%m.%Y")
+    updated = _legal_date(TERMS_UPDATED)
     contact = _contact_email_link()
 
     schema_json = f"""{{
