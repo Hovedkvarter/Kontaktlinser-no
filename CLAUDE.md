@@ -1743,3 +1743,12 @@ feilsøke).
   egen listing/beskrivelse, kun én forhandler.
 - Søket (forside og guider) dekker nå også linsevæske, øyedråper og tilbehør
   (`build_search_index(..., solutions=...)`, søkeord med og uten æøå). Placeholder er uendret.
+
+- **Fyndiq vurdert og avslått (2026-09-26).** Kai er godkjent publisher (Tradedoubler), men
+  Fyndiq er en markedsplass med tredjepartsselgere. Stikkprøve på 12 produktsider i
+  tilbehørsdelen: selgernavn som Duuegrohoot, HHAO, AcserGery, Haokai, YINNYUN, HaiAn,
+  YH Trading, Bravix Shop; typisk anonyme markedsplass-selgere, leveringstid opp mot 2-3 uker,
+  ingen produsentinfo. Det ene merkeproduktet (B+L Sensitive Eyes Plus 355 ml) selges av
+  "DJANGO AND COCO" med en fransk "ansvarlig person" (Outlook-adresse) og uten produsentinfo;
+  ekthet kan ikke bekreftes. Beslutning (Kai): la det ligge. Fyndiq sitt /s/ (søk) er også
+  Disallow i robots.txt, så ingen skraping. Ta ikke opp igjen uten at Kai ber om det.
