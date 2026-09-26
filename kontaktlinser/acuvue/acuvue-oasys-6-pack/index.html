@@ -566,13 +566,24 @@ a { color: inherit; }
 .ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
 .lowest-tag-total { background: var(--blue); }
-.winner-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--mint); color: white; font-weight: 700; font-size: 0.95rem; padding: 12px 22px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.winner-band-cta { flex-direction: column; align-items: stretch; gap: 12px; }
-.winner-band-cta .winner-btn { width: 100%; }
-.winner-band-cta:hover .winner-btn, .winner-band-cta:focus-visible .winner-btn { filter: brightness(0.94); }
+.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.winner-band-cta:hover, .winner-band-cta:focus-within { border-color: #BFE7D5; box-shadow: none; }
+.winner-band-cta .winner-left { flex-direction: column; align-items: center; gap: 0; }
+.winner-band-cta .label-group { display: flex; flex-direction: column; align-items: center; }
+.winner-band-cta .label { font-size: 0.86rem; letter-spacing: 0.06em; }
+.winner-sub { font-size: 0.82rem; color: var(--muted); margin-top: 1px; }
+.winner-band-cta .retailer { justify-content: center; margin-top: 14px; }
+.winner-band-cta .retailer-logo { height: 30px; max-width: 150px; }
+.winner-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--mint); color: white; font-weight: 700; font-size: 0.95rem; padding: 12px 20px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: filter 0.15s, box-shadow 0.15s; }
+.winner-btn:hover, .winner-btn:focus-visible { filter: brightness(0.93); box-shadow: 0 3px 10px rgba(11, 163, 111, 0.28); }
+.winner-more { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+.winner-more:hover { text-decoration: underline; }
+#tilbud { scroll-margin-top: 16px; }
 @media (min-width: 860px) {
-  .hero-main .winner-band-cta .winner-btn { width: 100%; margin-top: 14px; padding: 13px 22px; font-size: 1rem; }
-  .hero-main .winner-band-cta .label-group { text-align: center; }
+  /* align-self: center -- kortet er kun så høyt som innholdet og flyter midt i
+     kolonnen, i stedet for å strekkes til hele hero-radens høyde (ga et stort
+     tomrom inni kortet). */
+  .hero-main .winner-band-cta { align-self: center; padding: 42px 20px 22px; gap: 16px; }
 }
 </style>
 </head>
@@ -835,16 +846,18 @@ a { color: inherit; }
         <p>Acuvue Oasys er en silikonhydrogel-linse (senofilcon A) med UV-filter, offisielt en 14-dagerslinse, men brukes i praksis ofte som ukelinse. Slipper gjennom mye oksygen og passer godt for aktive brukere og for deg med noe tørre øyne.</p>
         <div class="hero-badges"><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>14-dagerslinser</span></span></div>
       </div>
-      <a class="winner-band winner-band-cta" id="winner-band-link" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-154)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Facuvue-oasys-lens-154)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for Acuvue Oasys 6-pack" data-retailer="Lenson" data-affiliate="1">
+      <div class="winner-band winner-band-cta">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
     <div class="label-group">
-      <div class="label" id="winner-label">Laveste pris for 1 eske</div>
+      <div class="label" id="winner-label">Laveste pris</div>
+      <div class="winner-sub" id="winner-sub">for 1 eske</div>
       <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span></div>
     </div>
   </div>
-  <span class="winner-btn">Gå til tilbud <span aria-hidden="true">&#8594;</span></span>
-</a>
+  <a class="winner-btn" id="winner-band-link" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-154)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Facuvue-oasys-lens-154)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for Acuvue Oasys 6-pack" data-retailer="Lenson" data-affiliate="1">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
+  <a class="winner-more" href="#tilbud">Sammenlign alle 7 butikker <span aria-hidden="true">&#8595;</span></a>
+</div>
       <section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på <strong>Acuvue Oasys 6-pack</strong> hos norske nettbutikker. Fra <strong>262 kr</strong> hos Lenson (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-26">26.09.2026</time>.</p>
 </section>
@@ -931,7 +944,9 @@ a { color: inherit; }
     for (var i = 0; i < byTotal.length; i++) { if (byTotal[i].o.in_stock) { bestTotal = byTotal[i]; break; } }
 
     if (best) {
-      labelEl.textContent = (incl ? 'Laveste pris inkl. frakt' : 'Laveste pris') + ' for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
+      labelEl.textContent = incl ? 'Laveste pris inkl. frakt' : 'Laveste pris';
+      var subEl = document.getElementById('winner-sub');
+      if (subEl) subEl.textContent = 'for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
       retailerEl.innerHTML = retailerBadge(best.o);
       winnerLink.setAttribute('href', best.o.url);
       winnerLink.setAttribute('rel', best.o.rel);
@@ -1018,7 +1033,7 @@ a { color: inherit; }
   </div>
   <div class="pack-size-callout-arrow">→</div>
 </a>
-  <div class="offers offers-pilot">
+  <div class="offers offers-pilot" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser og butikker</h2>
       <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
