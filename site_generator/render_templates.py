@@ -7481,6 +7481,7 @@ SOLUTION_CATEGORIES = {
     "linsevaeske": {
         "label": "Linsevæske",
         "title_label": "Billig linsevæske",
+        "meta_description": "Sammenlign priser på linsevæske og reisepakker hos norske nettbutikker. Se pris per 100 ml, med eller uten frakt.",
         "intro": "Sammenlign priser på linsevæske og reisepakker hos norske nettbutikker. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
     },
     "tilbehor": {
@@ -7491,6 +7492,7 @@ SOLUTION_CATEGORIES = {
     "oyedraper": {
         "label": "Øyedråper",
         "title_label": "Billige øyedråper",
+        "meta_description": "Sammenlign priser på øyedråper, øyegel, øyesalve og øyepleie hos norske nettbutikker. Pris per 100 ml eller 100 g, med eller uten frakt.",
         "intro": "Sammenlign priser på øyedråper, øyegel, øyesalve og øyepleie mot tørre øyne hos norske nettbutikker. Vi viser pris per 100 ml (eller 100 g for gel og salve) der det er relevant, slik at ulike pakningsstørrelser er sammenlignbare.",
     },
 }
@@ -7836,7 +7838,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(cat["title_label"])} – Sammenlign priser | Kontaktlinser.no</title>
-<meta name="description" content="{escape(cat["intro"])}">
+<meta name="description" content="{escape(cat.get("meta_description", cat["intro"]))}">
 <link rel="canonical" href="{BASE_URL}/{solution_category}/">
 {_og_meta(f'{cat["title_label"]} – Sammenlign priser | Kontaktlinser.no', cat["intro"], f'{BASE_URL}/{solution_category}/')}
 {FONT_LINKS}
