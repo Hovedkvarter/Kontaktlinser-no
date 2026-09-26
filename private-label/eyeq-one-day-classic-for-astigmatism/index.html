@@ -405,7 +405,189 @@ a { color: inherit; }
 .methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
 
-.hero { display: flex; align-items: center; gap: 20px; }
+.hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
+.hero-card .hero-copy h1 { font-size: 1.6rem; }
+.hero-main { display: flex; flex-direction: column; gap: 20px; }
+@media (min-width: 860px) {
+  .hero-card { padding: 28px; }
+  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
+     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
+     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
+     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
+     direkte barn siden auto-plassering ikke gir riktig resultat når
+     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
+  .hero-main { display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }
+  .hero-main .hero-product-image { grid-column: 1; grid-row: 1 / 3; }
+  .hero-main .hero-copy { grid-column: 2; grid-row: 1; }
+  .hero-main .winner-band { grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }
+  .hero-main .winner-left { flex-direction: column; align-items: center; gap: 0; }
+  .hero-main .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
+  .hero-main .winner-band .label { margin-top: 0; }
+  .hero-main .winner-band .retailer { justify-content: center; margin-top: 10px; }
+  .hero-main .winner-band .winner-shipping { margin-top: 10px; }
+  .hero-main .winner-price-group { text-align: center; }
+  .hero-main .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
+  .hero-main .winner-price-note { margin-top: 7px; line-height: 1; }
+  .hero-main .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
+  .hero-main .product-ai-summary { grid-column: 2 / 4; grid-row: 2; margin: 0; }
+}
+.hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
+.hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
+@media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
+@media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
+/* Fade-masken (radial gradient som lot hvite produktbilder smelte inn i
+   siden) er fjernet -- den var designet for å blande hvitt inn i en FARGET
+   hero-bakgrunn, men heroen er nå selv hvit (se .hero-card), så masken
+   gjorde ingenting nyttig lenger og risikerte i tillegg å dempe kantene på
+   bilder som IKKE er helt rene hvite (se SofLens-bildet med grå bakgrunn
+   som avslørte den "blob"-formede kanteffekten tidligere i dag). Minimal
+   padding (6px, ikke 0) kun for å unngå at bildet klipper helt inntil
+   kortkanten -- ellers skal bildet fylle mest mulig av ruta, som ønsket. */
+.hero-product-image.has-photo { background: transparent; border: none; padding: 6px; }
+.hero-product-image.has-photo img { object-fit: contain; }
+@media (min-width: 1024px) { .wrap-product { max-width: 1280px; } }
+.hero-card .product-ai-summary { background: var(--blue-tint); border-left: none; border-radius: 10px; margin: 16px 0 0; }
+
+
+.pli-eyeq-box{position:relative;width:100%;height:100%;background:#fff;border-radius:7px;overflow:hidden}
+.pli-eyeq-qbox{display:grid;grid-template-columns:58% 42%;align-items:stretch}
+.pli-eyeq-qvisual{display:flex;align-items:center;justify-content:center;padding:1.786cqw 0.714cqw 1.786cqw 2.5cqw;overflow:hidden}
+.pli-eyeq-qmark{font-size:23.571cqw;line-height:.8;font-weight:950;letter-spacing:-.105em;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pli-eyeq-copy{padding:6.071cqw 10.357cqw 4.286cqw 1.786cqw;display:flex;flex-direction:column;justify-content:space-between;min-width:0;height:100%;box-sizing:border-box}
+.pli-eyeq-wear,.pli-eyeq-variant{font-weight:850;letter-spacing:.03em;line-height:1.05}
+.pli-eyeq-wear{font-size:3.036cqw}
+.pli-eyeq-variant{font-size:2.857cqw;margin-top:.357cqw}
+.pli-eyeq-micro{font-size:1.25cqw;letter-spacing:.09em;margin-top:2.143cqw;color:#606770;font-weight:650}
+.pli-eyeq-eyeq-vertical{position:absolute;top:1.25cqw;right:.893cqw;bottom:1.25cqw;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:7.679cqw;font-weight:950;letter-spacing:.055em;line-height:.86;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pli-eyeq-q1{--g:radial-gradient(circle at 30% 18%,#f5cf84 0 10%,#dd8c67 24%,#9b5b8c 44%,#59356f 65%,#28274f 100%)}
+.pli-eyeq-q2{--g:radial-gradient(circle at 66% 22%,#80dadd 0 11%,#5caecb 22%,#7c5faa 45%,#3a427d 67%,#172750 100%)}
+.pli-eyeq-q3{--g:radial-gradient(circle at 35% 20%,#c9eb97 0 11%,#59c7aa 25%,#2a99aa 43%,#4c6ba8 65%,#352a60 100%)}
+.pli-eyeq-q4{--g:radial-gradient(circle at 31% 21%,#7bd9cf 0 10%,#2d8f9c 24%,#504c9d 43%,#8e358a 64%,#2b285f 100%)}
+.pli-eyeq-q5{--g:radial-gradient(circle at 27% 18%,#f9d68c 0 10%,#e47e94 25%,#b43876 44%,#672360 66%,#270d3d 100%)}
+.pli-eyeq-precision{display:grid;grid-template-columns:60% 40%;background:linear-gradient(112deg,#16bec3 0%,#0d91af 39%,#0a5ca1 60%,#fff 60.4%);--g:linear-gradient(90deg,#fff,#e1fbff)}
+.pli-eyeq-precision .pli-eyeq-qvisual{justify-content:flex-start;padding-left:4.286cqw}
+.pli-eyeq-precision .pli-eyeq-qmark{font-size:12.857cqw;letter-spacing:-.05em;color:#fff;background:none;-webkit-text-fill-color:#fff}
+.pli-eyeq-precision .pli-eyeq-copy{padding:6.071cqw 3.571cqw 4.286cqw 2.857cqw}
+.pli-eyeq-precision .pli-eyeq-wear,.pli-eyeq-precision .pli-eyeq-variant{color:#123c6e}
+.pli-eyeq-precision .pli-eyeq-micro{color:#567}
+.pli-eyeq-precision .pli-eyeq-eyeq-horizontal{font-size:5.536cqw;font-weight:950;letter-spacing:.06em;color:#12528a}
+.pli-eyeq-total30{display:grid;grid-template-columns:60% 40%;background:linear-gradient(118deg,#132b73 0 55%,#d7aa4d 55.4% 69%,#fff 69.4%);--g:linear-gradient(135deg,#fff,#c9d8ff)}
+.pli-eyeq-total30 .pli-eyeq-qvisual{justify-content:flex-start;padding-left:4.286cqw}
+.pli-eyeq-total30 .pli-eyeq-qmark{font-size:13.393cqw;letter-spacing:-.06em}
+.pli-eyeq-total30 .pli-eyeq-copy{padding:6.071cqw 3.393cqw 4.286cqw 2.5cqw}
+.pli-eyeq-total30 .pli-eyeq-wear,.pli-eyeq-total30 .pli-eyeq-variant{color:#17336e}
+.pli-eyeq-total30 .pli-eyeq-eyeq-horizontal{font-size:5.536cqw;font-weight:950;letter-spacing:.06em;color:#17336e}
+
+.pli-ascend-pack{width:100%;height:100%;background:#fff;border-radius:7px;overflow:hidden;position:relative}
+.pli-ascend-content{position:absolute;z-index:3;left:6.429cqw;top:6.607cqw}
+.pli-ascend-maker{font-size:1.964cqw;color:#777;margin-bottom:1.429cqw;letter-spacing:.01em}
+.pli-ascend-wordmark{font-size:9.643cqw;font-weight:300;letter-spacing:-.055em;line-height:.88;color:#707174}
+.pli-ascend-variant{font-size:3.75cqw;font-weight:400;color:var(--accent);margin-top:1.429cqw;letter-spacing:-.02em}
+.pli-ascend-desc{font-size:1.429cqw;color:#8b8c8f;margin-top:.893cqw}
+.pli-ascend-qty{position:absolute;right:3.929cqw;top:3.571cqw;font-size:1.964cqw;color:#85878a;z-index:4}
+.pli-ascend-sweep1,.pli-ascend-sweep2{position:absolute;left:-7%;width:118%;border-radius:0 0 55% 35%/0 0 90% 80%;transform:rotate(-2deg);transform-origin:center}
+.pli-ascend-sweep1{height:16.25cqw;bottom:4.464cqw;background:#c7c8ca;z-index:1}
+.pli-ascend-sweep2{height:14.643cqw;bottom:-3.571cqw;background:var(--accent);z-index:2}
+.pli-ascend-corner{position:absolute;right:2.857cqw;bottom:2.143cqw;z-index:4;width:16.964cqw;height:6.071cqw;border:2px solid rgba(255,255,255,.75);border-left-color:transparent;transform:skewX(-18deg)}
+.pli-ascend-active{--accent:#169348}
+.pli-ascend-active-mf{--accent:#078fa2}
+.pli-ascend-active-toric{--accent:#147ca4}
+.pli-ascend-evolve{--accent:#73a930}
+.pli-ascend-evolve-toric{--accent:#4f8fa7}
+.pli-ascend-premier{--accent:#2452a0}
+.pli-ascend-premier-toric{--accent:#2854a5}
+.pli-ascend-premier-mf{--accent:#283467}
+
+.pli-ev-pack{width:100%;height:100%;border-radius:7px;overflow:hidden;position:relative;background:var(--bg,#fff)}
+.pli-ev-pack-inner{position:absolute;inset:0;display:flex}
+.pli-ev-left{width:66%;padding:6.071cqw 3.571cqw 3.75cqw 5cqw;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:2;box-sizing:border-box}
+.pli-ev-count{position:absolute;top:0;left:0;min-width:23.571cqw;padding:1.429cqw 3.214cqw 1.429cqw 3.571cqw;border-bottom-right-radius:28px;background:var(--count,#55c9c6);color:#fff;font-size:1.964cqw;font-weight:750;line-height:1.05}
+.pli-ev-count strong{font-size:4.107cqw;margin-right:.714cqw;vertical-align:-.357cqw}
+.pli-ev-brand{margin-top:6.071cqw}
+.pli-ev-easy{font-size:6.607cqw;font-weight:350;letter-spacing:-.045em;line-height:.88;color:var(--brand,#fff)}
+.pli-ev-easy b{font-weight:760}
+.pli-ev-variant{margin-top:1.964cqw;font-size:3.036cqw;font-weight:760;color:var(--accent,#fff)}
+.pli-ev-micro{font-size:1.25cqw;line-height:1.25;color:var(--micro,rgba(255,255,255,.75));max-width:41.071cqw}
+.pli-ev-mosaic{width:40%;position:absolute;right:-.357cqw;top:0;bottom:0;overflow:hidden}
+.pli-ev-tile{position:absolute;width:11.071cqw;height:11.071cqw;border-radius:0 0 62px 0;opacity:.98}
+.pli-ev-t1{right:20cqw;top:0;background:#fff}
+.pli-ev-t2{right:8.929cqw;top:0;background:#247aa1;transform:rotate(90deg)}
+.pli-ev-t3{right:-2.143cqw;top:0;background:#dce633;transform:rotate(180deg)}
+.pli-ev-t4{right:14.643cqw;top:11.071cqw;background:#52c4c0;transform:rotate(270deg)}
+.pli-ev-t5{right:3.571cqw;top:11.071cqw;background:#fff;transform:rotate(90deg)}
+.pli-ev-t6{right:-7.5cqw;top:11.071cqw;background:#20739a}
+.pli-ev-t7{right:20cqw;top:22.143cqw;background:#dce633;transform:rotate(180deg)}
+.pli-ev-t8{right:8.929cqw;top:22.143cqw;background:#2f86a6;transform:rotate(270deg)}
+.pli-ev-t9{right:-2.143cqw;top:22.143cqw;background:#d7eff0;transform:rotate(90deg)}
+.pli-ev-t10{right:3.214cqw;top:33.214cqw;background:#58c8c1;transform:rotate(180deg)}
+.pli-ev-vitrea,.pli-ev-umere,.pli-ev-vitrea-toric,.pli-ev-umere-toric,.pli-ev-vitrea-mf{--bg:#fff;--brand:#777d82;--micro:#9aa0a5;--count:#54c8c5;--accent:#43bdb9}
+.pli-ev-vitrea-toric,.pli-ev-umere-toric{--count:#1b9ab7;--accent:#168faf}
+.pli-ev-vitrea-mf{--count:#48a957;--accent:#4cab59}
+.pli-ev-vitrea .pli-ev-mosaic,.pli-ev-umere .pli-ev-mosaic,.pli-ev-vitrea-toric .pli-ev-mosaic,.pli-ev-umere-toric .pli-ev-mosaic,.pli-ev-vitrea-mf .pli-ev-mosaic{width:43%}
+.pli-ev-uvicia,.pli-ev-uvicia-toric{--bg:#62bdbc;--brand:#fff;--micro:rgba(255,255,255,.84);--count:#fff;--accent:#fff}
+.pli-ev-uvicia .pli-ev-count,.pli-ev-uvicia-toric .pli-ev-count{color:#57b9b8;background:#fff}
+.pli-ev-uvicia-toric{--bg:#5aa4be}
+.pli-ev-opteyes,.pli-ev-opteyes-toric,.pli-ev-opteyes-mf{--bg:#69c2c0;--brand:#fff;--micro:rgba(255,255,255,.82);--count:#fff;--accent:#fff}
+.pli-ev-opteyes .pli-ev-count,.pli-ev-opteyes-toric .pli-ev-count,.pli-ev-opteyes-mf .pli-ev-count{color:#58b9b8;background:#fff}
+.pli-ev-opteyes-toric{--bg:#5798b3}
+.pli-ev-opteyes-mf{--bg:#4f9ea1}
+.pli-ev-uvicia-toric .pli-ev-t4,.pli-ev-opteyes-toric .pli-ev-t4,.pli-ev-umere-toric .pli-ev-t4,.pli-ev-vitrea-toric .pli-ev-t4{background:#1d6fa0}
+.pli-ev-opteyes-mf .pli-ev-t3,.pli-ev-vitrea-mf .pli-ev-t3{background:#65b967}
+.pli-ev-opteyes-mf .pli-ev-t7,.pli-ev-vitrea-mf .pli-ev-t7{background:#dfe94a}
+.pli-caption{display:block;font-size:.68rem;color:var(--muted);margin-top:4px;text-decoration:none}
+.pli-caption:hover{text-decoration:underline}
+/* De 3 illustrasjons-familiene er tegnet for et 560x225px (~2.49:1) design-
+   canvas, MYE bredere/flatere enn de vanlige produktbilde-boksene (4:3 på
+   merkekort, fast 190px høyde på produktfliser) -- strekkes de inn i disse
+   uendret, blir de visuelt forvrengt. .pli-frame overstyrer merkekortets
+   aspect-ratio til illustrasjonens EGEN, og .pli-tile-wrap gir samme
+   effekt på produktfliser (der boksen har fast høyde + sentrerer innholdet
+   i stedet for aspect-ratio) ved å style bredden i stedet, med høyden
+   utledet automatisk via cqw i selve illustrasjonen. */
+/* .pli-frame er nå en INDRE wrapper inni .brand-card-photo (ikke lenger
+   satt direkte på .brand-card-photo selv) -- .brand-card-photo beholder
+   sin vanlige 4:3-boks som ALLE kort (bilde eller illustrasjon) deler,
+   slik at rutenettet stretcher til lik høyde uten å bli rotete (funnet
+   og fikset 2026-08-30: ulik boks-høyde mellom bilde-kort og
+   illustrasjon-kort ga et synlig ujevnt rutenett når PC-versjonen fikk
+   samme bildeførte kort som mobil). Illustrasjonen sentreres i stedet
+   for å strekkes/forvrenges, med sin egen naturlige 560:225-proporsjon
+   bevart inni den delte 4:3-boksen. */
+.pli-tile-wrap{width:86%;aspect-ratio:560/225;container-type:inline-size}
+
+/* iWear (Brilleland) -- levert 2026-08-30, samme dag som en midlertidig
+   tekst-ordmerke (se _pli_iwear_logo_html()) siden brukerens fil selv sier
+   "ikke offisiell iWear-logo". Samme 560x225-canvas/cqw-teknikk som de tre
+   andre seriene. */
+.pli-iwear-pack{width:100%;height:100%;position:relative;overflow:hidden;background:#fff;border-radius:7px;--c1:#078e91;--c2:#11b8ad}
+.pli-iwear-band{height:3.214cqw;background:var(--c1)}
+.pli-iwear-copy{position:absolute;left:4.821cqw;top:8.393cqw;z-index:3}
+.pli-iwear-brand{font-size:8.393cqw;font-weight:750;letter-spacing:-.055em}
+.pli-iwear-brand i{font-style:normal;color:var(--c1)}
+.pli-iwear-variant{font-size:3.393cqw;color:var(--c1);text-transform:lowercase}
+.pli-iwear-kind{font-size:1.429cqw;color:#777;margin-top:1.071cqw}
+.pli-iwear-qty{position:absolute;left:5.000cqw;bottom:4.286cqw;font-size:5.000cqw;font-weight:750;z-index:3}
+.pli-iwear-qty span{display:block;font-size:1.250cqw;margin-top:0.893cqw}
+.pli-iwear-art{position:absolute;right:-2.679cqw;top:3.214cqw;width:48%;height:36.964cqw;background:radial-gradient(circle at 52% 50%,#fff 0 23%,transparent 24%),radial-gradient(ellipse at 55% 50%,transparent 0 31%,var(--c2) 32% 35%,transparent 36% 43%,var(--c1) 44% 53%,transparent 54%),linear-gradient(135deg,#fff 0 5%,var(--c2) 6% 44%,var(--c1) 45% 100%);border-radius:52% 0 0 52%}
+.pli-iwear-fit{--c1:#78b75a;--c2:#b7df83}
+.pli-iwear-fresh{--c1:#51a6c4;--c2:#94d4dd}
+.pli-iwear-activ{--c1:#087f82;--c2:#12b7a9}
+.pli-iwear-harmony{--c1:#6c258f;--c2:#a967c5}
+.pli-iwear-oxygen{--c1:#0b78a0;--c2:#52b6d0}
+.pli-iwear-balance{--c1:#489aa8;--c2:#91c6b5}
+.pli-iwear-oxygen-relax{--c1:#173d99;--c2:#32a6df}
+.pli-iwear-go-toric{--c1:#0b7561;--c2:#44b18c}
+.pli-iwear-fit-toric{--c1:#5d9e64;--c2:#8bc68b}
+.pli-iwear-activ-toric{--c1:#08709b;--c2:#16aaa8}
+.pli-iwear-harmony-toric{--c1:#6c168f;--c2:#b060c6}
+.pli-iwear-oxygen-toric{--c1:#11679e;--c2:#3b9fc7}
+.pli-iwear-balance-toric{--c1:#367b9c;--c2:#6eb4b4}
+.pli-iwear-oxygen-mf{--c1:#31539d;--c2:#658fd1}
+
+.hero-card-solution .hero-product-image.pli-hero { padding: 8px; }
+.hero-card-solution .pli-hero .pli-tile-wrap { width: 100%; }
+.illustration-note { margin: 12px 0 0; font-size: 0.78rem; color: var(--muted); }
+.illustration-note a { color: var(--blue); }
 .private-label-explainer { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }
 .private-label-explainer strong { color: var(--ink); }
 .private-label-caveat { background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
@@ -739,18 +921,27 @@ a { color: inherit; }
     <a href="/private-label/">Optikerkjedenes egne merker</a> ›
     EyeQ One-Day Classic For Astigmatism
   </p>
-  <div class="hero">
-    <div class="hero-copy">
+  <div class="hero-card hero-card-solution">
+    <div class="hero-main">
+      <div class="hero-product-image pli-hero"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
+  <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
+  <div class="pli-eyeq-copy">
+    <div>
+      <div class="pli-eyeq-wear">1-DAY</div>
+      <div class="pli-eyeq-variant">ASTIGMATISM</div>
+      <div class="pli-eyeq-micro">CONTACT LENS</div>
+    </div>
+    
+  </div>
+  <div class="pli-eyeq-eyeq-vertical">EYEQ</div>
+</div></div></div>
+      <div class="hero-copy">
       <div class="kicker">Eget merkenavn</div>
       <h1>EyeQ One-Day Classic For Astigmatism er egentlig Biomedics 1Day Extra Toric 30-pack</h1>
       <p>EyeQ One-Day Classic For Astigmatism er et eget varenavn for denne linsen. Det er samme produkt som Biomedics 1Day Extra Toric 30-pack fra Biomedics, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
-    </div>
-  </div>
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Biomedics 1Day Extra Toric 30-pack</strong> (solgt som EyeQ One-Day Classic For Astigmatism hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>277 kr</strong> hos Lenson (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-26">26.09.2026</time>.</p>
-</section>
-
-  <div class="winner-band winner-band-cta winner-band-wide">
+      <p class="illustration-note">Egen illustrasjon, ikke et ekte produktbilde. <a href="/om-produktillustrasjoner/">Les mer</a></p>
+      </div>
+      <div class="winner-band winner-band-cta">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div>
     <div class="label-group">
@@ -762,7 +953,12 @@ a { color: inherit; }
   <a class="winner-btn" id="winner-band-link" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-112)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fbiomedics-1-day-xtra-toric-lens-112)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for Biomedics 1Day Extra Toric 30-pack" data-retailer="Lenson" data-affiliate="1">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
   <a class="winner-more" href="#tilbud">Sammenlign alle 6 butikker <span aria-hidden="true">&#8595;</span></a>
 </div>
-<div class="qty-box">
+      <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>Biomedics 1Day Extra Toric 30-pack</strong> (solgt som EyeQ One-Day Classic For Astigmatism hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>277 kr</strong> hos Lenson (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-26">26.09.2026</time>.</p>
+</section>
+    </div>
+  </div>
+  <div class="qty-box">
     <div class="qty-box-title">Hvor mange esker trenger du?</div>
     <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
