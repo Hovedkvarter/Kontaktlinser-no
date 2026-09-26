@@ -535,14 +535,23 @@ a { color: inherit; }
 .section-header:first-of-type { margin-top: 0; }
 .section-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
 .category-rows { display: flex; flex-direction: column; gap: 10px; }
-.category-row { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--card-shadow); transition: border-color 0.15s; }
-.category-row:hover { border-color: var(--blue); }
-.category-row-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.category-row { --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: var(--blue); position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 12px; min-height: 76px; text-decoration: none; color: var(--ink); background: var(--cat-bg); border: 1px solid var(--cat-border); border-radius: 16px; padding: 12px 14px; box-shadow: var(--card-shadow); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }
+.category-row.cat-blue { --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: #2563EB; }
+.category-row.cat-amber { --cat-bg: #FFFBEB; --cat-border: #F4E6BE; --cat-accent: #D9A02B; }
+.category-row.cat-sky { --cat-bg: #EEF5FF; --cat-border: #D3E3F8; --cat-accent: #4F8FE8; }
+.category-row.cat-lavender { --cat-bg: #F5F0FF; --cat-border: #E1D8F6; --cat-accent: #8B7FD6; }
+.category-row.cat-coral { --cat-bg: #FFF2F4; --cat-border: #F6D6DC; --cat-accent: #E8637A; }
+.category-row:hover, .category-row:focus-visible { border-color: var(--cat-accent); }
+/* Bakgrunnsbildet ligger bak innholdet og fader ut mot venstre, så teksten alltid står på den lyse pastellen. */
+.category-row-bg { position: absolute; top: 0; right: 0; height: 100%; width: 52%; z-index: -1; object-fit: cover; object-position: 100% 50%; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 45%); mask-image: linear-gradient(90deg, transparent 0, #000 45%); }
+.category-row-icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.08); }
 .category-row-icon svg { width: 20px; height: 20px; }
-.category-row-text { flex: 1; min-width: 0; }
+.category-row-text { flex: 1; min-width: 0; max-width: 58%; }
 .category-row-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; }
-.category-row-desc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-.category-row-chevron { flex-shrink: 0; width: 18px; height: 18px; color: var(--muted); }
+.category-row-desc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+/* Pil: alltid synlig (liten) på mobil/touch, vises ved hover på desktop */
+.category-row-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.85); color: var(--cat-accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(11, 37, 69, 0.12); }
+.category-row-arrow svg { width: 14px; height: 14px; }
 .brand-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
 .brand-card { display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }
 .brand-card:hover { border-color: var(--blue); }
@@ -638,11 +647,17 @@ a { color: inherit; }
   .trust-card-text { font-size: 0.8rem; max-width: 520px; }
   #kategorier { margin-top: 32px !important; }
   .category-rows { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
-  .category-row { flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 22px 14px; border-radius: 18px; box-shadow: 0 1px 2px rgba(11, 37, 69, 0.06), 0 6px 18px rgba(37, 99, 235, 0.05); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }
-  .category-row:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37, 99, 235, 0.14); }
-  .category-row-icon { width: 48px; height: 48px; }
-  .category-row-icon svg { width: 24px; height: 24px; }
-  .category-row-chevron { display: none; }
+  .category-row { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 10px; min-height: 150px; padding: 16px 16px 18px; border-radius: 18px; box-shadow: 0 1px 2px rgba(11, 37, 69, 0.06), 0 6px 18px rgba(37, 99, 235, 0.05); }
+  .category-row:hover, .category-row:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37, 99, 235, 0.14); }
+  /* Linsen ligger nede til høyre (bildet skaleres med kortbredden, forankret i bunnen) med fade mot venstre og opp,
+     og en pastell-tåke bak teksten (::before), så tittel og beskrivelse alltid er lette å lese. */
+  .category-row-bg { top: auto; bottom: 0; right: -8%; width: 122%; height: auto; max-width: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); mask-composite: intersect; }
+  .category-row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--cat-bg) 0%, var(--cat-bg) 34%, transparent 70%); pointer-events: none; }
+  .category-row-icon { width: 44px; height: 44px; }
+  .category-row-icon svg { width: 22px; height: 22px; }
+  .category-row-text { flex: none; max-width: 64%; }
+  .category-row-arrow { top: auto; bottom: 12px; right: 12px; transform: translateX(-4px); width: 30px; height: 30px; background: var(--cat-accent); color: white; opacity: 0; transition: opacity 0.15s, transform 0.15s; }
+  .category-row:hover .category-row-arrow, .category-row:focus-visible .category-row-arrow { opacity: 1; transform: translateX(0); }
 }
 </style>
 </head>
@@ -929,7 +944,8 @@ a { color: inherit; }
         <h2>Kategorier</h2>
       </div>
       <div class="category-rows">
-        <a class="category-row" href="/kontaktlinser/manedslinser/">
+        <a class="category-row cat-blue" href="/kontaktlinser/manedslinser/">
+  <img class="category-row-bg" src="/static/categories/bg-maaned-320.webp" srcset="/static/categories/bg-maaned-320.webp 320w, /static/categories/bg-maaned-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--blue-tint);color:var(--blue);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
   </div>
@@ -937,9 +953,10 @@ a { color: inherit; }
     <div class="category-row-label">Månedslinser</div>
     <div class="category-row-desc">Populær og kostnadseffektiv</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/dagslinser/">
+<a class="category-row cat-amber" href="/kontaktlinser/dagslinser/">
+  <img class="category-row-bg" src="/static/categories/bg-dag-320.webp" srcset="/static/categories/bg-dag-320.webp 320w, /static/categories/bg-dag-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--amber-tint);color:var(--amber);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
   </div>
@@ -947,9 +964,10 @@ a { color: inherit; }
     <div class="category-row-label">Dagslinser</div>
     <div class="category-row-desc">Friske linser hver dag</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/toriske-linser/">
+<a class="category-row cat-sky" href="/kontaktlinser/toriske-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-toriske-320.webp" srcset="/static/categories/bg-toriske-320.webp 320w, /static/categories/bg-toriske-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--sky-tint);color:var(--sky);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6"/></svg>
   </div>
@@ -957,9 +975,10 @@ a { color: inherit; }
     <div class="category-row-label">Toriske linser</div>
     <div class="category-row-desc">For deg med astigmatisme</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/fargede-linser/">
+<a class="category-row cat-lavender" href="/kontaktlinser/fargede-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-fargede-320.webp" srcset="/static/categories/bg-fargede-320.webp 320w, /static/categories/bg-fargede-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--lavender-tint);color:var(--lavender);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none" opacity="0.35"/></svg>
   </div>
@@ -967,9 +986,10 @@ a { color: inherit; }
     <div class="category-row-label">Fargede linser</div>
     <div class="category-row-desc">Endre eller forsterk øyefargen</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/multifokale-linser/">
+<a class="category-row cat-coral" href="/kontaktlinser/multifokale-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-multifokale-320.webp" srcset="/static/categories/bg-multifokale-320.webp 320w, /static/categories/bg-multifokale-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--coral-tint);color:var(--coral);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/></svg>
   </div>
@@ -977,7 +997,7 @@ a { color: inherit; }
     <div class="category-row-label">Multifokale linser</div>
     <div class="category-row-desc">For nær, mellom og fjern</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
       </div>
     </div>
@@ -1278,7 +1298,8 @@ a { color: inherit; }
       <h2>Kategorier</h2>
     </div>
     <div class="category-rows">
-      <a class="category-row" href="/kontaktlinser/manedslinser/">
+      <a class="category-row cat-blue" href="/kontaktlinser/manedslinser/">
+  <img class="category-row-bg" src="/static/categories/bg-maaned-320.webp" srcset="/static/categories/bg-maaned-320.webp 320w, /static/categories/bg-maaned-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--blue-tint);color:var(--blue);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
   </div>
@@ -1286,9 +1307,10 @@ a { color: inherit; }
     <div class="category-row-label">Månedslinser</div>
     <div class="category-row-desc">Populær og kostnadseffektiv</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/dagslinser/">
+<a class="category-row cat-amber" href="/kontaktlinser/dagslinser/">
+  <img class="category-row-bg" src="/static/categories/bg-dag-320.webp" srcset="/static/categories/bg-dag-320.webp 320w, /static/categories/bg-dag-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--amber-tint);color:var(--amber);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke-linecap="round"/></svg>
   </div>
@@ -1296,9 +1318,10 @@ a { color: inherit; }
     <div class="category-row-label">Dagslinser</div>
     <div class="category-row-desc">Friske linser hver dag</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/toriske-linser/">
+<a class="category-row cat-sky" href="/kontaktlinser/toriske-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-toriske-320.webp" srcset="/static/categories/bg-toriske-320.webp 320w, /static/categories/bg-toriske-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--sky-tint);color:var(--sky);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.6"/></svg>
   </div>
@@ -1306,9 +1329,10 @@ a { color: inherit; }
     <div class="category-row-label">Toriske linser</div>
     <div class="category-row-desc">For deg med astigmatisme</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/fargede-linser/">
+<a class="category-row cat-lavender" href="/kontaktlinser/fargede-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-fargede-320.webp" srcset="/static/categories/bg-fargede-320.webp 320w, /static/categories/bg-fargede-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--lavender-tint);color:var(--lavender);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" stroke="none" opacity="0.35"/></svg>
   </div>
@@ -1316,9 +1340,10 @@ a { color: inherit; }
     <div class="category-row-label">Fargede linser</div>
     <div class="category-row-desc">Endre eller forsterk øyefargen</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
-<a class="category-row" href="/kontaktlinser/multifokale-linser/">
+<a class="category-row cat-coral" href="/kontaktlinser/multifokale-linser/">
+  <img class="category-row-bg" src="/static/categories/bg-multifokale-320.webp" srcset="/static/categories/bg-multifokale-320.webp 320w, /static/categories/bg-multifokale-613.webp 613w" sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" alt="" width="613" height="273" loading="lazy" decoding="async">
   <div class="category-row-icon" style="background:var(--coral-tint);color:var(--coral);">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/></svg>
   </div>
@@ -1326,7 +1351,7 @@ a { color: inherit; }
     <div class="category-row-label">Multifokale linser</div>
     <div class="category-row-desc">For nær, mellom og fjern</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>
     </div>
   </div>
