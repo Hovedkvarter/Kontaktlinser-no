@@ -446,7 +446,42 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         + list(product_paths.values()) + list(solution_paths.values()) + label_paths + family_paths
     )
     fixed = {f"/guide/{s}/": GUIDE_CONTENT.get(s, {}).get("updated", today) for s in guide_slugs}
-    lm = resolve_lastmods(BUILD_DIR, all_paths, today, fixed)
+
+    # Datoen prisene sist ble bekreftet (nyeste checked_at) for sider med prisdata.
+    def verified_date(products: list[dict]) -> str | None:
+        stamps = [o["checked_at"] for p in products for o in p.get("offers", [])]
+        return max(stamps)[:10] if stamps else None
+
+    by_id = {p["id"]: p for p in catalog["products"]}
+    sitewide = verified_date(catalog["products"])
+    floors: dict[str, str] = {}
+
+    def set_floor(path: str, value: str | None) -> None:
+        if value:
+            floors[path] = value
+
+    set_floor("/", sitewide)
+    for p in lens_products:
+        set_floor(product_paths[p["id"]], verified_date([p]))
+    for p in solution_products:
+        set_floor(solution_paths[p["id"]], verified_date([p]))
+    for cat_slug in solution_categories:
+        set_floor(f"/{cat_slug}/", verified_date([p for p in solution_products if p["solution_category"] == cat_slug]))
+    for s in category_slugs:
+        set_floor(f"/kontaktlinser/{s}/", verified_date([p for p in lens_products if p["category_slug"] == s]))
+    for s in sorted({p["brand_slug"] for p in lens_products}):
+        set_floor(f"/merke/{s}/", verified_date([p for p in lens_products if p["brand_slug"] == s]))
+    for chain in sorted({label["chain"] for label in private_labels}):
+        real = [by_id[l["real_product_id"]] for l in private_labels if l["chain"] == chain and l["real_product_id"] in by_id]
+        set_floor(f"/merke/{PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower()}/", verified_date(real))
+    for label in private_labels:
+        real = by_id.get(label["real_product_id"])
+        set_floor(f"/private-label/{label['slug']}/", verified_date([real]) if real else None)
+    set_floor("/private-label/", sitewide)
+    for path in family_paths:  # serie-sider viser laveste pris på tvers av flere produkter
+        set_floor(path, sitewide)
+
+    lm = resolve_lastmods(BUILD_DIR, all_paths, today, fixed, floors)
 
     site_content = {
         "static_pages": [{"path": path, "lastmod": lm[path]} for path in static_paths],

@@ -1612,30 +1612,35 @@ full skraping annenhver dag. Beregnet: ca. 49 -> ca. 8 avregnede min/døgn (−8
 ## Ærlig lastmod i sitemap (2026-09-26)
 
 Før stod alle 401 URL-er på «i dag» ved hvert bygg (også guider urørt siden
-august) -- Google slutter å stole på lastmod da, og en dato som ikke stemmer er
-misvisende data til søkemotorene (Kai påpekte dette). Nå:
+august) -- en dato som ikke stemmer er misvisende data til søkemotorene (Kai
+påpekte dette). Regelen nå, avklart med Kai:
 
-- **Guider:** lastmod = guidens redaksjonelle `updated`-dato (samme dato som
-  byline og Article-schema).
-- **Alle andre sider:** `site_generator/lastmod.py` lager en signatur (hash) av
-  den ferdige HTML-en, uten flyktige deler («Sist oppdatert: N timer siden»,
-  prisutviklingsgrafen, JSON-LD `dateModified`). Ny signatur = ny lastmod (ny
-  pris, ny tekst, ny mal); ellers beholdes forrige dato fra
-  `site_generator/lastmod_state.json` (committes av CI sammen med
-  price_history.json). Testet: ferske `checked_at` med uendrede priser gir 0
-  endrede sider, og én reell prisendring endrer nøyaktig sidene som viser den
-  (produkt, kategori, merke, serie).
-- Første sporing setter dagens dato på alle ikke-guide-sider én gang (vi vet ikke
-  når de sist endret seg), deretter er datoene stabile.
+- **Guider:** lastmod = guidens redaksjonelle `updated`-dato (samme som byline og
+  Article-schema).
+- **Sider med prisdata** (produkt, kategori, merke, serie, forside, private label,
+  linsevæske/øyedråper): lastmod = datoen prisene sist ble **bekreftet** (nyeste
+  `checked_at` blant tilbudene siden viser), **også når prisene er uendret** --
+  Kai: «når priser blir oppdatert er også siste dato, som er korrekt selv om
+  teksten er lik». Gjenbrukte tilbud (dropout-beskyttelse, hoppet-over skraping)
+  beholder sin gamle `checked_at`, så datoen står ikke på «i dag» hvis noe ikke
+  faktisk ble hentet. Dette stemmer overens med JSON-LD `dateModified` på
+  produktsidene (samme kilde: nyeste checked_at).
+- **Alle sider:** aldri eldre enn siste faktiske innholdsendring, funnet via en
+  signatur (hash) av HTML-en uten flyktige deler (`site_generator/lastmod.py`,
+  tilstand i `lastmod_state.json`, committes av CI). Statiske sider uten prisdata
+  (om-oss, metodikk ...) bruker kun signaturen -- de endres bare når teksten/malen
+  endres.
+- Første sporing setter dagens dato på ikke-guide-sider én gang (vi vet ikke når
+  de sist endret seg).
 - Rettet i samme slengen: `/personvern/` og `/vilkar/` viste «Sist oppdatert:
   <dagens dato>» hver dag; viser nå siste faktiske endring (30.08. / 05.09.2026,
   fra git). **`PRIVACY_UPDATED`/`TERMS_UPDATED` i render_templates.py må endres
   manuelt når teksten endres.** Sitemapen hadde også 19 dupliserte guide-URL-er
   (samme guide i flere kategorier) -- nå 40 unike.
-- Åpent: produktsidenes JSON-LD `dateModified` = nyeste `checked_at`, altså når
-  vi sist BEKREFTET prisene, og endrer seg derfor hver kjøring. Uendret (er
-  «sist verifisert», ikke «sist endret»), men bør vurderes justert slik at det
-  ikke motsier lastmod.
+- Merk: med daglig prisbekreftelse flytter lastmod seg omtrent daglig for
+  prissider, selv om prisene ofte er like. Det er bevisst og ærlig (vi har
+  faktisk sjekket), men Google kan vekte lastmod lavere hvis den ikke sammenfaller
+  med synlige endringer -- følg med på indekseringen.
 
 ## Arbeidsspråk og autorisasjon
 
