@@ -7518,6 +7518,17 @@ HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--bo
 """
 
 
+def _larger_feed_image(url: str) -> str:
+    """Feedbildene er små miniatyrer (Lensway w_170, Apotekhjem _400) som blir
+    uskarpe i den store hero-ruten. Begge kildene serverer større varianter av
+    samme bilde via en størrelse i URL-en; andre kilder returneres uendret."""
+    if "lwg-res.cloudinary.com" in url:
+        return url.replace(",w_170,", ",w_600,")
+    if "apotekhjem.no/images/thumbs/" in url and url.endswith("_400.jpg"):
+        return url[:-len("_400.jpg")] + "_600.jpg"
+    return url
+
+
 def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None) -> str:
     """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
     kontaktlinser (size_ml/solution_type/solution_category i stedet for
@@ -7560,7 +7571,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     if size_ml and ex_best:
         per_100 = ex_best["price_nok"] / size_ml * 100
         price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris (uten frakt)</p>'
-    thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
+    thumb = _img_tag(_larger_feed_image(image_url), product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
     safety_notice = ""
@@ -7686,6 +7697,14 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 {WINNER_WIDGET_STYLE}
 {PRICE_LIST_STYLE}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: 12px 0 0; }}
+/* Flaske-/tubebilder er høye og smale: fast kvadratisk rute (som linsebildene) i
+   stedet for å la bildets egen høyde strekke hele hero-kortet. */
+.hero-card-solution .hero-product-image {{ aspect-ratio: 1 / 1; height: auto; }}
+@media (min-width: 860px) {{
+  .hero-card-solution .hero-main {{ align-items: start; }}
+  .hero-card-solution .hero-main .hero-product-image {{ height: auto; aspect-ratio: 1 / 1; align-self: start; }}
+  .hero-card-solution .hero-main .winner-band {{ align-self: center; }}
+}}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
@@ -7700,7 +7719,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     <a href="/{cat_slug}/">{escape(cat["label"])}</a> ›
     {escape(product["name"])}
   </p>
-  <div class="hero-card">
+  <div class="hero-card hero-card-solution">
     <div class="hero-main">
       <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
       <div class="hero-copy">
