@@ -1725,3 +1725,21 @@ feilsøke).
   (everclear 1/3/5 stk), SWATI/Lenson/Maxab linseetui (passer ikke i noen kategori),
   Opti-Free PureMoist uten størrelse (Apotekhjem 90569), HYLO Evo Tears (usikker om det er
   samme som EvoTears), samt reseptbelagte/legemiddel-produkter i Apotekhjem-feeden.
+
+- **Oppfølging samme dag (2026-09-26): usikre rader avklart, ny kategori, søk.** GTIN
+  (`identifiers.ean` / `fields.gtin` i Tradedoubler, `gtin`-kolonnen i CSV-feedene) er nå brukt
+  som *bevis* for matching, aldri som eneste kriterium: lik GTIN på tvers av forhandlere =
+  sterkt bevis for samme produkt (brukt for S4N HYLO Evo Tears = EvoTears 3 ml, S4N ReNu 360 ml,
+  Apotekhjem Opti-Free PureMoist 300 ml). **Ulik GTIN beviser IKKE ulikt produkt** -- J&J har
+  flere GTIN-er per pakning, og Extra Optical har kopierte/feil GTIN-er mellom ulike produkter
+  (MyDay Toric/Biomedics Extra Toric osv. -- selve URL/beskrivelse/pris er riktig, kun GTIN/
+  tittel er kopiert). Bruk derfor aldri Extra Optical-GTIN til matching.
+- Egen tilbehørskategori `/tilbehor/` ("Etui og hjelpemidler") i `SOLUTION_CATEGORIES`
+  (SWATI Lens Case & Tweezers, Ezy-Drop). Lenson sine egne etuier (Lenson Lens Case 1/3/6 stk,
+  Maxab Frog/Pig/Pink/Blue) og Extra Optical sine linsecover er bevisst ikke med (kun én
+  forhandler hver, ingen prissammenligning). Drop-it (saltvann, engangspipetter) er
+  øyedråper, ikke tilbehør. Clariti 1 day Multifocal 3 Add 30-pack er eget produkt (egen EAN,
+  ikke samme som Clariti Multifocal). Extra Optical "1-Day Acuvue" (uten Moist) er IKKE lagt til:
+  egen listing/beskrivelse, kun én forhandler.
+- Søket (forside og guider) dekker nå også linsevæske, øyedråper og tilbehør
+  (`build_search_index(..., solutions=...)`, søkeord med og uten æøå). Placeholder er uendret.

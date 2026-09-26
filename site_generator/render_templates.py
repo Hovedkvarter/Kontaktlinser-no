@@ -747,6 +747,7 @@ TOPBAR_HTML = f"""<div class="topbar">
           <div class="mega-col-title">Kategori</div>
           <a class="mega-menu-link" href="/linsevaeske/">Linsevæske</a>
           <a class="mega-menu-link" href="/oyedraper/">Øyedråper</a>
+          <a class="mega-menu-link" href="/tilbehor/">Etui og hjelpemidler</a>
         </div>
       </div>
     </div>
@@ -1048,7 +1049,7 @@ LEGACY_REDIRECTS = {
     "/produkt/iwear_dr_color.aspx": "/merke/iwear/",
     "/produkt/iwear_xr_supreme.aspx": "/merke/iwear/",
     "/produkt/iwear_xr_supreme_toric.aspx": "/merke/iwear/",
-    "/produkt/lensway_case.aspx": "/linsevaeske/",
+    "/produkt/lensway_case.aspx": "/tilbehor/",
     "/produkt/lensway_hand_desinfection_spray.aspx": "/",
     "/produkt/lensway_solution.aspx": "/linsevaeske/",
     "/produkt/mediflex_toric.aspx": "/kontaktlinser/toriske-linser/",
@@ -1081,7 +1082,7 @@ LEGACY_REDIRECTS = {
     "/produkt/purevision_toric.aspx": "/merke/purevision/",
     "/produkt/queens-trilogy.aspx": "/",
     "/produkt/queens-twins.aspx": "/",
-    "/produkt/renu_flight_pack.aspx": "/linsevaeske/",
+    "/produkt/renu_flight_pack.aspx": "/linsevaeske/renu/renu-flight-pack-100-ml/",
     "/produkt/renu_multi-purpose.aspx": "/linsevaeske/renu/renu-multi-purpose-60-ml/",
     "/produkt/renu_onthego.aspx": "/linsevaeske/",
     "/produkt/s-75.aspx": "/",
@@ -3922,7 +3923,16 @@ LENS_SEARCH_JS = """
 """
 
 
-def build_search_index(products: list[dict], private_labels: list[dict] | None = None) -> list[dict]:
+# Søkeord per tilbehørskategori. Både æøå og ascii-varianter, siden mange skriver
+# "oyedraper"/"linsevaeske" uten spesialtegn. Kun brukt til å MATCHE (aldri vist).
+SOLUTION_SEARCH_TERMS = {
+    "linsevaeske": "linsevæske linsevaeske",
+    "oyedraper": "øyedråper oyedraper øyepleie oyepleie",
+    "tilbehor": "tilbehør tilbehor etui hjelpemidler",
+}
+
+
+def build_search_index(products: list[dict], private_labels: list[dict] | None = None, solutions: list[dict] | None = None) -> list[dict]:
     """Søkeindeksen som driver autofullføringen (forside: innebygd som
     skjult JSON; guide-sider: hentes fra /data/search-index.json).
     "meta" er den synlige undertekst-linjen i forslagene -- kjedenavnet
@@ -3938,6 +3948,16 @@ def build_search_index(products: list[dict], private_labels: list[dict] | None =
             "search": f'{p["name"]} {p["brand_label"]}'.lower(),
         }
         for p in products
+    ]
+    entries += [
+        {
+            "name": p["name"],
+            "meta": f'{p["brand_label"]} · {SOLUTION_CATEGORIES[p["solution_category"]]["label"]}',
+            "href": f'/{p["solution_category"]}/{p["brand_slug"]}/{p["slug"]}/',
+            "image": _product_image(p),
+            "search": f'{p["name"]} {p["brand_label"]} {SOLUTION_SEARCH_TERMS.get(p["solution_category"], "")}'.lower(),
+        }
+        for p in (solutions or [])
     ]
     entries += [
         {
@@ -3980,7 +4000,7 @@ def render_guide_search_card(guide_slug: str, compact: bool = False) -> str:
   </aside>"""
 
 
-def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None) -> str:
+def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None, solution_products: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
     # Søkeindeksen (under) driver kun søkeforslag-dropdownen -- forsiden
@@ -3989,7 +4009,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     # fortsatt dekker alt uten at forsidens HTML/DOM må inneholde hvert
     # eneste produkt (dårlig for sidevekt og for topisk SEO-fokus).
     search_index_json = json.dumps(
-        build_search_index(catalog["products"]), ensure_ascii=False
+        build_search_index(catalog["products"], solutions=solution_products), ensure_ascii=False
     ).replace("</", "<\\/")
     private_label_search_index_json = json.dumps(
         build_search_index([], private_labels), ensure_ascii=False
@@ -7462,6 +7482,11 @@ SOLUTION_CATEGORIES = {
         "label": "Linsevæske",
         "title_label": "Billig linsevæske",
         "intro": "Sammenlign priser på linsevæske og reisepakker hos norske nettbutikker. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
+    },
+    "tilbehor": {
+        "label": "Tilbehør",
+        "title_label": "Billig linsetilbehør",
+        "intro": "Sammenlign priser på linseetui, pinsett og hjelpemidler for kontaktlinser og øyedråper hos norske nettbutikker.",
     },
     "oyedraper": {
         "label": "Øyedråper",

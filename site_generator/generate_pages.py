@@ -154,7 +154,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     for label in private_labels:
         aliases_by_product_id.setdefault(label["real_product_id"], []).append(label)
 
-    home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels)
+    home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels, solution_products=solution_products)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
 
@@ -162,7 +162,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     # har samme indeks innebygd) -- holder guide-HTML-en lett.
     write_file(
         BUILD_DIR / "data" / "search-index.json",
-        json.dumps(build_search_index(lens_products, private_labels), ensure_ascii=False, separators=(",", ":")),
+        json.dumps(build_search_index(lens_products, private_labels, solution_products), ensure_ascii=False, separators=(",", ":")),
     )
 
     products_by_id = {p["id"]: p for p in lens_products}

@@ -1105,6 +1105,54 @@
       "description": "Øyegel i pakke med 30 doser fra Théa.",
       "long_description": "Thealoz Duo Gel er en øyegel fra Théa, i pakke med 30 doser à 0,4 g.",
       "scrape_targets": []
+    },
+    {
+      "id": "swati-lens-case-tweezers",
+      "slug": "swati-lens-case-tweezers",
+      "name": "SWATI Lens Case & Tweezers",
+      "brand_slug": "swati",
+      "brand_label": "SWATI",
+      "solution_category": "tilbehor",
+      "unit_singular": "sett",
+      "unit_plural": "sett",
+      "description": "Linseetui med pinsett fra SWATI.",
+      "long_description": "SWATI Lens Case & Tweezers er et sett med linseetui og pinsett fra SWATI, for enklere og mer hygienisk håndtering av kontaktlinsene.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "swati-lens-case-tweezers-extra-9577"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "swati-lens-case-tweezers-extra-9577"
+        }
+      ]
+    },
+    {
+      "id": "ezy-drop-eye-drop-guide",
+      "slug": "ezy-drop-eye-drop-guide",
+      "name": "Ezy-Drop Eye Drop Guide",
+      "brand_slug": "ezy-drop",
+      "brand_label": "Ezy-Drop",
+      "solution_category": "tilbehor",
+      "unit_singular": "stk",
+      "unit_plural": "stk",
+      "description": "Dråpestøtte som gjør det enklere å ta øyedråper.",
+      "long_description": "Ezy-Drop er en dråpestøtte i myk silikon som holder øyedråpeflasken stødig i riktig stilling, slik at dråpene treffer øyet. Til flergangsbruk, og passer til de fleste øyedråpeflasker.",
+      "scrape_targets": []
+    },
+    {
+      "id": "drop-it-20x5ml",
+      "slug": "drop-it-oyedraper-20-x-5-ml",
+      "name": "Drop-it Øyedråper 20 x 5 ml",
+      "brand_slug": "drop-it",
+      "brand_label": "Drop-it",
+      "solution_category": "oyedraper",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Steril saltvannsløsning i engangspipetter.",
+      "long_description": "Drop-it er en steril saltvannsløsning (0,9 % natriumklorid) uten konserveringsmiddel, i engangspipetter (20 × 5 ml). Fukter øynene ved midlertidig tørrhet og skyller bort støv, skitt og pollen.",
+      "scrape_targets": []
     }
   ]
 }

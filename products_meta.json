@@ -7205,6 +7205,36 @@
           "slug": "everclear-elite-lens-9621"
         }
       ]
+    },
+    {
+      "id": "clariti-1day-multifocal-3add-30pk",
+      "slug": "clariti-1-day-multifocal-3-add-30-pack",
+      "name": "Clariti 1 day Multifocal 3 Add 30-pack",
+      "description": "Multifokal dagslinse fra CooperVision.",
+      "long_description": "Clariti 1 day Multifocal 3 Add er en multifokal dagslinse fra CooperVision for deg med alderssyn (presbyopi), i pakke med 30 linser. Dette er en egen variant i Clariti-serien og ikke det samme produktet som Clariti 1 day Multifocal.",
+      "brand_slug": "clariti",
+      "brand_label": "Clariti",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "clariti-1day-multifocal-3-add-lens-10831"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "clariti-1day-multifocal-3-add-lens-10831"
+        }
+      ]
     }
   ]
 }
