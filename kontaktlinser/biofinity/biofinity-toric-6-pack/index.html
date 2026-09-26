@@ -593,6 +593,15 @@ a { color: inherit; }
 .winner-more { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 .winner-more:hover { text-decoration: underline; }
 #tilbud { scroll-margin-top: 16px; }
+/* Sider uten hero-kolonne (linsevæske, øyedråper, private label): kortet blir en bred stripe */
+@media (min-width: 700px) {
+  .winner-band-wide { max-width: none; margin: 16px 0; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "left btn" "left more"; align-items: center; text-align: left; column-gap: 28px; row-gap: 8px; padding: 18px 24px; }
+  .winner-band-wide .winner-left { grid-area: left; flex-direction: row; align-items: center; gap: 16px; }
+  .winner-band-wide .label-group { align-items: flex-start; }
+  .winner-band-wide .retailer { justify-content: flex-start; margin-top: 8px; }
+  .winner-band-wide .winner-btn { grid-area: btn; width: auto; min-width: 210px; }
+  .winner-band-wide .winner-more { grid-area: more; text-align: center; }
+}
 @media (min-width: 860px) {
   /* align-self: center -- kortet er kun så høyt som innholdet og flyter midt i
      kolonnen, i stedet for å strekkes til hele hero-radens høyde (ga et stort
