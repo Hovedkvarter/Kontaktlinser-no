@@ -1495,6 +1495,71 @@ med snarveier til kategorier nederst.
   suggestion/button). **Krever en GA4-event-tag + trigger i GTM-beholderen
   (GTM-5RZFVNQM) for å havne i Analytics** -- ikke laget ennå.
 
+## GitHub Actions-kostnad og Chillout-migrering (analyse 2026-09-26)
+
+**Retning (bestemt av Kai):** Chillout eier sentralisert feed-/prisinnhenting,
+og Kontaktlinser.no blir en *konsument* av disse dataene i stedet for selv å
+hente/skrape forhandlerne fire ganger i døgnet. **Analysen under er ren
+dokumentasjon -- ingen workflow-, tidsplan-, cache- eller produksjonsendringer
+er gjort.** Ikke optimaliser workflowen i mellomtiden uten at Kai ber om det.
+
+**Konklusjon:** feed-/katalogstørrelsen er *ikke* det som driver
+GitHub-tiden. Sekvensiell skraping av forhandlere dominerer, og GitHubs
+avrunding per jobb blåser opp de rapporterte minuttene.
+
+Målt (kilde: `gh api repos/Hovedkvarter/Kontaktlinser-no/actions/runs` og
+`.../runs/{id}/jobs`, 947 kjøringer 10. aug -- 26. sep 2026):
+- Workflowen `build-and-deploy.yml` har 1 jobb, sekvensielle steg, cron
+  `0 */6 * * *` (4/dag), pluss `push` til main og manuell start. Ingen
+  cache, ingen Node, ingen tester; `pip install` (2 s) kjøres hver gang.
+- Planlagt jobb: median 537 s (snitt 560, min 217, maks 1 170). Steget
+  «Hent priser (feeds + skraping) og bygg katalog» = 518 s median = 96,5 %
+  av jobben. All annen CI-overhead er ca. 19 s median (3,5 %).
+- Push-kjøringer: median 13 s (hopper over skraping), men 285 stk (26
+  dager, opptil 35/dag). Hver push utløser i tillegg GitHubs egen
+  `pages-build-deployment` (3 jobber à 4-10 s; 459 kjøringer totalt).
+- Feed-henting (Tradedoubler ×3 forhandlere + Adtraction ×2): **29 s**, målt
+  lokalt med samme kode (ikke på runneren -- CI-loggen buffrer utskrift).
+- Skraping: 338 sekvensielle mål mot 8 forhandlere (coptikk 100, interoptik
+  58, lensit 56, synsam 43, kroghoptikk 42, brilleland 31, vitusapotek 4,
+  apotekfordeg 4), minst 3 s mellom kall til samme domene
+  (`MIN_DELAY_SECONDS` i scraper.py). **Ca. 490 s er estimat (differansen
+  518 − 29), ikke direkte målt.**
+- Mislykkede/avbrutte/retry-kjøringer: ca. 20 rå minutter totalt (< 1 %).
+
+Avstemming mot GitHub Billing (Kai så ~1 410 Linux-minutter): 1.-26. sept.
+gir 585 jobber, 945 rå minutter, **1 410 minutter når hver jobb rundes opp til
+hele minutter** -- eksakt treff. Fordeling: planlagt hoved-jobb 922, push 46,
+Pages-deploy 441 (rå 62 min!), engangs-workflow 1. En tredjedel (465 min) er ren
+avrunding. Fire planlagte oppdateringer/døgn ≈ 52 avregnede minutter (≈ 13 per
+oppdatering: ~9,9 jobb + ~3 Pages); fordeling planlagt/push i september
+(~87 % / ~13 %) er estimert, ikke målt.
+
+Forbehold: repoet er **offentlig**, timing-API-et viser `billable = 0`, og
+GitHub-hostede runnere er gratis for offentlige repoer -- 1 410 er derfor
+trolig bruttoforbruk med full rabatt. Ikke verifisert mot selve billing-siden
+(krever `user`-scope). De tre private repoene på kontoen har ingen
+workflows. `Hovedkvarter` er en *personlig brukerkonto*, ikke en org.
+
+**Hva migreringen ville endre (estimater):**
+- Flytter *bare feeds* til Chillout: sparer ca. 30 s av ~537 s (< 5 %).
+  Skrapingen ligger igjen, og er ikke feed-innhenting.
+- Flytter *feeds og skraping*, og Actions bare bygger + deployer: planlagt
+  jobb ca. 20-60 s. Ca. 1 + 3 avregnede min per oppdatering mot ca. 13 i dag
+  (≈ −70 %; ca. 16 mot 52 min/døgn).
+- Pages-deployen forsvinner ikke, med mindre Chillout også overtar bygg og
+  publisering. Trenger da en trigger (f.eks. `repository_dispatch`) som
+  bygger når data faktisk er endret, i stedet for hver 6. time.
+- Skraping flyttet til Chillout er fortsatt underlagt de etablerte
+  skrapereglene (robots.txt respekteres, minst 3 s per domene, se
+  `scraper.py`; ingen hotlinking av bilder).
+
+**Åpne punkter til migreringen:** (1) Verifiser billing-tallet mot
+GitHub-siden. (2) Generer-steget økte fra ~1 s til 21-39 s fra 25. sept.
+(sannsynligvis Chillout-lesekontrakten i bygget, ikke undersøkt). (3) Hva
+gjør de 8 skrapede forhandlerne når de ikke har feed -- får Chillout en
+skraper, eller skal de få affiliate-feed først?
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
