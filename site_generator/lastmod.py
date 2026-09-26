@@ -34,6 +34,8 @@ _VOLATILE = [
     # vi sist BEKREFTET prisene -- endrer seg ved hver kjøring uten at innholdet
     # nødvendigvis har endret seg.
     re.compile(r'"dateModified": "[^"]*"'),
+    # Synlig "bekreftet"-dato (<time>), samme grunn som over.
+    re.compile(r'<time datetime="[^"]*">[^<]*</time>'),
     # Prisutviklingsgrafen: nytt punkt og ny akse-dato hver dag uten at prisen
     # nødvendigvis er endret -- selve prisen fanges av tilbudslisten.
     re.compile(r'<div class="price-history">.*?</svg>\s*</div>', re.DOTALL),

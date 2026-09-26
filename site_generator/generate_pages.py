@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT, oslo_date
 from price_history import load_history, record_price, save_history
 from lastmod import resolve_lastmods
 
@@ -450,7 +450,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
     # Datoen prisene sist ble bekreftet (nyeste checked_at) for sider med prisdata.
     def verified_date(products: list[dict]) -> str | None:
         stamps = [o["checked_at"] for p in products for o in p.get("offers", [])]
-        return max(stamps)[:10] if stamps else None
+        return oslo_date(max(stamps)).isoformat() if stamps else None
 
     by_id = {p["id"]: p for p in catalog["products"]}
     sitewide = verified_date(catalog["products"])

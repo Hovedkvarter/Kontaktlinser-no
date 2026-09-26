@@ -1637,6 +1637,17 @@ påpekte dette). Regelen nå, avklart med Kai:
   fra git). **`PRIVACY_UPDATED`/`TERMS_UPDATED` i render_templates.py må endres
   manuelt når teksten endres.** Sitemapen hadde også 19 dupliserte guide-URL-er
   (samme guide i flere kategorier) -- nå 40 unike.
+- **Synlig dato på siden (2026-09-27, avklart med Kai: diskret, ikke på hvert
+  prisprodukt):** ÉN linje per side i prisoppsummeringen («Priser sist bekreftet
+  <time datetime=...>27.09.2026</time>», produkt-, linsevæske-, private label- og
+  serieside) -- absolutt dato i norsk tid (`oslo_date()` i render_templates.py,
+  egen sommertid-regel, testet mot DST-grensene), samme dato som lastmod og
+  dateModified. Tilbudskortene viser IKKE lenger «Sist oppdatert: N timer siden»
+  (den relative teksten ble regnet ut ved bygging og var feil så snart siden var
+  noen timer gammel). På kortet vises dato kun ved avvik: «Pris ikke nylig
+  bekreftet (sist <dato>)» når foreldet, eller «Sist oppdatert: <dato>» når
+  tilbudet er ≥ 2 kalenderdager eldre enn sidens nyeste (skrapede tilbud som er 1
+  dag eldre enn feedene er normalt og vises ikke).
 - Merk: med daglig prisbekreftelse flytter lastmod seg omtrent daglig for
   prissider, selv om prisene ofte er like. Det er bevisst og ærlig (vi har
   faktisk sjekket), men Google kan vekte lastmod lavere hvis den ikke sammenfaller

@@ -16,7 +16,7 @@ Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from html import escape
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
@@ -2118,16 +2118,36 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
 </div>"""
 
 
-def _time_ago(checked_at: str, now: datetime) -> str:
-    checked = datetime.fromisoformat(checked_at)
-    hrs = round((now - checked).total_seconds() / 3600)
-    if hrs < 1:
-        return "akkurat nå"
-    if hrs == 1:
-        return "1 time siden"
-    if hrs < 24:
-        return f"{hrs} timer siden"
-    return f"{round(hrs / 24)} dager siden"
+def _last_sunday(year: int, month: int) -> datetime:
+    d = datetime(year, month, 31, tzinfo=timezone.utc)
+    while d.weekday() != 6:
+        d -= timedelta(days=1)
+    return d
+
+
+def oslo_date(checked_at: str):
+    """Datoen (norsk tid) et UTC-tidspunkt faller på. Egen sommertid-regel (EU:
+    siste søndag i mars kl. 01:00 UTC til siste søndag i oktober kl. 01:00 UTC)
+    i stedet for zoneinfo, siden tzdata ikke er garantert installert. Viktig for
+    den nattlige kjøringen (~22:45 UTC = etter midnatt i Norge): den synlige datoen
+    og sitemapens lastmod skal være samme dato."""
+    dt = datetime.fromisoformat(checked_at).astimezone(timezone.utc)
+    dst = (_last_sunday(dt.year, 3) + timedelta(hours=1)) <= dt < (_last_sunday(dt.year, 10) + timedelta(hours=1))
+    return (dt + timedelta(hours=2 if dst else 1)).date()
+
+
+def _verified_tag(checked_at: str) -> str:
+    """Absolutt, maskinlesbar dato: <time datetime="2026-09-27">27.09.2026</time>.
+    Erstatter "Sist oppdatert: N timer siden" (2026-09-27): den relative teksten ble
+    regnet ut ved bygging og var feil hver gang noen leste siden senere enn bygget.
+    Samme dato som lastmod i sitemap og dateModified i JSON-LD."""
+    d = oslo_date(checked_at)
+    return f'<time datetime="{d.isoformat()}">{d.strftime("%d.%m.%Y")}</time>'
+
+
+def _newest_checked(offers: list[dict]) -> str | None:
+    stamps = [o["checked_at"] for o in offers]
+    return max(stamps) if stamps else None
 
 
 # Rangering blant forhandlere MED affiliate-avtale, brukt KUN til å avgjøre
@@ -2235,6 +2255,15 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None
         total = o["price_nok"] + o["shipping_nok"]
         url = o["url"] if o.get("source") == "affiliate_feed" else _add_utm_params(o["url"])
         enriched.append({**o, "total": total, "is_stale": is_stale, "url": url})
+
+    newest = max((o["checked_at"] for o in enriched), default=None)
+    newest_day = oslo_date(newest) if newest else None
+    # >= 2 dager eldre enn sidens nyeste (ikke 1): daglig kjøring med skraping
+    # annenhver dag gir vanligvis skrapede tilbud som er 1 dag eldre enn feedene --
+    # det er normalt og skal ikke stå på hvert kort. 2+ dager betyr at noe faktisk
+    # ikke ble hentet (gjenbrukt tilbud), og da vises datoen ærlig på kortet.
+    for o in enriched:
+        o["older_than_page"] = newest_day is not None and (newest_day - oslo_date(o["checked_at"])).days >= 2
 
     eligible = [o for o in enriched if o["in_stock"]]
 
@@ -2438,8 +2467,9 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
                       clickouts: dict | None = None) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
-        else '<div class="offer-meta" style="font-weight:600;">Pris ikke nylig bekreftet</div>' if o["is_stale"]
-        else f'<div class="offer-meta">Sist oppdatert: {escape(_time_ago(o["checked_at"], datetime.now(timezone.utc)))}</div>'
+        else f'<div class="offer-meta" style="font-weight:600;">Pris ikke nylig bekreftet (sist {_verified_tag(o["checked_at"])})</div>' if o["is_stale"]
+        else f'<div class="offer-meta">Sist oppdatert: {_verified_tag(o["checked_at"])}</div>' if o.get("older_than_page")
+        else ""
     )
     css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if not o["in_stock"] else "")
     lowest_tag = '<span class="lowest-tag">Lavest totalpris</span>' if o["is_lowest"] else ""
@@ -3020,7 +3050,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -7361,7 +7391,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -7936,7 +7966,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # boksen helt).
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres daglig.</p>
+  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -8227,7 +8257,7 @@ def render_family_page(
         ai_summary_html = f'''<section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på alle {n_variants} variantene i {escape(family_name)}-serien. Billigst akkurat nå er
   <strong>{escape(lowest_row["display_name"])}</strong> fra <strong>{_fmt_kr(lowest_row["best"]["total"])}</strong>
-  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres daglig.</p>
+  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked([o for r in rows for o in r["product"]["offers"]]))}.</p>
 </section>'''
 
     meta_description = (
