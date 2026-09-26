@@ -1214,8 +1214,8 @@ def render_footer() -> str:
   </div>
   <p class="footer-disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
-    automatisk fra forhandlerne, oppdaterer dem daglig og sorterer alltid
-    etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
+    automatisk fra forhandlerne, oppdaterer dem daglig og sorterer etter
+    lavest pris (slå på «Pris inkludert frakt» for å se totalprisen). Vi kan motta provisjon når du handler via
     lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
     av tilbud. Vi selger ikke kontaktlinser selv. Kontaktlinser er reseptvare:
     rådfør deg alltid med optiker ved valg av linsetype og styrke.
@@ -2545,142 +2545,6 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
 </a>"""
 
 
-_QTY_CALC_SCRIPT = r"""<script>
-(function () {
-  var dataEl = document.getElementById('qty-offers-data');
-  if (!dataEl) return;
-  var data = JSON.parse(dataEl.textContent);
-  var productName = dataEl.getAttribute('data-product-name') || '';
-  var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
-  var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
-  var pills = document.querySelectorAll('.qty-pill');
-  var customRow = document.getElementById('qty-custom-row');
-  var customInput = document.getElementById('qty-custom-input');
-  var labelEl = document.getElementById('winner-label');
-  var retailerEl = document.getElementById('winner-retailer');
-  var shippingEl = document.getElementById('winner-shipping');
-  var winnerLink = document.getElementById('winner-band-link');
-  var pricePill = document.getElementById('winner-price-pill');
-
-  function computeShipping(productTotal, policy) {
-    if (!policy) return 0;
-    var freeOver = policy.free_over;
-    if (freeOver !== null && freeOver !== undefined && productTotal >= freeOver) return 0;
-    return policy.fee_nok || 0;
-  }
-  function fmtKr(n) {
-    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
-  }
-  function shippingNote(shipping, policy) {
-    if (!policy) return 'Frakt beregnes i kassen';
-    if (shipping <= 0) {
-      if (policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
-      return 'Gratis frakt';
-    }
-    return fmtKr(shipping) + ' frakt';
-  }
-  function retailerBadge(o) {
-    if (!o.logo_file) return o.retailer;
-    var img = '<img class="retailer-logo" src="/static/logos/' + o.logo_file + '" alt="' + o.retailer + '" loading="lazy">';
-    var logo = o.logo_dark ? '<span class="retailer-logo-chip">' + img + '</span>' : img;
-    return logo + '<span style="position:absolute;left:-9999px;">' + o.retailer + '</span>';
-  }
-  function findCard(offerCards, retailer) {
-    for (var i = 0; i < offerCards.length; i++) {
-      if (offerCards[i].getAttribute('data-retailer') === retailer) return offerCards[i];
-    }
-    return null;
-  }
-
-  function update(qty) {
-    if (!qty || qty < 1) return;
-    // Slås opp på nytt hver gang i stedet for én gang ved skript-kjøring --
-    // dette scriptet ligger FØR .offers i selve HTML-kildekoden (siden
-    // vinner-widgeten står øverst på siden), så et oppslag ved lasting ville
-    // alltid funnet 0 kort. update() kalles uansett kun etter klikk, lenge
-    // etter at hele siden er ferdig lastet.
-    var offersList = document.querySelector('.offers');
-    var offerCards = offersList ? offersList.querySelectorAll('.offer-card') : [];
-    var results = [];
-    for (var i = 0; i < data.length; i++) {
-      var o = data[i];
-      var productTotal = o.price_nok * qty;
-      var shipping = computeShipping(productTotal, o.shipping_policy);
-      results.push({ o: o, productTotal: productTotal, shipping: shipping, total: productTotal + shipping });
-    }
-
-    var best = null;
-    for (var i = 0; i < results.length; i++) {
-      var r = results[i];
-      if (r.o.in_stock && (!best || r.total < best.total)) best = r;
-    }
-    if (best) {
-      labelEl.textContent = 'Billigst akkurat nå for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
-      retailerEl.innerHTML = retailerBadge(best.o);
-      shippingEl.textContent = shippingNote(best.shipping, best.o.shipping_policy);
-      pricePill.textContent = fmtKr(best.total);
-      // winner-band-link ER lenken (se render_winner_widget) -- href/rel/
-      // aria-label hører hjemme der, ikke på price-pill-spannet inni.
-      winnerLink.setAttribute('href', best.o.url);
-      winnerLink.setAttribute('rel', best.o.rel);
-      winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(best.total) + ' totalt inkl. frakt');
-      // Klikk-sporingen (se CONSENT_SCRIPT) leser disse to attributtene --
-      // må oppdateres her også, ellers rapporterer et klikk etter et
-      // antallsbytte fortsatt forrige vinners forhandler/avtale-status.
-      winnerLink.setAttribute('data-retailer', best.o.retailer);
-      winnerLink.setAttribute('data-affiliate', best.o.rel.indexOf('sponsored') !== -1 ? '1' : '0');
-    }
-
-    if (offersList && offerCards.length) {
-      results.sort(function (a, b) { return a.total - b.total; });
-      for (var i = 0; i < results.length; i++) {
-        var r = results[i];
-        var card = findCard(offerCards, r.o.retailer);
-        if (!card) continue;
-        var pricePillEl = card.querySelector('.price-pill');
-        if (pricePillEl) pricePillEl.textContent = fmtKr(r.productTotal);
-        // card ER lenken (se render_offer_card) -- aria-label hører hjemme
-        // på card selv, ikke på price-pill-spannet inni.
-        card.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(r.productTotal));
-        var shipTextEl = card.querySelector('.offer-shipping-text');
-        if (shipTextEl) shipTextEl.textContent = shippingNote(r.shipping, r.o.shipping_policy);
-        var isWinner = !!(best && r.o.retailer === best.o.retailer);
-        card.classList.toggle('is-lowest', isWinner);
-        var existingTag = card.querySelector('.lowest-tag');
-        if (isWinner && !existingTag) {
-          var retailerDiv = card.querySelector('.offer-retailer');
-          if (retailerDiv) retailerDiv.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">Lavest totalpris</span>');
-        } else if (!isWinner && existingTag) {
-          existingTag.remove();
-        }
-        offersList.appendChild(card);
-      }
-    }
-  }
-
-  for (var i = 0; i < pills.length; i++) {
-    pills[i].addEventListener('click', function (e) {
-      for (var j = 0; j < pills.length; j++) { pills[j].classList.remove('is-active'); }
-      e.currentTarget.classList.add('is-active');
-      var qty = e.currentTarget.getAttribute('data-qty');
-      if (qty === 'custom') {
-        customRow.hidden = false;
-        customInput.focus();
-        var v = parseInt(customInput.value, 10);
-        if (v) update(v);
-      } else {
-        customRow.hidden = true;
-        update(parseInt(qty, 10));
-      }
-    });
-  }
-  customInput.addEventListener('input', function () {
-    update(parseInt(customInput.value, 10));
-  });
-})();
-</script>"""
-
-
 def _shipping_note(shipping_nok: float, shipping_policy: dict | None) -> str:
     """Skiller mellom "alltid gratis frakt" og "gratis frakt fordi grensen
     tilfeldigvis er nådd ved akkurat denne bestillingsstørrelsen" -- å si
@@ -2715,7 +2579,7 @@ METHODOLOGY_HTML = """<div class="methodology">
       <div class="methodology-row"><dt>Produktpris</dt><dd>Prisen butikken oppgir for selve produktet, uten frakt.</dd></div>
       <div class="methodology-row"><dt>Frakt</dt><dd>Fraktkostnaden beregnes for antallet esker du har valgt. Dersom kjøpet kvalifiserer til fri frakt hos butikken, tar beregningen hensyn til dette.</dd></div>
       <div class="methodology-row"><dt>Totalpris</dt><dd>Produktpris for valgt antall pluss eventuell frakt.</dd></div>
-      <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
+      <div class="methodology-row"><dt>Sortering</dt><dd>Standard er lavest produktpris. Slår du på «Pris inkludert frakt», regnes frakten med og butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
       <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres daglig.</dd></div>
     </dl>
     <a href="/slik-sammenligner-vi-priser/" style="font-size:0.85rem;font-weight:600;color:var(--blue);text-decoration:none;">Les mer om metodikken vår →</a>
@@ -2759,53 +2623,36 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, pilot: bool = False) -> tuple[str, str]:
-    """Returnerer (winner_band, qty_box) som ETT tuple i stedet for én
-    sammenslått streng -- render_product_page sin nye hero-layout plasserer
-    trofé-boksen (winner_band) INNE i hero-kortet, mens antallsvelgeren
-    (qty_box) fortsatt ligger som egen seksjon under, slik den alltid har
-    gjort. De to andre kallerne (render_solution_product_page,
-    render_private_label_page) limer dem ganske enkelt sammen igjen med
-    "\\n" akkurat som før -- ingen visuell endring der.
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None) -> tuple[str, str]:
+    """Returnerer (winner_band, qty_box) som ETT tuple: vinnerkortet står i toppen av
+    siden, antallsvelgeren (qty_box) som egen seksjon under.
 
-    Toppwidget som erstatter den gamle statiske "Laveste totalpris"-
-    banneren: viser billigste totalpris for valgt antall enheter, med en
-    kompakt antallsvelger (1/2/4/6/10/eget antall) som regner om vinneren
-    live via JS. unit_singular/unit_plural lar kontaktlinse-sider si "eske"/
-    "esker" (standard) mens linsevæske-/øyedråpesider (render_solution_
-    product_page) sier "flaske"/"flasker" -- samme widget, samme trofé,
-    samme klikkbare heldekkende ramme, kun ordet for hva man kjøper flere av
-    er ulikt.
+    Prisjakt-modellen (utrullet 2026-09-27, avtalt med Kai): kortet sier IKKE pris --
+    "Laveste pris for N esker", butikkens logo og en "Gå til tilbud"-knapp, pluss
+    "Sammenlign alle N butikker" som hopper til lista. Prisen står i lista under
+    (render_price_list), sortert på produktpris, eller på totalpris når chippen "Pris
+    inkludert frakt" er på. `best` er derfor tilbudet med laveste PRODUKTPRIS.
+    unit_singular/unit_plural: "eske"/"esker" for kontaktlinser, "flaske"/"flasker" for
+    linsevæske/øyedråper.
 
-    Standardtilstanden (1 enhet) er ALLTID ekte, ferdig-rendret HTML, og det
-    samme er 2/4/10-eksemplene i den statiske oppsummeringen under velgeren
-    -- mange AI-crawlere (GPTBot, ClaudeBot, PerplexityBot m.fl.) kjører ikke
-    JavaScript, og skal likevel kunne lese disse tallene rett i kildekoden.
+    Standardtilstanden (1 enhet, uten frakt) er ALLTID ekte, ferdig-rendret HTML, og det
+    samme er 2/4/10-eksemplene i den statiske oppsummeringen under velgeren -- mange
+    AI-crawlere (GPTBot, ClaudeBot, PerplexityBot m.fl.) kjører ikke JavaScript, og skal
+    likevel kunne lese tallene rett i kildekoden.
 
-    Fraktkostnaden regnes på nytt per antall (compute_shipping_nok), ikke
-    bare multiplisert med shipping_nok for én enhet -- en fri-frakt-grense
-    som ikke er nådd ved 1 enhet kan fint være nådd ved 4, og gir da en
-    annen vinner enn ved enkeltkjøp."""
+    Fraktkostnaden regnes på nytt per antall (compute_shipping_nok), ikke bare
+    multiplisert med shipping_nok for én enhet -- en fri-frakt-grense som ikke er nådd
+    ved 1 enhet kan fint være nådd ved 4, og gir da en annen vinner enn ved enkeltkjøp."""
     if not best:
         return "", ""
 
     rel = "sponsored" if best["source"] == "affiliate_feed" else "nofollow"
-    shipping_note = _shipping_note(best["shipping_nok"], best.get("shipping_policy"))
-    winner_aria = (
-        f'Gå til {escape(best["retailer"])} for {escape(product_name)}, {_fmt_kr(best["total"])} totalt inkl. frakt'
-        if product_name else f'Gå til {escape(best["retailer"])}, {_fmt_kr(best["total"])} totalt inkl. frakt'
-    )
-
-    # Hele banneret er selve lenken (ikke bare pris-pillen) -- samme
-    # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
-    # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
-    if pilot:
-        # Prisjakt-modellen: knappen sier IKKE pris. Prisen står i lista under
-        # (sortert på produktpris, eller totalpris hvis "Pris inkludert frakt" er på).
-        pilot_aria = f'Gå til {escape(best["retailer"])} for {escape(product_name)}' if product_name else f'Gå til {escape(best["retailer"])}'
-        n_shops = len([o for o in offers if o["in_stock"]])
-        winner_band = f"""<div class="winner-band winner-band-cta">
+    aria = f'Gå til {escape(best["retailer"])} for {escape(product_name)}' if product_name else f'Gå til {escape(best["retailer"])}'
+    n_shops = len([o for o in offers if o["in_stock"]])
+    # Kortet er en <div>; selve KNAPPEN er lenken (id + tracking-attributter), slik at
+    # "Sammenlign alle butikker"-lenken ikke havner nøstet inni en annen <a>.
+    winner_band = f"""<div class="winner-band winner-band-cta">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2814,25 +2661,9 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
       <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
     </div>
   </div>
-  <a class="winner-btn" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{pilot_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
+  <a class="winner-btn" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
   <a class="winner-more" href="#tilbud">Sammenlign alle {n_shops} butikker <span aria-hidden="true">&#8595;</span></a>
 </div>"""
-    else:
-        winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
-  <div class="winner-left">
-    <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
-    <div class="label-group">
-      <div class="label" id="winner-label">Billigst akkurat nå for 1 {escape(unit_singular)}</div>
-      <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
-      <div class="winner-shipping" id="winner-shipping">{escape(shipping_note)}</div>
-    </div>
-  </div>
-  <div class="winner-price-group">
-    <span class="price-pill is-winner" id="winner-price-pill">{_fmt_kr(best["total"])}</span>
-    <div class="winner-price-note">Totalpris inkl. frakt</div>
-    <span class="winner-cta" aria-hidden="true">Til butikken <span class="winner-cta-arrow">&#8594;</span></span>
-  </div>
-</a>"""
 
     eligible = [o for o in offers if o["in_stock"]]
     if len(eligible) < 2:
@@ -2888,27 +2719,25 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
   </div>
   {static_fallback_html}
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
-  {_PILOT_SCRIPT if pilot else _QTY_CALC_SCRIPT}"""
+  {_QTY_CALC_SCRIPT}"""
 
     return winner_band, qty_box
 
 
 # ---------------------------------------------------------------------------
-# PILOT (2026-09-27): "Prisjakt-modellen" på ÉN produktside. Avtalt med Kai:
-# Prisjakt/Pricerunner/Prisguiden/godpris/Lenspricer viser alle pris UTEN frakt som
-# standard, og en enkel bryter "Pris inkludert frakt" (Prisjakt) legger på frakt.
-# Dette blir standardmalen for hundrevis av sider, så vi tester utseendet på ett
-# produkt, justerer, og ruller ut når vi er enige.
+# PRISJAKT-MODELLEN (utrullet 2026-09-27 på alle produktsider: kontaktlinser, linsevæske/
+# øyedråper og private label). Avtalt med Kai etter konkurrentgjennomgang: Prisjakt,
+# Pricerunner, Prisguiden, godpris og Lenspricer viser alle pris UTEN frakt som standard,
+# og Prisjakt har en chip "Pris inkludert frakt" som legger på frakt og sorterer om.
 #   - Toppknappen ("Laveste pris ... Gå til tilbud") sier IKKE pris.
-#   - Lista under er sortert på produktpris (uten frakt); bryteren "Pris inkludert
-#     frakt" viser og sorterer på totalpris for valgt antall. Valget huskes.
-#   - Antallsvelgeren beholdes og gjelder begge modi.
-#   - Kortet med laveste TOTALpris merkes "Lavest totalpris" også i standardvisningen
-#     når det er en annen butikk enn den med laveste produktpris.
-# Legg produkt-id-er til her for å teste flere; tomt sett = pilot av.
-PRISJAKT_PILOT_IDS = {"acuvue-oasys-6pk"}
-
-PILOT_STYLE = """
+#   - Lista under er sortert på produktpris (uten frakt); chippen "Pris inkludert frakt"
+#     viser og sorterer på totalpris for valgt antall. Valget huskes (localStorage).
+#   - Antallsvelgeren gjelder begge modi.
+#   - Kortet med laveste TOTALpris merkes "Lavest totalpris" også i standardvisningen når
+#     det er en annen butikk enn den med laveste produktpris (vi påstår aldri "lavest" om
+#     noe som ikke er det).
+#   - Samlesider (kategori/merke/serie/private label-oversikter) viser "Fra"-pris uten frakt.
+PRICE_LIST_STYLE = """
 .offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
 .offers-head h2 { margin: 0; }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
@@ -2919,7 +2748,7 @@ PILOT_STYLE = """
 .ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
 .lowest-tag-total { background: var(--blue); }
-.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; max-width: 380px; margin: 14px auto; }
 .winner-band-cta:hover, .winner-band-cta:focus-within { border-color: #BFE7D5; box-shadow: none; }
 .winner-band-cta .winner-left { flex-direction: column; align-items: center; gap: 0; }
 .winner-band-cta .label-group { display: flex; flex-direction: column; align-items: center; }
@@ -2940,7 +2769,7 @@ PILOT_STYLE = """
 }
 """
 
-_PILOT_SCRIPT = r"""<script>
+_QTY_CALC_SCRIPT = r"""<script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
   if (!dataEl) return;
@@ -3094,13 +2923,7 @@ _PILOT_SCRIPT = r"""<script>
 })();
 </script>"""
 
-METHODOLOGY_HTML_PILOT = METHODOLOGY_HTML.replace(
-    "Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.",
-    "Standard er lavest produktpris. Slår du på «Pris inkludert frakt», regnes frakten med og butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.",
-)
-assert METHODOLOGY_HTML_PILOT != METHODOLOGY_HTML
-
-PILOT_DISCLOSURE_HTML = """<p class="disclosure">
+PRICE_DISCLOSURE_HTML = """<p class="disclosure">
     Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
     se og sortere etter totalpris (produktpris + frakt) for antallet du har valgt.
     Vi kan få provisjon når du handler via lenkene, men det påvirker aldri prisen du
@@ -3109,6 +2932,43 @@ PILOT_DISCLOSURE_HTML = """<p class="disclosure">
     uten bekreftet lager kan ikke vinne «laveste pris», og hvert tilbud viser når det
     sist ble kontrollert.
   </p>"""
+
+
+def order_by_product_price(offers: list[dict]) -> list[dict]:
+    return sorted(offers, key=lambda o: (o["price_nok"], o["total"]) + _tie_break_key(o))
+
+
+def render_price_list(offers: list[dict], product_name: str, product_id: str, clickouts: dict | None,
+                      title: str = "Sammenlign priser og butikker") -> tuple[str, dict | None]:
+    """Prislista med chippen "Pris inkludert frakt". Returnerer (html, ex_best) der ex_best er
+    tilbudet med laveste PRODUKTPRIS (på lager) -- det toppknappen (render_winner_widget) skal
+    peke på. Statisk standardvisning = uten frakt, antall 1; JS (_QTY_CALC_SCRIPT) tar resten."""
+    ordered = order_by_product_price(offers)
+    ex_best = next((o for o in ordered if o["in_stock"]), None)
+    total_best = next((o for o in offers if o["is_lowest"]), None)
+
+    def tags(o: dict) -> str:
+        t = '<span class="lowest-tag">Laveste pris</span>' if o is ex_best else ""
+        if total_best is not None and o is total_best and total_best is not ex_best:
+            t += ' <span class="lowest-tag lowest-tag-total">Lavest totalpris</span>'
+        return t
+
+    cards = "\n".join(
+        render_offer_card(o, o["retailer"], product_name, product_id, clickouts, is_winner=(o is ex_best), tags_html=tags(o))
+        for o in ordered
+    )
+    chip = (
+        '<button type="button" class="ship-chip" id="ship-chip" aria-pressed="false">'
+        '<span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>'
+    ) if ordered else ""
+    html = f"""<div class="offers" id="tilbud">
+    <div class="offers-head">
+      <h2>{escape(title)}</h2>
+      {chip}
+    </div>
+    {cards}
+  </div>"""
+    return html, ex_best
 
 
 def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
@@ -3285,43 +3145,18 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    pilot = product["id"] in PRISJAKT_PILOT_IDS
-    if pilot:
-        ex_offers = sorted(offers, key=lambda o: (o["price_nok"], o["total"]) + _tie_break_key(o))
-        ex_best = next((o for o in ex_offers if o["in_stock"]), None)
-
-        def _pilot_tags(o: dict) -> str:
-            tags = '<span class="lowest-tag">Laveste pris</span>' if o is ex_best else ""
-            if best is not None and o is best and best is not ex_best:
-                tags += ' <span class="lowest-tag lowest-tag-total">Lavest totalpris</span>'
-            return tags
-
-        offer_cards_html = "\n".join(
-            render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts, is_winner=(o is ex_best), tags_html=_pilot_tags(o))
-            for o in ex_offers
-        )
-    else:
-        ex_best = best
-        offer_cards_html = "\n".join(
-            render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts)
-            for o in offers
-        )
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(ex_best["price_nok"])}</strong> hos {escape(ex_best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
-    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, pilot=pilot)
-    if pilot:
-        ai_summary_html = ai_summary_html.replace(
-            "vi viser full totalpris inkludert frakt i sammenligningen under.",
-            "slå på «Pris inkludert frakt» under for å se totalprisen med frakt.",
-        )
+    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts)
     badges_html = _render_product_badges(product.get("specs", []))
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
@@ -3376,8 +3211,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     # hvilken butikk) krever ikke tallet i det hele tatt.
     meta_description = (
         f'Vi sammenligner priser på {product["name"]} hos norske nettbutikker. '
-        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
-    ) if best else long_description[:155]
+        f'Laveste pris akkurat nå er {_fmt_kr(ex_best["price_nok"])} hos {ex_best["retailer"]}.'
+    ) if ex_best else long_description[:155]
 
     manufacturer_slug = BRAND_TO_MANUFACTURER.get(product["brand_slug"])
     manufacturer_link_html = (
@@ -3534,30 +3369,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     </ul>
   </div>"""
 
-    if pilot:
-        offers_block = f"""<div class="offers offers-pilot" id="tilbud">
-    <div class="offers-head">
-      <h2>Sammenlign priser og butikker</h2>
-      <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
-    </div>
-    {offer_cards_html}
-  </div>"""
-        disclosure_html = PILOT_DISCLOSURE_HTML
-        methodology_html = METHODOLOGY_HTML_PILOT
-    else:
-        offers_block = f"""<div class="offers">
-    <h2>Alle tilbud, sortert etter total pris</h2>
-    {offer_cards_html}
-  </div>"""
-        disclosure_html = """<p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
-    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
-    hvert tilbud viser når det sist ble kontrollert.
-  </p>"""
-        methodology_html = METHODOLOGY_HTML
+    disclosure_html = PRICE_DISCLOSURE_HTML
+    methodology_html = METHODOLOGY_HTML
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -3663,7 +3476,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
-{PILOT_STYLE if pilot else ""}</style>
+{PRICE_LIST_STYLE}</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -3720,11 +3533,11 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     for p in products:
         offers = reconcile_product(p["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         image_url = _product_image(p)
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
 
-    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+    rows.sort(key=lambda r: r["lowest"]["price_nok"] if r["lowest"] else float("inf"))
 
     top_product_names = [r["product"]["name"] for r in rows if r["lowest"]][:3]
     if not top_product_names:
@@ -4145,7 +3958,7 @@ def render_guide_search_card(guide_slug: str, compact: bool = False) -> str:
   </aside>"""
     return f"""<aside class="guide-cta" aria-label="Sammenlign priser" data-nosnippet>
     <p class="guide-cta-title">{title}</p>
-    <p class="guide-cta-text">Søk på linsen eller merket du bruker – vi sammenligner norske nettbutikker og viser totalpris inkludert frakt.</p>
+    <p class="guide-cta-text">Søk på linsen eller merket du bruker – vi sammenligner norske nettbutikker og lar deg se prisen både med og uten frakt.</p>
     {row}
     <div class="guide-cta-links">
       <span>Eller bla etter type:</span>
@@ -4493,7 +4306,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         <div class="hero-heading hero-copy">
           <div class="kicker">Prissammenligning</div>
           <h1>Finn billigste kontaktlinser</h1>
-          <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Alltid lavest totalpris – inkludert frakt.</p>
+          <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Se prisen med og uten frakt.</p>
         </div>
         <div class="search-section">
           <div class="search-row">
@@ -4508,7 +4321,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
           <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
             <div class="trust-card-title">Uavhengig og oppdatert</div>
-            <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk og oppdaterer dem daglig, og viser alltid lavest totalpris inkludert frakt.</p>
+            <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk og oppdaterer dem daglig, og lar deg se prisen både med og uten frakt.</p>
           </div>
         </div>
       </div>
@@ -4559,11 +4372,11 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     </div>
     <div class="trust-item">
       <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
-      <div><strong>{n_retailers} nettbutikker</strong><span>Alltid lavest totalpris</span></div>
+      <div><strong>{n_retailers} nettbutikker</strong><span>Sammenlignet daglig</span></div>
     </div>
     <div class="trust-item">
       <div class="trust-item-icon">{TRUCK_ICON_SVG}</div>
-      <div><strong>Inkl. frakt</strong><span>Totalpris du faktisk betaler</span></div>
+      <div><strong>Med eller uten frakt</strong><span>Du velger hva du sammenligner</span></div>
     </div>
     <div class="trust-item">
       <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/></svg></div>
@@ -5626,7 +5439,7 @@ oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
             },
             {
                 "question": "Hvordan finner jeg riktig pris for akkurat mine linser?",
-                "answer": "Søk opp navnet fra esken din på forsiden av Kontaktlinser.no for å se oppdaterte priser fra norske nettbutikker, sortert etter lavest totalpris.",
+                "answer": "Søk opp navnet fra esken din på forsiden av Kontaktlinser.no for å se oppdaterte priser fra norske nettbutikker, sortert etter lavest pris. Slå på «Pris inkludert frakt» for å se totalprisen.",
             },
         ],
     },
@@ -5732,11 +5545,12 @@ eksempel på hvor mye prisen faktisk varierer mellom butikkene akkurat nå.</p>
     "hvordan-kontaktlinser-no-beregner-totalpris": {
         "title": "Hvordan Kontaktlinser.no beregner totalpris",
         "updated": "2026-08-16",
-        "description": "Hvorfor vi alltid sorterer etter totalpris (produktpris + frakt), og hvorfor det kan gi et annet resultat enn produktpris alene.",
+        "description": "Slik ser du totalprisen (produktpris + frakt) med «Pris inkludert frakt», og hvorfor den kan gi et annet resultat enn produktpris alene.",
         "body_html": """
-<p>Kontaktlinser.no sorterer alltid tilbud etter <strong>totalpris</strong> –
-produktpris pluss frakt – ikke produktprisen alene. Det er en bevisst forskjell fra å bare
-sammenligne prisene som står på hver butikks egen produktside.</p>
+<p>Kontaktlinser.no viser produktprisen uten frakt som standard, slik du er vant til fra
+andre prissammenlignere. Slår du på <strong>«Pris inkludert frakt»</strong> over prislisten,
+viser og sorterer vi i stedet etter <strong>totalpris</strong> – produktpris pluss frakt – for
+antallet du har valgt. Det kan endre hvilken butikk som er billigst.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
@@ -5754,7 +5568,7 @@ produktside for å se totalpris-regnestykket i praksis.</p>
 """,
         "faq": [
             {
-                "question": "Hvorfor sorterer dere etter totalpris og ikke bare produktpris?",
+                "question": "Hvorfor kan jeg slå på «Pris inkludert frakt»?",
                 "answer": "Fordi frakt er en reell del av det du faktisk betaler, og kan endre hvilken butikk som egentlig er billigst – en lav produktpris med høy frakt kan ende opp dyrere enn en høyere produktpris med gratis frakt.",
             },
             {
@@ -6080,7 +5894,7 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
 HOME_FAQ = [
     {
         "question": "Hvordan fungerer Kontaktlinser.no?",
-        "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikker og oppdaterer dem daglig, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
+        "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikker og oppdaterer dem daglig, og viser tilbudene sortert etter lavest pris. Du kan slå på «Pris inkludert frakt» for å se og sortere etter totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
     },
     {
         "question": "Koster det mer å kjøpe via en prissammenligningsside?",
@@ -6100,7 +5914,7 @@ HOME_FAQ = [
     },
     {
         "question": "Selger dere også linsevæske og øyedråper?",
-        "answer": "Ja. I tillegg til kontaktlinser sammenligner vi priser på linsevæske og øyedråper fra de samme norske nettbutikkene, etter samme prinsipp: alltid sortert etter lavest totalpris.",
+        "answer": "Ja. I tillegg til kontaktlinser sammenligner vi priser på linsevæske og øyedråper fra de samme norske nettbutikkene, etter samme prinsipp: sortert etter lavest pris, med mulighet til å se totalpris inkludert frakt.",
     },
     {
         "question": "Hvorfor har noen kontaktlinser to forskjellige navn?",
@@ -6456,15 +6270,16 @@ def render_about_page() -> str:
 
     <h2>Hvordan det fungerer</h2>
     <p>Prisene hentes automatisk fra forhandlerne og oppdateres daglig. Vi
-    sorterer alltid etter lavest totalpris, inkludert frakt - et tilbud som er
+    sorterer etter lavest pris, og du kan slå på «Pris inkludert frakt» for å se og
+    sortere etter totalpris - et tilbud som er
     utsolgt kan aldri vinne "laveste pris"-merket, uansett hvor lavt tallet
     er. Hvert tilbud viser når det sist ble kontrollert.</p>
 
     <h2>Hvordan vi tjener penger</h2>
     <p>Vi kan motta provisjon fra enkelte forhandlere når du handler via
     lenkene våre. Det påvirker aldri prisen du betaler, og det påvirker aldri
-    rangeringen av tilbud - den følger alltid faktisk totalpris, ikke hvem vi
-    har en avtale med.</p>
+    rangeringen av tilbud - den følger alltid faktisk pris (produktpris, eller
+    totalpris når du slår på frakt), ikke hvem vi har en avtale med.</p>
 
     <h2>Hva vi ikke er</h2>
     <p>Vi selger ikke kontaktlinser selv, og driver ikke butikk. Vi gir heller
@@ -6565,13 +6380,14 @@ beløp), så hvem som er billigst kan endre seg avhengig av hvor mange esker du 
 
 <h2>Totalpris</h2>
 <p>Produktpris multiplisert med antall, pluss eventuell frakt for akkurat det antallet.
-Dette er tallet vi faktisk sorterer etter -- ikke produktprisen alene.</p>
+Dette er tallet du ser, og som vi sorterer etter, når du slår på «Pris inkludert frakt».</p>
 
 <h2>Sortering og "laveste pris"</h2>
-<p>Tilbudene sorteres alltid etter lavest totalpris. Et tilbud som er utsolgt, eller
+<p>Tilbudene sorteres etter lavest produktpris (uten frakt). Slår du på «Pris inkludert
+frakt», sorteres de etter lavest totalpris i stedet. Et tilbud som er utsolgt, eller
 uten bekreftet lagerstatus, kan aldri vinne "laveste pris"-merket, uansett hvor
 lavt tallet er -- det vises fortsatt i listen, bare uten merket. Ved eksakt lik
-totalpris mellom to butikker, se
+pris mellom to butikker, se
 <a href="/affiliate-og-finansiering/">Affiliate og finansiering</a> for hvordan vi da
 avgjør rekkefølgen.</p>
 
@@ -6677,13 +6493,13 @@ gjennom vanlige affiliate-nettverk. Dette koster deg ingenting ekstra -- prisen 
 betaler hos forhandleren er nøyaktig den samme som om du hadde funnet frem dit selv.</p>
 
 <h2>Påvirker det rangeringen?</h2>
-<p><strong>Nei.</strong> Tilbud sorteres alltid etter faktisk totalpris, uavhengig av om
+<p><strong>Nei.</strong> Tilbud sorteres alltid etter faktisk pris (produktpris, eller totalpris når du slår på «Pris inkludert frakt»), uavhengig av om
 vi har en avtale med forhandleren eller ikke -- se
 <a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser</a>. Det ene
-unntaket: ved <em>eksakt</em> lik totalpris mellom to eller flere butikker (ingen reell
+unntaket: ved <em>eksakt</em> lik pris mellom to eller flere butikker (ingen reell
 prisforskjell for deg som kunde) kan vi prioritere en forhandler vi har en
 affiliate-avtale med i rekkefølgen. Er det en reell prisforskjell, uansett hvor liten,
-vinner alltid laveste totalpris -- avtale eller ei.</p>
+vinner alltid laveste pris -- avtale eller ei.</p>
 
 <h2>rel="sponsored" og rel="nofollow"</h2>
 <p>Lenker til forhandlere vi har en affiliate-avtale med er merket
@@ -7085,13 +6901,13 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
     for p in products:
         offers = reconcile_product(p["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         image_url = _product_image(p)
         rows.append({"product": p, "lowest": lowest, "image_url": image_url})
 
     # Statisk render, sortert lavest-først som standard - dette er det AI-crawlere
     # og brukere uten JS faktisk ser.
-    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+    rows.sort(key=lambda r: r["lowest"]["price_nok"] if r["lowest"] else float("inf"))
 
     # Passform-filter: vanninnhold/basiskurve/diameter, i tillegg til
     # merke-filteret -- ingen annen norsk kontaktlinse-prissammenligning har
@@ -7654,15 +7470,15 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts) for o in offers)
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts)
     long_description = product.get("long_description", product.get("description", ""))
     # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
     # lede med selve prissammenligningen, ikke produktbeskrivelsen. Antall
     # forhandlere er bevisst utelatt her også (2026-09-05, samme fiks).
     meta_description = (
         f'Vi sammenligner priser på {product["name"]} hos norske nettbutikker. '
-        f'Laveste pris akkurat nå er {_fmt_kr(best["price_nok"])} hos {best["retailer"]}.'
-    ) if best else long_description[:155]
+        f'Laveste pris akkurat nå er {_fmt_kr(ex_best["price_nok"])} hos {ex_best["retailer"]}.'
+    ) if ex_best else long_description[:155]
     cat_slug = product["solution_category"]
     cat = SOLUTION_CATEGORIES[cat_slug]
     base_url_path = f"/{cat_slug}/{product['brand_slug']}/{product['slug']}/"
@@ -7670,7 +7486,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - vi viser full totalpris inkludert frakt i sammenligningen under. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
+  <p>Vi sammenligner priser på <strong>{escape(product["name"])}</strong> hos norske nettbutikker. Fra <strong>{_fmt_kr(ex_best["price_nok"])}</strong> hos {escape(ex_best["retailer"])} (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -7682,14 +7498,14 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     # (samme behandling for alle produkttyper). "flaske"/"flasker" i stedet for
     # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
     # kontaktlinseesker.
-    winner_html, qty_html = render_winner_widget(best, offers, product["name"], unit_singular="flaske", unit_plural="flasker", product_id=product["id"], clickouts=clickouts)
+    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], unit_singular="flaske", unit_plural="flasker", product_id=product["id"], clickouts=clickouts)
     best_band = f"{winner_html}\n{qty_html}"
 
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
-    if size_ml and best:
-        per_100 = best["total"] / size_ml * 100
-        price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris</p>'
+    if size_ml and ex_best:
+        per_100 = ex_best["price_nok"] / size_ml * 100
+        price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris (uten frakt)</p>'
 
     safety_notice = ""
     if product.get("solution_type") == "peroxide":
@@ -7811,6 +7627,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 {product_faq_schema}
 <style>{SHARED_STYLE}
 {WINNER_WIDGET_STYLE}
+{PRICE_LIST_STYLE}
 .hero {{ display: flex; align-items: center; gap: 20px; }}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: -8px 0 16px; }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
@@ -7838,18 +7655,8 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
   {best_band}
   {price_per_unit_html}
   {safety_notice}
-  <div class="offers">
-    <h2>Alle tilbud, sortert etter total pris</h2>
-    {offer_cards_html}
-  </div>
-  <p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
-    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
-    hvert tilbud viser når det sist ble kontrollert.
-  </p>
+  {offers_block}
+  {PRICE_DISCLOSURE_HTML}
   <p class="disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
@@ -7873,10 +7680,10 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
     for p in products:
         offers = reconcile_product(p["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         rows.append({"product": p, "lowest": lowest})
 
-    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+    rows.sort(key=lambda r: r["lowest"]["price_nok"] if r["lowest"] else float("inf"))
 
     def render_row(r: dict) -> str:
         p, lowest = r["product"], r["lowest"]
@@ -7981,10 +7788,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
             continue
         offers = reconcile_product(real_product["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         rows.append({"label": label, "real_product": real_product, "lowest": lowest})
 
-    rows.sort(key=lambda r: r["lowest"]["total"] if r["lowest"] else float("inf"))
+    rows.sort(key=lambda r: r["lowest"]["price_nok"] if r["lowest"] else float("inf"))
 
     def render_row(r: dict) -> str:
         # Viser ALDRI det ekte produktets bilde her -- det er en annen fysisk
@@ -8115,9 +7922,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   <p style="margin-top:16px;"><a href="/private-label/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se optikerkjedenes andre egne merker →</a></p>
 
   <p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    Prisene her er produktpriser uten frakt, sortert etter lavest pris. På hver
+    produktside kan du slå på «Pris inkludert frakt» for å se totalprisen. Vi kan få
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    betaler. Rekkefølgen er alltid basert på pris, bortsett fra ved
     eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
     har avtale med. Kontaktlinser.no er en uavhengig
     prissammenligningstjeneste, ikke en forhandler.
@@ -8162,7 +7970,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offer_cards_html = "\n".join(render_offer_card(o, o["retailer"], real_product["name"], real_product["id"], clickouts) for o in offers)
+    offers_block, ex_best = render_price_list(offers, real_product["name"], real_product["id"], clickouts,
+                                              title=f"Sammenlign priser på {real_product['name']}")
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -8198,7 +8007,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html = render_winner_widget(best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
+    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
     best_band = f"{winner_html}\n{qty_html}"
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
@@ -8232,8 +8041,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # siden og fordi det er en allerede etablert, fungerende ramme.
     meta_description = (
         f'Se laveste pris på {private_name} blant norske nettbutikker – fra '
-        f'{_fmt_kr(best["price_nok"])} hos {best["retailer"]}. Oppdatert daglig.'
-    ) if best else f'Sammenlign priser på {private_name} blant norske nettbutikker.'
+        f'{_fmt_kr(ex_best["price_nok"])} hos {ex_best["retailer"]}. Oppdatert daglig.'
+    ) if ex_best else f'Sammenlign priser på {private_name} blant norske nettbutikker.'
 
     # Synlig, CRAWLBAR tekst med de samme fakta som SERP-teksten over
     # (pris/antall butikker/oppdateringsfrekvens) -- Google genererer ofte
@@ -8245,7 +8054,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # boksen helt).
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
+  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(ex_best["price_nok"])}</strong> hos {escape(ex_best["retailer"])} (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked(offers))}.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
@@ -8350,6 +8159,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
 {WINNER_WIDGET_STYLE}
+{PRICE_LIST_STYLE}
 </style>
 </head>
 <body>
@@ -8369,11 +8179,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </div>
   {ai_summary_html}
 
-  <h2>Sammenlign priser på {escape(real_name)}, sortert etter total pris</h2>
   {best_band}
-  <div class="offers">
-    {offer_cards_html}
-  </div>
+  {offers_block}
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
   {f'<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/"><div class="pack-size-callout-text">Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>' if family else ''}
 
@@ -8387,12 +8194,13 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </div>
 
   <p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
-    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
-    hvert tilbud viser når det sist ble kontrollert.
+    Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
+    se og sortere etter totalpris (produktpris + frakt) for antallet du har valgt.
+    Vi kan få provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på pris, bortsett fra ved eksakt lik pris
+    mellom to tilbud, der vi kan prioritere en forhandler vi har avtale med. Varer
+    uten bekreftet lager kan ikke vinne «laveste pris», og hvert tilbud viser når det
+    sist ble kontrollert.
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med kjeden bak dette merkenavnet.
   </p>
@@ -8436,7 +8244,7 @@ def render_family_page(
         product = m["product"]
         offers = reconcile_product(product["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        best = min(eligible, key=lambda o: o["total"], default=None)
+        best = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         pack = _pack_size_from_id(product["id"])
         specs = {label: value for label, value in product.get("specs", [])}
         rows.append({
@@ -8461,12 +8269,12 @@ def render_family_page(
     manufacturer_slug = BRAND_TO_MANUFACTURER.get(rows[0]["product"]["brand_slug"]) if rows else None
     manufacturer_name = MANUFACTURERS[manufacturer_slug]["name"] if manufacturer_slug else None
 
-    prices = [r["best"]["total"] for r in rows if r["best"]]
-    lowest_row = min((r for r in rows if r["best"]), key=lambda r: r["best"]["total"], default=None)
+    prices = [r["best"]["price_nok"] for r in rows if r["best"]]
+    lowest_row = min((r for r in rows if r["best"]), key=lambda r: r["best"]["price_nok"], default=None)
 
     def table_row(r: dict) -> str:
         pack_txt = f'{r["pack_size"]}-pakning' if r["pack_size"] else "–"
-        price_txt = f'{_fmt_kr(r["best"]["total"])}' if r["best"] else "Ingen pris"
+        price_txt = f'{_fmt_kr(r["best"]["price_nok"])}' if r["best"] else "Ingen pris"
         wc_txt = " / ".join(f"{v.replace('.', ',')} %" for v in r["wc"]) if r["wc"] else "–"
         bc_txt = " / ".join(f"{v.replace('.', ',')} mm" for v in r["bc"]) if r["bc"] else "–"
         material_txt = escape(r["material"]) if r["material"] else "–"
@@ -8495,7 +8303,7 @@ def render_family_page(
     comparison_table = f'''<div style="overflow-x:auto;">
   <table class="spec-table" style="width:100%;border-collapse:collapse;">
     <thead>
-      <tr><th>Variant</th><th>Type</th><th>Pakning</th>{table_header_extra}<th>Fra pris (frakt inkl.)</th></tr>
+      <tr><th>Variant</th><th>Type</th><th>Pakning</th>{table_header_extra}<th>Fra pris (uten frakt)</th></tr>
     </thead>
     <tbody>
       {"".join(table_row(r) for r in rows)}
@@ -8535,8 +8343,8 @@ def render_family_page(
         n_variants = len(rows)
         ai_summary_html = f'''<section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på alle {n_variants} variantene i {escape(family_name)}-serien. Billigst akkurat nå er
-  <strong>{escape(lowest_row["display_name"])}</strong> fra <strong>{_fmt_kr(lowest_row["best"]["total"])}</strong>
-  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked([o for r in rows for o in r["product"]["offers"]]))}.</p>
+  <strong>{escape(lowest_row["display_name"])}</strong> fra <strong>{_fmt_kr(lowest_row["best"]["price_nok"])}</strong>
+  hos {escape(lowest_row["best"]["retailer"])} (uten frakt). Prisene oppdateres daglig, sist bekreftet {_verified_tag(_newest_checked([o for r in rows for o in r["product"]["offers"]]))}.</p>
 </section>'''
 
     meta_description = (
@@ -8612,7 +8420,8 @@ def render_family_page(
   {guide_html}
 
   <p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    Prisene her er produktpriser uten frakt, sortert etter lavest pris. På hver
+    produktside kan du slå på «Pris inkludert frakt» for å se totalprisen. Vi kan få
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
     betaler. Varer uten bekreftet lager kan ikke vinne «laveste pris», og hvert
     tilbud viser når det sist ble kontrollert.
@@ -8648,7 +8457,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
         real_product = products_by_id[label["real_product_id"]]
         offers = reconcile_product(real_product["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
-        lowest = min(eligible, key=lambda o: o["total"], default=None)
+        lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
         real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
         pl_href = f'/private-label/{escape(label["slug"])}/'
         category_slug = real_product.get("category_slug", "")

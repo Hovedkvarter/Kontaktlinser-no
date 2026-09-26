@@ -1653,41 +1653,39 @@ påpekte dette). Regelen nå, avklart med Kai:
   faktisk sjekket), men Google kan vekte lastmod lavere hvis den ikke sammenfaller
   med synlige endringer -- følg med på indekseringen.
 
-## Prisjakt-modellen (pilot på ÉN produktside, 2026-09-27)
+## Prisjakt-modellen: pris uten frakt som standard, chip for total (utrullet 2026-09-27)
 
-Kai besluttet (etter konkurrentgjennomgang og screenshots fra Prisjakt): kontaktlinser.no
-skal følge markedsstandarden -- Prisjakt/Pricerunner/Prisguiden/godpris/Lenspricer viser
-pris UTEN frakt som standard, og Prisjakt har en chip «Pris inkludert frakt» (av som
-standard, viser da frakt og sorterer om). Dette blir standardmalen for hundrevis av
-sider, så det testes først på ett produkt; når Kai og jeg er enige rulles det ut.
+Kai besluttet (etter konkurrentgjennomgang og screenshots fra Prisjakt): kontaktlinser.no følger
+markedsstandarden -- Prisjakt/Pricerunner/Prisguiden/godpris/Lenspricer viser pris UTEN frakt som
+standard, og Prisjakt har en chip «Pris inkludert frakt» (av som standard) som viser og sorterer på
+totalpris. Dette er standardmalen for hundrevis av sider (også fremtidige Chillout-sider). Pilotert
+først på Acuvue Oasys 6-pack, justert (penere vinnerkort) og rullet ut til ALLE produktsider:
+kontaktlinser (138), linsevæske (20), øyedråper (28) og private label (64).
 
-**Pilotsiden:** `/kontaktlinser/acuvue/acuvue-oasys-6-pack/` (`PRISJAKT_PILOT_IDS` i
-render_templates.py; legg til flere id-er for å teste mer, tomt sett = pilot av). Bare
-produktsiden for kontaktlinser er berørt; verifisert at KUN denne ene HTML-filen
-endres på hele nettstedet (alle andre sider er byte-identiske), og at title, meta,
-canonical, H1 og JSON-LD er uendret (kun H2 over tilbudslisten er endret).
-
-- **Toppknappen** (Vinner-boksen) sier IKKE pris: «Laveste pris for N esker», butikkens
-  logo og en «Gå til tilbud»-knapp. Prisen står i lista under.
-- **Lista** heter «Sammenlign priser og butikker», sortert på laveste PRODUKTPRIS
-  (uten frakt). Chip «Pris inkludert frakt» (aria-pressed) viser totalpris for valgt antall,
-  sorterer om, og bytter toppknappen til «Laveste pris inkl. frakt». Valget huskes i
-  localStorage (`kl_incl_shipping`); klikk sendes som dataLayer-event
+**Malen** (delt kode i render_templates.py: `render_winner_widget`, `render_price_list`,
+`PRICE_LIST_STYLE`, `_QTY_CALC_SCRIPT`, `PRICE_DISCLOSURE_HTML`):
+- **Vinnerkortet** øverst sier IKKE pris: «LAVESTE PRIS / for 1 eske», butikkens logo, knappen
+  «Gå til tilbud →» (knappen ER lenken, bærer id `winner-band-link` + tracking-attributter) og
+  «Sammenlign alle N butikker ↓» (hopper til `#tilbud`). Kortet er en `<div>` (unngår nøstede `<a>`).
+- **Lista** «Sammenlign priser og butikker» er sortert på laveste PRODUKTPRIS. Chip «Pris inkludert
+  frakt» (aria-pressed) viser totalpris for valgt antall, sorterer om og bytter kortet til «Laveste
+  pris inkl. frakt». Valget huskes (`localStorage: kl_incl_shipping`); klikk sendes som dataLayer-event
   `price_shipping_toggle` (included: yes/no) -- trenger GA4-tag/trigger i GTM for å måles.
-- **Antallsvelgeren beholdes** og gjelder begge modi (frakt regnes per antall, inkl.
-  fri-frakt-grenser).
-- **Merking:** «Laveste pris» på laveste produktpris; når en ANNEN butikk har laveste
-  totalpris merkes den «Lavest totalpris» også i standardvisningen (gjelder ~9 % av
-  produktene) -- vi påstår aldri «lavest» om noe som ikke er det.
-- Meta-beskrivelse, JSON-LD (`lowPrice` uten frakt) og kategorikortene («Fra (ekskl. frakt)»)
-  var allerede uten frakt -- pilotsiden er nå konsistent med dem (før viste heltebanneret
-  312 kr mot 262 kr i søkeresultatet).
-- Pilotsidens disclosure og metodikkboks er omskrevet til å beskrive ny sortering
-  (`PILOT_DISCLOSURE_HTML`, `METHODOLOGY_HTML_PILOT`); FAQ-JSON-LD om «billigst» var
-  allerede dynamisk og korrekt.
-- **Ved utrulling må også endres:** `render_solution_product_page`, `render_private_label_page`,
-  `/slik-sammenligner-vi-priser/`, disclosure/FAQ-tekster som sier «sortert etter totalpris»,
-  og `reconcile_product`-tekstene som beskriver «Lavest totalpris».
+- **Antallsvelgeren** beholdes og gjelder begge modi (frakt regnes per antall, inkl. fri-frakt-grenser;
+  «eske/esker» for linser, «flaske/flasker» for linsevæske/øyedråper).
+- **Merking:** «Laveste pris» på laveste produktpris; når en ANNEN butikk har laveste totalpris merkes den
+  «Lavest totalpris» også i standardvisningen (~9 % av produktene) -- vi påstår aldri «lavest» om noe
+  som ikke er det. `reconcile_product()` er uendret og totalpris-basert (brukes til den merkingen, FAQ-svar
+  om «hvor er X billigst» og prishistorikk).
+- **Samlesider** (kategori, merke, chain-sider, private label-oversikt, serieside) viser «Fra»-pris uten frakt
+  og er sortert på den; serietabellen heter «Fra pris (uten frakt)». Verifisert: kategorifliser, meta-
+  beskrivelse, JSON-LD `lowPrice`, øverste kort og vinnerknapp gir samme laveste produktpris på alle 138
+  linsesider (før viste heltebanneret 312 kr mot 262 kr i søkeresultatet).
+- **Tekster oppdatert** (påstanden «alltid lavest totalpris/sortert etter totalpris» stemte ikke lenger):
+  footer, forside (hero, tillitskort, tillitsrad, FAQ), guide-CTA, guiden «Hvordan Kontaktlinser.no
+  beregner totalpris», om-siden, metodikksiden, affiliate-siden, disclosure/metodikkboks på alle
+  produkttyper. Ingen gamle formuleringer igjen i bygget (verifisert). Title, canonical, H1 og robots er
+  uendret på alle 396 sider; produktsidenes meta-beskrivelse følger nå laveste produktpris.
 
 ## Arbeidsspråk og autorisasjon
 
