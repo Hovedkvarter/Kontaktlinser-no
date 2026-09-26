@@ -2804,16 +2804,19 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         # Prisjakt-modellen: knappen sier IKKE pris. Prisen står i lista under
         # (sortert på produktpris, eller totalpris hvis "Pris inkludert frakt" er på).
         pilot_aria = f'Gå til {escape(best["retailer"])} for {escape(product_name)}' if product_name else f'Gå til {escape(best["retailer"])}'
-        winner_band = f"""<a class="winner-band winner-band-cta" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{pilot_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+        n_shops = len([o for o in offers if o["in_stock"]])
+        winner_band = f"""<div class="winner-band winner-band-cta">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
-      <div class="label" id="winner-label">Laveste pris for 1 {escape(unit_singular)}</div>
+      <div class="label" id="winner-label">Laveste pris</div>
+      <div class="winner-sub" id="winner-sub">for 1 {escape(unit_singular)}</div>
       <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
     </div>
   </div>
-  <span class="winner-btn">Gå til tilbud <span aria-hidden="true">&#8594;</span></span>
-</a>"""
+  <a class="winner-btn" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{pilot_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
+  <a class="winner-more" href="#tilbud">Sammenlign alle {n_shops} butikker <span aria-hidden="true">&#8595;</span></a>
+</div>"""
     else:
         winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
@@ -2916,13 +2919,24 @@ PILOT_STYLE = """
 .ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
 .lowest-tag-total { background: var(--blue); }
-.winner-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--mint); color: white; font-weight: 700; font-size: 0.95rem; padding: 12px 22px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.winner-band-cta { flex-direction: column; align-items: stretch; gap: 12px; }
-.winner-band-cta .winner-btn { width: 100%; }
-.winner-band-cta:hover .winner-btn, .winner-band-cta:focus-visible .winner-btn { filter: brightness(0.94); }
+.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.winner-band-cta:hover, .winner-band-cta:focus-within { border-color: #BFE7D5; box-shadow: none; }
+.winner-band-cta .winner-left { flex-direction: column; align-items: center; gap: 0; }
+.winner-band-cta .label-group { display: flex; flex-direction: column; align-items: center; }
+.winner-band-cta .label { font-size: 0.86rem; letter-spacing: 0.06em; }
+.winner-sub { font-size: 0.82rem; color: var(--muted); margin-top: 1px; }
+.winner-band-cta .retailer { justify-content: center; margin-top: 14px; }
+.winner-band-cta .retailer-logo { height: 30px; max-width: 150px; }
+.winner-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: var(--mint); color: white; font-weight: 700; font-size: 0.95rem; padding: 12px 20px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: filter 0.15s, box-shadow 0.15s; }
+.winner-btn:hover, .winner-btn:focus-visible { filter: brightness(0.93); box-shadow: 0 3px 10px rgba(11, 163, 111, 0.28); }
+.winner-more { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+.winner-more:hover { text-decoration: underline; }
+#tilbud { scroll-margin-top: 16px; }
 @media (min-width: 860px) {
-  .hero-main .winner-band-cta .winner-btn { width: 100%; margin-top: 14px; padding: 13px 22px; font-size: 1rem; }
-  .hero-main .winner-band-cta .label-group { text-align: center; }
+  /* align-self: center -- kortet er kun så høyt som innholdet og flyter midt i
+     kolonnen, i stedet for å strekkes til hele hero-radens høyde (ga et stort
+     tomrom inni kortet). */
+  .hero-main .winner-band-cta { align-self: center; padding: 42px 20px 22px; gap: 16px; }
 }
 """
 
@@ -2997,7 +3011,9 @@ _PILOT_SCRIPT = r"""<script>
     for (var i = 0; i < byTotal.length; i++) { if (byTotal[i].o.in_stock) { bestTotal = byTotal[i]; break; } }
 
     if (best) {
-      labelEl.textContent = (incl ? 'Laveste pris inkl. frakt' : 'Laveste pris') + ' for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
+      labelEl.textContent = incl ? 'Laveste pris inkl. frakt' : 'Laveste pris';
+      var subEl = document.getElementById('winner-sub');
+      if (subEl) subEl.textContent = 'for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
       retailerEl.innerHTML = retailerBadge(best.o);
       winnerLink.setAttribute('href', best.o.url);
       winnerLink.setAttribute('rel', best.o.rel);
@@ -3519,7 +3535,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
 
     if pilot:
-        offers_block = f"""<div class="offers offers-pilot">
+        offers_block = f"""<div class="offers offers-pilot" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser og butikker</h2>
       <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
