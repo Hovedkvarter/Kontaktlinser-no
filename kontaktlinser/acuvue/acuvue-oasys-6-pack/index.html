@@ -566,7 +566,7 @@ a { color: inherit; }
 .ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
 .lowest-tag-total { background: var(--blue); }
-.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; max-width: 380px; margin: 14px auto; }
 .winner-band-cta:hover, .winner-band-cta:focus-within { border-color: #BFE7D5; box-shadow: none; }
 .winner-band-cta .winner-left { flex-direction: column; align-items: center; gap: 0; }
 .winner-band-cta .label-group { display: flex; flex-direction: column; align-items: center; }
@@ -1033,7 +1033,7 @@ a { color: inherit; }
   </div>
   <div class="pack-size-callout-arrow">→</div>
 </a>
-  <div class="offers offers-pilot" id="tilbud">
+  <div class="offers" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser og butikker</h2>
       <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
@@ -1290,8 +1290,8 @@ a { color: inherit; }
   </div>
   <p class="footer-disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
-    automatisk fra forhandlerne, oppdaterer dem daglig og sorterer alltid
-    etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
+    automatisk fra forhandlerne, oppdaterer dem daglig og sorterer etter
+    lavest pris (slå på «Pris inkludert frakt» for å se totalprisen). Vi kan motta provisjon når du handler via
     lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
     av tilbud. Vi selger ikke kontaktlinser selv. Kontaktlinser er reseptvare:
     rådfør deg alltid med optiker ved valg av linsetype og styrke.
