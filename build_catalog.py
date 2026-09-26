@@ -22,7 +22,9 @@ ikke med en gjettet eller gammel pris.
 """
 
 import json
+import os
 from dataclasses import asdict, replace
+from datetime import datetime, timezone
 from pathlib import Path
 
 from offer import Offer
@@ -136,6 +138,70 @@ def collect_scraped_offers(products_meta: dict, sources_config: dict) -> dict[st
     return offers_by_product
 
 
+# Daglig kjøring (fra 2026-09-26): feedene hentes hver gang, men skraping er
+# tregt (~8 min, bevisst 3 s pause per domene) og skrapede priser endrer seg
+# sjelden (målt over 18 dager: 5 av 8 forhandlere 0 endringer). Full skraping
+# gjøres derfor ca. annenhver dag. Beslutningen tas ut fra DATA, ikke
+# ukedag/paritet: er de nyeste skrapede tilbudene i forrige catalog_live.json
+# yngre enn grensen, gjenbrukes de; ellers skrapes alt på nytt. Det tåler
+# GitHub sine cron-forsinkelser og en feilet kjøring uten å hoppe over to
+# ganger på rad. 36 t gir daglig kjøring -> skrap dag 1, gjenbruk dag 2, skrap dag 3.
+SCRAPE_MAX_AGE_HOURS = 36
+
+
+def reuse_fresh_scraped_offers(products_meta: dict, sources_config: dict) -> dict[str, list[Offer]] | None:
+    """Kun når KL_SKIP_FRESH_SCRAPE=1 (satt av den planlagte kjøringen i
+    build-and-deploy.yml -- manuell kjøring og lokal kjøring skraper alltid
+    fullt). Returnerer forrige runde sine skrapede tilbud UENDRET, inkludert
+    deres opprinnelige checked_at (siden viser dermed ærlig når de sist ble
+    kontrollert), eller None hvis vi ikke trygt kan gjenbruke -- da skraper
+    kalleren som vanlig."""
+    try:
+        previous = load_json(OUTPUT_PATH)
+        previous_products = {p["id"]: p for p in previous["products"]}
+    except (OSError, ValueError, KeyError):
+        print("  [full skraping] fant ikke en lesbar forrige catalog_live.json")
+        return None
+
+    newest = None
+    for p in previous["products"]:
+        for o in p.get("offers", []):
+            if o.get("source") == "scraper":
+                checked = datetime.fromisoformat(o["checked_at"])
+                if newest is None or checked > newest:
+                    newest = checked
+    if newest is None:
+        print("  [full skraping] forrige katalog har ingen skrapede tilbud")
+        return None
+    age_hours = (datetime.now(timezone.utc) - newest).total_seconds() / 3600
+    if age_hours >= SCRAPE_MAX_AGE_HOURS:
+        print(f"  [full skraping] forrige skraping er {age_hours:.0f} t gammel (grense {SCRAPE_MAX_AGE_HOURS} t)")
+        return None
+
+    reused: dict[str, list[Offer]] = {}
+    for product in products_meta["products"]:
+        active = set()
+        for target in product.get("scrape_targets", []):
+            retailer = target["retailer"]
+            if retailer in sources_config and should_scrape(sources_config, retailer, product["brand_slug"]):
+                active.add(sources_config[retailer].get("display_name", retailer))
+        if not active:
+            continue
+        for o in previous_products.get(product["id"], {}).get("offers", []):
+            if o.get("source") == "scraper" and o["retailer"] in active:
+                try:
+                    reused.setdefault(product["id"], []).append(Offer(**o))
+                except TypeError:
+                    print("  [full skraping] forrige katalog har et uventet tilbudsformat")
+                    return None
+    if not reused:
+        print("  [full skraping] ingen skrapede tilbud å gjenbruke")
+        return None
+    n = sum(len(v) for v in reused.values())
+    print(f"Gjenbruker {n} skrapede tilbud fra forrige kjøring ({age_hours:.0f} t gamle, grense {SCRAPE_MAX_AGE_HOURS} t) -- hopper over skraping")
+    return reused
+
+
 def patch_brand_field(offers_by_product: dict[str, list[Offer]], products_meta: dict) -> None:
     """Feed-mapperne setter brand='' siden en enkelt feed-fil kan dekke flere
     merker. Fyll inn riktig merke nå som vi vet hvilket produkt-id det er."""
@@ -183,8 +249,12 @@ def main() -> None:
     print("Henter feed-tilbud ...")
     feed_offers = collect_feed_offers(sources_config, product_matching)
 
-    print("Henter scrapede tilbud ...")
-    scraped_offers = collect_scraped_offers(products_meta, sources_config)
+    scraped_offers = None
+    if os.environ.get("KL_SKIP_FRESH_SCRAPE") == "1":
+        scraped_offers = reuse_fresh_scraped_offers(products_meta, sources_config)
+    if scraped_offers is None:
+        print("Henter scrapede tilbud ...")
+        scraped_offers = collect_scraped_offers(products_meta, sources_config)
 
     combined: dict[str, list[Offer]] = {}
     for source_dict in (feed_offers, scraped_offers):

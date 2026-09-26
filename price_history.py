@@ -8,9 +8,9 @@ reconcile_product()-kall som avgjør hva som faktisk vises som "laveste
 pris" akkurat da -- historikken skal alltid stemme med det som faktisk
 sto på siden den dagen, ikke beregnes separat.
 
-Bygget kjører hver 6. time, men vi vil ha ett punkt per dag, ikke fire --
-record_price() overskriver derfor dagens rad i stedet for å legge til en
-ny hver gang. Beholder maks MAX_DAYS rader, eldre rader forsvinner
+Bygget kjører daglig (pluss ved hver push til main), men vi vil ha ett
+punkt per dag uansett antall bygg -- record_price() overskriver derfor
+dagens rad i stedet for å legge til en ny hver gang. Beholder maks MAX_DAYS rader, eldre rader forsvinner
 automatisk ved neste kall.
 """
 

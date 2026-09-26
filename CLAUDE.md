@@ -10,7 +10,7 @@ endringer.
 Sammenligner priser på kontaktlinser fra norske nettbutikker (Interoptik,
 Lensway, Lenson, Specsavers, flere kommer) og viser billigste tilgjengelige
 tilbud per produkt, på én dedikert side per produkt. Live på kontaktlinser.no,
-hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
+hostet på GitHub Pages, bygget automatisk daglig (og ved hver push) via GitHub Actions.
 
 ## Designsystem (fast — følg dette uten å spørre)
 
@@ -57,7 +57,7 @@ hostet på GitHub Pages, bygget automatisk hver 6. time via GitHub Actions.
    samtidig (indikerer feed-/nettverksfeil, ikke reell utsolgthet). NB:
    terskelen er kalibrert for en katalog med mange produkter — med bare 2–3
    testprodukter trigger den på støy, ikke reelle feil.
-8. `.github/workflows/build-and-deploy.yml` — kjører 1–7 hver 6. time,
+8. `.github/workflows/build-and-deploy.yml` — kjører 1–7 daglig (kl. 22:45 UTC) og ved hver push,
    publiserer til `gh-pages`-branchen via `peaceiris/actions-gh-pages`.
 
 ## Faste regler (brutt = bug, ikke en tolkning)
@@ -1454,7 +1454,7 @@ i repoets rot holder en tilstand per flate:
 
 Sett en til `"off"` og bygg. Da rendrer den flaten leverandor-URL-ene igjen --
 akkurat som for clickout fantes -- uten at noe annet flytter seg. Bygget gar
-hver 6. time og kan startes manuelt, sa verste fall er ett bygg.
+daglig og kan startes manuelt, sa verste fall er ett bygg.
 
 Tre ting som er lette a ta feil av:
 
@@ -1559,6 +1559,42 @@ GitHub-siden. (2) Generer-steget økte fra ~1 s til 21-39 s fra 25. sept.
 (sannsynligvis Chillout-lesekontrakten i bygget, ikke undersøkt). (3) Hva
 gjør de 8 skrapede forhandlerne når de ikke har feed -- får Chillout en
 skraper, eller skal de få affiliate-feed først?
+
+## Daglig oppdatering i stedet for hver 6. time (vedtatt av Kai, 2026-09-26)
+
+Basert på kadensanalysen (72 katalog-øyeblikksbilder 8.-26. sept.): feedene
+endrer seg sjelden (1-5 dager av 18 per feed, i batcher, mest rundt 22:15 UTC
+overnatting), og de fleste skrapede forhandlerne har ikke endret en eneste pris
+på 18 dager (unntak: Synsam, som svinger ca. ±5 % daglig). Ingen endring gikk
+tapt mellom de fire daglige observasjonene. Kai valgte plan **C1**: feeds daglig,
+full skraping annenhver dag. Beregnet: ca. 49 -> ca. 8 avregnede min/døgn (−83 %).
+
+- **Cron:** `45 22 * * *` (daglig, 22:45 UTC; GitHub forsinker cron med timer,
+  så kjøringen lander etter feed-oppdateringen ~22:15-22:20 og før norsk morgen).
+- **Skraping annenhver dag, styrt av DATA, ikke ukedag:** kun den planlagte
+  kjøringen setter `KL_SKIP_FRESH_SCRAPE=1`. `build_catalog.py` gjenbruker da
+  forrige runde sine skrapede tilbud UENDRET (inkl. opprinnelig `checked_at`) hvis
+  de er yngre enn `SCRAPE_MAX_AGE_HOURS` = 36 t, ellers skrapes alt. Manuell og
+  lokal kjøring skraper alltid fullt. Alle fallback-stier (manglende/ødelagt/
+  gammel katalog, ingen skrapede tilbud) gir full skraping -- testet 2026-09-26.
+- **Foreldet-grenser:** `FEED_STALE_HOURS = 36`, `SCRAPED_STALE_HOURS = 60` i
+  `reconcile_product()` (var 24 t for alt), så «Pris ikke nylig bekreftet»
+  (merket het før «... siste 24t») bare vises når noe faktisk har sviktet.
+- **Tekst:** all kopi som sa «hver 6. time»/«flere ganger daglig» sier nå
+  «daglig» (Kai: ikke oppgi skrapefrekvens i detalj). Metodikksiden hevder ikke
+  lenger at «begge kildetypene oppdateres like ofte» eller at vi «aldri gjenbruker
+  en gammel pris» -- hvert tilbud viser i stedet når det sist ble kontrollert.
+- **Rettet en eksisterende feil i kopien:** nettstedet sa (bl.a. i FAQ-JSON-LD)
+  at priser eldre enn 24 t «ikke kan vinne laveste pris». Koden gjør det ikke --
+  kun utsolgt/uten lager utelukkes fra vinnerplassen (testet). Teksten sier nå
+  bare det som faktisk gjelder.
+- **Kjent risiko:** en feilet skraping/feed betyr nå opptil 48 t uten den
+  forhandleren (ingen gjenbruk av gamle data ved feil), mot 6 t før. Se
+  Extra Optical-glippen 2026-09-19. Vurder senere en «bruk forrige pris hvis
+  yngre enn 60 t»-fallback for enkelttilbud som feiler på en skrapedag.
+- Feed-tidspunkt (22:15-22:20 UTC) er basert på ett øyeblikksbilde av
+  Tradedoublers `modified`-felt; Lensway sto på 09:15 UTC. Verifiser etter noen
+  dager i GA/prishistorikk at riktig kjøretidspunkt er valgt.
 
 ## Arbeidsspråk og autorisasjon
 

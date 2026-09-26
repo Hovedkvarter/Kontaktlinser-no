@@ -1214,7 +1214,7 @@ def render_footer() -> str:
   </div>
   <p class="footer-disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser
-    automatisk fra forhandlernes egne nettsider hver 6. time og sorterer alltid
+    automatisk fra forhandlerne, oppdaterer dem daglig og sorterer alltid
     etter lavest totalpris inkl. frakt. Vi kan motta provisjon når du handler via
     lenkene våre &ndash; det påvirker verken prisen du betaler eller rangeringen
     av tilbud. Vi selger ikke kontaktlinser selv. Kontaktlinser er reseptvare:
@@ -2204,7 +2204,16 @@ def _add_utm_params(url: str) -> str:
     return urlunsplit(parsed._replace(query=urlencode(query)))
 
 
-def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) -> list[dict]:
+# Daglig oppdatering (fra 2026-09-26): et feed-tilbud er normalt opptil ~24 t
+# gammelt ved bygging, et skrapet tilbud opptil ~48 t (full skraping annenhver
+# dag, se build_catalog.py). Grensene ligger over det med margin for GitHub
+# Actions sine cron-forsinkelser, slik at "ikke nylig bekreftet"-merket bare
+# vises når noe faktisk har sviktet -- ikke på hver push-bygging sent på dagen.
+FEED_STALE_HOURS = 36
+SCRAPED_STALE_HOURS = 60
+
+
+def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None = None) -> list[dict]:
     """Samme logikk som reconcile() i ingest_feed.py, men på rå dict-data
     slik generatoren kan kjøre den direkte på catalog.json uten omveier.
 
@@ -2219,7 +2228,10 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int = 24) 
     for o in offers:
         checked = datetime.fromisoformat(o["checked_at"])
         age_hours = (now - checked).total_seconds() / 3600
-        is_stale = age_hours > stale_hours
+        limit = stale_hours if stale_hours is not None else (
+            FEED_STALE_HOURS if o.get("source") == "affiliate_feed" else SCRAPED_STALE_HOURS
+        )
+        is_stale = age_hours > limit
         total = o["price_nok"] + o["shipping_nok"]
         url = o["url"] if o.get("source") == "affiliate_feed" else _add_utm_params(o["url"])
         enriched.append({**o, "total": total, "is_stale": is_stale, "url": url})
@@ -2426,7 +2438,7 @@ def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
                       clickouts: dict | None = None) -> str:
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
-        else '<div class="offer-meta" style="font-weight:600;">Pris ikke bekreftet siste 24t</div>' if o["is_stale"]
+        else '<div class="offer-meta" style="font-weight:600;">Pris ikke nylig bekreftet</div>' if o["is_stale"]
         else f'<div class="offer-meta">Sist oppdatert: {escape(_time_ago(o["checked_at"], datetime.now(timezone.utc)))}</div>'
     )
     css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if not o["in_stock"] else "")
@@ -2668,7 +2680,7 @@ METHODOLOGY_HTML = """<div class="methodology">
       <div class="methodology-row"><dt>Frakt</dt><dd>Fraktkostnaden beregnes for antallet esker du har valgt. Dersom kjøpet kvalifiserer til fri frakt hos butikken, tar beregningen hensyn til dette.</dd></div>
       <div class="methodology-row"><dt>Totalpris</dt><dd>Produktpris for valgt antall pluss eventuell frakt.</dd></div>
       <div class="methodology-row"><dt>Sortering</dt><dd>Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.</dd></div>
-      <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres hver 6. time.</dd></div>
+      <div class="methodology-row"><dt>Oppdatering</dt><dd>Prisene hentes automatisk og oppdateres daglig.</dd></div>
     </dl>
     <a href="/slik-sammenligner-vi-priser/" style="font-size:0.85rem;font-weight:600;color:var(--blue);text-decoration:none;">Les mer om metodikken vår →</a>
   </div>"""
@@ -3012,7 +3024,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
-  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
+  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
     winner_html, qty_html = render_winner_widget(best, offers, product["name"], product_id=product["id"], clickouts=clickouts)
@@ -3199,7 +3211,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     product_faq.append({
         "question": "Hvor ofte oppdateres prisene?",
-        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk daglig. Vi viser butikkens produktpris "
                   "uten frakt og beregner totalpris basert på frakt og antallet esker du velger.",
     })
 
@@ -3368,8 +3380,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
     betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
     eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Priser eldre enn 24 timer eller
-    varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
+    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
+    hvert tilbud viser når det sist ble kontrollert.
   </p>
   {price_history_html}
   {specs_html}
@@ -4187,7 +4199,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
           <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
             <div class="trust-card-title">Uavhengig og oppdatert</div>
-            <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk hver 6. time og viser alltid lavest totalpris inkludert frakt.</p>
+            <p class="trust-card-text">Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk og oppdaterer dem daglig, og viser alltid lavest totalpris inkludert frakt.</p>
           </div>
         </div>
       </div>
@@ -4234,7 +4246,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   <div class="trust-strip">
     <div class="trust-item">
       <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41L12 22l-9-9 8.59-8.59A2 2 0 0 1 13 3h5a2 2 0 0 1 2 2v5a2 2 0 0 1-.41 2.41z"/><circle cx="16.5" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
-      <div><strong>{n_products} linser</strong><span>Oppdatert hver 6. time</span></div>
+      <div><strong>{n_products} linser</strong><span>Oppdatert daglig</span></div>
     </div>
     <div class="trust-item">
       <div class="trust-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
@@ -5393,7 +5405,7 @@ konkret eksempel.</p>
 
 <p style="margin-top:16px;">Dette er nettopp derfor det lønner seg å sammenligne på tvers av butikker i stedet for
 å handle hos den første man kommer over. Prisene kan også endre seg fra dag til dag – vi
-henter oppdaterte priser hver 6. time. Se f.eks.
+oppdaterer prisene daglig. Se f.eks.
 <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> for et konkret
 eksempel på hvor mye prisen faktisk varierer mellom butikkene akkurat nå.</p>
 """,
@@ -5404,7 +5416,7 @@ eksempel på hvor mye prisen faktisk varierer mellom butikkene akkurat nå.</p>
             },
             {
                 "question": "Hvor ofte endrer prisene seg?",
-                "answer": "Prisene kan endre seg fra dag til dag. Kontaktlinser.no henter oppdaterte priser fra forhandlerne hver 6. time.",
+                "answer": "Prisene kan endre seg fra dag til dag. Kontaktlinser.no oppdaterer prisene fra forhandlerne daglig.",
             },
         ],
     },
@@ -5426,8 +5438,8 @@ sammenligne prisene som står på hver butikks egen produktside.</p>
 med. Ser du kun på produktprisen direkte hos hver butikk, kan du lett ende opp med det
 dyreste alternativet uten å vite det.</p>
 
-<p style="margin-top:16px;">Priser eldre enn 24 timer, eller uten bekreftet lagerstatus, vises fortsatt hos oss,
-men kan ikke vinne merket «laveste pris». Vi henter oppdaterte priser hver 6. time. Se et
+<p style="margin-top:16px;">Varer uten bekreftet lagerstatus kan ikke vinne merket «laveste pris», og hvert tilbud viser
+når det sist ble kontrollert. Vi oppdaterer prisene daglig. Se et
 ekte eksempel på <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a> sin
 produktside for å se totalpris-regnestykket i praksis.</p>
 """,
@@ -5438,7 +5450,7 @@ produktside for å se totalpris-regnestykket i praksis.</p>
             },
             {
                 "question": "Hvor ofte oppdateres prisene?",
-                "answer": "Vi henter oppdaterte priser fra forhandlerne hver 6. time.",
+                "answer": "Vi oppdaterer prisene fra forhandlerne daglig.",
             },
         ],
     },
@@ -5759,7 +5771,7 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
 HOME_FAQ = [
     {
         "question": "Hvordan fungerer Kontaktlinser.no?",
-        "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikkers egne nettsider og feeds hver 6. time, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
+        "answer": "Kontaktlinser.no er en uavhengig prissammenligningstjeneste. Vi henter priser automatisk fra norske nettbutikker og oppdaterer dem daglig, og viser alltid tilbudene sortert etter lavest totalpris - produktpris pluss frakt. Du kjøper ikke hos oss; vi lenker deg videre til forhandleren du velger.",
     },
     {
         "question": "Koster det mer å kjøpe via en prissammenligningsside?",
@@ -5767,7 +5779,7 @@ HOME_FAQ = [
     },
     {
         "question": "Hvor ofte oppdateres prisene?",
-        "answer": "Vi henter oppdaterte priser fra forhandlerne hver 6. time. Hvert tilbud viser når det sist ble kontrollert, og priser som er eldre enn 24 timer eller mangler bekreftet lagerstatus vises fortsatt, men kan ikke vinne merket «laveste pris».",
+        "answer": "Vi oppdaterer prisene fra forhandlerne daglig. Hvert tilbud viser når det sist ble kontrollert, og varer som mangler bekreftet lagerstatus kan ikke vinne merket «laveste pris».",
     },
     {
         "question": "Hvordan unngår jeg skjulte fraktkostnader?",
@@ -6134,10 +6146,10 @@ def render_about_page() -> str:
     ti forskjellige nettsider for å finne billigste tilgjengelige tilbud.</p>
 
     <h2>Hvordan det fungerer</h2>
-    <p>Prisene hentes automatisk fra forhandlernes egne nettsider hver
-    6. time. Vi sorterer alltid etter lavest totalpris, inkludert frakt - et
-    tilbud som er utsolgt eller ikke bekreftet siste 24 timer kan aldri vinne
-    "laveste pris"-merket, uansett hvor lavt tallet er.</p>
+    <p>Prisene hentes automatisk fra forhandlerne og oppdateres daglig. Vi
+    sorterer alltid etter lavest totalpris, inkludert frakt - et tilbud som er
+    utsolgt kan aldri vinne "laveste pris"-merket, uansett hvor lavt tallet
+    er. Hvert tilbud viser når det sist ble kontrollert.</p>
 
     <h2>Hvordan vi tjener penger</h2>
     <p>Vi kan motta provisjon fra enkelte forhandlere når du handler via
@@ -6248,18 +6260,17 @@ Dette er tallet vi faktisk sorterer etter -- ikke produktprisen alene.</p>
 
 <h2>Sortering og "laveste pris"</h2>
 <p>Tilbudene sorteres alltid etter lavest totalpris. Et tilbud som er utsolgt, eller
-ikke bekreftet de siste 24 timene, kan aldri vinne "laveste pris"-merket, uansett hvor
+uten bekreftet lagerstatus, kan aldri vinne "laveste pris"-merket, uansett hvor
 lavt tallet er -- det vises fortsatt i listen, bare uten merket. Ved eksakt lik
 totalpris mellom to butikker, se
 <a href="/affiliate-og-finansiering/">Affiliate og finansiering</a> for hvordan vi da
 avgjør rekkefølgen.</p>
 
 <h2>Kilder og oppdateringsfrekvens</h2>
-<p>Prisene hentes automatisk hver 6. time, enten direkte fra en forhandlers egen
+<p>Prisene oppdateres daglig, enten direkte fra en forhandlers egen
 produktfeed (der vi har en slik avtale) eller ved å lese av prisen på forhandlerens
-egen produktside. Begge kildetypene oppdateres like ofte, og et produkt uten en
-pålitelig pris publiseres uten pris -- vi gjetter eller gjenbruker aldri en gammel
-pris.</p>
+egen produktside. Hvert tilbud viser når det sist ble kontrollert, og et produkt uten
+en pålitelig pris publiseres uten pris -- vi gjetter aldri en pris.</p>
 """
     return _trust_page(
         "slik-sammenligner-vi-priser",
@@ -7344,7 +7355,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
-  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne akkurat nå. Prisene oppdateres hver 6. time.</p>
+  <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
     # Samme delte vinner-widget som render_product_page/render_private_label_page
@@ -7452,7 +7463,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 
     product_faq.append({
         "question": "Hvor ofte oppdateres prisene?",
-        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk daglig. Vi viser butikkens produktpris "
                   "uten frakt og beregner totalpris basert på frakt og antallet du velger.",
     })
 
@@ -7517,8 +7528,8 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
     betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
     eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Priser eldre enn 24 timer eller
-    varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
+    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
+    hvert tilbud viser når det sist ble kontrollert.
   </p>
   <p class="disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
@@ -7902,7 +7913,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # siden og fordi det er en allerede etablert, fungerende ramme.
     meta_description = (
         f'Se laveste pris på {private_name} blant norske nettbutikker – fra '
-        f'{_fmt_kr(best["price_nok"])} hos {best["retailer"]}. Oppdatert flere ganger daglig.'
+        f'{_fmt_kr(best["price_nok"])} hos {best["retailer"]}. Oppdatert daglig.'
     ) if best else f'Sammenlign priser på {private_name} blant norske nettbutikker.'
 
     # Synlig, CRAWLBAR tekst med de samme fakta som SERP-teksten over
@@ -7915,11 +7926,11 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # boksen helt).
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres flere ganger daglig.</p>
+  <p>Vi sammenligner priser på <strong>{escape(real_name)}</strong> (solgt som {escape(private_name)} hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>{_fmt_kr(best["price_nok"])}</strong> hos {escape(best["retailer"])} (ekskl. frakt). Prisene oppdateres daglig.</p>
 </section>"""
     else:
         ai_summary_html = f"""<section class="product-ai-summary fallback" aria-label="Status">
-  <p>Vi følger prisen på <strong>{escape(real_name)}</strong> ({escape(private_name)}), men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres hver 6. time.</p>
+  <p>Vi følger prisen på <strong>{escape(real_name)}</strong> ({escape(private_name)}), men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
     about_type = "Product" if in_stock_offers else "Thing"
@@ -7975,7 +7986,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 
     product_faq.append({
         "question": "Hvor ofte oppdateres prisene?",
-        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk hver 6. time. Vi viser butikkens produktpris "
+        "answer": "Kontaktlinser.no henter og oppdaterer priser automatisk daglig. Vi viser butikkens produktpris "
                   "uten frakt og beregner totalpris basert på frakt og antallet du velger.",
     })
 
@@ -8061,8 +8072,8 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
     betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
     eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Priser eldre enn 24 timer eller
-    varer uten bekreftet lager vises, men kan ikke vinne «laveste pris».
+    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
+    hvert tilbud viser når det sist ble kontrollert.
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med kjeden bak dette merkenavnet.
   </p>
@@ -8206,12 +8217,12 @@ def render_family_page(
         ai_summary_html = f'''<section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på alle {n_variants} variantene i {escape(family_name)}-serien. Billigst akkurat nå er
   <strong>{escape(lowest_row["display_name"])}</strong> fra <strong>{_fmt_kr(lowest_row["best"]["total"])}</strong>
-  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres flere ganger daglig.</p>
+  hos {escape(lowest_row["best"]["retailer"])} (inkl. frakt). Prisene oppdateres daglig.</p>
 </section>'''
 
     meta_description = (
         f'Sammenlign priser på hele {family_name}-serien -- sfærisk, torisk og/eller multifokal -- '
-        f'fra {_fmt_kr(min(prices))} kr. Oppdatert flere ganger daglig.'
+        f'fra {_fmt_kr(min(prices))} kr. Oppdatert daglig.'
     ) if prices else f'Sammenlign priser på hele {family_name}-serien.'
 
     item_list_items = []
@@ -8284,8 +8295,8 @@ def render_family_page(
   <p class="disclosure">
     Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
     provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Priser eldre enn 24 timer eller varer uten bekreftet lager vises,
-    men kan ikke vinne «laveste pris».
+    betaler. Varer uten bekreftet lager kan ikke vinne «laveste pris», og hvert
+    tilbud viser når det sist ble kontrollert.
   </p>
 </div>
 {render_footer()}

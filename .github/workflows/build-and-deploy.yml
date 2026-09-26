@@ -2,7 +2,11 @@ name: Oppdater priser og bygg siden
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    # Daglig (fra 2026-09-26, var hver 6. time). Feedene (Tradedoubler) ser ut
+    # til å oppdateres ca. 22:15-22:20 UTC, og GitHub forsinker cron med
+    # timer -- 22:45 UTC lander etter feed-oppdateringen og før norsk morgen.
+    # Skraping gjøres ca. annenhver dag, se KL_SKIP_FRESH_SCRAPE under.
+    - cron: "45 22 * * *"
   workflow_dispatch: {}
   push:
     branches: [main]
@@ -36,6 +40,12 @@ jobs:
         # (site_generator/catalog_live.json) sammen med endringen, slik
         # praksis har vært hele denne økten.
         if: github.event_name != 'push'
+        env:
+          # Kun den planlagte kjøringen får gjenbruke skrapede priser som er
+          # yngre enn ~36 t (build_catalog.py, SCRAPE_MAX_AGE_HOURS) -- feedene
+          # hentes alltid friskt. Manuell kjøring (workflow_dispatch) og lokal
+          # kjøring skraper alltid fullt.
+          KL_SKIP_FRESH_SCRAPE: ${{ github.event_name == 'schedule' && '1' || '' }}
         run: python3 build_catalog.py
 
       - name: Lagre oppdatert prisdata tilbake til repoet
