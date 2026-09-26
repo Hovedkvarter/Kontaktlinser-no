@@ -202,6 +202,122 @@ def reuse_fresh_scraped_offers(products_meta: dict, sources_config: dict) -> dic
     return reused
 
 
+# Beskyttelse mot at en forhandler "faller ut" av siden (bestemt 2026-09-26:
+# Kai ville ikke at overgangen til daglig oppdatering skulle gjøre at noen
+# forsvinner). Før daglig kjøring rettet neste kjøring en glipp innen 6 t; nå
+# ville en feilet henting gitt opptil 48 t uten forhandleren. Feed-glippen
+# 2026-09-19 (Extra Optical ga 0 rader uten feilmelding og alle 82 tilbud
+# forsvant) er det konkrete eksempelet. Gjenbrukte tilbud beholder sin
+# opprinnelige checked_at (siden viser dermed når de sist ble kontrollert) og
+# faller ut av seg selv når de er for gamle -- ingen stille evig gjenbruk.
+FEED_CARRY_MAX_HOURS = 36      # = FEED_STALE_HOURS i render_templates.py
+SCRAPED_CARRY_MAX_HOURS = 60   # = SCRAPED_STALE_HOURS i render_templates.py
+FEED_COLLAPSE_RATIO = 0.5      # feed med < 50 % av forrige antall tilbud = kollaps
+COLLAPSE_MIN_PREVIOUS = 5      # ikke vurder forhandlere med færre tilbud enn dette
+
+
+def _active_scraped_names(product: dict, sources_config: dict) -> set[str]:
+    names = set()
+    for target in product.get("scrape_targets", []):
+        retailer = target["retailer"]
+        if retailer in sources_config and should_scrape(sources_config, retailer, product["brand_slug"]):
+            names.add(sources_config[retailer].get("display_name", retailer))
+    return names
+
+
+def protect_against_dropouts(
+    feed_offers: dict[str, list[Offer]],
+    scraped_offers: dict[str, list[Offer]],
+    products_meta: dict,
+    sources_config: dict,
+    scraped_this_run: bool = True,
+    previous: dict | None = None,
+    now: datetime | None = None,
+) -> None:
+    """Endrer feed_offers/scraped_offers på stedet.
+    1) FEED-KOLLAPS: gir en (fortsatt konfigurert) feed under halvparten av
+       forrige antall tilbud, gjenbrukes forrige runde sine tilbud fra den
+       forhandleren hvis de er yngre enn FEED_CARRY_MAX_HOURS.
+    2) SKRAPING (kun når vi faktisk skrapet nå): et (produkt, forhandler)-par
+       som hadde et tilbud sist men ga ingenting nå, får forrige tilbud
+       gjenbrukt hvis det er yngre enn SCRAPED_CARRY_MAX_HOURS.
+    Alt som gjenbrukes logges tydelig med [DROPOUT-BESKYTTELSE]."""
+    now = now or datetime.now(timezone.utc)
+    if previous is None:
+        try:
+            previous = load_json(OUTPUT_PATH)
+        except (OSError, ValueError):
+            return
+    try:
+        prev_by_product = {p["id"]: p.get("offers", []) for p in previous["products"]}
+    except (KeyError, TypeError):
+        return
+
+    def age_hours(o: dict) -> float:
+        return (now - datetime.fromisoformat(o["checked_at"])).total_seconds() / 3600
+
+    def has(offers_by_product: dict, pid: str, retailer: str) -> bool:
+        return any(x.retailer == retailer for x in offers_by_product.get(pid, []))
+
+    def carry(target: dict, pid: str, o: dict) -> bool:
+        try:
+            target.setdefault(pid, []).append(Offer(**o))
+            return True
+        except TypeError:
+            return False
+
+    # 1) feed-kollaps
+    configured_feeds = {
+        cfg.get("display_name", key)
+        for key, cfg in sources_config.items()
+        if not key.startswith("$") and cfg.get("default_source") == "affiliate_feed"
+        and ("feed_url" in cfg or "feed_urls" in cfg or "feed_path" in cfg)
+    }
+    prev_n: dict[str, int] = {}
+    for offs in prev_by_product.values():
+        for o in offs:
+            if o.get("source") == "affiliate_feed" and o["retailer"] in configured_feeds:
+                prev_n[o["retailer"]] = prev_n.get(o["retailer"], 0) + 1
+    new_n: dict[str, int] = {}
+    for offs in feed_offers.values():
+        for o in offs:
+            new_n[o.retailer] = new_n.get(o.retailer, 0) + 1
+    for retailer, before in prev_n.items():
+        now_n = new_n.get(retailer, 0)
+        if before < COLLAPSE_MIN_PREVIOUS or now_n >= before * FEED_COLLAPSE_RATIO:
+            continue
+        carried = too_old = 0
+        for pid, offs in prev_by_product.items():
+            for o in offs:
+                if o.get("source") != "affiliate_feed" or o["retailer"] != retailer or has(feed_offers, pid, retailer):
+                    continue
+                if age_hours(o) >= FEED_CARRY_MAX_HOURS:
+                    too_old += 1
+                elif carry(feed_offers, pid, o):
+                    carried += 1
+        print(f"  [DROPOUT-BESKYTTELSE] {retailer}: feeden ga {now_n} tilbud mot {before} sist -- gjenbruker {carried} fra forrige kjøring (< {FEED_CARRY_MAX_HOURS} t), {too_old} var for gamle")
+
+    # 2) enkelttilbud som feilet under skraping
+    if not scraped_this_run:
+        return
+    carried_by: dict[str, int] = {}
+    too_old_by: dict[str, int] = {}
+    for product in products_meta["products"]:
+        pid = product["id"]
+        for name in _active_scraped_names(product, sources_config):
+            if has(scraped_offers, pid, name):
+                continue
+            for o in prev_by_product.get(pid, []):
+                if o.get("source") != "scraper" or o["retailer"] != name:
+                    continue
+                if age_hours(o) >= SCRAPED_CARRY_MAX_HOURS:
+                    too_old_by[name] = too_old_by.get(name, 0) + 1
+                elif carry(scraped_offers, pid, o):
+                    carried_by[name] = carried_by.get(name, 0) + 1
+    for name in sorted(set(carried_by) | set(too_old_by)):
+        print(f"  [DROPOUT-BESKYTTELSE] {name}: {carried_by.get(name, 0)} skrapede tilbud feilet i dag -- gjenbruker forrige (< {SCRAPED_CARRY_MAX_HOURS} t), {too_old_by.get(name, 0)} var for gamle")
+
+
 def patch_brand_field(offers_by_product: dict[str, list[Offer]], products_meta: dict) -> None:
     """Feed-mapperne setter brand='' siden en enkelt feed-fil kan dekke flere
     merker. Fyll inn riktig merke nå som vi vet hvilket produkt-id det er."""
@@ -252,9 +368,12 @@ def main() -> None:
     scraped_offers = None
     if os.environ.get("KL_SKIP_FRESH_SCRAPE") == "1":
         scraped_offers = reuse_fresh_scraped_offers(products_meta, sources_config)
-    if scraped_offers is None:
+    scraped_this_run = scraped_offers is None
+    if scraped_this_run:
         print("Henter scrapede tilbud ...")
         scraped_offers = collect_scraped_offers(products_meta, sources_config)
+
+    protect_against_dropouts(feed_offers, scraped_offers, products_meta, sources_config, scraped_this_run=scraped_this_run)
 
     combined: dict[str, list[Offer]] = {}
     for source_dict in (feed_offers, scraped_offers):

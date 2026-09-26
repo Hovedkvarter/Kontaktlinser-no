@@ -1588,10 +1588,23 @@ full skraping annenhver dag. Beregnet: ca. 49 -> ca. 8 avregnede min/døgn (−8
   at priser eldre enn 24 t «ikke kan vinne laveste pris». Koden gjør det ikke --
   kun utsolgt/uten lager utelukkes fra vinnerplassen (testet). Teksten sier nå
   bare det som faktisk gjelder.
-- **Kjent risiko:** en feilet skraping/feed betyr nå opptil 48 t uten den
-  forhandleren (ingen gjenbruk av gamle data ved feil), mot 6 t før. Se
-  Extra Optical-glippen 2026-09-19. Vurder senere en «bruk forrige pris hvis
-  yngre enn 60 t»-fallback for enkelttilbud som feiler på en skrapedag.
+- **Dropout-beskyttelse (Kai: «denne endringen må ikke gjøre at noen faller
+  ned»):** `protect_against_dropouts()` i build_catalog.py. (1) Gir en feed
+  under 50 % av forrige antall tilbud (min. 5 sist) gjenbrukes forrige runde sine
+  tilbud fra den forhandleren hvis de er < 36 t; (2) på en skrapedag gjenbrukes et
+  (produkt, forhandler)-tilbud som feilet hvis forrige var < 60 t. Gjenbrukte
+  tilbud beholder opprinnelig `checked_at`, logges som `[DROPOUT-BESKYTTELSE]`
+  i CI-loggen, og faller ut av seg selv når de er for gamle. Testet mot
+  ekte katalog 2026-09-26 (feed-kollaps som Extra Optical 19. sept., 10 feilede
+  Interoptik-tilbud, alderskutt, forhandler flyttet fra feed, ødelagt katalog).
+  Ellers gjelder som før: `validate_build.py` stopper utrulling ved feil, og da
+  blir forrige publiserte side stående.
+- **Gjenstående svakhet:** GitHub dropper av og til planlagte kjøringer (179 av
+  ~188 forventede siste 45 dager, ca. 5 %). Ved daglig kjøring betyr en droppet
+  kjøring 48 t uten oppdatering -- siden blir stående, men tilbud får
+  «Pris ikke nylig bekreftet» etter 36/60 t. Mulig tiltak (ikke innført): et
+  ekstra cron-slot (f.eks. 10:45 UTC) som avbryter tidlig hvis katalogen er
+  < 20 t gammel, ca. +1 avregnet min/døgn.
 - Feed-tidspunkt (22:15-22:20 UTC) er basert på ett øyeblikksbilde av
   Tradedoublers `modified`-felt; Lensway sto på 09:15 UTC. Verifiser etter noen
   dager i GA/prishistorikk at riktig kjøretidspunkt er valgt.
