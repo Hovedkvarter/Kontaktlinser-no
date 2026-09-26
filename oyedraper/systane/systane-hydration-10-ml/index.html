@@ -489,6 +489,14 @@ a { color: inherit; }
 }
 
 .price-per-unit { font-size: 0.85rem; color: var(--muted); margin: 12px 0 0; }
+/* Flaske-/tubebilder er høye og smale: fast kvadratisk rute (som linsebildene) i
+   stedet for å la bildets egen høyde strekke hele hero-kortet. */
+.hero-card-solution .hero-product-image { aspect-ratio: 1 / 1; height: auto; }
+@media (min-width: 860px) {
+  .hero-card-solution .hero-main { align-items: start; }
+  .hero-card-solution .hero-main .hero-product-image { height: auto; aspect-ratio: 1 / 1; align-self: start; }
+  .hero-card-solution .hero-main .winner-band { align-self: center; }
+}
 .safety-notice { background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
@@ -744,9 +752,9 @@ a { color: inherit; }
     <a href="/oyedraper/">Øyedråper</a> ›
     Systane Hydration 10 ml
   </p>
-  <div class="hero-card">
+  <div class="hero-card hero-card-solution">
     <div class="hero-main">
-      <div class="hero-product-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg" alt="Systane Hydration 10 ml" loading="eager"></div>
+      <div class="hero-product-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_600,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg" alt="Systane Hydration 10 ml" loading="eager"></div>
       <div class="hero-copy">
         <div class="kicker">Systane</div>
         <h1>Systane Hydration 10 ml</h1>

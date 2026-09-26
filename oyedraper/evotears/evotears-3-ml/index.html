@@ -463,6 +463,14 @@ a { color: inherit; }
 }
 
 .price-per-unit { font-size: 0.85rem; color: var(--muted); margin: 12px 0 0; }
+/* Flaske-/tubebilder er høye og smale: fast kvadratisk rute (som linsebildene) i
+   stedet for å la bildets egen høyde strekke hele hero-kortet. */
+.hero-card-solution .hero-product-image { aspect-ratio: 1 / 1; height: auto; }
+@media (min-width: 860px) {
+  .hero-card-solution .hero-main { align-items: start; }
+  .hero-card-solution .hero-main .hero-product-image { height: auto; aspect-ratio: 1 / 1; align-self: start; }
+  .hero-card-solution .hero-main .winner-band { align-self: center; }
+}
 .safety-notice { background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
@@ -718,9 +726,9 @@ a { color: inherit; }
     <a href="/oyedraper/">Øyedråper</a> ›
     EvoTears 3 ml
   </p>
-  <div class="hero-card">
+  <div class="hero-card hero-card-solution">
     <div class="hero-main">
-      <div class="hero-product-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0041974_evotears-oyedraper-3-ml_400.jpg" alt="EvoTears 3 ml" loading="eager"></div>
+      <div class="hero-product-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0041974_evotears-oyedraper-3-ml_600.jpg" alt="EvoTears 3 ml" loading="eager"></div>
       <div class="hero-copy">
         <div class="kicker">EvoTears</div>
         <h1>EvoTears 3 ml</h1>
