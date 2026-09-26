@@ -4212,16 +4212,26 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {_og_meta('Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
+<link rel="preload" as="image" type="image/webp" media="(min-width: 1024px)" fetchpriority="high" imagesrcset="/static/hero/eye-560.webp 560w, /static/hero/eye-840.webp 840w, /static/hero/eye-1120.webp 1120w" imagesizes="(min-width: 1200px) 540px, 42vw">
 <style>{SHARED_STYLE}
 {PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .hero-panel {{ padding: 0; }}
 .hero {{
+  position: relative;
   padding: 8px 0 24px;
 }}
-.hero-content {{ display: flex; flex-direction: column; gap: 16px; }}
+.hero-content {{ position: relative; z-index: 2; display: flex; flex-direction: column; gap: 16px; }}
 .hero-media {{ display: none; }}
-.hero-photo-credit {{ display: none; }}
 .hero-subtext {{ margin: 0; color: var(--muted); font-size: 0.94rem; max-width: 480px; }}
+/* Søkefeltet er sidens viktigste element: tykk blå kant, tydelig fokusring, blå knapp. */
+.hero .search-input {{ border: 2px solid var(--blue); border-radius: 16px; padding-top: 17px; padding-bottom: 17px; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.14); }}
+.hero .search-input:focus {{ border-color: var(--blue-dark); box-shadow: 0 0 0 5px rgba(37, 99, 235, 0.22), 0 8px 24px rgba(37, 99, 235, 0.14); }}
+.hero .search-btn {{ right: 8px; top: 8px; bottom: 8px; border-radius: 11px; }}
+@media (max-width: 699px) {{
+  .hero .search-input {{ font-size: 1rem; padding-left: 44px; padding-right: 84px; }}
+  .hero .search-icon {{ left: 15px; }}
+  .hero .search-btn {{ padding: 0 16px; }}
+}}
 .trust-card {{ display: flex; gap: 14px; align-items: flex-start; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
 .trust-card-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; color: var(--blue); box-shadow: var(--card-shadow); }}
 .trust-card-icon svg {{ width: 20px; height: 20px; }}
@@ -4305,21 +4315,33 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   .search-icon {{ left: 22px; width: 22px; height: 22px; }}
   .search-btn {{ padding: 0 26px; font-size: 0.98rem; }}
 
-  .hero-panel {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 36px 40px; box-shadow: var(--card-shadow); }}
+  /* Kompakt hero (ca. 360-400 px): lyst kort, bildet glir inn fra høyre med en
+     myk maske mot venstre, slik at det ikke ser ut som to separate bokser.
+     .hero-media får overflow:hidden KUN på seg selv (ikke på .hero), ellers
+     ville søkeforslagene bli klippet av kortkanten. */
+  .hero-panel {{ background: none; border: none; padding: 0; box-shadow: none; }}
   .hero {{
-    display: grid;
-    grid-template-columns: 1fr 36%;
-    grid-template-areas: "content media" "content credit";
-    align-items: start;
-    gap: 8px 32px;
-    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 50%, #E9F1FB 100%);
+    box-shadow: var(--card-shadow);
+    padding: 34px 48px 30px;
   }}
-  .hero-media {{ display: block; grid-area: media; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: var(--card-shadow); }}
-  .hero-media img {{ width: 100%; height: 100%; object-fit: cover; display: block; }}
-  .hero-photo-credit {{ display: block; grid-area: credit; font-size: 0.66rem; color: var(--muted); margin: -18px 0 0; text-align: right; }}
+  .hero-content {{ max-width: 56%; gap: 14px; }}
+  .hero-heading h1 {{ font-size: clamp(2rem, 3.1vw, 2.6rem); line-height: 1.12; margin: 0; }}
+  .hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 46%; z-index: 1; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
+  .hero-media picture {{ display: block; width: 100%; height: 100%; }}
+  .hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
+  .hero .search-input {{ padding: 20px 140px 20px 58px; font-size: 1.2rem; box-shadow: 0 10px 30px rgba(37, 99, 235, 0.16); }}
+  .hero .search-icon {{ left: 24px; }}
+  .hero .search-btn {{ padding: 0 32px; font-size: 1rem; }}
+  .trust-card {{ background: transparent; border: none; padding: 0; align-items: center; gap: 12px; }}
+  .trust-card-title {{ margin: 0 0 2px; }}
+  .trust-card-text {{ font-size: 0.8rem; max-width: 520px; }}
   #kategorier {{ margin-top: 32px !important; }}
-  .category-rows {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }}
-  .category-row {{ flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 20px 14px; }}
+  .category-rows {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }}
+  .category-row {{ flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 22px 14px; border-radius: 18px; box-shadow: 0 1px 2px rgba(11, 37, 69, 0.06), 0 6px 18px rgba(37, 99, 235, 0.05); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }}
+  .category-row:hover {{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37, 99, 235, 0.14); }}
   .category-row-icon {{ width: 48px; height: 48px; }}
   .category-row-icon svg {{ width: 24px; height: 24px; }}
   .category-row-chevron {{ display: none; }}
@@ -4354,10 +4376,12 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
           </div>
         </div>
       </div>
-      <div class="hero-media">
-        <img src="/static/alexandru-zdrobau-4bmtMXGuVqo-unsplash.jpg" alt="" loading="eager">
+      <div class="hero-media" aria-hidden="true">
+        <picture>
+          <source media="(min-width: 1024px)" type="image/webp" srcset="/static/hero/eye-560.webp 560w, /static/hero/eye-840.webp 840w, /static/hero/eye-1120.webp 1120w" sizes="(min-width: 1200px) 540px, 42vw">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="382" fetchpriority="high" decoding="async">
+        </picture>
       </div>
-      <p class="hero-photo-credit">Foto: Alexandru Zdrobău / Unsplash</p>
     </div>
 
     <div class="kategorier-block desktop-only-block">

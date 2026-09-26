@@ -1752,3 +1752,5 @@ feilsøke).
   "DJANGO AND COCO" med en fransk "ansvarlig person" (Outlook-adresse) og uten produsentinfo;
   ekthet kan ikke bekreftes. Beslutning (Kai): la det ligge. Fyndiq sitt /s/ (søk) er også
   Disallow i robots.txt, så ingen skraping. Ta ikke opp igjen uten at Kai ber om det.
+
+- **Ny hero på forsiden (2026-09-26, Concept 1).** Kompakt lyst hero-kort (ca. 340 px) med søkefeltet som hovedelement (2 px blå kant, blå Søk-knapp) og hero-bilde som fader inn fra høyre (CSS-maske). Bildet ligger som beskårne, responsive WebP-varianter i `static/hero/eye-{560,840,1120}.webp` (12/21/30 KB; originalen serveres ikke), lastes kun på desktop (`<picture>` med `media="(min-width: 1024px)"`, `img` har en 1x1 data-URI så mobil ikke laster noe) og preloades med `fetchpriority=high`. Det gamle Unsplash-bildet og bildekreditten er fjernet. Tekst, kategorier, URL-er og søkefunksjon er uendret.
