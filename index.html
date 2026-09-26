@@ -548,7 +548,7 @@ a { color: inherit; }
 .category-row-icon svg { width: 20px; height: 20px; }
 .category-row-text { flex: 1; min-width: 0; max-width: 58%; }
 .category-row-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; }
-.category-row-desc { font-size: 0.8rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+.category-row-desc { font-size: 0.8rem; font-weight: 500; color: #475569; margin-top: 2px; line-height: 1.35; }
 /* Pil: alltid synlig (liten) på mobil/touch, vises ved hover på desktop */
 .category-row-arrow { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.85); color: var(--cat-accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(11, 37, 69, 0.12); }
 .category-row-arrow svg { width: 14px; height: 14px; }
@@ -652,10 +652,12 @@ a { color: inherit; }
   /* Linsen ligger nede til høyre (bildet skaleres med kortbredden, forankret i bunnen) med fade mot venstre og opp,
      og en pastell-tåke bak teksten (::before), så tittel og beskrivelse alltid er lette å lese. */
   .category-row-bg { top: auto; bottom: 0; right: -8%; width: 122%; height: auto; max-width: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); mask-composite: intersect; }
-  .category-row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--cat-bg) 0%, var(--cat-bg) 34%, transparent 70%); pointer-events: none; }
+  /* Multifokale: to stablede linser tar mer plass; skyv bildet litt mot høyre så beskrivelsen står fri */
+  .category-row.cat-coral .category-row-bg { right: -15%; width: 110%; }
+  .category-row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--cat-bg) 0%, var(--cat-bg) 46%, transparent 80%); pointer-events: none; }
   .category-row-icon { width: 44px; height: 44px; }
   .category-row-icon svg { width: 22px; height: 22px; }
-  .category-row-text { flex: none; max-width: 64%; }
+  .category-row-text { flex: none; max-width: 76%; }
   .category-row-arrow { top: auto; bottom: 12px; right: 12px; transform: translateX(-4px); width: 30px; height: 30px; background: var(--cat-accent); color: white; opacity: 0; transition: opacity 0.15s, transform 0.15s; }
   .category-row:hover .category-row-arrow, .category-row:focus-visible .category-row-arrow { opacity: 1; transform: translateX(0); }
 }
