@@ -800,7 +800,10 @@
       "solution_category": "oyedraper",
       "description": "Øyegel for tørre øyne.",
       "long_description": "Viscotears er en øyegel mot tørre øyne ved nedsatt tåreproduksjon, i praktisk 10 g tube.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "size_unit": "g",
+      "unit_singular": "tube",
+      "unit_plural": "tuber"
     },
     {
       "id": "evotears-3ml",
@@ -910,6 +913,197 @@
       "solution_category": "linsevaeske",
       "description": "Multipurpose linsevæske fra Consol.",
       "long_description": "Extend er en flerbruksløsning fra Consol for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser, her i reisestørrelse.",
+      "scrape_targets": []
+    },
+    {
+      "id": "biotrue-flight-pack-100ml",
+      "slug": "biotrue-flight-pack-100-ml",
+      "name": "Biotrue Flight Pack 100 ml",
+      "brand_slug": "biotrue-solution",
+      "brand_label": "Biotrue",
+      "size_ml": 100,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Reisepakke med Biotrue linsevæske fra Bausch + Lomb.",
+      "long_description": "Biotrue Flight Pack er en reisepakke med Biotrue flerbruksløsning fra Bausch + Lomb i 100 ml-størrelse.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "biotrue-flight-pack-100ml-extra-9606"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "biotrue-flight-pack-100ml-extra-9606"
+        }
+      ]
+    },
+    {
+      "id": "renu-flight-pack-100ml",
+      "slug": "renu-flight-pack-100-ml",
+      "name": "ReNu Flight Pack 100 ml",
+      "brand_slug": "renu",
+      "brand_label": "ReNu",
+      "size_ml": 100,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Reisepakke med ReNu linsevæske fra Bausch + Lomb.",
+      "long_description": "ReNu Flight Pack er en reisepakke med ReNu flerbruksløsning fra Bausch + Lomb i 100 ml-størrelse.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "renu-flight-pack-100ml-extra-9605"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "renu-flight-pack-100ml-extra-9605"
+        }
+      ]
+    },
+    {
+      "id": "everclear-refresh-x3-750ml",
+      "slug": "everclear-refresh-3-pack-750-ml",
+      "name": "everclear REFRESH 3-pack 750 ml",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "size_ml": 750,
+      "solution_type": "multipurpose",
+      "solution_category": "linsevaeske",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Tre flasker everclear REFRESH, Lensons eget merke.",
+      "long_description": "everclear REFRESH x3 er en pakke med tre flasker everclear REFRESH flerbruksløsning (3 × 250 ml, til sammen 750 ml) under Lensons eget merke everclear, for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "everclear-refresh-x3-extra-9613"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "everclear-refresh-x3-extra-9613"
+        }
+      ]
+    },
+    {
+      "id": "oxyal-care-gel-10g",
+      "slug": "oxyal-care-gel-10-g",
+      "name": "OXYAL Care Gel 10 g",
+      "brand_slug": "oxyal",
+      "brand_label": "OXYAL",
+      "size_ml": 10,
+      "size_unit": "g",
+      "solution_category": "oyedraper",
+      "unit_singular": "tube",
+      "unit_plural": "tuber",
+      "description": "Fuktgivende øyegel for tørre øyne.",
+      "long_description": "OXYAL Care er en fuktgivende øyegel med karbomer for tørre øyne, i praktisk 10 g tube.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "oxyal-care-extra-9639"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "oxyal-care-extra-9639"
+        }
+      ]
+    },
+    {
+      "id": "hylo-night-5g",
+      "slug": "hylo-night-5-g",
+      "name": "Hylo Night 5 g",
+      "brand_slug": "hylo",
+      "brand_label": "Hylo",
+      "size_ml": 5,
+      "size_unit": "g",
+      "solution_category": "oyedraper",
+      "unit_singular": "tube",
+      "unit_plural": "tuber",
+      "description": "Steril øyesalve med vitamin A, til bruk om natten.",
+      "long_description": "Hylo Night er en steril øyesalve med vitamin A, beregnet for bruk i øyet om natten for å lindre tørre øyne, i praktisk 5 g tube.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "hylo-night-extra-10087"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "hylo-night-extra-10087"
+        }
+      ]
+    },
+    {
+      "id": "eyz-night-5g",
+      "slug": "eyz-night-5-g",
+      "name": "EYZ Night 5 g",
+      "brand_slug": "eyz",
+      "brand_label": "EYZ",
+      "size_ml": 5,
+      "size_unit": "g",
+      "solution_category": "oyedraper",
+      "unit_singular": "tube",
+      "unit_plural": "tuber",
+      "description": "Smørende øyesalve med vitamin A, uten lanolin.",
+      "long_description": "EYZ Night er en smørende øyesalve med A-vitamin (retinylpalmitat) som er fri for lanolin, i praktisk 5 g tube.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "eyz-night-extra-10567"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "eyz-night-extra-10567"
+        }
+      ]
+    },
+    {
+      "id": "eyz-clean-20pk",
+      "slug": "eyz-clean-20-stk",
+      "name": "EYZ Clean 20 stk",
+      "brand_slug": "eyz",
+      "brand_label": "EYZ",
+      "solution_category": "oyedraper",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Sterile øyeservietter for daglig rengjøring.",
+      "long_description": "EYZ Clean er sterile øyeservietter for daglig rengjøring av øyne, øyevipper og øyelokk, 20 servietter i pakken.",
+      "scrape_targets": [
+        {
+          "retailer": "lenson",
+          "slug": "eyz-clean-extra-10568"
+        },
+        {
+          "retailer": "lensway",
+          "slug": "eyz-clean-extra-10568"
+        }
+      ]
+    },
+    {
+      "id": "oxyal-total-care-spray-17ml",
+      "slug": "oxyal-total-care-spray-17-ml",
+      "name": "OXYAL Total Care Spray 17 ml",
+      "brand_slug": "oxyal",
+      "brand_label": "OXYAL",
+      "size_ml": 17,
+      "solution_category": "oyedraper",
+      "description": "Øyespray fra Bausch + Lomb.",
+      "long_description": "OXYAL Total Care Spray er en øyespray fra Bausch + Lomb, i praktisk 17 ml flaske.",
+      "scrape_targets": []
+    },
+    {
+      "id": "thealoz-duo-gel-30x04g",
+      "slug": "thealoz-duo-gel-30x0-4-g",
+      "name": "Thealoz Duo Gel 30 x 0,4 g",
+      "brand_slug": "thealoz",
+      "brand_label": "Thealoz",
+      "solution_category": "oyedraper",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Øyegel i pakke med 30 doser fra Théa.",
+      "long_description": "Thealoz Duo Gel er en øyegel fra Théa, i pakke med 30 doser à 0,4 g.",
       "scrape_targets": []
     }
   ]

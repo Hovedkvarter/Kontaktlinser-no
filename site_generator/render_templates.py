@@ -7461,12 +7461,12 @@ SOLUTION_CATEGORIES = {
     "linsevaeske": {
         "label": "Linsevæske",
         "title_label": "Billig linsevæske",
-        "intro": "Sammenlign priser på linsevæske fra Lenson, Lensway og Extra Optical. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
+        "intro": "Sammenlign priser på linsevæske og reisepakker hos norske nettbutikker. Vi viser pris per 100 ml der det er relevant, slik at store og små flasker er sammenlignbare.",
     },
     "oyedraper": {
         "label": "Øyedråper",
         "title_label": "Billige øyedråper",
-        "intro": "Sammenlign priser på øyedråper for tørre øyne fra Lenson og Lensway. Vi viser pris per 100 ml, slik at ulike flaskestørrelser er sammenlignbare.",
+        "intro": "Sammenlign priser på øyedråper, øyegel, øyesalve og øyepleie mot tørre øyne hos norske nettbutikker. Vi viser pris per 100 ml (eller 100 g for gel og salve) der det er relevant, slik at ulike pakningsstørrelser er sammenlignbare.",
     },
 }
 
@@ -7565,12 +7565,15 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     # (samme behandling for alle produkttyper). "flaske"/"flasker" i stedet for
     # standard "eske"/"esker", siden linsevæske/øyedråper selges i flasker, ikke
     # kontaktlinseesker.
-    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], unit_singular="flaske", unit_plural="flasker", product_id=product["id"], clickouts=clickouts)
+    unit_singular = product.get("unit_singular", "flaske")
+    unit_plural = product.get("unit_plural", "flasker")
+    size_unit = product.get("size_unit", "ml")
+    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts)
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
     if size_ml and ex_best:
         per_100 = ex_best["price_nok"] / size_ml * 100
-        price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 ml, ved laveste pris (uten frakt)</p>'
+        price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 {size_unit}, ved laveste pris (uten frakt)</p>'
     thumb = _img_tag(_larger_feed_image(image_url), product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
@@ -7660,7 +7663,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     if size_ml:
         product_faq.append({
             "question": f'Hvor mange ml er det i {product["name"]}?',
-            "answer": f'Flasken inneholder {size_ml:.0f} ml.',
+            "answer": f'{unit_singular.capitalize()}n inneholder {size_ml:.0f} {size_unit}.',
         })
 
     product_faq.append({

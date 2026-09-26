@@ -1707,3 +1707,21 @@ python3 site_generator/validate_build.py
 Alle tre skal kjøre uten feil før noe pushes til `main` (workflowen kjører
 automatisk på push og vil stoppe utrulling selv, men lokal test er raskere å
 feilsøke).
+
+## Feed-revisjon 2026-09-26: nye produkter og enhetsfelt
+
+- Alle fem feedene (Lensway, Lenson, Shopping4net, Extra Optical, Apotekhjem) ble
+  sammenlignet mot katalogen. Lagt til: Live 30/90 hos Lensway (samme produktkoder
+  som Lenson), 180-pack av Acuvue Oasys 1-Day Hydraluxe og everclear ELITE (Lenson/
+  Lensway 9620/9621), reisepakker (Biotrue/ReNu Flight Pack 100 ml), everclear REFRESH
+  3-pack (750 ml), og øyepleie (Oxyal Care Gel, Hylo Night, EYZ Night/Clean, Oxyal
+  Total Care Spray, Thealoz Duo Gel) -- kun produkter med minst to forhandlere.
+  Pakningsstørrelser ble bekreftet mot Lenson-produktsidene (feedene oppgir dem ikke).
+- `solutions_meta.json` støtter nå valgfrie felt: `size_unit` ("g" for gel/salve, standard
+  "ml"), `unit_singular`/`unit_plural` (standard flaske/flasker; tube, pakke) og at
+  `size_ml` utelates når pris per 100 ml ikke gir mening (servietter, doser).
+- Bevisst IKKE lagt til (trenger avklaring): Extra Optical "1-Day Acuvue" 30/90 (trolig
+  Moist, ikke bekreftet), Clariti 1day Multifocal "3 Add" (mulig styrkevariant), prøvepakker
+  (everclear 1/3/5 stk), SWATI/Lenson/Maxab linseetui (passer ikke i noen kategori),
+  Opti-Free PureMoist uten størrelse (Apotekhjem 90569), HYLO Evo Tears (usikker om det er
+  samme som EvoTears), samt reseptbelagte/legemiddel-produkter i Apotekhjem-feeden.
