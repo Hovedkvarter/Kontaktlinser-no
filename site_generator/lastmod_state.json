@@ -921,259 +921,259 @@
  },
  "/private-label/ascend-active-1-day/": {
   "lastmod": "2026-09-26",
-  "sig": "f2815a8c0e1e2f2cc1e65a55557ba35ab8907696"
+  "sig": "d29dadde98de72dce1f410a296ae4aedf70ca98a"
  },
  "/private-label/ascend-active-multifocal-1-day/": {
   "lastmod": "2026-09-26",
-  "sig": "79e1b3299108a4bf56f63fd7906f34831cd47d73"
+  "sig": "f1be751fc47675997d63e8f028acc7d167112d34"
  },
  "/private-label/ascend-active-toric-1-day/": {
   "lastmod": "2026-09-26",
-  "sig": "2df5d4efb02996595e4556e2c33a21880b848e02"
+  "sig": "c06e12ac09b23975c6748411103339f50970d778"
  },
  "/private-label/ascend-evolve-plus-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "ba53cec56dc46b5306395e30550d7a4b00ababfe"
+  "sig": "7e8e0d19e7d76099887ba5bf17f3cc04cb0c69bf"
  },
  "/private-label/ascend-evolve-plus/": {
   "lastmod": "2026-09-26",
-  "sig": "e80b2e148b0814b62d306b37cb716c4e83a1e901"
+  "sig": "35b343651686c46c185c25feeca3a529f3a5a01f"
  },
  "/private-label/ascend-premier-multifocal-distance/": {
   "lastmod": "2026-09-26",
-  "sig": "f44968ee3fbda567a5970953d36beae1cff0d129"
+  "sig": "89f6625d355500fd78cf95a3e8fe267056ad68c7"
  },
  "/private-label/ascend-premier-multifocal-near/": {
   "lastmod": "2026-09-26",
-  "sig": "5149867d6a7f8ffd2094c3fec87a46d64223349d"
+  "sig": "52edc07de7d770e8fc75c7300323955e4c72bf2a"
  },
  "/private-label/ascend-premier-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "b14739f5ae1872f04764773fd99d0438c8c7040d"
+  "sig": "09ffea8556814bc65c330a9930e2967bdd7f5084"
  },
  "/private-label/ascend-premier/": {
   "lastmod": "2026-09-26",
-  "sig": "3a411e76ef52eeb1ea5b7e9747fd0510282fdbba"
+  "sig": "516c90ac507b4c69dc0fd8992646fd382d7bdc94"
  },
  "/private-label/easyvision-clearus/": {
   "lastmod": "2026-09-26",
-  "sig": "19f0e9c40b8e4c8be2d34ee2debe34a70d117970"
+  "sig": "4ed687b0332f40b5ba21d361d18e000aa9140d58"
  },
  "/private-label/easyvision-irisian-plus-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "b88ae9cfd6a37ee6f9aa4ad4dd15c73e69d522a8"
+  "sig": "abacff2e26895b925456c98d6674b32bfe424d49"
  },
  "/private-label/easyvision-irisian-plus/": {
   "lastmod": "2026-09-26",
-  "sig": "536f9a952e4c19f7fed1b78e0a1591e6eb7b58d8"
+  "sig": "a266e3cb7a3cebfee67b99f12f46248a9357e424"
  },
  "/private-label/easyvision-linarial-multifocal/": {
   "lastmod": "2026-09-26",
-  "sig": "41f7998f3b8a13b9749dd6b30bebd22ea2a88d2d"
+  "sig": "0ea43170c680ff20499359c5661ee69e8bb8db0f"
  },
  "/private-label/easyvision-linarial-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "eb83cffbab3e379e07bd411acb20ffe2c1debc54"
+  "sig": "6ac191ec07d28c571b7e58c0d2a61b7c1e44c549"
  },
  "/private-label/easyvision-linarial/": {
   "lastmod": "2026-09-26",
-  "sig": "85eead9d9292220a4325d6ec08c991c89f35a606"
+  "sig": "4e4cf24c5a4886f090f572246cb750c514fef632"
  },
  "/private-label/easyvision-natural/": {
   "lastmod": "2026-09-26",
-  "sig": "f4203ce7bb376ffb4954fbf68617c12224c9cbc9"
+  "sig": "78f18b66e00a5debcc23dacec59c370741207347"
  },
  "/private-label/easyvision-opteyes-multifocal/": {
   "lastmod": "2026-09-26",
-  "sig": "918cfce857983d24a7c64bd85aa53a1626164450"
+  "sig": "e6a83b05b551a29a6972af02bb5f086046fbe69e"
  },
  "/private-label/easyvision-opteyes-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "f88b80e280bd3c286f7368b72f0c39f54b249f53"
+  "sig": "57f28fd7283ef07f7ca57b61c573aea22977414d"
  },
  "/private-label/easyvision-opteyes-xr/": {
   "lastmod": "2026-09-26",
-  "sig": "f5f6824881ecdefab051318a102921da941a8f87"
+  "sig": "2537b8632358f1e18da4fdad9e989439eb0cbfa5"
  },
  "/private-label/easyvision-opteyes/": {
   "lastmod": "2026-09-26",
-  "sig": "f4cdc3403c16830ad776aa48bc7cac2ecbc52d25"
+  "sig": "66b4d0ae5c9c163d02152bce5e814a71141db939"
  },
  "/private-label/easyvision-sential/": {
   "lastmod": "2026-09-26",
-  "sig": "f3185767cb43ca66bfa83d15c30f9db37ab23bda"
+  "sig": "70dc4254c03401627c75e5d271097d4c642dffb3"
  },
  "/private-label/easyvision-umere-multifocal/": {
   "lastmod": "2026-09-26",
-  "sig": "50c08ed1434c4ef5fae8e26f5534a549129f8b9e"
+  "sig": "46592d9552016284edf067eded7d6333eead0813"
  },
  "/private-label/easyvision-umere-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "9a47e98d19007ccbaff9248d3a0fcf31e45c0f6c"
+  "sig": "270908ce1656b6e456a7b9bdc3cc4d2fdda6e868"
  },
  "/private-label/easyvision-umere/": {
   "lastmod": "2026-09-26",
-  "sig": "552de199db150e4127188877533b3f39b443dced"
+  "sig": "da444041d5518350392307e2b736dec76587a4c0"
  },
  "/private-label/easyvision-uvicia-plus-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "b34f153bd36b1ce1a3745706e1f9937c60d46f13"
+  "sig": "c819198b5d69cbe99b1d1649a38b68352e424dd8"
  },
  "/private-label/easyvision-uvicia-plus/": {
   "lastmod": "2026-09-26",
-  "sig": "a244b62fa5244071b53dbb79b9d6c064cc765cbe"
+  "sig": "4bb674e7e79788a21bc8d124308578488d2aff48"
  },
  "/private-label/easyvision-vitrea-multifocal/": {
   "lastmod": "2026-09-26",
-  "sig": "02953674bb976fe500cf96984a0b5b51d8d1ae21"
+  "sig": "d607592d2caffb25e240f037925fd72f81342f92"
  },
  "/private-label/easyvision-vitrea-toric/": {
   "lastmod": "2026-09-26",
-  "sig": "d455ae3191a5339a61a27d92749eb24ae5555ffc"
+  "sig": "2dd2de621f254ee79a3a7661e9666b64d77a8770"
  },
  "/private-label/easyvision-vitrea/": {
   "lastmod": "2026-09-26",
-  "sig": "43a360d248183db0dc84d2856a4ac54c0c2693b0"
+  "sig": "14ce907d66f0eeb8a7a9542ad73eb8cea21e6d8d"
  },
  "/private-label/eyeq-24-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "2023b2932d3420e21c10e8cfa4cfdbf51b7045f4"
+  "sig": "3b5c31eb620c563f9964d9358ba699416e5b92cc"
  },
  "/private-label/eyeq-24-progressive/": {
   "lastmod": "2026-09-26",
-  "sig": "588d34190a9a9af31429d95b226ea30c6241ce30"
+  "sig": "9585ad8a36aff5021b2577508f5f91e6bd55e85f"
  },
  "/private-label/eyeq-24-xr/": {
   "lastmod": "2026-09-26",
-  "sig": "ad1cbae384d198f65a812597812cbbbdf8a610a3"
+  "sig": "795f495077d5183ea01688e41eeb145145b2d9d2"
  },
  "/private-label/eyeq-24/": {
   "lastmod": "2026-09-26",
-  "sig": "e154773c5dbf173e580f32b2b26d65d78cbe8d7b"
+  "sig": "211fda9b3915d6c0654a90cc8aafbffec91750f3"
  },
  "/private-label/eyeq-digital-focus/": {
   "lastmod": "2026-09-26",
-  "sig": "527bb5518c1a8776e7980530ba58daf7976034ab"
+  "sig": "26e61959e4b3dc9bd366ed6823556a20532b2dcf"
  },
  "/private-label/eyeq-hydro-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "43673027b66b14e5cef8697564ffb5c19fd3d29d"
+  "sig": "600538e928b45d0a18d79f382c18609ba1f11631"
  },
  "/private-label/eyeq-hydro-progressive/": {
   "lastmod": "2026-09-26",
-  "sig": "7728c3d2faa38c840f7e4039d04dd1b7b94d5ecc"
+  "sig": "647ae1355016972d38ca61702549662118a996eb"
  },
  "/private-label/eyeq-hydro/": {
   "lastmod": "2026-09-26",
-  "sig": "ced0e468f6bdee477d590ffb9a8f48b0f037e366"
+  "sig": "698ecbbdce3e3f4f859d72374d5a08494660a963"
  },
  "/private-label/eyeq-one-day-classic-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "686c26950337c7117891524b9deac9aa4901cfeb"
+  "sig": "6d94737c233355a6860eb889bcdc780ba22c362e"
  },
  "/private-label/eyeq-one-day-classic/": {
   "lastmod": "2026-09-26",
-  "sig": "16db974162a7ad350cf2d3f5e9105f84f0cc5b2c"
+  "sig": "cc09b5ac5a4fd1f8efbc271248df51e5fa165417"
  },
  "/private-label/eyeq-one-day-premium-progressive/": {
   "lastmod": "2026-09-26",
-  "sig": "cdfe8a5c661fc0b2be52e9f1b90a6e853a76febe"
+  "sig": "cc13e790b407100d765dcd2701bde495d44a72e3"
  },
  "/private-label/eyeq-one-day-premium/": {
   "lastmod": "2026-09-26",
-  "sig": "493b112d5fa57837ec8720a4d3d38316b88ba18f"
+  "sig": "a752af2130d502f43d868420195591cd0b1a06c1"
  },
  "/private-label/eyeq-precision1-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "b39506b2d5d74f941ec0dc2e6e9ad14033efa0fe"
+  "sig": "9e363a68c616d89b0308258ad5fdb5f81cc21ac3"
  },
  "/private-label/eyeq-precision1/": {
   "lastmod": "2026-09-26",
-  "sig": "cb5a243f36373b6b0050722855fce98c332e71d5"
+  "sig": "f06eb23a54ea7c907bbb6766e5ab2a75a17d8990"
  },
  "/private-label/eyeq-premium-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "bd6537d82ef1130c5b7ad450c86c8e68c3224c80"
+  "sig": "45b49a51e0707ebe8a0cb99c1053295f84bf0637"
  },
  "/private-label/eyeq-premium-progressive/": {
   "lastmod": "2026-09-26",
-  "sig": "eb90dc54eec58807ae9ebdbddcfb3cc70cb42ad7"
+  "sig": "6cde581f9173c5319f7034dd0a59302ee86fac42"
  },
  "/private-label/eyeq-premium/": {
   "lastmod": "2026-09-26",
-  "sig": "579bdadc47907df6096cbf6468233ece07e63c8c"
+  "sig": "ce508833b8f24e3b64037a8481f65e180b23ace8"
  },
  "/private-label/eyeq-toric-classic/": {
   "lastmod": "2026-09-26",
-  "sig": "6f049007da2ee396ceb4796add2def4dfbba3b53"
+  "sig": "e81f9744b8544411696ddbdb3dc4ba559760ac5e"
  },
  "/private-label/eyeq-total30-for-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "d1026df82c980da19c39c0845a9bc40e792b83a7"
+  "sig": "2a3db7dec2aabf94f11684840f2c0076af181198"
  },
  "/private-label/eyeq-total30/": {
   "lastmod": "2026-09-26",
-  "sig": "434ecdc2c0925d662899164d0bf77352dba47f98"
+  "sig": "a216676cbc03aa37a9593a6b3fc3becae6d1edce"
  },
  "/private-label/iwear-activ-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "b2be3a2218050f1ebd33e35aaa4924e8be7abdd6"
+  "sig": "04ecc9a59784d37cb21352119282d967426ed9fc"
  },
  "/private-label/iwear-activ/": {
   "lastmod": "2026-09-26",
-  "sig": "afbe306c7bb943cbe9b737c23df62103395d838b"
+  "sig": "c7595ae4389651c0d655f75de40dedd89bb502b6"
  },
  "/private-label/iwear-balance-plus-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "88b31123c71cbd0e23c0e1a3d69e8718bdbfd151"
+  "sig": "8aa4e1af28549bcd97d9ad6a88be10930814ee5d"
  },
  "/private-label/iwear-balance-plus/": {
   "lastmod": "2026-09-26",
-  "sig": "0016eac00e94ac2f1ddb4d36b53b184ca71f174e"
+  "sig": "7ceb4fd42496e7f583a18c74d82f6606a959b747"
  },
  "/private-label/iwear-fit-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "3ba86756a03a427f5050c1e1d6e204da752e5e46"
+  "sig": "d105bef47ba1fd9c8f645322a49d8b86225dc43e"
  },
  "/private-label/iwear-fit/": {
   "lastmod": "2026-09-26",
-  "sig": "f7defc80e8652cece3adf6470b7552ac7a2145d6"
+  "sig": "ebb85a1b5ae4e2f9a244621f721f50dd3d8c708f"
  },
  "/private-label/iwear-fresh/": {
   "lastmod": "2026-09-26",
-  "sig": "580f6fbd3b3a700babaab5ac1303b320c970a2c6"
+  "sig": "7ce0168108ef0de156a54e378877754cf1abe586"
  },
  "/private-label/iwear-go-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "568a58ad0c86966308d030ba1f4730048e31c0d7"
+  "sig": "772619c50503744245daf3d543d68c452e46ae6c"
  },
  "/private-label/iwear-harmony-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "75d907ac9b78dcd3c4ac5cbb4721c0cea3b58f75"
+  "sig": "e4a10f912ec693d5ea1fb6b689669c49ec7a64dd"
  },
  "/private-label/iwear-harmony/": {
   "lastmod": "2026-09-26",
-  "sig": "af2b304141b51cef829ebc4cc082e663fbe09827"
+  "sig": "978a81c630a6b4330bc0538ac2b92618b8c39dc6"
  },
  "/private-label/iwear-oxygen-astigmatism/": {
   "lastmod": "2026-09-26",
-  "sig": "412cc0343f65c90c67989c3a404630aa6f75ca73"
+  "sig": "b88928e6523b67af51dc2f9242596e26b412820f"
  },
  "/private-label/iwear-oxygen-presbyopia/": {
   "lastmod": "2026-09-26",
-  "sig": "5bb34fcc4a0ff270637f99ce4c65fa79e968923b"
+  "sig": "b8cd9cb91641744dbbdee7978af88dbe9e830202"
  },
  "/private-label/iwear-oxygen-relax/": {
   "lastmod": "2026-09-26",
-  "sig": "60232901fde7c0bee2c3d7b397832c8c3d7eee23"
+  "sig": "4cb06bb8eaed601d43120ad9f854210b72ab2eb5"
  },
  "/private-label/iwear-oxygen-xr/": {
   "lastmod": "2026-09-26",
-  "sig": "9eb202f76a9dc1448368034f8aa38202d13c7286"
+  "sig": "fe9cf322be9312fdb22f0562aa2a2f3d4af454ef"
  },
  "/private-label/iwear-oxygen/": {
   "lastmod": "2026-09-26",
-  "sig": "2531865157f91ad6e12d9917642803a1cae58d13"
+  "sig": "ec0596ce5ee59d5e112d0ce0615e87104e00635d"
  },
  "/produsent/alcon/": {
   "lastmod": "2026-09-26",
