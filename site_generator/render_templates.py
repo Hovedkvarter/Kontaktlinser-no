@@ -592,6 +592,14 @@ CATEGORY_COLORS = {
     "fargede-linser": "lavender",
     "multifokale-linser": "coral",
 }
+# Bakgrunnsbilde per kategori (static/categories/bg-{navn}-{320,613}.webp)
+CATEGORY_BG = {
+    "manedslinser": "maaned",
+    "dagslinser": "dag",
+    "toriske-linser": "toriske",
+    "fargede-linser": "fargede",
+    "multifokale-linser": "multifokale",
+}
 CATEGORY_TAGLINES = {
     "manedslinser": "Populær og kostnadseffektiv",
     "dagslinser": "Friske linser hver dag",
@@ -4179,7 +4187,15 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         icon = CATEGORY_ICONS.get(slug, "")
         color = CATEGORY_COLORS.get(slug, "blue")
         tagline = CATEGORY_TAGLINES.get(slug, "")
-        return f"""<a class="category-row" href="/kontaktlinser/{escape(slug)}/">
+        bg = CATEGORY_BG.get(slug)
+        bg_html = (
+            f'<img class="category-row-bg" src="/static/categories/bg-{bg}-320.webp" '
+            f'srcset="/static/categories/bg-{bg}-320.webp 320w, /static/categories/bg-{bg}-613.webp 613w" '
+            f'sizes="(min-width: 1024px) 230px, (min-width: 700px) 340px, 200px" '
+            f'alt="" width="613" height="273" loading="lazy" decoding="async">'
+        ) if bg else ""
+        return f"""<a class="category-row cat-{escape(color)}" href="/kontaktlinser/{escape(slug)}/">
+  {bg_html}
   <div class="category-row-icon" style="background:var(--{color}-tint);color:var(--{color});">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{icon}</svg>
   </div>
@@ -4187,7 +4203,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     <div class="category-row-label">{escape(category["label"])}</div>
     <div class="category-row-desc">{escape(tagline)}</div>
   </div>
-  <svg class="category-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+  <span class="category-row-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
 </a>"""
 
     category_rows_html = "\n".join(
@@ -4248,14 +4264,23 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
 .category-rows {{ display: flex; flex-direction: column; gap: 10px; }}
-.category-row {{ display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; box-shadow: var(--card-shadow); transition: border-color 0.15s; }}
-.category-row:hover {{ border-color: var(--blue); }}
-.category-row-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
+.category-row {{ --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: var(--blue); position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 12px; min-height: 76px; text-decoration: none; color: var(--ink); background: var(--cat-bg); border: 1px solid var(--cat-border); border-radius: 16px; padding: 12px 14px; box-shadow: var(--card-shadow); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }}
+.category-row.cat-blue {{ --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: #2563EB; }}
+.category-row.cat-amber {{ --cat-bg: #FFFBEB; --cat-border: #F4E6BE; --cat-accent: #D9A02B; }}
+.category-row.cat-sky {{ --cat-bg: #EEF5FF; --cat-border: #D3E3F8; --cat-accent: #4F8FE8; }}
+.category-row.cat-lavender {{ --cat-bg: #F5F0FF; --cat-border: #E1D8F6; --cat-accent: #8B7FD6; }}
+.category-row.cat-coral {{ --cat-bg: #FFF2F4; --cat-border: #F6D6DC; --cat-accent: #E8637A; }}
+.category-row:hover, .category-row:focus-visible {{ border-color: var(--cat-accent); }}
+/* Bakgrunnsbildet ligger bak innholdet og fader ut mot venstre, så teksten alltid står på den lyse pastellen. */
+.category-row-bg {{ position: absolute; top: 0; right: 0; height: 100%; width: 52%; z-index: -1; object-fit: cover; object-position: 100% 50%; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 45%); mask-image: linear-gradient(90deg, transparent 0, #000 45%); }}
+.category-row-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.08); }}
 .category-row-icon svg {{ width: 20px; height: 20px; }}
-.category-row-text {{ flex: 1; min-width: 0; }}
+.category-row-text {{ flex: 1; min-width: 0; max-width: 58%; }}
 .category-row-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; }}
-.category-row-desc {{ font-size: 0.8rem; color: var(--muted); margin-top: 2px; }}
-.category-row-chevron {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--muted); }}
+.category-row-desc {{ font-size: 0.8rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }}
+/* Pil: alltid synlig (liten) på mobil/touch, vises ved hover på desktop */
+.category-row-arrow {{ position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.85); color: var(--cat-accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(11, 37, 69, 0.12); }}
+.category-row-arrow svg {{ width: 14px; height: 14px; }}
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
 .brand-card:hover {{ border-color: var(--blue); }}
@@ -4340,11 +4365,17 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   .trust-card-text {{ font-size: 0.8rem; max-width: 520px; }}
   #kategorier {{ margin-top: 32px !important; }}
   .category-rows {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }}
-  .category-row {{ flex-direction: column; align-items: center; text-align: center; gap: 10px; padding: 22px 14px; border-radius: 18px; box-shadow: 0 1px 2px rgba(11, 37, 69, 0.06), 0 6px 18px rgba(37, 99, 235, 0.05); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }}
-  .category-row:hover {{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37, 99, 235, 0.14); }}
-  .category-row-icon {{ width: 48px; height: 48px; }}
-  .category-row-icon svg {{ width: 24px; height: 24px; }}
-  .category-row-chevron {{ display: none; }}
+  .category-row {{ flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 10px; min-height: 150px; padding: 16px 16px 18px; border-radius: 18px; box-shadow: 0 1px 2px rgba(11, 37, 69, 0.06), 0 6px 18px rgba(37, 99, 235, 0.05); }}
+  .category-row:hover, .category-row:focus-visible {{ transform: translateY(-2px); box-shadow: 0 10px 26px rgba(37, 99, 235, 0.14); }}
+  /* Linsen ligger nede til høyre (bildet skaleres med kortbredden, forankret i bunnen) med fade mot venstre og opp,
+     og en pastell-tåke bak teksten (::before), så tittel og beskrivelse alltid er lette å lese. */
+  .category-row-bg {{ top: auto; bottom: 0; right: -8%; width: 122%; height: auto; max-width: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent 0, #000 42%), linear-gradient(180deg, transparent 0, #000 24%); mask-composite: intersect; }}
+  .category-row::before {{ content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--cat-bg) 0%, var(--cat-bg) 34%, transparent 70%); pointer-events: none; }}
+  .category-row-icon {{ width: 44px; height: 44px; }}
+  .category-row-icon svg {{ width: 22px; height: 22px; }}
+  .category-row-text {{ flex: none; max-width: 64%; }}
+  .category-row-arrow {{ top: auto; bottom: 12px; right: 12px; transform: translateX(-4px); width: 30px; height: 30px; background: var(--cat-accent); color: white; opacity: 0; transition: opacity 0.15s, transform 0.15s; }}
+  .category-row:hover .category-row-arrow, .category-row:focus-visible .category-row-arrow {{ opacity: 1; transform: translateX(0); }}
 }}
 </style>
 </head>
