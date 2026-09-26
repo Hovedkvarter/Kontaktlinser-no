@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-09-26",
-  "sig": "a2196e0c1bdde1f15a3f00988cb54a0aa17e9239"
+  "sig": "1696e03f11c6f211e4e3568d14f25b818462f2fa"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-09-26",
@@ -39,13 +39,17 @@
   "lastmod": "2026-09-26",
   "sig": "37a2ac7c14f84d29210a2f9c652ea609283cceb5"
  },
+ "/kontaktlinser/acuvue/acuvue-oasys-1-day-with-hydraluxe-180-pack/": {
+  "lastmod": "2026-09-26",
+  "sig": "7900f3b1dafa16bc1ef66c4ed4db2b2b3d8212fa"
+ },
  "/kontaktlinser/acuvue/acuvue-oasys-1-day-with-hydraluxe-30-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "8a4dc7b6eec119a1a587ae4db6732da99625316d"
+  "sig": "6c5d937c29c2f0b5ff76cd65638d94938b5fb750"
  },
  "/kontaktlinser/acuvue/acuvue-oasys-1-day-with-hydraluxe-90-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "0f18aaa539c62c9943ac3686c437a6c15ac8de50"
+  "sig": "669e8db480f8ebb0c033688d481f63663c4f113a"
  },
  "/kontaktlinser/acuvue/acuvue-oasys-6-pack/": {
   "lastmod": "2026-09-26",
@@ -237,7 +241,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-09-26",
-  "sig": "96edd0ffe839402c1a2e8d84e22376738156994f"
+  "sig": "e06bc1f0d0d7bae2cfd0bb683eab35091122a888"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-09-26",
@@ -335,13 +339,17 @@
   "lastmod": "2026-09-26",
   "sig": "3986c1a3fd5b112eede9cad563024c9862e2eb4e"
  },
+ "/kontaktlinser/everclear/everclear-elite-180-pack/": {
+  "lastmod": "2026-09-26",
+  "sig": "e48f923f5aea6904136522e4f25f99778a696ad1"
+ },
  "/kontaktlinser/everclear/everclear-elite-30-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "7c7717a8bf17d278aecfcff46ce41abc1b5c6baa"
+  "sig": "5bacf33aa226ce713d59c537b4521203a33e6aca"
  },
  "/kontaktlinser/everclear/everclear-elite-90-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "3bbd59c4bab4507561139bc3bf7f3c550e7722bc"
+  "sig": "9cfd964990e5b44e1778907c7fd17243c5bed8cd"
  },
  "/kontaktlinser/everclear/everclear-plus-6-pack/": {
   "lastmod": "2026-09-26",
@@ -357,11 +365,11 @@
  },
  "/kontaktlinser/live/live-30-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "093232e5c3743e6251738ba90c08241b8b6fb332"
+  "sig": "15a0d24a425c9a838ccafcd86a4a22f9c542d087"
  },
  "/kontaktlinser/live/live-90-pack/": {
   "lastmod": "2026-09-26",
-  "sig": "45150f51d5a77cfb4022bb64e88331b0ac038970"
+  "sig": "4f85bbf256ad39d5bcb99cb7e566630a9be5010d"
  },
  "/kontaktlinser/manedslinser/": {
   "lastmod": "2026-09-26",
@@ -581,7 +589,7 @@
  },
  "/linsevaeske/": {
   "lastmod": "2026-09-26",
-  "sig": "cb08cd38dfc71f667ea7e853499b5e89e5d598c9"
+  "sig": "0ea718c08f96b12c5c252a424149e6b06ee610ed"
  },
  "/linsevaeske/acuvue-revitalens/acuvue-revitalens-100-ml/": {
   "lastmod": "2026-09-26",
@@ -599,6 +607,10 @@
   "lastmod": "2026-09-26",
   "sig": "37221c5472ec0bb740bfc12167d4d928169708c3"
  },
+ "/linsevaeske/biotrue-solution/biotrue-flight-pack-100-ml/": {
+  "lastmod": "2026-09-26",
+  "sig": "a58f171d17c8d8dba798500eb092bddb21be891c"
+ },
  "/linsevaeske/clearlii/clearlii-multi-purpose-100-ml/": {
   "lastmod": "2026-09-26",
   "sig": "2277bcdd932c8f5e42571fbc9fc5d68c7aa57598"
@@ -614,6 +626,10 @@
  "/linsevaeske/everclear/everclear-refresh-250-ml/": {
   "lastmod": "2026-09-26",
   "sig": "de9cddc46c43a7ca583beabdf7a2fc0411a1e112"
+ },
+ "/linsevaeske/everclear/everclear-refresh-3-pack-750-ml/": {
+  "lastmod": "2026-09-26",
+  "sig": "dc76c00ad6f3eab9f4de7ede8d5e4ca5d34c7b0f"
  },
  "/linsevaeske/extend/extend-100-ml/": {
   "lastmod": "2026-09-26",
@@ -643,6 +659,10 @@
   "lastmod": "2026-09-26",
   "sig": "e2d2370b1c3e7811ce799ec01554f20d9b325eca"
  },
+ "/linsevaeske/renu/renu-flight-pack-100-ml/": {
+  "lastmod": "2026-09-26",
+  "sig": "41a50b3121c1b22a937111b6291db64904afb01b"
+ },
  "/linsevaeske/renu/renu-multi-purpose-240-ml/": {
   "lastmod": "2026-09-26",
   "sig": "bbdf400602b9115ea7d8e2fbb95e29dac9bc8ad4"
@@ -669,7 +689,7 @@
  },
  "/merke/acuvue/": {
   "lastmod": "2026-09-26",
-  "sig": "250f891c7543be042d3c1159e7c4593efc25bdf3"
+  "sig": "af30d8ae3357f117219e94916e39d39bbe3e76c4"
  },
  "/merke/adore/": {
   "lastmod": "2026-09-26",
@@ -725,7 +745,7 @@
  },
  "/merke/everclear/": {
   "lastmod": "2026-09-26",
-  "sig": "4d35ea4a6dff8974435e9e2a137de93a759dca85"
+  "sig": "aa19e0bf6312426ac4195473f22ca2a44c737058"
  },
  "/merke/eyeq/": {
   "lastmod": "2026-09-26",
@@ -741,7 +761,7 @@
  },
  "/merke/live/": {
   "lastmod": "2026-09-26",
-  "sig": "c46f98b0aad615b9f86b1515e168d68a08e9aefe"
+  "sig": "6452cb7d4887c459c3440641f69c42fc4eafa958"
  },
  "/merke/miru/": {
   "lastmod": "2026-09-26",
@@ -797,7 +817,7 @@
  },
  "/oyedraper/": {
   "lastmod": "2026-09-26",
-  "sig": "44822c25c45d494d440e6874b5fd1e3e62c7ce30"
+  "sig": "824fad2f221d842ec9707fbf850a9e591caf7e7b"
  },
  "/oyedraper/add1/add1-10-ml/": {
   "lastmod": "2026-09-26",
@@ -826,6 +846,14 @@
  "/oyedraper/evotears/evotears-3-ml/": {
   "lastmod": "2026-09-26",
   "sig": "c968ad5919ab8efeeb9129e9554dafba1a8c1fba"
+ },
+ "/oyedraper/eyz/eyz-clean-20-stk/": {
+  "lastmod": "2026-09-26",
+  "sig": "61250418fb9701abc8737e2fbd87836074f67e49"
+ },
+ "/oyedraper/eyz/eyz-night-5-g/": {
+  "lastmod": "2026-09-26",
+  "sig": "f00256da9f0e542e00b02fd384e9fae74696ea59"
  },
  "/oyedraper/eyz/eyz-plus-10-ml/": {
   "lastmod": "2026-09-26",
@@ -859,9 +887,21 @@
   "lastmod": "2026-09-26",
   "sig": "2c7fbbcb67506a15c38954ea33a0617af50f1496"
  },
+ "/oyedraper/hylo/hylo-night-5-g/": {
+  "lastmod": "2026-09-26",
+  "sig": "2a5dd0cab2d9499d396129779e6719793c6406a6"
+ },
  "/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/": {
   "lastmod": "2026-09-26",
   "sig": "9dc706926f60874310b878e1f7d1b5e25bc5fbb9"
+ },
+ "/oyedraper/oxyal/oxyal-care-gel-10-g/": {
+  "lastmod": "2026-09-26",
+  "sig": "8a208866dbdc0359231b2a9c9313fc39c9e0d797"
+ },
+ "/oyedraper/oxyal/oxyal-total-care-spray-17-ml/": {
+  "lastmod": "2026-09-26",
+  "sig": "72de8dc1013217d0ecab2a56ae066568fd508ea4"
  },
  "/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/": {
   "lastmod": "2026-09-26",
@@ -901,15 +941,19 @@
  },
  "/oyedraper/tearsagain/tearsagain-spray-10-ml/": {
   "lastmod": "2026-09-26",
-  "sig": "b2253aeb0ac8a0df275278ef18e937d2a4dd724b"
+  "sig": "a3f227031393a115d29bf629ec723a28de12bdaf"
  },
  "/oyedraper/thealoz/thealoz-duo-10-ml/": {
   "lastmod": "2026-09-26",
   "sig": "c41826436d90206e8f6279bee4bf2f622566a938"
  },
+ "/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/": {
+  "lastmod": "2026-09-26",
+  "sig": "777b8e29dee3031e284b44efca8a6b244850c0e5"
+ },
  "/oyedraper/viscotears/viscotears-oyegel-10-g/": {
   "lastmod": "2026-09-26",
-  "sig": "5c7975bf3458cd6abbf62a4949bcef78d907d1e4"
+  "sig": "22011e3b828d18f9c711e299b92a98ac906b04b5"
  },
  "/personvern/": {
   "lastmod": "2026-09-26",
@@ -1193,7 +1237,7 @@
  },
  "/produsent/jnj-vision/": {
   "lastmod": "2026-09-26",
-  "sig": "c7ff44fe443b8bdb759a5f9fe7b84618ee8a49c5"
+  "sig": "9f86de319ce34a44158db972d18dc6cf917459dd"
  },
  "/produsent/menicon/": {
   "lastmod": "2026-09-26",
@@ -1213,7 +1257,7 @@
  },
  "/serie/acuvue-oasys-1day-hydraluxe/": {
   "lastmod": "2026-09-26",
-  "sig": "a90ecaae8974f085451f188b80defa7cd0093b01"
+  "sig": "5454f3840223ec58d4f069b292356ab041aa425e"
  },
  "/serie/acuvue-oasys-max-1day/": {
   "lastmod": "2026-09-26",

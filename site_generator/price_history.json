@@ -38669,5 +38669,82 @@
       "price": 37.0,
       "store": "Lenson"
     }
+  ],
+  "acuvue-oasys-1day-hydraluxe-180pk": [
+    {
+      "date": "2026-09-26",
+      "price": 1439.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-elite-180pk": [
+    {
+      "date": "2026-09-26",
+      "price": 1049.0,
+      "store": "Lensway"
+    }
+  ],
+  "biotrue-flight-pack-100ml": [
+    {
+      "date": "2026-09-26",
+      "price": 67.0,
+      "store": "Lenson"
+    }
+  ],
+  "renu-flight-pack-100ml": [
+    {
+      "date": "2026-09-26",
+      "price": 52.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-refresh-x3-750ml": [
+    {
+      "date": "2026-09-26",
+      "price": 79.0,
+      "store": "Lensway"
+    }
+  ],
+  "oxyal-care-gel-10g": [
+    {
+      "date": "2026-09-26",
+      "price": 99.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "hylo-night-5g": [
+    {
+      "date": "2026-09-26",
+      "price": 127.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "eyz-night-5g": [
+    {
+      "date": "2026-09-26",
+      "price": 118.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "eyz-clean-20pk": [
+    {
+      "date": "2026-09-26",
+      "price": 111.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "oxyal-total-care-spray-17ml": [
+    {
+      "date": "2026-09-26",
+      "price": 232.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "thealoz-duo-gel-30x04g": [
+    {
+      "date": "2026-09-26",
+      "price": 155.0,
+      "store": "Shopping4net"
+    }
   ]
 }
