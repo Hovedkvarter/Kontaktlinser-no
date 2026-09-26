@@ -2464,15 +2464,21 @@ def _surface_is_on(clickouts, surface: str) -> bool:
 
 def render_offer_card(o: dict, retailer: str, product_name: str | None = None,
                       product_id: str | None = None,
-                      clickouts: dict | None = None) -> str:
+                      clickouts: dict | None = None,
+                      is_winner: bool | None = None,
+                      tags_html: str | None = None) -> str:
+    # is_winner/tags_html: kun brukt av pilot-visningen (Prisjakt-modellen), der
+    # "vinneren" er laveste produktpris og merkene settes utenfra. Standard er
+    # uendret: vinner = laveste totalpris (o["is_lowest"]).
     status_note = (
         '<div class="offer-meta" style="font-weight:600;">Utsolgt</div>' if not o["in_stock"]
         else f'<div class="offer-meta" style="font-weight:600;">Pris ikke nylig bekreftet (sist {_verified_tag(o["checked_at"])})</div>' if o["is_stale"]
         else f'<div class="offer-meta">Sist oppdatert: {_verified_tag(o["checked_at"])}</div>' if o.get("older_than_page")
         else ""
     )
-    css_class = "offer-card" + (" is-lowest" if o["is_lowest"] else "") + (" is-muted" if not o["in_stock"] else "")
-    lowest_tag = '<span class="lowest-tag">Lavest totalpris</span>' if o["is_lowest"] else ""
+    winner = o["is_lowest"] if is_winner is None else is_winner
+    css_class = "offer-card" + (" is-lowest" if winner else "") + (" is-muted" if not o["in_stock"] else "")
+    lowest_tag = tags_html if tags_html is not None else ('<span class="lowest-tag">Lavest totalpris</span>' if o["is_lowest"] else "")
     # Produktprisen er hovedtallet (stort), frakt en egen liten linje over --
     # samme mønster som Prisjakt/Klarna bruker, som er det norske brukere er
     # vant til å lese. Vi dropper en egen "Totalt X kr"-linje per rad (var
@@ -2753,7 +2759,7 @@ WINNER_WIDGET_STYLE = """
 """
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None) -> tuple[str, str]:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, pilot: bool = False) -> tuple[str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple i stedet for én
     sammenslått streng -- render_product_page sin nye hero-layout plasserer
     trofé-boksen (winner_band) INNE i hero-kortet, mens antallsvelgeren
@@ -2794,7 +2800,22 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # begrunnelse som render_offer_card: små knapper er vonde touch-mål på
     # mobil. price-pill er derfor et <span> her, ikke en egen <a>.
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
-    winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+    if pilot:
+        # Prisjakt-modellen: knappen sier IKKE pris. Prisen står i lista under
+        # (sortert på produktpris, eller totalpris hvis "Pris inkludert frakt" er på).
+        pilot_aria = f'Gå til {escape(best["retailer"])} for {escape(product_name)}' if product_name else f'Gå til {escape(best["retailer"])}'
+        winner_band = f"""<a class="winner-band winner-band-cta" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{pilot_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
+  <div class="winner-left">
+    <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
+    <div class="label-group">
+      <div class="label" id="winner-label">Laveste pris for 1 {escape(unit_singular)}</div>
+      <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
+    </div>
+  </div>
+  <span class="winner-btn">Gå til tilbud <span aria-hidden="true">&#8594;</span></span>
+</a>"""
+    else:
+        winner_band = f"""<a class="winner-band" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{winner_aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">
   <div class="winner-left">
     <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
     <div class="label-group">
@@ -2864,9 +2885,214 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
   </div>
   {static_fallback_html}
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
-  {_QTY_CALC_SCRIPT}"""
+  {_PILOT_SCRIPT if pilot else _QTY_CALC_SCRIPT}"""
 
     return winner_band, qty_box
+
+
+# ---------------------------------------------------------------------------
+# PILOT (2026-09-27): "Prisjakt-modellen" på ÉN produktside. Avtalt med Kai:
+# Prisjakt/Pricerunner/Prisguiden/godpris/Lenspricer viser alle pris UTEN frakt som
+# standard, og en enkel bryter "Pris inkludert frakt" (Prisjakt) legger på frakt.
+# Dette blir standardmalen for hundrevis av sider, så vi tester utseendet på ett
+# produkt, justerer, og ruller ut når vi er enige.
+#   - Toppknappen ("Laveste pris ... Gå til tilbud") sier IKKE pris.
+#   - Lista under er sortert på produktpris (uten frakt); bryteren "Pris inkludert
+#     frakt" viser og sorterer på totalpris for valgt antall. Valget huskes.
+#   - Antallsvelgeren beholdes og gjelder begge modi.
+#   - Kortet med laveste TOTALpris merkes "Lavest totalpris" også i standardvisningen
+#     når det er en annen butikk enn den med laveste produktpris.
+# Legg produkt-id-er til her for å teste flere; tomt sett = pilot av.
+PRISJAKT_PILOT_IDS = {"acuvue-oasys-6pk"}
+
+PILOT_STYLE = """
+.offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
+.offers-head h2 { margin: 0; }
+.ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
+.ship-chip:hover { border-color: var(--blue); }
+.ship-chip:focus-visible { outline: 3px solid var(--blue-tint); outline-offset: 1px; border-color: var(--blue); }
+.ship-chip-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B8C6CF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; background: white; transition: background-color 0.15s, border-color 0.15s; }
+.ship-chip[aria-pressed="true"] { border-color: var(--ink); background: var(--blue-tint); }
+.ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
+.ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+.lowest-tag-total { background: var(--blue); }
+.winner-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--mint); color: white; font-weight: 700; font-size: 0.95rem; padding: 12px 22px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.winner-band-cta { flex-direction: column; align-items: stretch; gap: 12px; }
+.winner-band-cta .winner-btn { width: 100%; }
+.winner-band-cta:hover .winner-btn, .winner-band-cta:focus-visible .winner-btn { filter: brightness(0.94); }
+@media (min-width: 860px) {
+  .hero-main .winner-band-cta .winner-btn { width: 100%; margin-top: 14px; padding: 13px 22px; font-size: 1rem; }
+  .hero-main .winner-band-cta .label-group { text-align: center; }
+}
+"""
+
+_PILOT_SCRIPT = r"""<script>
+(function () {
+  var dataEl = document.getElementById('qty-offers-data');
+  if (!dataEl) return;
+  var data = JSON.parse(dataEl.textContent);
+  var productName = dataEl.getAttribute('data-product-name') || '';
+  var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
+  var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
+  var pills = document.querySelectorAll('.qty-pill');
+  var customRow = document.getElementById('qty-custom-row');
+  var customInput = document.getElementById('qty-custom-input');
+  var labelEl = document.getElementById('winner-label');
+  var retailerEl = document.getElementById('winner-retailer');
+  var winnerLink = document.getElementById('winner-band-link');
+  var state = { qty: 1, incl: false };
+  // Dette scriptet ligger FØR .offers og bryteren i kildekoden (vinnerboksen og
+  // antallsvelgeren står øverst), så elementer under slås opp først når de brukes.
+
+  function computeShipping(productTotal, policy) {
+    if (!policy) return 0;
+    var freeOver = policy.free_over;
+    if (freeOver !== null && freeOver !== undefined && productTotal >= freeOver) return 0;
+    return policy.fee_nok || 0;
+  }
+  function fmtKr(n) {
+    return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' kr';
+  }
+  function shippingNote(shipping, policy) {
+    if (!policy) return 'Frakt beregnes i kassen';
+    if (shipping <= 0) {
+      if (policy.free_over) return 'Gratis frakt over ' + fmtKr(policy.free_over);
+      return 'Gratis frakt';
+    }
+    return fmtKr(shipping) + ' frakt';
+  }
+  function retailerBadge(o) {
+    if (!o.logo_file) return o.retailer;
+    var img = '<img class="retailer-logo" src="/static/logos/' + o.logo_file + '" alt="' + o.retailer + '" loading="lazy">';
+    var logo = o.logo_dark ? '<span class="retailer-logo-chip">' + img + '</span>' : img;
+    return logo + '<span style="position:absolute;left:-9999px;">' + o.retailer + '</span>';
+  }
+  function findCard(cards, retailer) {
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].getAttribute('data-retailer') === retailer) return cards[i];
+    }
+    return null;
+  }
+
+  function render() {
+    var qty = state.qty, incl = state.incl;
+    var results = [];
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      var productTotal = o.price_nok * qty;
+      var shipping = computeShipping(productTotal, o.shipping_policy);
+      results.push({ o: o, idx: i, productTotal: productTotal, shipping: shipping, total: productTotal + shipping });
+    }
+    // Standard: laveste produktpris. Med "Pris inkludert frakt": laveste totalpris.
+    // Lik pris -> den andre prisen -> opprinnelig rekkefølge (server har allerede
+    // lagt avtale-forhandlere foran ved eksakt likt).
+    results.sort(function (a, b) {
+      var ka = incl ? a.total : a.productTotal, kb = incl ? b.total : b.productTotal;
+      var sa = incl ? a.productTotal : a.total, sb = incl ? b.productTotal : b.total;
+      return (ka - kb) || (sa - sb) || (a.idx - b.idx);
+    });
+    var best = null;
+    for (var i = 0; i < results.length; i++) { if (results[i].o.in_stock) { best = results[i]; break; } }
+    var bestTotal = null, byTotal = results.slice().sort(function (a, b) { return (a.total - b.total) || (a.productTotal - b.productTotal) || (a.idx - b.idx); });
+    for (var i = 0; i < byTotal.length; i++) { if (byTotal[i].o.in_stock) { bestTotal = byTotal[i]; break; } }
+
+    if (best) {
+      labelEl.textContent = (incl ? 'Laveste pris inkl. frakt' : 'Laveste pris') + ' for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
+      retailerEl.innerHTML = retailerBadge(best.o);
+      winnerLink.setAttribute('href', best.o.url);
+      winnerLink.setAttribute('rel', best.o.rel);
+      winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : ''));
+      winnerLink.setAttribute('data-retailer', best.o.retailer);
+      winnerLink.setAttribute('data-affiliate', best.o.rel.indexOf('sponsored') !== -1 ? '1' : '0');
+    }
+
+    var offersList = document.querySelector('.offers');
+    var cards = offersList ? offersList.querySelectorAll('.offer-card') : [];
+    if (!offersList || !cards.length) return;
+    for (var i = 0; i < results.length; i++) {
+      var r = results[i];
+      var card = findCard(cards, r.o.retailer);
+      if (!card) continue;
+      var shown = incl ? r.total : r.productTotal;
+      var pricePillEl = card.querySelector('.price-pill');
+      if (pricePillEl) pricePillEl.textContent = fmtKr(shown);
+      card.setAttribute('aria-label', 'Gå til ' + r.o.retailer + (productName ? ' for ' + productName : '') + ', ' + fmtKr(shown) + (incl ? ' inkl. frakt' : ' uten frakt'));
+      var shipTextEl = card.querySelector('.offer-shipping-text');
+      if (shipTextEl) shipTextEl.textContent = (incl && r.shipping > 0 && r.o.shipping_policy) ? 'inkl. ' + fmtKr(r.shipping) + ' frakt' : shippingNote(r.shipping, r.o.shipping_policy);
+      var isBest = !!(best && r.o.retailer === best.o.retailer);
+      var isTotalBest = !incl && !!(bestTotal && best && bestTotal !== best && r.o.retailer === bestTotal.o.retailer);
+      card.classList.toggle('is-lowest', isBest);
+      var tagHost = card.querySelector('.offer-retailer');
+      if (tagHost) {
+        var old = tagHost.querySelectorAll('.lowest-tag');
+        for (var k = 0; k < old.length; k++) old[k].remove();
+        if (isBest) tagHost.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">' + (incl ? 'Lavest totalpris' : 'Laveste pris') + '</span>');
+        if (isTotalBest) tagHost.insertAdjacentHTML('beforeend', ' <span class="lowest-tag lowest-tag-total">Lavest totalpris</span>');
+      }
+      offersList.appendChild(card);
+    }
+  }
+
+  function setIncl(v, track) {
+    state.incl = v;
+    var chip = document.getElementById('ship-chip');
+    if (chip) chip.setAttribute('aria-pressed', v ? 'true' : 'false');
+    try { localStorage.setItem('kl_incl_shipping', v ? '1' : '0'); } catch (e) {}
+    render();
+    if (track) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'price_shipping_toggle', included: v ? 'yes' : 'no' });
+    }
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('#ship-chip')) setIncl(!state.incl, true);
+  });
+
+  for (var i = 0; i < pills.length; i++) {
+    pills[i].addEventListener('click', function (e) {
+      for (var j = 0; j < pills.length; j++) { pills[j].classList.remove('is-active'); }
+      e.currentTarget.classList.add('is-active');
+      var qty = e.currentTarget.getAttribute('data-qty');
+      if (qty === 'custom') {
+        customRow.hidden = false;
+        customInput.focus();
+        var v = parseInt(customInput.value, 10);
+        if (v) { state.qty = v; render(); }
+      } else {
+        customRow.hidden = true;
+        state.qty = parseInt(qty, 10);
+        render();
+      }
+    });
+  }
+  customInput.addEventListener('input', function () {
+    var v = parseInt(customInput.value, 10);
+    if (v && v > 0) { state.qty = v; render(); }
+  });
+
+  function restoreChoice() {
+    try { if (localStorage.getItem('kl_incl_shipping') === '1') setIncl(true, false); } catch (e) {}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', restoreChoice);
+  else restoreChoice();
+})();
+</script>"""
+
+METHODOLOGY_HTML_PILOT = METHODOLOGY_HTML.replace(
+    "Butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.",
+    "Standard er lavest produktpris. Slår du på «Pris inkludert frakt», regnes frakten med og butikkene sorteres etter lavest totalpris. Derfor kan butikken med lavest produktpris være en annen enn butikken med lavest totalpris.",
+)
+assert METHODOLOGY_HTML_PILOT != METHODOLOGY_HTML
+
+PILOT_DISCLOSURE_HTML = """<p class="disclosure">
+    Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
+    se og sortere etter totalpris (produktpris + frakt) for antallet du har valgt.
+    Vi kan få provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på pris, bortsett fra ved eksakt lik pris
+    mellom to tilbud, der vi kan prioritere en forhandler vi har avtale med. Varer
+    uten bekreftet lager kan ikke vinne «laveste pris», og hvert tilbud viser når det
+    sist ble kontrollert.
+  </p>"""
 
 
 def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
@@ -3043,10 +3269,27 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    offer_cards_html = "\n".join(
-        render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts)
-        for o in offers
-    )
+    pilot = product["id"] in PRISJAKT_PILOT_IDS
+    if pilot:
+        ex_offers = sorted(offers, key=lambda o: (o["price_nok"], o["total"]) + _tie_break_key(o))
+        ex_best = next((o for o in ex_offers if o["in_stock"]), None)
+
+        def _pilot_tags(o: dict) -> str:
+            tags = '<span class="lowest-tag">Laveste pris</span>' if o is ex_best else ""
+            if best is not None and o is best and best is not ex_best:
+                tags += ' <span class="lowest-tag lowest-tag-total">Lavest totalpris</span>'
+            return tags
+
+        offer_cards_html = "\n".join(
+            render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts, is_winner=(o is ex_best), tags_html=_pilot_tags(o))
+            for o in ex_offers
+        )
+    else:
+        ex_best = best
+        offer_cards_html = "\n".join(
+            render_offer_card(o, o["retailer"], product["name"], product["id"], clickouts)
+            for o in offers
+        )
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -3057,7 +3300,12 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
-    winner_html, qty_html = render_winner_widget(best, offers, product["name"], product_id=product["id"], clickouts=clickouts)
+    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, pilot=pilot)
+    if pilot:
+        ai_summary_html = ai_summary_html.replace(
+            "vi viser full totalpris inkludert frakt i sammenligningen under.",
+            "slå på «Pris inkludert frakt» under for å se totalprisen med frakt.",
+        )
     badges_html = _render_product_badges(product.get("specs", []))
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
@@ -3270,6 +3518,31 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     </ul>
   </div>"""
 
+    if pilot:
+        offers_block = f"""<div class="offers offers-pilot">
+    <div class="offers-head">
+      <h2>Sammenlign priser og butikker</h2>
+      <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
+    </div>
+    {offer_cards_html}
+  </div>"""
+        disclosure_html = PILOT_DISCLOSURE_HTML
+        methodology_html = METHODOLOGY_HTML_PILOT
+    else:
+        offers_block = f"""<div class="offers">
+    <h2>Alle tilbud, sortert etter total pris</h2>
+    {offer_cards_html}
+  </div>"""
+        disclosure_html = """<p class="disclosure">
+    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
+    provisjon når du handler via lenkene, men det påvirker aldri prisen du
+    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
+    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
+    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
+    hvert tilbud viser når det sist ble kontrollert.
+  </p>"""
+        methodology_html = METHODOLOGY_HTML
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -3374,7 +3647,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
-</style>
+{PILOT_STYLE if pilot else ""}</style>
 </head>
 <body>
 {TOPBAR_HTML}
@@ -3401,23 +3674,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {qty_html}
   {pack_size_callout}
   {family_callout}
-  <div class="offers">
-    <h2>Alle tilbud, sortert etter total pris</h2>
-    {offer_cards_html}
-  </div>
-  <p class="disclosure">
-    Vi sorterer alltid etter lavest totalpris (produktpris + frakt). Vi kan få
-    provisjon når du handler via lenkene, men det påvirker aldri prisen du
-    betaler. Rekkefølgen er alltid basert på totalpris, bortsett fra ved
-    eksakt lik pris mellom to tilbud, der vi kan prioritere en forhandler vi
-    har avtale med. Varer uten bekreftet lager kan ikke vinne «laveste pris», og
-    hvert tilbud viser når det sist ble kontrollert.
-  </p>
+  {offers_block}
+  {disclosure_html}
   {price_history_html}
   {specs_html}
   {aliases_html}
   {product_faq_html}
-  {METHODOLOGY_HTML}
+  {methodology_html}
   {related_html}
 </div>
 {render_footer()}

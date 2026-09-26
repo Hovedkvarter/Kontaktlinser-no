@@ -1653,6 +1653,42 @@ påpekte dette). Regelen nå, avklart med Kai:
   faktisk sjekket), men Google kan vekte lastmod lavere hvis den ikke sammenfaller
   med synlige endringer -- følg med på indekseringen.
 
+## Prisjakt-modellen (pilot på ÉN produktside, 2026-09-27)
+
+Kai besluttet (etter konkurrentgjennomgang og screenshots fra Prisjakt): kontaktlinser.no
+skal følge markedsstandarden -- Prisjakt/Pricerunner/Prisguiden/godpris/Lenspricer viser
+pris UTEN frakt som standard, og Prisjakt har en chip «Pris inkludert frakt» (av som
+standard, viser da frakt og sorterer om). Dette blir standardmalen for hundrevis av
+sider, så det testes først på ett produkt; når Kai og jeg er enige rulles det ut.
+
+**Pilotsiden:** `/kontaktlinser/acuvue/acuvue-oasys-6-pack/` (`PRISJAKT_PILOT_IDS` i
+render_templates.py; legg til flere id-er for å teste mer, tomt sett = pilot av). Bare
+produktsiden for kontaktlinser er berørt; verifisert at KUN denne ene HTML-filen
+endres på hele nettstedet (alle andre sider er byte-identiske), og at title, meta,
+canonical, H1 og JSON-LD er uendret (kun H2 over tilbudslisten er endret).
+
+- **Toppknappen** (Vinner-boksen) sier IKKE pris: «Laveste pris for N esker», butikkens
+  logo og en «Gå til tilbud»-knapp. Prisen står i lista under.
+- **Lista** heter «Sammenlign priser og butikker», sortert på laveste PRODUKTPRIS
+  (uten frakt). Chip «Pris inkludert frakt» (aria-pressed) viser totalpris for valgt antall,
+  sorterer om, og bytter toppknappen til «Laveste pris inkl. frakt». Valget huskes i
+  localStorage (`kl_incl_shipping`); klikk sendes som dataLayer-event
+  `price_shipping_toggle` (included: yes/no) -- trenger GA4-tag/trigger i GTM for å måles.
+- **Antallsvelgeren beholdes** og gjelder begge modi (frakt regnes per antall, inkl.
+  fri-frakt-grenser).
+- **Merking:** «Laveste pris» på laveste produktpris; når en ANNEN butikk har laveste
+  totalpris merkes den «Lavest totalpris» også i standardvisningen (gjelder ~9 % av
+  produktene) -- vi påstår aldri «lavest» om noe som ikke er det.
+- Meta-beskrivelse, JSON-LD (`lowPrice` uten frakt) og kategorikortene («Fra (ekskl. frakt)»)
+  var allerede uten frakt -- pilotsiden er nå konsistent med dem (før viste heltebanneret
+  312 kr mot 262 kr i søkeresultatet).
+- Pilotsidens disclosure og metodikkboks er omskrevet til å beskrive ny sortering
+  (`PILOT_DISCLOSURE_HTML`, `METHODOLOGY_HTML_PILOT`); FAQ-JSON-LD om «billigst» var
+  allerede dynamisk og korrekt.
+- **Ved utrulling må også endres:** `render_solution_product_page`, `render_private_label_page`,
+  `/slik-sammenligner-vi-priser/`, disclosure/FAQ-tekster som sier «sortert etter totalpris»,
+  og `reconcile_product`-tekstene som beskriver «Lavest totalpris».
+
 ## Arbeidsspråk og autorisasjon
 
 - Snakk norsk i dette prosjektet.
