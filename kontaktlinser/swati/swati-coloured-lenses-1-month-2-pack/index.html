@@ -556,21 +556,19 @@ a { color: inherit; }
   .hero-fact-sep { color: var(--border); }
   .product-stage .hero-product-image { grid-area: image; align-self: center; width: 100%; height: 320px; max-width: none; margin: 0; }
   .product-stage > .qty-box { grid-area: controls; align-self: start; border: none; background: transparent; padding: 0; margin: 0; }
-  /* Kompakte, faste pillestørrelser (56-64x44-48px, "Eget" 80-96px) --
-     IKKE den elastiske repeat(5/6, 1fr)-grid-en fra mobil, som ville
-     strukket pillene til å fylle hele den nå mye smalere midtkolonnen.
-     Valgt tilstand er blek mint/grønn kant/mørk tekst her, IKKE den
-     blå gradienten fra mobil-pillene (Kai, punkt 6: "Remove the bright
-     blue gradient selected state on desktop"). */
+  /* Kompakte, faste pillestørrelser (56-64x44-48px) -- IKKE den
+     elastiske repeat(6, 1fr)-grid-en fra mobil, som ville strukket
+     pillene til å fylle hele den nå mye smalere midtkolonnen. Valgt
+     tilstand er blek mint/grønn kant/mørk tekst her, IKKE den blå
+     gradienten fra mobil-pillene (Kai, punkt 6: "Remove the bright
+     blue gradient selected state on desktop"). Frakt-vippebryteren
+     bodde tidligere i denne raden også (`.qty-box-row`) -- flyttet til
+     prislisteheaderen på BÅDE mobil og desktop nå (se
+     render_price_list()), så raden inneholder kun pillene igjen. */
   .product-stage .qty-pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .product-stage .qty-pill { width: 60px; height: 46px; padding: 0; box-shadow: none; }
-  .product-stage .qty-pill#qty-pill-custom { width: 88px; }
   .product-stage .qty-pill.is-active { background: var(--mint-tint); border-color: var(--mint); color: var(--ink); box-shadow: none; }
   .product-stage .qty-pill.is-active span { color: var(--muted); }
-  /* Fraktbryteren ved siden av pillene når det er plass, ellers bryter
-     den ned til egen linje (Kai, punkt 7: "not at the far right edge
-     of the entire page" -- begge oppsett eksplisitt godkjent). */
-  .product-stage .qty-box-row { flex-wrap: wrap; row-gap: 12px; }
   .product-stage .winner-band { grid-area: price; align-self: center; margin: 0; width: 100%; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 24px 18px 18px; }
   .product-stage .winner-left { flex-direction: column; align-items: center; gap: 0; }
   .product-stage .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
@@ -724,8 +722,21 @@ a { color: inherit; }
 .ship-chip-boxed[aria-pressed="true"] { border-color: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle { background: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle::before { transform: translateX(16px); }
+/* 5 faste piller + "Eget" (skjult under 640px, se #qty-pill-custom) --
+   linsevæske-/øyedråpe-/private label-alias-sidene, uendret. */
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
+/* Produktsiden derimot: 6 FASTE piller (1/2/4/6/8/10), ingen "Eget" (se
+   render_winner_widget() sin qty_choices/include_custom_pill), og
+   fraktbryteren flyttet ut av denne raden (se render_price_list()) --
+   så det er plass til alle 6 side om side selv på 320px mobil, ingen
+   640px-brytpunkt nødvendig her. Scoped via .product-stage (IKKE
+   .wrap-product, som viste seg å være delt med linsevæske-/private
+   label-/serie-sidene også -- .product-stage finnes derimot KUN i
+   render_product_page() sin egen DOM, uansett skjermbredde, siden den
+   ble innført som en ustylet wrapper-div rundt .hero-card + qty_html
+   allerede på mobil, se Desktop Gold Standard v1-runden samme dag). */
+.product-stage .qty-pills { grid-template-columns: repeat(6, 1fr); }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
 .qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
@@ -738,10 +749,10 @@ a { color: inherit; }
 .wrap-product .qty-pill { flex-direction: row; justify-content: center; padding: 10px 2px; }
 .wrap-product .qty-pill svg, .wrap-product .qty-pill span { display: none; }
 @media (max-width: 479px) {
-  /* Under 480px: enda knappere -- fraktboksens undertekst tar for mye
-     plass til å holde raden på én linje sammen med 5 pluss-tegn-frie
-     tallpiller. */
-  .wrap-product .ship-chip-sub { display: none; }
+  /* Under 480px: enda knappere -- fraktbryteren deler nå rad med
+     "Priser for X esker"-overskriften i .offers-head (flyttet dit fra
+     antallsvelgeren, se _ship_chip_boxed_html()), som er trangt på de
+     smaleste skjermene. */
   .wrap-product .ship-chip-boxed { padding: 8px 10px; gap: 6px; }
   .wrap-product .ship-chip-label { font-size: 0.78rem; }
   .wrap-product .ship-chip-toggle { width: 34px; height: 20px; }
@@ -752,6 +763,10 @@ a { color: inherit; }
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
+/* "Eget antall" -- kun linsevæske-/øyedråpe-/private label-alias-sidene
+   nå (produktsiden fjernet den, se render_winner_widget() sin
+   include_custom_pill-parameter, Kai 2026-09-27: "Ta bort Eget som
+   valg av esker"). */
 #qty-pill-custom { display: none; }
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
@@ -1323,12 +1338,9 @@ a { color: inherit; }
     <div class="qty-box">
     <div class="qty-box-title">Antall esker</div>
     <div class="qty-box-row">
-      <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
-      <button type="button" class="ship-chip ship-chip-boxed" id="ship-chip" aria-pressed="false"><span class="ship-chip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg></span><span class="ship-chip-text"><span class="ship-chip-label">Pris med frakt</span><span class="ship-chip-sub">Vis totalpris inkl. frakt</span></span><span class="ship-chip-toggle" aria-hidden="true"></span></button>
+      <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="8"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>8<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button></div>
     </div>
-    <div class="qty-custom-row" id="qty-custom-row" hidden>
-      <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
-    </div>
+    
     
   </div>
   <script type="application/json" id="qty-offers-data" data-product-name="SWATI Coloured Lenses 1 month 2-pack" data-unit-singular="eske" data-unit-plural="esker">[{"retailer": "Lensway", "price_nok": 321.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-9578)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fswati-cosmetics-coloured-lenses-1-month-lens-9578)", "rel": "sponsored noopener", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 322.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9578)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fswati-coloured-lenses-1-month-lens-9578)", "rel": "sponsored noopener", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
@@ -1341,8 +1353,6 @@ a { color: inherit; }
   var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
   var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
   var pills = document.querySelectorAll('.qty-pill');
-  var customRow = document.getElementById('qty-custom-row');
-  var customInput = document.getElementById('qty-custom-input');
   var labelEl = document.getElementById('winner-label');
   var retailerEl = document.getElementById('winner-retailer');
   var winnerLink = document.getElementById('winner-band-link');
@@ -1512,27 +1522,33 @@ a { color: inherit; }
     }
   });
 
+  var customRow = document.getElementById('qty-custom-row');
+  var customInput = document.getElementById('qty-custom-input');
   for (var i = 0; i < pills.length; i++) {
     pills[i].addEventListener('click', function (e) {
       for (var j = 0; j < pills.length; j++) { pills[j].classList.remove('is-active'); }
       e.currentTarget.classList.add('is-active');
       var qty = e.currentTarget.getAttribute('data-qty');
       if (qty === 'custom') {
-        customRow.hidden = false;
-        customInput.focus();
-        var v = parseInt(customInput.value, 10);
-        if (v) { state.qty = v; render(); }
+        if (customRow) customRow.hidden = false;
+        if (customInput) {
+          customInput.focus();
+          var v = parseInt(customInput.value, 10);
+          if (v) { state.qty = v; render(); }
+        }
       } else {
-        customRow.hidden = true;
+        if (customRow) customRow.hidden = true;
         state.qty = parseInt(qty, 10);
         render();
       }
     });
   }
-  customInput.addEventListener('input', function () {
-    var v = parseInt(customInput.value, 10);
-    if (v && v > 0) { state.qty = v; render(); }
-  });
+  if (customInput) {
+    customInput.addEventListener('input', function () {
+      var v = parseInt(customInput.value, 10);
+      if (v && v > 0) { state.qty = v; render(); }
+    });
+  }
 
   function restoreChoice() {
     try { if (localStorage.getItem('kl_incl_shipping') === '1') setIncl(true, false); } catch (e) {}
@@ -1544,8 +1560,9 @@ a { color: inherit; }
   </div>
   <div class="offers" id="tilbud">
     <div class="offers-head">
-      <h2>Priser for <span id="offers-qty-label">1 eske</span></h2><span class="offers-sort-label" id="offers-sort-label">Sortert etter pris (uten frakt)</span>
+      <h2>Priser for <span id="offers-qty-label">1 eske</span></h2>
       
+      <button type="button" class="ship-chip ship-chip-boxed" id="ship-chip" aria-pressed="false"><span class="ship-chip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg></span><span class="ship-chip-label">Pris med frakt</span><span class="ship-chip-toggle" aria-hidden="true"></span></button>
     </div>
     <div class="offers-list"><a class="offer-card is-lowest" href="https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-9578)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fswati-cosmetics-coloured-lenses-1-month-lens-9578)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lensway for SWATI Coloured Lenses 1 month 2-pack, 321 kr" data-retailer="Lensway" data-affiliate="1">
   <div class="offer-main">
