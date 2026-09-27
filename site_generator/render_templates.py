@@ -2877,8 +2877,21 @@ WINNER_WIDGET_STYLE = """
 .ship-chip-boxed[aria-pressed="true"] { border-color: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle { background: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle::before { transform: translateX(16px); }
+/* 5 faste piller + "Eget" (skjult under 640px, se #qty-pill-custom) --
+   linsevæske-/øyedråpe-/private label-alias-sidene, uendret. */
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
+/* Produktsiden derimot: 6 FASTE piller (1/2/4/6/8/10), ingen "Eget" (se
+   render_winner_widget() sin qty_choices/include_custom_pill), og
+   fraktbryteren flyttet ut av denne raden (se render_price_list()) --
+   så det er plass til alle 6 side om side selv på 320px mobil, ingen
+   640px-brytpunkt nødvendig her. Scoped via .product-stage (IKKE
+   .wrap-product, som viste seg å være delt med linsevæske-/private
+   label-/serie-sidene også -- .product-stage finnes derimot KUN i
+   render_product_page() sin egen DOM, uansett skjermbredde, siden den
+   ble innført som en ustylet wrapper-div rundt .hero-card + qty_html
+   allerede på mobil, se Desktop Gold Standard v1-runden samme dag). */
+.product-stage .qty-pills { grid-template-columns: repeat(6, 1fr); }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
 .qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
@@ -2891,10 +2904,10 @@ WINNER_WIDGET_STYLE = """
 .wrap-product .qty-pill { flex-direction: row; justify-content: center; padding: 10px 2px; }
 .wrap-product .qty-pill svg, .wrap-product .qty-pill span { display: none; }
 @media (max-width: 479px) {
-  /* Under 480px: enda knappere -- fraktboksens undertekst tar for mye
-     plass til å holde raden på én linje sammen med 5 pluss-tegn-frie
-     tallpiller. */
-  .wrap-product .ship-chip-sub { display: none; }
+  /* Under 480px: enda knappere -- fraktbryteren deler nå rad med
+     "Priser for X esker"-overskriften i .offers-head (flyttet dit fra
+     antallsvelgeren, se _ship_chip_boxed_html()), som er trangt på de
+     smaleste skjermene. */
   .wrap-product .ship-chip-boxed { padding: 8px 10px; gap: 6px; }
   .wrap-product .ship-chip-label { font-size: 0.78rem; }
   .wrap-product .ship-chip-toggle { width: 34px; height: 20px; }
@@ -2905,6 +2918,10 @@ WINNER_WIDGET_STYLE = """
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
 .qty-pill.is-active span { color: rgba(255,255,255,0.85); }
+/* "Eget antall" -- kun linsevæske-/øyedråpe-/private label-alias-sidene
+   nå (produktsiden fjernet den, se render_winner_widget() sin
+   include_custom_pill-parameter, Kai 2026-09-27: "Ta bort Eget som
+   valg av esker"). */
 #qty-pill-custom { display: none; }
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
@@ -2991,7 +3008,25 @@ def _winner_price_line(o: dict, qty: int, incl: bool, unit_singular: str, unit_p
     return f"{unit_part} + {note}"
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False, include_ship_chip: bool = False, qty_multi_inline: bool = True) -> tuple[str, str, str]:
+def _ship_chip_boxed_html(id_attr: str) -> str:
+    """Den "boksede" frakt-vippebryteren (ikon/etikett/ekte bryter),
+    brukt i prislisteheaderen på produktsiden (Kai, 2026-09-27, "MOVE
+    SHIPPING TOGGLE ONLY": flyttet UT av quantity-området, inn i
+    "Sammenlign priser"/"Priser for X esker"-headeren -- samme
+    plassering på BÅDE mobil og desktop). Ingen undertekst ("Vis
+    totalpris inkl. frakt") lenger -- Kai eksplisitt: "we do not need
+    the current secondary line... Simply show: 🚚 Pris med frakt ○",
+    kompakt nok til å høre hjemme i selve headerraden."""
+    return (
+        f'<button type="button" class="ship-chip ship-chip-boxed" id="{id_attr}" aria-pressed="false">'
+        f'<span class="ship-chip-icon" aria-hidden="true">{TRUCK_ICON_SVG}</span>'
+        '<span class="ship-chip-label">Pris med frakt</span>'
+        '<span class="ship-chip-toggle" aria-hidden="true"></span>'
+        '</button>'
+    )
+
+
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False, qty_multi_inline: bool = True, qty_choices: tuple[int, ...] = (1, 2, 4, 6, 10), include_custom_pill: bool = True) -> tuple[str, str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple: vinnerkortet står i toppen av
     siden, antallsvelgeren (qty_box) som egen seksjon under.
 
@@ -3056,11 +3091,18 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         product_total = o["price_nok"] * qty
         return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
 
+    # "Eget antall"-pillen fjernet helt (Kai, 2026-09-27: "Ta bort Eget
+    # som valg av esker"), erstattet med en ny fast "8"-pille (samme dag,
+    # oppfølging: "Antall Esker overalt. 1,2,4,6,8,10, både på desktop
+    # og mobil") -- seks faste antall nå, på både mobil og desktop.
+    # Frakt-bryteren er samtidig flyttet UT av denne raden (se
+    # render_price_list()), så hele bredden er nå pillenes alene.
     pills = "".join(
         f'<button type="button" class="qty-pill{" is-active" if qty == 1 else ""}" data-qty="{qty}">{BOX_ICON_SVG}{qty}<span>{escape(unit_singular) if qty == 1 else escape(unit_plural)}</span></button>'
-        for qty in (1, 2, 4, 6, 10)
+        for qty in qty_choices
     )
-    pills += f'<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">{PENCIL_ICON_SVG}Eget<span>antall</span></button>'
+    if include_custom_pill:
+        pills += f'<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">{PENCIL_ICON_SVG}Eget<span>antall</span></button>'
 
     # Kompakt forhåndsvisning i selve <summary>-raden ("2 esker · 514 kr" osv.)
     # pluss en mer detaljert (butikk + frakt) rad per antall i den utvidbare
@@ -3105,41 +3147,28 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         })
     calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
 
-    # Frakt-bryteren flyttet inn hit, ved siden av antalls-tittelen
-    # (Product Mobile Gold Standard v1, 2026-09-27 -- Kai: "Pris med
-    # frakt"-bryteren skal stå til høyre for quantity-selector"). Var
-    # tidligere i render_price_list() sin .offers-head; ÉN #ship-chip
-    # totalt fortsatt (fjernet derfra, se render_price_list -- kun når
-    # show_ship_chip=False der OG include_ship_chip=True her, ellers ville
-    # BEGGE steder rendret en #ship-chip og gitt en duplisert id. KUN
-    # produktsiden bruker denne kombinasjonen i dag -- oppdaget som en
-    # ekte, allerede-eksisterende bug på linsevæske-/private label-sidene
-    # (id="ship-chip" fantes der to ganger) mens dette ble bygget videre på
-    # samme dag). Samme click-delegation i _QTY_CALC_SCRIPT
-    # (document-nivå, så inkludering/plassering krever ingen JS-endring).
-    #
-    # Egen boks med ikon/etikett/undertekst/ekte vippebryter (2026-09-27,
-    # etter mockup -- Kai: "Se også bokser og Frakt av og på knapp som
-    # ønskes"), IKKE lenger en enkel pille med en liten prikk. `.ship-chip`
-    # er fortsatt selve <button>-en (samme id, samme aria-pressed-mønster
-    # JS-en allerede styrer) -- kun det VISUELLE innholdet inni er nytt.
-    ship_chip = (
-        '<button type="button" class="ship-chip ship-chip-boxed" id="ship-chip" aria-pressed="false">'
-        f'<span class="ship-chip-icon" aria-hidden="true">{TRUCK_ICON_SVG}</span>'
-        '<span class="ship-chip-text"><span class="ship-chip-label">Pris med frakt</span>'
-        '<span class="ship-chip-sub">Vis totalpris inkl. frakt</span></span>'
-        '<span class="ship-chip-toggle" aria-hidden="true"></span>'
-        '</button>'
-    ) if include_ship_chip else ""
+    # Frakt-bryteren bodde tidligere her, ved siden av antallspillene
+    # (Product Mobile Gold Standard v1, 2026-09-27). Flyttet UT av
+    # quantity-området og inn i prislisteheaderen i stedet (Kai, samme
+    # dag, IMPORTANT UI CHANGE -- MOVE SHIPPING TOGGLE ONLY: "The toggle
+    # belongs to the price comparison section, because it controls
+    # which price basis is used for the comparison/ranking" -- gjelder
+    # nå BÅDE mobil og desktop, ikke lenger kun desktop som i en
+    # tidligere, siden overstyrt versjon av samme instruks). Se
+    # render_price_list()'s `product_ship_chip_html`-parameter og
+    # `_ship_chip_boxed_html()`. `qty-box-row` inneholder derfor nå KUN
+    # antallspillene.
+    custom_row_html = (
+        f'<div class="qty-custom-row" id="qty-custom-row" hidden>'
+        f'<input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}"></div>'
+        if include_custom_pill else ""
+    )
     qty_box = f"""<div class="qty-box">
     <div class="qty-box-title">Antall {escape(unit_plural)}</div>
     <div class="qty-box-row">
       <div class="qty-pills" id="qty-pills">{pills}</div>
-      {ship_chip}
     </div>
-    <div class="qty-custom-row" id="qty-custom-row" hidden>
-      <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}">
-    </div>
+    {custom_row_html}
     {qty_multi_html if qty_multi_inline else ""}
   </div>
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
@@ -3238,8 +3267,6 @@ _QTY_CALC_SCRIPT = r"""<script>
   var unitSingular = dataEl.getAttribute('data-unit-singular') || 'eske';
   var unitPlural = dataEl.getAttribute('data-unit-plural') || 'esker';
   var pills = document.querySelectorAll('.qty-pill');
-  var customRow = document.getElementById('qty-custom-row');
-  var customInput = document.getElementById('qty-custom-input');
   var labelEl = document.getElementById('winner-label');
   var retailerEl = document.getElementById('winner-retailer');
   var winnerLink = document.getElementById('winner-band-link');
@@ -3409,27 +3436,33 @@ _QTY_CALC_SCRIPT = r"""<script>
     }
   });
 
+  var customRow = document.getElementById('qty-custom-row');
+  var customInput = document.getElementById('qty-custom-input');
   for (var i = 0; i < pills.length; i++) {
     pills[i].addEventListener('click', function (e) {
       for (var j = 0; j < pills.length; j++) { pills[j].classList.remove('is-active'); }
       e.currentTarget.classList.add('is-active');
       var qty = e.currentTarget.getAttribute('data-qty');
       if (qty === 'custom') {
-        customRow.hidden = false;
-        customInput.focus();
-        var v = parseInt(customInput.value, 10);
-        if (v) { state.qty = v; render(); }
+        if (customRow) customRow.hidden = false;
+        if (customInput) {
+          customInput.focus();
+          var v = parseInt(customInput.value, 10);
+          if (v) { state.qty = v; render(); }
+        }
       } else {
-        customRow.hidden = true;
+        if (customRow) customRow.hidden = true;
         state.qty = parseInt(qty, 10);
         render();
       }
     });
   }
-  customInput.addEventListener('input', function () {
-    var v = parseInt(customInput.value, 10);
-    if (v && v > 0) { state.qty = v; render(); }
-  });
+  if (customInput) {
+    customInput.addEventListener('input', function () {
+      var v = parseInt(customInput.value, 10);
+      if (v && v > 0) { state.qty = v; render(); }
+    });
+  }
 
   function restoreChoice() {
     try { if (localStorage.getItem('kl_incl_shipping') === '1') setIncl(true, false); } catch (e) {}
@@ -3456,7 +3489,8 @@ def order_by_product_price(offers: list[dict]) -> list[dict]:
 
 def render_price_list(offers: list[dict], product_name: str, product_id: str, clickouts: dict | None,
                       title: str = "Sammenlign priser og butikker", show_ship_chip: bool = True,
-                      qty_unit_label: str | None = None, collapse_after: int | None = None) -> tuple[str, dict | None]:
+                      qty_unit_label: str | None = None, collapse_after: int | None = None,
+                      product_ship_chip_html: str | None = None) -> tuple[str, dict | None]:
     """Prislista med chippen "Pris inkludert frakt". Returnerer (html, ex_best) der ex_best er
     tilbudet med laveste PRODUKTPRIS (på lager) -- det toppknappen (render_winner_widget) skal
     peke på. Statisk standardvisning = uten frakt, antall 1; JS (_QTY_CALC_SCRIPT) tar resten.
@@ -3466,7 +3500,18 @@ def render_price_list(offers: list[dict], product_name: str, product_id: str, cl
     en dynamisk "Priser for 1 eske" (+ sorteringsetikett) i stedet for
     `title`, og collapse_after (f.eks. 3) skjuler resten av kortene bak en
     "Vis alle priser (X butikker)"-knapp. Begge er None/av som standard,
-    så linsevæske-/øyedråpe- og private label-alias-sidene er uendret."""
+    så linsevæske-/øyedråpe- og private label-alias-sidene er uendret.
+
+    product_ship_chip_html: kun produktsiden (Kai, 2026-09-27, "IMPORTANT
+    UI CHANGE -- MOVE SHIPPING TOGGLE ONLY": "The toggle belongs to the
+    price comparison section, because it controls which price basis is
+    used for the comparison/ranking" -- gjelder BÅDE mobil og desktop).
+    Den FERDIGBYGGEDE frakt-vippebryteren (`_ship_chip_boxed_html()`,
+    bygget i render_product_page()), rendres her, høyrejustert i
+    .offers-head ved siden av den dynamiske "Priser for X
+    esker"-overskriften. None/av som standard, så linsevæske-/
+    øyedråpe- og private label-alias-sidene (som fortsatt bruker den
+    enkle `show_ship_chip`/`chip`-mekanismen under) er uendret."""
     ordered = order_by_product_price(offers)
     ex_best = next((o for o in ordered if o["in_stock"]), None)
 
@@ -3483,9 +3528,17 @@ def render_price_list(offers: list[dict], product_name: str, product_id: str, cl
         '<button type="button" class="ship-chip" id="ship-chip" aria-pressed="false">'
         '<span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>'
     ) if (ordered and show_ship_chip) else ""
+    # "Sortert etter pris (uten frakt)"-etiketten er ERSTATTET av selve
+    # frakt-vippebryteren når den er til stede (Kai, 2026-09-27: "der
+    # hvor Sortert etter pris (uten frakt) står i dag som skal da
+    # erstattes med switchen") -- bryteren KOMMUNISERER allerede hvilken
+    # prisbasis lista er sortert etter (av/på), så en egen tekstetikett
+    # ved siden av er overflødig. Uendret (fortsatt med etiketten) for
+    # linsevæske-/øyedråpe-/private label-alias-sidene, som ikke har
+    # denne bryteren i headeren.
     header_html = (
         f'<h2>Priser for <span id="offers-qty-label">{escape(qty_unit_label)}</span></h2>'
-        f'<span class="offers-sort-label" id="offers-sort-label">Sortert etter pris (uten frakt)</span>'
+        + ("" if product_ship_chip_html else '<span class="offers-sort-label" id="offers-sort-label">Sortert etter pris (uten frakt)</span>')
         if qty_unit_label else f'<h2>{escape(title)}</h2>'
     )
     n_in_stock = len([o for o in ordered if o["in_stock"]])
@@ -3499,6 +3552,7 @@ def render_price_list(offers: list[dict], product_name: str, product_id: str, cl
     <div class="offers-head">
       {header_html}
       {chip}
+      {product_ship_chip_html or ""}
     </div>
     <div class="offers-list">{cards}</div>
     {show_more_html}
@@ -3801,7 +3855,8 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=3)
+    ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=3, product_ship_chip_html=ship_chip_html)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -3812,7 +3867,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
-    winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, include_ship_chip=True, qty_multi_inline=False)
+    winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, qty_multi_inline=False, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False)
     badges_html = _render_product_badges(product.get("specs", []))
     hero_facts_html = _hero_facts_html(product.get("specs", []), parsed[1] if parsed else None)
 
@@ -4172,21 +4227,19 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   .hero-fact-sep {{ color: var(--border); }}
   .product-stage .hero-product-image {{ grid-area: image; align-self: center; width: 100%; height: 320px; max-width: none; margin: 0; }}
   .product-stage > .qty-box {{ grid-area: controls; align-self: start; border: none; background: transparent; padding: 0; margin: 0; }}
-  /* Kompakte, faste pillestørrelser (56-64x44-48px, "Eget" 80-96px) --
-     IKKE den elastiske repeat(5/6, 1fr)-grid-en fra mobil, som ville
-     strukket pillene til å fylle hele den nå mye smalere midtkolonnen.
-     Valgt tilstand er blek mint/grønn kant/mørk tekst her, IKKE den
-     blå gradienten fra mobil-pillene (Kai, punkt 6: "Remove the bright
-     blue gradient selected state on desktop"). */
+  /* Kompakte, faste pillestørrelser (56-64x44-48px) -- IKKE den
+     elastiske repeat(6, 1fr)-grid-en fra mobil, som ville strukket
+     pillene til å fylle hele den nå mye smalere midtkolonnen. Valgt
+     tilstand er blek mint/grønn kant/mørk tekst her, IKKE den blå
+     gradienten fra mobil-pillene (Kai, punkt 6: "Remove the bright
+     blue gradient selected state on desktop"). Frakt-vippebryteren
+     bodde tidligere i denne raden også (`.qty-box-row`) -- flyttet til
+     prislisteheaderen på BÅDE mobil og desktop nå (se
+     render_price_list()), så raden inneholder kun pillene igjen. */
   .product-stage .qty-pills {{ display: flex; flex-wrap: wrap; gap: 8px; }}
   .product-stage .qty-pill {{ width: 60px; height: 46px; padding: 0; box-shadow: none; }}
-  .product-stage .qty-pill#qty-pill-custom {{ width: 88px; }}
   .product-stage .qty-pill.is-active {{ background: var(--mint-tint); border-color: var(--mint); color: var(--ink); box-shadow: none; }}
   .product-stage .qty-pill.is-active span {{ color: var(--muted); }}
-  /* Fraktbryteren ved siden av pillene når det er plass, ellers bryter
-     den ned til egen linje (Kai, punkt 7: "not at the far right edge
-     of the entire page" -- begge oppsett eksplisitt godkjent). */
-  .product-stage .qty-box-row {{ flex-wrap: wrap; row-gap: 12px; }}
   .product-stage .winner-band {{ grid-area: price; align-self: center; margin: 0; width: 100%; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 24px 18px 18px; }}
   .product-stage .winner-left {{ flex-direction: column; align-items: center; gap: 0; }}
   .product-stage .winner-trophy {{ position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }}

@@ -3621,3 +3621,65 @@ krysspåvirkning.
 kun CSS-layout (grid i stedet for flex/flex-kolonne) og typografi-
 justeringer på eksisterende, allerede-rendrede elementer. Samme
 elementer, samme DOM-noder, ny visuell plassering >=860px.
+
+## Produktsiden: fraktbryteren flyttet til prislisteheaderen, "Eget antall" fjernet, ny "8"-pille (2026-09-27, samme dag)
+
+Kai, i tre oppfølgende meldinger: (1) en "DESKTOP ONLY"-korreksjon om å
+flytte "Pris med frakt"-bryteren ut av quantity-området og inn i
+"Sammenlign priser"-headeren, (2) en MYE mer detaljert "MOVE SHIPPING
+TOGGLE ONLY"-spec som OPPHEVET desktop-begrensningen ("This change
+applies to: DESKTOP AND MOBILE") og i tillegg ba om at "Eget" fjernes
+som antallsvalg, og (3) en siste presisering: erstatt "8" for "Eget" i
+tallrekken (1,2,4,6,8,10 -- ikke lenger 1,2,4,6,10), og at
+"Sortert etter pris (uten frakt)"-etiketten (der bryteren nå havner)
+skal ERSTATTES av selve bryteren, ikke stå ved siden av den.
+
+- **Frakt-bryteren flyttet fysisk** fra `.qty-box-row` (ved siden av
+  antallspillene) til `.offers-head` i `render_price_list()` -- samme
+  DOM-node, samme `id="ship-chip"`, samme click-delegasjon i
+  `_QTY_CALC_SCRIPT` (ingen JS-endring nødvendig der). Ny, delt
+  hjelpefunksjon `_ship_chip_boxed_html()` (var tidligere inline i
+  `render_winner_widget()`) -- mistet også undertekst-linjen ("Vis
+  totalpris inkl. frakt", Kai eksplisitt: "we do not need the current
+  secondary line... Simply show: 🚚 Pris med frakt ○"). Ny
+  `render_price_list()`-parameter `product_ship_chip_html` (kun
+  produktsiden -- linsevæske-/øyedråpe-/private label-alias-sidene
+  beholder sin egen, enkle, urørte "Pris inkludert frakt"-chip via den
+  eksisterende `show_ship_chip`-mekanismen).
+- **"Sortert etter pris"-etiketten fjernet** (KUN når
+  `product_ship_chip_html` er satt) -- bryteren selv kommuniserer
+  allerede hvilken prisbasis lista er sortert etter.
+- **"Eget antall" fjernet på produktsiden**, erstattet av en ny fast
+  "8"-pille -- seks faste antall nå (1/2/4/6/8/10), på både mobil og
+  desktop. `render_winner_widget()` fikk to nye parametre,
+  `qty_choices`/`include_custom_pill` (standard uendret:
+  `(1,2,4,6,10)`/`True`, for å IKKE påvirke linsevæske-/øyedråpe-/
+  private label-alias-sidene), og produktsiden sender inn
+  `qty_choices=(1,2,4,6,8,10), include_custom_pill=False`.
+- **Nesten-feil, fanget under testing**: `.qty-pills`-grid-regelen ble
+  først forsøkt gjort unconditional `repeat(6, 1fr)` og scoped via
+  `.wrap-product .qty-pills` -- men `.wrap-product` viste seg (grep
+  bekreftet) å være DELT av `render_solution_product_page()`,
+  `render_private_label_page()` OG `render_family_page()`, ikke
+  eksklusiv for produktsiden slik en eldre kommentar hevdet! Dette
+  ville ha lekket 6-pille-gridet (feil for disse sidene, som fortsatt
+  har 5 faste + "Eget" = 6 KUN >=640px, 5 under) inn på tre urelaterte
+  sidetyper. Fikset ved å scope via `.product-stage` i stedet -- den
+  klassen finnes bekreftet KUN i `render_product_page()` sin egen DOM
+  (innført i forrige runde som en usynlig wrapper-div, tilstede
+  uansett skjermbredde), null krysspåvirkning. **Lærdom: `.wrap-product`
+  er IKKE trygt å anta er produktside-eksklusiv i denne kodebasen --
+  `.product-stage` er derimot bekreftet det.**
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen Traceback/
+NameError. Produktsiden (mobil 320/375px OG desktop 1440px): 6 piller
+(1,2,4,6,8,10), ingen "Eget", fraktbryter nå i prislisteheaderen
+(bekreftet funksjonell -- klikk re-sorterer, endrer Winner Card-
+heading til "Lavest totalpris", localStorage-tilstand bekreftet delt
+mellom mobil- og desktop-visning av SAMME knapp), ingen
+"Sortert etter"-tekst lenger, ingen horisontal overflow. Linsevæske-
+siden (320px OG 700px): uendret -- 5 piller + "Eget" (skjult <640px,
+bekreftet `display:none`→`block`), egen `#qty-custom-input` fortsatt
+funksjonell (klikk på "Eget" åpner og fokuserer feltet), egen enkle
+frakt-chip urørt. Private label-siden: samme, uendret (1,2,4,6,10,
+custom).
