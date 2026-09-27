@@ -290,7 +290,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     brand_labels = {p["brand_slug"]: p["brand_label"] for p in lens_products}
     for brand_slug, brand_label in brand_labels.items():
         products_for_brand = [p for p in lens_products if p["brand_slug"] == brand_slug]
-        html = render_brand_page(brand_slug, brand_label, products_for_brand, catalog["categories"], now)
+        html = render_brand_page(brand_slug, brand_label, products_for_brand, catalog["categories"], product_families, now)
         out_path = BUILD_DIR / "merke" / brand_slug / "index.html"
         write_file(out_path, html)
         print(f"  merke    -> /merke/{brand_slug}/")

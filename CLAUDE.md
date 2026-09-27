@@ -2167,3 +2167,58 @@ Fjernet samtidig en unødvendig `.guide-photo-grid`-brekkpunkt-kvirk (gikk
 til 1 kolonne ved ≥900px, tilbake til 3 ved ≥1200px -- en rest fra før
 boksen fikk fast bredde i to-kolonners raden) til bare "3 kolonner fra
 640px og oppover", som stemmer bedre med den nye faste boks-bredden.
+
+## Merke-sidene (/merke/{slug}/) fikk samme løft som serie-sidene (2026-09-27)
+
+Kai: "https://kontaktlinser.no/merke/acuvue/ jeg tenker tilsvarende her også,
+og ikke bare på serier" + en lang, pastet AI-samtale med et fullt forslag
+("brand intelligence page" -- serie-navigasjon, sammenligningstabell på
+tvers av serier, pris-intelligens, materialkunnskapsgraf, FAQ-regelmotor,
+omorganisert katalog).
+
+**Bygget** (ny `_brand_family_summary()` + utvidet `render_brand_page()`,
+signatur endret til å ta imot `product_families` fra `generate_pages.py`):
+- Stat-piller i heroen (produkter/serier/linsetyper), samme mønster som
+  serie-siden sine, egne `brand-*`-klassenavn.
+- "Utforsk {merke}-seriene" -- kort per ekte serie fra product_families.json
+  (samme kuraterte data som `/serie/`-sidene, ingen ny datakilde), med
+  bilde, behov, pakninger og fra-pris. Lenker til den ekte `/serie/`-siden.
+- "{Merke} i korte trekk" -- ikon-fliser (produsent, produkter, linsetyper,
+  materialer, "oppdateres daglig").
+- "Slik skiller {merke}-seriene seg" -- sammenligningstabell PÅ TVERS av
+  seriene (én rad per serie: bruk/materiale/vanninnhold/pakninger/fra pris),
+  viser ærlig "–" der materiale/vanninnhold IKKE er likt på tvers av en
+  series egne medlemmer (f.eks. Acuvue Oasys 1-Day with Hydraluxe sin
+  material-kolonne), ingen gjetting.
+- "{Merke}-priser akkurat nå" -- 3 pris-intelligens-tall (laveste pris,
+  laveste pris per linse, antall butikker) regnet ut på tvers av HELE
+  merkets produkter (også frittstående produkter uten egen serie).
+- FAQ-regelmotor (gjenbruker `_render_family_faq_accordion()` fra
+  serie-siden direkte, egen kategorisering "Merke og serier ·
+  Spesifikasjoner · Pris og butikker") -- 4-9 spørsmål avhengig av faktisk
+  data, samme "aldri fyll ut"-prinsipp.
+
+**Adaptivt** (Kai sitt eget krav i forslaget): et merke uten noen ekte
+serie (product_families.json har ingen familie med ≥2 av merkets produkter,
+f.eks. FreshLook med kun 1 produkt) viser INGEN serie-navigasjon eller
+sammenligningstabell -- testet eksplisitt, degraderer til stat-piller +
+korte fakta + pris-intelligens + en kortere FAQ.
+
+**Bevisst UTELATT** (dokumentert i funksjonens docstring også):
+- "Materialer og teknologier"-seksjonen med "Les om materialet →"/"Hva
+  betyr det? →"-lenker til egne materialsider (LACREON, HYDRACLEAR PLUS
+  osv.) -- vi har ingen slike sider. Samme begrunnelse som
+  materialglossaret som ble utelatt fra serie-siden sin FAQ samme dag.
+- Full omorganisering av selve produktkatalogen (gruppert per serie med
+  sorteringsvalg) -- den eksisterende flate rutenett+kategorifilter-
+  løsningen (fungerende JS) er beholdt UENDRET, bare flyttet lenger ned
+  under de nye seksjonene. Verifisert at kategorifilteret fortsatt
+  fungerer etter flyttingen.
+- Prishistorikk/trend for merket ("Acuvue-prisutvikling siste 90 dager") --
+  mulig gjenbruk av `_family_price_insight_data()`-mønsteret senere, ikke
+  bygget nå.
+
+Testet: Acuvue (4 serier, 21 produkter, blandet materialdekning) og
+FreshLook (0 serier, 1 produkt) -- begge bygger korrekt, FAQPage-schema
+validert gyldig JSON på tvers av alle 30 merke-sider, ingen horisontal
+overflow på mobil (375px) eller desktop.
