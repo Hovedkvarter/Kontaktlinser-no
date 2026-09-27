@@ -337,6 +337,26 @@ a { color: inherit; }
 .price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 
+
+.guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+.guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
+.guide-tile:hover { border-color: var(--blue); }
+.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.guide-tile-icon svg { width: 28px; height: 28px; }
+.guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+.guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
+.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
+@media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
+.guide-photo-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
+.guide-photo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
+.guide-photo-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.guide-photo-card-body { padding: 14px 16px 16px; }
+.guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.35; }
+.guide-photo-card-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
+.guide-photo-card-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
+
 /* Merke-siden sitt løft (2026-09-27, samme dag som serie-siden sin
    FAQ-regelmotor) -- egne brand-*-klassenavn (ikke gjenbruk av
    serie-siden sine serie-*-klassenavn, selv der mønsteret er identisk)
@@ -431,6 +451,52 @@ a { color: inherit; }
   .brand-hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }
   .brand-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 }
+.brand-hero-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 14px 0 10px; }
+.brand-hero-cta:hover { opacity: 0.92; }
+/* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
+   frittstaende kort rett under heroen, IKKE de tidligere sma pillene
+   inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
+.brand-facts-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
+@media (min-width: 640px) { .brand-facts-row { grid-template-columns: repeat(4, 1fr); } }
+.brand-facts-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }
+.brand-facts-card-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.brand-facts-card-icon svg { width: 15px; height: 15px; }
+.brand-facts-card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); line-height: 1.25; }
+.brand-facts-card-label { font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+@media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+.brand-sortiment-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.brand-sortiment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.brand-sortiment-card-count { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }
+.brand-sortiment-card-label { font-weight: 600; font-size: 0.9rem; margin-top: 2px; }
+.brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.brand-sortiment-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }
+.brand-3090-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-3090-card p { margin: 0 0 14px; font-size: 0.9rem; line-height: 1.6; color: var(--ink); }
+.brand-3090-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.brand-3090-tile { background: var(--mist); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.brand-3090-tile strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }
+.brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+.brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
+.brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+@media (min-width: 640px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
+.brand-material-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
+.brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
+.brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+.brand-manufacturer-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-manufacturer-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+.brand-manufacturer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }
+.brand-manufacturer-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-top: 8px; text-decoration: none; }
+.brand-trust { margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.brand-trust h2 { font-size: 1rem; margin: 0 0 14px; }
+.brand-trust-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .brand-trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-trust-grid { grid-template-columns: repeat(4, 1fr); } }
+.brand-trust-item strong { display: block; font-size: 0.85rem; color: var(--ink); margin-bottom: 3px; }
+.brand-trust-item p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.brand-trust-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }
+.brand-trust-links a { font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -836,6 +902,7 @@ a { color: inherit; }
           <div class="kicker">Merke</div>
           <h1>ClearLab</h1>
           <p>ClearLab er en linseserie med dagslinser. Vi følger prisen på 1 produkt, sortert etter lavest pris.</p>
+          <a class="brand-hero-cta" href="#produkter">Se alle ClearLab-produkter →</a>
           
         </div>
       </div>
@@ -846,14 +913,20 @@ a { color: inherit; }
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
       </picture>
     </div>
-    <div class="brand-stat-pills"><div class="brand-stat-pill">
-    <span class="brand-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></span>
-    <div><div class="brand-stat-label">1 produkt</div></div>
-  </div><div class="brand-stat-pill">
-    <span class="brand-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></span>
-    <div><div class="brand-stat-label">Dagslinser</div></div>
-  </div></div>
   </div>
+  <div class="brand-facts-row"><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-value">1 produkt</div>
+    
+  </div><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-value">Dagslinser</div>
+    
+  </div><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
+    <div class="brand-facts-card-value">1 butikk</div>
+    <div class="brand-facts-card-label">Med ClearLab-produkter akkurat nå</div>
+  </div></div>
 
   
   <div class="brand-insight-row"><div class="price-insight">
@@ -932,25 +1005,8 @@ a { color: inherit; }
       <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>1</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>8,2 kr per linse</strong><span>Laveste pris per linse -- Clear 1-day 30-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>1 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li>
     </ul>
   </div></div>
-  
-  <div class="faq-section">
-    <h2>Ofte stilte spørsmål om ClearLab</h2>
-    <div class="faq-category">
-    <div class="faq-category-label">Pris og butikker</div>
-    <details class="faq-accordion-item">
-    <summary>Hva er billigst i ClearLab-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Clear 1-day 30-pack er billigst akkurat nå, fra 247 kr hos Lenson (uten frakt).</p>
-  </details><details class="faq-accordion-item">
-    <summary>Hvilken ClearLab-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Clear 1-day 30-pack har lavest pris per linse akkurat nå, ca. 8,2 kr per linse (uten frakt).</p>
-  </details><details class="faq-accordion-item">
-    <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no ClearLab?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Vi sammenligner ClearLab hos 1 norske nettbutikker til sammen, på tvers av alle 1 produktene vi følger.</p>
-  </details>
-  </div>
-  </div>
 
-  <h2>Alle ClearLab-produkter</h2>
+  <h2 id="produkter">Alle ClearLab-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
     <button class="chip" data-category="dagslinser">Dagslinser</button>
@@ -976,6 +1032,60 @@ a { color: inherit; }
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
 
+  
+  
+  
+  
+  <div class="faq-section">
+    <h2>Ofte stilte spørsmål om ClearLab</h2>
+    <div class="faq-category">
+    <div class="faq-category-label">Pris og butikker</div>
+    <details class="faq-accordion-item">
+    <summary>Hva er billigst i ClearLab-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Clear 1-day 30-pack er billigst akkurat nå, fra 247 kr hos Lenson (uten frakt).</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hvilken ClearLab-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Clear 1-day 30-pack har lavest pris per linse akkurat nå, ca. 8,2 kr per linse (uten frakt).</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no ClearLab?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Vi sammenligner ClearLab hos 1 norske nettbutikker til sammen, på tvers av alle 1 produktene vi følger.</p>
+  </details>
+  </div>
+  </div>
+  <h2>Nyttige ressurser</h2>
+  <p class="brand-section-lead">Artikler, forklaringer og guider som hjelper deg å ta gode valg.</p>
+  <div class="guide-grid">
+    <a class="guide-photo-card" href="/guide/hvordan-velge-kontaktlinser/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/hvordan-velge-kontaktlinser.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Hvordan velge kontaktlinser</div>
+    <div class="guide-photo-card-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a><a class="guide-photo-card" href="/guide/hvordan-bruke-kontaktlinser/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/hvordan-bruke-kontaktlinser.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Hvordan sette inn og ta ut kontaktlinser</div>
+    <div class="guide-photo-card-desc">Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a><a class="guide-photo-card" href="/guide/bc-forklart/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/bc-forklart.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Hva betyr BC på kontaktlinser?</div>
+    <div class="guide-photo-card-desc">BC (base-kurve) er krumningen på baksiden av kontaktlinsen, og må passe formen på din egen hornhinne.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a>
+  </div>
+  
+
   <p class="disclosure">
     Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
     via lenkene på produktsidene, men det påvirker ikke prisen du betaler
@@ -983,18 +1093,32 @@ a { color: inherit; }
   </p>
 
   
+
+  <div class="brand-trust">
+    <h2>Om informasjonen på denne siden</h2>
+    <div class="brand-trust-grid">
+      <div class="brand-trust-item"><strong>Produktinformasjon</strong><p>Basert på dokumenterte produsentspesifikasjoner og vår produktdatabase.</p></div>
+      <div class="brand-trust-item"><strong>Priser</strong><p>Hentes fra norske nettbutikker og oppdateres daglig.</p></div>
+      <div class="brand-trust-item"><strong>Kommersielle lenker</strong><p>Vi kan motta provisjon når du går videre til en butikk. Dette påvirker aldri prisrekkefølgen.</p></div>
+      <div class="brand-trust-item"><strong>Sammenligning</strong><p>Pris per linse beregnes fra pakningsstørrelse. Totalpris inkluderer frakt der fraktdata er tilgjengelig.</p></div>
+    </div>
+    <p class="brand-trust-links">
+      <a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser →</a>
+      <a href="/redaksjonelle-prinsipper/">Redaksjonelle prinsipper →</a>
+      <a href="/om-oss/">Om Kontaktlinser.no →</a>
+    </p>
+  </div>
 </div>
 
 <script>
   const filterRow = document.getElementById('filter-row');
   const list = document.getElementById('product-list');
 
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
+  function applyBrandFilter(category) {
+    const btn = filterRow.querySelector('.chip[data-category="' + category + '"]');
     if (!btn) return;
     filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
-    const category = btn.dataset.category;
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
       const show = category === 'all' || card.dataset.category === category;
@@ -1002,6 +1126,27 @@ a { color: inherit; }
       if (show) visible++;
     });
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }
+
+  // "Sortimentet forklart" sine "Se X →"-kort lenker til
+  // #<kategori-slug> -- samme filter-rad som allerede finnes ved
+  // produktlisten, ikke en egen side. Kjøres på lasting hvis siden åpnes
+  // direkte med et slikt hash (f.eks. fra en ekstern lenke).
+  const initialCategory = window.location.hash.replace('#', '');
+  if (initialCategory && filterRow.querySelector('.chip[data-category="' + initialCategory + '"]')) {
+    applyBrandFilter(initialCategory);
+  }
+  document.querySelectorAll('.brand-sortiment-card').forEach(card => {
+    card.addEventListener('click', () => {
+      applyBrandFilter(card.dataset.category);
+      document.getElementById('produkter').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  filterRow.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    applyBrandFilter(btn.dataset.category);
   });
 </script>
 <footer class="site-footer">

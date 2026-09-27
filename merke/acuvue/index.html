@@ -387,6 +387,26 @@ a { color: inherit; }
 .price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 
+
+.guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+.guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
+.guide-tile:hover { border-color: var(--blue); }
+.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.guide-tile-icon svg { width: 28px; height: 28px; }
+.guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+.guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
+.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
+@media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
+.guide-photo-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
+.guide-photo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
+.guide-photo-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.guide-photo-card-body { padding: 14px 16px 16px; }
+.guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.35; }
+.guide-photo-card-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
+.guide-photo-card-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
+
 /* Merke-siden sitt løft (2026-09-27, samme dag som serie-siden sin
    FAQ-regelmotor) -- egne brand-*-klassenavn (ikke gjenbruk av
    serie-siden sine serie-*-klassenavn, selv der mønsteret er identisk)
@@ -481,6 +501,52 @@ a { color: inherit; }
   .brand-hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }
   .brand-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 }
+.brand-hero-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 14px 0 10px; }
+.brand-hero-cta:hover { opacity: 0.92; }
+/* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
+   frittstaende kort rett under heroen, IKKE de tidligere sma pillene
+   inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
+.brand-facts-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
+@media (min-width: 640px) { .brand-facts-row { grid-template-columns: repeat(4, 1fr); } }
+.brand-facts-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }
+.brand-facts-card-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.brand-facts-card-icon svg { width: 15px; height: 15px; }
+.brand-facts-card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); line-height: 1.25; }
+.brand-facts-card-label { font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+@media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+.brand-sortiment-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
+.brand-sortiment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.brand-sortiment-card-count { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }
+.brand-sortiment-card-label { font-weight: 600; font-size: 0.9rem; margin-top: 2px; }
+.brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.brand-sortiment-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }
+.brand-3090-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-3090-card p { margin: 0 0 14px; font-size: 0.9rem; line-height: 1.6; color: var(--ink); }
+.brand-3090-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.brand-3090-tile { background: var(--mist); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.brand-3090-tile strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }
+.brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+.brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
+.brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+@media (min-width: 640px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
+.brand-material-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
+.brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
+.brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+.brand-manufacturer-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-manufacturer-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+.brand-manufacturer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }
+.brand-manufacturer-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-top: 8px; text-decoration: none; }
+.brand-trust { margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.brand-trust h2 { font-size: 1rem; margin: 0 0 14px; }
+.brand-trust-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .brand-trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-trust-grid { grid-template-columns: repeat(4, 1fr); } }
+.brand-trust-item strong { display: block; font-size: 0.85rem; color: var(--ink); margin-bottom: 3px; }
+.brand-trust-item p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.brand-trust-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }
+.brand-trust-links a { font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 </style>
 </head>
 <body>
@@ -886,6 +952,7 @@ a { color: inherit; }
           <div class="kicker">Merke</div>
           <h1>Acuvue</h1>
           <p>Acuvue er en linseserie fra Johnson &amp; Johnson Vision med dagslinser, multifokale linser, månedslinser og toriske linser. Vi følger prisen på 21 produkter, fordelt på 4 serier, sortert etter lavest pris.</p>
+          <a class="brand-hero-cta" href="#produkter">Se alle Acuvue-produkter →</a>
           <p style="margin-top:8px;"><a href="/produsent/jnj-vision/" style="font-size:0.9rem;color:var(--muted);">Produsert av Johnson &amp; Johnson Vision →</a></p>
         </div>
       </div>
@@ -896,17 +963,24 @@ a { color: inherit; }
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
       </picture>
     </div>
-    <div class="brand-stat-pills"><div class="brand-stat-pill">
-    <span class="brand-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></span>
-    <div><div class="brand-stat-label">21 produkter</div></div>
-  </div><div class="brand-stat-pill">
-    <span class="brand-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></span>
-    <div><div class="brand-stat-label">4 serier</div></div>
-  </div><div class="brand-stat-pill">
-    <span class="brand-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></span>
-    <div><div class="brand-stat-label">4 linsetyper</div><div class="brand-stat-value">Dagslinser · Multifokale linser · Månedslinser · Toriske linser</div></div>
-  </div></div>
   </div>
+  <div class="brand-facts-row"><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-value">21 produkter</div>
+    
+  </div><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-value">4 serier</div>
+    
+  </div><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-value">4 linsetyper</div>
+    <div class="brand-facts-card-label">Dagslinser · Multifokale linser · Månedslinser · Toriske linser</div>
+  </div><div class="brand-facts-card">
+    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
+    <div class="brand-facts-card-value">9 butikker</div>
+    <div class="brand-facts-card-label">Med Acuvue-produkter akkurat nå</div>
+  </div></div>
 
   <h2>Utforsk Acuvue-seriene</h2>
   <p class="brand-section-lead">Acuvue er delt inn i 4 produktserier -- velg den som passer ditt behov.</p>
@@ -1197,85 +1271,11 @@ a { color: inherit; }
 </div><div class="brand-facts">
     <h2>Kort om Acuvue</h2>
     <ul class="brand-facts-list">
-      <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>21</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Johnson &amp; Johnson Vision</strong><span>Produsent</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser, Multifokale linser, Månedslinser, Toriske linser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>5 ulike</strong><span>Materialer</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>6,7 kr per linse</strong><span>Laveste pris per linse -- 1-Day Acuvue Moist 90-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>9 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li>
+      <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>21</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Johnson &amp; Johnson Vision</strong><span>Produsent</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser, Multifokale linser, Månedslinser, Toriske linser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>5 ulike</strong><span>Materialer</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>6,7 kr per linse</strong><span>Laveste pris per linse -- 1-Day Acuvue Moist 90-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>9 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>54 %</strong><span>Størst prisforskjell mellom butikker -- Acuvue Oasys 1-Day with Hydraluxe 30-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>7 butikker</strong><span>Flest butikker -- 1-Day Acuvue Moist 30-pack</span></div></li>
     </ul>
   </div></div>
-  <h2>Slik skiller Acuvue-seriene seg</h2>
-  <p class="brand-section-lead">4 serier, til sammen 20 av 21 Acuvue-produkter. Ytterligere 1 produkt står utenfor disse seriene, se hele listen nederst.</p>
-  <div class="brand-compare-card">
-    <div style="overflow-x:auto;">
-      <table class="spec-table">
-        <thead><tr><th>Serie</th><th>Produkter</th><th>Bruk</th><th>Materiale</th><th>Vanninnhold</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr></thead>
-        <tbody><tr>
-      <th scope="row" class="spec-label"><a href="/serie/acuvue-moist/">1-Day Acuvue Moist</a></th>
-      <td class="spec-value">6</td>
-      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Etafilcon A med LACREON-teknologi</td><td class="spec-value">58 %</td>
-      <td class="spec-value">30/90</td>
-      <td class="spec-value">232 kr</td>
-    </tr><tr>
-      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys/">Acuvue Oasys</a></th>
-      <td class="spec-value">3</td>
-      <td class="spec-value">Multifokale linser · Månedslinser · Toriske linser</td><td class="spec-value">Senofilcon A (silikonhydrogel)</td><td class="spec-value">38 %</td>
-      <td class="spec-value">6</td>
-      <td class="spec-value">262 kr</td>
-    </tr><tr>
-      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-1day-hydraluxe/">Acuvue Oasys 1-Day with Hydraluxe</a></th>
-      <td class="spec-value">5</td>
-      <td class="spec-value">Dagslinser · Toriske linser</td><td class="spec-value">–</td><td class="spec-value">38 %</td>
-      <td class="spec-value">30/90/180</td>
-      <td class="spec-value">269 kr</td>
-    </tr><tr>
-      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-max-1day/">Acuvue Oasys MAX 1-Day</a></th>
-      <td class="spec-value">6</td>
-      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Senofilcon A med TearStable-teknologi</td><td class="spec-value">38 %</td>
-      <td class="spec-value">30/90</td>
-      <td class="spec-value">337 kr</td>
-    </tr></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="faq-section">
-    <h2>Ofte stilte spørsmål om Acuvue</h2>
-    <div class="faq-category">
-    <div class="faq-category-label">Merke og serier</div>
-    <details class="faq-accordion-item">
-    <summary>Hvem produserer Acuvue?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Acuvue produseres av Johnson &amp; Johnson Vision.</p>
-  </details><details class="faq-accordion-item">
-    <summary>Hvilke Acuvue-serier finnes?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Acuvue finnes som følgende serier hos oss: 1-Day Acuvue Moist, Acuvue Oasys, Acuvue Oasys 1-Day with Hydraluxe, Acuvue Oasys MAX 1-Day. Se tabellen under for hvordan de skiller seg.</p>
-  </details><details class="faq-accordion-item">
-    <summary>Finnes Acuvue for astigmatisme?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Ja, Acuvue har toriske varianter laget for astigmatisme. Se sammenligningen under for hvilke serier som har dette.</p>
-  </details><details class="faq-accordion-item">
-    <summary>Finnes Acuvue som multifokale linser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Ja, Acuvue har multifokale varianter for alderssyn (presbyopi). Se sammenligningen under for hvilke serier som har dette.</p>
-  </details><details class="faq-accordion-item">
-    <summary>Har Acuvue både dagslinser og månedslinser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Ja, Acuvue-sortimentet vårt dekker både dagslinser (kastes hver dag) og månedslinser (gjenbrukes med rengjøring). Se seriene over for hvilken som er hvilken.</p>
-  </details>
-  </div><div class="faq-category">
-    <div class="faq-category-label">Spesifikasjoner</div>
-    <details class="faq-accordion-item">
-    <summary>Hvilke materialer brukes i Acuvue-linser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>De Acuvue-produktene vi følger er laget av Etafilcon A med LACREON-teknologi, Senofilcon A (silikonhydrogel), Senofilcon A med Hydraluxe-teknologi, Senofilcon A med TearStable-teknologi, Senofilcon C (silikonhydrogel). Materialet varierer mellom seriene, se tabellen over.</p>
-  </details>
-  </div><div class="faq-category">
-    <div class="faq-category-label">Pris og butikker</div>
-    <details class="faq-accordion-item">
-    <summary>Hva er billigst i Acuvue-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>1-Day Acuvue Moist 30-pack er billigst akkurat nå, fra 232 kr hos Lenson (uten frakt).</p>
-  </details><details class="faq-accordion-item">
-    <summary>Hvilken Acuvue-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>1-Day Acuvue Moist 90-pack har lavest pris per linse akkurat nå, ca. 6,7 kr per linse (uten frakt).</p>
-  </details><details class="faq-accordion-item">
-    <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no Acuvue?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Vi sammenligner Acuvue hos 9 norske nettbutikker til sammen, på tvers av alle 21 produktene vi følger.</p>
-  </details>
-  </div>
-  </div>
 
-  <h2>Alle Acuvue-produkter</h2>
+  <h2 id="produkter">Alle Acuvue-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
     <button class="chip" data-category="dagslinser">Dagslinser</button><button class="chip" data-category="manedslinser">Månedslinser</button><button class="chip" data-category="multifokale-linser">Multifokale linser</button><button class="chip" data-category="toriske-linser">Toriske linser</button>
@@ -1541,6 +1541,173 @@ a { color: inherit; }
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
 
+  <h2>Acuvue-sortimentet forklart</h2>
+  <p class="brand-section-lead">4 kategorier med til sammen 21 produkter -- velg den som passer ditt behov.</p>
+  <div class="brand-sortiment-grid">
+    <a class="brand-sortiment-card" href="#dagslinser" data-category="dagslinser">
+    <div class="brand-sortiment-card-count">7</div>
+    <div class="brand-sortiment-card-label">Dagslinser</div>
+    <div class="brand-sortiment-card-series">1-Day Acuvue Moist · Acuvue Oasys 1-Day with Hydraluxe · Acuvue Oasys MAX 1-Day</div>
+    <div class="brand-sortiment-card-link">Se dagslinser →</div>
+  </a><a class="brand-sortiment-card" href="#manedslinser" data-category="manedslinser">
+    <div class="brand-sortiment-card-count">2</div>
+    <div class="brand-sortiment-card-label">Månedslinser</div>
+    <div class="brand-sortiment-card-series">Acuvue Oasys</div>
+    <div class="brand-sortiment-card-link">Se månedslinser →</div>
+  </a><a class="brand-sortiment-card" href="#multifokale-linser" data-category="multifokale-linser">
+    <div class="brand-sortiment-card-count">6</div>
+    <div class="brand-sortiment-card-label">Multifokale linser</div>
+    <div class="brand-sortiment-card-series">1-Day Acuvue Moist · Acuvue Oasys · Acuvue Oasys MAX 1-Day</div>
+    <div class="brand-sortiment-card-link">Se multifokale linser →</div>
+  </a><a class="brand-sortiment-card" href="#toriske-linser" data-category="toriske-linser">
+    <div class="brand-sortiment-card-count">6</div>
+    <div class="brand-sortiment-card-label">Toriske linser</div>
+    <div class="brand-sortiment-card-series">1-Day Acuvue Moist · Acuvue Oasys · Acuvue Oasys 1-Day with Hydraluxe · Acuvue Oasys MAX 1-Day</div>
+    <div class="brand-sortiment-card-link">Se toriske linser →</div>
+  </a>
+  </div>
+  <h2>Slik skiller Acuvue-seriene seg</h2>
+  <p class="brand-section-lead">4 serier, til sammen 20 av 21 Acuvue-produkter. Ytterligere 1 produkt står utenfor disse seriene, se hele listen nederst.</p>
+  <div class="brand-compare-card">
+    <div style="overflow-x:auto;">
+      <table class="spec-table">
+        <thead><tr><th>Serie</th><th>Produkter</th><th>Bruk</th><th>Materiale</th><th>Vanninnhold</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr></thead>
+        <tbody><tr>
+      <th scope="row" class="spec-label"><a href="/serie/acuvue-moist/">1-Day Acuvue Moist</a></th>
+      <td class="spec-value">6</td>
+      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Etafilcon A med LACREON-teknologi</td><td class="spec-value">58 %</td>
+      <td class="spec-value">30/90</td>
+      <td class="spec-value">232 kr</td>
+    </tr><tr>
+      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys/">Acuvue Oasys</a></th>
+      <td class="spec-value">3</td>
+      <td class="spec-value">Multifokale linser · Månedslinser · Toriske linser</td><td class="spec-value">Senofilcon A (silikonhydrogel)</td><td class="spec-value">38 %</td>
+      <td class="spec-value">6</td>
+      <td class="spec-value">262 kr</td>
+    </tr><tr>
+      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-1day-hydraluxe/">Acuvue Oasys 1-Day with Hydraluxe</a></th>
+      <td class="spec-value">5</td>
+      <td class="spec-value">Dagslinser · Toriske linser</td><td class="spec-value">–</td><td class="spec-value">38 %</td>
+      <td class="spec-value">30/90/180</td>
+      <td class="spec-value">269 kr</td>
+    </tr><tr>
+      <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-max-1day/">Acuvue Oasys MAX 1-Day</a></th>
+      <td class="spec-value">6</td>
+      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Senofilcon A med TearStable-teknologi</td><td class="spec-value">38 %</td>
+      <td class="spec-value">30/90</td>
+      <td class="spec-value">337 kr</td>
+    </tr></tbody>
+      </table>
+    </div>
+  </div>
+  <h2>Materialer i Acuvue-sortimentet</h2>
+  <p class="brand-section-lead">De dokumenterte materialene Acuvue-produktene vi følger er laget av.</p>
+  <div class="brand-materials-grid">
+    <div class="brand-material-card">
+    <div class="brand-material-card-name">Etafilcon A med LACREON-teknologi</div>
+    <div class="brand-material-card-series">Brukes i: 1-Day Acuvue Moist</div>
+  </div><div class="brand-material-card">
+    <div class="brand-material-card-name">Senofilcon A (silikonhydrogel)</div>
+    <div class="brand-material-card-series">Brukes i: Acuvue Oasys</div>
+  </div><div class="brand-material-card">
+    <div class="brand-material-card-name">Senofilcon A med Hydraluxe-teknologi</div>
+    
+  </div><div class="brand-material-card">
+    <div class="brand-material-card-name">Senofilcon A med TearStable-teknologi</div>
+    <div class="brand-material-card-series">Brukes i: Acuvue Oasys MAX 1-Day</div>
+  </div><div class="brand-material-card">
+    <div class="brand-material-card-name">Senofilcon C (silikonhydrogel)</div>
+    
+  </div>
+  </div>
+  <h2>30 eller 90 linser?</h2>
+  <div class="brand-3090-card">
+    <p>For 7 av 7 sammenlignbare Acuvue-produkter har 90-pakningen lavere pris per linse enn tilsvarende 30-pakning akkurat nå. Eksempel -- Acuvue Oasys 1-Day for Astigmatism 30-pack:</p>
+    <div class="brand-3090-grid">
+      <div class="brand-3090-tile"><strong>10,4 kr</strong><span>30-pack, per linse</span></div>
+      <div class="brand-3090-tile"><strong>9,2 kr</strong><span>90-pack, per linse</span></div>
+      <div class="brand-3090-tile"><strong>12 %</strong><span>Forskjell -- 90-pakningen billigst</span></div>
+    </div>
+    <p class="brand-3090-note">Kun samme underliggende produkt sammenlignet (aldri ulike produkter mot hverandre). Husk å regne med frakt for akkurat det antallet du trenger.</p>
+  </div>
+  <div class="faq-section">
+    <h2>Ofte stilte spørsmål om Acuvue</h2>
+    <div class="faq-category">
+    <div class="faq-category-label">Merke og serier</div>
+    <details class="faq-accordion-item">
+    <summary>Hvem produserer Acuvue?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Acuvue produseres av Johnson &amp; Johnson Vision.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hvilke Acuvue-serier finnes?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Acuvue finnes som følgende serier hos oss: 1-Day Acuvue Moist, Acuvue Oasys, Acuvue Oasys 1-Day with Hydraluxe, Acuvue Oasys MAX 1-Day. Se tabellen under for hvordan de skiller seg.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Finnes Acuvue for astigmatisme?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Acuvue har toriske varianter laget for astigmatisme. Se sammenligningen under for hvilke serier som har dette.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Finnes Acuvue som multifokale linser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Acuvue har multifokale varianter for alderssyn (presbyopi). Se sammenligningen under for hvilke serier som har dette.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Har Acuvue både dagslinser og månedslinser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Acuvue-sortimentet vårt dekker både dagslinser (kastes hver dag) og månedslinser (gjenbrukes med rengjøring). Se seriene over for hvilken som er hvilken.</p>
+  </details>
+  </div><div class="faq-category">
+    <div class="faq-category-label">Spesifikasjoner</div>
+    <details class="faq-accordion-item">
+    <summary>Hvilke materialer brukes i Acuvue-linser?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>De Acuvue-produktene vi følger er laget av Etafilcon A med LACREON-teknologi, Senofilcon A (silikonhydrogel), Senofilcon A med Hydraluxe-teknologi, Senofilcon A med TearStable-teknologi, Senofilcon C (silikonhydrogel). Materialet varierer mellom seriene, se tabellen over.</p>
+  </details>
+  </div><div class="faq-category">
+    <div class="faq-category-label">Pris og butikker</div>
+    <details class="faq-accordion-item">
+    <summary>Hva er billigst i Acuvue-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>1-Day Acuvue Moist 30-pack er billigst akkurat nå, fra 232 kr hos Lenson (uten frakt).</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hvilken Acuvue-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>1-Day Acuvue Moist 90-pack har lavest pris per linse akkurat nå, ca. 6,7 kr per linse (uten frakt).</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no Acuvue?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Vi sammenligner Acuvue hos 9 norske nettbutikker til sammen, på tvers av alle 21 produktene vi følger.</p>
+  </details>
+  </div>
+  </div>
+  <h2>Nyttige ressurser</h2>
+  <p class="brand-section-lead">Artikler, forklaringer og guider som hjelper deg å ta gode valg.</p>
+  <div class="guide-grid">
+    <a class="guide-photo-card" href="/guide/hvordan-velge-kontaktlinser/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/hvordan-velge-kontaktlinser.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Hvordan velge kontaktlinser</div>
+    <div class="guide-photo-card-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a><a class="guide-photo-card" href="/guide/manedslinser-vs-dagslinser/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/manedslinser-vs-dagslinser.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Månedslinser vs. dagslinser – hva passer deg?</div>
+    <div class="guide-photo-card-desc">Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a><a class="guide-photo-card" href="/guide/bc-forklart/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/bc-forklart.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">Hva betyr BC på kontaktlinser?</div>
+    <div class="guide-photo-card-desc">BC (base-kurve) er krumningen på baksiden av kontaktlinsen, og må passe formen på din egen hornhinne.</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a>
+  </div>
+  <div class="brand-manufacturer-card">
+    <div class="brand-manufacturer-kicker">Produsent</div>
+    <div class="brand-manufacturer-name">Johnson &amp; Johnson Vision</div>
+    <a class="brand-manufacturer-link" href="/produsent/jnj-vision/">Les mer om Johnson &amp; Johnson Vision →</a>
+  </div>
+
   <p class="disclosure">
     Vi sorterer alltid etter lavest pris. Vi kan få provisjon når du handler
     via lenkene på produktsidene, men det påvirker ikke prisen du betaler
@@ -1565,18 +1732,32 @@ i sfæriske, toriske og multifokale varianter.</p>
   reduserer blått/fiolett lys fra skjermer med om lag 60 %.</li>
 </ul>
 </div>
+
+  <div class="brand-trust">
+    <h2>Om informasjonen på denne siden</h2>
+    <div class="brand-trust-grid">
+      <div class="brand-trust-item"><strong>Produktinformasjon</strong><p>Basert på dokumenterte produsentspesifikasjoner og vår produktdatabase.</p></div>
+      <div class="brand-trust-item"><strong>Priser</strong><p>Hentes fra norske nettbutikker og oppdateres daglig.</p></div>
+      <div class="brand-trust-item"><strong>Kommersielle lenker</strong><p>Vi kan motta provisjon når du går videre til en butikk. Dette påvirker aldri prisrekkefølgen.</p></div>
+      <div class="brand-trust-item"><strong>Sammenligning</strong><p>Pris per linse beregnes fra pakningsstørrelse. Totalpris inkluderer frakt der fraktdata er tilgjengelig.</p></div>
+    </div>
+    <p class="brand-trust-links">
+      <a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser →</a>
+      <a href="/redaksjonelle-prinsipper/">Redaksjonelle prinsipper →</a>
+      <a href="/om-oss/">Om Kontaktlinser.no →</a>
+    </p>
+  </div>
 </div>
 
 <script>
   const filterRow = document.getElementById('filter-row');
   const list = document.getElementById('product-list');
 
-  filterRow.addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
+  function applyBrandFilter(category) {
+    const btn = filterRow.querySelector('.chip[data-category="' + category + '"]');
     if (!btn) return;
     filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
-    const category = btn.dataset.category;
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {
       const show = category === 'all' || card.dataset.category === category;
@@ -1584,6 +1765,27 @@ i sfæriske, toriske og multifokale varianter.</p>
       if (show) visible++;
     });
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }
+
+  // "Sortimentet forklart" sine "Se X →"-kort lenker til
+  // #<kategori-slug> -- samme filter-rad som allerede finnes ved
+  // produktlisten, ikke en egen side. Kjøres på lasting hvis siden åpnes
+  // direkte med et slikt hash (f.eks. fra en ekstern lenke).
+  const initialCategory = window.location.hash.replace('#', '');
+  if (initialCategory && filterRow.querySelector('.chip[data-category="' + initialCategory + '"]')) {
+    applyBrandFilter(initialCategory);
+  }
+  document.querySelectorAll('.brand-sortiment-card').forEach(card => {
+    card.addEventListener('click', () => {
+      applyBrandFilter(card.dataset.category);
+      document.getElementById('produkter').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  filterRow.addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    applyBrandFilter(btn.dataset.category);
   });
 </script>
 <footer class="site-footer">
