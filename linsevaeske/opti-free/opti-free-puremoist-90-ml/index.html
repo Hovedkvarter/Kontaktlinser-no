@@ -295,7 +295,6 @@ a { color: inherit; }
 .product-card:hover { border-color: var(--blue); }
 .offer-main, .product-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
 .offer-retailer, .product-name { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px; }
-.lowest-tag { font-size: 0.75rem; font-weight: 600; color: white; background: var(--mint); padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; }
 .offer-meta, .product-meta, .retailer-count { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
 .retailer-logo { height: 18px; width: auto; max-width: 92px; object-fit: contain; vertical-align: middle; }
 .retailer-logo-chip { display: inline-flex; align-items: center; background: var(--ink); border-radius: 4px; padding: 3px 6px; }
@@ -317,6 +316,20 @@ a { color: inherit; }
 .price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--blue); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
 .price-pill:hover { opacity: 0.88; }
 .offer-card.is-lowest .price-pill { background: var(--mint); }
+/* .offer-card hadde ingen mobil-spesifikk layout i det hele tatt -- på
+   smale skjermer presset ikke-brytende fraktekst (.offer-shipping) i
+   .offer-price-col butikk-logoen sammen, og et merke som pleide å stå der
+   (nå fjernet) brøt internt til 2 linjer og dekket frakttéksten (Kai,
+   2026-09-27, skjermbilde av live-siden). Fikset ved å stable
+   logo-raden og pris/frakt-raden på mobil, og la selve fraktteksten få
+   bryte til 1-2 linjer inne i sin egen rad i stedet for å presses av en
+   fastbredde prispille ved siden av. Kun mobil -- desktop er uendret. */
+@media (max-width: 699px) {
+  .offer-card { flex-wrap: wrap; }
+  .offer-main { flex-basis: 100%; }
+  .offer-price-col { flex-basis: 100%; justify-content: space-between; align-items: center; }
+  .offer-shipping { white-space: normal; flex: 1; min-width: 0; align-items: flex-start; }
+}
 .product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
@@ -619,7 +632,6 @@ a { color: inherit; }
 .ship-chip[aria-pressed="true"] { border-color: var(--ink); background: var(--blue-tint); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot { background: var(--ink); border-color: var(--ink); }
 .ship-chip[aria-pressed="true"] .ship-chip-dot::after { content: ""; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
-.lowest-tag-total { background: var(--blue); }
 .winner-band-cta { flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; max-width: 380px; margin: 14px auto; }
 .winner-band-cta:hover, .winner-band-cta:focus-within { border-color: #BFE7D5; box-shadow: none; }
 .winner-band-cta .winner-left { flex-direction: column; align-items: center; gap: 0; }
@@ -1270,8 +1282,6 @@ a { color: inherit; }
     });
     var best = null;
     for (var i = 0; i < results.length; i++) { if (results[i].o.in_stock) { best = results[i]; break; } }
-    var bestTotal = null, byTotal = results.slice().sort(function (a, b) { return (a.total - b.total) || (a.productTotal - b.productTotal) || (a.idx - b.idx); });
-    for (var i = 0; i < byTotal.length; i++) { if (byTotal[i].o.in_stock) { bestTotal = byTotal[i]; break; } }
 
     if (best) {
       labelEl.textContent = incl ? 'Lavest totalpris' : 'Laveste pris';
@@ -1315,15 +1325,7 @@ a { color: inherit; }
       var shipTextEl = card.querySelector('.offer-shipping-text');
       if (shipTextEl) shipTextEl.textContent = (incl && r.shipping > 0 && r.o.shipping_policy) ? 'inkl. ' + fmtKr(r.shipping) + ' frakt' : shippingNote(r.shipping, r.o.shipping_policy);
       var isBest = !!(best && r.o.retailer === best.o.retailer);
-      var isTotalBest = !incl && !!(bestTotal && best && bestTotal !== best && r.o.retailer === bestTotal.o.retailer);
       card.classList.toggle('is-lowest', isBest);
-      var tagHost = card.querySelector('.offer-retailer');
-      if (tagHost) {
-        var old = tagHost.querySelectorAll('.lowest-tag');
-        for (var k = 0; k < old.length; k++) old[k].remove();
-        if (isBest) tagHost.insertAdjacentHTML('beforeend', ' <span class="lowest-tag">' + (incl ? 'Lavest totalpris' : 'Laveste pris') + '</span>');
-        if (isTotalBest) tagHost.insertAdjacentHTML('beforeend', ' <span class="lowest-tag lowest-tag-total">Lavest totalpris</span>');
-      }
       offersList.appendChild(card);
     }
   }
@@ -1388,7 +1390,7 @@ a { color: inherit; }
     </div>
     <div class="offers-list"><a class="offer-card is-lowest" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-1334)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fopti-free-puremoist-extra-1334)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for Opti-Free PureMoist 90 ml, 74 kr" data-retailer="Lenson" data-affiliate="1">
   <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> <span class="lowest-tag">Laveste pris</span></div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span></div>
     
   </div>
   <div class="offer-price-col">
@@ -1398,7 +1400,7 @@ a { color: inherit; }
 </a>
 <a class="offer-card" href="/go/tgt_01M36SZHM62M3DZ50QPSRRH43C" target="_blank" rel="sponsored noopener" aria-label="Gå til Extra Optical for Opti-Free PureMoist 90 ml, 75 kr" data-retailer="Extra Optical" data-affiliate="1">
   <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span>  <span class="lowest-tag lowest-tag-total">Lavest totalpris</span></div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/extraoptical.svg" alt="Extra Optical" loading="lazy"><span style="position:absolute;left:-9999px;">Extra Optical</span></div>
     
   </div>
   <div class="offer-price-col">
@@ -1408,7 +1410,7 @@ a { color: inherit; }
 </a>
 <a class="offer-card" href="https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-1334)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fopti-free-puremoist-extra-1334)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lensway for Opti-Free PureMoist 90 ml, 79 kr" data-retailer="Lensway" data-affiliate="1">
   <div class="offer-main">
-    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span> </div>
+    <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span></div>
     
   </div>
   <div class="offer-price-col">
