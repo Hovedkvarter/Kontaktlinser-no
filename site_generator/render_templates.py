@@ -6195,6 +6195,59 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
     return faq_html, faq_schema
 
 
+def _faq_accordion_item(item: dict) -> str:
+    return f'''<details class="faq-accordion-item">
+    <summary>{escape(item["question"])}<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>{escape(item["answer"])}</p>
+  </details>'''
+
+
+def _render_family_faq_accordion(categorized: list[tuple[str, list[dict]]], heading: str) -> tuple[str, str]:
+    """Serie-siden sin FAQ (2026-09-27): egen, GRUPPERT <details>-accordion i
+    stedet for _render_faq_block()'s alltid-synlige flate liste -- se
+    render_family_page() sin regelmotor-kommentar for hvorfor (variabelt
+    antall spørsmål per familie, aldri fylt ut til et fast antall). Samme
+    kollapsede <details>-mønster som allerede er Google-verifisert i
+    render_winner_widget() sin "Pris ved flere esker"-rad.
+
+    categorized: liste av (kategorinavn, spørsmål-liste) -- tomme kategorier
+    utelates helt (en familie uten spec-spørsmål viser ingen tom
+    "Spesifikasjoner"-overskrift). FAQPage-schema flates ut på tvers av
+    kategoriene (schema.org har ingen kategori-gruppering for FAQPage), men
+    bygges fra AKKURAT samme spørsmål/svar som vises -- innhold og
+    strukturert data kan da aldri komme ut av synk."""
+    all_items = [item for _, items in categorized for item in items]
+    if not all_items:
+        return "", ""
+    sections_html = "".join(
+        f'''<div class="faq-category">
+    <div class="faq-category-label">{escape(cat_label)}</div>
+    {"".join(_faq_accordion_item(item) for item in items)}
+  </div>'''
+        for cat_label, items in categorized if items
+    )
+    faq_html = f'''<div class="faq-section">
+    <h2>{escape(heading)}</h2>
+    {sections_html}
+  </div>'''
+    faq_entities = ",\n      ".join(
+        f'''{{
+        "@type": "Question",
+        "name": "{escape(item["question"])}",
+        "acceptedAnswer": {{"@type": "Answer", "text": "{escape(item["answer"])}"}}
+      }}'''
+        for item in all_items
+    )
+    faq_schema = f'''<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+      {faq_entities}
+  ]
+}}</script>'''
+    return faq_html, faq_schema
+
+
 HOME_FAQ = [
     {
         "question": "Hvordan fungerer Kontaktlinser.no?",
@@ -8649,6 +8702,7 @@ def render_family_page(
             "href": m["href"],
             "product": product,
             "best": best,
+            "eligible": eligible,
             "n_offers": len(eligible),
             "pack_size": pack[1] if pack else None,
             "category_slug": product["category_slug"],
@@ -8822,34 +8876,13 @@ def render_family_page(
     </div>
   </div>'''
 
-    # Unikt FAQ-innhold for serie-siden -- svarer på det EKTE spørsmålet en
-    # serie-side finnes for ("hvilke varianter/pakninger finnes"), utledet fra
-    # radene i tabellen over, ikke gjentatt fra enkeltproduktsidene (de har sin
-    # egen FAQ om pris/butikk for akkurat DEN varianten).
-    family_faq: list[dict] = []
-    type_labels = sorted({r["category_label"] for r in rows if r["category_label"]})
+    # pack_sizes/materials_present brukes flere steder lenger ned (stat-piller,
+    # "Kort om X" osv.) -- selve FAQ-en er flyttet til en regelmotor lenger
+    # ned i funksjonen (se kommentaren ved faq_produkt/faq_spec/faq_pris),
+    # siden den trenger data (uv_values, wc_values_stat, table_groups'
+    # power_dim osv.) som først finnes der.
     pack_sizes = sorted({r["pack_size"] for r in rows if r["pack_size"]})
-    if type_labels:
-        type_txt = " og ".join(type_labels) if len(type_labels) <= 2 else ", ".join(type_labels[:-1]) + " og " + type_labels[-1]
-        pack_txt = f' Den fås i {" og ".join(f"{n}-pakning" for n in pack_sizes)}.' if pack_sizes else ""
-        family_faq.append({
-            "question": f'Hvilke varianter finnes av {family_name}?',
-            "answer": f'{family_name}-serien finnes som {type_txt.lower()}.{pack_txt} Se tabellen over for pris på hver variant.',
-        })
-    if lowest_row and lowest_row["best"]:
-        family_faq.append({
-            "question": f'Hva er billigst i {family_name}-serien?',
-            "answer": f'{lowest_row["display_name"]} er billigst akkurat nå, fra {_fmt_kr(lowest_row["best"]["price_nok"])} '
-                      f'hos {lowest_row["best"]["retailer"]} (uten frakt). Prisen varierer mellom variantene i serien.',
-        })
     materials_present = {r["material"] for r in rows if r["material"]}
-    if len(materials_present) == 1 and len(rows) > 1:
-        family_faq.append({
-            "question": f'Er alle variantene i {family_name}-serien laget av samme materiale?',
-            "answer": f'Ja, hele {family_name}-serien er laget av {next(iter(materials_present))}. '
-                      f'Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet.',
-        })
-    family_faq_html, family_faq_schema = _render_faq_block(family_faq, f'Ofte stilte spørsmål om {family_name}')
 
     material_sentence = f' i {rows[0]["material"]}' if show_material and rows[0]["material"] else ""
     manufacturer_sentence = f' fra {escape(manufacturer_name)}' if manufacturer_name else ""
@@ -8996,6 +9029,214 @@ def render_family_page(
     <div class="serie-facts-tiles-grid">{tiles}</div>
     {f'<div class="serie-fact-note">{TAG_ICON_SVG}{uv_note}</div>' if uv_note else ''}
   </div>'''
+
+    # ------------------------------------------------------------------
+    # FAQ -- regelmotor (2026-09-27, etter forslag fra Kai): spørsmålene
+    # genereres KUN fra fakta vi faktisk har for DENNE familien, aldri fylt
+    # opp til et fast antall -- én serie kan ende med 4 spørsmål, en annen
+    # med 10, det er poenget. Google fjernet FAQ-rich-result-visningen i
+    # søket for flere år siden (bekreftet direkte mot
+    # developers.google.com/search/updates -- "The FAQ rich result feature
+    # is no longer shown in Google Search results"), så verdien her er IKKE
+    # lenger et rikt SERP-utfall, det er reelt informasjonsinnhold for
+    # AI-siteringer (OAI-SearchBot m.fl., IKKE GPTBot som er blokkert i
+    # robots.txt) og long-tail-søk. Gruppert i tre faste kategorier (samme
+    # rekkefølge som resten av siden: produkt -> spec -> pris) og vist som en
+    # ekte, kollapset <details>-accordion (se render_winner_widget() for
+    # presedens: <details> er eksplisitt nevnt av Google som en legitim
+    # vis/skjul-mekanisme, i motsetning til CSS-utenfor-skjerm-tekst).
+    #
+    # To kandidatspørsmål fra forslaget er BEVISST utelatt:
+    # - "Hvor ofte oppdateres prisene?" -- identisk svar for alle familier,
+    #   gir ingen serie-spesifikk info (strider mot "aldri fyll ut"-prinsippet).
+    # - Forklaring av materialnavn ("Hva er LACREON?"/"Etafilcon A?") -- krever
+    #   en egen, research-basert ordliste over produsentenes materialnavn som
+    #   vi ikke har strukturert data for ennå. Flagget som fremtidig oppgave.
+    faq_produkt: list[dict] = []
+    faq_spec: list[dict] = []
+    faq_pris: list[dict] = []
+
+    type_labels = sorted({r["category_label"] for r in rows if r["category_label"]})
+    if type_labels:
+        type_txt = " og ".join(type_labels) if len(type_labels) <= 2 else ", ".join(type_labels[:-1]) + " og " + type_labels[-1]
+        pack_txt = f' Den fås i {" og ".join(f"{n}-pakning" for n in pack_sizes)}.' if pack_sizes else ""
+        faq_produkt.append({
+            "question": f'Hvilke varianter finnes av {family_name}?',
+            "answer": f'{family_name}-serien finnes som {type_txt.lower()}.{pack_txt} Se tabellen over for pris på hver variant.',
+        })
+
+    # Basert på KATEGORIEN (by_category, samme kilde som "Finn din variant"
+    # og tabellens type-kolonne), IKKE på om CYL/AXIS/ADD-spesifikke tallfelt
+    # finnes -- enkelte toriske/multifokale produkter mangler disse feltene i
+    # specs-dataen (se f.eks. Dailies Total1 sin astigmatisme-variant), men
+    # er likevel reelt torisk/multifokal per kategoriseringen. Svaret nevner
+    # CYL/AXIS/ADD kun når de faktisk finnes i specs.
+    toric_group_rows = by_category.get("toriske-linser")
+    multi_group_rows = by_category.get("multifokale-linser")
+    if toric_group_rows and len(by_category) > 1:
+        rep = min(toric_group_rows, key=lambda r: r["pack_size"] or 0)
+        rep_name = re.sub(r"\s+\d+-pack$", "", rep["display_name"])
+        has_cyl_spec = any(r["specs"].get("Sylinder") or r["specs"].get("Akse") for r in toric_group_rows)
+        cyl_txt = (
+            ' Den har egne CYL- og AXIS-verdier (se tabellen under) som må matche resepten din fra optiker.'
+            if has_cyl_spec else ' Se tabellen under for pris og pakningsstørrelser.'
+        )
+        faq_produkt.append({
+            "question": f'Finnes {family_name} for astigmatisme?',
+            "answer": f'Ja, {rep_name} er den toriske varianten i {family_name}-serien, laget spesifikt for astigmatisme.{cyl_txt}',
+        })
+    if multi_group_rows and len(by_category) > 1:
+        rep = min(multi_group_rows, key=lambda r: r["pack_size"] or 0)
+        rep_name = re.sub(r"\s+\d+-pack$", "", rep["display_name"])
+        has_add_spec = any(r["specs"].get("Addisjon") for r in multi_group_rows)
+        add_txt = (
+            ' med en egen ADD-verdi (tilleggsstyrke for nærsyn/lesing) i tillegg til vanlig styrke'
+            if has_add_spec else ', for alderssyn (presbyopi) i tillegg til vanlig styrke'
+        )
+        faq_produkt.append({
+            "question": f'Finnes {family_name} som multifokal linse for alderssyn?',
+            "answer": f'Ja, {rep_name} er multifokal-varianten i {family_name}-serien,{add_txt}.',
+        })
+    if len(materials_present) == 1 and len(rows) > 1:
+        faq_produkt.append({
+            "question": f'Er alle variantene i {family_name}-serien laget av samme materiale?',
+            "answer": f'Ja, hele {family_name}-serien er laget av {next(iter(materials_present))}. '
+                      f'Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet.',
+        })
+
+    if len(table_groups) > 1 and (show_bc or show_diameter):
+        bc_all = {tuple(g["bc"]) for g in table_groups if g["bc"]}
+        dia_all = {tuple(g["diameter"]) for g in table_groups if g["diameter"]}
+        spec_parts = []
+        if show_bc:
+            if len(bc_all) == 1:
+                spec_parts.append(f'basiskurven (BC) er {"/".join(v.replace(".", ",") for v in next(iter(bc_all)))} mm for alle variantene')
+            else:
+                spec_parts.append('basiskurven (BC) varierer mellom variantene: ' + ", ".join(
+                    f'{g["name"]} {"/".join(v.replace(".", ",") for v in g["bc"])} mm' for g in table_groups if g["bc"]
+                ))
+        if show_diameter:
+            if len(dia_all) == 1:
+                spec_parts.append(f'diameteren er {"/".join(v.replace(".", ",") for v in next(iter(dia_all)))} mm for alle')
+            else:
+                spec_parts.append('diameteren varierer: ' + ", ".join(
+                    f'{g["name"]} {"/".join(v.replace(".", ",") for v in g["diameter"])} mm' for g in table_groups if g["diameter"]
+                ))
+        if spec_parts:
+            spec_answer = spec_parts[0][0].upper() + spec_parts[0][1:]
+            if len(spec_parts) == 2:
+                spec_answer += ", mens " + spec_parts[1]
+            spec_answer += ". Kontroller alltid disse verdiene mot resepten din fra optiker."
+            faq_spec.append({
+                "question": f'Har alle variantene i {family_name}-serien samme basiskurve og diameter?',
+                "answer": spec_answer,
+            })
+
+    power_dim_types = {g["power_dim"] for g in table_groups if g["power_dim"] != "–"}
+    if power_dim_types:
+        glossary_parts = []
+        if "CYL/AXIS" in power_dim_types:
+            glossary_parts.append('CYL (sylinderstyrke) og AXIS (akse) beskriver hvor mye og i hvilken retning linsen korrigerer astigmatisme (skjevhet i hornhinnen)')
+        if "ADD" in power_dim_types:
+            glossary_parts.append('ADD (addisjon) er tilleggsstyrken i en multifokal linse for nærsyn/lesing, i tillegg til vanlig styrke, ved alderssyn (presbyopi)')
+        faq_spec.append({
+            "question": 'Hva betyr CYL/AXIS/ADD i sammenligningstabellen?',
+            "answer": ". ".join(p[0].upper() + p[1:] for p in glossary_parts) + '. Verdiene skal alltid matche resepten din fra optiker, ikke velges på egen hånd.',
+        })
+
+    if len(uv_values) == 1:
+        faq_spec.append({
+            "question": f'Har {family_name} UV-filter?',
+            "answer": f'Ja, hele {family_name}-serien har UV-filter ({next(iter(uv_values))}). Dette erstatter ikke solbriller -- '
+                      f'UV-filteret beskytter kun selve øyet linsen dekker, ikke resten av øyet og huden rundt.',
+        })
+
+    if lowest_row and lowest_row["best"]:
+        faq_pris.append({
+            "question": f'Hva er billigst i {family_name}-serien?',
+            "answer": f'{lowest_row["display_name"]} er billigst akkurat nå, fra {_fmt_kr(lowest_row["best"]["price_nok"])} '
+                      f'hos {lowest_row["best"]["retailer"]} (uten frakt). Prisen varierer mellom variantene i serien.',
+        })
+
+    all_retailer_names: set[str] = set()
+    offer_counts = []
+    for r in rows:
+        elig = r["eligible"]
+        all_retailer_names.update(o["retailer"] for o in elig)
+        if elig:
+            offer_counts.append(len(elig))
+    if all_retailer_names and offer_counts:
+        shop_txt = f'{offer_counts[0]} butikker' if len(set(offer_counts)) == 1 else f'{min(offer_counts)}–{max(offer_counts)} butikker per variant'
+        faq_pris.append({
+            "question": f'Hos hvor mange butikker kan jeg kjøpe {family_name}?',
+            "answer": f'Til sammen selger {len(all_retailer_names)} norske nettbutikker {"minst én variant" if len(rows) > 1 else "denne linsen"} '
+                      f'av {family_name}-serien ({shop_txt}). Se listen under hver variant for hvilke butikker som faktisk har den på lager nå.',
+        })
+
+    # Pris per linse (ikke per eske) mellom minste og største pakning INNENFOR
+    # samme behov (torisk sammenlignes kun med torisk, ikke mot sfærisk) --
+    # ekte tallsammenligning fra prisdataen, ikke en generisk "større
+    # pakning er billigere per stykk"-påstand som ikke nødvendigvis stemmer.
+    # Ett eksempel er nok -- unngår en lang, repetitiv opplisting.
+    pack_compare = None
+    for cat_slug, group in by_category.items():
+        packed_rows = [r for r in group if r["pack_size"] and r["best"]]
+        packs_seen = sorted({r["pack_size"] for r in packed_rows})
+        if len(packs_seen) < 2:
+            continue
+        small_row = min((r for r in packed_rows if r["pack_size"] == packs_seen[0]), key=lambda r: r["best"]["price_nok"])
+        large_row = min((r for r in packed_rows if r["pack_size"] == packs_seen[-1]), key=lambda r: r["best"]["price_nok"])
+        small_per = small_row["best"]["price_nok"] / packs_seen[0]
+        large_per = large_row["best"]["price_nok"] / packs_seen[-1]
+        if abs(small_per - large_per) >= 0.3:
+            pack_compare = {
+                "need_label": _VARIANT_NEED_LABELS.get(cat_slug, categories.get(cat_slug, {}).get("label", "")),
+                "small_n": packs_seen[0], "large_n": packs_seen[-1],
+                "small_per": small_per, "large_per": large_per,
+            }
+            break
+    if pack_compare:
+        cheaper_word = "større" if pack_compare["large_per"] < pack_compare["small_per"] else "mindre"
+        small_per_txt = f'{pack_compare["small_per"]:.1f}'.replace(".", ",")
+        large_per_txt = f'{pack_compare["large_per"]:.1f}'.replace(".", ",")
+        diff_txt = f'{abs(pack_compare["small_per"] - pack_compare["large_per"]):.1f}'.replace(".", ",") + " kr"
+        faq_pris.append({
+            "question": f'Lønner det seg å kjøpe {pack_compare["large_n"]}-pakning fremfor {pack_compare["small_n"]}-pakning?',
+            "answer": f'For {pack_compare["need_label"].lower()} koster {pack_compare["small_n"]}-pakningen ca. '
+                      f'{small_per_txt} kr per linse, mot ca. '
+                      f'{large_per_txt} kr per linse i {pack_compare["large_n"]}-pakningen -- '
+                      f'den {cheaper_word} pakningen er billigst per linse, en forskjell på rundt {diff_txt}. '
+                      f'Husk å regne med frakt for akkurat det antallet du trenger, siden fraktgebyr kan snu regnestykket.',
+        })
+
+    # Endrer den billigste butikken seg med antall? Gjenbruker samme
+    # total-pris-per-antall-logikk som "Pris ved flere esker" i
+    # render_winner_widget() (produktpris * antall + beregnet frakt), på den
+    # billigste varianten i familien.
+    qty_change = None
+    if lowest_row and len(lowest_row["eligible"]) >= 2:
+        def _total_for_qty(o: dict, qty: int) -> float:
+            product_total = o["price_nok"] * qty
+            return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
+        best_1 = min(lowest_row["eligible"], key=lambda o: _total_for_qty(o, 1))
+        best_4 = min(lowest_row["eligible"], key=lambda o: _total_for_qty(o, 4))
+        qty_change = (best_1["retailer"], best_4["retailer"])
+    if qty_change:
+        same_retailer = qty_change[0] == qty_change[1]
+        faq_pris.append({
+            "question": f'Er billigste butikk for {lowest_row["display_name"]} den samme uansett hvor mange esker du kjøper?',
+            "answer": (
+                f'Ja, {qty_change[0]} har lavest totalpris både for 1 og for 4 esker i vår siste prissjekk.'
+                if same_retailer else
+                f'Ikke nødvendigvis -- {qty_change[0]} er billigst for 1 eske, mens {qty_change[1]} kan bli billigst totalt for 4 esker, '
+                f'siden fraktkostnad slår ulikt ut med antall. Bruk antallsvelgeren på produktsiden for å sjekke akkurat ditt antall.'
+            ),
+        })
+
+    family_faq_html, family_faq_schema = _render_family_faq_accordion(
+        [("Produkt og varianter", faq_produkt), ("Spesifikasjoner", faq_spec), ("Pris og butikker", faq_pris)],
+        f'Ofte stilte spørsmål om {family_name}',
+    )
 
     chain_html = ""
     display_name_for_title = family_name
@@ -9187,6 +9428,20 @@ def render_family_page(
 .guide-photo-card-body {{ padding: 12px 14px 14px; }}
 .guide-photo-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }}
 .guide-photo-card-link {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }}
+/* FAQ-regelmotor (2026-09-27) -- gruppert accordion, se
+   _render_family_faq_accordion(). Egne klassenavn (faq-category*/
+   faq-accordion-item/faq-chevron) i stedet for å endre .faq-item (den flate
+   varianten brukes fortsatt på produkt-/forside-FAQ-er). */
+.faq-category {{ margin-top: 22px; }}
+.faq-category:first-child {{ margin-top: 0; }}
+.faq-category-label {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }}
+.faq-accordion-item {{ border-top: 1px solid var(--border); }}
+.faq-accordion-item:last-child {{ border-bottom: 1px solid var(--border); }}
+.faq-accordion-item summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }}
+.faq-accordion-item summary::-webkit-details-marker {{ display: none; }}
+.faq-chevron {{ flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }}
+.faq-accordion-item[open] .faq-chevron {{ transform: rotate(180deg); }}
+.faq-accordion-item p {{ margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }}
 </style>
 </head>
 <body>

@@ -2002,3 +2002,55 @@ prinsipp som feedback-verify-before-citing i minnet):
   Prisinnsikt lenger opp), na delt mellom TO rendringer (sjekkliste og
   ikon-rutenett) med ulik visuell rolle pa samme side -- bevisst overlapp,
   ikke en feil.
+
+## Serie-siden: FAQ-regelmotor -- gruppert accordion i stedet for 3 faste spørsmål (2026-09-27)
+
+Kai fikk (fra en annen AI-samtale) et forslag om å bygge serie-sidens FAQ som en
+regelmotor: spørsmålene genereres KUN fra fakta vi faktisk har for akkurat DEN
+familien, aldri fylt opp til et fast antall ("en serie kan ha 5 gode spørsmål og en
+annen 11, det er helt greit"), gruppert i "Produkt og varianter · Spesifikasjoner ·
+Pris og butikker" og vist som en ekte, kollapset accordion i stedet for alt synlig på
+en gang. Forslaget påsto også at Google droppet FAQ-rich-resultatet i søk for flere år
+siden -- sjekket direkte mot developers.google.com/search/updates før noe ble bygget
+(samme "verifiser før du siterer"-prinsipp som resten av økta): bekreftet, med
+overskriftene "Removing documentation for the FAQ rich result feature" og "Deprecating
+the FAQ rich result feature". FAQ-en sin reelle verdi er derfor IKKE lenger et rikt
+SERP-utfall, men informasjonsinnhold for AI-siteringer (OAI-SearchBot m.fl.) og
+long-tail-søk.
+
+**Implementert i `render_family_page()`:** tre lister (`faq_produkt`/`faq_spec`/
+`faq_pris`) bygges betinget fra data som allerede finnes på siden (ingen ny research-
+kilde) -- eksisterende 3 spørsmål (varianter/pakninger, billigst, samme materiale) pluss
+nye, alle betinget på faktisk data:
+- "Finnes X for astigmatisme/multifokal?" -- betinget på at kategorien
+  (`by_category["toriske-linser"]`/`"multifokale-linser"`) faktisk finnes, IKKE på om
+  CYL/AXIS/ADD-tallfelt finnes i specs (funnet under bygging: Dailies Total1 sin
+  astigmatisme-variant mangler CYL/AXIS i specs-dataen selv om den er reelt torisk --
+  svaret tilpasser ordlyden til om de konkrete tallverdiene faktisk finnes eller ej).
+- "Har alle variantene samme BC/diameter?" -- ekte sammenligning, svarer ærlig om
+  verdiene er like ELLER ulike (aldri bare "ja" uten å sjekke).
+- "Hva betyr CYL/AXIS/ADD?" -- generisk optikk-forklaring (etablert fagterminologi,
+  IKKE produsentspesifikke materialnavn som LACREON/Etafilcon A -- se under).
+- "Hos hvor mange butikker kan jeg kjøpe X?" -- ekte antall unike forhandlere på tvers
+  av alle familiens produkter.
+- "Lønner det seg å kjøpe stor fremfor liten pakning?" -- ekte pris-per-linse-
+  sammenligning mellom minste og største pakning INNENFOR samme behov (torisk mot
+  torisk, ikke mot sfærisk), kun vist ved reell forskjell (≥0,3 kr/linse).
+- "Endrer billigste butikk seg med antall?" -- gjenbruker samme total-for-qty-logikk
+  som "Pris ved flere esker" (produktpris × antall + beregnet frakt), sjekker 1 vs. 4
+  esker for familiens billigste variant.
+
+Bevisst UTELATT: "Hvor ofte oppdateres prisene?" (identisk svar for alle familier,
+gir ingen serie-spesifikk info) og materialglossar (LACREON/Etafilcon A) -- krever en
+egen, research-basert ordliste over produsentenes materialnavn vi ikke har strukturert
+data for ennå, flagget som en fremtidig oppgave.
+
+**Rendring:** ny `_render_family_faq_accordion()` (egen funksjon, IKKE en endring av
+`_render_faq_block()` som fortsatt brukes uendret på produkt-/forside-FAQ) -- bygger
+tre `<div class="faq-category">`-grupper (tomme kategorier utelates helt), hver med
+`<details class="faq-accordion-item">` per spørsmål (kollapset som standard, samme
+Google-verifiserte <details>-mønster som "Pris ved flere esker"). FAQPage-schema bygges
+fra AKKURAT samme spørsmål/svar-liste som vises, flatet ut på tvers av kategoriene.
+Testet på tvers av familier med ulik datarikdom: 6-10 spørsmål avhengig av hvor mye
+familien faktisk har av toriske/multifokale varianter, flere pakningsstørrelser,
+UV-filter osv. -- aldri et fast antall.
