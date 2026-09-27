@@ -2808,6 +2808,23 @@ WINNER_WIDGET_STYLE = """
 .qty-box-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
 .qty-box-title { font-weight: 600; font-size: 0.92rem; }
 .qty-box-head .qty-box-title { margin-bottom: 0; }
+/* Frakt-bryteren som egen boks med ikon/etikett/undertekst/ekte
+   vippebryter (2026-09-27, etter mockup) -- egen modifier-klasse
+   (.ship-chip-boxed) i stedet for å endre den delte .ship-chip/
+   .ship-chip-dot-pillen som linsevæske-/private label-sidene fortsatt
+   bruker uendret. */
+.ship-chip-boxed { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 10px 14px; text-align: left; white-space: normal; }
+.ship-chip-icon { flex-shrink: 0; color: var(--blue); display: flex; }
+.ship-chip-icon svg { width: 20px; height: 20px; }
+.ship-chip-text { display: flex; flex-direction: column; min-width: 0; }
+.ship-chip-label { font-weight: 700; font-size: 0.86rem; color: var(--ink); }
+.ship-chip-sub { font-size: 0.72rem; color: var(--muted); margin-top: 1px; }
+.ship-chip-toggle { flex-shrink: 0; margin-left: auto; width: 40px; height: 24px; border-radius: 12px; background: var(--border); position: relative; transition: background-color 0.15s; }
+.ship-chip-toggle::before { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.3); transition: transform 0.15s; }
+.ship-chip-boxed[aria-pressed="true"] { border-color: var(--blue); }
+.ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle { background: var(--blue); }
+.ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle::before { transform: translateX(16px); }
+@media (min-width: 480px) { .qty-box-head { flex-wrap: nowrap; } .ship-chip-boxed { flex-shrink: 0; } }
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
@@ -2904,7 +2921,7 @@ def _winner_price_line(o: dict, qty: int, incl: bool, unit_singular: str, unit_p
     return f"{unit_part} + {note}"
 
 
-def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False) -> tuple[str, str]:
+def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False, include_ship_chip: bool = False, qty_multi_inline: bool = True) -> tuple[str, str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple: vinnerkortet står i toppen av
     siden, antallsvelgeren (qty_box) som egen seksjon under.
 
@@ -2930,7 +2947,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     multiplisert med shipping_nok for én enhet -- en fri-frakt-grense som ikke er nådd
     ved 1 enhet kan fint være nådd ved 4, og gir da en annen vinner enn ved enkeltkjøp."""
     if not best:
-        return "", ""
+        return "", "", ""
 
     rel = "sponsored" if best["source"] == "affiliate_feed" else "nofollow"
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
@@ -2963,7 +2980,7 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
 
     eligible = [o for o in offers if o["in_stock"]]
     if len(eligible) < 2:
-        return winner_band, ""  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
+        return winner_band, "", ""  # ingen reell antalls-sammenligning å tilby med 0-1 tilbud
 
     def total_for_qty(o: dict, qty: int) -> float:
         product_total = o["price_nok"] * qty
@@ -3022,11 +3039,28 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     # (Product Mobile Gold Standard v1, 2026-09-27 -- Kai: "Pris med
     # frakt"-bryteren skal stå til høyre for quantity-selector"). Var
     # tidligere i render_price_list() sin .offers-head; ÉN #ship-chip
-    # totalt fortsatt (fjernet derfra, se render_price_list), samme id,
-    # samme click-delegation i _QTY_CALC_SCRIPT (document-nivå, så
-    # flyttingen krever ingen JS-endring).
-    ship_chip = ('<button type="button" class="ship-chip" id="ship-chip" aria-pressed="false">'
-                 '<span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>')
+    # totalt fortsatt (fjernet derfra, se render_price_list -- kun når
+    # show_ship_chip=False der OG include_ship_chip=True her, ellers ville
+    # BEGGE steder rendret en #ship-chip og gitt en duplisert id. KUN
+    # produktsiden bruker denne kombinasjonen i dag -- oppdaget som en
+    # ekte, allerede-eksisterende bug på linsevæske-/private label-sidene
+    # (id="ship-chip" fantes der to ganger) mens dette ble bygget videre på
+    # samme dag). Samme click-delegation i _QTY_CALC_SCRIPT
+    # (document-nivå, så inkludering/plassering krever ingen JS-endring).
+    #
+    # Egen boks med ikon/etikett/undertekst/ekte vippebryter (2026-09-27,
+    # etter mockup -- Kai: "Se også bokser og Frakt av og på knapp som
+    # ønskes"), IKKE lenger en enkel pille med en liten prikk. `.ship-chip`
+    # er fortsatt selve <button>-en (samme id, samme aria-pressed-mønster
+    # JS-en allerede styrer) -- kun det VISUELLE innholdet inni er nytt.
+    ship_chip = (
+        '<button type="button" class="ship-chip ship-chip-boxed" id="ship-chip" aria-pressed="false">'
+        f'<span class="ship-chip-icon" aria-hidden="true">{TRUCK_ICON_SVG}</span>'
+        '<span class="ship-chip-text"><span class="ship-chip-label">Pris med frakt</span>'
+        '<span class="ship-chip-sub">Vis totalpris inkl. frakt</span></span>'
+        '<span class="ship-chip-toggle" aria-hidden="true"></span>'
+        '</button>'
+    ) if include_ship_chip else ""
     qty_box = f"""<div class="qty-box">
     <div class="qty-box-head">
       <div class="qty-box-title">Antall {escape(unit_plural)}</div>
@@ -3036,12 +3070,18 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}">
     </div>
-    {qty_multi_html}
+    {qty_multi_html if qty_multi_inline else ""}
   </div>
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
   {_QTY_CALC_SCRIPT}"""
 
-    return winner_band, qty_box
+    # qty_multi_html ("Pris ved flere esker") returneres nå SEPARAT (egen
+    # tredje verdi) i stedet for å alltid ligge inni qty_box -- produktsiden
+    # (2026-09-27, Kai: "Teksten Pris ved flere esker, flyttes også ned
+    # under priser") plasserer den under prislista i stedet. De to andre
+    # kallerne (linsevæske/øyedråper, private label-alias) er uendret --
+    # de limer den rett tilbake inn der den var (se kallestedene).
+    return winner_band, qty_box, qty_multi_html
 
 
 # ---------------------------------------------------------------------------
@@ -3720,7 +3760,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <p>Vi følger prisen på <strong>{escape(product["name"])}</strong>, men ingen av forhandlerne vi sammenligner har en bekreftet pris for denne linsen akkurat nå. Prisene oppdateres daglig.</p>
 </section>"""
 
-    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts)
+    winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, include_ship_chip=True, qty_multi_inline=False)
     badges_html = _render_product_badges(product.get("specs", []))
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
@@ -3961,6 +4001,14 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-card {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }}
 .hero-card .hero-copy h1 {{ font-size: 1.6rem; }}
 .hero-subtitle {{ margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }}
+/* "Pris ved flere esker" står nå som et eget, frittstående element under
+   prislista i stedet for inni .qty-box (Kai, 2026-09-27: "Teksten Pris
+   ved flere esker, flyttes også ned under priser") -- delt .qty-multi-CSS
+   forutsetter fortsatt at den er siste barn INNI en hvit .qty-box-kortboks
+   (fortsatt sant på linsevæske-/private label-sidene, urørt der), så den
+   får en egen kort-innpakning KUN her via >-selektoren (direkte barn av
+   .wrap-product treffer bare denne siden sin plassering). */
+.wrap-product > .qty-multi {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }}
 .hero-main {{ display: flex; flex-direction: column; gap: 16px; }}
 /* Product Mobile Gold Standard v1 (2026-09-27): produktbilde (~2/3) og
    Winner Card (~1/3) side ved side på mobil -- bildet skal klart være
@@ -4144,7 +4192,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <div class="hero-card">
     <div class="hero-main">
       <div class="hero-copy">
-        <div class="kicker">{escape(product["brand_label"])}</div>
         <h1>{escape(product["name"])}</h1>
         <p class="hero-subtitle">Sammenlign priser</p>
       </div>
@@ -4157,6 +4204,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {qty_html}
   {offers_block}
   <noscript><style>.offers-show-more{{display:none}}.offers.is-collapsed .offers-list .offer-card{{display:flex}}</style></noscript>
+  {qty_multi_html}
   {disclosure_html}
   {pack_size_callout}
   {family_callout}
@@ -9421,7 +9469,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     unit_singular = product.get("unit_singular", "flaske")
     unit_plural = product.get("unit_plural", "flasker")
     size_unit = product.get("size_unit", "ml")
-    winner_html, qty_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts)
+    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts)
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
     if size_ml and ex_best:
@@ -9962,7 +10010,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
+    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske

@@ -3201,3 +3201,51 @@ Testet: `.faq-chevron`-bredde målt til nøyaktig 16px i browser-panelet
 (var >100-140px før), AI-sammendraget bekreftet både etter
 `.kz-break`-divideren OG inni `.kz` via `compareDocumentPosition()`,
 full sveip av alle 411 sider uten Traceback/NameError.
+
+## Produktsiden: fjernet kicker over H1, ekte fraktbryter-boks, "Pris ved flere esker" ned (2026-09-27, samme dag)
+
+Kai sendte samme mockup-referanse igjen med tre konkrete punkter: "Alcon
+/ produsent navn over produktnavn kan flyttes hvis nødvendig, men ikke
+over navnet, for enda mer kompakt", "Se også bokser og Frakt av og på
+knapp som ønskes", og "Teksten Pris ved flere esker, flyttes også ned
+under priser."
+
+- **Kicker fjernet**: `<div class="kicker">{brand_label}</div>` (f.eks.
+  "DAILIES") sto over H1 -- mockupen har INGEN slik linje der (brødsmulen
+  viser allerede merket). Fjernet helt fra `.hero-copy` -- enda mer
+  kompakt, ingen tapt informasjon (merke er i brødsmulen +
+  Product-schema uansett).
+- **"Pris med frakt" er nå en ekte boks** (ikon + fet etikett + liten
+  undertekst "Vis totalpris inkl. frakt" + en ekte glidende vippebryter i
+  iOS-stil), ikke lenger en enkel pille med en liten prikk. Ny
+  `.ship-chip-boxed`-modifier-klasse (IKKE en endring av selve
+  `.ship-chip`/`.ship-chip-dot`, som linsevæske-/private label-alias-
+  sidene fortsatt bruker uendret via `render_price_list()` sin egen,
+  enklere chip). Samme `#ship-chip`-id, samme
+  `aria-pressed`-klikkhåndtering i `_QTY_CALC_SCRIPT` -- kun det visuelle
+  innholdet inni knappen er nytt, ingen JS-endring.
+- **Fant og fikset en ekte bug fra tidligere i dag**: da fraktbryteren ble
+  flyttet inn i `qty_box` (`render_winner_widget()`), ble den lagt til
+  UBETINGET -- men linsevæske-/private label-alias-sidene fikk SIN
+  fraktbryter fra et annet sted (`render_price_list()`, `show_ship_chip=
+  True` som standard der). Resultat: to `id="ship-chip"`-elementer på
+  samme side (ugyldig HTML, `getElementById` fant bare det første).
+  Fikset med en ny `include_ship_chip`-parameter (standard `False`) --
+  kun produktsiden sender `True`.
+- **"Pris ved flere esker" flyttet ut av `qty_box`**, til rett under
+  prislista (etter `{{offers_block}}`, før prisdisclosure-teksten) --
+  egen ny `qty_multi_inline`-parameter (standard `True`, bevarer
+  UENDRET oppførsel -- fortsatt inni kortet -- for de to andre
+  sidetypene). `render_winner_widget()` returnerer nå et 3-tuppel
+  (`winner_band, qty_box, qty_multi_html`) i stedet for 2 -- alle tre
+  kallesteder oppdatert. Fikk sin egen kort-innpakning
+  (`.wrap-product > .qty-multi`, scoped via direkte-barn-selektor) siden
+  den delte `.qty-multi`-CSS-en forutsetter å ligge inni en hvit boks.
+
+Testet: linsevæske-siden sjekket eksplisitt (kun 1 `#ship-chip`, "Pris
+ved flere flasker" fortsatt inni sin opprinnelige hvite boks, gammel
+enkel chip-stil uendret) -- ingen regresjon der. Produktsiden: ny
+fraktbryter-boks fungerer (klikk verifisert -- bryter glir, blå farge,
+vinnerkort/prisliste sorterer om korrekt), "Pris ved flere esker" står nå
+som egen kortboks rett under prislista. Full sveip av alle 411 sider,
+null duplikate `ship-chip`-id-er, ingen Traceback/NameError.
