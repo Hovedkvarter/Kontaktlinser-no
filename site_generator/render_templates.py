@@ -2695,19 +2695,28 @@ WINNER_WIDGET_STYLE = """
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
-.qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
-.qty-tip-icon { flex-shrink: 0; }
-/* Visuelt skjult (2026-09-27, Kai sitt alternativ 1 for opprydning) -- IKKE
-   fjernet, siden avsnittet er en bevisst JS-fri fallback for AI-crawlere uten
-   JavaScript (GPTBot/ClaudeBot/PerplexityBot m.fl., se docstringen til
-   render_winner_widget()): de kan lese 2/4/10-eksemplene rett i HTML-kilden
-   selv om antallsvelgeren over krever JS for å oppdatere seg interaktivt.
-   Samme informasjon er uansett tilgjengelig for mennesker ett klikk unna i
-   velgeren -- dette er derfor ikke skjult/villedende tekst, bare en duplisert
-   tekstversjon av noe som allerede vises interaktivt. Standard
-   "visually hidden"-mønster (klippet til 1x1px), ikke display:none -- en
-   skjermleser kan fortsatt nå den om ønskelig. */
-.qty-static-fallback { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+/* Erstatter den tidligere "💡 Tips"-linja OG en usynlig (CSS-utenfor-skjerm)
+   fallback-tekst -- Kai sin korreksjon 2026-09-27, etter å ha sjekket Googles
+   egne spam-retningslinjer: CSS som plasserer tekst utenfor skjermen står
+   DER som et eksempel på skjult tekst, mens et ekte, brukbart <details>-
+   element (accordion) eksplisitt nevnes som en LEGITIM vis/skjul-mekanisme
+   som ikke bryter retningslinjene. https://developers.google.com/search/docs/essentials/spam-policies
+   <details> krever ingen JavaScript for å utvides -- innholdet er ekte,
+   server-rendret HTML uansett åpen/lukket tilstand, lesbart for både
+   mennesker OG roboter uten JS (OAI-SearchBot m.fl. -- IKKE GPTBot, som er
+   blokkert i robots.txt og aldri når hit; GPTBot krabber til modelltrening,
+   OAI-SearchBot er den som faktisk kan sitere siden i et AI-søkesvar).
+   Lukket som standard (ingen "open"-attributt) holder siden kompakt. */
+.qty-multi { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 12px; }
+.qty-multi summary { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; cursor: pointer; list-style: none; font-size: 0.85rem; color: var(--ink); }
+.qty-multi summary::-webkit-details-marker { display: none; }
+.qty-multi-label { font-weight: 600; flex-shrink: 0; }
+.qty-multi-preview { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
+.qty-multi-preview strong { color: var(--ink); font-weight: 600; }
+.qty-multi-chevron { margin-left: auto; flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
+.qty-multi[open] .qty-multi-chevron { transform: rotate(180deg); }
+.qty-multi-body { margin: 10px 0 0; padding-left: 2px; display: flex; flex-direction: column; gap: 5px; font-size: 0.82rem; color: var(--muted); }
+.qty-multi-body strong { color: var(--ink); }
 """
 
 
@@ -2724,9 +2733,14 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     linsevæske/øyedråper.
 
     Standardtilstanden (1 enhet, uten frakt) er ALLTID ekte, ferdig-rendret HTML, og det
-    samme er 2/4/10-eksemplene i den statiske oppsummeringen under velgeren -- mange
-    AI-crawlere (GPTBot, ClaudeBot, PerplexityBot m.fl.) kjører ikke JavaScript, og skal
-    likevel kunne lese tallene rett i kildekoden.
+    samme er 2/4/10-eksemplene i `<details class="qty-multi">`-raden under velgeren
+    ("Pris ved flere esker") -- et vanlig, ekte HTML-element som ikke krever JavaScript
+    for å utvides, lesbart av roboter uten JS uansett åpen/lukket tilstand (relevant her
+    er OAI-SearchBot, IKKE GPTBot -- GPTBot er blokkert i robots.txt og krabber uansett
+    kun til modelltrening, se der). Dette var tidligere en CSS-utenfor-skjerm-skjult
+    tekst (til 2026-09-27) -- luket ut etter at Kai sjekket Googles spam-retningslinjer:
+    CSS som plasserer tekst utenfor skjermen listes DER som et eksempel på skjult tekst,
+    mens et <details>-element eksplisitt nevnes som en legitim vis/skjul-mekanisme.
 
     Fraktkostnaden regnes på nytt per antall (compute_shipping_nok), ikke bare
     multiplisert med shipping_nok for én enhet -- en fri-frakt-grense som ikke er nådd
@@ -2767,15 +2781,28 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     )
     pills += f'<button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom">{PENCIL_ICON_SVG}Eget<span>antall</span></button>'
 
-    fallback_parts = []
+    # Kompakt forhåndsvisning i selve <summary>-raden ("2 esker · 514 kr" osv.)
+    # pluss en mer detaljert (butikk + frakt) rad per antall i den utvidbare
+    # kroppen -- begge deler er ekte, server-rendret HTML uansett åpen/lukket
+    # tilstand, se docstringen over.
+    multi_preview_parts, multi_detail_parts = [], []
     for qty in (2, 4, 10):
         best_o = min(eligible, key=lambda o: total_for_qty(o, qty))
+        total = total_for_qty(best_o, qty)
         qty_shipping = compute_shipping_nok(best_o["price_nok"] * qty, best_o.get("shipping_policy"))
         note = _shipping_note(qty_shipping, best_o.get("shipping_policy"))
-        fallback_parts.append(
-            f'Ved {qty} {escape(unit_plural)}: billigst hos {escape(best_o["retailer"])} – {_fmt_kr(total_for_qty(best_o, qty))} totalt inkl. frakt ({note.lower()}).'
+        multi_preview_parts.append(f'<span>{qty} {escape(unit_plural)} · <strong>{_fmt_kr(total)}</strong></span>')
+        multi_detail_parts.append(
+            f'<p>{qty} {escape(unit_plural)} · <strong>{escape(best_o["retailer"])}</strong> · {_fmt_kr(total)} totalt · {note}</p>'
         )
-    static_fallback_html = f'<p class="qty-static-fallback">{" ".join(fallback_parts)}</p>'
+    qty_multi_html = f'''<details class="qty-multi">
+    <summary>
+      <span class="qty-multi-label">Pris ved flere {escape(unit_plural)}</span>
+      <span class="qty-multi-preview">{"".join(multi_preview_parts)}</span>
+      <svg class="qty-multi-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </summary>
+    <div class="qty-multi-body">{"".join(multi_detail_parts)}</div>
+  </details>'''
 
     # ALLE tilbud (ikke bare "eligible") sendes med her -- selv et utsolgt/
     # utdatert tilbuds pris/frakt-rad under skal fortsatt oppdateres riktig
@@ -2803,9 +2830,8 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}">
     </div>
-    <p class="qty-tip"><span class="qty-tip-icon" aria-hidden="true">💡</span><span><strong>Tips:</strong> billigste butikk kan endre seg når du kjøper flere {escape(unit_plural)}, på grunn av ulike fraktgrenser.</span></p>
+    {qty_multi_html}
   </div>
-  {static_fallback_html}
   <script type="application/json" id="qty-offers-data" data-product-name="{escape(product_name or '')}" data-unit-singular="{escape(unit_singular)}" data-unit-plural="{escape(unit_plural)}">{calc_offers_json}</script>
   {_QTY_CALC_SCRIPT}"""
 

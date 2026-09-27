@@ -1963,3 +1963,26 @@ ingen prisgraf å plassere den i forhold til.
 **Åpent, ikke startet:** Kai ønsker en bredere opprydning av produktsiden (mobil og
 desktop), inspirert av lenspricer.no sin produktside ("kompakt og rett på sak") -- ingen
 konkret plan laget ennå, kun disse to punktvise endringene er gjort.
+
+## Rettelse samme dag: fra "usynlig fallback-tekst" til ekte <details>-rad (2026-09-27)
+
+Kai fikk (fra en annen AI-samtale) en presis, kildesjekket korreksjon på "alternativ 1"
+over -- sjekket begge påstandene selv mot primærkildene før noe ble endret (samme
+prinsipp som feedback-verify-before-citing i minnet):
+- Googles egne spam-retningslinjer (developers.google.com/search/docs/essentials/
+  spam-policies) lister EKSPLISITT "Using CSS to position text off-screen" som et
+  eksempel på skjult tekst/lenke-misbruk -- men sier like eksplisitt at "Accordion or
+  tabbed content that toggle between hiding and showing additional content" IKKE
+  bryter retningslinjene. Bekreftet ved faktisk å lese siden, ikke tatt på tro.
+- OpenAI sin egen bot-dokumentasjon (developers.openai.com/api/docs/bots) bekrefter:
+  GPTBot = krabber til modelltrening, OAI-SearchBot = det som faktisk kan sitere siden
+  i et ChatGPT-søkesvar. Sjekket samtidig vår egen robots.txt: GPTBot er `Disallow: /`
+  hos oss (2026-09-10-vedtaket), OAI-SearchBot er `Allow: /` -- den forrige kode-
+  kommentaren siterte altså en bot som aldri når siden i utgangspunktet.
+- **Løsning:** `.qty-static-fallback` (CSS-utenfor-skjerm) er fjernet. Erstattet med et
+  ekte `<details class="qty-multi">`-element ("Pris ved flere esker" + kompakt
+  2/4/10-forhåndsvisning i selve `<summary>`, butikk+frakt-detaljer i den utvidbare
+  kroppen) -- krever ingen JavaScript for å åpnes, samme data som før, men nå en
+  legitim UX-mekanisme i stedet for skjult tekst. Erstatter samtidig den gamle
+  "💡 Tips: billigste butikk kan endre seg..."-linja, som ikke lenger trengs når
+  antallsraden selv viser eksemplet.
