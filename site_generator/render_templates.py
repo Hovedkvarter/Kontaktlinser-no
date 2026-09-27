@@ -5396,7 +5396,13 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # stretch/tvunget lik høyde (en tabell og et kortrutenett har naturlig
     # ulik høyde, og det er ikke et problem her slik det var for
     # "Felles for hele serien"/"Relevante guider"-paret tidligere i økta).
-    compare_table_html_wrapped = f'<div>{compare_table_html}</div>' if compare_table_html else ""
+    # min-width:0 er nødvendig HER (på selve grid-barnet, IKKE bare på
+    # .brand-compare-card lenger inni) -- bekreftet ved DOM-inspeksjon at
+    # denne uklassede wrapper-diven var det faktiske grid-barnet av
+    # .brand-compare-row, med nedarvet min-width:auto som fortsatt tvang
+    # hele siden bredere enn en mobilskjerm (761px scrollWidth på 375px
+    # viewport) selv etter at .brand-compare-card selv fikk min-width:0.
+    compare_table_html_wrapped = f'<div style="min-width:0;">{compare_table_html}</div>' if compare_table_html else ""
     brand_compare_row_html = (
         f'<div class="brand-compare-row">{compare_table_html_wrapped}{brand_materials_html}</div>'
         if compare_table_html and brand_materials_html else compare_table_html + brand_materials_html
@@ -5828,8 +5834,16 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-3090-tile span {{ display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }}
 .brand-3090-note {{ margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }}
 .brand-materials-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }}
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row {{ display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }}
-.brand-compare-row .brand-compare-card {{ margin-bottom: 0; }}
+.brand-compare-row .brand-compare-card {{ margin-bottom: 0; min-width: 0; }}
 @media (min-width: 1024px) {{ .brand-compare-row {{ grid-template-columns: 1.2fr 1fr; align-items: start; }} .brand-materials-grid {{ grid-template-columns: 1fr !important; }} }}
 @media (min-width: 640px) and (max-width: 1023px) {{ .brand-materials-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
 .brand-material-card {{ display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }}
@@ -6881,7 +6895,7 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
   multifokale/progressive linser</li>
   <li><strong>Sfærisk syn</strong> uten astigmatisme eller alderssyn → vanlige sfæriske
   linser, det enkleste og billigste utvalget – f.eks.
-  <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a></li>
+  <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue Moist</a></li>
 </ul>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
@@ -7131,7 +7145,7 @@ skal vare lenge.</p>
   <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
   flyvninger – ha øyedråper eller briller tilgjengelig</li>
   <li>Dagslinser er ofte praktiske på reise, siden du slipper å ha med etui og
-  oppbevaringsvæske – f.eks. <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue
+  oppbevaringsvæske – f.eks. <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue
   Moist</a></li>
 </ul>
 """,
@@ -7187,7 +7201,7 @@ blodårer.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
 <p style="font-size:1rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
-her, som <a href="/kontaktlinser/acuvue/oasys-6-pack/">Acuvue Oasys</a>). Slipper gjennom
+her, som <a href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/">Acuvue Oasys</a>). Slipper gjennom
 vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan gi bedre komfort ved
 lange dager med linser i.</p>
 
@@ -7342,7 +7356,7 @@ til en vanlig sfærisk linse (som har lik styrke i alle retninger og kan rotere 
 at det merkes) må en torisk linse ha ulik styrke i ulike retninger, og den må ligge stabilt
 i riktig posisjon for å virke. Linsene er derfor bygget med en litt tyngre nedre kant eller
 tynnsoner som gjør at de "retter seg selv opp" på øyet – f.eks.
-<a href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/">Acuvue Oasys for
+<a href="/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism-6-pack/">Acuvue Oasys for
 Astigmatism</a>.</p>
 
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
@@ -7377,7 +7391,7 @@ Multifokale kontaktlinser er laget for å korrigere dette.</p>
 <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
 <p style="font-size:1rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
 multifokale linser flere styrkesoner tilgjengelig samtidig (for nært, mellomdistanse og
-langt hold, som i <a href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/">Acuvue Oasys
+langt hold, som i <a href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/">Acuvue Oasys
 Multifocal</a>). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på
 – dette kalles simultanvisjon.</p>
 
@@ -7668,7 +7682,7 @@ stemme for at linsen skal fungere riktig.</p>
 
 <p style="margin-top:16px;">Se vår <a href="/guide/kontaktlinser-med-astigmatisme/">guide om toriske linser og
 astigmatisme</a> for mer om hvordan dette fungerer i praksis, eller sammenlign priser på
-en torisk linse som <a href="/kontaktlinser/acuvue/oasys-astigmatism-6-pack/">Acuvue
+en torisk linse som <a href="/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism-6-pack/">Acuvue
 Oasys for Astigmatism</a>.</p>
 """,
         "faq": [
@@ -7727,7 +7741,7 @@ langt hold.</p>
 <p style="margin-top:16px;">Se vår <a href="/guide/multifokale-kontaktlinser/">guide om multifokale kontaktlinser
 ved alderssyn</a> for mer om hvordan disse linsene fungerer, eller sammenlign priser på en
 multifokal linse som
-<a href="/kontaktlinser/acuvue/oasys-multifocal-6-pack/">Acuvue Oasys Multifocal</a>.</p>
+<a href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/">Acuvue Oasys Multifocal</a>.</p>
 """,
         "faq": [
             {
@@ -7835,7 +7849,7 @@ kontaktlinser kan koste svært forskjellig selv om de dekker samme synsbehov.</p
 opp direkte – bruk søkefeltet på <a href="/">forsiden</a> for å sammenligne
 oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
 <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> eller
-<a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a> som konkrete eksempler.</p>
+<a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue Moist</a> som konkrete eksempler.</p>
 """,
         "faq": [
             {
@@ -7968,7 +7982,7 @@ dyreste alternativet uten å vite det.</p>
 
 <p style="margin-top:16px;">Varer uten bekreftet lagerstatus kan ikke vinne merket «laveste pris», og hvert tilbud viser
 når det sist ble kontrollert. Vi oppdaterer prisene daglig. Se et
-ekte eksempel på <a href="/kontaktlinser/acuvue/moist-30-pack/">Acuvue Moist</a> sin
+ekte eksempel på <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue Moist</a> sin
 produktside for å se totalpris-regnestykket i praksis.</p>
 """,
         "faq": [
@@ -11816,7 +11830,9 @@ def render_family_page(
 
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
+  <div style="overflow-x:auto;">
   {comparison_table}
+  </div>
   </div>
 
   <div class="serie-bottom-row">

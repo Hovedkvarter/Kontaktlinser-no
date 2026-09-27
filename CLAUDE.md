@@ -4038,3 +4038,83 @@ Kai skjermdumpet (iWear Oxygen XR): `.product-stage` → `.offers` →
 (1440px), ingen overflow. Samme rekkefølge bekreftet på en
 linsevæske-side (ReNu Multi-Purpose 60 ml). Kontaktlinse-produktsiden
 sin egen, urørte rekkefølge dobbeltsjekket uendret.
+
+## Full SEO/AI/mobil-revisjon av hele nettstedet (2026-09-28, samme dag)
+
+Kai: "kjør en skikkelig SEO, AI, mobil osv sjekk av hele
+kontaktlinser.no." Bygget et systematisk Python-revisjonsskript (i
+scratchpad, ikke i repoet) som skanner ALLE 412 bygde HTML-sider for
+title-tagger, meta-beskrivelser, canonical-tagger, H1-er, viewport-
+meta, Open Graph-tagger, JSON-LD-gyldighet, bilde-alt-tekster og
+interne lenker som peker på sider som faktisk ikke finnes -- aldri
+gjettet, kun faktisk skannet data.
+
+**Sterk grunnlinje** (ingen funn): 0 manglende/dupliserte title-
+tagger, 0 manglende/dupliserte meta-beskrivelser, 0 manglende/feil
+canonical-tagger, hver side har nøyaktig 1 H1, alle sider har
+viewport-meta, 0 `<img>`-tagger uten alt-tekst, 0 sider uten JSON-LD,
+0 ugyldig JSON-LD.
+
+**Reelle funn, fikset**:
+1. **4 ekte, brukte interne lenker pekte på gamle, pre-migrerte URL-
+   slugs** (9 forekomster i guide-innhold, f.eks.
+   `/kontaktlinser/acuvue/oasys-6-pack/` i stedet for
+   `/kontaktlinser/acuvue/acuvue-oasys-6-pack/`). Disse ga en EKTE
+   404 for enhver bot/bruker som ikke kjører JavaScript -- GitHub
+   Pages har ingen server-side redirect, kun en klientsidevis JS-
+   oppslag mot `LEGACY_REDIRECTS` på selve 404-siden, som ikke
+   hjelper crawlere som ikke kjører JS (og som uansett allerede har
+   mottatt en 404-statuskode). Fikset ved å peke lenkene direkte på
+   de riktige URL-ene (samme mapping som allerede fantes i
+   `LEGACY_REDIRECTS`, bare aldri brukt til å rette selve
+   kildelenkene).
+2. **`llms.txt` sin metodikk-beskrivelse var faktisk feil**: påsto at
+   rangeringen "alltid følger total pris (produktpris + frakt)" -- men
+   sidens faktiske, veletablerte standard (bekreftet gjennom hele
+   økta) er produktpris UTEN frakt som standard, med "Pris inkludert
+   frakt" som en opt-in-bryter. Rettet ordlyden i `llms.txt` (repo-rot,
+   kopieres inn i bygget av CI) til å stemme med faktisk atferd --
+   spesielt viktig siden denne filen er skrevet spesifikt for AI-
+   systemer å lese, og en feilaktig påstand der undergraver akkurat
+   den typen tillit resten av økta har vært så nøye med.
+3. **Ekte mobil-overflow-bug på ALLE merke-sider** (`/merke/X/`,
+   dusinvis av sider): en sammenlign-tabell (`.brand-compare-card`)
+   tvang HELE siden til å bli 761px bred på en 375px mobilskjerm.
+   Rotårsak, funnet via DOM-inspeksjon (ikke gjettet): tabellen hadde
+   allerede en `overflow-x:auto`-innpakning, men selve grid-barnet i
+   `.brand-compare-row` (en uklasset `<div>{tabell}</div>`-wrapper,
+   `compare_table_html_wrapped`) arvet CSS Grid sin standard
+   `min-width: auto`, som nekter et grid-barn å krympe under bredden
+   til innholdet sitt -- uavhengig av at tabellen INNI den allerede
+   hadde sin egen scroll-mekanisme. Fikset med `min-width:0` på selve
+   wrapper-diven (pluss `min-width:0` på `.brand-compare-card` som
+   ekstra sikkerhet). La også til samme `overflow-x:auto`-sikring
+   defensivt på `.spec-table-card` (serie-/familiesidenes
+   sammenlign-tabell) -- ikke bekreftet å faktisk overflow-e i dag,
+   men samme sårbarhetsmønster, billig forsikring.
+
+**Rapportert til Kai, IKKE endret uten hans bekreftelse** (påvirker
+synlig SEO-tekst på tvers av mange sider, redaksjonell vurdering):
+- 146 sider har `<title>` over 60 tegn (Google trunkerer typisk rundt
+  60-65 tegn). Verstingene er produsent-sidene (`/produsent/X/`, 88-112
+  tegn) siden malen lister ALLE merker produsenten eier i selve
+  tittelen (f.eks. "CooperVision – Produsenten bak Biofinity, Proclear,
+  MyDay, Avaira, Clariti, Biomedics og Live | Kontaktlinser.no" = 112
+  tegn). Resten er hovedsakelig guide-sider (65-84 tegn) fra naturlig
+  norsk frasering -- lavere prioritet.
+- 26 merke-sider (`/merke/X/`) har meta-beskrivelser over 165 tegn
+  (opptil 227), siden malen lister 3 eksempelprodukter ved navn --
+  merker med lange produktnavn (Acuvue, Air Optix) sprenger Googles
+  ~155-160-tegns visningsgrense i SERP.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Revisjonsskriptet kjørt på nytt etter hver
+fiks for å bekrefte 0 gjenværende ekte brukne lenker (kun 2 kjente
+falske positiver fra skriptets egen path-sjekk, statiske
+fontfiler/favicon som faktisk finnes). Mobil-overflow-fiksen
+verifisert på 5 ulike merke-sider (Acuvue, Dailies, Biofinity, Air
+Optix, Biotrue) ved 375px -- alle nå `scrollWidth === innerWidth`,
+ingen overflow. Desktop (1440px) på samme side dobbeltsjekket
+uendret. Tabellen er fortsatt fullt brukbar på mobil -- ren
+horisontal scroll INNI sitt eget kort, ikke skjult/fjernet
+innhold.
