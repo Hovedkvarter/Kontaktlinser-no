@@ -4117,6 +4117,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>
   {qty_html}
   {offers_block}
+  <noscript><style>.offers-show-more{{display:none}}.offers.is-collapsed .offers-list .offer-card{{display:flex}}</style></noscript>
   {disclosure_html}
   {pack_size_callout}
   {family_callout}

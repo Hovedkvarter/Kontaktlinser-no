@@ -3060,3 +3060,71 @@ på "Pris inkludert frakt" på desktop (1100px).
 Testet: desktop (1100px) viser alle 7 kort med det samme, ingen "Vis
 alle priser"-knapp, mobil (375px) uendret -- fortsatt topp 3 + knapp.
 Full sveip, ingen Traceback/NameError.
+
+## Innholds-revisjon: bekreftet at INGENTING ble slettet i mobil-redesignet (2026-09-27, samme dag)
+
+Kai, med god grunn til å spørre: bekymring om at "substantial Product
+Gold Standard content appears to have disappeared", pluss en presis,
+navngitt bekymring om `qty-static-fallback` (en teknisk detalj fra
+TIDLIGERE i dag). Instruksen var eksplisitt: bruk git-historikken som
+fasit, ikke hukommelsen.
+
+**Metode**: `git show 8fbdc5584:site_generator/render_templates.py`
+(siste commit FØR selve mobil-redesignet startet, dvs. rett før
+`b6a7f111f "Winner Card viser pris igjen..."`) mot HEAD, diffet KUN
+`render_product_page()`-funksjonen linje for linje. Deretter en
+automatisert sveip av samtlige 141 kontaktlinse-produktsider (ikke bare
+ett produkt) som telte faktisk tilstedeværelse av hver seksjon i den
+bygde HTML-en.
+
+**Funn**: Ingen kode ble faktisk slettet. Hver "-"-linje i diffen har en
+tilsvarende "+"-linje andre steder i samme diff -- alt er FLYTTET
+(inn i en ny `.kz`-kunnskapssone under et "kunnskaps-brudd"), ikke
+fjernet:
+- `long_description`, `badges_html`, `price_history_html`, `aliases_html`
+  -- uendret beregning, kun ny plassering i `.kz`.
+- `specs_html`, `methodology_html`+`related_html` -- uendret beregning,
+  nå pakket inn i en `_kz_accordion()` (ekte `<details>`, samme
+  Google-verifiserte mønster som `qty-multi`).
+- `product_faq_html` -- samme `product_faq`-data og samme FAQPage-schema
+  som før, men bygget med `_render_faq_accordion_block()` (per-spørsmål
+  `<details>`) i stedet for `_render_faq_block()` (flat, alltid synlig
+  liste) -- ren visningsendring, ikke datatap.
+- `render_price_list()` fikk nye parametre (`show_ship_chip`,
+  `qty_unit_label`, `collapse_after`) men mistet ingen evne -- "Vis alle
+  priser"-kollapsen er en ren CSS-`display:none` (se forrige avsnitt i
+  denne loggen), ALLE tilbudskort er fortsatt i den server-rendrede
+  HTML-en uansett skjermbredde eller åpen/lukket tilstand.
+
+**`qty-static-fallback`**: `git log -S "qty-static-fallback"` viser at
+denne klassen ble erstattet av `<details class="qty-multi">` i commit
+`f66ebe959`, FØR mobil-redesignet i det hele tatt startet (egen,
+tidligere Kai-godkjent endring samme dag, dokumentert lenger opp i denne
+loggen: "fra usynlig fallback-tekst til ekte `<details>`-rad"). Bekreftet
+tilstede uendret på 129 av 141 sider (samme antall som har ≥2
+sammenlignbare tilbud -- den eksisterende, uendrede betingelsen).
+
+**Automatisert sveip (141 produktsider)**: spesifikasjoner 141/141,
+FAQ-accordion 141/141, kilder/metodikk-accordion 141/141,
+"i korte trekk"-badges 141/141, AI-sammendrag 141/141,
+JSON-LD Product-schema 141/141, JSON-LD FAQPage-schema 141/141,
+prishistorikk-graf 138/141 (de 3 uten har ærlig for lite historikk --
+samme `>= 7 dager`-krav som før), alias-boks 33/141 (kun produkter med
+faktisk kjent private label-kobling -- verifisert på Biofinity 6-pack,
+som HAR 4 kjente aliaser, at boksen faktisk viser dem), serie-lenke
+103/141, alternativ-pakning-lenke 75/141 (begge kategori A -- ikke alle
+produkter har en serie eller en søsken-pakning).
+
+**Én reell, ærlig forbedring gjort**: "Vis alle priser"-kollapsen på
+mobil krevde JS for å faktisk EKSPANDERE knappen -- selve dataen var
+alltid i den rå HTML-en (crawlere/AI-boter som bare leser DOM/tekst så
+alt uansett), men en ekte bruker med JS avslått på mobil ville sittet
+fast med kun topp 3. Lagt til en `<noscript><style>`-override rett etter
+`{{offers_block}}` som tvinger full synlighet når JS ikke kjører -- samme
+type forsvarlig no-JS-fallback-tankegang som allerede fantes for
+`qty-multi`.
+
+**Konklusjon til Kai**: Ingenting ble fjernet. Alt er flyttet til
+kunnskapssonen, tre seksjoner er nå bak (ekte, server-rendrede,
+crawler-lesbare) accordions i stedet for alltid synlige. Ett reelt,
+lite no-JS-hull ble funnet og fikset underveis i denne revisjonen.
