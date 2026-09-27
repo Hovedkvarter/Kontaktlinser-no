@@ -869,6 +869,48 @@ a { color: inherit; }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
+/* Price Intelligence (Product Gold Standard v1, 2026-09-27) -- erstatter
+   den gamle enkle "Prisutvikling"-grafen. Mobil (regel 27): kompakt,
+   stablet. Desktop (regel 28, >=860px): 4 toppmetrikker på én rad, mer
+   luft -- men fortsatt restrained, "skal fortsatt føles som
+   Kontaktlinser.no", ikke et tett analytics-dashboard. */
+.price-intel { margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.price-intel-head h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }
+.price-intel-head p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }
+.price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); background: var(--mist); border-radius: 10px; padding: 8px 12px; }
+.price-intel-coverage svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
+.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }
+.price-intel-period-tab { font-size: 0.78rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }
+.price-intel-period-tab.active { background: var(--ink); border-color: var(--ink); color: white; }
+.price-intel-period-tab:disabled { opacity: 0.4; cursor: not-allowed; }
+.price-intel-panel { display: none; margin-top: 16px; }
+.price-intel-panel.active { display: block; }
+.price-intel-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.price-intel-metric { background: var(--mist); border-radius: 10px; padding: 10px 12px; }
+.price-intel-metric strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--ink); }
+.price-intel-metric span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-intel-metric-now strong { color: var(--mint); }
+.price-intel-status { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); }
+.price-intel-status svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--blue); }
+.price-intel-status span strong { display: block; font-size: 0.82rem; margin-bottom: 1px; }
+.price-intel-status-down { background: var(--mint-tint); }
+.price-intel-status-down svg { color: var(--mint); }
+.price-intel-status-up { background: #FDECEC; }
+.price-intel-status-up svg { color: #D64545; }
+.price-intel-chart { margin-top: 14px; }
+.price-intel-chart .price-history-chart { padding: 8px 0; }
+.price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
+.price-intel-summary { display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }
+.price-intel-summary strong { display: block; margin-bottom: 2px; }
+.price-intel-summary-icon { flex-shrink: 0; }
+@media (min-width: 860px) {
+  .price-intel { padding: 28px 32px; }
+  .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .price-intel-head p { max-width: 520px; }
+  .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
+  .price-intel-metrics { grid-template-columns: repeat(4, 1fr) 1.3fr; }
+  .price-intel-status { grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }
+}
 
 .offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
 .offers-head h2 { margin: 0; }
@@ -1747,74 +1789,157 @@ a { color: inherit; }
     <h2>Om Dailies AquaComfort Plus 30-pack</h2>
     <p>Dailies AquaComfort Plus er Alcons rimeligere hydrogel-dagslinse i nelfilcon A, med 69 % vanninnhold. Et budsjettvennlig alternativ til de nyere silikonhydrogel-dagslinsene.</p>
     <div class="hero-badges"><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Dagslinser</span></span></div>
-    <div class="price-history">
+    <div class="price-intel">
+  <div class="price-intel-head">
     <h2>Prisutvikling</h2>
-    <p class="price-history-summary">Laveste produktpris (uten frakt) siste 45 dager: 224 kr.</p>
-    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 45 dager, fra 224 kr til 226 kr">
+    <p>Vi følger laveste produktpris hos butikkene vi sammenligner, slik at du kan se hvordan prisen har endret seg over tid.</p>
+    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong></span></div>
+  </div>
+  <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button></div>
+  <div class="price-intel-panel active" data-period="30d">
+    <div class="price-intel-metrics">
+      <div class="price-intel-metric price-intel-metric-now"><strong>224 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
+      <div class="price-intel-metric"><strong>224 kr</strong><span>Laveste registrerte pris<br>29. august 2026</span></div>
+      <div class="price-intel-metric"><strong>226 kr</strong><span>Høyeste registrerte pris<br>31. august 2026</span></div>
+      <div class="price-intel-metric"><strong>226 kr</strong><span>30-dagers median</span></div>
+      <div class="price-intel-status price-intel-status-flat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg><span><strong>Stabil pris</strong>Laveste produktpris har vært 224 kr i 7 dager.</span></div>
+    </div>
+    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 224 kr til 226 kr">
       <defs>
-        <linearGradient id="priceHistoryFade" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+        <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
-      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">226 kr</text>
-      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
-      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">225 kr</text>
-      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
-      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">224 kr</text>
-      <path d="M48.0,158.0 L48.0,23.9 L62.2,23.9 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,23.9 L161.5,23.9 L175.6,23.9 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,23.9 L303.3,23.9 L317.5,23.9 L331.6,23.9 L345.8,23.9 L360.0,23.9 L374.2,23.9 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,23.9 L501.8,23.9 L516.0,23.9 L530.2,23.9 L544.4,23.9 L558.5,23.9 L572.7,23.9 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade)" />
-      <polyline points="48.0,23.9 62.2,23.9 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,23.9 161.5,23.9 175.6,23.9 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,23.9 303.3,23.9 317.5,23.9 331.6,23.9 345.8,23.9 360.0,23.9 374.2,23.9 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,23.9 501.8,23.9 516.0,23.9 530.2,23.9 544.4,23.9 558.5,23.9 572.7,23.9 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
-      <circle cx="48.0" cy="23.9" r="2.2" class="price-history-dot"><title>14.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="62.2" cy="23.9" r="2.2" class="price-history-dot"><title>15.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="90.5" cy="23.9" r="2.2" class="price-history-dot"><title>17.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="104.7" cy="23.9" r="2.2" class="price-history-dot"><title>18.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="118.9" cy="23.9" r="2.2" class="price-history-dot"><title>19.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="133.1" cy="23.9" r="2.2" class="price-history-dot"><title>20.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="147.3" cy="23.9" r="2.2" class="price-history-dot"><title>21.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="161.5" cy="23.9" r="2.2" class="price-history-dot"><title>22.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="175.6" cy="23.9" r="2.2" class="price-history-dot"><title>23.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="189.8" cy="148.1" r="2.2" class="price-history-dot"><title>24.08: 224 kr hos Lensway</title></circle>
-      <circle cx="204.0" cy="148.1" r="2.2" class="price-history-dot"><title>25.08: 224 kr hos Lensway</title></circle>
-      <circle cx="218.2" cy="148.1" r="2.2" class="price-history-dot"><title>26.08: 224 kr hos Lensway</title></circle>
-      <circle cx="232.4" cy="148.1" r="2.2" class="price-history-dot"><title>27.08: 224 kr hos Lensway</title></circle>
-      <circle cx="246.5" cy="148.1" r="2.2" class="price-history-dot"><title>28.08: 224 kr hos Lensway</title></circle>
-      <circle cx="260.7" cy="148.1" r="2.2" class="price-history-dot"><title>29.08: 224 kr hos Lensway</title></circle>
-      <circle cx="274.9" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 224 kr hos Lensway</title></circle>
-      <circle cx="289.1" cy="23.9" r="2.2" class="price-history-dot"><title>31.08: 226 kr hos Interoptik</title></circle>
-      <circle cx="303.3" cy="23.9" r="2.2" class="price-history-dot"><title>01.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="317.5" cy="23.9" r="2.2" class="price-history-dot"><title>02.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="331.6" cy="23.9" r="2.2" class="price-history-dot"><title>03.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="345.8" cy="23.9" r="2.2" class="price-history-dot"><title>04.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="360.0" cy="23.9" r="2.2" class="price-history-dot"><title>05.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="374.2" cy="23.9" r="2.2" class="price-history-dot"><title>06.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="388.4" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="402.5" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="416.7" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="430.9" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="445.1" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="459.3" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="473.5" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="487.6" cy="23.9" r="2.2" class="price-history-dot"><title>14.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="501.8" cy="23.9" r="2.2" class="price-history-dot"><title>15.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="516.0" cy="23.9" r="2.2" class="price-history-dot"><title>16.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="530.2" cy="23.9" r="2.2" class="price-history-dot"><title>17.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="544.4" cy="23.9" r="2.2" class="price-history-dot"><title>18.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="558.5" cy="23.9" r="2.2" class="price-history-dot"><title>19.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="572.7" cy="23.9" r="2.2" class="price-history-dot"><title>20.09: 226 kr hos Interoptik</title></circle>
-      <circle cx="586.9" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 224 kr hos Lenson</title></circle>
-      <circle cx="601.1" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 224 kr hos Lenson</title></circle>
-      <circle cx="615.3" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 224 kr hos Lenson</title></circle>
-      <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 224 kr hos Lenson</title></circle>
-      <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 224 kr hos Lenson</title></circle>
-      <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 224 kr hos Lenson</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 224 kr hos Lenson</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">224 kr</text>
-      <text x="48" y="174" class="price-history-axis-label">14.08</text>
-      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
-    </svg>
+      <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">226 kr</text>
+      <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">224 kr</text>
+      <path d="M46.0,120.0 L46.0,111.0 L67.6,111.0 L89.2,21.0 L110.8,21.0 L132.3,21.0 L153.9,21.0 L175.5,21.0 L197.1,21.0 L218.7,21.0 L240.3,21.0 L261.9,21.0 L283.4,21.0 L305.0,21.0 L326.6,21.0 L348.2,21.0 L369.8,21.0 L391.4,21.0 L413.0,21.0 L434.6,21.0 L456.1,21.0 L477.7,21.0 L499.3,21.0 L520.9,21.0 L542.5,111.0 L564.1,111.0 L585.7,111.0 L607.2,111.0 L628.8,111.0 L650.4,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,111.0 67.6,111.0 89.2,21.0 110.8,21.0 132.3,21.0 153.9,21.0 175.5,21.0 197.1,21.0 218.7,21.0 240.3,21.0 261.9,21.0 283.4,21.0 305.0,21.0 326.6,21.0 348.2,21.0 369.8,21.0 391.4,21.0 413.0,21.0 434.6,21.0 456.1,21.0 477.7,21.0 499.3,21.0 520.9,21.0 542.5,111.0 564.1,111.0 585.7,111.0 607.2,111.0 628.8,111.0 650.4,111.0 672.0,111.0" class="price-history-line" />
+      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="111.0" r="9" class="price-intel-hit"><title>29. august: 224 kr hos Lensway</title></circle>
+      <circle cx="67.6" cy="111.0" r="9" class="price-intel-hit"><title>30. august: 224 kr hos Lensway</title></circle>
+      <circle cx="89.2" cy="21.0" r="9" class="price-intel-hit"><title>31. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="110.8" cy="21.0" r="9" class="price-intel-hit"><title>1. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="132.3" cy="21.0" r="9" class="price-intel-hit"><title>2. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="153.9" cy="21.0" r="9" class="price-intel-hit"><title>3. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="175.5" cy="21.0" r="9" class="price-intel-hit"><title>4. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="197.1" cy="21.0" r="9" class="price-intel-hit"><title>5. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="218.7" cy="21.0" r="9" class="price-intel-hit"><title>6. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="240.3" cy="21.0" r="9" class="price-intel-hit"><title>7. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="261.9" cy="21.0" r="9" class="price-intel-hit"><title>8. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="283.4" cy="21.0" r="9" class="price-intel-hit"><title>9. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="305.0" cy="21.0" r="9" class="price-intel-hit"><title>10. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="326.6" cy="21.0" r="9" class="price-intel-hit"><title>11. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="348.2" cy="21.0" r="9" class="price-intel-hit"><title>12. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="369.8" cy="21.0" r="9" class="price-intel-hit"><title>13. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="391.4" cy="21.0" r="9" class="price-intel-hit"><title>14. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="413.0" cy="21.0" r="9" class="price-intel-hit"><title>15. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="434.6" cy="21.0" r="9" class="price-intel-hit"><title>16. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="456.1" cy="21.0" r="9" class="price-intel-hit"><title>17. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="477.7" cy="21.0" r="9" class="price-intel-hit"><title>18. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="499.3" cy="21.0" r="9" class="price-intel-hit"><title>19. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="520.9" cy="21.0" r="9" class="price-intel-hit"><title>20. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="542.5" cy="111.0" r="9" class="price-intel-hit"><title>21. september: 224 kr hos Lenson</title></circle>
+      <circle cx="564.1" cy="111.0" r="9" class="price-intel-hit"><title>22. september: 224 kr hos Lenson</title></circle>
+      <circle cx="585.7" cy="111.0" r="9" class="price-intel-hit"><title>23. september: 224 kr hos Lenson</title></circle>
+      <circle cx="607.2" cy="111.0" r="9" class="price-intel-hit"><title>24. september: 224 kr hos Lenson</title></circle>
+      <circle cx="628.8" cy="111.0" r="9" class="price-intel-hit"><title>25. september: 224 kr hos Lenson</title></circle>
+      <circle cx="650.4" cy="111.0" r="9" class="price-intel-hit"><title>26. september: 224 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 224 kr hos Lenson</title></circle>
+      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">224 kr</text>
+      <text x="46" y="135" class="price-history-axis-label">29.08</text>
+      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg></div>
+    <p class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">💡</span> <strong>Kort oppsummert</strong><br>Prisen på Dailies AquaComfort Plus 30-pack har vært uendret på 224 kr de siste 7 dagene.</p>
+  </div><div class="price-intel-panel" data-period="all">
+    <div class="price-intel-metrics">
+      <div class="price-intel-metric price-intel-metric-now"><strong>224 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
+      <div class="price-intel-metric"><strong>224 kr</strong><span>Laveste registrerte pris<br>24. august 2026</span></div>
+      <div class="price-intel-metric"><strong>226 kr</strong><span>Høyeste registrerte pris<br>14. august 2026</span></div>
+      <div class="price-intel-metric"><strong>226 kr</strong><span>45-dagers median</span></div>
+      <div class="price-intel-status price-intel-status-flat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg><span><strong>Stabil pris</strong>Laveste produktpris har vært 224 kr i 7 dager.</span></div>
+    </div>
+    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 224 kr til 226 kr">
+      <defs>
+        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">226 kr</text>
+      <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">224 kr</text>
+      <path d="M46.0,120.0 L46.0,21.0 L60.2,21.0 L74.5,21.0 L88.7,21.0 L102.9,21.0 L117.1,21.0 L131.4,21.0 L145.6,21.0 L159.8,21.0 L174.0,21.0 L188.3,111.0 L202.5,111.0 L216.7,111.0 L231.0,111.0 L245.2,111.0 L259.4,111.0 L273.6,111.0 L287.9,21.0 L302.1,21.0 L316.3,21.0 L330.5,21.0 L344.8,21.0 L359.0,21.0 L373.2,21.0 L387.5,21.0 L401.7,21.0 L415.9,21.0 L430.1,21.0 L444.4,21.0 L458.6,21.0 L472.8,21.0 L487.0,21.0 L501.3,21.0 L515.5,21.0 L529.7,21.0 L544.0,21.0 L558.2,21.0 L572.4,21.0 L586.6,111.0 L600.9,111.0 L615.1,111.0 L629.3,111.0 L643.5,111.0 L657.8,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,21.0 60.2,21.0 74.5,21.0 88.7,21.0 102.9,21.0 117.1,21.0 131.4,21.0 145.6,21.0 159.8,21.0 174.0,21.0 188.3,111.0 202.5,111.0 216.7,111.0 231.0,111.0 245.2,111.0 259.4,111.0 273.6,111.0 287.9,21.0 302.1,21.0 316.3,21.0 330.5,21.0 344.8,21.0 359.0,21.0 373.2,21.0 387.5,21.0 401.7,21.0 415.9,21.0 430.1,21.0 444.4,21.0 458.6,21.0 472.8,21.0 487.0,21.0 501.3,21.0 515.5,21.0 529.7,21.0 544.0,21.0 558.2,21.0 572.4,21.0 586.6,111.0 600.9,111.0 615.1,111.0 629.3,111.0 643.5,111.0 657.8,111.0 672.0,111.0" class="price-history-line" />
+      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="21.0" r="9" class="price-intel-hit"><title>14. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="60.2" cy="21.0" r="9" class="price-intel-hit"><title>15. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="74.5" cy="21.0" r="9" class="price-intel-hit"><title>16. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="88.7" cy="21.0" r="9" class="price-intel-hit"><title>17. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="102.9" cy="21.0" r="9" class="price-intel-hit"><title>18. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="117.1" cy="21.0" r="9" class="price-intel-hit"><title>19. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="131.4" cy="21.0" r="9" class="price-intel-hit"><title>20. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="145.6" cy="21.0" r="9" class="price-intel-hit"><title>21. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="159.8" cy="21.0" r="9" class="price-intel-hit"><title>22. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="174.0" cy="21.0" r="9" class="price-intel-hit"><title>23. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="188.3" cy="111.0" r="9" class="price-intel-hit"><title>24. august: 224 kr hos Lensway</title></circle>
+      <circle cx="202.5" cy="111.0" r="9" class="price-intel-hit"><title>25. august: 224 kr hos Lensway</title></circle>
+      <circle cx="216.7" cy="111.0" r="9" class="price-intel-hit"><title>26. august: 224 kr hos Lensway</title></circle>
+      <circle cx="231.0" cy="111.0" r="9" class="price-intel-hit"><title>27. august: 224 kr hos Lensway</title></circle>
+      <circle cx="245.2" cy="111.0" r="9" class="price-intel-hit"><title>28. august: 224 kr hos Lensway</title></circle>
+      <circle cx="259.4" cy="111.0" r="9" class="price-intel-hit"><title>29. august: 224 kr hos Lensway</title></circle>
+      <circle cx="273.6" cy="111.0" r="9" class="price-intel-hit"><title>30. august: 224 kr hos Lensway</title></circle>
+      <circle cx="287.9" cy="21.0" r="9" class="price-intel-hit"><title>31. august: 226 kr hos Interoptik</title></circle>
+      <circle cx="302.1" cy="21.0" r="9" class="price-intel-hit"><title>1. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="316.3" cy="21.0" r="9" class="price-intel-hit"><title>2. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="330.5" cy="21.0" r="9" class="price-intel-hit"><title>3. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="344.8" cy="21.0" r="9" class="price-intel-hit"><title>4. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="359.0" cy="21.0" r="9" class="price-intel-hit"><title>5. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="373.2" cy="21.0" r="9" class="price-intel-hit"><title>6. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="387.5" cy="21.0" r="9" class="price-intel-hit"><title>7. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="401.7" cy="21.0" r="9" class="price-intel-hit"><title>8. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="415.9" cy="21.0" r="9" class="price-intel-hit"><title>9. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="430.1" cy="21.0" r="9" class="price-intel-hit"><title>10. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="444.4" cy="21.0" r="9" class="price-intel-hit"><title>11. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="458.6" cy="21.0" r="9" class="price-intel-hit"><title>12. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="472.8" cy="21.0" r="9" class="price-intel-hit"><title>13. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="487.0" cy="21.0" r="9" class="price-intel-hit"><title>14. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="501.3" cy="21.0" r="9" class="price-intel-hit"><title>15. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="515.5" cy="21.0" r="9" class="price-intel-hit"><title>16. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="529.7" cy="21.0" r="9" class="price-intel-hit"><title>17. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="544.0" cy="21.0" r="9" class="price-intel-hit"><title>18. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="558.2" cy="21.0" r="9" class="price-intel-hit"><title>19. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="572.4" cy="21.0" r="9" class="price-intel-hit"><title>20. september: 226 kr hos Interoptik</title></circle>
+      <circle cx="586.6" cy="111.0" r="9" class="price-intel-hit"><title>21. september: 224 kr hos Lenson</title></circle>
+      <circle cx="600.9" cy="111.0" r="9" class="price-intel-hit"><title>22. september: 224 kr hos Lenson</title></circle>
+      <circle cx="615.1" cy="111.0" r="9" class="price-intel-hit"><title>23. september: 224 kr hos Lenson</title></circle>
+      <circle cx="629.3" cy="111.0" r="9" class="price-intel-hit"><title>24. september: 224 kr hos Lenson</title></circle>
+      <circle cx="643.5" cy="111.0" r="9" class="price-intel-hit"><title>25. september: 224 kr hos Lenson</title></circle>
+      <circle cx="657.8" cy="111.0" r="9" class="price-intel-hit"><title>26. september: 224 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 224 kr hos Lenson</title></circle>
+      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">224 kr</text>
+      <text x="46" y="135" class="price-history-axis-label">14.08</text>
+      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg></div>
+    <p class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">💡</span> <strong>Kort oppsummert</strong><br>Prisen på Dailies AquaComfort Plus 30-pack har vært uendret på 224 kr de siste 7 dagene.</p>
   </div>
+  <script>
+(function () {
+  var wrap = document.currentScript.closest('.price-intel');
+  if (!wrap) return;
+  wrap.querySelectorAll('.price-intel-period-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var period = tab.getAttribute('data-period');
+      wrap.querySelectorAll('.price-intel-period-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      wrap.querySelectorAll('.price-intel-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-period') === period); });
+    });
+  });
+})();
+</script>
+</div>
     <div class="aliases-note">
     <strong>Selges også under andre navn:</strong> Dailies AquaComfort Plus 30-pack pakkes om og selges under eget varenavn hos 1 optikerkjede:
     <ul>
