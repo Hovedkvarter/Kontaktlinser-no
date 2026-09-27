@@ -3128,3 +3128,43 @@ type forsvarlig no-JS-fallback-tankegang som allerede fantes for
 kunnskapssonen, tre seksjoner er nå bak (ekte, server-rendrede,
 crawler-lesbare) accordions i stedet for alltid synlige. Ett reelt,
 lite no-JS-hull ble funnet og fikset underveis i denne revisjonen.
+
+## Produktsiden: sluttrunde med bredde-/landskap-testing (2026-09-27, samme dag)
+
+Kai: "kan vi fortsette og få produktsiden på plass?" (deretter: "men bare
+jobb for å få produktsiden på mobil på plass, og så må vi få ryddet opp
+på desktop også" -- desktop er bevisst UTSATT til egen runde, ikke gjort
+her). Systematisk testet de breddene briefen selv ba om (320/360/390/
+430px) pluss landskap (812×375, en typisk telefon i liggende modus).
+
+- **Fant og fikset**: "Gå til butikk"-knappeteksten ble klippet
+  (bokstaven "G" kuttet av) på de smaleste skjermene (320px) -- selv etter
+  gjentatte skrift-nedskaleringer fra tidligere runder rakk ikke
+  "Gå til butikk →" på én linje i den ~66px brede knappen. Løsning: byttet
+  fra `white-space:nowrap` til `white-space:normal` (kun i det
+  mobil-scopede laget) slik at CTA-en bryter pent til to linjer i stedet
+  for å klippes -- mer robust enn å presse skriften enda mindre, som
+  hadde gått ut over lesbarheten.
+- **320/360/390/430px**: ingen horisontal overflow på noen av de fire,
+  bekreftet med `document.body.scrollWidth`.
+- **Landskap (812×375)**: bilde + vinnerkort side ved side fungerer fint,
+  antallsvelger + fraktbryter på samme rad, prisliste bruker naturlig sin
+  bredere (~700px+) radlayout -- ingen egen kode trengtes for dette,
+  brifens ønskede landskap-oppførsel kom gratis av de eksisterende
+  brytpunktene.
+- **Funnet, IKKE fra dagens arbeid**: samme 812px-testen avdekket at
+  toppmenyens mega-meny (720px fast bredde, `position:absolute` +
+  `visibility:hidden` som standard -- usynlige elementer med
+  `visibility:hidden` teller likevel med i `scrollWidth`) gir horisontal
+  overflow på ALLE sider (bekreftet på forsiden også) i et
+  ~700-860px-vindu, uavhengig av om menyen faktisk er åpen. Dette er en
+  eldre, sidewide feil, ikke noe dagens produktside-redesign innførte --
+  flagget som egen bakgrunnsoppgave (`task_4931b978`) i stedet for å
+  fikses her og blande sammen med produktside-arbeidet.
+- **Touch-mål**: "Gå til butikk"-knappen er ~29,6px høy på 375px --
+  under den anbefalte 44px (WCAG AAA), men over det faktiske minstekravet
+  (WCAG 2.5.8 AA, 24px). Bevisst IKKE økt videre -- Kai ba eksplisitt om
+  et mer kompakt/firkantet kort i forrige runde, og å vokse knappen igjen
+  ville motvirket akkurat det.
+
+Testet: full sveip av alle 411 bygde sider, ingen Traceback/NameError.
