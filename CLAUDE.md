@@ -3683,3 +3683,112 @@ bekreftet `display:none`→`block`), egen `#qty-custom-input` fortsatt
 funksjonell (klikk på "Eget" åpner og fokuserer feltet), egen enkle
 frakt-chip urørt. Private label-siden: samme, uendret (1,2,4,6,10,
 custom).
+
+## Produktsiden: Price Intelligence-modul, Steg 1 (2026-09-27, samme dag)
+
+Kai delte et 31-punkts "Price Intelligence — Product Gold Standard v1"-
+spec + godkjent mockup, med absolutte regler som overstyrer alt annet:
+aldri finn på tall/trender, hvert tall skal beregnes fra faktisk
+lagret data, skjul en metrikk heller enn å anslå den, og bygg det som
+et gjenbrukbart rammeverk (ikke produktspesifikk kode). Gitt
+omfanget -- 8 delmoduler, hver med sin egen data-kvalitetsport --
+implementeres spec-en i etapper, samme disiplin som resten av
+produktside-arbeidet denne dagen.
+
+**Datavirkelighet undersøkt FØR noe ble bygget** (påkrevd av regel 2-4):
+`price_history.json` inneholder i dag (2026-09-27) MAKS 45 dagers
+historikk for ETHVERT produkt (155 av 203 produkter med historikk har
+nøyaktig 45 dager, resten færre, 17 for lite til å vise noe i det hele
+tatt). Dette betyr at 90 dager/6 måneder/1 år-periodene er
+deaktiverte for ALLE produkter akkurat nå -- ikke en begrensning i
+koden, men en direkte konsekvens av ekte data, og rammeverket
+aktiverer dem automatisk etter hvert som `price_history.py` sin
+`record_price()` legger til én dag per bygging. Hver rad har allerede
+`date`/`price` (laveste PRODUKTPRIS, uten frakt -- matcher sidens
+prisbasis-standard) OG `store` (vinnende butikk den dagen) -- sistnevnte
+er det som gjør en fremtidig "Prisvinner over tid"-modul mulig i det
+hele tatt.
+
+**Implementert i dette steget** (`render_price_intelligence()`, ny
+funksjon -- erstatter kun produktsidens `price_history_html`-kall; den
+gamle `_render_price_history_chart()` er BEVISST urørt og brukes
+fortsatt uendret av merke-/serie-sidenes `render_family_price_insight()`,
+bekreftet i browser at begge lever side om side uten krysspåvirkning):
+
+- **Sentralisert, deterministisk beregningsmotor** (regel 22: "Do not
+  scatter arbitrary checks... Centralize the rules"):
+  `_price_intelligence_eligible_periods()` (data-kvalitetsport per
+  periode), `_price_intelligence_status()` (statusklassifisering:
+  flat/historical_low/historical_high/down/up/stable, med
+  dokumenterte, tallfestede terskler -- `STATUS_STABLE_TOLERANCE_PCT
+  = 3.0`, `STATUS_FLAT_MIN_DAYS = 7`, regel 6: "Avoid meaningless
+  claims caused by 1 kr fluctuations"), `_price_intelligence_metrics()`
+  (lav/høy/median for et gitt periode-vindu -- median valgt over
+  gjennomsnitt siden `record_price()` garanterer nøyaktig én
+  observasjon per dag, altså konsistente daglige data, jf. regel 4).
+- **Dekningsindikator**: "Vi har fulgt prisen siden {faktisk første
+  dato}" -- aldri en påstått dato vi ikke faktisk har data fra.
+- **Toppmetrikker**: Pris nå, Laveste registrerte pris (+dato),
+  Høyeste registrerte pris (+dato), "{N}-dagers median" (N er alltid
+  det faktiske antallet dager i det valgte vinduet, aldri hardkodet).
+- **Deterministisk statuskort** med ikon, f.eks. "Stabil pris /
+  Laveste produktpris har vært 262 kr i 30 dager" eller "Pris ned /
+  Laveste produktpris har falt 6 % de siste 30 dagene" -- ALDRI en
+  KI-generert kommentar (regel 5), kun tekst fra malene over.
+- **Periodevelger**: alle 5 perioder vises alltid (regel 7's mockup-
+  visning), men kun de faktisk kvalifiserte er klikkbare -- de
+  deaktiverte har `disabled`-attributt + forklarende `title`. Samme
+  no-JS-vennlige fane-mønster som `render_family_price_insight()`
+  allerede etablerte (alle paneler ferdigbygget i DOM-en, ren CSS
+  `.active`-klassestyring, fungerer uten JS også -- viser bare første
+  panel).
+- **Strammere graf** (ny `_render_price_intelligence_chart()`, egen
+  funksjon -- IKKE en endring av den gamle): 140px høy (var 180px),
+  restrained rutenett (2 linjer i stedet for 3), ingen synlig prikk
+  per dag (kun siste punkt, regel 8), usynlige brede hover-mål
+  beholder ekte per-dag-tooltip (dato + pris + butikk) via SVG
+  `<title>` -- ingen JS-bibliotek, akkurat som originalen.
+- **"Kort oppsummert"**: fra strukturerte maler (regel 20), ikke fri
+  AI-tekst.
+
+**Ekte bug fanget og fikset under egen testing** (før noe ble sendt til
+Kai): "flat"-statusens oppsummeringstekst påsto først at dagens pris
+var "både laveste og høyeste registrerte pris i perioden" -- sant når
+prisen er flat i HELE det valgte vinduet, men FEIL når `flat_days`
+(f.eks. 7) er kortere enn hele perioden (f.eks. 30 dager), siden
+prisen da faktisk kan ha vært annerledes tidligere i vinduet (fant et
+ekte eksempel: PureVision2 for Astigmatism 6-pack, pris 505→554 kr
+over 30 dager, men flat på 554 kr de siste 7). Dette var akkurat den
+typen "feilrepresentert tall" regel 2/3 eksplisitt forbyr. Fikset ved
+å skille to tilfeller: `flat_days >= n_days` (faktisk flat hele
+perioden, opprinnelig setning beholdt) vs. `flat_days < n_days` (ny,
+presis setning: "har vært uendret på X kr de siste N dagene", uten å
+påstå noe om resten av perioden).
+
+**Bevisst UTSATT til senere steg** (rammeverket støtter dem allerede
+strukturelt, ingen omskriving nødvendig når de bygges): Prisforskjell
+mellom butikkene (krever live `offers`, ikke historikk-data),
+Prisvinner over tid (krever iterering over `store`-feltet per dag +
+en eksplisitt, dokumentert uavgjort-regel, regel 14), Kjøper du flere
+esker (krever qty-motoren som allerede finnes i
+`render_winner_widget()`). Alt dette er rent additivt -- ingenting av
+det som allerede finnes på siden fjernes i mellomtiden.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Bekreftet fil-encoding var korrekt UTF-8 (`å` =
+riktig kodepunkt 0xe5) da et terminal-visningsartefakt først så ut som
+korrupsjon. Verifisert på flere produkter med ulik datahistorikk:
+45-dagers (Dailies AquaComfort Plus 90-pack -- alle 5 toppmetrikker +
+"stable"-status korrekte), eksakt 30-dagers grense (Acuvue Oasys MAX
+1-Day for Astigmatism -- "30 dager" korrekt aktivert akkurat ved
+grensen), <7 dagers (Acuvue Oasys 1-Day with Hydraluxe 180-pack --
+modulen korrekt usynlig, ingen krasj), ekte "flat"-status (Acuvue
+Oasys 6-pack, 262 kr i 30 sammenhengende dager), ekte "down"-status
+(ULTRA 6-pack, -6 % over 30 dager, korrekt mint-farget statuskort).
+Periodevelger-fanebytte testet i browser (klikk "All historikk" -->
+panel bytter til 45-dagers median, ingen JS-feil). Mobil (375px) og
+desktop (1440px) begge sjekket -- ingen horisontal overflow, resten av
+produktsidens hero/quantity-seksjon uendret. Merke-siden (`/merke/
+acuvue/`) bekreftet å fortsatt bruke den GAMLE, urørte grafen
+(`.price-insight`/`.price-history-chart`, ikke `.price-intel`) --
+null krysspåvirkning.

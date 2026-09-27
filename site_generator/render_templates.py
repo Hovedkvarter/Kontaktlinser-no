@@ -17,6 +17,7 @@ Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 import json
 import math
 import re
+import statistics
 from datetime import datetime, timedelta, timezone
 from html import escape
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -3574,6 +3575,134 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     return stem, int(size_part)
 
 
+_NORWEGIAN_MONTHS = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"]
+
+
+def _format_no_date(date_str: str, with_year: bool = True) -> str:
+    """'2026-08-19' -> '19. august 2026' (eller '19. august' uten årstall)."""
+    year, month, day = date_str.split("-")
+    text = f"{int(day)}. {_NORWEGIAN_MONTHS[int(month) - 1]}"
+    return f"{text} {year}" if with_year else text
+
+
+# Price Intelligence (Product Gold Standard v1, 2026-09-27) -- gjenbrukbart
+# rammeverk for prisutviklings-modulen, IKKE produktspesifikk kode (Kai,
+# absolutt regel 8). Periodene som faktisk kan velges avhenger av hvor mye
+# historikk vi FAKTISK har for produktet (se _price_intelligence_eligible_
+# periods()) -- i dag (2026-09-27) har INGEN produkt mer enn 45 dagers
+# historikk (price_history.json sjekket direkte), så 90 dager/6 måneder/1 år
+# er deaktivert for absolutt alle produkter ennå. Dette er IKKE hardkodet
+# noe sted -- rammeverket aktiverer periodene automatisk etter hvert som
+# price_history.json vokser med én dag per bygging (record_price() i
+# price_history.py), uten kodeendring.
+PRICE_INTELLIGENCE_PERIODS: list[tuple[str, str, int | None]] = [
+    ("30d", "30 dager", 30),
+    ("90d", "90 dager", 90),
+    ("6m", "6 måneder", 182),
+    ("1y", "1 år", 365),
+    ("all", "All historikk", None),
+]
+
+# Toleranse for "stabil pris" (regel 6: "Avoid meaningless claims caused by
+# 1 kr fluctuations") -- en endring innenfor +-STATUS_STABLE_TOLERANCE_PCT
+# regnes IKKE som en reell opp-/nedgang. Et produkt må ha vært helt
+# UENDRET i minst STATUS_FLAT_MIN_DAYS sammenhengende dager (regnet
+# bakover fra siste observasjon) for å få den mer spesifikke "flat i N
+# dager"-meldingen i stedet for en generisk "stabil"-melding.
+STATUS_STABLE_TOLERANCE_PCT = 3.0
+STATUS_FLAT_MIN_DAYS = 7
+
+
+def _price_intelligence_eligible_periods(coverage_days: int) -> list[tuple[str, str, int | None]]:
+    """Hvilke av PRICE_INTELLIGENCE_PERIODS vi faktisk har nok data til å
+    vise (regel 7/21/22 -- "Only enable periods for which sufficient data
+    exists", data-kvalitetsport). "All historikk" er alltid tilgjengelig
+    (den viser uansett bare det vi faktisk har)."""
+    return [(key, label, days) for key, label, days in PRICE_INTELLIGENCE_PERIODS if days is None or coverage_days >= days]
+
+
+def _price_intelligence_window(history: list[dict], days: int | None) -> list[dict]:
+    """Historikken for det siste `days`-vinduet (None = alt vi har). `history`
+    er alltid sortert eldst->nyest (garantert av record_price())."""
+    return history if days is None else history[-days:]
+
+
+def _price_intelligence_status(window: list[dict]) -> dict:
+    """Deterministisk statusvurdering for ETT vindu av historikken --
+    ALDRI en LLM-generert kommentar (regel 5), kun de eksplisitte reglene
+    dokumentert her (regel 6):
+      1. flat: prisen har vært helt UENDRET i >=STATUS_FLAT_MIN_DAYS dager
+         (regnet bakover fra siste observasjon) -- den mest spesifikke,
+         mest informative meldingen når den gjelder.
+      2. historical_low/historical_high: dagens pris er nøyaktig lik
+         laveste/høyeste pris i DETTE vinduet (ikke nødvendigvis
+         all-time -- "relevant history period" i regel 6, konsekvent med
+         at alle andre tall i modulen også er periode-relative).
+      3. down/up: prisendring fra vinduets FØRSTE til SISTE observasjon,
+         utenfor +-STATUS_STABLE_TOLERANCE_PCT.
+      4. Ellers: stable (liten, ikke-meningsfull svingning)."""
+    prices = [h["price"] for h in window]
+    current = prices[-1]
+    period_low, period_high = min(prices), max(prices)
+    period_start = prices[0]
+
+    flat_days = 0
+    for p in reversed(prices):
+        if p == current:
+            flat_days += 1
+        else:
+            break
+
+    pct_change = ((current - period_start) / period_start * 100) if period_start else 0.0
+
+    if flat_days >= STATUS_FLAT_MIN_DAYS:
+        kind = "flat"
+    elif current == period_low and period_low != period_high:
+        kind = "historical_low"
+    elif current == period_high and period_low != period_high:
+        kind = "historical_high"
+    elif pct_change <= -STATUS_STABLE_TOLERANCE_PCT:
+        kind = "down"
+    elif pct_change >= STATUS_STABLE_TOLERANCE_PCT:
+        kind = "up"
+    else:
+        kind = "stable"
+
+    return {
+        "kind": kind,
+        "current": current,
+        "period_start": period_start,
+        "period_low": period_low,
+        "period_high": period_high,
+        "pct_change": pct_change,
+        "flat_days": flat_days,
+    }
+
+
+def _price_intelligence_metrics(history: list[dict], period_days: int | None) -> dict | None:
+    """Alle tallene ETT periode-panel trenger, for ETT produkts historikk.
+    Returnerer None hvis vinduet er tomt (skal ikke skje i praksis siden
+    perioden allerede er filtrert til kvalifiserte via
+    _price_intelligence_eligible_periods(), men lar aldri en tom liste
+    krasje videre ned i statistics.median())."""
+    window = _price_intelligence_window(history, period_days)
+    if not window:
+        return None
+    prices = [h["price"] for h in window]
+    status = _price_intelligence_status(window)
+    return {
+        "window": window,
+        "n_days": len(window),
+        "current": prices[-1],
+        "low": min(prices),
+        "low_date": min(window, key=lambda h: h["price"])["date"],
+        "high": max(prices),
+        "high_date": max(window, key=lambda h: h["price"])["date"],
+        "median": statistics.median(prices),
+        "status": status,
+    }
+
+
 def _render_price_history_chart(history: list[dict], show_heading: bool = True, gradient_id: str = "priceHistoryFade") -> str:
     """SVG-linjegraf med fadet fylt areal under, over laveste PRODUKTPRIS
     (uten frakt) per dag, tegnet server-side -- ingen JS-bibliotek, fungerer
@@ -3684,6 +3813,234 @@ def _render_price_history_chart(history: list[dict], show_heading: bool = True, 
       {date_axis_html}
     </svg>
   </div>"""
+
+
+def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> str:
+    """Strammere graf enn _render_price_history_chart() (KUN brukt av denne,
+    IKKE av merke-/serie-sidenes _family_price_insight_data()-visning, som
+    fortsatt bruker den gamle -- uendret der, se Kai sin regel om å ikke
+    røre annet). Mindre vertikal luft, restrained rutenett (2 linjer i
+    stedet for 3), ingen synlig prikk per dag -- kun siste punkt (regel 8:
+    "no circle marker for every single daily observation... current/latest
+    point may have a marker"). Usynlige, brede hover-mål (price-intel-hit)
+    beholder ekte per-dag-tooltip (dato + pris) via SVG <title>, helt uten
+    JS, akkurat som originalgrafen."""
+    n = len(window)
+    prices = [h["price"] for h in window]
+    real_min, real_max = min(prices), max(prices)
+
+    if real_min == real_max:
+        half_span = max(10.0, real_min * 0.12)
+        min_price, max_price = real_min - half_span, real_min + half_span
+    else:
+        pad = (real_max - real_min) * 0.1
+        min_price, max_price = real_min - pad, real_max + pad
+    price_range = max_price - min_price
+
+    width, height = 680, 140
+    pad_left, pad_right, pad_top, pad_bottom = 46, 8, 12, 20
+    plot_w = width - pad_left - pad_right
+    plot_h = height - pad_top - pad_bottom
+    baseline_y = pad_top + plot_h
+
+    def y_for(price: float) -> float:
+        return pad_top + (1 - (price - min_price) / price_range) * plot_h
+
+    def x_for(i: int) -> float:
+        return pad_left + (i / (n - 1) if n > 1 else 0) * plot_w
+
+    def short_date(date_str: str) -> str:
+        _, month, day = date_str.split("-")
+        return f"{day}.{month}"
+
+    line_points = " ".join(f"{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(window))
+    area_path = (
+        f"M{x_for(0):.1f},{baseline_y:.1f} "
+        + " ".join(f"L{x_for(i):.1f},{y_for(h['price']):.1f}" for i, h in enumerate(window))
+        + f" L{x_for(n - 1):.1f},{baseline_y:.1f} Z"
+    )
+    hit_targets = "\n      ".join(
+        f'<circle cx="{x_for(i):.1f}" cy="{y_for(h["price"]):.1f}" r="9" class="price-intel-hit">'
+        f'<title>{escape(_format_no_date(h["date"], with_year=False))}: {_fmt_kr(h["price"])}{" hos " + escape(h["store"]) if h.get("store") else ""}</title></circle>'
+        for i, h in enumerate(window)
+    )
+    last = window[-1]
+    last_label_y = max(pad_top + 9, y_for(last["price"]) - 8)
+    last_label_anchor = "end" if n > 1 else "middle"
+    axis_prices = [max_price, min_price]
+    axis_html = "\n      ".join(
+        f'<line x1="{pad_left}" y1="{y_for(p):.1f}" x2="{width - pad_right}" y2="{y_for(p):.1f}" class="price-history-gridline" />\n'
+        f'      <text x="{pad_left - 6}" y="{y_for(p) + 3:.1f}" text-anchor="end" class="price-history-axis-label">{escape(_fmt_kr(p))}</text>'
+        for p in axis_prices
+    )
+    first = window[0]
+    date_axis_html = (
+        f'<text x="{pad_left}" y="{height - 5}" class="price-history-axis-label">{escape(short_date(first["date"]))}</text>\n'
+        f'      <text x="{width - pad_right}" y="{height - 5}" text-anchor="end" class="price-history-axis-label">{escape(short_date(last["date"]))}</text>'
+    )
+    return f"""<svg viewBox="0 0 {width} {height}" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
+      <defs>
+        <linearGradient id="{gradient_id}" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      {axis_html}
+      <path d="{area_path}" class="price-history-area" fill="url(#{gradient_id})" />
+      <polyline points="{line_points}" class="price-history-line" />
+      <circle cx="{x_for(n - 1):.1f}" cy="{y_for(last['price']):.1f}" r="3.2" class="price-history-dot price-history-dot-last" />
+      {hit_targets}
+      <text x="{x_for(n - 1):.1f}" y="{last_label_y:.1f}" text-anchor="{last_label_anchor}" class="price-history-current-label">{escape(_fmt_kr(last["price"]))}</text>
+      {date_axis_html}
+    </svg>"""
+
+
+_PRICE_INTEL_STATUS_ICONS = {
+    "flat": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg>',
+    "stable": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg>',
+    "down": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l7 7 4-4 5 5M20 11v4h-4"/></svg>',
+    "up": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg>',
+    "historical_low": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v12M6 16l-3-3M6 16l3-3M12 4v16M18 4v9M18 13l-3-3M18 13l3-3"/></svg>',
+    "historical_high": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V8M6 8l-3 3M6 8l3 3M12 20V4M18 20v-9M18 11l-3 3M18 11l3 3"/></svg>',
+}
+
+
+def _price_intelligence_status_text(status: dict, n_days: int, period_label: str) -> tuple[str, str, str]:
+    """(css-modifikator, kort tittel, forklarende setning) for statuskortet
+    -- ALLTID fra de deterministiske reglene i _price_intelligence_status(),
+    ALDRI en generert kommentar (Kai, regel 5: "Do not use an LLM to invent
+    price commentary")."""
+    kind = status["kind"]
+    current = status["current"]
+    if kind == "flat":
+        return "flat", "Stabil pris", f"Laveste produktpris har vært {_fmt_kr(current)} i {status['flat_days']} dager."
+    if kind == "historical_low":
+        return "low", "Laveste registrerte pris", f"Dagens pris er den laveste vi har registrert i denne perioden ({period_label})."
+    if kind == "historical_high":
+        return "high", "Høyeste registrerte pris", f"Dagens pris er den høyeste vi har registrert i denne perioden ({period_label})."
+    if kind == "down":
+        return "down", "Pris ned", f"Laveste produktpris har falt {abs(status['pct_change']):.0f} % de siste {n_days} dagene."
+    if kind == "up":
+        return "up", "Pris opp", f"Laveste produktpris er {abs(status['pct_change']):.0f} % høyere enn for {n_days} dager siden."
+    return "stable", "Stabil pris", f"Laveste produktpris har endret seg lite de siste {n_days} dagene."
+
+
+def _price_intelligence_summary_text(product_name: str, metrics: dict, period_label: str) -> str:
+    """"Kort oppsummert" -- fra strukturerte, deterministiske maler (Kai,
+    regel 20: "generated from structured deterministic templates, not
+    free-form AI"), aldri fritekst fra en språkmodell. Kun fakta denne
+    modulens egne, allerede utregnede tall faktisk støtter -- ingen
+    påstand om butikk-spredning her ennå (det tallet hentes fra
+    Prisforskjell-kortet, som er en senere utvidelse av denne modulen)."""
+    status = metrics["status"]
+    kind, n_days = status["kind"], metrics["n_days"]
+    name = escape(product_name)
+    if kind == "flat":
+        flat_days = status["flat_days"]
+        # VIKTIG: bruk flat_days (den faktiske, sammenhengende
+        # uendret-strekken), IKKE hele periodens n_days -- prisen kan ha
+        # vært flat de siste 7 dagene inni et 30-dagers vindu der den
+        # FAKTISK endret seg tidligere i perioden. Å påstå at dagens pris
+        # er "både laveste og høyeste" for HELE perioden i et slikt
+        # tilfelle ville vært en usann påstand (regel 2/3: aldri finn på/
+        # feilrepresenter tall) -- selv om flat_days>=7 riktig utløser
+        # "flat"-status, må selve SETNINGEN referere til det som faktisk
+        # er flatt, ikke til en periode den ikke gjelder for.
+        if flat_days >= n_days:
+            return f"Prisen på {name} har vært stabil i {period_label.lower()}, med {_fmt_kr(status['current'])} som både laveste og høyeste registrerte pris i perioden."
+        return f"Prisen på {name} har vært uendret på {_fmt_kr(status['current'])} de siste {flat_days} dagene."
+    if kind in ("down", "up"):
+        retning = "falt" if kind == "down" else "steget"
+        lavere_hoyere = "lavere" if kind == "down" else "høyere"
+        return (f"Laveste registrerte pris har {retning} fra {_fmt_kr(status['period_start'])} til {_fmt_kr(status['current'])} de siste {n_days} dagene. "
+                f"Dagens laveste pris er {abs(status['pct_change']):.0f} % {lavere_hoyere} enn ved starten av perioden.")
+    return f"Laveste produktpris for {name} har ligget mellom {_fmt_kr(metrics['low'])} og {_fmt_kr(metrics['high'])} de siste {n_days} dagene."
+
+
+def render_price_intelligence(history: list[dict], product_name: str, unit_singular: str = "eske") -> str:
+    """Price Intelligence-modulen (Product Gold Standard v1, 2026-09-27) --
+    erstatter den gamle, enkle "Prisutvikling"-grafen på PRODUKTSIDEN kun
+    (render_product_page()). _render_price_history_chart() (den eldre,
+    enklere grafen) er BEVISST urørt og brukes fortsatt av merke-/serie-
+    sidenes render_family_price_insight() -- ikke i scope her, Kai ba kun
+    om produktsidens Prisutvikling-seksjon.
+
+    Bygget etter et 31-punkts spec + godkjent mockup, men implementert i
+    etapper (samme disiplin som resten av produktsiden denne dagen). DETTE
+    steget: dekningsdato, toppmetrikker (nå/laveste/høyeste/median),
+    deterministisk statuskort, periodevelger (KUN aktiverte perioder --
+    price_history.json har i dag maks 45 dagers historikk for ethvert
+    produkt, så 90 dager/6 måneder/1 år er deaktivert for alle produkter
+    ennå, automatisk, ikke hardkodet), strammere graf, og en kort,
+    mal-generert oppsummering. IKKE bygget ennå (egen runde): Prisforskjell
+    mellom butikkene (krever live offers, ikke historikk), Prisvinner over
+    tid (krever iterering over `store`-feltet per dag), Kjøper du flere
+    esker (krever qty-motoren). Alt dette er ADDITIVT -- ingenting fjernes
+    fra siden i mellomtiden, kun den gamle enkle grafen erstattes med en
+    rikere modul over SAMME underliggende data."""
+    if len(history) < 7:
+        return ""
+
+    coverage_days = len(history)
+    coverage_start = history[0]["date"]
+    periods = _price_intelligence_eligible_periods(coverage_days)
+    period_keys = {key for key, _, _ in periods}
+    default_key = "30d" if "30d" in period_keys else "all"
+
+    tabs, panels = [], []
+    for key, label, days in periods:
+        metrics = _price_intelligence_metrics(history, days)
+        if metrics is None:
+            continue
+        active = key == default_key
+        tabs.append(f'<button type="button" class="price-intel-period-tab{" active" if active else ""}" data-period="{key}">{escape(label)}</button>')
+        status = metrics["status"]
+        status_mod, status_title, status_msg = _price_intelligence_status_text(status, metrics["n_days"], label)
+        summary_text = _price_intelligence_summary_text(product_name, metrics, label)
+        chart_svg = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFade-{key}")
+        panels.append(f'''<div class="price-intel-panel{" active" if active else ""}" data-period="{key}">
+    <div class="price-intel-metrics">
+      <div class="price-intel-metric price-intel-metric-now"><strong>{_fmt_kr(metrics["current"])}</strong><span>Pris nå<br>(laveste i dag)</span></div>
+      <div class="price-intel-metric"><strong>{_fmt_kr(metrics["low"])}</strong><span>Laveste registrerte pris<br>{_format_no_date(metrics["low_date"])}</span></div>
+      <div class="price-intel-metric"><strong>{_fmt_kr(metrics["high"])}</strong><span>Høyeste registrerte pris<br>{_format_no_date(metrics["high_date"])}</span></div>
+      <div class="price-intel-metric"><strong>{_fmt_kr(metrics["median"])}</strong><span>{metrics["n_days"]}-dagers median</span></div>
+      <div class="price-intel-status price-intel-status-{status_mod}">{_PRICE_INTEL_STATUS_ICONS[status["kind"]]}<span><strong>{escape(status_title)}</strong>{escape(status_msg)}</span></div>
+    </div>
+    <div class="price-intel-chart">{chart_svg}</div>
+    <p class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">💡</span> <strong>Kort oppsummert</strong><br>{summary_text}</p>
+  </div>''')
+
+    if not panels:
+        return ""
+
+    script_html = "" if len(panels) <= 1 else """<script>
+(function () {
+  var wrap = document.currentScript.closest('.price-intel');
+  if (!wrap) return;
+  wrap.querySelectorAll('.price-intel-period-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var period = tab.getAttribute('data-period');
+      wrap.querySelectorAll('.price-intel-period-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      wrap.querySelectorAll('.price-intel-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-period') === period); });
+    });
+  });
+})();
+</script>"""
+    disabled_tabs = "".join(
+        f'<button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">{escape(label)}</button>'
+        for key, label, days in PRICE_INTELLIGENCE_PERIODS
+        if key not in period_keys
+    )
+    return f'''<div class="price-intel">
+  <div class="price-intel-head">
+    <h2>Prisutvikling</h2>
+    <p>Vi følger laveste produktpris hos butikkene vi sammenligner, slik at du kan se hvordan prisen har endret seg over tid.</p>
+    <div class="price-intel-coverage">{CALENDAR_ICON_SVG}<span>Vi har fulgt prisen siden<br><strong>{_format_no_date(coverage_start)}</strong></span></div>
+  </div>
+  <div class="price-intel-period-tabs" role="tablist">{"".join(tabs)}{disabled_tabs}</div>
+  {"".join(panels)}
+  {script_html}
+</div>'''
 
 
 def _family_price_insight_data(rows: list[dict], price_history: dict) -> dict[int, dict]:
@@ -3988,7 +4345,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
     specs_html += manufacturer_link_html
 
-    price_history_html = _render_price_history_chart(price_history or [])
+    price_history_html = render_price_intelligence(price_history or [], product["name"])
 
     aliases_html = ""
     if aliases:
@@ -4335,6 +4692,48 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
+/* Price Intelligence (Product Gold Standard v1, 2026-09-27) -- erstatter
+   den gamle enkle "Prisutvikling"-grafen. Mobil (regel 27): kompakt,
+   stablet. Desktop (regel 28, >=860px): 4 toppmetrikker på én rad, mer
+   luft -- men fortsatt restrained, "skal fortsatt føles som
+   Kontaktlinser.no", ikke et tett analytics-dashboard. */
+.price-intel {{ margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }}
+.price-intel-head h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }}
+.price-intel-head p {{ font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }}
+.price-intel-coverage {{ display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); background: var(--mist); border-radius: 10px; padding: 8px 12px; }}
+.price-intel-coverage svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
+.price-intel-period-tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }}
+.price-intel-period-tab {{ font-size: 0.78rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }}
+.price-intel-period-tab.active {{ background: var(--ink); border-color: var(--ink); color: white; }}
+.price-intel-period-tab:disabled {{ opacity: 0.4; cursor: not-allowed; }}
+.price-intel-panel {{ display: none; margin-top: 16px; }}
+.price-intel-panel.active {{ display: block; }}
+.price-intel-metrics {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+.price-intel-metric {{ background: var(--mist); border-radius: 10px; padding: 10px 12px; }}
+.price-intel-metric strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--ink); }}
+.price-intel-metric span {{ display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
+.price-intel-metric-now strong {{ color: var(--mint); }}
+.price-intel-status {{ grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); }}
+.price-intel-status svg {{ width: 20px; height: 20px; flex-shrink: 0; color: var(--blue); }}
+.price-intel-status span strong {{ display: block; font-size: 0.82rem; margin-bottom: 1px; }}
+.price-intel-status-down {{ background: var(--mint-tint); }}
+.price-intel-status-down svg {{ color: var(--mint); }}
+.price-intel-status-up {{ background: #FDECEC; }}
+.price-intel-status-up svg {{ color: #D64545; }}
+.price-intel-chart {{ margin-top: 14px; }}
+.price-intel-chart .price-history-chart {{ padding: 8px 0; }}
+.price-intel-hit {{ fill: transparent; stroke: none; cursor: pointer; }}
+.price-intel-summary {{ display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }}
+.price-intel-summary strong {{ display: block; margin-bottom: 2px; }}
+.price-intel-summary-icon {{ flex-shrink: 0; }}
+@media (min-width: 860px) {{
+  .price-intel {{ padding: 28px 32px; }}
+  .price-intel-head {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }}
+  .price-intel-head p {{ max-width: 520px; }}
+  .price-intel-coverage {{ margin-top: 0; flex-shrink: 0; }}
+  .price-intel-metrics {{ grid-template-columns: repeat(4, 1fr) 1.3fr; }}
+  .price-intel-status {{ grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }}
+}}
 {PRICE_LIST_STYLE}</style>
 </head>
 <body>
