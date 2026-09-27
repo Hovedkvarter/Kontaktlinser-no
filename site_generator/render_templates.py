@@ -6521,8 +6521,44 @@ GUIDE_ICONS = {
     },
 }
 
+# Ekte foto for utvalgte guider (2026-09-27, fra Kai sitt bildeutvalg --
+# beskåret fra to sammensatte referansebilder han sendte, IKKE generert av
+# oss). Kun guider med et genuint, ikke-tvunget motiv-treff er med her (20 av
+# 40) -- resten beholder ikon-kortet i render_guide_tile() under, samme
+# "aldri gjett/tving feil bilde"-prinsipp som resten av siden. Kildebildene
+# er kun 1536x1024px sammensatt over 60 ruter, så hver rute er beskåret til
+# ca. 145x150px og oppskalert -- godkjent kvalitet for et lite kort-bilde,
+# men merkbart mykere enn en ekte høyoppløst original. Bytt ut med skarpere
+# originaler hvis/når Kai får tak i dem.
+GUIDE_PHOTOS = {
+    "hvordan-bruke-kontaktlinser": "hvordan-bruke-kontaktlinser",
+    "hvordan-velge-kontaktlinser": "hvordan-velge-kontaktlinser",
+    "kontaktlinser-for-barn": "kontaktlinser-for-barn",
+    "harde-eller-myke-linser": "harde-eller-myke-linser",
+    "hvorfor-bruke-kontaktlinser": "hvorfor-bruke-kontaktlinser",
+    "vedlikehold-av-kontaktlinser": "vedlikehold-av-kontaktlinser",
+    "reising-med-kontaktlinser": "reising-med-kontaktlinser",
+    "kosmetiske-kontaktlinser": "kosmetiske-kontaktlinser",
+    "kontaktlinsens-materiale": "kontaktlinsens-materiale",
+    "kan-man-sove-med-kontaktlinser": "kan-man-sove-med-kontaktlinser",
+    "kan-man-dusje-med-kontaktlinser": "kan-man-dusje-med-kontaktlinser",
+    "kontaktlinser-og-torre-oyne": "kontaktlinser-og-torre-oyne",
+    "hvor-lenge-kan-man-bruke-kontaktlinser": "hvor-lenge-kan-man-bruke-kontaktlinser",
+    "pakningsstorrelse-30-vs-90": "pakningsstorrelse-30-vs-90",
+    "manedslinser-vs-dagslinser": "manedslinser-vs-dagslinser",
+    "multifokale-kontaktlinser": "multifokale-kontaktlinser",
+    "linse-sitter-fast-i-oyet": "linse-sitter-fast-i-oyet",
+    "uklart-syn-med-kontaktlinser": "uklart-syn-med-kontaktlinser",
+    "rode-oyne-og-svie-med-kontaktlinser": "rode-oyne-og-svie-med-kontaktlinser",
+    "hvordan-kjope-kontaktlinser-pa-nett": "hvordan-kjope-kontaktlinser-pa-nett",
+}
+
 # Delt mellom /guider/-oversikten og forsidens forhåndsvisnings-seksjon,
 # slik at guide-kortene ser identiske ut begge steder (se render_guide_tile).
+# .guide-photo-card* er BEVISST en kopi av samme klassenavn/CSS som
+# render_family_page() sin egen "Relevante guider"-seksjon bruker (ikke delt
+# via denne konstanten der, for å ikke røre en allerede utgitt serie-side-
+# komponent) -- samme visuelle kort begge steder, to kildesteder i koden.
 GUIDE_TILE_STYLE = """
 .guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
 .guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
@@ -6534,10 +6570,30 @@ GUIDE_TILE_STYLE = """
 .guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
 @media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
+.guide-photo-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
+.guide-photo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
+.guide-photo-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.guide-photo-card-body { padding: 14px 16px 16px; }
+.guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.35; }
+.guide-photo-card-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
+.guide-photo-card-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
 """
 
 
 def render_guide_tile(slug: str, g: dict) -> str:
+    photo = GUIDE_PHOTOS.get(slug)
+    if photo:
+        return f"""<a class="guide-photo-card" href="/guide/{escape(slug)}/">
+  <div class="guide-photo-card-image">
+    <img src="/static/guides/{escape(photo)}.webp" alt="" width="640" height="662" loading="lazy" decoding="async">
+  </div>
+  <div class="guide-photo-card-body">
+    <div class="guide-photo-card-title">{escape(g["title"])}</div>
+    <div class="guide-photo-card-desc">{escape(g["description"])}</div>
+    <div class="guide-photo-card-link">Les guiden →</div>
+  </div>
+</a>"""
     icon = GUIDE_ICONS.get(slug, {"color": "blue", "svg": ""})
     color, tint = f"var(--{icon['color']})", f"var(--{icon['color']}-tint)"
     return f"""<a class="guide-tile" href="/guide/{escape(slug)}/">
@@ -6564,12 +6620,25 @@ def render_guides_index_page() -> str:
 {FONT_LINKS}
 <style>{SHARED_STYLE}
 {GUIDE_TILE_STYLE}
+/* Toppbanner (2026-09-27, fra Kai sitt bildeutvalg -- kun selve fotostripen,
+   ingen påskrevet tekst/mockup-UI). Full bredde, ikke en side-panel som
+   serie-hero (kildebildet er for panoramisk/tynt til det -- ca. 4,9:1). */
+.guide-hero-banner {{ border-radius: 20px; overflow: hidden; margin-bottom: 18px; box-shadow: var(--card-shadow); }}
+.guide-hero-banner img {{ display: block; width: 100%; height: 130px; object-fit: cover; }}
+@media (min-width: 640px) {{ .guide-hero-banner img {{ height: 180px; }} }}
+@media (min-width: 1024px) {{ .guide-hero-banner img {{ height: 230px; }} }}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
+  <div class="guide-hero-banner">
+    <picture>
+      <source type="image/webp" srcset="/static/hero/guider-560.webp 560w, /static/hero/guider-840.webp 840w, /static/hero/guider-1120.webp 1120w, /static/hero/guider-1536.webp 1536w" sizes="(min-width: 1200px) 1120px, 92vw">
+      <img src="/static/hero/guider-840.webp" alt="" width="1536" height="316" loading="eager" decoding="async">
+    </picture>
+  </div>
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Guider</div>

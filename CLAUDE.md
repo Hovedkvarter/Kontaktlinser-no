@@ -2054,3 +2054,43 @@ fra AKKURAT samme spørsmål/svar-liste som vises, flatet ut på tvers av katego
 Testet på tvers av familier med ulik datarikdom: 6-10 spørsmål avhengig av hvor mye
 familien faktisk har av toriske/multifokale varianter, flere pakningsstørrelser,
 UV-filter osv. -- aldri et fast antall.
+
+## /guider/: ekte foto på 20 av 40 guide-kort + toppbanner (2026-09-27)
+
+Kai sendte to sammensatte referansebilder (60 + 15 AI-genererte stockfoto-ruter, ikke
+egne filer per bilde) og ba om bilder på guide-kortene på `/guider/`. Siden filene ikke
+kom separat, ble rutenettene beskåret programmatisk: fant gutter/hvite linjer mellom
+rutene (numpy row/col-gjennomsnitt), kuttet ut hver rute til egen fil.
+
+**Kun 20 av 40 guider fikk foto** (`GUIDE_PHOTOS`-dict i `render_templates.py`, rett
+over `GUIDE_TILE_STYLE`) -- de resterende 20 (spec-forklaringer som bc-forklart/
+cyl-forklart/add-forklart, pris-/abonnement-guider, resept-guider, produksjon/historie,
+terapeutiske linser, merkebytte) beholder ikonkortet, samme "aldri tving et bilde som
+ikke faktisk passer"-prinsipp som resten av siden. Matchingen er gjort på faktisk
+motiv (f.eks. håndvask -> ikke brukt til hygiene siden vi ikke har en egen
+hygiene-guide, men lenseveske+håndkle -> vedlikehold-av-kontaktlinser; sovende kvinne
+-> kan-man-sove-med-kontaktlinser; Snellen synstavle -> uklart-syn-med-kontaktlinser;
+stablede esker -> pakningsstorrelse-30-vs-90), ikke tvunget for guider uten et
+naturlig motiv.
+
+**Kvalitetsavveining, sagt rett ut:** kildebildet er kun 1536x1024px sammensatt over
+60 ruter, så hver rute ble beskåret til ca. 145x150px og skalert opp til 640px bredde
+(`static/guides/{slug}.webp`) -- akseptabelt for et lite kort i et rutenett, men
+merkbart mykere enn en ekte høyoppløst original. Bytt ut med skarpere filer hvis Kai
+får tak i de individuelle originalene.
+
+`render_guide_tile()` grener nå på om slugen finnes i `GUIDE_PHOTOS`: foto-variant
+gjenbruker `.guide-photo-card`-klassenavnene fra serie-siden sin "Relevante
+guider" (egen CSS-kopi i `GUIDE_TILE_STYLE`, IKKE delt konstant med
+`render_family_page()`, for å ikke røre en allerede utgitt komponent), ellers samme
+ikonkort som før. Samme funksjon brukes uendret av BÅDE `/guider/`-oversikten og
+forsidens guide-forhåndsvisning, så begge steder får det samme blandede
+foto-/ikon-rutenettet automatisk.
+
+**Toppbanner på `/guider/`:** kun selve fotostripen fra det ene referansebildet (viste
+seg å være ren, uten påskrevet tekst -- ulikt den fulle mockupen Kai også sendte, som
+HAR påskrevet tittel/fiktive kategorikort og derfor ikke ble brukt). Bildet er svært
+panoramisk (~4,9:1), så det er IKKE bygget som en side-panel slik `serie-hero` er,
+men som en full-bredde bannerstripe over `.hero`-teksten
+(`static/hero/guider-{560,840,1120,1536}.webp`, `object-fit:cover` med økende
+høyde per breakpoint).
