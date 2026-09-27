@@ -449,6 +449,72 @@ a { color: inherit; }
 .price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
+/* Price Intelligence (Product Gold Standard v1, 2026-09-27, flyttet hit
+   2026-09-28 for gjenbruk på ALLE produkttyper -- Kai: "gjelder alle
+   produkter på domenet kontaktlinser.no ... alle kontaktlinser, egne
+   merkenavn kontaktlinser, og alle Tilbehør produkter", inkl.
+   linsevæske/øyedråper som deler samme rendringsfunksjon som Tilbehør).
+   Var opprinnelig i render_product_page() sin egen lokale <style>-blokk
+   -- flyttet til SHARED_STYLE (global) slik at render_solution_
+   product_page()/render_private_label_page() også får den, uten
+   duplisering. Mobil (regel 27): kompakt, stablet. Desktop (regel 28,
+   >=860px): 4 toppmetrikker på én rad, mer luft -- men fortsatt
+   restrained, "skal fortsatt føles som Kontaktlinser.no", ikke et tett
+   analytics-dashboard. */
+.price-intel { margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.price-intel-head h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }
+.price-intel-head p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }
+.price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); background: var(--mist); border-radius: 10px; padding: 8px 12px; }
+.price-intel-coverage svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
+.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }
+.price-intel-period-tab { font-size: 0.78rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }
+.price-intel-period-tab.active { background: var(--ink); border-color: var(--ink); color: white; }
+.price-intel-period-tab:disabled { opacity: 0.4; cursor: not-allowed; }
+.price-intel-panel { display: none; margin-top: 16px; }
+.price-intel-panel.active { display: block; }
+.price-intel-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.price-intel-metric { background: var(--mist); border-radius: 10px; padding: 10px 12px; }
+.price-intel-metric strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--ink); }
+.price-intel-metric span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-intel-metric-now strong { color: var(--mint); }
+.price-intel-status { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); }
+.price-intel-status svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--blue); }
+.price-intel-status span strong { display: block; font-size: 0.82rem; margin-bottom: 1px; }
+.price-intel-status-down { background: var(--mint-tint); }
+.price-intel-status-down svg { color: var(--mint); }
+.price-intel-status-up { background: #FDECEC; }
+.price-intel-status-up svg { color: #D64545; }
+.price-intel-chart { margin-top: 14px; }
+.price-intel-chart .price-history-chart { padding: 8px 0; }
+.price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
+.price-intel-summary { display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }
+.price-intel-summary strong { display: block; margin-bottom: 2px; }
+.price-intel-summary-icon { flex-shrink: 0; }
+.price-intel-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.price-intel-card { background: var(--mist); border-radius: 12px; padding: 16px 18px; flex: 1; }
+.price-intel-card h3 { display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 12px; color: var(--ink); }
+.price-intel-card h3 svg { width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }
+.price-intel-card-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.price-intel-card-row:last-of-type { border-bottom: none; }
+.price-intel-card-row strong { font-family: 'IBM Plex Mono', monospace; }
+.price-intel-card-row-highlight { margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border); border-bottom: none; }
+.price-intel-card-row-highlight strong { color: var(--mint); font-size: 1rem; }
+.price-intel-card-note { font-size: 0.76rem; color: var(--muted); margin: 10px 0 0; line-height: 1.5; }
+.price-intel-winners-list { display: flex; flex-direction: column; gap: 8px; }
+.price-intel-winner-row { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px; font-size: 0.82rem; }
+.price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.price-intel-winner-bar { display: block; height: 8px; background: white; border-radius: 999px; overflow: hidden; }
+.price-intel-winner-bar span { display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }
+.price-intel-winner-days { color: var(--muted); white-space: nowrap; }
+@media (min-width: 860px) {
+  .price-intel { padding: 28px 32px; }
+  .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .price-intel-head p { max-width: 520px; }
+  .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
+  .price-intel-metrics { grid-template-columns: repeat(4, 1fr) 1.3fr; }
+  .price-intel-status { grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }
+  .price-intel-cards { flex-direction: row; }
+}
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
@@ -1602,6 +1668,169 @@ a { color: inherit; }
 </a></div>
     
   </div>
+  <div class="price-intel">
+  <div class="price-intel-head">
+    <h2>Prisutvikling</h2>
+    <p>Vi følger laveste produktpris hos butikkene vi sammenligner, slik at du kan se hvordan prisen har endret seg over tid.</p>
+    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong></span></div>
+  </div>
+  <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button></div>
+  <div class="price-intel-panel active" data-period="30d">
+    <div class="price-intel-metrics">
+      <div class="price-intel-metric price-intel-metric-now"><strong>322 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
+      <div class="price-intel-metric"><strong>322 kr</strong><span>Laveste registrerte pris<br>29. august 2026</span></div>
+      <div class="price-intel-metric"><strong>359 kr</strong><span>Høyeste registrerte pris<br>7. september 2026</span></div>
+      <div class="price-intel-metric"><strong>326 kr</strong><span>30-dagers median</span></div>
+      <div class="price-intel-status price-intel-status-flat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg><span><strong>Stabil pris</strong>Laveste produktpris har vært 322 kr i 7 dager.</span></div>
+    </div>
+    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 322 kr til 359 kr">
+      <defs>
+        <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">363 kr</text>
+      <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">318 kr</text>
+      <path d="M46.0,120.0 L46.0,111.0 L67.6,111.0 L89.2,59.9 L110.8,59.9 L132.3,59.9 L153.9,59.9 L175.5,59.9 L197.1,59.9 L218.7,59.9 L240.3,21.0 L261.9,21.0 L283.4,21.0 L305.0,21.0 L326.6,21.0 L348.2,21.0 L369.8,21.0 L391.4,101.3 L413.0,101.3 L434.6,101.3 L456.1,101.3 L477.7,101.3 L499.3,101.3 L520.9,101.3 L542.5,111.0 L564.1,111.0 L585.7,111.0 L607.2,111.0 L628.8,111.0 L650.4,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,111.0 67.6,111.0 89.2,59.9 110.8,59.9 132.3,59.9 153.9,59.9 175.5,59.9 197.1,59.9 218.7,59.9 240.3,21.0 261.9,21.0 283.4,21.0 305.0,21.0 326.6,21.0 348.2,21.0 369.8,21.0 391.4,101.3 413.0,101.3 434.6,101.3 456.1,101.3 477.7,101.3 499.3,101.3 520.9,101.3 542.5,111.0 564.1,111.0 585.7,111.0 607.2,111.0 628.8,111.0 650.4,111.0 672.0,111.0" class="price-history-line" />
+      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="111.0" r="9" class="price-intel-hit"><title>29. august: 322 kr hos Lensway</title></circle>
+      <circle cx="67.6" cy="111.0" r="9" class="price-intel-hit"><title>30. august: 322 kr hos Lensway</title></circle>
+      <circle cx="89.2" cy="59.9" r="9" class="price-intel-hit"><title>31. august: 343 kr hos Lenson</title></circle>
+      <circle cx="110.8" cy="59.9" r="9" class="price-intel-hit"><title>1. september: 343 kr hos Lenson</title></circle>
+      <circle cx="132.3" cy="59.9" r="9" class="price-intel-hit"><title>2. september: 343 kr hos Lenson</title></circle>
+      <circle cx="153.9" cy="59.9" r="9" class="price-intel-hit"><title>3. september: 343 kr hos Lenson</title></circle>
+      <circle cx="175.5" cy="59.9" r="9" class="price-intel-hit"><title>4. september: 343 kr hos Lenson</title></circle>
+      <circle cx="197.1" cy="59.9" r="9" class="price-intel-hit"><title>5. september: 343 kr hos Lenson</title></circle>
+      <circle cx="218.7" cy="59.9" r="9" class="price-intel-hit"><title>6. september: 343 kr hos Lenson</title></circle>
+      <circle cx="240.3" cy="21.0" r="9" class="price-intel-hit"><title>7. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="261.9" cy="21.0" r="9" class="price-intel-hit"><title>8. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="283.4" cy="21.0" r="9" class="price-intel-hit"><title>9. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="305.0" cy="21.0" r="9" class="price-intel-hit"><title>10. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="326.6" cy="21.0" r="9" class="price-intel-hit"><title>11. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="348.2" cy="21.0" r="9" class="price-intel-hit"><title>12. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="369.8" cy="21.0" r="9" class="price-intel-hit"><title>13. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="391.4" cy="101.3" r="9" class="price-intel-hit"><title>14. september: 326 kr hos Lenson</title></circle>
+      <circle cx="413.0" cy="101.3" r="9" class="price-intel-hit"><title>15. september: 326 kr hos Lenson</title></circle>
+      <circle cx="434.6" cy="101.3" r="9" class="price-intel-hit"><title>16. september: 326 kr hos Lenson</title></circle>
+      <circle cx="456.1" cy="101.3" r="9" class="price-intel-hit"><title>17. september: 326 kr hos Lenson</title></circle>
+      <circle cx="477.7" cy="101.3" r="9" class="price-intel-hit"><title>18. september: 326 kr hos Lenson</title></circle>
+      <circle cx="499.3" cy="101.3" r="9" class="price-intel-hit"><title>19. september: 326 kr hos Lenson</title></circle>
+      <circle cx="520.9" cy="101.3" r="9" class="price-intel-hit"><title>20. september: 326 kr hos Lenson</title></circle>
+      <circle cx="542.5" cy="111.0" r="9" class="price-intel-hit"><title>21. september: 322 kr hos Lenson</title></circle>
+      <circle cx="564.1" cy="111.0" r="9" class="price-intel-hit"><title>22. september: 322 kr hos Lenson</title></circle>
+      <circle cx="585.7" cy="111.0" r="9" class="price-intel-hit"><title>23. september: 322 kr hos Lenson</title></circle>
+      <circle cx="607.2" cy="111.0" r="9" class="price-intel-hit"><title>24. september: 322 kr hos Lenson</title></circle>
+      <circle cx="628.8" cy="111.0" r="9" class="price-intel-hit"><title>25. september: 322 kr hos Lenson</title></circle>
+      <circle cx="650.4" cy="111.0" r="9" class="price-intel-hit"><title>26. september: 322 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 322 kr hos Lenson</title></circle>
+      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">322 kr</text>
+      <text x="46" y="135" class="price-history-axis-label">29.08</text>
+      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg></div>
+    <p class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">💡</span> <strong>Kort oppsummert</strong><br>Prisen på Proclear 1 Day Multifocal 30-pack har vært uendret på 322 kr de siste 7 dagene. Det er 24 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</p>
+  </div><div class="price-intel-panel" data-period="all">
+    <div class="price-intel-metrics">
+      <div class="price-intel-metric price-intel-metric-now"><strong>322 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
+      <div class="price-intel-metric"><strong>322 kr</strong><span>Laveste registrerte pris<br>24. august 2026</span></div>
+      <div class="price-intel-metric"><strong>376 kr</strong><span>Høyeste registrerte pris<br>16. august 2026</span></div>
+      <div class="price-intel-metric"><strong>326 kr</strong><span>45-dagers median</span></div>
+      <div class="price-intel-status price-intel-status-flat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg><span><strong>Stabil pris</strong>Laveste produktpris har vært 322 kr i 7 dager.</span></div>
+    </div>
+    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 322 kr til 376 kr">
+      <defs>
+        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">381 kr</text>
+      <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">317 kr</text>
+      <path d="M46.0,120.0 L46.0,104.3 L60.2,104.3 L74.5,21.0 L88.7,21.0 L102.9,21.0 L117.1,21.0 L131.4,21.0 L145.6,104.3 L159.8,104.3 L174.0,104.3 L188.3,111.0 L202.5,111.0 L216.7,111.0 L231.0,111.0 L245.2,111.0 L259.4,111.0 L273.6,111.0 L287.9,76.0 L302.1,76.0 L316.3,76.0 L330.5,76.0 L344.8,76.0 L359.0,76.0 L373.2,76.0 L387.5,49.3 L401.7,49.3 L415.9,49.3 L430.1,49.3 L444.4,49.3 L458.6,49.3 L472.8,49.3 L487.0,104.3 L501.3,104.3 L515.5,104.3 L529.7,104.3 L544.0,104.3 L558.2,104.3 L572.4,104.3 L586.6,111.0 L600.9,111.0 L615.1,111.0 L629.3,111.0 L643.5,111.0 L657.8,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,104.3 60.2,104.3 74.5,21.0 88.7,21.0 102.9,21.0 117.1,21.0 131.4,21.0 145.6,104.3 159.8,104.3 174.0,104.3 188.3,111.0 202.5,111.0 216.7,111.0 231.0,111.0 245.2,111.0 259.4,111.0 273.6,111.0 287.9,76.0 302.1,76.0 316.3,76.0 330.5,76.0 344.8,76.0 359.0,76.0 373.2,76.0 387.5,49.3 401.7,49.3 415.9,49.3 430.1,49.3 444.4,49.3 458.6,49.3 472.8,49.3 487.0,104.3 501.3,104.3 515.5,104.3 529.7,104.3 544.0,104.3 558.2,104.3 572.4,104.3 586.6,111.0 600.9,111.0 615.1,111.0 629.3,111.0 643.5,111.0 657.8,111.0 672.0,111.0" class="price-history-line" />
+      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="104.3" r="9" class="price-intel-hit"><title>14. august: 326 kr hos Lenson</title></circle>
+      <circle cx="60.2" cy="104.3" r="9" class="price-intel-hit"><title>15. august: 326 kr hos Lenson</title></circle>
+      <circle cx="74.5" cy="21.0" r="9" class="price-intel-hit"><title>16. august: 376 kr hos Lenson</title></circle>
+      <circle cx="88.7" cy="21.0" r="9" class="price-intel-hit"><title>17. august: 376 kr hos Lenson</title></circle>
+      <circle cx="102.9" cy="21.0" r="9" class="price-intel-hit"><title>18. august: 376 kr hos Lenson</title></circle>
+      <circle cx="117.1" cy="21.0" r="9" class="price-intel-hit"><title>19. august: 376 kr hos Lenson</title></circle>
+      <circle cx="131.4" cy="21.0" r="9" class="price-intel-hit"><title>20. august: 376 kr hos Lenson</title></circle>
+      <circle cx="145.6" cy="104.3" r="9" class="price-intel-hit"><title>21. august: 326 kr hos Lenson</title></circle>
+      <circle cx="159.8" cy="104.3" r="9" class="price-intel-hit"><title>22. august: 326 kr hos Lenson</title></circle>
+      <circle cx="174.0" cy="104.3" r="9" class="price-intel-hit"><title>23. august: 326 kr hos Lenson</title></circle>
+      <circle cx="188.3" cy="111.0" r="9" class="price-intel-hit"><title>24. august: 322 kr hos Lensway</title></circle>
+      <circle cx="202.5" cy="111.0" r="9" class="price-intel-hit"><title>25. august: 322 kr hos Lensway</title></circle>
+      <circle cx="216.7" cy="111.0" r="9" class="price-intel-hit"><title>26. august: 322 kr hos Lensway</title></circle>
+      <circle cx="231.0" cy="111.0" r="9" class="price-intel-hit"><title>27. august: 322 kr hos Lensway</title></circle>
+      <circle cx="245.2" cy="111.0" r="9" class="price-intel-hit"><title>28. august: 322 kr hos Lensway</title></circle>
+      <circle cx="259.4" cy="111.0" r="9" class="price-intel-hit"><title>29. august: 322 kr hos Lensway</title></circle>
+      <circle cx="273.6" cy="111.0" r="9" class="price-intel-hit"><title>30. august: 322 kr hos Lensway</title></circle>
+      <circle cx="287.9" cy="76.0" r="9" class="price-intel-hit"><title>31. august: 343 kr hos Lenson</title></circle>
+      <circle cx="302.1" cy="76.0" r="9" class="price-intel-hit"><title>1. september: 343 kr hos Lenson</title></circle>
+      <circle cx="316.3" cy="76.0" r="9" class="price-intel-hit"><title>2. september: 343 kr hos Lenson</title></circle>
+      <circle cx="330.5" cy="76.0" r="9" class="price-intel-hit"><title>3. september: 343 kr hos Lenson</title></circle>
+      <circle cx="344.8" cy="76.0" r="9" class="price-intel-hit"><title>4. september: 343 kr hos Lenson</title></circle>
+      <circle cx="359.0" cy="76.0" r="9" class="price-intel-hit"><title>5. september: 343 kr hos Lenson</title></circle>
+      <circle cx="373.2" cy="76.0" r="9" class="price-intel-hit"><title>6. september: 343 kr hos Lenson</title></circle>
+      <circle cx="387.5" cy="49.3" r="9" class="price-intel-hit"><title>7. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="401.7" cy="49.3" r="9" class="price-intel-hit"><title>8. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="415.9" cy="49.3" r="9" class="price-intel-hit"><title>9. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="430.1" cy="49.3" r="9" class="price-intel-hit"><title>10. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="444.4" cy="49.3" r="9" class="price-intel-hit"><title>11. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="458.6" cy="49.3" r="9" class="price-intel-hit"><title>12. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="472.8" cy="49.3" r="9" class="price-intel-hit"><title>13. september: 359 kr hos Shopping4net</title></circle>
+      <circle cx="487.0" cy="104.3" r="9" class="price-intel-hit"><title>14. september: 326 kr hos Lenson</title></circle>
+      <circle cx="501.3" cy="104.3" r="9" class="price-intel-hit"><title>15. september: 326 kr hos Lenson</title></circle>
+      <circle cx="515.5" cy="104.3" r="9" class="price-intel-hit"><title>16. september: 326 kr hos Lenson</title></circle>
+      <circle cx="529.7" cy="104.3" r="9" class="price-intel-hit"><title>17. september: 326 kr hos Lenson</title></circle>
+      <circle cx="544.0" cy="104.3" r="9" class="price-intel-hit"><title>18. september: 326 kr hos Lenson</title></circle>
+      <circle cx="558.2" cy="104.3" r="9" class="price-intel-hit"><title>19. september: 326 kr hos Lenson</title></circle>
+      <circle cx="572.4" cy="104.3" r="9" class="price-intel-hit"><title>20. september: 326 kr hos Lenson</title></circle>
+      <circle cx="586.6" cy="111.0" r="9" class="price-intel-hit"><title>21. september: 322 kr hos Lenson</title></circle>
+      <circle cx="600.9" cy="111.0" r="9" class="price-intel-hit"><title>22. september: 322 kr hos Lenson</title></circle>
+      <circle cx="615.1" cy="111.0" r="9" class="price-intel-hit"><title>23. september: 322 kr hos Lenson</title></circle>
+      <circle cx="629.3" cy="111.0" r="9" class="price-intel-hit"><title>24. september: 322 kr hos Lenson</title></circle>
+      <circle cx="643.5" cy="111.0" r="9" class="price-intel-hit"><title>25. september: 322 kr hos Lenson</title></circle>
+      <circle cx="657.8" cy="111.0" r="9" class="price-intel-hit"><title>26. september: 322 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 322 kr hos Lenson</title></circle>
+      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">322 kr</text>
+      <text x="46" y="135" class="price-history-axis-label">14.08</text>
+      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg></div>
+    <p class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">💡</span> <strong>Kort oppsummert</strong><br>Prisen på Proclear 1 Day Multifocal 30-pack har vært uendret på 322 kr de siste 7 dagene. Det er 24 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</p>
+  </div>
+  <script>
+(function () {
+  var wrap = document.currentScript.closest('.price-intel');
+  if (!wrap) return;
+  wrap.querySelectorAll('.price-intel-period-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var period = tab.getAttribute('data-period');
+      wrap.querySelectorAll('.price-intel-period-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      wrap.querySelectorAll('.price-intel-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-period') === period); });
+    });
+  });
+})();
+</script>
+  <div class="price-intel-cards"><div class="price-intel-card">
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
+    <div class="price-intel-card-row"><span>Laveste pris</span><strong>322 kr</strong></div>
+    <div class="price-intel-card-row"><span>Medianpris</span><strong>342 kr</strong></div>
+    <div class="price-intel-card-row"><span>Høyeste pris</span><strong>425 kr</strong></div>
+    <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>24 %</strong></div>
+    <p class="price-intel-card-note">Basert på priser uten frakt, for 1 eske.</p>
+  </div><div class="price-intel-card">
+    <h3><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinner over tid</h3>
+    <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">31 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensway</span><span class="price-intel-winner-bar"><span style="width:23%"></span></span><span class="price-intel-winner-days">7 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Shopping4net</span><span class="price-intel-winner-bar"><span style="width:23%"></span></span><span class="price-intel-winner-days">7 dager</span></div></div>
+    <p class="price-intel-card-note">Lenson har hatt lavest registrert produktpris i 31 av de siste 45 dagene. Prisvinneren har endret seg 4 ganger de siste 45 dagene.</p>
+  </div></div>
+</div>
   <p style="margin-top:16px;"><a href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for Proclear 1 Day Multifocal 30-pack →</a></p>
   <a class="pack-size-callout" href="/serie/eyeq-one-day-premium/"><div class="pack-size-callout-text">Se hele <strong>EyeQ One-Day Premium</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>
 
