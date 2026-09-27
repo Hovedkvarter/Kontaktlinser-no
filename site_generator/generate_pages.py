@@ -349,7 +349,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
                 {"display_name": p["name"], "href": f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/', "product": p}
                 for p in member_products
             ]
-            html = render_family_page(family["name"], family["slug"], real_members, catalog["categories"], now=now)
+            html = render_family_page(family["name"], family["slug"], real_members, catalog["categories"], now=now, price_history=price_history)
             write_file(BUILD_DIR / "serie" / family["slug"] / "index.html", html)
             families_written.append(family["slug"])
             print(f"  serie    -> /serie/{family['slug']}/")
@@ -378,7 +378,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
                     {"display_name": label["name"], "href": f'/private-label/{label["slug"]}/', "product": products_by_id[label["real_product_id"]]}
                     for label in matched_labels
                 ]
-                pl_html = render_family_page(primary_label["name"], primary_label["slug"], pl_members, catalog["categories"], chain=chain, now=now)
+                pl_html = render_family_page(primary_label["name"], primary_label["slug"], pl_members, catalog["categories"], chain=chain, now=now, price_history=price_history)
                 write_file(BUILD_DIR / "serie" / primary_label["slug"] / "index.html", pl_html)
                 families_written.append(primary_label["slug"])
                 print(f"  serie    -> /serie/{primary_label['slug']}/ ({chain})")

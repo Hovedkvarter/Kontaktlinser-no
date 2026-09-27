@@ -1836,3 +1836,60 @@ en mindre logo (var 30/32 px, ble oppfattet som fortsatt for stor).
   én felles desktop-bredde i stedet for tre som kunne drifte fra hverandre.
   Verifisert: logo og brødsmule starter nå på nøyaktig samme x-posisjon på
   både produktserie- og kategorisider.
+
+## Serie-siden bygget videre: premium banner, "Finn din variant", prisinnsikt for hele serien (2026-09-27)
+
+Kai sendte et nytt, generisk premium-bilde (dråper/linser i vann) til bruk som ETT
+delt toppbanner for alle 49 serie-sider, og presiserte et viktig designprinsipp:
+"blir det for mye linser hvis vi også har linser i bokser under?" -- løsningen er å
+IKKE finne opp en tredje type linsebilde. Siden har nå bevisst kun to bildespråk:
+(1) det nye banneret, ett delt bilde for alle serier (`static/hero/serie-{560,840,1120}.webp`,
+samme beskjærings-/fade-teknikk som forsidens hero), og (2) ekte pakningsbilder,
+gjenbrukt fra kategorikortenes egne pastellbilder i "Finn din variant" (IKKE nye
+foto) og fra `_product_image()` i selve sammenligningstabellen.
+
+- **`.serie-hero`** (egne klassenavn, IKKE `.hero-card`/`HERO_IMAGE_STYLE` som
+  produkt-/tilbehør-/private label-sidene bruker -- det mønsteret er nå bevisst
+  forbeholdt et faktisk produktbilde, ikke et generisk banner) -- kompakt kort,
+  bildet fader inn fra høyre (samme CSS-maske-teknikk som forsiden), med en ny
+  nøkkeltall-rad (`.serie-stat-pills`: antall produkter+pakninger, behov/typer,
+  materiale og vanninnhold -- KUN vist når verdien faktisk er lik på tvers av
+  alle variantene, aldri en "teknologi"-påstand siden specs ikke har et slikt
+  felt konsekvent).
+- **"Finn din variant"** (`.variant-card`): én kandidat-kort per BEHOV
+  (kategori) familien faktisk dekker, ikke per pakningsstørrelse. Miniatyrbildet
+  er `static/categories/bg-{maaned,dag,toriske,fargede,multifokale}-320.webp` --
+  valgt ut fra radens EKTE `category_slug` (Acuvue Moist sin astigmatisme-
+  variant er faktisk kategorisert "toriske-linser", ikke "dagslinser", selv om
+  søsteren uten astigmatisme er en dagslinse -- bekreftet i katalogdata før
+  antatt). Reseptpåminnelse-boks under, samme "sjekk mot din egen resept"-tone
+  som resten av siden.
+- **Prisinnsikt for HELE serien** (`render_family_price_insight()` +
+  `_family_price_insight_data()` i render_templates.py) -- Kai sitt eksplisitte
+  krav 2026-09-27: "prisinnsikt skal gjelde gjennomsnitt for serien, ikke 1
+  produkt", en innsikt han mener ingen konkurrent har. Slår sammen
+  prishistorikken til ALLE medlemmer med SAMME pakningsstørrelse til én
+  gjennomsnittlig serie-pris per dag (ulike pakningsstørrelser er ikke
+  sammenlignbare i kroner, derfor gruppert per størrelse). Én fane per
+  pakningsstørrelse familien faktisk har (`.insight-tabs`, ren CSS/JS-visning,
+  begge/alle paneler ferdigbygget i DOM-en -- ingen klientside-utregning);
+  familier med kun én pakningsstørrelse får ingen faner, bare det ene panelet.
+  **Ærlighetsprinsipp, samme som resten av siden:** ALDRI en fast "30 dager"/
+  "90 dager"-påstand -- teksten sier "N dagers snitt/laveste/høyeste" der N er
+  faktisk antall dagsrader (44-45 i dag, siden historikk startet 2026-08-14),
+  vokser av seg selv etter hvert. Samme 7-dagers minimumsterskel som selve
+  grafen. Kun dager der minst ett medlem faktisk har en registrert pris tas med.
+  Fargebruk følger den faste regelen (mint = besparelse): prisen UNDER snittet
+  akkurat nå farges mint (grønt), over snittet farges coral -- ALDRI omvendt.
+- **`_render_price_history_chart()`** flyttet fra render_product_page sin egen
+  `<style>` til `SHARED_STYLE` (brukes nå av to sidetyper), fikk et nytt
+  `show_heading`-flagg (skjuler sin egen "Prisutvikling"-overskrift når den
+  vises inni prisinnsikt-panelet, som har sin egen), og tåler nå historikk-
+  rader UTEN `store`-felt (serie-snittet har ingen enkelt butikk å vise i
+  tooltip-en, viser "snitt for serien" i stedet).
+- **Ikke bygget denne runden** (bevisst neste steg, ikke glemt): samme
+  prisinnsikt-panel på selve enkelt-produktsidene (erstatter dagens rene graf)
+  -- funksjonen er skrevet generisk nok til å gjenbrukes der, men selve
+  utrullingen er ikke gjort. Heller ikke et globalt 30/90-valg som bytter HELE
+  siden samtidig (Kai nevnte dette som en idé for videre -- prisinnsikt-fanen
+  er foreløpig det eneste elementet en pakningsstørrelse-veksling styrer).

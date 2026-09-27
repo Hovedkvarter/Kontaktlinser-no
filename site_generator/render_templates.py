@@ -312,6 +312,20 @@ a { color: inherit; }
 .methodology-row:last-child { border-bottom: none; }
 .methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+/* Flyttet hit fra render_product_page sin egen <style> 2026-09-27 -- brukes nå
+   av BÅDE produktsiden og serie-siden sitt nye prisinnsikt-panel (se
+   render_family_price_insight()), én kilde i stedet for to kopier. */
+.price-history { margin-top: 28px; }
+.price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
+.price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
+.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
+.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+.price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+.price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
+.price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
+.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
+.price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
+.price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -3049,7 +3063,7 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     return stem, int(size_part)
 
 
-def _render_price_history_chart(history: list[dict]) -> str:
+def _render_price_history_chart(history: list[dict], show_heading: bool = True) -> str:
     """SVG-linjegraf med fadet fylt areal under, over laveste PRODUKTPRIS
     (uten frakt) per dag, tegnet server-side -- ingen JS-bibliotek, fungerer
     uten at noe script kjører. Viser ingenting før vi faktisk har minst en
@@ -3114,7 +3128,11 @@ def _render_price_history_chart(history: list[dict]) -> str:
     for i, h in enumerate(history):
         is_last = i == n - 1
         cls = "price-history-dot price-history-dot-last" if is_last else "price-history-dot"
-        tooltip = f"{short_date(h['date'])}: {_fmt_kr(h['price'])} hos {escape(h['store'])}"
+        # 'store' finnes kun når historikken er for ETT produkt -- serie-
+        # siden sitt gjennomsnitt over flere produkter (se
+        # _family_price_insight_data()) har ingen enkelt butikk å vise.
+        tooltip = f"{short_date(h['date'])}: {_fmt_kr(h['price'])} hos {escape(h['store'])}" if h.get('store') \
+            else f"{short_date(h['date'])}: {_fmt_kr(h['price'])} (snitt for serien)"
         r = 3.2 if is_last else 2.2
         dots.append(f'<circle cx="{x_for(i):.1f}" cy="{y_for(h["price"]):.1f}" r="{r}" class="{cls}"><title>{tooltip}</title></circle>')
     dots_svg = "\n      ".join(dots)
@@ -3136,9 +3154,10 @@ def _render_price_history_chart(history: list[dict]) -> str:
         f'      <text x="{width - pad_right}" y="{height - 6}" text-anchor="end" class="price-history-axis-label">{escape(short_date(last["date"]))}</text>'
     )
 
+    heading_html = f"""<h2>Prisutvikling</h2>
+    <p class="price-history-summary">Laveste produktpris (uten frakt) siste {n} dager: {_fmt_kr(real_min)}.</p>""" if show_heading else ""
     return f"""<div class="price-history">
-    <h2>Prisutvikling</h2>
-    <p class="price-history-summary">Laveste produktpris (uten frakt) siste {n} dager: {_fmt_kr(real_min)}.</p>
+    {heading_html}
     <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
       <defs>
         <linearGradient id="priceHistoryFade" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
@@ -3154,6 +3173,103 @@ def _render_price_history_chart(history: list[dict]) -> str:
       {date_axis_html}
     </svg>
   </div>"""
+
+
+def _family_price_insight_data(rows: list[dict], price_history: dict) -> dict[int, dict]:
+    """Slår sammen prishistorikken for ALLE medlemmer i familien med SAMME
+    pakningsstørrelse til én gjennomsnittlig serie-pris per dag -- en type
+    innsikt ingen enkelt produktside kan gi alene (snittet av flere faktiske
+    produkter, ikke én linses pris). Kai sitt eksplisitte ønske 2026-09-27:
+    "prisinnsikt skal gjelde gjennomsnitt for serien, ikke 1 produkt".
+    Grupperes per pack_size siden ulike pakningsstørrelser ikke er
+    sammenlignbare i kroner (232 kr for 30 stk vs. 599 kr for 90 stk er ikke
+    et "snitt" som gir mening). Kun dager der MINST ÉTT medlem faktisk har en
+    registrert pris tas med -- aldri en oppdiktet verdi for en dag ingen av
+    dem ble sjekket, og antall bidragsytende produkter kan derfor variere
+    litt dag for dag etter hvert som nye produkter får egen prishistorikk."""
+    by_pack: dict[int, list[str]] = {}
+    for r in rows:
+        if r["pack_size"]:
+            by_pack.setdefault(r["pack_size"], []).append(r["product"]["id"])
+
+    result: dict[int, dict] = {}
+    for pack_size, product_ids in by_pack.items():
+        per_date: dict[str, list[float]] = {}
+        for pid in product_ids:
+            for entry in price_history.get(pid, []):
+                per_date.setdefault(entry["date"], []).append(entry["price"])
+        merged = [{"date": d, "price": sum(vals) / len(vals)} for d, vals in sorted(per_date.items())]
+        result[pack_size] = {"history": merged, "n_products": len(product_ids)}
+    return result
+
+
+def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dict]) -> str:
+    """Prisinnsikt for HELE serien -- se _family_price_insight_data() for
+    hvordan tallene regnes ut. Én fane per pakningsstørrelse familien faktisk
+    har (kun 30-pack her: én fane, ingen faner å bytte mellom -- unødvendig
+    UI for noe som uansett ikke kan velges bort). Begge/alle paneler ligger
+    FERDIGBYGGET i DOM-en samtidig (ren CSS/JS-visning, ingen klientside-
+    utregning) -- bytte av fane er derfor øyeblikkelig og fungerer uten JS
+    også (viser bare det første panelet i så fall). Samme 7-dagers terskel
+    som selve grafen (_render_price_history_chart) -- en pakningsstørrelse
+    med for lite historikk ennå utelates helt i stedet for å vise et
+    upålitelig snitt."""
+    pack_sizes = sorted(k for k, v in insight_by_pack.items() if len(v["history"]) >= 7)
+    if not pack_sizes:
+        return ""
+
+    tabs, panels = [], []
+    for i, pack_size in enumerate(pack_sizes):
+        data = insight_by_pack[pack_size]
+        history = data["history"]
+        prices = [h["price"] for h in history]
+        n = len(history)
+        current = prices[-1]
+        avg = sum(prices) / n
+        lo, hi = min(prices), max(prices)
+        pct = round((current - avg) / avg * 100) if avg else 0
+        trend_class = "insight-down" if pct < 0 else ("insight-up" if pct > 0 else "insight-flat")
+        trend_sign = "" if pct == 0 else ("+" if pct > 0 else "")
+        trend_arrow = "↓" if pct < 0 else ("↑" if pct > 0 else "→")
+        chart_html = _render_price_history_chart(history, show_heading=False)
+        active = " active" if i == 0 else ""
+        tabs.append(f'<button type="button" class="insight-tab{active}" data-pack="{pack_size}">{pack_size} linser</button>')
+        panels.append(f'''<div class="price-insight-panel{active}" data-pack="{pack_size}">
+    <div class="price-insight-now">
+      <div class="price-insight-current">{_fmt_kr(current)}</div>
+      <div class="price-insight-label">Snitt laveste pris nå &middot; {data["n_products"]} varianter i serien</div>
+      <div class="price-insight-trend {trend_class}"><span aria-hidden="true">{trend_arrow}</span> {trend_sign}{pct} % <span class="price-insight-trend-note">vs. {n} dagers snitt</span></div>
+      <div class="price-insight-tiles">
+        <div class="price-insight-tile"><strong>{_fmt_kr(lo)}</strong><span>{n} dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>{_fmt_kr(avg)}</strong><span>{n} dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>{_fmt_kr(hi)}</strong><span>{n} dagers høyeste</span></div>
+      </div>
+    </div>
+    <div class="price-insight-chart">{chart_html}</div>
+  </div>''')
+
+    tabs_html = f'<div class="insight-tabs" role="tablist">{"".join(tabs)}</div>' if len(pack_sizes) > 1 else ""
+    script_html = "" if len(pack_sizes) <= 1 else """<script>
+(function () {
+  var wrap = document.currentScript.closest('.price-insight');
+  if (!wrap) return;
+  wrap.querySelectorAll('.insight-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var pack = tab.getAttribute('data-pack');
+      wrap.querySelectorAll('.insight-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      wrap.querySelectorAll('.price-insight-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-pack') === pack); });
+    });
+  });
+})();
+</script>"""
+    return f'''<div class="price-insight">
+  <div class="price-insight-head">
+    <h2>Prisinnsikt for {escape(family_name)}</h2>
+    {tabs_html}
+  </div>
+  {"".join(panels)}
+  {script_html}
+</div>'''
 
 
 def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None, family: dict | None = None, clickouts: dict | None = None) -> str:
@@ -3526,17 +3642,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-product-image.has-photo img {{ object-fit: contain; }}
 
 {WINNER_WIDGET_STYLE}
-.price-history {{ margin-top: 28px; }}
-.price-history h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }}
-.price-history-summary {{ font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }}
-.price-history-chart {{ width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }}
-.price-history-area {{ fill: url(#priceHistoryFade); stroke: none; }}
-.price-history-line {{ fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }}
-.price-history-dot {{ fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }}
-.price-history-dot-last {{ fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }}
-.price-history-gridline {{ stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }}
-.price-history-axis-label {{ font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }}
-.price-history-current-label {{ font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
@@ -8467,6 +8572,7 @@ def render_family_page(
     categories: dict,
     chain: str | None = None,
     now: datetime | None = None,
+    price_history: dict | None = None,
 ) -> str:
     """Produktserie-side (/serie/{slug}/) -- samler sfærisk/torisk/
     multifokal/XR-variantene av SAMME linsedesign på én side, med en ekte
@@ -8498,6 +8604,7 @@ def render_family_page(
             "product": product,
             "best": best,
             "pack_size": pack[1] if pack else None,
+            "category_slug": product["category_slug"],
             "category_label": categories.get(product["category_slug"], {}).get("label", ""),
             "wc": _parse_spec_numbers(specs.get("Vanninnhold")),
             "bc": _parse_spec_numbers(specs.get("Basiskurve")),
@@ -8606,12 +8713,86 @@ def render_family_page(
         f'linsen er formet for å korrigere.</p>'
     )
 
-    # Representativt produktbilde til heroen -- første medlem som faktisk HAR
-    # et lisensiert bilde (samme prioritering som _product_image() selv bruker
-    # internt, bare på tvers av hele familien i stedet for ett enkelt produkt).
-    hero_image_url = next((img for r in rows if (img := _product_image(r["product"]))), None)
-    hero_thumb = _img_tag(hero_image_url, family_name, loading="eager") if hero_image_url \
-        else escape(family_name[:2].upper())
+    # Nøkkeltall-rad i heroen -- kun det vi faktisk kan bevise fra dataen
+    # (aldri en "teknologi"-påstand, siden specs ikke har et slikt felt
+    # konsekvent per produkt). Vanninnhold vises kun når ALLE variantene
+    # faktisk deler nøyaktig samme verdi -- samme "aldri gjett/generaliser"-
+    # prinsipp som FAQ-en under bruker for materiale.
+    type_labels_stat = sorted({r["category_label"] for r in rows if r["category_label"]})
+    wc_values_stat = {tuple(r["wc"]) for r in rows if r["wc"]}
+    stat_pills = [
+        (BOX_ICON_SVG, f'{len(rows)} produkter', " og ".join(f"{n}-pakning" for n in pack_sizes) if pack_sizes else ""),
+        (TAG_ICON_SVG, f'{len(type_labels_stat)} behov' if len(type_labels_stat) > 1 else (type_labels_stat[0] if type_labels_stat else ""), " · ".join(type_labels_stat) if len(type_labels_stat) > 1 else ""),
+    ]
+    if show_material and len(materials_present) == 1:
+        stat_pills.append((DROPLET_ICON_SVG, "Materiale", next(iter(materials_present))))
+    if len(wc_values_stat) == 1:
+        stat_pills.append((DROPLET_ICON_SVG, "Vanninnhold", " / ".join(f"{v.replace('.', ',')} %" for v in next(iter(wc_values_stat)))))
+    stat_pills_html = "".join(
+        f'''<div class="serie-stat-pill">
+    <span class="serie-stat-icon" aria-hidden="true">{icon}</span>
+    <div><div class="serie-stat-label">{escape(label)}</div>{f'<div class="serie-stat-value">{escape(value)}</div>' if value else ''}</div>
+  </div>'''
+        for icon, label, value in stat_pills if label
+    )
+
+    # "Finn din variant" -- én kandidatside per BEHOV (kategori) familien
+    # faktisk dekker, ikke én per pakningsstørrelse. Gjenbruker BEVISST
+    # kategorikortenes egne pastellbilder (static/categories/bg-*) i stedet
+    # for å finne opp en tredje type linsebilde -- Kai sitt eget poeng
+    # 2026-09-27: for mange ulike linsebilder (hero + "finn variant" +
+    # pakningsbilder i tabellen) ville blitt rotete. Rekkefølgen følger
+    # CATEGORY_BG sin nøkkelrekkefølge (måned/dag før torisk/farget/multifokal)
+    # slik at "vanlig synskorreksjon" alltid kommer først.
+    _VARIANT_NEED_LABELS = {
+        "manedslinser": "Vanlig synskorreksjon", "dagslinser": "Vanlig synskorreksjon",
+        "toriske-linser": "Astigmatisme", "multifokale-linser": "Alderssyn / multifokal",
+        "fargede-linser": "Fargekorreksjon",
+    }
+    by_category: dict[str, list[dict]] = {}
+    for r in rows:
+        by_category.setdefault(r["category_slug"], []).append(r)
+    variant_cards = []
+    for cat_slug in list(CATEGORY_BG) + [s for s in by_category if s not in CATEGORY_BG]:
+        group = by_category.get(cat_slug)
+        if not group:
+            continue
+        rep = min(group, key=lambda r: r["pack_size"] or 0)
+        group_packs = sorted({r["pack_size"] for r in group if r["pack_size"]})
+        packs_txt = " eller ".join(str(n) for n in group_packs) + " linser" if group_packs else ""
+        bg = CATEGORY_BG.get(cat_slug)
+        bg_html = (
+            f'<img class="variant-card-bg" src="/static/categories/bg-{bg}-320.webp" alt="" width="320" height="143" loading="lazy" decoding="async">'
+            if bg else ""
+        )
+        variant_cards.append(f'''<a class="variant-card" href="{escape(rep["href"])}">
+    <div class="variant-card-thumb">{bg_html}</div>
+    <div class="variant-card-text">
+      <div class="variant-card-need">{escape(_VARIANT_NEED_LABELS.get(cat_slug, categories.get(cat_slug, {}).get("label", "")))}</div>
+      <div class="variant-card-name">{escape(rep["display_name"])}</div>
+      {f'<div class="variant-card-packs">{escape(packs_txt)}</div>' if packs_txt else ''}
+    </div>
+    <span class="variant-card-arrow" aria-hidden="true">→</span>
+  </a>''')
+    variant_finder_html = ""
+    if len(variant_cards) > 1:
+        variant_finder_html = f'''<h2>Finn din variant</h2>
+  <p class="variant-finder-lead">Hvilken {escape(family_name)} passer for deg?</p>
+  <div class="variant-finder-grid">
+    {"".join(variant_cards)}
+  </div>
+  <div class="variant-finder-note">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+    <p>Har du allerede fått foreskrevet en bestemt variant av optiker? Velg samme variant, og kontroller alltid BC, styrke og eventuelle CYL/AXIS/ADD-verdier mot resepten din.</p>
+  </div>'''
+
+    # Prisinnsikt for HELE serien (snitt per pakningsstørrelse, se
+    # _family_price_insight_data()) -- Kai sitt eksplisitte ønske 2026-09-27,
+    # en type innsikt kun mulig fordi vi ser flere produkter samlet.
+    price_insight_html = ""
+    if price_history:
+        insight_by_pack = _family_price_insight_data(rows, price_history)
+        price_insight_html = render_family_price_insight(family_name, insight_by_pack)
 
     chain_html = ""
     display_name_for_title = family_name
@@ -8676,7 +8857,70 @@ def render_family_page(
 <script type="application/ld+json">{schema_json}</script>
 {family_faq_schema}
 <style>{SHARED_STYLE}
-{HERO_IMAGE_STYLE}
+/* Premium toppbanner (2026-09-27, ETT delt bilde for alle serie-sider --
+   static/hero/serie-{{560,840,1120}}.webp, samme beskjærings-/fade-teknikk
+   som forsidens hero). Egne klassenavn (serie-hero*) i stedet for å
+   gjenbruke .hero-card/.hero-product-image -- det MØNSTERET (produktbilde
+   i egen boks) er nå bevisst forbeholdt selve tabellen/pakningsbildene,
+   ikke heroen, se Kai sin tilbakemelding om at for mange ulike linsebilder
+   på samme side blir rotete. */
+.serie-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 26px 24px 22px; margin-bottom: 20px; }}
+.serie-hero-content {{ position: relative; z-index: 2; }}
+.serie-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
+.serie-hero-media {{ display: none; }}
+.serie-stat-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative; z-index: 2; }}
+.serie-stat-pill {{ display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 7px 11px; box-shadow: var(--card-shadow); }}
+.serie-stat-icon {{ width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }}
+.serie-stat-icon svg {{ width: 14px; height: 14px; }}
+.serie-stat-label {{ font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.3; }}
+.serie-stat-value {{ font-size: 0.84rem; font-weight: 600; color: var(--ink); line-height: 1.3; }}
+@media (min-width: 860px) {{
+  .serie-hero {{ padding: 32px 42px; }}
+  .serie-hero-content {{ max-width: 56%; }}
+  .serie-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 46%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
+  .serie-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
+}}
+/* "Finn din variant" -- gjenbruker kategorikortenes egne pastellbilder
+   (static/categories/bg-*), IKKE nye linsebilder -- se kommentaren i
+   Python-koden over for begrunnelsen. */
+.variant-finder-lead {{ color: var(--muted); font-size: 0.92rem; margin: 2px 0 14px; }}
+.variant-finder-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }}
+.variant-card {{ display: flex; align-items: center; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 70px; }}
+.variant-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
+.variant-card-thumb {{ width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--mist); }}
+.variant-card-bg {{ width: 100%; height: 100%; object-fit: cover; }}
+.variant-card-text {{ flex: 1; min-width: 0; }}
+.variant-card-need {{ font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }}
+.variant-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; margin-top: 2px; }}
+.variant-card-packs {{ font-size: 0.78rem; color: var(--muted); margin-top: 2px; }}
+.variant-card-arrow {{ flex-shrink: 0; color: var(--blue); }}
+.variant-finder-note {{ display: flex; gap: 10px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: var(--ink); margin: 0 0 24px; }}
+.variant-finder-note svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
+.variant-finder-note p {{ margin: 0; }}
+/* Prisinnsikt -- snitt for HELE serien, se render_family_price_insight(). */
+.price-insight {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 8px 0 24px; box-shadow: var(--card-shadow); }}
+.price-insight-head {{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }}
+.price-insight-head h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.insight-tabs {{ display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }}
+.insight-tab {{ border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }}
+.insight-tab.active {{ background: white; color: var(--ink); box-shadow: var(--card-shadow); }}
+.price-insight-panel {{ display: none; }}
+.price-insight-panel.active {{ display: grid; grid-template-columns: 1fr; gap: 18px; }}
+.price-insight-current {{ font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }}
+.price-insight-label {{ font-size: 0.82rem; color: var(--muted); margin-top: 2px; }}
+.price-insight-trend {{ display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }}
+.price-insight-trend-note {{ font-weight: 400; color: var(--muted); font-size: 0.8rem; }}
+.insight-down {{ color: var(--mint); }}
+.insight-up {{ color: var(--coral); }}
+.insight-flat {{ color: var(--muted); }}
+.price-insight-tiles {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }}
+.price-insight-tile {{ background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }}
+.price-insight-tile strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
+.price-insight-tile span {{ display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
+.price-insight-chart .price-history {{ margin-top: 0; }}
+@media (min-width: 860px) {{
+  .price-insight-panel.active {{ grid-template-columns: 1fr 1.3fr; align-items: center; }}
+}}
 .spec-table-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }}
 .spec-table {{ width: 100%; border-collapse: collapse; }}
 .spec-table th, .spec-table td {{ padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
@@ -8694,18 +8938,24 @@ def render_family_page(
 {TOPBAR_HTML}
 <div class="wrap wrap-product">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(family_name)}-serien</p>
-  <div class="hero-card">
-    <div class="hero-main">
-      <div class="hero-product-image{' has-photo' if hero_image_url else ''}">{hero_thumb}</div>
-      <div class="hero-copy">
-        <div class="kicker">Produktserie</div>
-        <h1>{escape(family_name)}-serien</h1>
-        {intro}
-      </div>
+  <div class="serie-hero">
+    <div class="serie-hero-content">
+      <div class="kicker">Produktserie</div>
+      <h1>{escape(family_name)}-serien</h1>
+      {intro}
+      <div class="serie-stat-pills">{stat_pills_html}</div>
+    </div>
+    <div class="serie-hero-media" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 44vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+      </picture>
     </div>
   </div>
   {ai_summary_html}
   {chain_html}
+  {variant_finder_html}
+  {price_insight_html}
 
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
