@@ -333,9 +333,10 @@ a { color: inherit; }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 
 .guide-byline { font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }
-.guide-hero-image { border-radius: 16px; overflow: hidden; margin-bottom: 4px; box-shadow: var(--card-shadow); }
-.guide-hero-image img { display: block; width: 100%; height: 190px; object-fit: cover; }
-@media (min-width: 640px) { .guide-hero-image img { height: 260px; } }
+.guide-hero-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.guide-hero-thumb { flex-shrink: 0; width: 68px; height: 68px; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }
+.guide-hero-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (min-width: 640px) { .guide-hero-thumb { width: 100px; height: 100px; border-radius: 16px; } }
 </style>
 </head>
 <body>
@@ -733,14 +734,16 @@ a { color: inherit; }
 </script>
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › Reising med kontaktlinser</p>
-  <div class="guide-hero-image">
-    <img src="/static/guides/reising-med-kontaktlinser.webp" alt="" width="640" height="667" loading="eager" decoding="async">
-  </div>
   <div class="hero">
-    <div class="hero-copy">
-      <div class="kicker">Guide</div>
-      <h1>Reising med kontaktlinser</h1>
-      <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert 16.08.2026 · <a href="/redaksjonelle-prinsipper/" style="color:inherit;">Redaksjonelle prinsipper</a></p>
+    <div class="hero-copy guide-hero-row">
+      <div>
+        <div class="kicker">Guide</div>
+        <h1>Reising med kontaktlinser</h1>
+        <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert 16.08.2026 · <a href="/redaksjonelle-prinsipper/" style="color:inherit;">Redaksjonelle prinsipper</a></p>
+      </div>
+      <div class="guide-hero-thumb">
+      <img src="/static/guides/reising-med-kontaktlinser.webp" alt="" width="130" height="130" loading="eager" decoding="async">
+    </div>
     </div>
   </div>
   <div style="max-width:640px;">
