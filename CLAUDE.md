@@ -2679,3 +2679,32 @@ unaturlig brede bare fordi et merke har få serier.
   `.category-row`/`.offer-card` ellers på siden) for tastaturtilgjengelighet.
   Global `prefers-reduced-motion:reduce`-regel (allerede i SHARED_STYLE)
   dekker alle disse transisjonene uten ekstra kode.
+
+## Merke-siden: liten konsistens-runde på "30 eller 90 linser?" og sortiment-kortene (2026-09-27, samme dag)
+
+Kai: "gjerne gjør et forsøk" (uten nytt mockup denne gangen) på resten av
+"boks for boks"-lista. Uten en fasit å style mot, gjorde jeg to trygge,
+avgrensede forbedringer i stedet for å gjette bredt på FAQ/guider/
+Produsent-modul/tillit-footer sitt utseende:
+
+- **`.brand-sortiment-card:hover` var duplisert** (samme regel skrevet to
+  ganger) og brukte fortsatt det gamle blå glød-skygge-mønsteret
+  (`rgba(37, 99, 235, .14)`) som ikke lenger matcher den stillere,
+  ink-tonede hover-stilen `.brand-serie-card` fikk denne økten. Fjernet
+  duplikatet og samkjørte hover/fokus-stilen med seriekortene
+  (`:hover, :focus-visible` sammen, samme skygge-/border-farge).
+- **"30 eller 90 linser?"-flisene fikk små fargede ikoner** (samme
+  sirkel-ikon-mønster som "{Merke} i tall"-flisene og materialkortene
+  lenger opp på siden: BOX_ICON_SVG i sky/mint for 30-/90-pack,
+  TAG_ICON_SVG i amber for prosent-forskjellen) -- ren visuell
+  konsistens, ingen ny data.
+
+**Ikke rørt** (ba Kai om retning på i stedet for å gjette): FAQ-seksjonens
+egen styling, "Nyttige ressurser"-guidekortene (gjenbruker allerede
+`render_guide_tile()` uendret), Produsent-modulen (fortsatt en enkel hvit
+boks, kunne fått mer visuell vekt men usikkert i hvilken retning uten
+referanse) og tillit-footeren nederst -- alle fire fungerer og er
+faktakorrekte, men å redesigne dem uten mockup risikerer akkurat den
+typen bomtreff ("vi er langt unna") tidligere runder denne økten viste
+skjer når jeg gjetter på Kais visuelle preferanser i stedet for å se et
+referansebilde først.
