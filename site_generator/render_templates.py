@@ -3323,14 +3323,14 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
         if cheapest_product_offer["retailer"] != best["retailer"]:
             billigst_svar = (
-                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
-                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
-                f'men {best["retailer"]} blir billigst når frakten regnes med. Velger du flere esker, kan en annen butikk bli billigst, '
-                f'siden fraktgrenser varierer mellom butikkene.'
+                f'{cheapest_product_offer["retailer"]} har lavest produktpris: {_fmt_kr(cheapest_product_offer["price_nok"])} uten frakt. '
+                f'Regner du med frakt, blir {best["retailer"]} billigst: {_fmt_kr(best["total"])} totalt inkludert frakt. '
+                f'Velger du flere esker, kan en annen butikk bli billigst, siden fraktgrenser varierer mellom butikkene.'
             )
         else:
             billigst_svar = (
-                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+                f'{best["retailer"]} har lavest pris, både uten og med frakt: {_fmt_kr(best["price_nok"])} uten frakt '
+                f'({_fmt_kr(best["total"])} inkludert frakt).'
             )
         product_faq.append({"question": f'Hvor er {product["name"]} billigst?', "answer": billigst_svar})
 
@@ -7727,13 +7727,13 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
         cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
         if cheapest_product_offer["retailer"] != best["retailer"]:
             billigst_svar = (
-                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
-                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
-                f'men {best["retailer"]} blir billigst når frakten regnes med.'
+                f'{cheapest_product_offer["retailer"]} har lavest produktpris: {_fmt_kr(cheapest_product_offer["price_nok"])} uten frakt. '
+                f'Regner du med frakt, blir {best["retailer"]} billigst: {_fmt_kr(best["total"])} totalt inkludert frakt.'
             )
         else:
             billigst_svar = (
-                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+                f'{best["retailer"]} har lavest pris, både uten og med frakt: {_fmt_kr(best["price_nok"])} uten frakt '
+                f'({_fmt_kr(best["total"])} inkludert frakt).'
             )
         product_faq.append({"question": f'Hvor er {product["name"]} billigst?', "answer": billigst_svar})
 
@@ -8260,13 +8260,13 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         cheapest_product_offer = min(in_stock_offers, key=lambda o: o["price_nok"])
         if cheapest_product_offer["retailer"] != best["retailer"]:
             billigst_svar = (
-                f'{best["retailer"]} har lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt. '
-                f'{cheapest_product_offer["retailer"]} har lavere produktpris ({_fmt_kr(cheapest_product_offer["price_nok"])}) uten frakt, '
-                f'men {best["retailer"]} blir billigst når frakten regnes med.'
+                f'{cheapest_product_offer["retailer"]} har lavest produktpris: {_fmt_kr(cheapest_product_offer["price_nok"])} uten frakt. '
+                f'Regner du med frakt, blir {best["retailer"]} billigst: {_fmt_kr(best["total"])} totalt inkludert frakt.'
             )
         else:
             billigst_svar = (
-                f'{best["retailer"]} har både lavest produktpris og lavest totalpris akkurat nå: {_fmt_kr(best["total"])} inkludert frakt.'
+                f'{best["retailer"]} har lavest pris, både uten og med frakt: {_fmt_kr(best["price_nok"])} uten frakt '
+                f'({_fmt_kr(best["total"])} inkludert frakt).'
             )
         product_faq.append({"question": f'Hvor er {real_name} ({private_name}) billigst?', "answer": billigst_svar})
 
