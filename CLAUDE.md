@@ -1893,3 +1893,50 @@ foto) og fra `_product_image()` i selve sammenligningstabellen.
   utrullingen er ikke gjort. Heller ikke et globalt 30/90-valg som bytter HELE
   siden samtidig (Kai nevnte dette som en idé for videre -- prisinnsikt-fanen
   er foreløpig det eneste elementet en pakningsstørrelse-veksling styrer).
+
+## Serie-siden: layout-runde 2 -- rekkefølge, kompresjon, ekte tabell, gjenbrukte komponenter (2026-09-27)
+
+Rett etter forrige runde ga Kai konkret tilbakemelding på selve resultatet (skjermbilder av
+det faktiske Prisinnsikt-panelet og et mockup-bilde av "Alle produkter"/"Sammenlign
+variantene"/"Relevante guider"):
+
+- **Nøkkeltall-pillene** flyttet UT av `.serie-hero-content` (som er begrenset til 56 %
+  bredde på desktop) til en egen rad rett i `.serie-hero`, som bruker HELE kortbredden --
+  alle 4 pillene får nå plass på én linje (`flex-wrap: nowrap` ved ≥860px), i stedet for å
+  brekke til to rader.
+- **"Vi sammenligner priser ..."-boksen flyttet ned** til RETT ETTER Prisinnsikt/"Kort om
+  X" (var rett under heroen).
+- **Reell bug fikset: 90-pakning-fanen i Prisinnsikt manglet fylt areal i grafen.**
+  Årsak: `.price-history-area { fill: url(#priceHistoryFade); }` var en DELT CSS-regel med
+  en FAST id -- fungerte fint så lenge en side aldri hadde mer enn ÉN graf, men
+  Prisinnsikt-panelet har nå flere (én per pakningsstørrelse), og alle pekte til samme
+  (første) gradient i dokumentet. Fikset ved å sette `fill` INLINE per `<path>`
+  (`_render_price_history_chart()` fikk et `gradient_id`-parameter, unik per kall
+  -- `f"priceHistoryFade-{{pack_size}}"` på serie-siden) i stedet for å stole på en delt
+  CSS-regel med hardkodet id.
+- **Ny "Kort om X"-boks** ved siden av Prisinnsikt (`.serie-insight-row`, 2 kolonner ved
+  ≥1024px) -- "slik at vi får en komprimert prisinnsikt, det holder" (Kai). KUN fakta som
+  faktisk er like på tvers av ALLE variantene (Brukstid, materiale, vanninnhold, UV-filter
+  -- hver enkelt utelates helt om verdien ikke finnes/ikke er lik for alle, samme prinsipp
+  som resten av siden. UV-filter-feltet finnes typisk IKKE i det hele tatt for en gitt
+  familie -- vises da ikke, ingen påstand vi ikke kan bevise).
+- **Sammenlign-tabellen bygget om**: én rad PER BEHOV (ikke per pakningsstørrelse lenger),
+  med Diameter og en forenklet "ADD/CYL/AXIS"-kolonne (viser HVILKEN ekstra dimensjon som
+  gjelder -- "CYL/AXIS" eller "ADD" -- ikke tallverdiene, samme forenkling som Kai sin
+  egen mockup) lagt til som nye kolonner utledet fra ekte specs-felt
+  (`Diameter`/`Sylinder`/`Akse`/`Addisjon` -- sjeldne felt, kun 4-16 av 141 produkter har
+  dem, kolonnene utelates derfor helt for familier uten noen dekning). "Pakninger" viser nå
+  begge pakningsstørrelsene i én celle ("30/90"). BC/diameter/materiale antas likt på tvers
+  av pakningsstørrelser innenfor SAMME behov (representant-raden sine spec-verdier brukes).
+- **"Alle produkter i X-serien"-rutenett lagt til**, men BEVISST med den EKSISTERENDE
+  `_render_product_tile()`-komponenten (samme kort som kategori-/merke-/tilbehør-sidene
+  allerede bruker) -- Kai eksplisitt: "ikke likt disse [mockupens kortdesign], men de som
+  vi bruker selv og har i dag."
+- **"Relevante guider"-rutenett lagt til** med `render_guide_tile()`/`GUIDE_TILE_STYLE`
+  (samme ikonkort som forsiden/toppmenyens guide-seksjon) -- guidene har KUN ikoner i vår
+  datamodell, ingen egne foto; ingen bilder funnet opp for å matche mockupen. 3 relevante
+  guider velges automatisk per familie (alltid "Slik bruker du kontaktlinser" + "Slik
+  velger du riktig linse", pluss astigmatisme/multifokal/dagslinse-vs-månedslinse alt etter
+  hvilke behov familien faktisk dekker).
+- Luftet inn tettere (`.variant-finder-*`-marginer/gap redusert) etter Kai sin
+  "litt mer komprimert, er litt mye luft"-tilbakemelding.

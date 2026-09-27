@@ -319,7 +319,12 @@ a { color: inherit; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
 .price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
-.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+/* fill settes INLINE per <path> (se _render_price_history_chart), ikke her --
+   en side kan nå ha FLERE grafer samtidig (serie-siden sitt prisinnsikt-panel,
+   én per pakningsstørrelse), og en delt CSS-regel med en fast #id ville pekt
+   alle grafene til samme (første) gradient i dokumentet -- funnet 2026-09-27
+   da 90-pakning-fanen viste linjen uten fylt areal under. */
+.price-history-area { stroke: none; }
 .price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
 .price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
 .price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
@@ -2421,6 +2426,10 @@ DROPLET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" 
 BASISKURVE_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
 DIAMETER_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>'
 TAG_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg>'
+# Nøytral (IKKE mint/grønt -- det fargenavnet er reservert for "laveste pris",
+# se designsystem-regelen i CLAUDE.md) avkrysningsikon til enkle faktalister
+# som "Kort om X"-boksen på serie-siden.
+CHECK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 RESET_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 12a8 8 0 1 1 2.6 5.9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 X_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 # To overlappende kontaktlinser -- egen tegnet illustrasjon (se
@@ -3063,7 +3072,7 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     return stem, int(size_part)
 
 
-def _render_price_history_chart(history: list[dict], show_heading: bool = True) -> str:
+def _render_price_history_chart(history: list[dict], show_heading: bool = True, gradient_id: str = "priceHistoryFade") -> str:
     """SVG-linjegraf med fadet fylt areal under, over laveste PRODUKTPRIS
     (uten frakt) per dag, tegnet server-side -- ingen JS-bibliotek, fungerer
     uten at noe script kjører. Viser ingenting før vi faktisk har minst en
@@ -3160,13 +3169,13 @@ def _render_price_history_chart(history: list[dict], show_heading: bool = True) 
     {heading_html}
     <svg viewBox="0 0 {width} {height}" class="price-history-chart" role="img" aria-label="Prisutvikling siste {n} dager, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
       <defs>
-        <linearGradient id="priceHistoryFade" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
+        <linearGradient id="{gradient_id}" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
       {axis_html}
-      <path d="{area_path}" class="price-history-area" />
+      <path d="{area_path}" class="price-history-area" fill="url(#{gradient_id})" />
       <polyline points="{line_points}" class="price-history-line" />
       {dots_svg}
       <text x="{x_for(n - 1):.1f}" y="{last_label_y:.1f}" text-anchor="{last_label_anchor}" class="price-history-current-label">{escape(_fmt_kr(last["price"]))}</text>
@@ -3231,7 +3240,7 @@ def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dic
         trend_class = "insight-down" if pct < 0 else ("insight-up" if pct > 0 else "insight-flat")
         trend_sign = "" if pct == 0 else ("+" if pct > 0 else "")
         trend_arrow = "↓" if pct < 0 else ("↑" if pct > 0 else "→")
-        chart_html = _render_price_history_chart(history, show_heading=False)
+        chart_html = _render_price_history_chart(history, show_heading=False, gradient_id=f"priceHistoryFade-{pack_size}")
         active = " active" if i == 0 else ""
         tabs.append(f'<button type="button" class="insight-tab{active}" data-pack="{pack_size}">{pack_size} linser</button>')
         panels.append(f'''<div class="price-insight-panel{active}" data-pack="{pack_size}">
@@ -8603,17 +8612,16 @@ def render_family_page(
             "href": m["href"],
             "product": product,
             "best": best,
+            "n_offers": len(eligible),
             "pack_size": pack[1] if pack else None,
             "category_slug": product["category_slug"],
             "category_label": categories.get(product["category_slug"], {}).get("label", ""),
+            "specs": specs,
             "wc": _parse_spec_numbers(specs.get("Vanninnhold")),
             "bc": _parse_spec_numbers(specs.get("Basiskurve")),
             "material": specs.get("Materiale"),
         })
 
-    # Kolonner med 0 dekning blant DENNE familiens medlemmer utelates helt
-    # -- bedre å vise færre, fylte kolonner enn tomme celler over hele
-    # tabellen (samme prinsipp som passform-filteret på kategorisidene).
     show_wc = any(r["wc"] for r in rows)
     show_bc = any(r["bc"] for r in rows)
     show_material = any(r["material"] for r in rows)
@@ -8624,25 +8632,75 @@ def render_family_page(
     prices = [r["best"]["price_nok"] for r in rows if r["best"]]
     lowest_row = min((r for r in rows if r["best"]), key=lambda r: r["best"]["price_nok"], default=None)
 
-    def table_row(r: dict) -> str:
-        pack_txt = f'{r["pack_size"]}-pakning' if r["pack_size"] else "–"
-        price_txt = f'{_fmt_kr(r["best"]["price_nok"])}' if r["best"] else "Ingen pris"
-        wc_txt = " / ".join(f"{v.replace('.', ',')} %" for v in r["wc"]) if r["wc"] else "–"
-        bc_txt = " / ".join(f"{v.replace('.', ',')} mm" for v in r["bc"]) if r["bc"] else "–"
-        material_txt = escape(r["material"]) if r["material"] else "–"
-        cells = f'''<td class="spec-value">{escape(r["category_label"])}</td>
-    <td class="spec-value">{pack_txt}</td>'''
+    # "Finn din variant" (lenger nede) trenger EN etikett per behov/kategori --
+    # delt her siden BÅDE tabellen og kortene bruker den samme mappingen.
+    _VARIANT_NEED_LABELS = {
+        "manedslinser": "Vanlig synskorreksjon", "dagslinser": "Vanlig synskorreksjon",
+        "toriske-linser": "Astigmatisme", "multifokale-linser": "Alderssyn / multifokal",
+        "fargede-linser": "Fargekorreksjon",
+    }
+    by_category: dict[str, list[dict]] = {}
+    for r in rows:
+        by_category.setdefault(r["category_slug"], []).append(r)
+
+    # Sammenligningstabellen viser nå ÉN RAD PER BEHOV (ikke per pakningsstørrelse
+    # -- 2026-09-27, Kai sitt ønske om "ekte data og tall vi har, for enda mer
+    # relevant info"), med Diameter og ADD/CYL/AXIS som nye kolonner utledet fra
+    # de faktiske specs-feltene (ikke alle produkter har disse -- se
+    # products_meta.json sin reelle feltdekning, Addisjon/UV-filter er sjeldne).
+    # BC/diameter/materiale antas likt på tvers av pakningsstørrelser INNENFOR
+    # samme behov (samme fysiske linse, bare ulikt antall i esken) -- representant-
+    # raden (minste pakning) sine spec-verdier brukes derfor for hele gruppen.
+    table_groups = []
+    for cat_slug in list(CATEGORY_BG) + [s for s in by_category if s not in CATEGORY_BG]:
+        group = by_category.get(cat_slug)
+        if not group:
+            continue
+        rep = min(group, key=lambda r: r["pack_size"] or 0)
+        group_packs = sorted({r["pack_size"] for r in group if r["pack_size"]})
+        group_prices = [r["best"]["price_nok"] for r in group if r["best"]]
+        has_cyl = any(r["specs"].get("Sylinder") or r["specs"].get("Akse") for r in group)
+        has_add = any(r["specs"].get("Addisjon") for r in group)
+        table_groups.append({
+            "name": re.sub(r"\s+\d+-pack$", "", rep["display_name"]),
+            "href": rep["href"],
+            "product": rep["product"],
+            "need_label": _VARIANT_NEED_LABELS.get(cat_slug, rep["category_label"]),
+            "material": rep["material"],
+            "wc": rep["wc"],
+            "bc": rep["bc"],
+            "diameter": _parse_spec_numbers(rep["specs"].get("Diameter")),
+            "power_dim": "CYL/AXIS" if has_cyl else ("ADD" if has_add else "–"),
+            "packs_txt": "/".join(str(n) for n in group_packs) if group_packs else "–",
+            "price": min(group_prices) if group_prices else None,
+        })
+
+    show_diameter = any(g["diameter"] for g in table_groups)
+    show_power_dim = any(g["power_dim"] != "–" for g in table_groups)
+
+    def table_row(g: dict) -> str:
+        wc_txt = " / ".join(f"{v.replace('.', ',')} %" for v in g["wc"]) if g["wc"] else "–"
+        bc_txt = " / ".join(f"{v.replace('.', ',')} mm" for v in g["bc"]) if g["bc"] else "–"
+        dia_txt = " / ".join(f"{v.replace('.', ',')} mm" for v in g["diameter"]) if g["diameter"] else "–"
+        material_txt = escape(g["material"]) if g["material"] else "–"
+        price_txt = _fmt_kr(g["price"]) if g["price"] else "Ingen pris"
+        cells = f'''<td class="spec-value">{escape(g["need_label"])}</td>'''
         if show_material:
             cells += f'\n    <td class="spec-value">{material_txt}</td>'
         if show_wc:
             cells += f'\n    <td class="spec-value">{wc_txt}</td>'
         if show_bc:
             cells += f'\n    <td class="spec-value">{bc_txt}</td>'
-        row_img = _product_image(r["product"])
+        if show_diameter:
+            cells += f'\n    <td class="spec-value">{dia_txt}</td>'
+        if show_power_dim:
+            cells += f'\n    <td class="spec-value">{escape(g["power_dim"])}</td>'
+        row_img = _product_image(g["product"])
         thumb_html = f'<img class="spec-row-thumb" src="{escape(row_img)}" alt="" loading="lazy">' if row_img else ''
         return f'''<tr>
-    <th scope="row" class="spec-label"><a href="{escape(r["href"])}">{thumb_html}{escape(r["display_name"])}</a></th>
+    <th scope="row" class="spec-label"><a href="{escape(g["href"])}">{thumb_html}{escape(g["name"])}</a></th>
     {cells}
+    <td class="spec-value">{escape(g["packs_txt"])}</td>
     <td class="spec-value">{price_txt}</td>
   </tr>'''
 
@@ -8652,28 +8710,55 @@ def render_family_page(
     if show_wc:
         table_header_extra += "<th>Vanninnhold</th>"
     if show_bc:
-        table_header_extra += "<th>Basiskurve</th>"
+        table_header_extra += "<th>BC (mm)</th>"
+    if show_diameter:
+        table_header_extra += "<th>Diameter (mm)</th>"
+    if show_power_dim:
+        table_header_extra += "<th>ADD/CYL/AXIS</th>"
 
     comparison_table = f'''<div style="overflow-x:auto;">
   <table class="spec-table">
     <thead>
-      <tr><th>Variant</th><th>Type</th><th>Pakning</th>{table_header_extra}<th>Fra pris (uten frakt)</th></tr>
+      <tr><th>Variant</th><th>For</th>{table_header_extra}<th>Pakninger</th><th>Fra pris (uten frakt)</th></tr>
     </thead>
     <tbody>
-      {"".join(table_row(r) for r in rows)}
+      {"".join(table_row(g) for g in table_groups)}
     </tbody>
   </table>
 </div>'''
 
-    guide_links = []
-    if any("toric" in r["product"]["id"] or "astigmatism" in r["product"]["id"] for r in rows):
-        guide_links.append('<a href="/guide/kontaktlinser-med-astigmatisme/">toriske linser og astigmatisme</a>')
-    if any("multifocal" in r["product"]["id"] for r in rows):
-        guide_links.append('<a href="/guide/multifokale-kontaktlinser/">multifokale linser ved alderssyn</a>')
-    guide_html = (
-        f'<p style="margin-top:16px;">Usikker på hvilken variant du trenger? Se vår guide om {" og ".join(guide_links)} -- '
-        f'det er alltid optikeren din som fastsetter riktig type ut fra synsundersøkelsen.</p>'
-    ) if guide_links else ""
+    # "Alle produkter i X-serien" -- gjenbruker DEN SAMME kort-komponenten som
+    # kategori-/merke-/tilbehør-sidene allerede bruker (_render_product_tile()),
+    # IKKE et nytt kortdesign -- Kai sitt eksplisitte ønske 2026-09-27: "de som
+    # vi bruker selv og har i dag", ikke mock-designet.
+    def product_tile(r: dict) -> str:
+        return _render_product_tile(
+            href=r["href"], name=r["display_name"], image_url=_product_image(r["product"]),
+            fallback_initials=r["product"]["brand_label"][:2].upper(),
+            category_label=r["category_label"], secondary_line_html="",
+            lowest=r["best"], other_count=max(0, r["n_offers"] - 1),
+        )
+    all_products_html = f'''<h2>Alle produkter i {escape(family_name)}-serien</h2>
+  <div class="product-tile-grid">
+    {"".join(product_tile(r) for r in rows)}
+  </div>''' if len(rows) > 1 else ""
+
+    # "Relevante guider" -- samme kort-komponent som brukes i toppmenyen/
+    # forsidens guide-seksjon (render_guide_tile/GUIDE_TILE_STYLE). Guidene har
+    # KUN ikoner i vår datamodell, ingen egne foto -- ikke funnet opp bilder
+    # for å matche en mockup, se CLAUDE.md.
+    relevant_guide_slugs = ["hvordan-bruke-kontaktlinser"]
+    if any(g["power_dim"] == "CYL/AXIS" for g in table_groups):
+        relevant_guide_slugs.append("kontaktlinser-med-astigmatisme")
+    elif any(g["power_dim"] == "ADD" for g in table_groups):
+        relevant_guide_slugs.append("multifokale-kontaktlinser")
+    else:
+        relevant_guide_slugs.append("manedslinser-vs-dagslinser")
+    relevant_guide_slugs.append("hvordan-velge-kontaktlinser")
+    guides_html = f'''<h2>Relevante guider</h2>
+  <div class="guide-grid guide-grid-narrow">
+    {"".join(render_guide_tile(slug, GUIDE_CONTENT[slug]) for slug in relevant_guide_slugs if slug in GUIDE_CONTENT)}
+  </div>'''
 
     # Unikt FAQ-innhold for serie-siden -- svarer på det EKTE spørsmålet en
     # serie-side finnes for ("hvilke varianter/pakninger finnes"), utledet fra
@@ -8743,15 +8828,8 @@ def render_family_page(
     # 2026-09-27: for mange ulike linsebilder (hero + "finn variant" +
     # pakningsbilder i tabellen) ville blitt rotete. Rekkefølgen følger
     # CATEGORY_BG sin nøkkelrekkefølge (måned/dag før torisk/farget/multifokal)
-    # slik at "vanlig synskorreksjon" alltid kommer først.
-    _VARIANT_NEED_LABELS = {
-        "manedslinser": "Vanlig synskorreksjon", "dagslinser": "Vanlig synskorreksjon",
-        "toriske-linser": "Astigmatisme", "multifokale-linser": "Alderssyn / multifokal",
-        "fargede-linser": "Fargekorreksjon",
-    }
-    by_category: dict[str, list[dict]] = {}
-    for r in rows:
-        by_category.setdefault(r["category_slug"], []).append(r)
+    # slik at "vanlig synskorreksjon" alltid kommer først. (_VARIANT_NEED_LABELS
+    # og by_category er allerede bygget over, til sammenligningstabellen.)
     variant_cards = []
     for cat_slug in list(CATEGORY_BG) + [s for s in by_category if s not in CATEGORY_BG]:
         group = by_category.get(cat_slug)
@@ -8794,6 +8872,42 @@ def render_family_page(
         insight_by_pack = _family_price_insight_data(rows, price_history)
         price_insight_html = render_family_price_insight(family_name, insight_by_pack)
 
+    # "Kort om X" -- ved siden av Prisinnsikt (Kai: "slik at vi får en
+    # komprimert prisinnsikt, det holder"), KUN fakta vi faktisk kan bevise er
+    # like på tvers av ALLE variantene (samme "aldri gjett"-prinsipp som
+    # resten av siden -- f.eks. UV-filter er et reelt specs-felt, men finnes
+    # ikke i det hele tatt for enkelte familier, og utelates da helt i stedet
+    # for å late som det er sjekket).
+    brukstid_values = {r["specs"].get("Brukstid") for r in rows if r["specs"].get("Brukstid")}
+    uv_values = {r["specs"].get("UV-filter") for r in rows if r["specs"].get("UV-filter")}
+    fact_rows = []
+    if len(brukstid_values) == 1:
+        bt = next(iter(brukstid_values))
+        bt_sub = {"Dagslinse": "Ny linse hver dag", "Månedslinse": "Skiftes månedlig", "Ukelinse": "Skiftes ukentlig"}.get(bt, "")
+        fact_rows.append((bt, bt_sub))
+    if show_material and len(materials_present) == 1:
+        fact_rows.append((next(iter(materials_present)), "Materiale"))
+    if len(wc_values_stat) == 1:
+        fact_rows.append((" / ".join(f"{v.replace('.', ',')} %" for v in next(iter(wc_values_stat))), "Vanninnhold"))
+    if len(uv_values) == 1:
+        fact_rows.append((f'UV-filter ({next(iter(uv_values))})', ""))
+    if type_labels_stat:
+        fact_rows.append((("Tilgjengelig for " + ", ".join(t.lower() for t in type_labels_stat)), ""))
+    facts_html = ""
+    if fact_rows:
+        items = "".join(
+            f'''<li>{CHECK_ICON_SVG}<div><strong>{escape(main)}</strong>{f'<span>{escape(sub)}</span>' if sub else ''}</div></li>'''
+            for main, sub in fact_rows
+        )
+        facts_html = f'''<div class="serie-facts">
+    <h2>Kort om {escape(family_name)}</h2>
+    <ul class="serie-facts-list">{items}</ul>
+  </div>'''
+    insight_row_html = (
+        f'<div class="serie-insight-row">{price_insight_html}{facts_html}</div>'
+        if price_insight_html and facts_html else price_insight_html + facts_html
+    )
+
     chain_html = ""
     display_name_for_title = family_name
     if chain:
@@ -8802,6 +8916,9 @@ def render_family_page(
     side for hvilket ekte produkt den tilsvarer og hvilken kjede som står bak.</p>
   </div>'''
 
+    # Flyttet lenger ned (2026-09-27, Kai: "må vi ha denne her, eller kan vi
+    # sette den lengre ned? F.eks. under Prisinnsikt") -- vises nå etter
+    # prisinnsikten/"Kort om"-raden i stedet for rett under heroen.
     ai_summary_html = ""
     if lowest_row and lowest_row["best"]:
         n_variants = len(rows)
@@ -8864,40 +8981,60 @@ def render_family_page(
    i egen boks) er nå bevisst forbeholdt selve tabellen/pakningsbildene,
    ikke heroen, se Kai sin tilbakemelding om at for mange ulike linsebilder
    på samme side blir rotete. */
-.serie-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 26px 24px 22px; margin-bottom: 20px; }}
+.serie-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }}
 .serie-hero-content {{ position: relative; z-index: 2; }}
 .serie-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
 .serie-hero-media {{ display: none; }}
-.serie-stat-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative; z-index: 2; }}
-.serie-stat-pill {{ display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 7px 11px; box-shadow: var(--card-shadow); }}
-.serie-stat-icon {{ width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }}
-.serie-stat-icon svg {{ width: 14px; height: 14px; }}
-.serie-stat-label {{ font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.3; }}
-.serie-stat-value {{ font-size: 0.84rem; font-weight: 600; color: var(--ink); line-height: 1.3; }}
+/* Egen rad, IKKE inni .serie-hero-content -- så den kan bruke hele kortets
+   bredde (ikke bare tekstkolonnens 56 %) og få plass til alle pillene på én
+   linje (Kai 2026-09-27: "kan vi få disse på en linje ... og bortover til
+   høyre?"). */
+.serie-stat-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; position: relative; z-index: 2; }}
+.serie-stat-pill {{ display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 6px 10px; box-shadow: var(--card-shadow); }}
+.serie-stat-icon {{ width: 24px; height: 24px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }}
+.serie-stat-icon svg {{ width: 13px; height: 13px; }}
+.serie-stat-label {{ font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }}
+.serie-stat-value {{ font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }}
 @media (min-width: 860px) {{
-  .serie-hero {{ padding: 32px 42px; }}
+  .serie-hero {{ padding: 26px 40px 24px; }}
   .serie-hero-content {{ max-width: 56%; }}
   .serie-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 46%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
   .serie-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
+  .serie-stat-pills {{ flex-wrap: nowrap; }}
 }}
 /* "Finn din variant" -- gjenbruker kategorikortenes egne pastellbilder
    (static/categories/bg-*), IKKE nye linsebilder -- se kommentaren i
-   Python-koden over for begrunnelsen. */
-.variant-finder-lead {{ color: var(--muted); font-size: 0.92rem; margin: 2px 0 14px; }}
-.variant-finder-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }}
-.variant-card {{ display: flex; align-items: center; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 70px; }}
+   Python-koden over for begrunnelsen. Strammet inn 2026-09-27 (Kai: "litt
+   mer komprimert ... er litt mye luft"). */
+.variant-finder-lead {{ color: var(--muted); font-size: 0.88rem; margin: 0 0 10px; }}
+.variant-finder-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px; }}
+.variant-card {{ display: flex; align-items: center; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 11px 14px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 60px; }}
 .variant-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
-.variant-card-thumb {{ width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--mist); }}
+.variant-card-thumb {{ width: 48px; height: 48px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--mist); }}
 .variant-card-bg {{ width: 100%; height: 100%; object-fit: cover; }}
 .variant-card-text {{ flex: 1; min-width: 0; }}
-.variant-card-need {{ font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }}
-.variant-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; margin-top: 2px; }}
-.variant-card-packs {{ font-size: 0.78rem; color: var(--muted); margin-top: 2px; }}
+.variant-card-need {{ font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }}
+.variant-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; margin-top: 1px; }}
+.variant-card-packs {{ font-size: 0.76rem; color: var(--muted); margin-top: 1px; }}
 .variant-card-arrow {{ flex-shrink: 0; color: var(--blue); }}
-.variant-finder-note {{ display: flex; gap: 10px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: var(--ink); margin: 0 0 24px; }}
-.variant-finder-note svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
+.variant-finder-note {{ display: flex; gap: 9px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 10px 13px; font-size: 0.8rem; color: var(--ink); margin: 0 0 18px; }}
+.variant-finder-note svg {{ flex-shrink: 0; width: 17px; height: 17px; color: var(--blue); margin-top: 1px; }}
 .variant-finder-note p {{ margin: 0; }}
-/* Prisinnsikt -- snitt for HELE serien, se render_family_price_insight(). */
+/* Prisinnsikt (venstre) + "Kort om X" (høyre) side om side -- Kai 2026-09-27:
+   "slik at vi får en komprimert prisinnsikt". Nullstiller marginene til de to
+   boksene når de står i denne raden (egne marger gir dobbel avstand ellers). */
+.serie-insight-row {{ display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 24px; }}
+.serie-insight-row > .price-insight, .serie-insight-row > .serie-facts {{ margin: 0; }}
+@media (min-width: 1024px) {{
+  .serie-insight-row {{ grid-template-columns: 1.5fr 1fr; align-items: stretch; }}
+}}
+.serie-facts {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }}
+.serie-facts h2 {{ margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.serie-facts-list {{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }}
+.serie-facts-list li {{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }}
+.serie-facts-list svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
+.serie-facts-list strong {{ display: block; color: var(--ink); font-weight: 600; }}
+.serie-facts-list span {{ display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }}
 .price-insight {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 8px 0 24px; box-shadow: var(--card-shadow); }}
 .price-insight-head {{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }}
 .price-insight-head h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
@@ -8932,6 +9069,8 @@ def render_family_page(
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
+{GUIDE_TILE_STYLE}
+.guide-grid {{ margin-top: 14px; }}
 </style>
 </head>
 <body>
@@ -8943,7 +9082,6 @@ def render_family_page(
       <div class="kicker">Produktserie</div>
       <h1>{escape(family_name)}-serien</h1>
       {intro}
-      <div class="serie-stat-pills">{stat_pills_html}</div>
     </div>
     <div class="serie-hero-media" aria-hidden="true">
       <picture>
@@ -8951,17 +9089,21 @@ def render_family_page(
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
       </picture>
     </div>
+    <div class="serie-stat-pills">{stat_pills_html}</div>
   </div>
-  {ai_summary_html}
   {chain_html}
   {variant_finder_html}
-  {price_insight_html}
+  {insight_row_html}
+  {ai_summary_html}
 
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
   {comparison_table}
   </div>
-  {guide_html}
+
+  {all_products_html}
+
+  {guides_html}
   {family_faq_html}
 
   <p class="disclosure">
