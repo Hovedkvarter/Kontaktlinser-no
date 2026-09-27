@@ -499,6 +499,11 @@ a { color: inherit; }
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
 .hero-subtitle { margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+/* "Pris ved flere esker/flasker" som eget, frittstående kort under
+   prislista (qty_multi_inline=False) -- samme mønster som kontaktlinse-
+   produktsiden (Kai, 2026-09-28: "Her er pris ved flere esker og den
+   delen med blå bakgrunn ikke flyttet ned" på private label-siden). */
+.wrap-product > .qty-multi { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 /* Product (Desktop) Gold Standard v1 -- portert hit fra render_product_page()
    2026-09-28 (Kai: "gjør samme hero-/quantity-redesign på linsevæske og
    private label", etter tidligere scope-avklaring "gjelder alle produkter
@@ -1269,14 +1274,7 @@ a { color: inherit; }
       <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>flaske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>flasker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>flasker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>flasker</span></button><button type="button" class="qty-pill" data-qty="8"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>8<span>flasker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>flasker</span></button></div>
     </div>
     
-    <details class="qty-multi">
-    <summary>
-      <span class="qty-multi-label">Pris ved flere flasker</span>
-      <span class="qty-multi-preview"><span>2 flasker · <strong>394 kr</strong></span><span>4 flasker · <strong>738 kr</strong></span><span>10 flasker · <strong>1 720 kr</strong></span></span>
-      <svg class="qty-multi-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </summary>
-    <div class="qty-multi-body"><p>2 flasker · <strong>Lenson</strong> · 394 kr totalt · 50 kr frakt</p><p>4 flasker · <strong>Lenson</strong> · 738 kr totalt · 50 kr frakt</p><p>10 flasker · <strong>Lenson</strong> · 1 720 kr totalt · Gratis frakt over 1 199 kr</p></div>
-  </details>
+    
   </div>
   <script type="application/json" id="qty-offers-data" data-product-name="Add1 10 ml" data-unit-singular="flaske" data-unit-plural="flasker">[{"retailer": "Lenson", "price_nok": 172.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-6280)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fadd1-extra-6280)", "rel": "sponsored noopener", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lensway", "price_nok": 189.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-6280)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fadd1-extra-6280)", "rel": "sponsored noopener", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
@@ -1494,9 +1492,6 @@ a { color: inherit; }
 </script>
   </div>
   
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Add1 10 ml</strong> hos norske nettbutikker. Fra <strong>172 kr</strong> hos Lenson (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
-</section>
   <div class="offers" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser og butikker</h2>
@@ -1687,6 +1682,14 @@ a { color: inherit; }
     <p class="price-intel-card-note">Lenson har hatt lavest registrert produktpris i 37 av de siste 44 dagene. Prisvinneren har endret seg 2 ganger de siste 44 dagene.</p>
   </div></div>
 </div>
+  <details class="qty-multi">
+    <summary>
+      <span class="qty-multi-label">Pris ved flere flasker</span>
+      <span class="qty-multi-preview"><span>2 flasker · <strong>394 kr</strong></span><span>4 flasker · <strong>738 kr</strong></span><span>10 flasker · <strong>1 720 kr</strong></span></span>
+      <svg class="qty-multi-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </summary>
+    <div class="qty-multi-body"><p>2 flasker · <strong>Lenson</strong> · 394 kr totalt · 50 kr frakt</p><p>4 flasker · <strong>Lenson</strong> · 738 kr totalt · 50 kr frakt</p><p>10 flasker · <strong>Lenson</strong> · 1 720 kr totalt · Gratis frakt over 1 199 kr</p></div>
+  </details>
   <p class="disclosure">
     Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
     se og sortere etter totalpris (produktpris + frakt) for antallet du har valgt.
@@ -1701,6 +1704,9 @@ a { color: inherit; }
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
+  <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>Add1 10 ml</strong> hos norske nettbutikker. Fra <strong>172 kr</strong> hos Lenson (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
+</section>
   <div class="faq-section">
     <h2>Vanlige spørsmål om Add1 10 ml</h2>
     <div class="faq-item">

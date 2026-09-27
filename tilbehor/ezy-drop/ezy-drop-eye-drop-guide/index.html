@@ -481,6 +481,11 @@ a { color: inherit; }
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
 .hero-subtitle { margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+/* "Pris ved flere esker/flasker" som eget, frittstående kort under
+   prislista (qty_multi_inline=False) -- samme mønster som kontaktlinse-
+   produktsiden (Kai, 2026-09-28: "Her er pris ved flere esker og den
+   delen med blå bakgrunn ikke flyttet ned" på private label-siden). */
+.wrap-product > .qty-multi { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 /* Product (Desktop) Gold Standard v1 -- portert hit fra render_product_page()
    2026-09-28 (Kai: "gjør samme hero-/quantity-redesign på linsevæske og
    private label", etter tidligere scope-avklaring "gjelder alle produkter
@@ -1248,9 +1253,6 @@ a { color: inherit; }
     
   </div>
   
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Ezy-Drop Eye Drop Guide</strong> hos norske nettbutikker. Fra <strong>100 kr</strong> hos Apotekhjem (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
-</section>
   <div class="offers" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser og butikker</h2>
@@ -1270,6 +1272,7 @@ a { color: inherit; }
     
   </div>
   
+  
   <p class="disclosure">
     Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
     se og sortere etter totalpris (produktpris + frakt) for antallet du har valgt.
@@ -1284,6 +1287,9 @@ a { color: inherit; }
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
+  <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>Ezy-Drop Eye Drop Guide</strong> hos norske nettbutikker. Fra <strong>100 kr</strong> hos Apotekhjem (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
+</section>
   <div class="faq-section">
     <h2>Vanlige spørsmål om Ezy-Drop Eye Drop Guide</h2>
     <div class="faq-item">

@@ -519,6 +519,11 @@ a { color: inherit; }
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
 .hero-subtitle { margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+/* "Pris ved flere esker/flasker" som eget, frittstående kort under
+   prislista (qty_multi_inline=False) -- samme mønster som kontaktlinse-
+   produktsiden (Kai, 2026-09-28: "Her er pris ved flere esker og den
+   delen med blå bakgrunn ikke flyttet ned" på private label-siden). */
+.wrap-product > .qty-multi { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 /* Product (Desktop) Gold Standard v1 -- portert hit fra render_product_page()
    2026-09-28 (Kai: "gjør samme hero-/quantity-redesign på linsevæske og
    private label", etter tidligere scope-avklaring "gjelder alle produkter
@@ -1438,14 +1443,7 @@ a { color: inherit; }
       <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="8"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>8<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button></div>
     </div>
     
-    <details class="qty-multi">
-    <summary>
-      <span class="qty-multi-label">Pris ved flere esker</span>
-      <span class="qty-multi-preview"><span>2 esker · <strong>608 kr</strong></span><span>4 esker · <strong>1 166 kr</strong></span><span>10 esker · <strong>2 790 kr</strong></span></span>
-      <svg class="qty-multi-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-    </summary>
-    <div class="qty-multi-body"><p>2 esker · <strong>Lensway</strong> · 608 kr totalt · 50 kr frakt</p><p>4 esker · <strong>Lensway</strong> · 1 166 kr totalt · 50 kr frakt</p><p>10 esker · <strong>Lensway</strong> · 2 790 kr totalt · Gratis frakt over 1 199 kr</p></div>
-  </details>
+    
   </div>
   <script type="application/json" id="qty-offers-data" data-product-name="Dailies AquaComfort Plus Toric 30-pack" data-unit-singular="eske" data-unit-plural="esker">[{"retailer": "Lensway", "price_nok": 279.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-3978)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fdailies-aquacomfort-plus-toric-lens-3978)", "rel": "sponsored noopener", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 292.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-3978)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fdailies-aquacomfort-plus-toric-lens-3978)", "rel": "sponsored noopener", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Shopping4net", "price_nok": 319.0, "shipping_policy": {"free_over": 700, "fee_nok": 39}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LC)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2FDAILIES-AquaComfort-Plus-Toric-30p.htm%3FsClickID%3DTradeDoubler-1-3)", "rel": "sponsored noopener", "logo_file": "shopping4net.png", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Extra Optical", "price_nok": 375.0, "shipping_policy": {"free_over": 900, "fee_nok": 45}, "url": "/go/tgt_01M36SZHKGZ0HT7W58P97Q7RCF", "rel": "sponsored noopener", "logo_file": "extraoptical.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
   <script>
@@ -1662,9 +1660,6 @@ a { color: inherit; }
 })();
 </script>
   </div>
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Dailies AquaComfort Plus Toric 30-pack</strong> (solgt som Easyvision Vitrea Toric hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>279 kr</strong> hos Lensway (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
-</section>
   <div class="offers" id="tilbud">
     <div class="offers-head">
       <h2>Sammenlign priser på Dailies AquaComfort Plus Toric 30-pack</h2>
@@ -1876,6 +1871,14 @@ a { color: inherit; }
     <p class="price-intel-card-note">Lenson har hatt lavest registrert produktpris i 24 av de siste 45 dagene. Prisvinneren har endret seg 5 ganger de siste 45 dagene.</p>
   </div></div>
 </div>
+  <details class="qty-multi">
+    <summary>
+      <span class="qty-multi-label">Pris ved flere esker</span>
+      <span class="qty-multi-preview"><span>2 esker · <strong>608 kr</strong></span><span>4 esker · <strong>1 166 kr</strong></span><span>10 esker · <strong>2 790 kr</strong></span></span>
+      <svg class="qty-multi-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </summary>
+    <div class="qty-multi-body"><p>2 esker · <strong>Lensway</strong> · 608 kr totalt · 50 kr frakt</p><p>4 esker · <strong>Lensway</strong> · 1 166 kr totalt · 50 kr frakt</p><p>10 esker · <strong>Lensway</strong> · 2 790 kr totalt · Gratis frakt over 1 199 kr</p></div>
+  </details>
   <p style="margin-top:16px;"><a href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for Dailies AquaComfort Plus Toric 30-pack →</a></p>
   <a class="pack-size-callout" href="/serie/easyvision-vitrea/"><div class="pack-size-callout-text">Se hele <strong>Easyvision Vitrea</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>
 
@@ -1899,6 +1902,9 @@ a { color: inherit; }
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med kjeden bak dette merkenavnet.
   </p>
+  <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>Dailies AquaComfort Plus Toric 30-pack</strong> (solgt som Easyvision Vitrea Toric hos denne kjeden) hos norske nettbutikker. Laveste pris akkurat nå er <strong>279 kr</strong> hos Lensway (ekskl. frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
+</section>
   <div class="faq-section">
     <h2>Vanlige spørsmål om Dailies AquaComfort Plus Toric 30-pack</h2>
     <div class="faq-item">
