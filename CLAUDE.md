@@ -2787,3 +2787,75 @@ pekte på.
 
 Testet ved 1024/1100/1200/1366/1440px (alle 1 linje, god margin) og
 375px mobil (uendret, fortsatt fin 2-linjers wrap der det er naturlig).
+
+## Produktsiden: "Product Mobile Gold Standard v1" -- Steg 1: Winner Card + Savings Signal (2026-09-27, samme dag)
+
+Kai sendte en full 31-punkts mobil-produktside-brief (+ mockup-bilder) via
+en Explore-agent-kartlegging av eksisterende kode først (kjørt før noen
+endring), etterfulgt kort tid etter av et eget presist korreksjonstillegg
+om selve Savings Signal-beregningen. Gitt størrelsen på briefen
+implementeres den i etapper, akkurat som merke-side-redesignet tidligere
+samme dag -- dette er STEG 1 (vinnerkortet + spar-signalet), ikke hele
+briefen. Resten (H1/undertittel, bilde+vinnerkort side ved side, flytte
+frakt-bryteren, kompakt prisliste, "kunnskaps-brudd" + accordion-
+kunnskapssone) gjenstår som egne runder.
+
+**Viktig, bevisst reversering (ikke en glipp)**: "Prisjakt-modellen"
+(utrullet TIDLIGERE samme dag, dokumentert i en lang kommentar rett over
+`render_winner_widget()`) fjernet prisen helt fra vinnerkortet med vilje,
+etter konkurrentsammenligning. Den nye, mye mer detaljerte
+mockup-briefen ber eksplisitt om at prisen vises i kortet igjen. Dette er
+en villet, instruert reversering av en beslutning fra samme dag -- den
+gamle "Prisjakt"-kommentaren er bevisst latt stå som historikk/kontekst,
+ikke slettet, selv om den ikke lenger beskriver dagens kort.
+
+- **`compute_savings_pct(offers, qty, incl)`** (ny, rett før
+  `render_winner_widget`): eksakt (IKKE "opptil") besparelse --
+  `(høyeste - laveste sammenlignbare pris) / høyeste * 100`, blant tilbud
+  som er `in_stock` OG ikke `is_stale` (utgåtte telles ikke), og i
+  fraktmodus også ekskludert hvis `shipping_policy is None` (ukjent frakt
+  skal ALDRI telle som 0 kr i en totalpris-sammenligning). `math.floor()`
+  -- aldri rund opp, aldri kommuniser en større besparelse enn den
+  faktiske. Skjult helt under 10 % eller med færre enn 2 sammenlignbare
+  tilbud. Samme funksjon (server, Python) og en JS-tvilling
+  (`computeSavingsPct()` i `_QTY_CALC_SCRIPT`, holdt manuelt i synk --
+  begge har kommentarer som peker til hverandre) dekker
+  standard-rendering OG antalls-/frakt-bytte.
+- **`_winner_price_line()`**: "232 kr/eske + 59 kr frakt" (1 eske),
+  "928 kr/4 esker + 59 kr frakt" (flere esker -- total produktpris, ikke
+  "kr/eske" som ikke gir mening over 1), eller "291 kr inkl. frakt"
+  (fraktmodus). Ukjent fraktpolicy i fraktmodus vises ærlig ("+ frakt
+  beregnes i kassen"), later ALDRI som frakt er kjent når den ikke er
+  det. Samme JS-tvilling-mønster (`winnerPriceLine()`).
+- **Vinnerkortets nye innhold**: "Laveste pris"/"Lavest totalpris"
+  (avhengig av frakt-modus, IKKE lenger "Laveste pris inkl. frakt"),
+  "for N eske(r)", en gull-sirkel ("Spar 43 %", `.winner-savings`,
+  skjult med `hidden`-attributt -- ikke fjernet fra DOM-en -- når under
+  terskel, slik at JS bare kan slå den av/på uten å bygge om markup),
+  ekte forhandlerlogo (uendret `_retailer_badge_html()`), prislinjen, og
+  en "Gå til butikk"-knapp (endret fra "Gå til tilbud"). **Fjernet**:
+  trofé-ikonet og "Sammenlign alle N butikker ↓"-lenken (briefen: "Ingen
+  annen tekst" i kortet -- prislisten står uansett rett under i det
+  reorganiserte laget som kommer i neste runde).
+- **Bakgrunn/skygge**: fra en flat `var(--mint-tint)`-fylling til en
+  ekstremt subtil hvit->mint-gradient (`linear-gradient(165deg, #FFFFFF
+  0%, #F3FBF7 100%)`) + `var(--card-shadow)` -- "nesten hvitt, premium og
+  rolig, ikke en affiliate-bannerannonse" (Kais ord).
+- **`.winner-band-wide`-CSS reparert for konsistens** (grid-areas som
+  refererte `.winner-left`/`.winner-more`, begge fjernet fra markup, ville
+  gitt feil layout) -- men bekreftet at `wide=True` faktisk ALDRI kalles
+  noe sted i kodebasen i dag (`grep "wide=True"` → 0 treff), så dette er
+  ren fremtidssikring, ingen levende side er berørt.
+- **Ikke rørt i dette steget** (bevisst, egen runde): selve
+  side-layouten (H1/undertittel/bilde+vinnerkort-plassering), frakt-
+  bryterens posisjon, prislistens kompakthet, "kunnskaps-brudd" og
+  accordion-reorganisering av innholdet under. Disse krever en større,
+  mer risikofylt restrukturering av `render_product_page()` sin markup-
+  rekkefølge og fortjener egen testing.
+
+Testet: alle 146 kontaktlinse-produktsider + linsevæske/øyedråper-sider +
+private label-sider bygger uten Traceback/NameError, gyldig JSON-LD på
+stikkprøver, ekte antalls-/fraktbytte verifisert i browser-panelet (både
+prislinje, spar-prosent OG "Laveste pris"/"Lavest totalpris"-teksten
+oppdaterer riktig), desktop-gridet (≥860px) uendret og fungerer med det
+nye kortinnholdet.

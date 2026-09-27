@@ -15,6 +15,7 @@ Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
 import json
+import math
 import re
 from datetime import datetime, timedelta, timezone
 from html import escape
@@ -2680,8 +2681,32 @@ WINNER_WIDGET_STYLE = """
 .winner-price-note { font-size: 0.75rem; color: var(--muted); margin-top: 5px; }
 .price-pill.is-winner { background: var(--mint); font-size: 1.3rem; padding: 12px 24px; }
 .winner-cta { display: none; }
+/* Product Mobile Gold Standard v1 (2026-09-27, samme dag) -- vinnerkortet
+   viser nå PRIS (232 kr/eske + 59 kr frakt) og et Savings Signal-merke
+   igjen, som erstatter den tidligere "Prisjakt-modellen" (ingen pris i
+   selve kortet, kun i lista under) fra tidligere samme dag. Dette er en
+   bevisst, eksplisitt instruert reversering -- ikke en glipp -- basert på
+   en mye mer detaljert mockup/brief. "Prisjakt-modellen"-kommentaren
+   lenger ned i filen er bevisst latt stå som historikk/kontekst for
+   HVORFOR den forrige modellen ble valgt, selv om den ikke lenger
+   beskriver dagens faktiske kort. */
+.winner-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.winner-band-cta .winner-top { align-self: stretch; width: 100%; }
+.winner-band-cta .winner-top .label-group { align-items: flex-start; text-align: left; }
+.winner-savings { flex-shrink: 0; width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, #FDE68A 0%, #E7C254 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; box-shadow: 0 2px 6px rgba(191, 151, 36, 0.28); }
+.winner-savings[hidden] { display: none; }
+.winner-savings-label { font-size: 0.55rem; font-weight: 600; color: #0F172A; text-transform: uppercase; letter-spacing: 0.02em; }
+.winner-savings-pct { font-size: 0.9rem; font-weight: 800; color: #0F172A; }
+.winner-price-line { font-size: 0.86rem; color: var(--ink); text-align: center; }
+/* Nesten hvit bakgrunn med en ekstremt subtil mint-gradient (ikke flat
+   var(--mint-tint) lenger) + minimal skygge -- "premium og rolig", ikke
+   en affiliate-bannerannonse (Kais ord). */
+.winner-band-cta { background: linear-gradient(165deg, #FFFFFF 0%, #F3FBF7 100%); box-shadow: var(--card-shadow); }
+.winner-band-cta .winner-btn { background: linear-gradient(135deg, #0E7A4E 0%, #0B6A43 100%); }
 .qty-box { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
-.qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
+.qty-box-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.qty-box-title { font-weight: 600; font-size: 0.92rem; }
+.qty-box-head .qty-box-title { margin-bottom: 0; }
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
@@ -2721,17 +2746,74 @@ WINNER_WIDGET_STYLE = """
 """
 
 
+def _savings_eligible_offers(offers: list[dict], incl: bool) -> list[dict]:
+    """Sammenligningsgrunnlaget for Savings Signal -- IKKE nødvendigvis det
+    samme som `eligible` ellers på siden. Kai sin korreksjon 2026-09-27:
+    utelat utgåtte (is_stale) tilbud, og i frakt-modus utelat tilbud med
+    ukjent fraktpolicy (shipping_policy=None) siden ukjent frakt ALDRI skal
+    telle som 0 kr i en totalpris-sammenligning."""
+    pool = [o for o in offers if o["in_stock"] and not o.get("is_stale")]
+    if incl:
+        pool = [o for o in pool if o.get("shipping_policy") is not None]
+    return pool
+
+
+def _savings_metric(o: dict, qty: int, incl: bool) -> float:
+    product_total = o["price_nok"] * qty
+    if not incl:
+        return product_total
+    return product_total + compute_shipping_nok(product_total, o.get("shipping_policy"))
+
+
+def compute_savings_pct(offers: list[dict], qty: int, incl: bool) -> int | None:
+    """Eksakt, dynamisk besparelse -- IKKE "opptil" (Kai, 2026-09-27):
+    saving_pct = (høyeste - laveste sammenlignbare pris) / høyeste * 100,
+    for samme canonical produkt/pakning (gitt, siden `offers` alltid er ett
+    produkt) og valgt quantity/prismodus. Avrundes ALLTID nedover
+    (Math.floor) slik at vi aldri kommuniserer en større besparelse enn den
+    faktiske. Skjules helt under 10 % eller med færre enn 2 gyldige,
+    sammenlignbare tilbud -- heller ingen besparelse enn en misvisende en."""
+    pool = _savings_eligible_offers(offers, incl)
+    if len(pool) < 2:
+        return None
+    values = [_savings_metric(o, qty, incl) for o in pool]
+    highest, lowest = max(values), min(values)
+    if highest <= 0:
+        return None
+    pct = math.floor((highest - lowest) / highest * 100)
+    return pct if pct >= 10 else None
+
+
+def _winner_price_line(o: dict, qty: int, incl: bool, unit_singular: str, unit_plural: str) -> str:
+    """'232 kr/eske + 59 kr frakt' (ett eske), '928 kr/4 esker + 59 kr frakt'
+    (flere esker, total produktpris -- 'kr/eske' gir ikke mening over 1), eller
+    '291 kr inkl. frakt' i fraktmodus. Ukjent fraktpolicy i fraktmodus vises
+    ærlig ('+ frakt beregnes i kassen'), late ALDRI som frakt er kjent/inkludert
+    når den ikke er det."""
+    price_nok = o["price_nok"]
+    shipping_policy = o.get("shipping_policy")
+    product_total = price_nok * qty
+    shipping_nok = compute_shipping_nok(product_total, shipping_policy)
+    if incl and shipping_policy is not None:
+        return f"{_fmt_kr(product_total + shipping_nok)} inkl. frakt"
+    unit_part = f"{_fmt_kr(price_nok)}/{escape(unit_singular)}" if qty == 1 else f"{_fmt_kr(product_total)}/{qty} {escape(unit_plural)}"
+    note = _shipping_note(shipping_nok, shipping_policy)
+    if note.startswith("Gratis") or note.startswith("Frakt beregnes"):
+        return f"{unit_part} · {note}"
+    return f"{unit_part} + {note}"
+
+
 def render_winner_widget(best: dict, offers: list[dict], product_name: str | None = None, unit_singular: str = "eske", unit_plural: str = "esker", product_id: str | None = None, clickouts: dict | None = None, wide: bool = False) -> tuple[str, str]:
     """Returnerer (winner_band, qty_box) som ETT tuple: vinnerkortet står i toppen av
     siden, antallsvelgeren (qty_box) som egen seksjon under.
 
-    Prisjakt-modellen (utrullet 2026-09-27, avtalt med Kai): kortet sier IKKE pris --
-    "Laveste pris for N esker", butikkens logo og en "Gå til tilbud"-knapp, pluss
-    "Sammenlign alle N butikker" som hopper til lista. Prisen står i lista under
-    (render_price_list), sortert på produktpris, eller på totalpris når chippen "Pris
-    inkludert frakt" er på. `best` er derfor tilbudet med laveste PRODUKTPRIS.
-    unit_singular/unit_plural: "eske"/"esker" for kontaktlinser, "flaske"/"flasker" for
-    linsevæske/øyedråper.
+    Product Mobile Gold Standard v1 (2026-09-27, samme dag -- erstatter
+    "Prisjakt-modellen" nedenfor, se kommentar der for historikken): kortet
+    viser NÅ pris ("232 kr/eske + 59 kr frakt"), et Savings Signal-merke
+    ("Spar 43 %", kun ved >=10 % og >=2 sammenlignbare tilbud) og en
+    "Gå til butikk"-knapp. `best` er tilbudet med laveste PRODUKTPRIS
+    (samme som før). unit_singular/unit_plural: "eske"/"esker" for
+    kontaktlinser, "flaske"/"flasker" for linsevæske/øyedråper.
 
     Standardtilstanden (1 enhet, uten frakt) er ALLTID ekte, ferdig-rendret HTML, og det
     samme er 2/4/10-eksemplene i `<details class="qty-multi">`-raden under velgeren
@@ -2752,20 +2834,30 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
     rel = "sponsored" if best["source"] == "affiliate_feed" else "nofollow"
     is_affiliate = "1" if best["source"] == "affiliate_feed" else "0"
     aria = f'Gå til {escape(best["retailer"])} for {escape(product_name)}' if product_name else f'Gå til {escape(best["retailer"])}'
-    n_shops = len([o for o in offers if o["in_stock"]])
-    # Kortet er en <div>; selve KNAPPEN er lenken (id + tracking-attributter), slik at
-    # "Sammenlign alle butikker"-lenken ikke havner nøstet inni en annen <a>.
+    # Standard server-rendret tilstand er alltid qty=1/uten frakt (samme som
+    # resten av kortet) -- JS tar over ved antalls-/frakt-bytte, se
+    # _QTY_CALC_SCRIPT sin computeSavingsPct()/winnerPriceLine(), som er
+    # bevisst holdt i nøyaktig synk med disse to Python-funksjonene.
+    savings_pct = compute_savings_pct(offers, 1, False)
+    price_line = _winner_price_line(best, 1, False, unit_singular, unit_plural)
+    savings_html = (
+        f'<div class="winner-savings" id="winner-savings"><span class="winner-savings-label">Spar</span><span class="winner-savings-pct">{savings_pct} %</span></div>'
+        if savings_pct is not None else
+        '<div class="winner-savings" id="winner-savings" hidden><span class="winner-savings-label">Spar</span><span class="winner-savings-pct">0 %</span></div>'
+    )
+    # Kortet er en <div>; selve KNAPPEN er lenken (id + tracking-attributter),
+    # slik at ingenting havner nøstet inni en annen <a>.
     winner_band = f"""<div class="winner-band winner-band-cta{' winner-band-wide' if wide else ''}">
-  <div class="winner-left">
-    <div class="winner-trophy" aria-hidden="true">{TROPHY_ICON_SVG}</div>
+  <div class="winner-top">
     <div class="label-group">
       <div class="label" id="winner-label">Laveste pris</div>
       <div class="winner-sub" id="winner-sub">for 1 {escape(unit_singular)}</div>
-      <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
     </div>
+    {savings_html}
   </div>
-  <a class="winner-btn" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">Gå til tilbud <span aria-hidden="true">&#8594;</span></a>
-  <a class="winner-more" href="#tilbud">Sammenlign alle {n_shops} butikker <span aria-hidden="true">&#8595;</span></a>
+  <div class="retailer" id="winner-retailer">{_retailer_badge_html(best["retailer"])}</div>
+  <div class="winner-price-line" id="winner-price-line">{price_line}</div>
+  <a class="winner-btn" id="winner-band-link" href="{escape(outbound_url(best, best["retailer"], product_id, clickouts, "winner_band"))}" target="_blank" rel="{rel} noopener" aria-label="{aria}" data-retailer="{escape(best["retailer"])}" data-affiliate="{is_affiliate}">Gå til butikk <span aria-hidden="true">&#8594;</span></a>
 </div>"""
 
     eligible = [o for o in offers if o["in_stock"]]
@@ -2876,14 +2968,17 @@ PRICE_LIST_STYLE = """
 .winner-more { font-size: 0.82rem; font-weight: 600; color: var(--blue); text-decoration: none; }
 .winner-more:hover { text-decoration: underline; }
 #tilbud { scroll-margin-top: 16px; }
-/* Sider uten hero-kolonne (linsevæske, øyedråper, private label): kortet blir en bred stripe */
+/* Sider uten hero-kolonne (linsevæske, øyedråper, private label): kortet blir
+   en bred stripe. Info-elementene (winner-top/retailer/pris-linje) er nå
+   flate søsken (ikke lenger nøstet i en .winner-left-wrapper), så de plasseres
+   hver for seg i kolonne 1, mens knappen spenner alle tre radene i kolonne 2. */
 @media (min-width: 700px) {
-  .winner-band-wide { max-width: none; margin: 16px 0; display: grid; grid-template-columns: 1fr auto; grid-template-areas: "left btn" "left more"; align-items: center; text-align: left; column-gap: 28px; row-gap: 8px; padding: 18px 24px; }
-  .winner-band-wide .winner-left { grid-area: left; flex-direction: row; align-items: center; gap: 16px; }
-  .winner-band-wide .label-group { align-items: flex-start; }
-  .winner-band-wide .retailer { justify-content: flex-start; margin-top: 8px; }
-  .winner-band-wide .winner-btn { grid-area: btn; width: auto; min-width: 210px; }
-  .winner-band-wide .winner-more { grid-area: more; text-align: center; }
+  .winner-band-wide { max-width: none; margin: 16px 0; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto auto; align-items: center; text-align: left; column-gap: 28px; row-gap: 4px; padding: 18px 24px; }
+  .winner-band-wide .winner-top { grid-column: 1; grid-row: 1; }
+  .winner-band-wide .winner-top .label-group { align-items: flex-start; text-align: left; }
+  .winner-band-wide .retailer { grid-column: 1; grid-row: 2; justify-content: flex-start; margin-top: 4px; }
+  .winner-band-wide .winner-price-line { grid-column: 1; grid-row: 3; text-align: left; margin-top: 2px; }
+  .winner-band-wide .winner-btn { grid-column: 2; grid-row: 1 / 4; width: auto; min-width: 210px; }
 }
 @media (min-width: 860px) {
   /* align-self: center -- kortet er kun så høyt som innholdet og flyter midt i
@@ -2907,6 +3002,8 @@ _QTY_CALC_SCRIPT = r"""<script>
   var labelEl = document.getElementById('winner-label');
   var retailerEl = document.getElementById('winner-retailer');
   var winnerLink = document.getElementById('winner-band-link');
+  var priceLineEl = document.getElementById('winner-price-line');
+  var savingsEl = document.getElementById('winner-savings');
   var state = { qty: 1, incl: false };
   // Dette scriptet ligger FØR .offers og bryteren i kildekoden (vinnerboksen og
   // antallsvelgeren står øverst), så elementer under slås opp først når de brukes.
@@ -2940,6 +3037,46 @@ _QTY_CALC_SCRIPT = r"""<script>
     }
     return null;
   }
+  // Speiler compute_savings_pct()/_winner_price_line() i render_templates.py
+  // nøyaktig -- samme utelatelsesregler (utgått, ukjent frakt i fraktmodus),
+  // samme Math.floor-avrunding, samme 10%-terskel. Hold disse i synk.
+  function savingsEligible(incl) {
+    var pool = [];
+    for (var i = 0; i < data.length; i++) {
+      var o = data[i];
+      if (!o.in_stock || o.is_stale) continue;
+      if (incl && !o.shipping_policy) continue;
+      pool.push(o);
+    }
+    return pool;
+  }
+  function savingsMetric(o, qty, incl) {
+    var productTotal = o.price_nok * qty;
+    if (!incl) return productTotal;
+    return productTotal + computeShipping(productTotal, o.shipping_policy);
+  }
+  function computeSavingsPct(qty, incl) {
+    var pool = savingsEligible(incl);
+    if (pool.length < 2) return null;
+    var lo = Infinity, hi = -Infinity;
+    for (var i = 0; i < pool.length; i++) {
+      var v = savingsMetric(pool[i], qty, incl);
+      if (v < lo) lo = v;
+      if (v > hi) hi = v;
+    }
+    if (hi <= 0) return null;
+    var pct = Math.floor((hi - lo) / hi * 100);
+    return pct >= 10 ? pct : null;
+  }
+  function winnerPriceLine(o, qty, incl) {
+    var productTotal = o.price_nok * qty;
+    var shipping = computeShipping(productTotal, o.shipping_policy);
+    if (incl && o.shipping_policy) return fmtKr(productTotal + shipping) + ' inkl. frakt';
+    var unitPart = qty === 1 ? (fmtKr(o.price_nok) + '/' + unitSingular) : (fmtKr(productTotal) + '/' + qty + ' ' + unitPlural);
+    var note = shippingNote(shipping, o.shipping_policy);
+    if (note.indexOf('Gratis') === 0 || note.indexOf('Frakt beregnes') === 0) return unitPart + ' · ' + note;
+    return unitPart + ' + ' + note;
+  }
 
   function render() {
     var qty = state.qty, incl = state.incl;
@@ -2964,10 +3101,21 @@ _QTY_CALC_SCRIPT = r"""<script>
     for (var i = 0; i < byTotal.length; i++) { if (byTotal[i].o.in_stock) { bestTotal = byTotal[i]; break; } }
 
     if (best) {
-      labelEl.textContent = incl ? 'Laveste pris inkl. frakt' : 'Laveste pris';
+      labelEl.textContent = incl ? 'Lavest totalpris' : 'Laveste pris';
       var subEl = document.getElementById('winner-sub');
       if (subEl) subEl.textContent = 'for ' + qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
       retailerEl.innerHTML = retailerBadge(best.o);
+      if (priceLineEl) priceLineEl.textContent = winnerPriceLine(best.o, qty, incl);
+      if (savingsEl) {
+        var pct = computeSavingsPct(qty, incl);
+        if (pct === null) {
+          savingsEl.hidden = true;
+        } else {
+          savingsEl.hidden = false;
+          var pctEl = savingsEl.querySelector('.winner-savings-pct');
+          if (pctEl) pctEl.textContent = pct + ' %';
+        }
+      }
       winnerLink.setAttribute('href', best.o.url);
       winnerLink.setAttribute('rel', best.o.rel);
       winnerLink.setAttribute('aria-label', 'Gå til ' + best.o.retailer + (productName ? ' for ' + productName : ''));
