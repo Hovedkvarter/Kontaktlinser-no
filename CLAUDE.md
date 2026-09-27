@@ -1816,3 +1816,23 @@ en mindre logo (var 30/32 px, ble oppfattet som fortsatt for stor).
 - Mobil (<700px): søkeboksen faller ned til egen fullbredde-rad under menyen
   (`flex: 1 1 100%`), ingen egen hamburger-meny å ta hensyn til siden toppmenyen
   allerede bryter linje ved behov.
+
+## To fikser samme dag: søkefeltets plassering og logo/Hjem-justering (2026-09-27)
+
+- **Søkeboksens gap:** `margin-left: auto` ga et unaturlig stort tomrom mellom
+  «Guider» og søkefeltet (brukeren så det live og reagerte). Byttet til
+  `flex: 1 1 220px` -- boksen følger nå normal flyt rett etter «Guider» med
+  samme `gap: 32px` som resten av `.topbar`, og strekker seg selv (flex-grow)
+  til kanten av headeren i stedet for å bli dyttet dit av en stor venstre-margin.
+- **Logo ikke rett over «Hjem»:** reell layout-bug, ikke noe nytt fra
+  søkefelt-arbeidet -- `.topbar` sin desktop-bredde (1200px) og `.wrap-product`
+  sin (1280px, satt bredere spesifikt for produktsidens brede hero-layout,
+  se eldre notat) hadde driftet fra hverandre. Ved akkurat 1280px viewport-
+  bredde bruker `.wrap-product` HELE bredden (ingen auto-margin å sentrere
+  med), mens `.topbar` fortsatt sentreres i sine 1200px -- logoen endte
+  dermed lenger inn enn "Hjem"-brødsmulen. Luket ut ved å gjøre
+  `.topbar`/`.footer-inner`/`.footer-disclosure`/`.footer-bottom` OG
+  `.wrap-wide` like brede som `.wrap-product` (alle 1280px ved ≥1024px) --
+  én felles desktop-bredde i stedet for tre som kunne drifte fra hverandre.
+  Verifisert: logo og brødsmule starter nå på nøyaktig samme x-posisjon på
+  både produktserie- og kategorisider.
