@@ -2942,3 +2942,43 @@ kollaps følger riktig topp-3 etter fraktmodus-bytte), degraderer riktig
 ved 1 tilbud (vinnerkort men ingen antallsvelger, ingen "vis
 alle"-knapp), desktop (1100px) uendret og fungerer med ny undertittel +
 nytt vinnerkort-innhold.
+
+## Produktsiden: vinnerkortet var for høyt, for mye luft rundt bildet (2026-09-27, samme dag)
+
+Kai: "vil gjerne sett Laveste Pris mer firkantet og synes det er veldig
+mye plass rundt selve bilde på mobil [...] men jeg forstår den skal passe
+der det er et større bilde." Begge ting hadde samme rot-årsak.
+
+**Rot-årsak**: `.hero-product-image` er en DELT regel (brukes over hele
+siden der et stort, kvadratisk bilde er riktig) med `aspect-ratio: 1/1`.
+I den nye, smalere ~2/3-kolonnen ga det (a) synlig luft over/under det
+faktisk liggende eskebildet, OG (b) et unødvendig høyt, smalt
+vinnerkort ved siden av -- fordi `.hero-media-row` brukte
+`align-items: stretch`, som PRESSET bildet opp til vinnerkortets
+(tallere) naturlige innholdshøyde i stedet for å la det følge sin egen
+aspect-ratio. `aspect-ratio` og `align-items: stretch` konkurrerer om
+samme kryss-akse i en flex-rad, og stretch vinner -- bekreftet empirisk:
+satte først bare `aspect-ratio: 4/3` alene og målte fortsatt 202,8px
+høyde (uendret), ikke de forventede ~135px.
+
+**Fix, to steg**:
+1. `.hero-media-row` byttet fra `align-items: stretch` til
+   `align-items: flex-start`, scoped uten ekstra media-query siden regelen
+   uansett blir irrelevant på >=860px (`.hero-media-row` er da
+   `display: contents`, ingen egen flex-kontekst). Bildet følger nå
+   faktisk sin `aspect-ratio: 4/3` (målt 180×135px), i stedet for å
+   strekkes til kortets høyde.
+2. Vinnerkortet komprimert videre i det eksisterende
+   `@media (max-width: 859px)`-laget fra forrige runde: "Laveste
+   pris"/"for 1 eske" slått sammen til ÉN linje (var to stablede),
+   tettere gap (8px→6px), mindre skrift/logo/spar-sirkel/knapp-padding.
+   Høyde gikk fra ~203px til ~179px ved samme ~102px bredde -- fortsatt
+   ikke perfekt 1:1 (bredden er hardt begrenset av 1/3-fordelingen med
+   bildet), men merkbart mer kompakt/balansert, nærmere Kais egen
+   designspec sitt høyde-mål (140-160px, opprinnelig tegnet for et bredere
+   frittstående kort).
+
+Testet: målt eksakt bredde/høyde før/etter i browser-panelet (ikke bare
+visuell vurdering), sjekket et produkt UTEN Savings Signal (ingen
+gullsirkel -- fortsatt balansert, ingen tomt hull), desktop (1100px)
+helt uendret, alle sider bygger fortsatt uten Traceback/NameError.
