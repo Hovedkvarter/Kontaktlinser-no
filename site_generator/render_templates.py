@@ -6313,15 +6313,21 @@ def render_guide_page(slug: str) -> str | None:
     # fulle boksen med snarveier ligger nederst.
     body_with_cta = guide["body_html"].replace("</p>", "</p>\n    " + render_guide_search_card(slug, compact=True), 1)
 
-    # Samme bilde som guide-kortet (GUIDE_PHOTOS) øverst på selve artikkelen
-    # også -- Kai sitt eksplisitte ønske 2026-09-27 ("på en fin måte"), ikke
-    # bare på oversikten/forsiden. Enkelt toppbilde over hero-teksten (ikke
-    # en side-panel som serie-hero) -- siden er en smal 760px lesekolonne,
-    # ikke en bred produktside med plass til to kolonner.
+    # Samme bilde som guide-kortet (GUIDE_PHOTOS) på selve artikkelen også --
+    # Kai sitt eksplisitte ønske 2026-09-27. Første forsøk var et fullbredde
+    # toppbilde (190-260px høyt), men Kai påpekte selv (med skjermbilde) at
+    # det tok unødvendig stor plass og at et oppskalert, litt mykt bilde blir
+    # EKSTRA synlig jo større det vises -- spurte hva som er "normalt".
+    # Løsningen (samme dag): et lite, avrundet kvadratisk thumbnail ved siden
+    # av overskriften (gjenbruker prinsippet fra .hero-product-image på
+    # produktsidene -- bilde+tekst side om side, ikke et eget fullbredde
+    # element), IKKE et fullbredde banner. Bonus: en NEDskalering fra
+    # 640px-kilden til ~90-130px vises skarpt (motsatt av oppskalering),
+    # så dette løser mykhets-problemet i samme slengen.
     photo = GUIDE_PHOTOS.get(slug)
-    hero_image_html = f"""<div class="guide-hero-image">
-    <img src="/static/guides/{escape(photo)}.webp" alt="" width="640" height="667" loading="eager" decoding="async">
-  </div>""" if photo else ""
+    hero_thumb_html = f"""<div class="guide-hero-thumb">
+      <img src="/static/guides/{escape(photo)}.webp" alt="" width="130" height="130" loading="eager" decoding="async">
+    </div>""" if photo else ""
 
     return f"""<!DOCTYPE html>
 <html lang="nb">
@@ -6338,21 +6344,24 @@ def render_guide_page(slug: str) -> str | None:
 {article_schema}
 <style>{SHARED_STYLE}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
-.guide-hero-image {{ border-radius: 16px; overflow: hidden; margin-bottom: 4px; box-shadow: var(--card-shadow); }}
-.guide-hero-image img {{ display: block; width: 100%; height: 190px; object-fit: cover; }}
-@media (min-width: 640px) {{ .guide-hero-image img {{ height: 260px; }} }}
+.guide-hero-row {{ display: flex; align-items: center; justify-content: space-between; gap: 16px; }}
+.guide-hero-thumb {{ flex-shrink: 0; width: 68px; height: 68px; border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }}
+.guide-hero-thumb img {{ display: block; width: 100%; height: 100%; object-fit: cover; }}
+@media (min-width: 640px) {{ .guide-hero-thumb {{ width: 100px; height: 100px; border-radius: 16px; }} }}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
-  {hero_image_html}
   <div class="hero">
-    <div class="hero-copy">
-      <div class="kicker">Guide</div>
-      <h1>{escape(guide["title"])}</h1>
-      <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert {updated_display} · <a href="/redaksjonelle-prinsipper/" style="color:inherit;">Redaksjonelle prinsipper</a></p>
+    <div class="hero-copy guide-hero-row">
+      <div>
+        <div class="kicker">Guide</div>
+        <h1>{escape(guide["title"])}</h1>
+        <p class="guide-byline">Kvalitetssikret av Kontaktlinser.no · Sist oppdatert {updated_display} · <a href="/redaksjonelle-prinsipper/" style="color:inherit;">Redaksjonelle prinsipper</a></p>
+      </div>
+      {hero_thumb_html}
     </div>
   </div>
   <div style="max-width:640px;">

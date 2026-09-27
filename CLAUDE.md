@@ -2125,3 +2125,19 @@ Rett etter forrige runde ba Kai om tre ting til, i samme økt:
    Kun rendret når `GUIDE_PHOTOS.get(slug)` finnes (nå alltid sant, siden
    alle 40 har bilde), så koden degraderer pent den dagen en ny guide
    legges til uten eget bilde ennå.
+
+## Guide-artikkelbilde: fra fullbredde banner til lite thumbnail (2026-09-27, samme dag)
+
+Kai så det nye `.guide-hero-image`-fullbredde-banneret (punkt 3 over) live og
+reagerte med skjermbilde: tok unødvendig stor plass, og et oppskalert bilde
+(kilde kun ~145x150px, se runde 1) blir EKSTRA synlig/mykt jo større det
+vises. Spurte hva som er "normalt".
+
+Svar: samme prinsipp som `.hero-product-image` på produktsidene -- bilde ved
+SIDEN av teksten, ikke et eget fullbredde element. Erstattet
+`.guide-hero-image` med `.guide-hero-thumb`, et lite avrundet kvadrat
+(68px mobil / 100px ≥640px) til høyre for kicker/h1/byline i `.hero-copy`
+(ny `.guide-hero-row`-flex-klasse, `justify-content:space-between`). Løser
+BEGGE problemene i samme endring: mindre plass, OG en nedskalering fra
+640px-kilden til ~70-100px vises skarpt (motsatt av forrige runde sin
+oppskalering til full bredde).
