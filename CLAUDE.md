@@ -2594,3 +2594,20 @@ stripe-elementer (produkt/linsetype/butikker, "serier" utelatt siden
 `family_summaries` er tom), målt via `getBoundingClientRect()` i
 browser-panelet (skjermbilde-rendering av bygde filer er upålitelig, se
 tidligere notat i dette dokumentet).
+
+### Oppfølging samme dag: fjernet skillelinjene i stripen
+
+Kai, med skjermbilde: den øverste `border-top`-streken over stripen gikk
+rett over halsen på modellen i det nye hero-bildet -- "Den kan fjernes.
+går over halsen på modellen.. Disse kan bare flyte naturlig uten streker."
+
+- `.brand-hero-stats`: fjernet `border-top`/`padding-top`, elementene får
+  nå ren luft via `column-gap`/`row-gap` (ingen linjer i det hele tatt).
+- `.brand-hero-stat`: fjernet `border-left`-skillelinjen mellom hvert
+  element av samme grunn ("disse" = elementene, ikke bare toppstreken).
+- `margin-top` på `.brand-hero-stats` justert til 38px for fortsatt å
+  treffe det opprinnelige 60-75px-høyde-målet (målt til ~66px lagt til
+  heroen) etter at strekene (som tidligere bidro til avstanden) ble borte.
+
+Testet på nytt: mobil (375px) bryter pent til to rader uten noen
+gjenværende/hengende skillelinje, alle 30 sider bygger fortsatt rent.

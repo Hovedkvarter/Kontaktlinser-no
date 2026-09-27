@@ -4539,10 +4539,13 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
    heroen. z-index:3 sa stripen ligger over bade hero-innholdet og
    bilde-panelet (som har z-index:2/ingen), og spenner over hele
    hero-bredden siden den ligger som fullbredde-barn av .brand-hero, ikke
-   inni .brand-hero-content (som er begrenset til 62% pa store skjermer). */
-.brand-hero-stats {{ position: relative; z-index: 3; display: flex; flex-wrap: wrap; row-gap: 6px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }}
-.brand-hero-stat {{ display: flex; align-items: center; gap: 7px; padding: 0 16px; border-left: 1px solid var(--border); }}
-.brand-hero-stat:first-child {{ padding-left: 0; border-left: none; }}
+   inni .brand-hero-content (som er begrenset til 62% pa store skjermer).
+   Ingen skillelinjer (verken over stripen eller mellom elementene) --
+   Kai, samme dag: "Den kan fjernes. går over halsen på modellen.. Disse
+   kan bare flyte naturlig uten streker" -- border-top gikk rett over
+   modellens hals i bildet. Ren luft (gap) i stedet for border-left. */
+.brand-hero-stats {{ position: relative; z-index: 3; display: flex; flex-wrap: wrap; column-gap: 26px; row-gap: 8px; margin-top: 38px; }}
+.brand-hero-stat {{ display: flex; align-items: center; gap: 7px; }}
 .brand-hero-stat-icon {{ display: flex; }}
 .brand-hero-stat-icon svg {{ width: 14px; height: 14px; display: block; }}
 .brand-hero-stat-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }}
