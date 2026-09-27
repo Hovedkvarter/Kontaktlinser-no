@@ -3927,3 +3927,78 @@ opprinnelige, eldre hero-layout (`.hero-card-solution` m.fl.) og
 gamle antallsvelger/frakt-plassering. Dette er en betydelig større
 retrofit (samme skala som selve Gold-Standard-arbeidet var i dag) og
 tas i egne, separate runder.
+
+## Hero-/quantity-redesign rullet ut til linsevæske/øyedråper/Tilbehør + private label (2026-09-28, samme dag)
+
+Kai: "Nå gjør du samme hero-/quantity-redesign på linsevæske og
+private label." Rett oppfølging av dagens scope-avklaring.
+
+**Nøkkeloppdagelse som gjorde retrofiten mye rimeligere enn fryktet**:
+`render_solution_product_page()` (linsevæske/øyedråper/Tilbehør) OG
+`render_private_label_page()` deler ALLEREDE én felles CSS-konstant,
+`HERO_IMAGE_STYLE` -- den inneholdt fortsatt den GAMLE tre-kolonners
+heroen (bilde | tekst | pris) som Kai eksplisitt avviste for
+kontaktlinse-produktsiden tidligere samme dag ("Han har beholdt
+strukturen fra den gamle heroen..."). Siden BEGGE mål-funksjonene
+allerede refererer denne ene konstanten, holdt det å skrive OM
+`HERO_IMAGE_STYLE` sitt innhold til Product (Desktop) Gold Standard-
+mønsteret én gang -- ingen duplisering, begge funksjoner fikk det nye
+designet fra samme endring. `render_product_page()` sin EGEN, allerede
+testede/skipede CSS-kopi er bevisst IKKE migrert til denne konstanten
+i denne runden (null risiko for regresjon på allerede fungerende
+kode) -- ren kopiering av mønsteret inn i HERO_IMAGE_STYLE i stedet.
+
+**HTML-omstrukturering** (identisk mønster i begge funksjoner):
+- `.hero-card` + `qty_html` pakket inn i en ny `<div class="product-stage">`
+  (samme usynlig-på-mobil wrapper-teknikk som kontaktlinse-produktsiden).
+- `.hero-main` sine barn omorganisert til `.hero-copy` FØRST, så en ny
+  `.hero-media-row` som pakker bilde+Winner Card sammen -- eksakt samme
+  DOM-mønster som kontaktlinse-produktsiden, slik at ALL eksisterende
+  `.hero-media-row`/`.product-stage`-CSS (nå i HERO_IMAGE_STYLE) treffer
+  uten en eneste ny selector.
+- `{ai_summary_html}` flyttet UT av `.hero-main` (den blå
+  "Vi sammenligner priser..."-boksen har ingen grid-area i det nye
+  mønsteret) -- rendres nå rett under `.product-stage` i stedet, samme
+  sted omtrent som før relativt til resten av siden. Rent additivt,
+  ingenting fjernet.
+- Eksisterende innhold (kicker, H1, beskrivelse, `price_per_unit_html`
+  for linsevæske/øyedråper; "X er egentlig Y"-forklaringen for private
+  label) beholdt UENDRET i `.hero-copy` -- kun omplassert i layouten,
+  ikke omskrevet eller flyttet til kunnskapssone (beskrivelsene her er
+  korte nok, 62-218 tegn, til at det ikke var nødvendig).
+- Antallsvelger: samme `qty_choices=(1,2,4,6,8,10)`/
+  `include_custom_pill=False` som kontaktlinse-produktsiden -- "Eget
+  antall" fjernet her også, for konsistens på tvers av ALLE
+  produkttyper.
+- Fraktbryter: byttet fra den gamle enkle prikke-chippen til den
+  boksede `_ship_chip_boxed_html()`-varianten, i prislisteheaderen
+  (samme `product_ship_chip_html`-mekanisme som kontaktlinse-
+  produktsiden).
+
+**Én reell bug fanget og fikset i egen testing**: `.hero-card-solution
+.hero-product-image { aspect-ratio: 1/1; height: auto; }` (en
+eksisterende regel i `render_solution_product_page()` sin egen lokale
+stilblokk, for å gjøre flaske-/tubebilder kvadratiske på mobil) hadde
+INGEN media-query-grense -- den fortsatte å gjelde på desktop også, og
+siden den kommer SENERE i kildekoden enn den nye `.product-stage
+.hero-product-image { height: 320px }`-regelen (samme spesifisitet,
+kildeorden avgjør uavgjort), VANT den gamle regelen og presset bildet
+til en 378×378px firkant i stedet for 378×320px. Fikset ved å pakke
+den gamle regelen inn i `@media (max-width: 859px)` -- den var uansett
+kun ment for mobil.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Begge funksjoner sjekket på BÅDE mobil (375px)
+og desktop (1440px): `render_solution_product_page()` -- linsevæske
+(ReNu Multi-Purpose 60 ml, full layout + fungerende fraktbryter
+bekreftet via klikk, `aria-pressed` og Winner Card-heading endret
+korrekt), peroksidbasert linsevæske (AOSept Plus 360 ml, safety-notice
+fortsatt rendret riktig etter `.product-stage`), øyedråper (Add1 10
+ml), Tilbehør (SWATI Lens Case & Tweezers) -- alle fire uten
+overflow, riktig 6-pille antallsvelger. `render_private_label_page()`
+(Ascend Active 1 Day) -- egen-illustrasjon-bildet (`.pli-hero`)
+rendrer korrekt i det nye 320px-høye bildeområdet, `private-label-
+explainer`/`private-label-caveat`/"Se full produktside for..."-lenken
+alle fortsatt til stede uendret. Kontaktlinse-produktsiden selv
+(`render_product_page()`, bruker IKKE `HERO_IMAGE_STYLE`) bekreftet
+100 % upåvirket av hele denne runden.

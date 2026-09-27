@@ -10069,42 +10069,82 @@ SOLUTION_CATEGORIES = {
 # (kopi av reglene i render_product_page sin <style>, uten f-string-escaping).
 HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
-.hero-main { display: flex; flex-direction: column; gap: 20px; }
+.hero-subtitle { margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+/* Product (Desktop) Gold Standard v1 -- portert hit fra render_product_page()
+   2026-09-28 (Kai: "gjør samme hero-/quantity-redesign på linsevæske og
+   private label", etter tidligere scope-avklaring "gjelder alle produkter
+   på domenet kontaktlinser.no"). HERO_IMAGE_STYLE er allerede delt av
+   render_solution_product_page() OG render_private_label_page(), så denne
+   ene endringen gir begge samme nye design. render_product_page() har sin
+   EGEN, urørte kopi av samme mønster (duplisert bevisst, ikke migrert til
+   denne konstanten, for å ikke røre allerede skipet/testet kode) -- se
+   dens docstring-kommentarer for den fulle designhistorikken/-begrunnelsen
+   (Kai sine konkrete punkter er ikke gjentatt her, kun selve resultatet).
+   .hero-media-row: bilde (~2/3) og Winner Card (~1/3) side ved side på
+   mobil. */
+.hero-media-row { display: flex; align-items: flex-start; gap: 12px; }
+.hero-media-row .hero-product-image { flex: 2 1 0; min-width: 0; margin: 0; }
+.hero-media-row .winner-band { flex: 1 1 0; min-width: 0; margin: 0; }
+@media (min-width: 640px) { .hero-media-row { gap: 16px; } }
+@media (max-width: 859px) {
+  .hero-media-row .hero-product-image { aspect-ratio: 4 / 3; }
+  .hero-media-row .winner-band-cta { padding: 10px 8px; gap: 6px; }
+  .hero-media-row .winner-top { align-items: center; }
+  .hero-media-row .winner-band-cta .label-group { flex-direction: row; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+  .hero-media-row .winner-band-cta .label { font-size: 0.68rem; letter-spacing: 0.01em; }
+  .hero-media-row .winner-sub { font-size: 0.64rem; margin-top: 0; }
+  .hero-media-row .winner-band-cta .retailer { margin-top: 6px !important; }
+  .hero-media-row .winner-band-cta .retailer-logo { height: 18px; max-width: 88px; }
+  .hero-media-row .winner-price-line { font-size: 0.68rem; line-height: 1.3; }
+  .hero-media-row .winner-savings { width: 34px; height: 34px; }
+  .hero-media-row .winner-savings-label { font-size: 0.4rem; }
+  .hero-media-row .winner-savings-pct { font-size: 0.62rem; }
+  .hero-media-row .winner-btn { font-size: 0.68rem; padding: 8px 4px; gap: 3px; margin-top: 2px; white-space: normal; text-align: center; line-height: 1.25; }
+}
+.hero-kicker, .hero-facts { display: none; }
+/* Product Stage: ekte tre-kolonners CSS Grid på desktop (bilde | identitet+
+   kontroller | Winner Card, samme vertikale arbeidsflate). .qty-box er
+   fortsatt en egen DOM-node (søsken av .hero-card i .product-stage) --
+   "flates" ut med display:contents på desktop slik at dens barn blir
+   direkte grid-barn, uten noen DOM-flytting (mobil upåvirket). */
 @media (min-width: 860px) {
-  .hero-card { padding: 28px; }
-  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
-     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
-     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
-     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
-     direkte barn siden auto-plassering ikke gir riktig resultat når
-     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
-  .hero-main { display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }
-  .hero-main .hero-product-image { grid-column: 1; grid-row: 1 / 3; }
-  .hero-main .hero-copy { grid-column: 2; grid-row: 1; }
-  .hero-main .winner-band { grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }
-  .hero-main .winner-left { flex-direction: column; align-items: center; gap: 0; }
-  .hero-main .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
-  .hero-main .winner-band .label { margin-top: 0; }
-  .hero-main .winner-band .retailer { justify-content: center; margin-top: 10px; }
-  .hero-main .winner-band .winner-shipping { margin-top: 10px; }
-  .hero-main .winner-price-group { text-align: center; }
-  .hero-main .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
-  .hero-main .winner-price-note { margin-top: 7px; line-height: 1; }
-  .hero-main .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
-  .hero-main .product-ai-summary { grid-column: 2 / 4; grid-row: 2; margin: 0; }
+  .product-stage {
+    display: grid;
+    grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.10fr) minmax(280px, 0.72fr);
+    grid-template-areas: "image identity price" "image controls price";
+    column-gap: 32px;
+    row-gap: 40px;
+    background: white; border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px 36px;
+  }
+  .product-stage .hero-card, .product-stage .hero-main, .product-stage .hero-media-row { display: contents; }
+  .product-stage .hero-kicker { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+  .product-stage .hero-copy { grid-area: identity; align-self: start; }
+  .product-stage .hero-copy h1 { font-size: 2rem; line-height: 1.18; margin: 0; }
+  .product-stage .hero-subtitle { font-size: 1.2rem; font-weight: 400; margin: 8px 0 0; }
+  .hero-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 24px 0 0; font-size: 0.92rem; color: var(--muted); }
+  .hero-fact-sep { color: var(--border); }
+  .product-stage .hero-product-image { grid-area: image; align-self: center; width: 100%; height: 320px; max-width: none; margin: 0; }
+  .product-stage > .qty-box { grid-area: controls; align-self: start; border: none; background: transparent; padding: 0; margin: 0; }
+  .product-stage .qty-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .product-stage .qty-pill { width: 60px; height: 46px; padding: 0; box-shadow: none; }
+  .product-stage .qty-pill.is-active { background: var(--mint-tint); border-color: var(--mint); color: var(--ink); box-shadow: none; }
+  .product-stage .qty-pill.is-active span { color: var(--muted); }
+  .product-stage .winner-band { grid-area: price; align-self: center; margin: 0; width: 100%; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 24px 18px 18px; }
+  .product-stage .winner-left { flex-direction: column; align-items: center; gap: 0; }
+  .product-stage .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
+  .product-stage .winner-band .label { margin-top: 0; }
+  .product-stage .winner-band .retailer { justify-content: center; margin-top: 10px; }
+  .product-stage .winner-band .winner-shipping { margin-top: 10px; }
+  .product-stage .winner-price-group { text-align: center; }
+  .product-stage .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
+  .product-stage .winner-price-note { margin-top: 7px; line-height: 1; }
+  .product-stage .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
 }
 .hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
 @media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
-/* Fade-masken (radial gradient som lot hvite produktbilder smelte inn i
-   siden) er fjernet -- den var designet for å blande hvitt inn i en FARGET
-   hero-bakgrunn, men heroen er nå selv hvit (se .hero-card), så masken
-   gjorde ingenting nyttig lenger og risikerte i tillegg å dempe kantene på
-   bilder som IKKE er helt rene hvite (se SofLens-bildet med grå bakgrunn
-   som avslørte den "blob"-formede kanteffekten tidligere i dag). Minimal
-   padding (6px, ikke 0) kun for å unngå at bildet klipper helt inntil
-   kortkanten -- ellers skal bildet fylle mest mulig av ruta, som ønsket. */
 .hero-product-image.has-photo { background: transparent; border: none; padding: 6px; }
 .hero-product-image.has-photo img { object-fit: contain; }
 @media (min-width: 1024px) { .wrap-product { max-width: 1280px; } }
@@ -10131,7 +10171,11 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
-    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts)
+    # Boksete frakt-vippebryter i prislisteheaderen i stedet for den gamle,
+    # enkle prikke-chippen -- samme "samme hero-/quantity-redesign"-runde
+    # (2026-09-28) som resten av denne funksjonen.
+    ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, product_ship_chip_html=ship_chip_html)
     long_description = product.get("long_description", product.get("description", ""))
     # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
     # lede med selve prissammenligningen, ikke produktbeskrivelsen. Antall
@@ -10162,7 +10206,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     unit_singular = product.get("unit_singular", "flaske")
     unit_plural = product.get("unit_plural", "flasker")
     size_unit = product.get("size_unit", "ml")
-    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts)
+    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False)
     # Price Intelligence -- delt med kontaktlinse-produktsiden (Kai,
     # 2026-09-28: "gjelder alle produkter på domenet kontaktlinser.no"),
     # samme funksjon, samme CSS (nå i SHARED_STYLE, se der).
@@ -10298,14 +10342,13 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 {WINNER_WIDGET_STYLE}
 {PRICE_LIST_STYLE}
 .price-per-unit {{ font-size: 0.85rem; color: var(--muted); margin: 12px 0 0; }}
-/* Flaske-/tubebilder er høye og smale: fast kvadratisk rute (som linsebildene) i
-   stedet for å la bildets egen høyde strekke hele hero-kortet. */
-.hero-card-solution .hero-product-image {{ aspect-ratio: 1 / 1; height: auto; }}
-@media (min-width: 860px) {{
-  .hero-card-solution .hero-main {{ align-items: start; }}
-  .hero-card-solution .hero-main .hero-product-image {{ height: auto; aspect-ratio: 1 / 1; align-self: start; }}
-  .hero-card-solution .hero-main .winner-band {{ align-self: center; }}
-}}
+/* Flaske-/tubebilder er høye og smale: fast kvadratisk rute (som linsebildene)
+   på mobil, i stedet for å la bildets egen høyde strekke hele hero-kortet.
+   >=860px: HERO_IMAGE_STYLE sin .product-stage-grid setter en fast
+   bildehøyde (320px) uansett produkttype, samme som kontaktlinse-
+   produktsiden -- ingen egen desktop-overstyring nødvendig her lenger
+   (2026-09-28, "samme hero-/quantity-redesign"-runden). */
+@media (max-width: 859px) {{ .hero-card-solution .hero-product-image {{ aspect-ratio: 1 / 1; height: auto; }} }}
 .safety-notice {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
@@ -10320,21 +10363,25 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     <a href="/{cat_slug}/">{escape(cat["label"])}</a> ›
     {escape(product["name"])}
   </p>
-  <div class="hero-card hero-card-solution">
-    <div class="hero-main">
-      <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
-      <div class="hero-copy">
-        <div class="kicker">{escape(product["brand_label"])}</div>
-        <h1>{escape(product["name"])}</h1>
-        <p>{escape(long_description)}</p>
-        {price_per_unit_html}
+  <div class="product-stage">
+    <div class="hero-card hero-card-solution">
+      <div class="hero-main">
+        <div class="hero-copy">
+          <div class="kicker">{escape(product["brand_label"])}</div>
+          <h1>{escape(product["name"])}</h1>
+          <p>{escape(long_description)}</p>
+          {price_per_unit_html}
+        </div>
+        <div class="hero-media-row">
+          <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+          {winner_html}
+        </div>
       </div>
-      {winner_html}
-      {ai_summary_html}
     </div>
+    {qty_html}
   </div>
-  {qty_html}
   {safety_notice}
+  {ai_summary_html}
   {offers_block}
   {price_history_html}
   {PRICE_DISCLOSURE_HTML}
@@ -10671,8 +10718,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(real_product["offers"], now)
     best = next((o for o in offers if o["is_lowest"]), None)
+    ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
     offers_block, ex_best = render_price_list(offers, real_product["name"], real_product["id"], clickouts,
-                                              title=f"Sammenlign priser på {real_product['name']}")
+                                              title=f"Sammenlign priser på {real_product['name']}",
+                                              show_ship_chip=False, product_ship_chip_html=ship_chip_html)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
@@ -10708,7 +10757,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
+    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False)
     # Price Intelligence -- delt med kontaktlinse-/linsevæske-produktsidene
     # (Kai, 2026-09-28: "gjelder alle produkter på domenet
     # kontaktlinser.no ... egne merkenavn kontaktlinser"). Historikken er
@@ -10888,19 +10937,23 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     <a href="/private-label/">Optikerkjedenes egne merker</a> ›
     {escape(private_name)}
   </p>
-  <div class="hero-card hero-card-solution">
-    <div class="hero-main">
-      <div class="hero-product-image pli-hero">{hero_visual}</div>
-      <div class="hero-copy">
-      <div class="kicker">Eget merkenavn</div>
-      <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
-      <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
+  <div class="product-stage">
+    <div class="hero-card hero-card-solution">
+      <div class="hero-main">
+        <div class="hero-copy">
+        <div class="kicker">Eget merkenavn</div>
+        <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
+        <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
+        </div>
+        <div class="hero-media-row">
+          <div class="hero-product-image pli-hero">{hero_visual}</div>
+          {winner_html}
+        </div>
       </div>
-      {winner_html}
-      {ai_summary_html}
     </div>
+    {qty_html}
   </div>
-  {qty_html}
+  {ai_summary_html}
   {offers_block}
   {price_history_html}
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
