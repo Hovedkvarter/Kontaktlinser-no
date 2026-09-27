@@ -2505,3 +2505,41 @@ Testet: alle 30 merke-sider bygger fortsatt med gyldig JSON-LD, FreshLook
 (1 produkt, 0 serier) degraderer riktig (fikk fortsatt "i tall"/pris-graf,
 men ikke seriekort/sammenligning), FAQ går korrekt tilbake til én kolonne
 under 860px, ingen horisontal overflow på mobil eller desktop.
+
+## Merke-siden: boks-for-boks-finpuss mot mockupen (2026-09-27, samme dag)
+
+Kai: "går fremover, men fremdeles langt igjen til å se likt ut. bokser,
+spørsmål, design etc. Mitt forslag. gå gjennom hver boks fra toppen og
+nedover og gjør det så tilnærmet likt som mulig." Gikk gjennom heroen og
+de to første seksjonene med detalj-sammenligning mot mockupen:
+
+- **Hero fikk en egen undertittel** ("Kontaktlinser fra Johnson & Johnson
+  Vision", ny `.brand-hero-subtitle`) rett under H1, adskilt fra selve
+  intro-avsnittet (som ikke lenger gjentar produsentnavnet rett etter).
+  Kun bygget ved kjent produsent-kobling.
+- **Sekundær hero-knapp**: `manufacturer_link_html` gikk fra en enkel
+  tekstlenke til en ekte sekundærknapp ("Om {produsent} →", hvit/border-
+  stil ved siden av den blå primærknappen) -- matcher mockupen sin
+  to-knappers hero. Lenker fortsatt til den ekte, eksisterende
+  `/produsent/`-siden, ingen ny side.
+- **Fase-2-faktakortene fikk riktig typografisk hierarki**: stort tall
+  ALENE øverst (`.brand-facts-card-value`, økt til 1.7rem), enhet-etikett
+  under som egen linje, og eventuell undertekst (f.eks. linsetype-listen)
+  som en tredje, enda mindre linje -- var tidligere "21 produkter" som
+  ETT sammenhengende streng uten hierarki.
+- **Materialkortene fikk ikoner** (dråpe-ikon, roterende sky/mint/lavender/
+  amber/coral-farger per kort) -- var bare ren tekst før.
+- **"Sortimentet forklart"-kortene fikk snudd rekkefølge**: kategorinavnet
+  er nå den STORE, fete linjen (`.brand-sortiment-card-label`), antall
+  produkter er nå den mindre undertekst-linjen -- var motsatt (antall
+  produkter var størst) og matchet ikke mockupen sitt hierarki.
+
+Ikke rørt denne runden (skjønnsmessig utelatt, ingen ekte destinasjon å
+lenke til): "Se alle serier →"/"Se alle spørsmål og svar →"-lenkene i
+mockupen sine seksjonsoverskrifter -- begge seksjonene viser allerede ALT
+innholdet der de står, en lenke til "se mer" ville gått til akkurat samme
+sted. ® ved merkenavnet i mockupen er også bevisst utelatt -- kan ikke
+bekrefte varemerke-status per merke på tvers av alle 30 sidene.
+
+Testet: alle 30 merke-sider bygger fortsatt med gyldig JSON-LD, ingen
+mobil-overflow.

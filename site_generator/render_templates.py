@@ -3810,9 +3810,13 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     now = now or datetime.now(timezone.utc)
 
     manufacturer_slug = BRAND_TO_MANUFACTURER.get(brand_slug)
+    # Sekundær hero-knapp (2026-09-27, etter mockup: "Les om merket") --
+    # erstatter den forrige rene tekstlenken. Lenker til den ekte,
+    # eksisterende /produsent/-siden (ingen ny "om merket"-side finnes eller
+    # trengs -- produsentsiden ER svaret på "hvem står bak dette merket").
     manufacturer_link_html = (
-        f'<p style="margin-top:8px;"><a href="/produsent/{manufacturer_slug}/" style="font-size:0.9rem;color:var(--muted);">'
-        f'Produsert av {escape(MANUFACTURERS[manufacturer_slug]["name"])} →</a></p>'
+        f'<a class="brand-hero-cta brand-hero-cta-secondary" href="/produsent/{manufacturer_slug}/">'
+        f'Om {escape(MANUFACTURERS[manufacturer_slug]["name"])} →</a>'
         if manufacturer_slug else ""
     )
 
@@ -3907,10 +3911,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         brand_type_txt = type_labels_lower[0] if type_labels_lower else ""
     else:
         brand_type_txt = ", ".join(type_labels_lower[:-1]) + " og " + type_labels_lower[-1]
-    brand_manufacturer_txt = f' fra {escape(MANUFACTURERS[manufacturer_slug]["name"])}' if manufacturer_slug else ""
     brand_series_txt = f', fordelt på {len(family_summaries)} {"serie" if len(family_summaries) == 1 else "serier"}' if family_summaries else ""
+    # Egen undertittel ("Kontaktlinser fra X") rett under H1 -- matcher
+    # mockupen Kai sendte -- så selve intro-avsnittet IKKE gjentar
+    # produsentnavnet rett etter (sto der fra før). Kun bygget ved kjent
+    # produsent-kobling.
+    brand_subtitle_html = (
+        f'<p class="brand-hero-subtitle">Kontaktlinser fra {escape(MANUFACTURERS[manufacturer_slug]["name"])}</p>'
+        if manufacturer_slug else ""
+    )
     brand_intro_sentence = (
-        f'{escape(brand_label)} er en linseserie{brand_manufacturer_txt}'
+        f'{escape(brand_label)} er en linseserie'
         + (f' med {escape(brand_type_txt)}' if brand_type_txt else '')
         + f'. Vi følger prisen på {len(products)} {"produkt" if len(products) == 1 else "produkter"}{brand_series_txt}, sortert etter lavest pris.'
     )
@@ -3930,20 +3941,25 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # tonene som allerede finnes i designsystemet, se GUIDE_ICONS) i stedet
     # for ensfarget blått på alle kortene -- Kai 2026-09-27, etter mockup:
     # "gjør det nøyaktig slik, så nært som mulig med alt".
-    stat_pills = [("mint", BOX_ICON_SVG, f'{len(products)} produkt' if len(products) == 1 else f'{len(products)} produkter', "")]
+    # (farge, ikon, STORT tall, enhet-etikett, valgfri undertekst) -- delt
+    # tall/etikett i to linjer for å matche mockupen sitt typografiske
+    # hierarki (stort tall øverst, ikke "21 produkter" som én sammenhengende
+    # streng slik forrige runde gjorde).
+    stat_pills = [("mint", BOX_ICON_SVG, str(len(products)), "produkt" if len(products) == 1 else "produkter", "")]
     if family_summaries:
-        stat_pills.append(("blue", TAG_ICON_SVG, f'{len(family_summaries)} serie' if len(family_summaries) == 1 else f'{len(family_summaries)} serier', ""))
+        stat_pills.append(("blue", TAG_ICON_SVG, str(len(family_summaries)), "serie" if len(family_summaries) == 1 else "serier", ""))
     if type_labels_all:
-        stat_pills.append(("lavender", DROPLET_ICON_SVG, f'{len(type_labels_all)} linsetyper' if len(type_labels_all) > 1 else type_labels_all[0], " · ".join(type_labels_all) if len(type_labels_all) > 1 else ""))
+        stat_pills.append(("lavender", DROPLET_ICON_SVG, str(len(type_labels_all)), "linsetype" if len(type_labels_all) == 1 else "linsetyper", " · ".join(type_labels_all)))
     if retailer_count:
-        stat_pills.append(("amber", store_icon, f'{retailer_count} butikker' if retailer_count != 1 else '1 butikk', f'Med {brand_label}-produkter akkurat nå'))
+        stat_pills.append(("amber", store_icon, str(retailer_count), "butikk" if retailer_count == 1 else "butikker", f'Med {brand_label}-produkter akkurat nå'))
     brand_facts_row_html = "".join(
         f'''<div class="brand-facts-card">
     <div class="brand-facts-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
-    <div class="brand-facts-card-value">{escape(label)}</div>
-    {f'<div class="brand-facts-card-label">{escape(value)}</div>' if value else ''}
+    <div class="brand-facts-card-value">{escape(number)}</div>
+    <div class="brand-facts-card-label">{escape(unit)}</div>
+    {f'<div class="brand-facts-card-sub">{escape(sub)}</div>' if sub else ''}
   </div>'''
-        for color, icon, label, value in stat_pills
+        for color, icon, number, unit, sub in stat_pills
     )
 
     # -- "Utforsk {brand}-seriene" -- kun hvis merket faktisk har minst én
@@ -4116,12 +4132,18 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # researchet kunnskapsgraf-node ville vært å hevde mer enn vi faktisk
     # vet. Viser derfor de fulle, ekte spec-strengene som informative kort,
     # ingen splitting, ingen oppdiktede lenker.
-    def brand_material_card(m: str) -> str:
+    material_colors = ["sky", "mint", "lavender", "amber", "coral"]
+
+    def brand_material_card(m: str, i: int) -> str:
         series_names = sorted({s["name"] for s in family_summaries if s["material"] == m})
         sub = " · ".join(series_names) if series_names else ""
+        color = material_colors[i % len(material_colors)]
         return f'''<div class="brand-material-card">
-    <div class="brand-material-card-name">{escape(m)}</div>
-    {f'<div class="brand-material-card-series">Brukes i: {escape(sub)}</div>' if sub else ''}
+    <div class="brand-material-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{DROPLET_ICON_SVG}</div>
+    <div class="brand-material-card-body">
+      <div class="brand-material-card-name">{escape(m)}</div>
+      {f'<div class="brand-material-card-series">Brukes i: {escape(sub)}</div>' if sub else ''}
+    </div>
   </div>'''
 
     brand_materials_html = ""
@@ -4129,7 +4151,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         brand_materials_html = f'''<div><h2>Materialer i {escape(brand_label)}-sortimentet</h2>
   <p class="brand-section-lead">De dokumenterte materialene {escape(brand_label)}-produktene vi følger er laget av.</p>
   <div class="brand-materials-grid">
-    {"".join(brand_material_card(m) for m in materials_all)}
+    {"".join(brand_material_card(m, i) for i, m in enumerate(materials_all))}
   </div></div>'''
 
     # Sammenligningstabell + materialer side om side (Kai 2026-09-27, etter
@@ -4246,8 +4268,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             color, icon = category_icon_map.get(c["slug"], ("blue", TAG_ICON_SVG))
             return f'''<a class="brand-sortiment-card" href="#{escape(c["slug"])}" data-category="{escape(c["slug"])}">
     <div class="brand-sortiment-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
-    <div class="brand-sortiment-card-count">{c["count"]} produkter</div>
     <div class="brand-sortiment-card-label">{escape(c["label"])}</div>
+    <div class="brand-sortiment-card-count">{c["count"]} {"produkt" if c["count"] == 1 else "produkter"}</div>
     {f'<div class="brand-sortiment-card-series">{escape(series_txt)}</div>' if series_txt else ''}
     <div class="brand-sortiment-card-link">Se {escape(c["label"].lower())} →</div>
   </a>'''
@@ -4500,8 +4522,12 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
   .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
   .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
 }}
-.brand-hero-cta {{ display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 14px 0 10px; }}
+.brand-hero-subtitle {{ font-size: 0.98rem; font-weight: 600; color: var(--muted); margin: 2px 0 0; }}
+.brand-hero-cta-row {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }}
+.brand-hero-cta {{ display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 0; }}
 .brand-hero-cta:hover {{ opacity: 0.92; }}
+.brand-hero-cta-secondary {{ background: white; color: var(--ink); border: 1px solid var(--border); }}
+.brand-hero-cta-secondary:hover {{ opacity: 1; border-color: var(--blue); }}
 /* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
    frittstaende kort rett under heroen, IKKE de tidligere sma pillene
    inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
@@ -4510,8 +4536,9 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-facts-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }}
 .brand-facts-card-icon {{ width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }}
 .brand-facts-card-icon svg {{ width: 15px; height: 15px; }}
-.brand-facts-card-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); line-height: 1.25; }}
-.brand-facts-card-label {{ font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }}
+.brand-facts-card-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--ink); line-height: 1.15; }}
+.brand-facts-card-label {{ font-size: 0.84rem; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.3; }}
+.brand-facts-card-sub {{ font-size: 0.74rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }}
 .brand-sortiment-grid {{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }}
 @media (min-width: 560px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
 @media (min-width: 1024px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }} }}
@@ -4520,8 +4547,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-sortiment-card-icon {{ width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }}
 .brand-sortiment-card-icon svg {{ width: 17px; height: 17px; }}
 .brand-sortiment-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
-.brand-sortiment-card-count {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }}
-.brand-sortiment-card-label {{ font-weight: 600; font-size: 0.9rem; margin-top: 2px; }}
+.brand-sortiment-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }}
+.brand-sortiment-card-count {{ font-weight: 600; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }}
 .brand-sortiment-card-series {{ font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }}
 .brand-sortiment-card-link {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }}
 .brand-3090-card {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
@@ -4536,7 +4563,10 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-compare-row .brand-compare-card {{ margin-bottom: 0; }}
 @media (min-width: 1024px) {{ .brand-compare-row {{ grid-template-columns: 1.2fr 1fr; align-items: start; }} .brand-materials-grid {{ grid-template-columns: 1fr !important; }} }}
 @media (min-width: 640px) and (max-width: 1023px) {{ .brand-materials-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-.brand-material-card {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }}
+.brand-material-card {{ display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }}
+.brand-material-card-icon {{ flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
+.brand-material-card-icon svg {{ width: 16px; height: 16px; }}
+.brand-material-card-body {{ min-width: 0; }}
 .brand-material-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }}
 .brand-material-card-series {{ font-size: 0.78rem; color: var(--muted); margin-top: 4px; }}
 .brand-manufacturer-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
@@ -4564,9 +4594,12 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         <div class="hero-copy">
           <div class="kicker">Merke</div>
           <h1>{escape(brand_label)}</h1>
+          {brand_subtitle_html}
           <p>{brand_intro_sentence}</p>
-          <a class="brand-hero-cta" href="#produkter">Se alle {escape(brand_label)}-produkter →</a>
-          {manufacturer_link_html}
+          <div class="brand-hero-cta-row">
+            <a class="brand-hero-cta" href="#produkter">Se alle {escape(brand_label)}-produkter →</a>
+            {manufacturer_link_html}
+          </div>
         </div>
       </div>
     </div>
