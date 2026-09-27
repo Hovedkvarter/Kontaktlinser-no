@@ -2982,3 +2982,81 @@ Testet: målt eksakt bredde/høyde før/etter i browser-panelet (ikke bare
 visuell vurdering), sjekket et produkt UTEN Savings Signal (ingen
 gullsirkel -- fortsatt balansert, ingen tomt hull), desktop (1100px)
 helt uendret, alle sider bygger fortsatt uten Traceback/NameError.
+
+## Kompakt mobil-topbar (logo + søkeikon + meny-ikon) + AI-sammendraget flyttet ned (2026-09-27, samme dag)
+
+Kai, tre punkter i samme melding: "teksten 'vi sammenligner priser på..'
+skal beholdes for SEO osv, men skal være lengre ned på siden" +
+bekymring om at antallsvelger/fraktbryter "ikke er lagt inn" + "jeg
+tenker søkefunksjon øverst på produktkort på mobil er unødvendig. heller
+et søkeikon oppe er fint. Feks. logo, søkeikon og et annet ikon for meny
+oppe til høyre [...] kompakt og bra fra toppen."
+
+**Antallsvelger/fraktbryter**: bekreftet direkte mot den LIVE siden (med
+cache-busting query-parameter) at begge faktisk lå der -- `hasQtyBox` og
+`hasShipChip` begge `true`. Nesten helt sikkert samme type nettleser-
+cache som rammet meg selv tidligere i denne økten (se det tidligere
+"søkefunksjon virker ikke"-avsnittet), ikke en reell mangel -- ingen
+kodeendring gjort for dette punktet.
+
+**AI-sammendraget** (`{{ai_summary_html}}`, den blå "Vi sammenligner
+priser på X..."-boksen): flyttet ut av `.hero-main` (var rett under
+bilde/vinnerkort-raden) til rett før kunnskaps-bruddet, etter
+`pack_size_callout`/`family_callout`. Innholdet er UENDRET (fortsatt
+faktisk, prisledet SEO-tekst) -- kun posisjonen på siden er endret. Den
+gamle `.hero-main .product-ai-summary`/`.hero-card .product-ai-summary`
+grid-plasseringen i CSS-en er nå dødt (ingen treff), men ufarlig å la stå
+siden boksen bare faller tilbake til sin egen generiske, allerede
+eksisterende stil (blå venstre-kant-boks) på sin nye plass.
+
+**Kompakt mobil-topbar**: ny `.topbar-mobile-actions` (kun `<700px`) med
+to ikonknapper -- søk (kun når `show_search=True`, altså IKKE på
+forsiden som har sin egen store hero-søk) og meny (alltid). Begge åpner
+uavhengig av hverandre (`toggleMobilePanel()`, lukker den andre hvis den
+var åpen). `.topbar-nav`/`.topbar-search` er skjult med `display:none`
+som standard under 700px og vises via `.is-open`.
+
+**Viktigst for korrekthet**: selve søkeskjemaet (`.search-row`/
+`.search-input`/`.search-suggestions`, id `topbar-search-panel`) er
+IKKE strukturelt endret -- kun CSS-synligheten. Elementet finnes i
+DOM-en hele tiden uansett åpen/lukket tilstand, så `LENS_SEARCH_JS` sin
+`document.querySelectorAll('.search-row')`-oppslag (se dagens tidligere
+`DOMContentLoaded`-fiks) finner det akkurat som før -- INGEN risiko for
+å gjenintrodusere samme dags "søket svarer ikke på tastetrykk"-bug.
+Bekreftet eksplisitt: skrev "acuvue" i det nyåpnede søkefeltet i
+browser-panelet og fikk ekte forslag med produktbilder, akkurat som før.
+
+Testet: meny-ikon åpner/lukker menyen (inkl. at et mega-menu-tap
+inni den fortsatt fungerer og lukkes korrekt), søk-ikon åpner søkefeltet
+med fokus og fungerende autofullføring, de to lukker hverandre riktig,
+forsiden (uten søkeikon, kun meny-ikon) fungerer identisk og dens EGEN
+hero-søk er helt upåvirket, desktop (≥700px) fullstendig uendret (full
+meny + synlig søkefelt som før). Full sveip av ALLE 411 bygde sider
+(topbaren er delt sitewide) -- ingen Traceback/NameError, gyldig
+JSON-LD overalt.
+
+## Produktsiden: "Vis alle priser"-kollapsen skal KUN gjelde mobil (2026-09-27, samme dag)
+
+Kai, rett etter forrige runde: "Do not collapse the merchant price list.
+On desktop, render all valid current offers immediately [...] The full
+merchant list is part of the value proposition [...] Keep progressive
+disclosure only on mobile [...] When the shipping toggle or quantity
+changes, re-rank the entire visible desktop list dynamically."
+
+Ren CSS-avgrensning, ingen server- eller JS-endring nødvendig:
+`.offers.is-collapsed .offers-list .offer-card:nth-child(n+4)` (skjuler
+alt utover topp-3) og `.offers-show-more`-knappen er nå eksplisitt
+tilbakestilt til synlig/vist ved `@media (min-width: 860px)` (samme
+brytpunkt som resten av sidens desktop-layout). Python-siden bygger
+fortsatt `is-collapsed`-klassen og knappen uendret når det er >3 tilbud
+-- de trengs fortsatt for mobil -- CSS-en gjør dem bare virkningsløse på
+desktop. `_QTY_CALC_SCRIPT` sin `render()` sorterer og re-append'er
+alltid HELE listen uansett skjermbredde (kollapsen var alltid bare et
+rent visuelt lag oppå en fullstendig liste), så "re-rank hele den
+synlige desktop-listen dynamisk" fungerte allerede -- bekreftet
+eksplisitt: alle 7 tilbud synlige og korrekt omsortert etter å ha slått
+på "Pris inkludert frakt" på desktop (1100px).
+
+Testet: desktop (1100px) viser alle 7 kort med det samme, ingen "Vis
+alle priser"-knapp, mobil (375px) uendret -- fortsatt topp 3 + knapp.
+Full sveip, ingen Traceback/NameError.
