@@ -58,13 +58,28 @@ function __loadGTM() {
       },
       {
         "@type": "Question",
-        "name": "Hva er billigst i EyeQ Total30-serien?",
-        "acceptedAnswer": {"@type": "Answer", "text": "EyeQ Total30 er billigst akkurat nå, fra 494 kr hos Lenson (uten frakt). Prisen varierer mellom variantene i serien."}
+        "name": "Finnes EyeQ Total30 for astigmatisme?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ja, EyeQ Total30 for Astigmatism er den toriske varianten i EyeQ Total30-serien, laget spesifikt for astigmatisme. Se tabellen under for pris og pakningsstørrelser."}
       },
       {
         "@type": "Question",
         "name": "Er alle variantene i EyeQ Total30-serien laget av samme materiale?",
         "acceptedAnswer": {"@type": "Answer", "text": "Ja, hele EyeQ Total30-serien er laget av Lehfilcon A med vanngradient. Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet."}
+      },
+      {
+        "@type": "Question",
+        "name": "Hva er billigst i EyeQ Total30-serien?",
+        "acceptedAnswer": {"@type": "Answer", "text": "EyeQ Total30 er billigst akkurat nå, fra 494 kr hos Lenson (uten frakt). Prisen varierer mellom variantene i serien."}
+      },
+      {
+        "@type": "Question",
+        "name": "Hos hvor mange butikker kan jeg kjøpe EyeQ Total30?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Til sammen selger 4 norske nettbutikker minst én variant av EyeQ Total30-serien (4 butikker). Se listen under hver variant for hvilke butikker som faktisk har den på lager nå."}
+      },
+      {
+        "@type": "Question",
+        "name": "Er billigste butikk for EyeQ Total30 den samme uansett hvor mange esker du kjøper?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ja, Lenson har lavest totalpris både for 1 og for 4 esker i vår siste prissjekk."}
       }
   ]
 }</script>
@@ -467,6 +482,20 @@ a { color: inherit; }
 .guide-photo-card-body { padding: 12px 14px 14px; }
 .guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }
 .guide-photo-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }
+/* FAQ-regelmotor (2026-09-27) -- gruppert accordion, se
+   _render_family_faq_accordion(). Egne klassenavn (faq-category*/
+   faq-accordion-item/faq-chevron) i stedet for å endre .faq-item (den flate
+   varianten brukes fortsatt på produkt-/forside-FAQ-er). */
+.faq-category { margin-top: 22px; }
+.faq-category:first-child { margin-top: 0; }
+.faq-category-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }
+.faq-accordion-item { border-top: 1px solid var(--border); }
+.faq-accordion-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-accordion-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.faq-accordion-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
+.faq-accordion-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-accordion-item p { margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
 </style>
 </head>
 <body>
@@ -1115,18 +1144,31 @@ a { color: inherit; }
   </div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om EyeQ Total30</h2>
-    <div class="faq-item">
-  <h3>Hvilke varianter finnes av EyeQ Total30?</h3>
-  <p>EyeQ Total30-serien finnes som månedslinser og toriske linser. Den fås i 6-pakning. Se tabellen over for pris på hver variant.</p>
-</div>
-<div class="faq-item">
-  <h3>Hva er billigst i EyeQ Total30-serien?</h3>
-  <p>EyeQ Total30 er billigst akkurat nå, fra 494 kr hos Lenson (uten frakt). Prisen varierer mellom variantene i serien.</p>
-</div>
-<div class="faq-item">
-  <h3>Er alle variantene i EyeQ Total30-serien laget av samme materiale?</h3>
-  <p>Ja, hele EyeQ Total30-serien er laget av Lehfilcon A med vanngradient. Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet.</p>
-</div>
+    <div class="faq-category">
+    <div class="faq-category-label">Produkt og varianter</div>
+    <details class="faq-accordion-item">
+    <summary>Hvilke varianter finnes av EyeQ Total30?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>EyeQ Total30-serien finnes som månedslinser og toriske linser. Den fås i 6-pakning. Se tabellen over for pris på hver variant.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Finnes EyeQ Total30 for astigmatisme?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, EyeQ Total30 for Astigmatism er den toriske varianten i EyeQ Total30-serien, laget spesifikt for astigmatisme. Se tabellen under for pris og pakningsstørrelser.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Er alle variantene i EyeQ Total30-serien laget av samme materiale?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, hele EyeQ Total30-serien er laget av Lehfilcon A med vanngradient. Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet.</p>
+  </details>
+  </div><div class="faq-category">
+    <div class="faq-category-label">Pris og butikker</div>
+    <details class="faq-accordion-item">
+    <summary>Hva er billigst i EyeQ Total30-serien?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>EyeQ Total30 er billigst akkurat nå, fra 494 kr hos Lenson (uten frakt). Prisen varierer mellom variantene i serien.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hos hvor mange butikker kan jeg kjøpe EyeQ Total30?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Til sammen selger 4 norske nettbutikker minst én variant av EyeQ Total30-serien (4 butikker). Se listen under hver variant for hvilke butikker som faktisk har den på lager nå.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Er billigste butikk for EyeQ Total30 den samme uansett hvor mange esker du kjøper?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Lenson har lavest totalpris både for 1 og for 4 esker i vår siste prissjekk.</p>
+  </details>
+  </div>
   </div>
 
   <p class="disclosure">

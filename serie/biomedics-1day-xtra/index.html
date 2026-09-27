@@ -60,8 +60,23 @@ function __loadGTM() {
       },
       {
         "@type": "Question",
+        "name": "Finnes Biomedics 1Day Extra for astigmatisme?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ja, Biomedics 1Day Extra Toric er den toriske varianten i Biomedics 1Day Extra-serien, laget spesifikt for astigmatisme. Se tabellen under for pris og pakningsstørrelser."}
+      },
+      {
+        "@type": "Question",
         "name": "Hva er billigst i Biomedics 1Day Extra-serien?",
         "acceptedAnswer": {"@type": "Answer", "text": "Biomedics 1Day Extra 30-pack er billigst akkurat nå, fra 139 kr hos Interoptik (uten frakt). Prisen varierer mellom variantene i serien."}
+      },
+      {
+        "@type": "Question",
+        "name": "Hos hvor mange butikker kan jeg kjøpe Biomedics 1Day Extra?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Til sammen selger 8 norske nettbutikker minst én variant av Biomedics 1Day Extra-serien (5–6 butikker per variant). Se listen under hver variant for hvilke butikker som faktisk har den på lager nå."}
+      },
+      {
+        "@type": "Question",
+        "name": "Er billigste butikk for Biomedics 1Day Extra 30-pack den samme uansett hvor mange esker du kjøper?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Ja, Interoptik har lavest totalpris både for 1 og for 4 esker i vår siste prissjekk."}
       }
   ]
 }</script>
@@ -464,6 +479,20 @@ a { color: inherit; }
 .guide-photo-card-body { padding: 12px 14px 14px; }
 .guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }
 .guide-photo-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }
+/* FAQ-regelmotor (2026-09-27) -- gruppert accordion, se
+   _render_family_faq_accordion(). Egne klassenavn (faq-category*/
+   faq-accordion-item/faq-chevron) i stedet for å endre .faq-item (den flate
+   varianten brukes fortsatt på produkt-/forside-FAQ-er). */
+.faq-category { margin-top: 22px; }
+.faq-category:first-child { margin-top: 0; }
+.faq-category-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }
+.faq-accordion-item { border-top: 1px solid var(--border); }
+.faq-accordion-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-accordion-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.faq-accordion-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
+.faq-accordion-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-accordion-item p { margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
 </style>
 </head>
 <body>
@@ -1201,14 +1230,28 @@ a { color: inherit; }
   </div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om Biomedics 1Day Extra</h2>
-    <div class="faq-item">
-  <h3>Hvilke varianter finnes av Biomedics 1Day Extra?</h3>
-  <p>Biomedics 1Day Extra-serien finnes som dagslinser og toriske linser. Den fås i 30-pakning og 90-pakning. Se tabellen over for pris på hver variant.</p>
-</div>
-<div class="faq-item">
-  <h3>Hva er billigst i Biomedics 1Day Extra-serien?</h3>
-  <p>Biomedics 1Day Extra 30-pack er billigst akkurat nå, fra 139 kr hos Interoptik (uten frakt). Prisen varierer mellom variantene i serien.</p>
-</div>
+    <div class="faq-category">
+    <div class="faq-category-label">Produkt og varianter</div>
+    <details class="faq-accordion-item">
+    <summary>Hvilke varianter finnes av Biomedics 1Day Extra?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Biomedics 1Day Extra-serien finnes som dagslinser og toriske linser. Den fås i 30-pakning og 90-pakning. Se tabellen over for pris på hver variant.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Finnes Biomedics 1Day Extra for astigmatisme?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Biomedics 1Day Extra Toric er den toriske varianten i Biomedics 1Day Extra-serien, laget spesifikt for astigmatisme. Se tabellen under for pris og pakningsstørrelser.</p>
+  </details>
+  </div><div class="faq-category">
+    <div class="faq-category-label">Pris og butikker</div>
+    <details class="faq-accordion-item">
+    <summary>Hva er billigst i Biomedics 1Day Extra-serien?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Biomedics 1Day Extra 30-pack er billigst akkurat nå, fra 139 kr hos Interoptik (uten frakt). Prisen varierer mellom variantene i serien.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Hos hvor mange butikker kan jeg kjøpe Biomedics 1Day Extra?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Til sammen selger 8 norske nettbutikker minst én variant av Biomedics 1Day Extra-serien (5–6 butikker per variant). Se listen under hver variant for hvilke butikker som faktisk har den på lager nå.</p>
+  </details><details class="faq-accordion-item">
+    <summary>Er billigste butikk for Biomedics 1Day Extra 30-pack den samme uansett hvor mange esker du kjøper?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <p>Ja, Interoptik har lavest totalpris både for 1 og for 4 esker i vår siste prissjekk.</p>
+  </details>
+  </div>
   </div>
 
   <p class="disclosure">
