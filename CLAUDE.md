@@ -2244,3 +2244,30 @@ hvordan merke siden også skal se ut. Du ser det er stor forskjell."
    clamp-regel begge steder. Justerte samtidig `.brand-serie-card` sin
    `border-radius` fra 16px til 14px for å matche resten av kort-språket
    på siden (`.variant-card`/`.guide-photo-card` bruker begge 14px).
+
+## Merke-siden: seriekort på én linje, prisintelligens ved siden av fakta (2026-09-27, samme dag)
+
+Kai: "tenker acuvue seriene kan tilpasses en linje (på pc), og de andre
+merkene også, så langt det lar seg gjøre... kompakt og fint er bra. Acuvue
+i korte trekk? kan være ved siden av gjen.snitt priser som på serier. slik
+at vi har det samme her som på serie."
+
+1. **Seriekort → kompakt, horisontalt kort på én linje.** Erstattet det
+   store vertikale bildekortet (bilde-øverst, 16:9) med samme kompakte
+   mønster som `.variant-card` på serie-siden sin "Finn din variant" --
+   lite kvadratisk produktbilde til venstre (42px), navn/behov/fra-pris til
+   høyre, `text-overflow:ellipsis` på lange navn. `.brand-serie-grid` setter
+   nå `grid-template-columns: repeat(var(--brand-serie-cols), 1fr)` ved
+   ≥900px, der `--brand-serie-cols` er satt inline til `min(antall serier,
+   6)` -- alle seriene havner dermed faktisk på én rad der det er plass,
+   fremfor å stole på at en fast minmax-bredde tilfeldigvis går opp. Testet
+   med Acuvue (4 serier) og Proclear (3) -- begge fyller raden pent.
+2. **"{Merke} i korte trekk" ved siden av "{Merke}-priser akkurat nå".**
+   Samme to-kolonners stretch-mønster som `.serie-insight-row`
+   (Prisinnsikt + Kort om X på seriesiden) -- ny `.brand-insight-row`,
+   `align-items: stretch` + `height:100%` på begge boksene slik at de alltid
+   matcher hverandres høyde (verifisert likt i px i nettleseren). Prisintelligens-
+   tallene fikk en egen ytre kortboks (`.brand-price-intel`, samme stil som
+   `.brand-facts`) siden de tidligere var en bar rutenett+overskrift uten
+   boks -- samme "boks rundt, tilnærmet likt"-prinsipp som ble brukt på
+   "Felles for hele serien"/"Relevante guider"-fiksen tidligere i økta.
