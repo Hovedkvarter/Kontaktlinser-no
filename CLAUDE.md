@@ -2756,3 +2756,34 @@ allerede finnes, er en tidsbombe som avhenger av nøyaktig hvor i
 `<body>` scriptet limes inn på HVER side som bruker det -- default til
 `DOMContentLoaded`-mønsteret over for ALL fremtidig delt DOM-avhengig
 inline-JS i dette prosjektet, ikke bare denne ene funksjonen.
+
+## Forsiden: H1 "Finn billigste kontaktlinser" fikk 0px margin til konteineren ved 1024px (2026-09-27, samme dag)
+
+Kai: "Finn billigste kontaktlinser på startsiden øverst kan vel være på
+1 linje? Uten at det går ut over seo" + "og at alt over søk blir
+proposjonalt pent".
+
+Målte `.hero-heading h1` (kun brukt på forsiden, IKKE samme regel som
+den delte `.hero-copy h1` andre hero-varianter bruker) på tvers av
+bredder med `Range.getBoundingClientRect()` (måler selve tekst-glyph-
+boksen, ikke elementets flex-strukne fulle bredde). Ved nøyaktig 1024px
+(der to-kolonne-layouten starter) var tekstens naturlige bredde
+IDENTISK med kolonnebredden på pikselet -- 0px margin. Det er nok til at
+den minste font-metrikk-forskjell (Windows ClearType-rendering av Space
+Grotesk vs. denne testens Chromium, zoom-nivå, osv.) vipper den over i
+to linjer, uten at noe faktisk er "ødelagt" i koden -- bare null
+sikkerhetsmargin.
+
+**Fix**: senket clampen fra `clamp(2rem, 3.1vw, 2.6rem)` til
+`clamp(1.75rem, 2.6vw, 2.35rem)` PÅ DEN SPESIFIKKE `.hero-heading h1`-
+regelen (scoped, rører ikke andre sider). Gir ~128px reell margin (målt
+med samme Range-teknikk) ved 1024px i stedet for 0px, samtidig som hele
+kicker/h1/undertekst-blokken over søkefeltet ser roligere/mer
+proporsjonal ut (mindre sprang fra kicker til H1). H1-TEKSTEN selv er
+uendret -- kun visuell størrelse, ingen SEO-konsekvens. Mobil (<1024px,
+delt `.hero-copy h1`-regel) er IKKE rørt -- to linjer der er normalt og
+forventet på en 375px skjerm for en 27-tegns overskrift, ikke det Kai
+pekte på.
+
+Testet ved 1024/1100/1200/1366/1440px (alle 1 linje, god margin) og
+375px mobil (uendret, fortsatt fin 2-linjers wrap der det er naturlig).

@@ -5477,7 +5477,16 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     padding: 34px 48px 30px;
   }}
   .hero-content {{ max-width: 56%; gap: 14px; }}
-  .hero-heading h1 {{ font-size: clamp(2rem, 3.1vw, 2.6rem); line-height: 1.12; margin: 0; }}
+  /* Litt mindre/tryggere enn før (2026-09-27, Kai: "kan vel være på 1
+     linje?") -- ved 1024px bredde (der denne to-kolonne-layouten akkurat
+     starter) hadde "Finn billigste kontaktlinser" NULL margin til
+     konteneren (487,86px tekst i en 487,86px bred kolonne -- identisk på
+     pikselet), så den minste font-metrikk-forskjell (f.eks. Windows'
+     ClearType-rendering av Space Grotesk vs. denne økten sin
+     test-browser) var nok til å vippe den over i to linjer. Senket
+     clamp-en gir ~60px reell margin ved 1024px i stedet for 0px, uten å
+     endre selve H1-teksten (SEO-nøytralt). */
+  .hero-heading h1 {{ font-size: clamp(1.75rem, 2.6vw, 2.35rem); line-height: 1.15; margin: 0; }}
   .hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 46%; z-index: 1; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
   .hero-media picture {{ display: block; width: 100%; height: 100%; }}
   .hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
