@@ -3517,3 +3517,107 @@ eller `minmax(..., 1fr)`-kolonner ved siden av et element med
 DOM-målingene) men veldig synlige (for øyet) tomrom. Flexbox med fast
 `gap` er tryggere for denne typen "to elementer skal sitte sammen som
 en enhet"-layout.
+
+## Produktsiden: Desktop Gold Standard v1 -- full ombygging til EKTE tre-kolonners hero (2026-09-27, samme dag)
+
+Selv med gap-fiksen over var komposisjonen fortsatt feil -- Kai (via en
+annen samtale han hadde parallelt om nøyaktig samme skjermbilde):
+"Han har beholdt strukturen fra den gamle heroen og bare restylet
+elementene. Vi spikret derimot en annen komposisjon." Den daværende
+strukturen var i praksis tittel+fakta over HELE bredden øverst, med
+bilde og Winner Card som to separate "øyer" i en rad under, og
+quantity-kontrollene som en fullbredde rad helt nederst -- ikke
+referansedesignet, som krever at bilde, produktidentitet+kontroller OG
+Winner Card står side om side i ÉN rad, i samme vertikale
+arbeidsflate. Kai sendte et helt konkret, målsatt spec (kolonne-
+proporsjoner, bildehøyde, pillestørrelser, typografi-størrelser,
+spacing-rytme, maks hero-høyde) og var eksplisitt: "Do not keep
+tweaking margins on the current structure... If that relationship
+[bilde+identitet/kontroller+Winner Card i samme rad] is not present,
+the implementation is not finished."
+
+**Ny teknikk -- `display: contents`-utflating i stedet for DOM-flytting**:
+`.qty-box` (antall/frakt) er FORTSATT en egen, separat DOM-node --
+søsken av `.hero-card` inni `.product-stage`, akkurat som i forrige
+runde, av samme grunn (mobil skal forbli 100 % uendret). For å få
+bilde, identitet OG kontroller inn i samme CSS Grid som Winner Card,
+uten å flytte noe i treet: `.hero-card`, `.hero-main` og
+`.hero-media-row` settes til `display: contents` KUN >=860px -- dette
+fjerner elementenes egne bokser fra rendring, men lar barna deres
+(`.hero-copy`, `.hero-product-image`, `.winner-band`) "boble opp" til å
+bli DIREKTE grid-barn av `.product-stage`, sammen med `.qty-box` som
+allerede var en direkte barn der. `display: contents` er kun satt inni
+`@media (min-width: 860px)`, så mobilens DOM-boksmodell er
+fullstendig upåvirket -- verifisert eksplisitt (se Testet).
+
+**Grid-oppsett** (`.product-stage`, >=860px):
+```
+grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.10fr) minmax(280px, 0.72fr);
+grid-template-areas: "image identity price" "image controls price";
+column-gap: 32px; row-gap: 40px;
+```
+`.hero-copy` → `identity` (rad 1, midtkolonne), `.qty-box` → `controls`
+(rad 2, midtkolonne, `align-self: start`), `.hero-product-image` →
+`image` (spenner begge rader, `align-self: center`, fast
+`height: 320px`), `.winner-band` → `price` (spenner begge rader,
+`align-self: center`, `width: 100%` av sin ~287px-kolonne). Målt på en
+1440px-side: bilde 378×320px, midtkolonne 438px bred, Winner Card
+287×275px, kolonnegap eksakt 32px begge steder -- alle tre innenfor
+Kais oppgitte mål-mål.
+
+**Typografi/spacing-rettelser** (Kais eksakte tall): H1 32px/700/1.18
+line-height (var 1.6rem=25.6px), kicker 13-14px/uppercase/600/.06em
+letter-spacing, undertittel 19.2px/400 (var 0.92rem/500), fakta
+0.92rem/muted, faktarad→quantity-boks 40px (target 38-48px).
+Quantity-pillene fikk faste mål (60×46px, "Eget" 88px, 8px gap) i
+stedet for den elastiske `repeat(5/6, 1fr)`-grid-en fra mobil (som
+ville strukket pillene til å fylle hele den nå smalere midtkolonnen),
+og valgt-tilstand byttet fra mobilens blå gradient til en blek
+mint-bakgrunn/grønn kant/mørk tekst (Kai, punkt 6: eksplisitt "Remove
+the bright blue gradient selected state on desktop") -- KUN scoped til
+`.product-stage .qty-pill`, mobilens `.qty-pill.is-active`-gradient
+urørt.
+
+**To selvpåførte bugs fanget og fikset underveis, FØR push**:
+1. En kommentar inni f-string-en inneholdt uEscapede CSS-klammer
+   (`{ display:grid; ... }`) -- Python tolket dem som f-string-uttrykk
+   og kastet `NameError: name 'display' is not defined` ved bygging.
+   Fikset ved å fjerne de bokstavelige klammene fra kommentarteksten.
+2. Kicker-teksten ("DAILIES") rendret med feil skriftstørrelse
+   (16px i stedet for tiltenkte 13,6px/0.85rem) -- en delt, global
+   regel (`.hero-copy p { font-size: 1rem }`, brukt av forsidens hero)
+   hadde HØYERE spesifisitet (klasse+type-selektor) enn den nye,
+   enkle `.hero-kicker`-klassen, og vant kaskaden uansett kildeorden.
+   Fikset ved å skjerpe selektoren til `.product-stage .hero-kicker`
+   (to klasser, høyere spesifisitet enn `.hero-copy p`).
+3. (Egentlig en tredje, fanget samtidig) Faktarad→quantity-avstanden
+   (40px) var satt BÅDE som grid `row-gap` OG som en egen
+   `margin-top: 40px` på `.qty-box` -- dobbel avstand (81px målt i
+   stedet for 40px), som alene dyttet hele hero-høyden fra ~430px til
+   473px, forbi Kais 400-450px-mål. Fjernet den overflødige
+   `margin-top`, beholdt kun grid `row-gap`.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen Traceback/
+NameError. **Mobil** (Absolute Requirement #1) re-verifisert etter
+HELE ombyggingen: `.hero-card`/`.hero-main` fortsatt `display:block`/
+`flex` (IKKE `contents`) under 860px, `.product-stage` fortsatt
+`border:0`/`display:block` (usynlig wrapper), kicker/fakta fortsatt
+`display:none`, og et 375px-skjermbilde er piksel-identisk med
+Gold-Standard-referansen. **Desktop** verifisert via DOM-mål (nøyaktig
+samme produkt Kai skjermdumpet, ved BÅDE 1440px og 1600px -- Kais egne
+oppgitte testbredder): bilde+identitet+Winner Card alle i samme
+vertikale bånd (y-rekkevidder overlapper), hero-høyde 433px (mål
+400-450px), pris-seksjonen starter på y=539 av en 1000px viewport
+(godt innenfor "første viewport"-kravet). Testet også: langt
+produktnavn (Acuvue Oasys MAX 1-Day Multifocal for Astigmatism
+30-pack -- H1 bryter til 2 linjer i egen kolonne, ingen overflow, hero
+kun 471px, fortsatt nær målet), produkt med kun 2 tilbud (Savings
+Signal korrekt skjult, Winner Card 262px høy i stedet for 275px, ingen
+krasj). Linsevæske-/private label-sidene bekreftet fortsatt UTEN
+`.product-stage`/`.hero-kicker` i det hele tatt -- null
+krysspåvirkning.
+
+**Innholdsbevaringssjekk**: ingen data fjernet i denne runden heller --
+kun CSS-layout (grid i stedet for flex/flex-kolonne) og typografi-
+justeringer på eksisterende, allerede-rendrede elementer. Samme
+elementer, samme DOM-noder, ny visuell plassering >=860px.
