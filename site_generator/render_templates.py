@@ -6313,6 +6313,16 @@ def render_guide_page(slug: str) -> str | None:
     # fulle boksen med snarveier ligger nederst.
     body_with_cta = guide["body_html"].replace("</p>", "</p>\n    " + render_guide_search_card(slug, compact=True), 1)
 
+    # Samme bilde som guide-kortet (GUIDE_PHOTOS) øverst på selve artikkelen
+    # også -- Kai sitt eksplisitte ønske 2026-09-27 ("på en fin måte"), ikke
+    # bare på oversikten/forsiden. Enkelt toppbilde over hero-teksten (ikke
+    # en side-panel som serie-hero) -- siden er en smal 760px lesekolonne,
+    # ikke en bred produktside med plass til to kolonner.
+    photo = GUIDE_PHOTOS.get(slug)
+    hero_image_html = f"""<div class="guide-hero-image">
+    <img src="/static/guides/{escape(photo)}.webp" alt="" width="640" height="667" loading="eager" decoding="async">
+  </div>""" if photo else ""
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -6328,12 +6338,16 @@ def render_guide_page(slug: str) -> str | None:
 {article_schema}
 <style>{SHARED_STYLE}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
+.guide-hero-image {{ border-radius: 16px; overflow: hidden; margin-bottom: 4px; box-shadow: var(--card-shadow); }}
+.guide-hero-image img {{ display: block; width: 100%; height: 190px; object-fit: cover; }}
+@media (min-width: 640px) {{ .guide-hero-image img {{ height: 260px; }} }}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(guide["title"])}</p>
+  {hero_image_html}
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Guide</div>
@@ -6521,37 +6535,38 @@ GUIDE_ICONS = {
     },
 }
 
-# Ekte foto for utvalgte guider (2026-09-27, fra Kai sitt bildeutvalg --
+# Ekte foto for ALLE 40 guider (2026-09-27, fra Kai sitt bildeutvalg --
 # beskåret fra to sammensatte referansebilder han sendte, IKKE generert av
-# oss). Kun guider med et genuint, ikke-tvunget motiv-treff er med her (20 av
-# 40) -- resten beholder ikon-kortet i render_guide_tile() under, samme
-# "aldri gjett/tving feil bilde"-prinsipp som resten av siden. Kildebildene
-# er kun 1536x1024px sammensatt over 60 ruter, så hver rute er beskåret til
-# ca. 145x150px og oppskalert -- godkjent kvalitet for et lite kort-bilde,
-# men merkbart mykere enn en ekte høyoppløst original. Bytt ut med skarpere
+# oss -- filene kom aldri separat, så rutenettene ble beskåret programmatisk
+# ved å finne de hvite gutter-linjene mellom rutene). Filnavnet er alltid
+# slugen selv (static/guides/{slug}.webp), så denne "dict-en" er reelt sett
+# bare en eksistens-sjekk -- beholdt som dict (ikke set) i tilfelle et bilde
+# senere trenger et annet filnavn enn slugen. Første 20 er tydelige
+# motiv-treff (aktivitet/situasjon som faktisk vises i guiden); de siste 20
+# (spec-forklaringer, pris/abonnement, resept, historie/produksjon) er mer
+# generiske øye-/linse-bilder valgt for at Kai skal få bilde på ALLE
+# guide-kort, ikke fordi motivet illustrerer noe spesifikt i akkurat den
+# guiden -- ærlig sagt til Kai, se CLAUDE.md. Kildebildene er kun
+# 1536x1024px sammensatt over 60 ruter, så hver rute er beskåret til ca.
+# 145x150px og oppskalert -- godkjent for et lite kort-/toppbilde, men
+# merkbart mykere enn en ekte høyoppløst original. Bytt ut med skarpere
 # originaler hvis/når Kai får tak i dem.
-GUIDE_PHOTOS = {
-    "hvordan-bruke-kontaktlinser": "hvordan-bruke-kontaktlinser",
-    "hvordan-velge-kontaktlinser": "hvordan-velge-kontaktlinser",
-    "kontaktlinser-for-barn": "kontaktlinser-for-barn",
-    "harde-eller-myke-linser": "harde-eller-myke-linser",
-    "hvorfor-bruke-kontaktlinser": "hvorfor-bruke-kontaktlinser",
-    "vedlikehold-av-kontaktlinser": "vedlikehold-av-kontaktlinser",
-    "reising-med-kontaktlinser": "reising-med-kontaktlinser",
-    "kosmetiske-kontaktlinser": "kosmetiske-kontaktlinser",
-    "kontaktlinsens-materiale": "kontaktlinsens-materiale",
-    "kan-man-sove-med-kontaktlinser": "kan-man-sove-med-kontaktlinser",
-    "kan-man-dusje-med-kontaktlinser": "kan-man-dusje-med-kontaktlinser",
-    "kontaktlinser-og-torre-oyne": "kontaktlinser-og-torre-oyne",
-    "hvor-lenge-kan-man-bruke-kontaktlinser": "hvor-lenge-kan-man-bruke-kontaktlinser",
-    "pakningsstorrelse-30-vs-90": "pakningsstorrelse-30-vs-90",
-    "manedslinser-vs-dagslinser": "manedslinser-vs-dagslinser",
-    "multifokale-kontaktlinser": "multifokale-kontaktlinser",
-    "linse-sitter-fast-i-oyet": "linse-sitter-fast-i-oyet",
-    "uklart-syn-med-kontaktlinser": "uklart-syn-med-kontaktlinser",
-    "rode-oyne-og-svie-med-kontaktlinser": "rode-oyne-og-svie-med-kontaktlinser",
-    "hvordan-kjope-kontaktlinser-pa-nett": "hvordan-kjope-kontaktlinser-pa-nett",
-}
+GUIDE_PHOTOS = {slug: slug for slug in [
+    "hvordan-bruke-kontaktlinser", "hvordan-velge-kontaktlinser", "kontaktlinser-for-barn",
+    "harde-eller-myke-linser", "hvorfor-bruke-kontaktlinser", "vedlikehold-av-kontaktlinser",
+    "reising-med-kontaktlinser", "kosmetiske-kontaktlinser", "kontaktlinsens-materiale",
+    "kan-man-sove-med-kontaktlinser", "kan-man-dusje-med-kontaktlinser", "kontaktlinser-og-torre-oyne",
+    "hvor-lenge-kan-man-bruke-kontaktlinser", "pakningsstorrelse-30-vs-90", "manedslinser-vs-dagslinser",
+    "multifokale-kontaktlinser", "linse-sitter-fast-i-oyet", "uklart-syn-med-kontaktlinser",
+    "rode-oyne-og-svie-med-kontaktlinser", "hvordan-kjope-kontaktlinser-pa-nett",
+    "kontaktlinser-med-astigmatisme", "korrigerende-kontaktlinser", "kontaktlinsens-historie",
+    "produksjon-av-kontaktlinser", "terapeutiske-kontaktlinser", "forsta-kontaktlinseresepten",
+    "bc-forklart", "dia-forklart", "pwr-sph-forklart", "cyl-forklart", "axis-forklart", "add-forklart",
+    "samme-styrke-briller-og-linser", "hva-koster-kontaktlinser", "pris-per-linse-slik-sammenligner-du",
+    "hvorfor-varierer-prisene-mellom-butikkene", "hvordan-kontaktlinser-no-beregner-totalpris",
+    "kontaktlinseabonnement-vs-kjope-selv", "kan-man-kjope-kontaktlinser-uten-resept",
+    "kan-jeg-bytte-kontaktlinsemerke-selv",
+]}
 
 # Delt mellom /guider/-oversikten og forsidens forhåndsvisnings-seksjon,
 # slik at guide-kortene ser identiske ut begge steder (se render_guide_tile).
@@ -6621,26 +6636,41 @@ def render_guides_index_page() -> str:
 <style>{SHARED_STYLE}
 {GUIDE_TILE_STYLE}
 /* Toppbanner (2026-09-27, fra Kai sitt bildeutvalg -- kun selve fotostripen,
-   ingen påskrevet tekst/mockup-UI). Full bredde, ikke en side-panel som
-   serie-hero (kildebildet er for panoramisk/tynt til det -- ca. 4,9:1). */
-.guide-hero-banner {{ border-radius: 20px; overflow: hidden; margin-bottom: 18px; box-shadow: var(--card-shadow); }}
-.guide-hero-banner img {{ display: block; width: 100%; height: 130px; object-fit: cover; }}
-@media (min-width: 640px) {{ .guide-hero-banner img {{ height: 180px; }} }}
-@media (min-width: 1024px) {{ .guide-hero-banner img {{ height: 230px; }} }}
+   ingen påskrevet tekst/mockup-UI). Teksten ligger OPPÅ selve bildet (Kai:
+   "legg teksten oppå selve bilde her så blir det flott") -- en lys gradient
+   fra venstre (der kildebildet allerede er lyst/uskarpt i bakgrunnen, se
+   bildet selv) sikrer lesbar mørk tekst uten å måtte gjette fargen på et
+   ukjent fremtidig banner-bilde. IKKE en side-panel som serie-hero
+   (kildebildet er for panoramisk/tynt til det -- ca. 4,9:1), og IKKE skjult
+   på mobil slik serie-hero-media er -- Kai ville ha bildet synlig overalt. */
+.guide-hero {{ position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 20px; box-shadow: var(--card-shadow); }}
+.guide-hero img {{ display: block; width: 100%; height: 230px; object-fit: cover; }}
+.guide-hero-overlay {{ position: absolute; inset: 0; background: linear-gradient(100deg, #fff 0%, rgba(255,255,255,0.93) 42%, rgba(255,255,255,0.35) 68%, rgba(255,255,255,0) 88%); }}
+.guide-hero-content {{ position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; padding: 20px 22px; max-width: 82%; }}
+.guide-hero-content .kicker {{ margin: 0; }}
+.guide-hero-content h1 {{ margin: 6px 0 8px; font-size: clamp(1.35rem, 5.5vw, 2rem); line-height: 1.15; }}
+.guide-hero-content p {{ margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; max-width: 420px; }}
+@media (min-width: 640px) {{
+  .guide-hero img {{ height: 280px; }}
+  .guide-hero-content {{ max-width: 58%; padding: 28px 36px; }}
+}}
+@media (min-width: 1024px) {{
+  .guide-hero img {{ height: 340px; }}
+  .guide-hero-content {{ max-width: 46%; padding: 32px 44px; }}
+}}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › Guider</p>
-  <div class="guide-hero-banner">
+  <div class="guide-hero">
     <picture>
       <source type="image/webp" srcset="/static/hero/guider-560.webp 560w, /static/hero/guider-840.webp 840w, /static/hero/guider-1120.webp 1120w, /static/hero/guider-1536.webp 1536w" sizes="(min-width: 1200px) 1120px, 92vw">
       <img src="/static/hero/guider-840.webp" alt="" width="1536" height="316" loading="eager" decoding="async">
     </picture>
-  </div>
-  <div class="hero">
-    <div class="hero-copy">
+    <div class="guide-hero-overlay"></div>
+    <div class="guide-hero-content">
       <div class="kicker">Guider</div>
       <h1>Alt om kontaktlinser – enkelt forklart</h1>
       <p>Praktiske råd som hjelper deg å ta gode valg, bruke linsene riktig og ta vare på øynene dine.</p>

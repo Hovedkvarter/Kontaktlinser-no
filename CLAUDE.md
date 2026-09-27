@@ -2094,3 +2094,34 @@ panoramisk (~4,9:1), så det er IKKE bygget som en side-panel slik `serie-hero` 
 men som en full-bredde bannerstripe over `.hero`-teksten
 (`static/hero/guider-{560,840,1120,1536}.webp`, `object-fit:cover` med økende
 høyde per breakpoint).
+
+## Guide-bilder runde 2: alle 40 guider, tekst oppå banneret, bilde på selve artikkelen (2026-09-27)
+
+Rett etter forrige runde ba Kai om tre ting til, i samme økt:
+
+1. **"En rekke guider har ikke fått bilder enda ... kan du fikse?"** -- utvidet
+   `GUIDE_PHOTOS` fra 20 til ALLE 40 guider. De siste 20 (spec-forklaringer
+   bc/dia/pwr-sph/cyl/axis/add-forklart, pris-/abonnement-/resept-guider,
+   historie/produksjon/terapeutiske linser) fikk IKKE et bilde som faktisk
+   illustrerer noe spesifikt i akkurat den guiden -- det finnes rett og slett
+   ikke et treffende motiv i bildeutvalget for "hva koster kontaktlinser"
+   eller "AXIS forklart". De fikk i stedet et generisk, men ekte og relevant
+   øye-/linse-bilde (forskjellige bilder per guide, ingen gjenbruk), fremfor
+   å la 20 guider stå uten bilde. Sagt rett ut i koden (kommentaren over
+   `GUIDE_PHOTOS`) hvilke som er ekte motiv-treff og hvilke som er generisk
+   fyll -- viktig å ikke late som om alle 40 er like treffsikre.
+2. **"Legg teksten oppå selve bildet"** -- `render_guides_index_page()` sin
+   banner og tekst-hero er nå ÉN komponent (`.guide-hero`): bildet er
+   bakgrunn, en lys venstre-til-høyre gradient (`.guide-hero-overlay`)
+   sikrer lesbar mørk tekst oppå det (kildebildets venstre del er allerede
+   lys/uskarpt, gradienten er et ekstra sikkerhetsnett), kicker/h1/ingress
+   ligger i `.guide-hero-content` oppå. I MOTSETNING til `serie-hero-media`
+   er bildet IKKE skjult på mobil -- Kai ville ha det synlig overalt, ikke
+   bare ≥860px.
+3. **"Bruk samme bilde på selve guiden også, på en fin måte"** --
+   `render_guide_page()` fikk et nytt `.guide-hero-image` -- rent, avrundet
+   toppbilde (190px mobil / 260px ≥640px, `object-fit:cover`) rett over
+   `.hero`-teksten, samme fil som guide-kortet på `/guider/` og forsiden.
+   Kun rendret når `GUIDE_PHOTOS.get(slug)` finnes (nå alltid sant, siden
+   alle 40 har bilde), så koden degraderer pent den dagen en ny guide
+   legges til uten eget bilde ennå.
