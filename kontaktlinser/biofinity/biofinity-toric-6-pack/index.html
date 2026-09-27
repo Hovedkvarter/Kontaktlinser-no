@@ -543,7 +543,12 @@ a { color: inherit; }
   .hero-media-row .winner-savings { width: 34px; height: 34px; }
   .hero-media-row .winner-savings-label { font-size: 0.4rem; }
   .hero-media-row .winner-savings-pct { font-size: 0.62rem; }
-  .hero-media-row .winner-btn { font-size: 0.72rem; padding: 8px 6px; gap: 4px; margin-top: 2px; }
+  /* white-space:normal (ikke nowrap) -- "Gå til butikk" klippet på de
+     aller smaleste skjermene (320px) selv etter gjentatt skrift-
+     nedskalering; å presse teksten enda mindre gikk ut over lesbarheten.
+     Lar heller CTA-en bryte til to linjer der det trengs enn å vise
+     avkuttet tekst. */
+  .hero-media-row .winner-btn { font-size: 0.68rem; padding: 8px 4px; gap: 3px; margin-top: 2px; white-space: normal; text-align: center; line-height: 1.25; }
 }
 @media (min-width: 860px) {
   .hero-card { padding: 28px; }
