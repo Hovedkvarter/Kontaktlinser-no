@@ -4052,6 +4052,20 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .kz-accordion-body .specs, .kz-accordion-body .methodology, .kz-accordion-body .related {{ margin-top: 0; }}
 .kz-accordion-body .specs h2, .kz-accordion-body .methodology h2, .kz-accordion-body .related h2 {{ display: none; }}
 .kz-accordion-body .faq-section .faq-accordion-item:first-child {{ border-top: none; }}
+/* _faq_accordion_item() (per-spørsmål-accordionen inni "Vanlige
+   spørsmål"-boksen) er gjenbrukt fra brand-/serie-siden, men reglene som
+   faktisk STØRRELSESBEGRENSER den (.faq-chevron m.fl.) lå kun i DE
+   funksjonenes egne <style>-blokker -- aldri kopiert hit. Uten dem har
+   <svg class="faq-chevron"> ingen bredde/høyde-regel i det hele tatt, og
+   rendres i sin fulle, ubegrensede viewBox-størrelse (>100px, oppdaget av
+   Kai på en skjermdump). Kopiert inn her, identisk med kildene. */
+.faq-accordion-item {{ border-top: 1px solid var(--border); }}
+.faq-accordion-item:last-child {{ border-bottom: 1px solid var(--border); }}
+.faq-accordion-item summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }}
+.faq-accordion-item summary::-webkit-details-marker {{ display: none; }}
+.faq-chevron {{ flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }}
+.faq-accordion-item[open] .faq-chevron {{ transform: rotate(180deg); }}
+.faq-accordion-item p {{ margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }}
 .hero-card .product-ai-summary {{ background: var(--blue-tint); border-left: none; border-radius: 10px; margin: 16px 0 0; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
 .aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
@@ -4126,10 +4140,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   {disclosure_html}
   {pack_size_callout}
   {family_callout}
-  {ai_summary_html}
 
   <div class="kz-break"><span>Alt om {escape(product["name"])}</span></div>
   <div class="kz">
+    {ai_summary_html}
     <h2>Om {escape(product["name"])}</h2>
     <p>{escape(long_description)}</p>
     {badges_html}

@@ -3168,3 +3168,36 @@ her). Systematisk testet de breddene briefen selv ba om (320/360/390/
   ville motvirket akkurat det.
 
 Testet: full sveip av alle 411 bygde sider, ingen Traceback/NameError.
+
+## Produktsiden: AI-sammendraget helt inn i kunnskapssonen + kjempestore FAQ-chevroner fikset (2026-09-27, samme dag)
+
+To ting samme runde. Først startet jeg feilaktig på et desktop-grid-fiks
+etter Kai sa "fortsett" -- men han presiserte rett etterpå eksplisitt
+"Do not start desktop yet", så den uncommitede grid-endringen ble
+reversert (`git checkout --`) uten å shippes. Riktig lesning av
+"fortsett" var: fullfør ETT gjenstående mobil-punkt, ikke start desktop.
+
+**AI-sammendraget lenger inn**: satt tidligere som SISTE element i
+kjøpssonen (rett før `.kz-break`-divideren) -- Kai påpekte at det
+fortsatt "interrupts the purchase zone visually" der. Flyttet til å bli
+FØRSTE element INNI `.kz`-diven (etter divideren, før "Om
+{produkt}"-overskriften) -- samme innhold, samme SEO-verdi, men nå
+utvetydig en del av kunnskapssonen i stedet for kjøpssonens hale.
+
+**FAQ-chevronene rendret enormt store** (>100px, oppdaget av Kai på en
+skjermdump av desktop -- men bekreftet EMPIRISK å gjelde mobil også,
+ikke desktop-spesifikt): `_render_faq_accordion_block()` (ny funksjon fra
+tidligere i dag) gjenbruker `_faq_accordion_item()` fra brand-/serie-
+siden, men CSS-en som faktisk STØRRELSESBEGRENSER `<svg class=
+"faq-chevron">` (`.faq-chevron{width:16px;height:16px}` m.fl.) lå kun i
+DE andre funksjonenes egne `<style>`-blokker -- aldri kopiert inn i
+`render_product_page()` sin. Uten noen bredde/høyde-regel i det hele
+tatt rendret SVG-en i sin fulle, ubegrensede viewBox-størrelse. Fikset
+ved å kopiere inn de samme reglene (identisk med kildene, samme
+dupliserings-mønster som resten av kodebasen allerede bruker for
+delt CSS per side-type).
+
+Testet: `.faq-chevron`-bredde målt til nøyaktig 16px i browser-panelet
+(var >100-140px før), AI-sammendraget bekreftet både etter
+`.kz-break`-divideren OG inni `.kz` via `compareDocumentPosition()`,
+full sveip av alle 411 sider uten Traceback/NameError.
