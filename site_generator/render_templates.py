@@ -2443,6 +2443,7 @@ LENS_PAIR_ILLUSTRATION_SVG = '''<svg viewBox="0 0 120 88" xmlns="http://www.w3.o
   <path d="M60 28a26 20 0 0 1 18-9" stroke="#2563EB" stroke-width="1.6" stroke-linecap="round" fill="none" opacity="0.45"/>
 </svg>'''
 CALENDAR_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
+SUN_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>'
 
 # Badger på produktsidens hero -- KUN utledet fra verifiserte spesifikasjons-
 # felt (Linsetype/Brukstid i products_meta.json), aldri egne påstander eller
@@ -8779,10 +8780,19 @@ def render_family_page(
     {"".join(product_tile(r) for r in rows)}
   </div>''' if len(rows) > 1 else ""
 
-    # "Relevante guider" -- samme kort-komponent som brukes i toppmenyen/
-    # forsidens guide-seksjon (render_guide_tile/GUIDE_TILE_STYLE). Guidene har
-    # KUN ikoner i vår datamodell, ingen egne foto -- ikke funnet opp bilder
-    # for å matche en mockup, se CLAUDE.md.
+    # "Relevante guider" -- bildekort i stedet for de rene ikon-kortene
+    # (render_guide_tile), etter Kai sitt ønske 2026-09-27 om at ikon-boksene
+    # var kjedelige. Guidene har ingen egne foto i datamodellen -- gjenbruker
+    # derfor kategorikortenes egne pastellbilder (samme filer som "Finn din
+    # variant" over), IKKE samme tema/tekst som selve guiden nødvendigvis,
+    # men reelle bilder vi allerede eier/har lisens til, valgt for et visst
+    # tematisk slektskap der det er naturlig (astigmatisme-guide -> toriske-
+    # bildet, osv.) fremfor helt tilfeldig.
+    _GUIDE_IMAGE = {
+        "hvordan-bruke-kontaktlinser": "dag", "kontaktlinser-med-astigmatisme": "toriske",
+        "multifokale-kontaktlinser": "multifokale", "manedslinser-vs-dagslinser": "maaned",
+        "hvordan-velge-kontaktlinser": "fargede",
+    }
     relevant_guide_slugs = ["hvordan-bruke-kontaktlinser"]
     if any(g["power_dim"] == "CYL/AXIS" for g in table_groups):
         relevant_guide_slugs.append("kontaktlinser-med-astigmatisme")
@@ -8791,9 +8801,25 @@ def render_family_page(
     else:
         relevant_guide_slugs.append("manedslinser-vs-dagslinser")
     relevant_guide_slugs.append("hvordan-velge-kontaktlinser")
-    guides_html = f'''<h2>Relevante guider</h2>
-  <div class="guide-grid guide-grid-narrow">
-    {"".join(render_guide_tile(slug, GUIDE_CONTENT[slug]) for slug in relevant_guide_slugs if slug in GUIDE_CONTENT)}
+
+    def guide_photo_card(slug: str) -> str:
+        g = GUIDE_CONTENT[slug]
+        bg = _GUIDE_IMAGE.get(slug, "dag")
+        return f'''<a class="guide-photo-card" href="/guide/{escape(slug)}/">
+    <div class="guide-photo-card-image">
+      <img src="/static/categories/bg-{bg}-320.webp" alt="" width="320" height="143" loading="lazy" decoding="async">
+    </div>
+    <div class="guide-photo-card-body">
+      <div class="guide-photo-card-title">{escape(g["title"])}</div>
+      <div class="guide-photo-card-link">Les guiden →</div>
+    </div>
+  </a>'''
+
+    guides_html = f'''<div class="serie-guides">
+    <h2>Relevante guider</h2>
+    <div class="guide-photo-grid">
+      {"".join(guide_photo_card(slug) for slug in relevant_guide_slugs if slug in GUIDE_CONTENT)}
+    </div>
   </div>'''
 
     # Unikt FAQ-innhold for serie-siden -- svarer på det EKTE spørsmålet en
@@ -8916,24 +8942,29 @@ def render_family_page(
     # for å late som det er sjekket).
     brukstid_values = {r["specs"].get("Brukstid") for r in rows if r["specs"].get("Brukstid")}
     uv_values = {r["specs"].get("UV-filter") for r in rows if r["specs"].get("UV-filter")}
+    # Hver rad: (ikon, hovedverdi, undertekst/etikett) -- delt datagrunnlag for
+    # BÅDE "Kort om X" (sjekkliste, ved Prisinnsikt) og "Felles for hele
+    # serien" (ikon-rutenett, ved Relevante guider lenger ned) -- samme fakta,
+    # to ulike visuelle roller, se Kai sin tilbakemelding 2026-09-27.
     fact_rows = []
     if len(brukstid_values) == 1:
         bt = next(iter(brukstid_values))
         bt_sub = {"Dagslinse": "Ny linse hver dag", "Månedslinse": "Skiftes månedlig", "Ukelinse": "Skiftes ukentlig"}.get(bt, "")
-        fact_rows.append((bt, bt_sub))
+        fact_rows.append((CALENDAR_ICON_SVG, bt, bt_sub))
     if show_material and len(materials_present) == 1:
-        fact_rows.append((next(iter(materials_present)), "Materiale"))
+        fact_rows.append((BOX_ICON_SVG, next(iter(materials_present)), "Materiale"))
     if len(wc_values_stat) == 1:
-        fact_rows.append((" / ".join(f"{v.replace('.', ',')} %" for v in next(iter(wc_values_stat))), "Vanninnhold"))
+        fact_rows.append((DROPLET_ICON_SVG, " / ".join(f"{v.replace('.', ',')} %" for v in next(iter(wc_values_stat))), "Vanninnhold"))
     if len(uv_values) == 1:
-        fact_rows.append((f'UV-filter ({next(iter(uv_values))})', ""))
+        fact_rows.append((SUN_ICON_SVG, next(iter(uv_values)), "UV-filter"))
     if type_labels_stat:
-        fact_rows.append((("Tilgjengelig for " + ", ".join(t.lower() for t in type_labels_stat)), ""))
+        fact_rows.append((TAG_ICON_SVG, ", ".join(type_labels_stat), "Tilgjengelig for"))
+
     facts_html = ""
     if fact_rows:
         items = "".join(
             f'''<li>{CHECK_ICON_SVG}<div><strong>{escape(main)}</strong>{f'<span>{escape(sub)}</span>' if sub else ''}</div></li>'''
-            for main, sub in fact_rows
+            for icon, main, sub in fact_rows
         )
         facts_html = f'''<div class="serie-facts">
     <h2>Kort om {escape(family_name)}</h2>
@@ -8943,6 +8974,28 @@ def render_family_page(
         f'<div class="serie-insight-row">{price_insight_html}{facts_html}</div>'
         if price_insight_html and facts_html else price_insight_html + facts_html
     )
+
+    felles_html = ""
+    if fact_rows:
+        tiles = "".join(
+            f'''<div class="serie-fact-tile">
+      <div class="serie-fact-tile-icon" aria-hidden="true">{icon}</div>
+      <div class="serie-fact-tile-value">{escape(main)}</div>
+      <div class="serie-fact-tile-label">{escape(sub) if sub else ''}</div>
+    </div>'''
+            for icon, main, sub in fact_rows
+        )
+        # Ingen lenke til "vår guide" -- vi har ingen egen UV-beskyttelse-guide
+        # i GUIDE_CONTENT ennå, og finner ikke opp en lenke som ikke finnes.
+        uv_note = (
+            '<p>Kontaktlinser med UV-filter erstatter ikke solbriller.</p>'
+            if len(uv_values) == 1 else ""
+        )
+        felles_html = f'''<div class="serie-facts-tiles">
+    <h2>Felles for hele serien</h2>
+    <div class="serie-facts-tiles-grid">{tiles}</div>
+    {f'<div class="serie-fact-note">{TAG_ICON_SVG}{uv_note}</div>' if uv_note else ''}
+  </div>'''
 
     chain_html = ""
     display_name_for_title = family_name
@@ -9105,8 +9158,35 @@ def render_family_page(
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
-{GUIDE_TILE_STYLE}
-.guide-grid {{ margin-top: 14px; }}
+/* "Felles for hele serien" (samme fakta som "Kort om X" ved Prisinnsikt,
+   men i et kompakt ikon-rutenett Kai spesifikt ba om 2026-09-27 -- de to
+   boksene dekker samme fakta med vilje, siden de har ulik rolle: én er
+   følgesvenn til Prisinnsikt, den andre til Relevante guider lenger ned.) */
+.serie-bottom-row {{ display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }}
+@media (min-width: 900px) {{ .serie-bottom-row {{ grid-template-columns: 1fr 1fr; align-items: start; }} }}
+.serie-facts-tiles {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }}
+.serie-facts-tiles h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.serie-facts-tiles-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }}
+.serie-fact-tile {{ text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }}
+.serie-fact-tile-icon {{ width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }}
+.serie-fact-tile-icon svg {{ width: 18px; height: 18px; }}
+.serie-fact-tile-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--ink); line-height: 1.25; }}
+.serie-fact-tile-label {{ font-size: 0.72rem; color: var(--muted); margin-top: 2px; }}
+.serie-fact-note {{ display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }}
+.serie-fact-note svg {{ flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; }}
+/* "Relevante guider" -- bildekort (var ren ikon-kort-rutenett, se
+   kommentaren i Python-koden over). */
+.guide-photo-grid {{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }}
+@media (min-width: 640px) {{ .guide-photo-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+@media (min-width: 900px) {{ .guide-photo-grid {{ grid-template-columns: 1fr; }} }}
+@media (min-width: 1200px) {{ .guide-photo-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+.guide-photo-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
+.guide-photo-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
+.guide-photo-card-image {{ aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }}
+.guide-photo-card-image img {{ width: 100%; height: 100%; object-fit: cover; }}
+.guide-photo-card-body {{ padding: 12px 14px 14px; }}
+.guide-photo-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }}
+.guide-photo-card-link {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }}
 </style>
 </head>
 <body>
@@ -9132,14 +9212,17 @@ def render_family_page(
   {insight_row_html}
   {ai_summary_html}
 
+  {all_products_html}
+
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
   {comparison_table}
   </div>
 
-  {all_products_html}
-
-  {guides_html}
+  <div class="serie-bottom-row">
+    {felles_html}
+    {guides_html}
+  </div>
   {family_faq_html}
 
   <p class="disclosure">

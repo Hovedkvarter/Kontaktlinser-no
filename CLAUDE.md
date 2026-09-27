@@ -1986,3 +1986,19 @@ prinsipp som feedback-verify-before-citing i minnet):
   legitim UX-mekanisme i stedet for skjult tekst. Erstatter samtidig den gamle
   "💡 Tips: billigste butikk kan endre seg..."-linja, som ikke lenger trengs når
   antallsraden selv viser eksemplet.
+
+## Serie-siden: rekkefolge, bildekort for guider, Felles for hele serien (2026-09-27)
+
+- "Alle produkter i X-serien" flyttet OVER "Sammenlign variantene" (var under).
+- "Relevante guider" er na bildekort i stedet for rene ikon-kort -- gjenbruker
+  kategorikortenes egne pastellbilder (`static/categories/bg-*`, samme filer som
+  "Finn din variant") siden guidene ikke har egne foto i datamodellen. Bildet
+  matcher IKKE nodvendigvis guidens eget tema (Kai bekreftet dette er greit,
+  2026-09-27: "ikke nodvendigvis samme tema og tekst, men ser mye bedre ut") --
+  koblet der det er naturlig (astigmatisme-guide -> toriske-bildet) og ellers en
+  fornuftig standardvariant.
+- Ny "Felles for hele serien"-seksjon (ikon-rutenett, ved siden av Relevante
+  guider nederst) -- samme `fact_rows`-datagrunnlag som "Kort om X" (ved
+  Prisinnsikt lenger opp), na delt mellom TO rendringer (sjekkliste og
+  ikon-rutenett) med ulik visuell rolle pa samme side -- bevisst overlapp,
+  ikke en feil.
