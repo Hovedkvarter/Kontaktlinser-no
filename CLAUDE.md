@@ -3249,3 +3249,32 @@ fraktbryter-boks fungerer (klikk verifisert -- bryter glir, blå farge,
 vinnerkort/prisliste sorterer om korrekt), "Pris ved flere esker" står nå
 som egen kortboks rett under prislista. Full sveip av alle 411 sider,
 null duplikate `ship-chip`-id-er, ingen Traceback/NameError.
+
+## Produktsiden: antallspiller + fraktboks på ÉN linje på mobil (2026-09-27, samme dag)
+
+Kai, med skjermdump: "Da er det bare Å få denne rekken på plass.. på en
+linje på mobil" -- pillene og fraktboksen sto fortsatt på hver sin rad.
+
+- **Omstrukturert**: "Antall esker"-tittelen flyttet til sin egen linje
+  ALENE (var tidligere i samme rad som fraktboksen -- `.qty-box-head`
+  fjernet), og en ny `.qty-box-row` holder nå BARE pillene + fraktboksen
+  sammen, `flex-wrap: nowrap` uansett bredde.
+- **Kompakte piller, KUN på produktsiden** (`.wrap-product .qty-pill`):
+  boks-ikonet og enhetsteksten ("eske"/"esker") under tallet er skjult --
+  pillene viser nå bare selve tallet, akkurat som mockupen. Linsevæske-/
+  private label-sidene beholder de fulle, større pillene uendret (egen
+  rad der uansett, ingen fraktboks å dele plass med).
+  Custom "Eget antall"-pillen (kun synlig ≥640px) mister også sitt
+  blyant-ikon her, men selve "Eget"-teksten (ikke pakket i en `<span>`,
+  så den treffes ikke av skjule-regelen) er fortsatt synlig og
+  forståelig alene.
+- **Under 480px** strammet fraktboksen ytterligere: undertekst ("Vis
+  totalpris inkl. frakt") skjules helt, mindre padding, mindre
+  vippebryter -- nødvendig for at 5 tallpiller + fraktboks faktisk skal
+  få plass på én linje helt ned til 320px.
+
+Testet: 320/375/700px -- `.qty-box-row` sin `scrollWidth` matcher
+`clientWidth` eksakt på alle tre (ingen overflow), fraktbryteren fungerer
+fortsatt (klikk verifisert, vinnerkort/prisliste sorterer om), "Eget
+antall"-pillen ser grei ut ved 700px. Full sveip, ingen
+Traceback/NameError.
