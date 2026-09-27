@@ -385,6 +385,72 @@ a { color: inherit; }
 .price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
 .price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
+/* Price Intelligence (Product Gold Standard v1, 2026-09-27, flyttet hit
+   2026-09-28 for gjenbruk på ALLE produkttyper -- Kai: "gjelder alle
+   produkter på domenet kontaktlinser.no ... alle kontaktlinser, egne
+   merkenavn kontaktlinser, og alle Tilbehør produkter", inkl.
+   linsevæske/øyedråper som deler samme rendringsfunksjon som Tilbehør).
+   Var opprinnelig i render_product_page() sin egen lokale <style>-blokk
+   -- flyttet til SHARED_STYLE (global) slik at render_solution_
+   product_page()/render_private_label_page() også får den, uten
+   duplisering. Mobil (regel 27): kompakt, stablet. Desktop (regel 28,
+   >=860px): 4 toppmetrikker på én rad, mer luft -- men fortsatt
+   restrained, "skal fortsatt føles som Kontaktlinser.no", ikke et tett
+   analytics-dashboard. */
+.price-intel { margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+.price-intel-head h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }
+.price-intel-head p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }
+.price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); background: var(--mist); border-radius: 10px; padding: 8px 12px; }
+.price-intel-coverage svg { width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }
+.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }
+.price-intel-period-tab { font-size: 0.78rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }
+.price-intel-period-tab.active { background: var(--ink); border-color: var(--ink); color: white; }
+.price-intel-period-tab:disabled { opacity: 0.4; cursor: not-allowed; }
+.price-intel-panel { display: none; margin-top: 16px; }
+.price-intel-panel.active { display: block; }
+.price-intel-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.price-intel-metric { background: var(--mist); border-radius: 10px; padding: 10px 12px; }
+.price-intel-metric strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--ink); }
+.price-intel-metric span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-intel-metric-now strong { color: var(--mint); }
+.price-intel-status { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); }
+.price-intel-status svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--blue); }
+.price-intel-status span strong { display: block; font-size: 0.82rem; margin-bottom: 1px; }
+.price-intel-status-down { background: var(--mint-tint); }
+.price-intel-status-down svg { color: var(--mint); }
+.price-intel-status-up { background: #FDECEC; }
+.price-intel-status-up svg { color: #D64545; }
+.price-intel-chart { margin-top: 14px; }
+.price-intel-chart .price-history-chart { padding: 8px 0; }
+.price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
+.price-intel-summary { display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }
+.price-intel-summary strong { display: block; margin-bottom: 2px; }
+.price-intel-summary-icon { flex-shrink: 0; }
+.price-intel-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.price-intel-card { background: var(--mist); border-radius: 12px; padding: 16px 18px; flex: 1; }
+.price-intel-card h3 { display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 12px; color: var(--ink); }
+.price-intel-card h3 svg { width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }
+.price-intel-card-row { display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.price-intel-card-row:last-of-type { border-bottom: none; }
+.price-intel-card-row strong { font-family: 'IBM Plex Mono', monospace; }
+.price-intel-card-row-highlight { margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border); border-bottom: none; }
+.price-intel-card-row-highlight strong { color: var(--mint); font-size: 1rem; }
+.price-intel-card-note { font-size: 0.76rem; color: var(--muted); margin: 10px 0 0; line-height: 1.5; }
+.price-intel-winners-list { display: flex; flex-direction: column; gap: 8px; }
+.price-intel-winner-row { display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px; font-size: 0.82rem; }
+.price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.price-intel-winner-bar { display: block; height: 8px; background: white; border-radius: 999px; overflow: hidden; }
+.price-intel-winner-bar span { display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }
+.price-intel-winner-days { color: var(--muted); white-space: nowrap; }
+@media (min-width: 860px) {
+  .price-intel { padding: 28px 32px; }
+  .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .price-intel-head p { max-width: 520px; }
+  .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
+  .price-intel-metrics { grid-template-columns: repeat(4, 1fr) 1.3fr; }
+  .price-intel-status { grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }
+  .price-intel-cards { flex-direction: row; }
+}
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -4801,69 +4867,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .product-ai-summary.fallback {{ background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }}
-/* Price Intelligence (Product Gold Standard v1, 2026-09-27) -- erstatter
-   den gamle enkle "Prisutvikling"-grafen. Mobil (regel 27): kompakt,
-   stablet. Desktop (regel 28, >=860px): 4 toppmetrikker på én rad, mer
-   luft -- men fortsatt restrained, "skal fortsatt føles som
-   Kontaktlinser.no", ikke et tett analytics-dashboard. */
-.price-intel {{ margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px; }}
-.price-intel-head h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }}
-.price-intel-head p {{ font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.5; }}
-.price-intel-coverage {{ display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.8rem; color: var(--muted); background: var(--mist); border-radius: 10px; padding: 8px 12px; }}
-.price-intel-coverage svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
-.price-intel-period-tabs {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 0; }}
-.price-intel-period-tab {{ font-size: 0.78rem; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }}
-.price-intel-period-tab.active {{ background: var(--ink); border-color: var(--ink); color: white; }}
-.price-intel-period-tab:disabled {{ opacity: 0.4; cursor: not-allowed; }}
-.price-intel-panel {{ display: none; margin-top: 16px; }}
-.price-intel-panel.active {{ display: block; }}
-.price-intel-metrics {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }}
-.price-intel-metric {{ background: var(--mist); border-radius: 10px; padding: 10px 12px; }}
-.price-intel-metric strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.05rem; color: var(--ink); }}
-.price-intel-metric span {{ display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
-.price-intel-metric-now strong {{ color: var(--mint); }}
-.price-intel-status {{ grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); }}
-.price-intel-status svg {{ width: 20px; height: 20px; flex-shrink: 0; color: var(--blue); }}
-.price-intel-status span strong {{ display: block; font-size: 0.82rem; margin-bottom: 1px; }}
-.price-intel-status-down {{ background: var(--mint-tint); }}
-.price-intel-status-down svg {{ color: var(--mint); }}
-.price-intel-status-up {{ background: #FDECEC; }}
-.price-intel-status-up svg {{ color: #D64545; }}
-.price-intel-chart {{ margin-top: 14px; }}
-.price-intel-chart .price-history-chart {{ padding: 8px 0; }}
-.price-intel-hit {{ fill: transparent; stroke: none; cursor: pointer; }}
-.price-intel-summary {{ display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }}
-.price-intel-summary strong {{ display: block; margin-bottom: 2px; }}
-.price-intel-summary-icon {{ flex-shrink: 0; }}
-/* "Prisforskjell mellom butikkene" + "Prisvinner over tid" (Price
-   Intelligence steg 2, 2026-09-28) -- stables på mobil, side om side
-   på desktop (regel 27/28). Ikke periode-avhengige, ligger derfor
-   UTENFOR periode-fanene, kun én gang. */
-.price-intel-cards {{ display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }}
-.price-intel-card {{ background: var(--mist); border-radius: 12px; padding: 16px 18px; flex: 1; }}
-.price-intel-card h3 {{ display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 12px; color: var(--ink); }}
-.price-intel-card h3 svg {{ width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }}
-.price-intel-card-row {{ display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
-.price-intel-card-row:last-of-type {{ border-bottom: none; }}
-.price-intel-card-row strong {{ font-family: 'IBM Plex Mono', monospace; }}
-.price-intel-card-row-highlight {{ margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border); border-bottom: none; }}
-.price-intel-card-row-highlight strong {{ color: var(--mint); font-size: 1rem; }}
-.price-intel-card-note {{ font-size: 0.76rem; color: var(--muted); margin: 10px 0 0; line-height: 1.5; }}
-.price-intel-winners-list {{ display: flex; flex-direction: column; gap: 8px; }}
-.price-intel-winner-row {{ display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px; font-size: 0.82rem; }}
-.price-intel-winner-store {{ font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-.price-intel-winner-bar {{ display: block; height: 8px; background: white; border-radius: 999px; overflow: hidden; }}
-.price-intel-winner-bar span {{ display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }}
-.price-intel-winner-days {{ color: var(--muted); white-space: nowrap; }}
-@media (min-width: 860px) {{
-  .price-intel {{ padding: 28px 32px; }}
-  .price-intel-head {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }}
-  .price-intel-head p {{ max-width: 520px; }}
-  .price-intel-coverage {{ margin-top: 0; flex-shrink: 0; }}
-  .price-intel-metrics {{ grid-template-columns: repeat(4, 1fr) 1.3fr; }}
-  .price-intel-status {{ grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }}
-  .price-intel-cards {{ flex-direction: row; }}
-}}
 {PRICE_LIST_STYLE}</style>
 </head>
 <body>
@@ -4894,6 +4897,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>
   {offers_block}
   <noscript><style>.offers-show-more{{display:none}}.offers.is-collapsed .offers-list .offer-card{{display:flex}}</style></noscript>
+  {price_history_html}
   {qty_multi_html}
   {disclosure_html}
   {pack_size_callout}
@@ -4905,7 +4909,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <h2>Om {escape(product["name"])}</h2>
     <p>{escape(long_description)}</p>
     {badges_html}
-    {price_history_html}
     {aliases_html}
     {kz_specs_html}
     {kz_faq_html}
@@ -10120,7 +10123,7 @@ def _larger_feed_image(url: str) -> str:
     return url
 
 
-def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None) -> str:
+def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None, price_history: list[dict] | None = None) -> str:
     """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
     kontaktlinser (size_ml/solution_type/solution_category i stedet for
     category_slug/specs), men samme pris-/tilbudslogikk (reconcile_product,
@@ -10160,6 +10163,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     unit_plural = product.get("unit_plural", "flasker")
     size_unit = product.get("size_unit", "ml")
     winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts)
+    # Price Intelligence -- delt med kontaktlinse-produktsiden (Kai,
+    # 2026-09-28: "gjelder alle produkter på domenet kontaktlinser.no"),
+    # samme funksjon, samme CSS (nå i SHARED_STYLE, se der).
+    price_history_html = render_price_intelligence(price_history or [], product["name"], unit_singular, offers=offers)
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
     if size_ml and ex_best:
@@ -10329,6 +10336,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
   {qty_html}
   {safety_notice}
   {offers_block}
+  {price_history_html}
   {PRICE_DISCLOSURE_HTML}
   <p class="disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
@@ -10651,7 +10659,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 </html>"""
 
 
-def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None, clickouts: dict | None = None) -> str:
+def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None, clickouts: dict | None = None, price_history: list[dict] | None = None) -> str:
     """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget
     merkenavn (f.eks. Synsam sin "EyeQ 24" er egentlig Biofinity fra
     CooperVision). private_labels.json holder KUN høy-sikkerhet-koblinger,
@@ -10701,6 +10709,12 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     category_label = categories[real_product["category_slug"]]["label"]
 
     winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts)
+    # Price Intelligence -- delt med kontaktlinse-/linsevæske-produktsidene
+    # (Kai, 2026-09-28: "gjelder alle produkter på domenet
+    # kontaktlinser.no ... egne merkenavn kontaktlinser"). Historikken er
+    # lagret på real_product sin id (samme fysiske vare, se docstring),
+    # ikke på selve private label-etiketten.
+    price_history_html = render_price_intelligence(price_history or [], real_product["name"], offers=offers)
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
@@ -10888,6 +10902,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
   </div>
   {qty_html}
   {offers_block}
+  {price_history_html}
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
   {f'<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/"><div class="pack-size-callout-text">Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>' if family else ''}
 

@@ -3852,3 +3852,78 @@ produktsidens hero/quantity-seksjon uendret. Merke-siden (`/merke/
 acuvue/`) bekreftet å fortsatt bruke den GAMLE, urørte grafen
 (`.price-insight`/`.price-history-chart`, ikke `.price-intel`) --
 null krysspåvirkning.
+
+## Price Intelligence: rullet ut til ALLE produkttyper + flyttet oppover i rekkefølgen (2026-09-28)
+
+Kai, eksplisitt scope-avklaring: "Produktsider design og setup,
+statistikker og alt, gjelder alle produkter på domenet
+kontaktlinser.no. d.v.s. alle kontaktlinser, egne merkenavn
+kontaktlinser, og alle Tilbehør produkter." Oppfulgt med et bevisst
+valg (via spørsmål, "Start nå"): linsevæske/øyedråper skal OGSÅ ha
+det nye designet, siden de uansett deler samme rendrings-funksjon som
+Tilbehør (`render_solution_product_page()`, atskilt kun av
+`solution_category`-feltet -- umulig å gi Tilbehør nytt design uten
+enten å påvirke linsevæske/øyedråper også, eller bygge en betinget
+gren. Kai valgte "alle tre skal ha nytt design" -- ingen betinget
+gren nødvendig).
+
+**Rekkefølge-fiks på selve kontaktlinse-produktsiden** (gjelder først,
+før resten): Kai: "Prisutvikling skal komme rett under/etter
+produktene på både mobil og desktop, da det er vesentlig." Modulen lå
+tidligere langt nede i kunnskapssonen (etter produktbeskrivelse,
+badges), flyttet nå til å stå RETT ETTER `{offers_block}` (prislista)
+-- før "Pris ved flere esker", metodikk-avsnittet og
+pakningsstørrelse-/serie-lenkene. Ren HTML-kildeorden-endring, samme
+CSS/JS uendret, gjelder derfor automatisk begge skjermbredder.
+
+**Retrofit -- Price Intelligence-modulen nå på alle tre produkttyper**:
+`render_solution_product_page()` (linsevæske/øyedråper/Tilbehør, 60
+sider) og `render_private_label_page()` (egne merkenavn-kontaktlinser,
+64 sider) hadde IKKE noen prisutviklingsgraf i det hele tatt fra før
+-- ren tillegg, ingen eksisterende funksjonalitet endret eller
+fjernet. Begge kaller nå `render_price_intelligence()` (samme
+funksjon som kontaktlinse-produktsiden), rett etter sin egen
+`{offers_block}`, med riktig `unit_singular` ("flaske" for
+linsevæske/øyedråper) og riktig historikk-nøkkel (private label
+gjenbruker `real_product["id"]`, siden det er nøyaktig samme fysiske
+vare/historikk som hovedproduktsiden allerede sporer -- IKKE en egen
+serie). `generate_pages.py` sine kallesteder oppdatert til å sende inn
+`price_history.get(product["id"], [])` / `price_history.get(real_product["id"], [])`.
+
+**CSS flyttet fra lokal til delt** (nødvendig forutsetning for
+retrofiten): `.price-intel*`-reglene lå i `render_product_page()` sin
+EGEN `<style>`-blokk (ikke delt) -- flyttet til `SHARED_STYLE`
+(global, rett ved siden av den allerede-delte `.price-history-*`-
+grafstilen den bygger videre på), slik at de to andre funksjonene får
+riktig styling uten duplisert CSS. Verifisert at `render_product_page()`
+selv ser identisk ut etter flyttingen (kun hvor reglene er definert
+endret, ikke hva de gjør).
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Rekkefølge bekreftet i DOM på kontaktlinse-
+produktsiden: `.price-intel` kommer nå rett etter `.offers`, før
+`.qty-multi`. Linsevæske-siden (ReNu Multi-Purpose 60 ml, 45 dagers
+historikk) -- full modul rendret korrekt med riktig CSS-styling
+(hvit bakgrunn, 16px radius, mint "Pris nå"-farge -- beviser SHARED_
+STYLE-flyttingen fungerer), riktig "flaske"-enhet gjennom hele
+modulen inkl. "Basert på priser uten frakt, for 1 flaske." Private
+label-siden (Ascend Active 1 Day) -- `.price-intel` bekreftet rett
+etter `.offers` i DOM-rekkefølgen. Tilbehør-siden (SWATI Lens Case &
+Tweezers) -- KORREKT usynlig modul (dette spesifikke produktet har
+under 7 dagers historikk ennå, kun 2 Tilbehør-produkter finnes i det
+hele tatt akkurat nå), ingen krasj, ingen overflow. Desktop (1440px)
+sjekket på linsevæske-siden -- 5-kolonners toppmetrikk-grid + begge
+nye kort (Prisforskjell/Prisvinner) rendret identisk med kontaktlinse-
+produktsiden. Merke-siden (`/merke/acuvue/`) sin GAMLE graf
+(`.price-history-chart`, delt av `render_family_price_insight()`)
+bekreftet fortsatt riktig stylet etter CSS-flyttingen -- ingen
+regresjon der.
+
+**IKKE gjort ennå** (neste, større steg): selve hero-/quantity-/
+frakt-bryter-ombyggingen (Mobile + Desktop Gold Standard v1) er
+FORTSATT KUN på kontaktlinse-produktsiden. `render_solution_
+product_page()` og `render_private_label_page()` bruker fortsatt sin
+opprinnelige, eldre hero-layout (`.hero-card-solution` m.fl.) og
+gamle antallsvelger/frakt-plassering. Dette er en betydelig større
+retrofit (samme skala som selve Gold-Standard-arbeidet var i dag) og
+tas i egne, separate runder.
