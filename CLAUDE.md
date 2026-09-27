@@ -2859,3 +2859,86 @@ stikkprøver, ekte antalls-/fraktbytte verifisert i browser-panelet (både
 prislinje, spar-prosent OG "Laveste pris"/"Lavest totalpris"-teksten
 oppdaterer riktig), desktop-gridet (≥860px) uendret og fungerer med det
 nye kortinnholdet.
+
+## Produktsiden: "Product Mobile Gold Standard v1" -- Steg 2: layout, fraktbryter, prisliste, kunnskapssone (2026-09-27, samme dag)
+
+Kai: "gjør deg ferdig, så ser vi på det" + eksplisitt bekreftelse midt i
+arbeidet: "du gjør først mobil produktsiden ferdig nå, korrekt? ikke
+desktop? [...] Men la oss fokusere på mobil produktside." Steg 2 fullfører
+resten av briefen for `render_product_page()` (KUN kontaktlinse-
+produktsiden -- linsevæske/øyedråper og private label-alias-siden er
+bevisst urørt denne runden, se Steg 1).
+
+- **Hero omstrukturert**: `.hero-copy` er nå BARE kicker+H1+
+  "Sammenlign priser"-undertittel (fjernet den lange produktbeskrivelsen
+  og badges fra kjøpssonen -- flyttet ned, se kunnskapssone). Nytt
+  `.hero-media-row` (bilde ~2/3, Winner Card ~1/3, `flex:2`/`flex:1`) på
+  mobil. På >=860px blir `.hero-media-row` `display:contents`, slik at
+  bildet og vinnerkortet igjen er DIREKTE grid-barn av `.hero-main` og
+  treffes av nøyaktig samme `grid-column`/`grid-row`-regler som før --
+  desktop-layouten er dermed helt uendret, kun mobil-grupperingen er ny.
+  Vinnerkortet fikk egne, MOBIL-SCOPEDE (`@media (max-width: 859px)`)
+  kompaktifiseringer (mindre padding/skrift/logo/spar-sirkel) siden den
+  smale ~1/3-kolonnen trengte det -- eksplisitt avgrenset til mobil, IKKE
+  en generell endring av `.winner-band-cta` (som ville lekket inn på
+  desktop-kortet via vanlig DOM-etterkommerskap, siden `display:contents`
+  ikke fjerner elementet fra treet, bare fra boks-generering).
+- **Fraktbryteren flyttet**: fra `render_price_list()` sin `.offers-head`
+  til `render_winner_widget()` sin `qty_box`, i en ny `.qty-box-head`-rad
+  ved siden av "Antall esker"-tittelen (endret fra "Hvor mange esker
+  trenger du?"). Ny `show_ship_chip`-parameter på `render_price_list()`
+  (standard `True`) holder de to andre kallerne (linsevæske/øyedråper,
+  private label-alias) helt uendret -- kun produktsiden sender
+  `show_ship_chip=False`. Samme `#ship-chip`-id, samme
+  document-nivå click-delegation i `_QTY_CALC_SCRIPT`, så flyttingen
+  krevde ingen JS-endring utover selve plasseringen.
+- **Prisliste**: ny dynamisk overskrift "Priser for `<span
+  id="offers-qty-label">`1 eske`</span>`" + "Sortert etter pris (uten
+  frakt)"/"Sortert etter totalpris" (`#offers-sort-label`), begge
+  oppdatert av `_QTY_CALC_SCRIPT` sin `render()`. Nye
+  `qty_unit_label`/`collapse_after`-parametre på `render_price_list()`
+  (begge `None` som standard -- samme bakoverkompatibilitets-mønster som
+  `show_ship_chip`). Kortene er nå i en egen `.offers-list`-wrapper
+  (universell endring, men trygg -- `.offers`/`.offer-card` hadde ingen
+  flex/grid-avhengighet til hverandre, ren blokk-stabling med
+  `margin-bottom` per kort, så et ekstra wrapper-nivå endrer ingenting
+  visuelt for de andre sidetypene). "Vis alle priser (X butikker)" (kun
+  produktsiden, `collapse_after=3`) skjuler resten med
+  `.offers.is-collapsed .offers-list .offer-card:nth-child(n+4)` -- dette
+  treffer alltid de 3 BILLIGSTE kortene selv etter at JS-en har sortert
+  om listen (appendChild flytter kortene fysisk i DOM-en ved
+  antalls-/fraktbytte, og nth-child telles på nåværende DOM-rekkefølge,
+  ikke en fast opprinnelig posisjon) -- testet eksplisitt: bytte til
+  "Pris inkludert frakt" mens listen er kollapset viser fortsatt riktig
+  de 3 billigste EFTER omsortering. Knappen fjernes helt (ikke bare
+  skjules) ved klikk, ingen re-kollaps-vei tilbake (samme ubetingede
+  "vis alt"-mønster som resten av siden).
+- **Kunnskapssone**: ny `_kz_accordion(summary, inner_html)`-hjelper
+  (generisk, gjenbrukbar) + en ny `.kz-break`-visuell overgang
+  ("ALT OM {produkt}", flankerende linjer). "Om {produkt}"-seksjonen
+  (kort fortalt + badges + prishistorikk-graf + aliaser) er IKKE en
+  accordion -- forblir alltid synlig, siden dette er kjerneinnhold, ikke
+  sekundær dybde. Tre accordions: "Produktspesifikasjoner",
+  "Vanlige spørsmål om {produkt}", "Kilder og dokumentasjon"
+  (metodikk + relaterte lenker slått sammen). FAQ-accordionen bruker en
+  NY `_render_faq_accordion_block()` (samme {question,answer}-inndata og
+  FAQPage-schema som `_render_faq_block()`, men med
+  `_faq_accordion_item()` -- samme per-spørsmål `<details>`-komponent
+  serie-/merke-sidene allerede bruker -- i stedet for en alltid-synlig
+  flat liste). `_render_faq_block()` selv er UENDRET og fortsatt brukt av
+  de to andre produktside-variantene. Alt innhold er fortsatt ekte,
+  server-rendret HTML uansett åpen/lukket tilstand (samme
+  Google-verifiserte `<details>`-mønster som resten av siden) -- ingen
+  data fjernet, kun omorganisert.
+- **`pack_size_callout`/`family_callout` flyttet FØR kunnskaps-bruddet**
+  (rett etter prisdisclosure-teksten) -- brief punkt 19-20 plasserer
+  "alternativ pakning" eksplisitt i kjøpssonen, ikke kunnskapssonen.
+
+Testet: alle kontaktlinse-/linsevæske-/private label-sider bygger uten
+Traceback/NameError, gyldig JSON-LD (inkl. FAQPage-schema fra den nye
+accordion-funksjonen) på stikkprøver, "Vis alle priser" verifisert
+eksplisitt i browser-panelet (7 skjulte kort → alle synlige, knapp borte,
+kollaps følger riktig topp-3 etter fraktmodus-bytte), degraderer riktig
+ved 1 tilbud (vinnerkort men ingen antallsvelger, ingen "vis
+alle"-knapp), desktop (1100px) uendret og fungerer med ny undertittel +
+nytt vinnerkort-innhold.

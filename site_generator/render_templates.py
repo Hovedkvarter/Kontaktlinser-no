@@ -2917,8 +2917,20 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
         })
     calc_offers_json = json.dumps(calc_offers, ensure_ascii=False).replace("</", "<\\/")
 
+    # Frakt-bryteren flyttet inn hit, ved siden av antalls-tittelen
+    # (Product Mobile Gold Standard v1, 2026-09-27 -- Kai: "Pris med
+    # frakt"-bryteren skal stå til høyre for quantity-selector"). Var
+    # tidligere i render_price_list() sin .offers-head; ÉN #ship-chip
+    # totalt fortsatt (fjernet derfra, se render_price_list), samme id,
+    # samme click-delegation i _QTY_CALC_SCRIPT (document-nivå, så
+    # flyttingen krever ingen JS-endring).
+    ship_chip = ('<button type="button" class="ship-chip" id="ship-chip" aria-pressed="false">'
+                 '<span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>')
     qty_box = f"""<div class="qty-box">
-    <div class="qty-box-title">Hvor mange {escape(unit_plural)} trenger du?</div>
+    <div class="qty-box-head">
+      <div class="qty-box-title">Antall {escape(unit_plural)}</div>
+      {ship_chip}
+    </div>
     <div class="qty-pills" id="qty-pills">{pills}</div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall {escape(unit_plural)}">
@@ -2947,6 +2959,18 @@ def render_winner_widget(best: dict, offers: list[dict], product_name: str | Non
 PRICE_LIST_STYLE = """
 .offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
 .offers-head h2 { margin: 0; }
+.offers-sort-label { font-size: 0.78rem; color: var(--muted); }
+/* "Vis alle priser (X butikker)" (Product Mobile Gold Standard v1,
+   2026-09-27) -- .offer-card:nth-child(n+4) treffer alltid de RIKTIGE
+   kortene selv etter at _QTY_CALC_SCRIPT sin render() har sortert om
+   listen (appendChild flytter kortene fysisk i DOM-en), siden nth-child
+   telles på nåværende DOM-rekkefølge, ikke en fast opprinnelig posisjon --
+   de 3 første er alltid de 3 billigste i aktivt prismodus. .offers-list
+   er en EGEN wrapper (ikke .offers selv) slik at nth-child teller kun
+   .offer-card-elementer, ikke .offers-head/knappen ved siden av. */
+.offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: none; }
+.offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
+.offers-show-more:hover { border-color: var(--blue); }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
 .ship-chip:hover { border-color: var(--blue); }
 .ship-chip:focus-visible { outline: 3px solid var(--blue-tint); outline-offset: 1px; border-color: var(--blue); }
@@ -3123,7 +3147,12 @@ _QTY_CALC_SCRIPT = r"""<script>
       winnerLink.setAttribute('data-affiliate', best.o.rel.indexOf('sponsored') !== -1 ? '1' : '0');
     }
 
-    var offersList = document.querySelector('.offers');
+    var qtyLabelEl = document.getElementById('offers-qty-label');
+    if (qtyLabelEl) qtyLabelEl.textContent = qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
+    var sortLabelEl = document.getElementById('offers-sort-label');
+    if (sortLabelEl) sortLabelEl.textContent = incl ? 'Sortert etter totalpris' : 'Sortert etter pris (uten frakt)';
+
+    var offersList = document.querySelector('.offers-list');
     var cards = offersList ? offersList.querySelectorAll('.offer-card') : [];
     if (!offersList || !cards.length) return;
     for (var i = 0; i < results.length; i++) {
@@ -3163,6 +3192,14 @@ _QTY_CALC_SCRIPT = r"""<script>
   }
   document.addEventListener('click', function (e) {
     if (e.target.closest && e.target.closest('#ship-chip')) setIncl(!state.incl, true);
+    var showMoreBtn = e.target.closest && e.target.closest('#offers-show-more');
+    if (showMoreBtn) {
+      var offersEl = document.querySelector('.offers');
+      if (offersEl) offersEl.classList.remove('is-collapsed');
+      showMoreBtn.remove();
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'offers_show_all' });
+    }
   });
 
   for (var i = 0; i < pills.length; i++) {
@@ -3211,10 +3248,18 @@ def order_by_product_price(offers: list[dict]) -> list[dict]:
 
 
 def render_price_list(offers: list[dict], product_name: str, product_id: str, clickouts: dict | None,
-                      title: str = "Sammenlign priser og butikker") -> tuple[str, dict | None]:
+                      title: str = "Sammenlign priser og butikker", show_ship_chip: bool = True,
+                      qty_unit_label: str | None = None, collapse_after: int | None = None) -> tuple[str, dict | None]:
     """Prislista med chippen "Pris inkludert frakt". Returnerer (html, ex_best) der ex_best er
     tilbudet med laveste PRODUKTPRIS (på lager) -- det toppknappen (render_winner_widget) skal
-    peke på. Statisk standardvisning = uten frakt, antall 1; JS (_QTY_CALC_SCRIPT) tar resten."""
+    peke på. Statisk standardvisning = uten frakt, antall 1; JS (_QTY_CALC_SCRIPT) tar resten.
+
+    qty_unit_label/collapse_after: kun brukt av produktsiden (Product Mobile
+    Gold Standard v1, 2026-09-27) -- qty_unit_label bytter overskriften til
+    en dynamisk "Priser for 1 eske" (+ sorteringsetikett) i stedet for
+    `title`, og collapse_after (f.eks. 3) skjuler resten av kortene bak en
+    "Vis alle priser (X butikker)"-knapp. Begge er None/av som standard,
+    så linsevæske-/øyedråpe- og private label-alias-sidene er uendret."""
     ordered = order_by_product_price(offers)
     ex_best = next((o for o in ordered if o["in_stock"]), None)
     total_best = next((o for o in offers if o["is_lowest"]), None)
@@ -3229,16 +3274,34 @@ def render_price_list(offers: list[dict], product_name: str, product_id: str, cl
         render_offer_card(o, o["retailer"], product_name, product_id, clickouts, is_winner=(o is ex_best), tags_html=tags(o))
         for o in ordered
     )
+    # show_ship_chip=False på produktsiden (Product Mobile Gold Standard v1,
+    # 2026-09-27) -- bryteren flyttet til qty_box i render_winner_widget,
+    # ved siden av antalls-tittelen. Standard er fortsatt True, så
+    # linsevæske-/øyedråpe- og private label-alias-sidene (som ikke er
+    # restrukturert i denne runden) beholder chippen akkurat som før.
     chip = (
         '<button type="button" class="ship-chip" id="ship-chip" aria-pressed="false">'
         '<span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>'
-    ) if ordered else ""
-    html = f"""<div class="offers" id="tilbud">
+    ) if (ordered and show_ship_chip) else ""
+    header_html = (
+        f'<h2>Priser for <span id="offers-qty-label">{escape(qty_unit_label)}</span></h2>'
+        f'<span class="offers-sort-label" id="offers-sort-label">Sortert etter pris (uten frakt)</span>'
+        if qty_unit_label else f'<h2>{escape(title)}</h2>'
+    )
+    n_in_stock = len([o for o in ordered if o["in_stock"]])
+    collapse = collapse_after is not None and n_in_stock > collapse_after
+    show_more_html = (
+        f'<button type="button" class="offers-show-more" id="offers-show-more">'
+        f'Vis alle priser ({n_in_stock} {"butikk" if n_in_stock == 1 else "butikker"})</button>'
+        if collapse else ""
+    )
+    html = f"""<div class="offers{' is-collapsed' if collapse else ''}" id="tilbud">
     <div class="offers-head">
-      <h2>{escape(title)}</h2>
+      {header_html}
       {chip}
     </div>
-    {cards}
+    <div class="offers-list">{cards}</div>
+    {show_more_html}
   </div>"""
     return html, ex_best
 
@@ -3469,6 +3532,22 @@ def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dic
 </div>'''
 
 
+def _kz_accordion(summary: str, inner_html: str, kz_id: str | None = None) -> str:
+    """Generisk kollapset seksjon for produktsidens "kunnskapssone"
+    (Product Mobile Gold Standard v1, 2026-09-27) -- ekte, server-rendret
+    <details>/<summary> (samme Google-verifiserte mønster som
+    render_winner_widget() sin "Pris ved flere esker"-rad), ikke
+    CSS-skjult tekst. Returnerer "" hvis inner_html er tom, slik at
+    kallerne kan sende inn betinget bygget HTML uten egne if-sjekker."""
+    if not inner_html:
+        return ""
+    id_attr = f' id="{escape(kz_id)}"' if kz_id else ""
+    return f'''<details class="kz-accordion"{id_attr}>
+    <summary>{escape(summary)}<svg class="kz-accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <div class="kz-accordion-body">{inner_html}</div>
+  </details>'''
+
+
 def render_product_page(product: dict, categories: dict, products_by_id: dict | None = None, price_history: list[dict] | None = None, now: datetime | None = None, aliases: list[dict] | None = None, family: dict | None = None, clickouts: dict | None = None) -> str:
     now = now or datetime.now(timezone.utc)
     offers = reconcile_product(product["offers"], now)
@@ -3522,7 +3601,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
         else escape(product["brand_label"][:2].upper())
 
-    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts)
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=3)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -3721,7 +3800,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
                   "uten frakt og beregner totalpris basert på frakt og antallet esker du velger.",
     })
 
-    product_faq_html, product_faq_schema = _render_faq_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
+    product_faq_html, product_faq_schema = _render_faq_accordion_block(product_faq, f'Vanlige spørsmål om {product["name"]}')
 
     # "Relatert til X" -- kun ekte, entydige sider (søsken-pakninger, merke,
     # kategori, produsent), aldri en generisk lenkevegg av urelaterte merker
@@ -3749,6 +3828,14 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     disclosure_html = PRICE_DISCLOSURE_HTML
     methodology_html = METHODOLOGY_HTML
 
+    # Kunnskapssonen (Product Mobile Gold Standard v1, 2026-09-27): samme
+    # ekte innhold som før, bare gruppert bak <details>-accordions i stedet
+    # for alltid synlig -- se _kz_accordion()-docstringen. Ingen ny data,
+    # ingen fjernet informasjon, kun omorganisert under "kunnskaps-bruddet".
+    kz_specs_html = _kz_accordion("Produktspesifikasjoner", specs_html)
+    kz_faq_html = _kz_accordion(f'Vanlige spørsmål om {product["name"]}', product_faq_html)
+    kz_sources_html = _kz_accordion("Kilder og dokumentasjon", methodology_html + related_html)
+
     return f"""<!DOCTYPE html>
 <html lang="nb">
 <head>
@@ -3765,9 +3852,41 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 <style>{SHARED_STYLE}
 .hero-card {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }}
 .hero-card .hero-copy h1 {{ font-size: 1.6rem; }}
-.hero-main {{ display: flex; flex-direction: column; gap: 20px; }}
+.hero-subtitle {{ margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }}
+.hero-main {{ display: flex; flex-direction: column; gap: 16px; }}
+/* Product Mobile Gold Standard v1 (2026-09-27): produktbilde (~2/3) og
+   Winner Card (~1/3) side ved side på mobil -- bildet skal klart være
+   hovedpersonen visuelt, IKKE to like kolonner. .hero-media-row er en ren
+   mobil-gruppering; på >=860px blir den display:contents slik at bildet
+   og vinnerkortet igjen er DIREKTE grid-barn av .hero-main og treffes av
+   akkurat samme grid-column/-row-regler som før (uendret desktop-layout,
+   se Kai 2026-09-27: "du gjør først mobil produktsiden ferdig nå,
+   korrekt? ikke desktop?"). */
+.hero-media-row {{ display: flex; align-items: stretch; gap: 12px; }}
+.hero-media-row .hero-product-image {{ flex: 2 1 0; min-width: 0; margin: 0; }}
+.hero-media-row .winner-band {{ flex: 1 1 0; min-width: 0; margin: 0; }}
+@media (min-width: 640px) {{ .hero-media-row {{ gap: 16px; }} }}
+/* Vinnerkortet i den smale ~1/3-kolonnen: reduser padding/skrift/logo/
+   spar-sirkel FØR vi vurderer stacking (Kai sin brief, punkt 25) --
+   scoped til (max-width:859px) slik at desktopkortet IKKE berøres (viktig:
+   .hero-media-row blir display:contents på >=860px, men selektoren under
+   ville uansett fortsatt truffet desktop-kortet via DOM-etterkommerskap
+   uten denne media-grensen, siden display:contents ikke fjerner elementet
+   fra treet). */
+@media (max-width: 859px) {{
+  .hero-media-row .winner-band-cta {{ padding: 12px 10px; gap: 8px; }}
+  .hero-media-row .winner-band-cta .label {{ font-size: 0.72rem; letter-spacing: 0.02em; }}
+  .hero-media-row .winner-sub {{ font-size: 0.68rem; }}
+  .hero-media-row .winner-band-cta .retailer-logo {{ height: 20px; max-width: 92px; }}
+  .hero-media-row .winner-price-line {{ font-size: 0.72rem; line-height: 1.35; }}
+  .hero-media-row .winner-savings {{ width: 40px; height: 40px; }}
+  .hero-media-row .winner-savings-label {{ font-size: 0.44rem; }}
+  .hero-media-row .winner-savings-pct {{ font-size: 0.7rem; }}
+  .hero-media-row .winner-btn {{ font-size: 0.76rem; padding: 9px 8px; gap: 4px; }}
+}}
 @media (min-width: 860px) {{
   .hero-card {{ padding: 28px; }}
+  .hero-media-row {{ display: contents; }}
   /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
      høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
      (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
@@ -3798,6 +3917,22 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .hero-badges {{ display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }}
 .hero-badge {{ display: inline-flex; align-items: center; gap: 6px; background: white; border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px 6px 10px; font-size: 0.8rem; font-weight: 600; color: var(--blue); }}
 .hero-badge svg {{ width: 15px; height: 15px; flex-shrink: 0; }}
+/* "Kunnskaps-bruddet" (Product Mobile Gold Standard v1, 2026-09-27) --
+   den visuelle overgangen mellom kjøpssonen (alt over) og kunnskapssonen
+   (alt under): flankerende linjer rundt en liten, diskret etikett. */
+.kz-break {{ display: flex; align-items: center; gap: 12px; margin: 36px 0 20px; color: var(--muted); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }}
+.kz-break::before, .kz-break::after {{ content: ""; flex: 1; height: 1px; background: var(--border); }}
+.kz {{ display: flex; flex-direction: column; gap: 4px; }}
+.kz > h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }}
+.kz-accordion {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 4px 18px; margin: 10px 0; }}
+.kz-accordion summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 16px 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }}
+.kz-accordion summary::-webkit-details-marker {{ display: none; }}
+.kz-accordion-chevron {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--muted); transition: transform 0.15s; }}
+.kz-accordion[open] .kz-accordion-chevron {{ transform: rotate(180deg); }}
+.kz-accordion-body {{ padding-bottom: 16px; }}
+.kz-accordion-body .specs, .kz-accordion-body .methodology, .kz-accordion-body .related {{ margin-top: 0; }}
+.kz-accordion-body .specs h2, .kz-accordion-body .methodology h2, .kz-accordion-body .related h2 {{ display: none; }}
+.kz-accordion-body .faq-section .faq-accordion-item:first-child {{ border-top: none; }}
 .hero-card .product-ai-summary {{ background: var(--blue-tint); border-left: none; border-radius: 10px; margin: 16px 0 0; }}
 .aliases-note {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }}
 .aliases-note ul {{ margin: 8px 0; padding-left: 20px; }}
@@ -3855,28 +3990,35 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </p>
   <div class="hero-card">
     <div class="hero-main">
-      <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
       <div class="hero-copy">
         <div class="kicker">{escape(product["brand_label"])}</div>
         <h1>{escape(product["name"])}</h1>
-        <p>{escape(long_description)}</p>
-        {badges_html}
+        <p class="hero-subtitle">Sammenlign priser</p>
       </div>
-      {winner_html}
+      <div class="hero-media-row">
+        <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+        {winner_html}
+      </div>
       {ai_summary_html}
     </div>
   </div>
   {qty_html}
   {offers_block}
   {disclosure_html}
-  {price_history_html}
   {pack_size_callout}
   {family_callout}
-  {specs_html}
-  {aliases_html}
-  {product_faq_html}
-  {methodology_html}
-  {related_html}
+
+  <div class="kz-break"><span>Alt om {escape(product["name"])}</span></div>
+  <div class="kz">
+    <h2>Om {escape(product["name"])}</h2>
+    <p>{escape(long_description)}</p>
+    {badges_html}
+    {price_history_html}
+    {aliases_html}
+    {kz_specs_html}
+    {kz_faq_html}
+    {kz_sources_html}
+  </div>
 </div>
 {render_footer()}
 {CONSENT_BANNER_HTML}
@@ -7239,6 +7381,38 @@ def _render_faq_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") 
     )
     faq_html = f"""<div class="faq-section">
     <h2>{escape(heading)}</h2>
+    {items_html}
+  </div>"""
+    faq_entities = ",\n      ".join(
+        f'''{{
+        "@type": "Question",
+        "name": "{escape(item["question"])}",
+        "acceptedAnswer": {{"@type": "Answer", "text": "{escape(item["answer"])}"}}
+      }}'''
+        for item in faq
+    )
+    faq_schema = f"""<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+      {faq_entities}
+  ]
+}}</script>"""
+    return faq_html, faq_schema
+
+
+def _render_faq_accordion_block(faq: list[dict], heading: str = "Ofte stilte spørsmål") -> tuple[str, str]:
+    """Samme {question,answer}-inndata og samme FAQPage-schema som
+    _render_faq_block(), men visuelt en kollapset <details>-accordion per
+    spørsmål (_faq_accordion_item(), samme gjenbrukte komponent som
+    serie-/merke-sidene sin FAQ) i stedet for en alltid-synlig flat liste.
+    Brukt av render_product_page() sin nye "kunnskapssone"
+    (Product Mobile Gold Standard v1, 2026-09-27) -- KUN der, resten av
+    sidene som bruker _render_faq_block() er urørt."""
+    if not faq:
+        return "", ""
+    items_html = "\n".join(_faq_accordion_item(item) for item in faq)
+    faq_html = f"""<div class="faq-section">
     {items_html}
   </div>"""
     faq_entities = ",\n      ".join(
