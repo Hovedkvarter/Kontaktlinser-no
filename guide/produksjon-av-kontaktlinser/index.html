@@ -328,6 +328,9 @@ a { color: inherit; }
 .price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 
 .guide-byline { font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }
+.guide-hero-image { border-radius: 16px; overflow: hidden; margin-bottom: 4px; box-shadow: var(--card-shadow); }
+.guide-hero-image img { display: block; width: 100%; height: 190px; object-fit: cover; }
+@media (min-width: 640px) { .guide-hero-image img { height: 260px; } }
 </style>
 </head>
 <body>
@@ -725,6 +728,9 @@ a { color: inherit; }
 </script>
 <div class="wrap">
   <p class="breadcrumb"><a href="/">Hjem</a> › Slik produseres kontaktlinser</p>
+  <div class="guide-hero-image">
+    <img src="/static/guides/produksjon-av-kontaktlinser.webp" alt="" width="640" height="667" loading="eager" decoding="async">
+  </div>
   <div class="hero">
     <div class="hero-copy">
       <div class="kicker">Guide</div>
