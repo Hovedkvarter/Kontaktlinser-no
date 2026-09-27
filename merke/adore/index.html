@@ -487,8 +487,12 @@ a { color: inherit; }
   .brand-hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }
   .brand-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 }
-.brand-hero-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 14px 0 10px; }
+.brand-hero-subtitle { font-size: 0.98rem; font-weight: 600; color: var(--muted); margin: 2px 0 0; }
+.brand-hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }
+.brand-hero-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 0; }
 .brand-hero-cta:hover { opacity: 0.92; }
+.brand-hero-cta-secondary { background: white; color: var(--ink); border: 1px solid var(--border); }
+.brand-hero-cta-secondary:hover { opacity: 1; border-color: var(--blue); }
 /* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
    frittstaende kort rett under heroen, IKKE de tidligere sma pillene
    inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
@@ -497,8 +501,9 @@ a { color: inherit; }
 .brand-facts-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }
 .brand-facts-card-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .brand-facts-card-icon svg { width: 15px; height: 15px; }
-.brand-facts-card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); line-height: 1.25; }
-.brand-facts-card-label { font-size: 0.76rem; color: var(--muted); margin-top: 3px; line-height: 1.35; }
+.brand-facts-card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--ink); line-height: 1.15; }
+.brand-facts-card-label { font-size: 0.84rem; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.3; }
+.brand-facts-card-sub { font-size: 0.74rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
 .brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
 @media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
@@ -507,8 +512,8 @@ a { color: inherit; }
 .brand-sortiment-card-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
 .brand-sortiment-card-icon svg { width: 17px; height: 17px; }
 .brand-sortiment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
-.brand-sortiment-card-count { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }
-.brand-sortiment-card-label { font-weight: 600; font-size: 0.9rem; margin-top: 2px; }
+.brand-sortiment-card-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.brand-sortiment-card-count { font-weight: 600; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
 .brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
 .brand-sortiment-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }
 .brand-3090-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
@@ -523,7 +528,10 @@ a { color: inherit; }
 .brand-compare-row .brand-compare-card { margin-bottom: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
-.brand-material-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
+.brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
+.brand-material-card-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.brand-material-card-icon svg { width: 16px; height: 16px; }
+.brand-material-card-body { min-width: 0; }
 .brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
 .brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
 .brand-manufacturer-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
@@ -942,9 +950,12 @@ a { color: inherit; }
         <div class="hero-copy">
           <div class="kicker">Merke</div>
           <h1>ADORE</h1>
-          <p>ADORE er en linseserie fra Eyemed Technologies med fargede linser. Vi følger prisen på 2 produkter, sortert etter lavest pris.</p>
-          <a class="brand-hero-cta" href="#produkter">Se alle ADORE-produkter →</a>
-          <p style="margin-top:8px;"><a href="/produsent/eyemed-technologies/" style="font-size:0.9rem;color:var(--muted);">Produsert av Eyemed Technologies →</a></p>
+          <p class="brand-hero-subtitle">Kontaktlinser fra Eyemed Technologies</p>
+          <p>ADORE er en linseserie med fargede linser. Vi følger prisen på 2 produkter, sortert etter lavest pris.</p>
+          <div class="brand-hero-cta-row">
+            <a class="brand-hero-cta" href="#produkter">Se alle ADORE-produkter →</a>
+            <a class="brand-hero-cta brand-hero-cta-secondary" href="/produsent/eyemed-technologies/">Om Eyemed Technologies →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -957,16 +968,19 @@ a { color: inherit; }
   </div>
   <div class="brand-facts-row"><div class="brand-facts-card">
     <div class="brand-facts-card-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
-    <div class="brand-facts-card-value">2 produkter</div>
+    <div class="brand-facts-card-value">2</div>
+    <div class="brand-facts-card-label">produkter</div>
     
   </div><div class="brand-facts-card">
     <div class="brand-facts-card-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
-    <div class="brand-facts-card-value">Fargede linser</div>
-    
+    <div class="brand-facts-card-value">1</div>
+    <div class="brand-facts-card-label">linsetype</div>
+    <div class="brand-facts-card-sub">Fargede linser</div>
   </div><div class="brand-facts-card">
     <div class="brand-facts-card-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
-    <div class="brand-facts-card-value">2 butikker</div>
-    <div class="brand-facts-card-label">Med ADORE-produkter akkurat nå</div>
+    <div class="brand-facts-card-value">2</div>
+    <div class="brand-facts-card-label">butikker</div>
+    <div class="brand-facts-card-sub">Med ADORE-produkter akkurat nå</div>
   </div></div>
 
   
