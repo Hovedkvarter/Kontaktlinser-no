@@ -3293,3 +3293,51 @@ lagt til samme regel.
 
 Testet: 375px, tallet sentrert i alle fem piller + "Eget"-pillen, full
 sveip ingen Traceback/NameError.
+
+## Prislista: "Laveste pris"/"Lavest totalpris"-merket fjernet + frakttekst kan bryte til 2 linjer på mobil (2026-09-27, samme dag)
+
+Kai, med skjermdump fra live-siden på mobil: det grønne "LAVESTE
+PRIS"-merket (`.lowest-tag`) brøt internt til to linjer ("LAVESTE"/
+"PRIS") og dekket fraktteksten ved siden av, fordi `.offer-card` aldri
+hadde noen mobil-spesifikk layout -- samme flate rad-oppsett tvinges
+uansett skjermbredde. Kai vurderte deretter to ganger: først "ta bare
+vekk den grønne Laveste pris i tabellen. Den skal ikke være der lengre",
+så eksplisitt at det blå "Lavest totalpris"-merket (`.lowest-tag-total`,
+vist når "Pris inkludert frakt" er på) også skulle bort -- "Ingen slike"
+-- og til slutt at selve fraktteksten uansett skal kunne bryte til 1
+eller 2 linjer etter mobilskjermens bredde, uten å overlappe verken
+butikklogoen over eller prispillen ved siden av.
+
+- **Merket fjernet helt**, alle steder: `{lowest_tag}` tatt ut av
+  `render_offer_card()`s returnerte markup, den døde
+  `lowest_tag =`-linjen fjernet (parameteren `tags_html` er nå ubrukt
+  men beholdt i signaturen for å ikke måtte røre kallestedet),
+  `tags()`-hjelpefunksjonen (+ `total_best`) i `render_price_list()`
+  fjernet siden den kun bygde `tags_html`-strengen til det nå fjernede
+  merket, og re-sorterings-JS-en i `_QTY_CALC_SCRIPT` som satte inn/tok
+  ut `.lowest-tag`/`.lowest-tag-total`-spans på klientsiden ved
+  frakt-toggle (+ de nå ubrukte `bestTotal`/`byTotal`/`isTotalBest`) er
+  også fjernet. `.lowest-tag`/`.lowest-tag-total`-CSS-reglene slettet
+  (ingen HTML refererer dem lenger). Den grønne `is-lowest`-bakgrunnen/
+  kanten på selve kortet (satt via CSS-klasse, ikke tekstmerket) står
+  fortsatt -- det er kun tekstboblen som er borte.
+- **Mobil-layout lagt til** for `.offer-card`/`.offer-main`/
+  `.offer-price-col`/`.offer-shipping` i en ny
+  `@media (max-width: 699px)`-blokk (samme brytningspunkt som resten av
+  sida): kortet stables (`flex-wrap: wrap` + `flex-basis: 100%` på
+  begge de to underradene) slik at logo-raden og pris/frakt-raden aldri
+  er på samme rad, og `.offer-shipping` mister sin `white-space: nowrap`
+  (`white-space: normal; flex: 1; min-width: 0; align-items:
+  flex-start;`) slik at fraktteksten kan bryte til 1-2 linjer inni sin
+  egen plass ved siden av den fastbredde prispillen, i stedet for å
+  presses av den. Kun mobil -- desktop uendret.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError, ingen gjenværende `lowest-tag`-referanser i bygget.
+Live DOM-mål (ikke bare skjermbilde) på tre produktsider av ulik type
+(kontaktlinse, linsevæske, private label) ved 320/375px: `.offer-main`
+og `.offer-price-col` overlapper aldri, fraktteksten overlapper aldri
+prispillen. Testet eksplisitt med en lang fraktstreng ("Gratis frakt
+over 1 199 kr", trigges ved å bytte antall esker) -- bekreftet 2-linjers
+bryting (dobbel høyde mot 1-linjes "Gratis frakt") uten overlapp, og
+skjermbilde ved 375px bekrefter det visuelt.
