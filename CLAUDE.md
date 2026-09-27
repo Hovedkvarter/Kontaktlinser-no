@@ -2611,3 +2611,71 @@ går over halsen på modellen.. Disse kan bare flyte naturlig uten streker."
 
 Testet på nytt: mobil (375px) bryter pent til to rader uten noen
 gjenværende/hengende skillelinje, alle 30 sider bygger fortsatt rent.
+
+## Merke-siden: "Utforsk {merke}-seriene" bygget om til Series Portrait Cards (2026-09-27, samme dag)
+
+Kai sendte en detaljert 19-punkts brief (skrevet i jeg-form, direkte svar
+på "hvilken [boks] vil du ta først") + mockup-referanse (44.webp, samme
+bilde limt inn to ganger), og fulgte opp med en presisering midt i
+implementeringen om kortbredde. Kjernen: kortene skal føles som
+"premium editorial navigation", ikke en nettbutikk-grid, og ALDRI bli
+unaturlig brede bare fordi et merke har få serier.
+
+- **Seksjonsheader**: ny kicker "PRODUKTSERIER" (`.brand-section-kicker`),
+  ny lead-setning ("Se forskjeller, varianter, egenskaper og priser i
+  hver produktserie" -- erstatter "velg den som passer ditt behov", som
+  Kai eksplisitt ikke ville ha siden siden ikke skal antyde at vi avgjør
+  hva som medisinsk passer brukeren). Ny "Sammenlign seriene →"-lenke
+  øverst til høyre -- lenker til `#sammenlign` (ny id lagt på den
+  EKSISTERENDE "Slik skiller seriene seg"-tabellen lenger ned), vises kun
+  når ≥2 serier faktisk finnes å sammenligne.
+- **`_brand_family_summary()`-data gjenbrukt uendret** -- ingen ny
+  datakilde. Kortet viser: eyebrow (hovedtype, fargekodet likt
+  "Sortimentet forklart"-kortene: dagslinser=amber, månedslinser=sky,
+  fargede=mint, toriske=coral, multifokale=lavender), ekte produktbilde
+  (`object-fit:contain`, transparent, ikke krysset embalasje), serienavn,
+  EN valgfri faktabeskrivelse, variant-piller (Standard/Torisk/
+  Multifokal, kun de som faktisk finnes), antall produkter + fra-pris,
+  og en ensartet "Utforsk serien →"-ghost-CTA (ikke blå knapp på første
+  kort og hvit på resten, som mockupen tilfeldigvis viste -- Kai selv
+  påpekte dette skulle IKKE kopieres 1:1).
+- **Faktabeskrivelse er strengt betinget** (`brand_series_description()`):
+  krever BÅDE en kjent hovedtype OG ett entydig materiale på tvers av
+  HELE serien (samme `material`-felt som allerede er `None` ved >1
+  materiale i familien) -- ellers vises ingen beskrivelse i det hele tatt
+  (bekreftet i bygget output: Acuvue 4 kort/3 beskrivelser, Miru 1
+  kort/0 beskrivelser, osv., ingen tom `<p>` eller layout-hull).
+- **Ikke implementert** (Kai, punkt 10, eksplisitt): de tre
+  ikonpåstandene fra mockupen ("Høy fuktighet", "Komfort hele dagen",
+  "UV-beskyttelse" osv.) -- ren, udokumentert markedsføringstekst per
+  kort i mockupen, ikke faktiske data. Feltet er bevisst utelatt helt,
+  ikke fylt med plassholdere.
+- **`.brand-serie-grid`-bredde-fiks** (Kai fulgte opp med en egen,
+  eksplisitt presisering midt i arbeidet): `grid-template-columns:
+  repeat(auto-fill, minmax(280px, 1fr))` + `.brand-serie-card{max-width:
+  350px}` -- IKKE en fast `minmax(280px, 350px)` slik den første
+  lesningen av CSS Grid-spesifikasjonen skulle tilsi. Årsak, empirisk
+  bekreftet i browser-panelet: når minmax()-maksverdien er en bestemt
+  lengde (f.eks. `350px`), bruker Grid-spesifikasjonen DEN verdien til å
+  telle antall spor, ikke minimumsverdien -- det ga bare 3 kolonner i en
+  1240px-container for Acuvues 4 serier (feil). Med `1fr` som maks (en
+  UBESTEMT verdi) telles sporene etter minimumsverdien (280px) i stedet,
+  som gir 4 spor i samme container, og de vokser deretter jevnt opp mot
+  350px (målt til ~297px hver i denne containerbredden). Auto-fill (ikke
+  auto-fit) beholder tomme spor som usynlig luft uansett -- bekreftet
+  empirisk at et merke med KUN 1 serie (Precision1) fortsatt får et kort
+  på ~297px bredde, ikke strukket til full containerbredde, fordi de 3
+  andre (tomme) sporene fortsatt eksisterer og deler overskuddsplassen.
+- **Testet eksplisitt med 1, 2, 3, 4 ekte serier** (Precision1/Biofinity/
+  Proclear/Acuvue -- ingen merke i den ekte katalogen har 5 eller 8
+  serier ennå) OG **syntetisk med 5 og 8 kort** (samme ekte kort-HTML +
+  CSS limt inn i en frittstående testside, servert lokalt) -- begge
+  bryter korrekt til flere rader (5→4+1, 8→4+4) med konsistent ~297px
+  bredde per kort, ingen strekking. FreshLook (0 serier) viser fortsatt
+  ingen seksjon i det hele tatt (uendret adaptiv oppførsel).
+- Hover/fokus: `translateY(-2px)`, lett border-fargeendring, subtil
+  skygge, produktbilde `scale(1.02)`, CTA-pil forskyves 3px -- alle med
+  `:hover, :focus-visible` parallelt (samme mønster som
+  `.category-row`/`.offer-card` ellers på siden) for tastaturtilgjengelighet.
+  Global `prefers-reduced-motion:reduce`-regel (allerede i SHARED_STYLE)
+  dekker alle disse transisjonene uten ekstra kode.

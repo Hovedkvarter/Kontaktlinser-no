@@ -3968,15 +3968,15 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     )
 
     # -- "Utforsk {brand}-seriene" -- kun hvis merket faktisk har minst én
-    # ekte serie (adaptivt, se docstring). Fullt, vertikalt kort (bilde
-    # øverst, kategori-merke, variant-piller, antall+pris+pil) -- erstattet
-    # 2026-09-27 (samme dag) med det tidligere kompakte ett-linje-kortet
-    # etter at Kai sendte et fullt mockup-referansebilde og ba om å matche
-    # det "så nært som mulig med alt". "Standard/Torisk/Multifokal"-pillene
-    # er utledet fra samme type_labels som resten av siden allerede bruker
-    # (dagslinser/månedslinser/fargede-linser = kategorien vises som eget
-    # merke øverst OG impliserer en "Standard"-pille, toriske/multifokale
-    # linser blir egne piller ved siden av).
+    # ekte serie (adaptivt, se docstring). "Series Portrait Cards"
+    # (2026-09-27, samme dag) -- Kai sendte en detaljert 19-punkts brief +
+    # mockup-referanse (44.webp) og bygget selv videre på den med en
+    # eksplisitt presisering om kortbredde. Kjernekravet: kompakte,
+    # redaksjonelle kort (IKKE en nettbutikk-grid), og et kort skal ALDRI
+    # bli unaturlig bredt bare fordi merket har få serier -- se
+    # `.brand-serie-grid` (minmax med fast maks, ikke 1fr) lenger ned.
+    # "Standard/Torisk/Multifokal"-pillene er utledet fra samme
+    # type_labels som resten av siden allerede bruker.
     def brand_series_variant_pills(type_labels: list[str]) -> tuple[str | None, list[str]]:
         primary = next((t for t in type_labels if t not in ("Toriske linser", "Multifokale linser")), None)
         pills = ["Standard"] if primary else []
@@ -3986,27 +3986,73 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             pills.append("Multifokal")
         return primary, pills
 
-    def brand_series_card(s: dict) -> str:
+    # Ren, subtil bakgrunnstoning per kort -- KUN visuell differensiering
+    # (samme fargesett som resten av designsystemet), ikke koblet til noe
+    # faktisk merkevare-/produktdata. Roterer deterministisk per indeks.
+    SERIES_CARD_TINTS = ["mint", "sky", "lavender", "amber", "coral", "blue"]
+    # Eyebrow-fargen derimot ER koblet til faktisk data -- samme
+    # kategori->farge-kobling som "Sortimentet forklart"-kortene lenger ned
+    # på siden bruker (category_icon_map), så "Dagslinser" alltid betyr det
+    # samme visuelt på tvers av hele siden.
+    SERIES_TYPE_COLORS = {"Dagslinser": "amber", "Månedslinser": "sky", "Fargede linser": "mint", "Toriske linser": "coral", "Multifokale linser": "lavender"}
+
+    def brand_series_description(primary_label: str | None, material: str | None, pills: list[str]) -> str | None:
+        # Kai, punkt 8: "Hvis vi ikke har gode nok fakta til en nyttig
+        # beskrivelse -> ikke vis beskrivelsen." Krever BÅDE kjent
+        # hovedtype OG ett entydig materiale på tvers av hele serien
+        # (samme _brand_family_summary-felt som "Materialer"-seksjonen
+        # bruker -- `material` er allerede None hvis serien har >1
+        # materiale, se _brand_family_summary()).
+        if not primary_label or not material or not pills:
+            return None
+        words = [p.lower() for p in pills]
+        if len(words) == 1:
+            variant_txt = f"{words[0]} variant"
+        else:
+            variant_txt = ", ".join(words[:-1]) + f" og {words[-1]} variant"
+        return f"Serie med {primary_label.lower()} i {escape(material)}, tilgjengelig som {variant_txt}."
+
+    def brand_series_card(s: dict, index: int) -> str:
         img_html = f'<img src="{escape(s["image"])}" alt="" loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
         primary_label, pills = brand_series_variant_pills(s["type_labels"])
         pills_html = "".join(f'<span class="brand-serie-card-pill">{escape(p)}</span>' for p in pills)
         price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
-        return f'''<a class="brand-serie-card" href="{escape(s["href"])}">
-    <div class="brand-serie-card-image">{img_html}</div>
+        desc = brand_series_description(primary_label, s["material"], pills)
+        tint = SERIES_CARD_TINTS[index % len(SERIES_CARD_TINTS)]
+        eyebrow_color = SERIES_TYPE_COLORS.get(primary_label, "blue")
+        eyebrow_html = f'<span class="brand-serie-card-eyebrow" style="background:var(--{eyebrow_color}-tint);color:var(--{eyebrow_color});">{escape(primary_label.upper())}</span>' if primary_label else ''
+        return f'''<a class="brand-serie-card" href="{escape(s["href"])}" style="--serie-tint:var(--{tint}-tint);">
+    <div class="brand-serie-card-top">
+      {eyebrow_html}
+      <div class="brand-serie-card-image">{img_html}</div>
+    </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">{escape(s["name"])}</div>
-      {f'<div class="brand-serie-card-badge">{escape(primary_label)}</div>' if primary_label else ''}
+      {f'<p class="brand-serie-card-desc">{desc}</p>' if desc else ''}
       {f'<div class="brand-serie-card-pills">{pills_html}</div>' if pills_html else ''}
-      <div class="brand-serie-card-foot"><span>{s["n_products"]} produkter</span><strong>Fra {price_txt}</strong><span class="brand-serie-card-arrow" aria-hidden="true">→</span></div>
+      <div class="brand-serie-card-spacer"></div>
+      <div class="brand-serie-card-foot"><span>{s["n_products"]} produkter</span><strong>Fra {price_txt}</strong></div>
+      <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a>'''
 
     series_nav_html = ""
     if family_summaries:
-        series_nav_html = f'''<h2>Utforsk {escape(brand_label)}-seriene</h2>
-  <p class="brand-section-lead">{escape(brand_label)} er delt inn i {len(family_summaries)} {"produktserie" if len(family_summaries) == 1 else "produktserier"} -- velg den som passer ditt behov.</p>
+        # "Sammenlign seriene ->" -- lenke til den ekte sammenligningstabellen
+        # lenger ned på siden (kun hvis den faktisk vises, dvs. >=2 serier å
+        # sammenligne -- Kai, punkt 2: "Bare gjør dette til en lenke dersom
+        # sammenligningsfunksjonen faktisk finnes").
+        compare_link_html = '<a class="brand-serie-compare-link" href="#sammenlign">Sammenlign seriene →</a>' if len(family_summaries) >= 2 else ''
+        series_nav_html = f'''<div class="brand-section-header-row">
+    <div>
+      <div class="brand-section-kicker">Produktserier</div>
+      <h2>Utforsk {escape(brand_label)}-seriene</h2>
+      <p class="brand-section-lead">Se forskjeller, varianter, egenskaper og priser i hver produktserie.</p>
+    </div>
+    {compare_link_html}
+  </div>
   <div class="brand-serie-grid">
-    {"".join(brand_series_card(s) for s in family_summaries)}
+    {"".join(brand_series_card(s, i) for i, s in enumerate(family_summaries))}
   </div>'''
 
     # -- "{brand} i tall" -- Kai sendte et mockup-referansebilde 2026-09-27
@@ -4105,7 +4151,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         covered_products = sum(s["n_products"] for s in family_summaries)
         standalone_n = len(products) - covered_products
         standalone_txt = f' Ytterligere {standalone_n} {"produkt" if standalone_n == 1 else "produkter"} står utenfor disse seriene, se hele listen nederst.' if standalone_n > 0 else ""
-        compare_table_html = f'''<h2>Slik skiller {escape(brand_label)}-seriene seg</h2>
+        compare_table_html = f'''<h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller {escape(brand_label)}-seriene seg</h2>
   <p class="brand-section-lead">{len(family_summaries)} {"serie" if len(family_summaries) == 1 else "serier"}, til sammen {covered_products} av {len(products)} {escape(brand_label)}-produkter.{standalone_txt}</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
@@ -4419,22 +4465,48 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-stat-label {{ font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }}
 .brand-stat-value {{ font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }}
 .brand-section-lead {{ color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }}
-.brand-serie-grid {{ display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }}
-@media (min-width: 560px) {{ .brand-serie-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-@media (min-width: 900px) {{ .brand-serie-grid {{ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }} }}
-.brand-serie-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
-.brand-serie-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
-.brand-serie-card-image {{ aspect-ratio: 4 / 3; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }}
-.brand-serie-card-image img {{ width: 100%; height: 100%; object-fit: contain; padding: 14px; box-sizing: border-box; }}
+/* Series Portrait Cards (2026-09-27, samme dag, etter Kais 19-punkts
+   brief + presisering om kortbredde). Kortet skal ALDRI strekkes bredere
+   bare fordi merket har få serier -- minmax() med en fast maks (340px),
+   IKKE 1fr, så tomme grid-spor bare blir ubrukt luft i stedet for at de
+   fyller ekte kort til unaturlig bredde. auto-fill (ikke auto-fit) sikrer
+   samme oppførsel uansett om det er 1, 2, 3, 4, 5 eller 8 serier. */
+.brand-section-header-row {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }}
+.brand-section-kicker {{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin-bottom: 2px; }}
+.brand-section-header-row h2 {{ margin: 0 0 6px; }}
+.brand-section-header-row .brand-section-lead {{ margin: 0; }}
+.brand-serie-compare-link {{ font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; white-space: nowrap; margin-top: 4px; }}
+.brand-serie-compare-link:hover {{ text-decoration: underline; }}
+/* minmax(280px, 1fr), IKKE en fast maks-px -- auto-fill teller antall
+   spor etter MIN-verdien kun når maks er ubestemt (1fr), som gir flest
+   mulig kolonner ("4 kort på én rad der plassen tillater" -- en fast
+   maks-px (f.eks. 350px) far derimot brukt til selve spor-TELLINGEN i
+   Grid-spesifikasjonen, som i praksis ga bare 3 kolonner å 1240px
+   containerbredde her, ikke 4). Tomme auto-fill-spor forblir usynlig
+   luft (IKKE strukket brede) selv med 1fr, siden 1fr bare fordeler
+   overskuddsplass likt på ALLE spor (ekte og tomme) -- se
+   CSS_GRID_SERIES_WIDTH-testnotat i CLAUDE.md. */
+.brand-serie-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); justify-content: start; align-items: stretch; gap: 18px; margin-bottom: 32px; }}
+.brand-serie-card {{ display: flex; flex-direction: column; max-width: 350px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }}
+.brand-serie-card:hover, .brand-serie-card:focus-visible {{ transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }}
+.brand-serie-card-top {{ padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }}
+.brand-serie-card-eyebrow {{ display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }}
+.brand-serie-card-image {{ height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }}
+.brand-serie-card-image img {{ max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }}
+.brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img {{ transform: scale(1.02); }}
 .brand-serie-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }}
-.brand-serie-card-body {{ padding: 14px 14px 16px; }}
-.brand-serie-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.94rem; line-height: 1.3; }}
-.brand-serie-card-badge {{ display: inline-block; margin-top: 8px; padding: 3px 9px; border-radius: 999px; background: var(--mint-tint); color: var(--mint); font-size: 0.68rem; font-weight: 700; }}
-.brand-serie-card-pills {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }}
-.brand-serie-card-pill {{ border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-size: 0.68rem; font-weight: 600; color: var(--muted); }}
-.brand-serie-card-foot {{ display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--muted); }}
-.brand-serie-card-foot strong {{ color: var(--ink); font-weight: 700; margin-left: auto; }}
-.brand-serie-card-arrow {{ color: var(--blue); flex-shrink: 0; }}
+.brand-serie-card-body {{ flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }}
+.brand-serie-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }}
+.brand-serie-card-desc {{ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0 0; font-size: 0.82rem; line-height: 1.45; color: var(--muted); }}
+.brand-serie-card-pills {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }}
+.brand-serie-card-pill {{ border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 0.64rem; font-weight: 500; color: var(--muted); }}
+.brand-serie-card-spacer {{ flex: 1; min-height: 10px; }}
+.brand-serie-card-foot {{ display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }}
+.brand-serie-card-foot strong {{ color: var(--ink); font-weight: 700; }}
+.brand-serie-card-cta {{ display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.82rem; font-weight: 600; color: var(--ink); transition: border-color 0.18s ease, color 0.18s ease; }}
+.brand-serie-card-cta span {{ transition: transform 0.18s ease; }}
+.brand-serie-card:hover .brand-serie-card-cta, .brand-serie-card:focus-visible .brand-serie-card-cta {{ border-color: var(--blue); color: var(--blue); }}
+.brand-serie-card:hover .brand-serie-card-cta span, .brand-serie-card:focus-visible .brand-serie-card-cta span {{ transform: translateX(3px); }}
 .brand-facts {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
 .brand-facts h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
 /* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
