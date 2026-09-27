@@ -586,6 +586,20 @@ a { color: inherit; }
 .kz-accordion-body .specs, .kz-accordion-body .methodology, .kz-accordion-body .related { margin-top: 0; }
 .kz-accordion-body .specs h2, .kz-accordion-body .methodology h2, .kz-accordion-body .related h2 { display: none; }
 .kz-accordion-body .faq-section .faq-accordion-item:first-child { border-top: none; }
+/* _faq_accordion_item() (per-spørsmål-accordionen inni "Vanlige
+   spørsmål"-boksen) er gjenbrukt fra brand-/serie-siden, men reglene som
+   faktisk STØRRELSESBEGRENSER den (.faq-chevron m.fl.) lå kun i DE
+   funksjonenes egne <style>-blokker -- aldri kopiert hit. Uten dem har
+   <svg class="faq-chevron"> ingen bredde/høyde-regel i det hele tatt, og
+   rendres i sin fulle, ubegrensede viewBox-størrelse (>100px, oppdaget av
+   Kai på en skjermdump). Kopiert inn her, identisk med kildene. */
+.faq-accordion-item { border-top: 1px solid var(--border); }
+.faq-accordion-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-accordion-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.faq-accordion-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
+.faq-accordion-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-accordion-item p { margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
 .hero-card .product-ai-summary { background: var(--blue-tint); border-left: none; border-radius: 10px; margin: 16px 0 0; }
 .aliases-note { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin: 20px 0; font-size: 0.88rem; line-height: 1.6; }
 .aliases-note ul { margin: 8px 0; padding-left: 20px; }
@@ -1579,12 +1593,12 @@ a { color: inherit; }
   </div>
   <div class="pack-size-callout-arrow">→</div>
 </a>
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på <strong>Biotrue ONEday 30-pack</strong> hos norske nettbutikker. Fra <strong>209 kr</strong> hos Shopping4net (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
-</section>
 
   <div class="kz-break"><span>Alt om Biotrue ONEday 30-pack</span></div>
   <div class="kz">
+    <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på <strong>Biotrue ONEday 30-pack</strong> hos norske nettbutikker. Fra <strong>209 kr</strong> hos Shopping4net (ekskl. frakt). Kontaktlinser.no er en uavhengig sammenligningstjeneste - slå på «Pris inkludert frakt» under for å se totalprisen med frakt. Priser sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
+</section>
     <h2>Om Biotrue ONEday 30-pack</h2>
     <p>Biotrue ONEday er Bausch + Lombs dagslinse i nesofilcon A (Hypergel), med svært høyt vanninnhold (78 %) ment å ligne øyets eget vann. Populær for deg med tørre eller følsomme øyne.</p>
     <div class="hero-badges"><span class="hero-badge"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Dagslinser</span></span></div>
