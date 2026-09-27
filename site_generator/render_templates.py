@@ -91,8 +91,8 @@ a { color: inherit; }
 }
 .topbar { display: flex; align-items: center; justify-content: flex-start; gap: 32px; padding: 14px 20px; max-width: 760px; margin: 0 auto; flex-wrap: wrap; }
 .topbar-logo { display: flex; align-items: center; text-decoration: none; }
-.topbar-logo img { height: 30px; width: auto; display: block; mix-blend-mode: multiply; }
-@media (min-width: 640px) { .topbar-logo img { height: 32px; } }
+.topbar-logo img { height: 24px; width: auto; display: block; mix-blend-mode: multiply; }
+@media (min-width: 640px) { .topbar-logo img { height: 26px; } }
 .topbar-nav { display: flex; gap: 6px; flex-wrap: wrap; }
 .topbar-nav a { font-size: 0.95rem; font-weight: 600; text-decoration: none; color: var(--ink); }
 .topbar-nav a:hover { color: var(--blue); }
@@ -694,7 +694,29 @@ _MEGA_USEFUL_LINKS_HTML = "\n        ".join([
     _mega_link_row(_CALENDAR_ICON, "Linseabonnement", "Abonnement vs. kjøpe selv", "/guide/kontaktlinseabonnement-vs-kjope-selv/"),
 ])
 
-TOPBAR_HTML = f"""<div class="topbar">
+# Søkeboksen i toppmenyen (2026-09-27, brukerens eget ønske om at den skal
+# passe visuelt til resten av menyen -- "lik høyde", altså samme skriftstørrelse
+# som menyteksten) er BEVISST bygget med de samme klassenavnene
+# (search-row/search-input/search-icon/search-btn/search-suggestions) som
+# LENS_SEARCH_STYLE/LENS_SEARCH_JS allerede definerer for forsiden/guide-
+# sidene -- fungerer derfor med NØYAKTIG samme JS uten en eneste ny linje kode,
+# kun en mer spesifikk CSS-overstyring for selve størrelsen (samme mønster som
+# .guide-cta .search-input allerede bruker for SIN variant).
+# Vises på ALLE sider UNNTATT forsiden (som har sin egen, større søkeboks i
+# heroen) -- derfor to konstanter bygget fra samme funksjon i stedet for to
+# hardkodede kopier av hele menyen.
+_TOPBAR_SEARCH_HTML = """<form class="topbar-search search-row" role="search" action="#" onsubmit="return false;">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>
+    <label for="topbar-lens-search" class="visually-hidden" style="position:absolute;left:-9999px;">Søk etter linse eller merke</label>
+    <input type="search" id="topbar-lens-search" class="search-input" placeholder="Søk etter linse eller merke" autocomplete="off">
+    <button type="button" class="search-btn">Søk</button>
+    <div class="search-suggestions"></div>
+  </form>"""
+
+
+def _topbar_html(show_search: bool = True) -> str:
+    search_html = _TOPBAR_SEARCH_HTML if show_search else ""
+    return f"""<div class="topbar">
   <a href="/" class="topbar-logo"><picture><source srcset="/static/logo.webp" type="image/webp"><img src="/static/logo.png" alt="Kontaktlinser.no" width="700" height="79" loading="eager"></picture></a>
   <nav class="topbar-nav">
     <div class="nav-item">
@@ -789,7 +811,23 @@ TOPBAR_HTML = f"""<div class="topbar">
       </div>
     </div>
   </nav>
+  {search_html}
 </div>
+<style>{LENS_SEARCH_STYLE}
+.topbar-search {{ margin-left: auto; }}
+/* Skriftstørrelsen MATCHER .nav-trigger sin (0.95rem) med vilje -- brukerens
+   krav var at bokstavene i søkefeltet skal ha samme høyde som menyteksten,
+   ikke bare at boksen skal se "passe stor" ut. Total høyde (padding+tekst+
+   kant) lander da svært nær .nav-trigger sin egen høyde uten noe eget
+   høyde-tall å holde synkront med menyen manuelt. */
+.topbar-search .search-input {{ width: 220px; font-size: 0.95rem; padding: 7px 62px 7px 32px; border-radius: 9px; box-shadow: none; }}
+.topbar-search .search-icon {{ left: 10px; width: 15px; height: 15px; }}
+.topbar-search .search-btn {{ right: 4px; top: 4px; bottom: 4px; padding: 0 13px; font-size: 0.82rem; border-radius: 6px; }}
+@media (max-width: 699px) {{
+  .topbar-search {{ order: 3; flex: 1 1 100%; margin-left: 0; margin-top: 2px; }}
+  .topbar-search .search-input {{ width: 100%; }}
+}}
+</style>
 <script>
 (function () {{
   var items = document.querySelectorAll('.nav-item');
@@ -833,7 +871,11 @@ TOPBAR_HTML = f"""<div class="topbar">
     if (e.key === 'Escape') closeAll();
   }});
 }})();
+{LENS_SEARCH_JS}
 </script>"""
+# TOPBAR_HTML/TOPBAR_HTML_NO_SEARCH bygges lenger nede i filen, rett etter at
+# LENS_SEARCH_STYLE/LENS_SEARCH_JS (referert over) faktisk finnes -- et kall
+# her ville feilet med NameError siden de er definert langt senere.
 
 # Kuratert, ikke generert fra catalog.json -- oppdater manuelt hvis
 # kategori- eller merkeutvalget endres vesentlig (samme praksis som TOPBAR_HTML).
@@ -3930,6 +3972,13 @@ LENS_SEARCH_JS = """
 })();
 """
 
+# _topbar_html() (definert langt tidligere i filen, rett der TOPBAR_HTML
+# historisk har ligget) refererer til LENS_SEARCH_STYLE/LENS_SEARCH_JS --
+# selve kallet må derfor skje HER, etter at begge finnes, ikke der funksjonen
+# er definert.
+TOPBAR_HTML = _topbar_html()
+TOPBAR_HTML_NO_SEARCH = _topbar_html(show_search=False)
+
 
 # Søkeord per tilbehørskategori. Både æøå og ascii-varianter, siden mange skriver
 # "oyedraper"/"linsevaeske" uten spesialtegn. Kun brukt til å MATCHE (aldri vist).
@@ -4273,7 +4322,6 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-item-icon svg {{ width: 17px; height: 17px; }}
 .trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--ink); }}
 .trust-item span {{ font-size: 0.75rem; color: var(--muted); }}
-{LENS_SEARCH_STYLE}
 .section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
 .section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
@@ -4396,7 +4444,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 </style>
 </head>
 <body>
-{TOPBAR_HTML}
+{TOPBAR_HTML_NO_SEARCH}
 <div class="wrap wrap-wide">
   <div class="hero-panel">
     <div class="hero">
@@ -4498,8 +4546,9 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   // hvert eneste produkt utvannet det topiske fokuset for SEO/AI-sitering
   // og konkurrerte med egne kategori-/merkesider om de samme søkene.
   // Kategoriene og merkene under er nå den reelle "se alt"-inngangen.
-  // Selve søkelogikken er delt med guide-sidene, se LENS_SEARCH_JS.
-{LENS_SEARCH_JS}
+  // Selve søkelogikken er delt med guide-sidene og toppmenyen (kjøres nå fra
+  // TOPBAR_HTML, se LENS_SEARCH_JS -- unngår at IIFE-en kjører to ganger på
+  // samme side og dobbeltbinder event-lyttere på forsidens eget søkefelt).
 </script>
 {render_footer()}
 {CONSENT_BANNER_HTML}
@@ -6071,7 +6120,6 @@ def render_guide_page(slug: str) -> str | None:
 {article_schema}
 <style>{SHARED_STYLE}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
-{LENS_SEARCH_STYLE}
 </style>
 </head>
 <body>
@@ -6091,7 +6139,6 @@ def render_guide_page(slug: str) -> str | None:
     {render_guide_search_card(slug)}
   </div>
 </div>
-<script>{LENS_SEARCH_JS}</script>
 {render_footer()}
 {CONSENT_BANNER_HTML}
 {CONSENT_SCRIPT}

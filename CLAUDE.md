@@ -1782,3 +1782,37 @@ opp om "Oppdaget - ikke indeksert"). Kai ba om tre ting samtidig:
   i stedet for den gamle tekst-only `.hero`. Sammenligningstabellen ligger nå i et
   hvitt kort (`.spec-table-card`, samme skygge/kant som resten av siden) med et
   lite produktbilde per rad.
+
+## Søkefelt i toppmenyen på alle sider unntatt forsiden (2026-09-27)
+
+Kai sitt eksplisitte ønske: søkefelt oppe til høyre i menylinjen på alle sider
+UNNTATT forsiden (som beholder sin egen, store hero-søkeboks), samme høyde som
+menyteksten ("bokstavene i søkefeltet i lik høyde som bokstavene i menyen"), og
+en mindre logo (var 30/32 px, ble oppfattet som fortsatt for stor).
+
+- `TOPBAR_HTML` er nå bygget av en funksjon `_topbar_html(show_search=True)` i
+  stedet for én fast streng -- to konstanter, `TOPBAR_HTML` (med søk, 18 av 19
+  bruksstedene) og `TOPBAR_HTML_NO_SEARCH` (kun forsiden). **Viktig rekkefølge-
+  fallgruve:** selve kallet (`TOPBAR_HTML = _topbar_html()`) må stå ETTER at
+  `LENS_SEARCH_STYLE`/`LENS_SEARCH_JS` er definert lenger ned i filen (funksjonen
+  refererer til dem) -- å bygge konstantene rett ved siden av funksjonsdefinisjonen
+  (der TOPBAR_HTML historisk har ligget) gir `NameError` ved import, fanget under
+  testing før push.
+- Selve søkeboksen bruker BEVISST de samme klassenavnene
+  (search-row/search-input/search-icon/search-btn/search-suggestions) som
+  forsidens/guide-sidenes søk -- fungerer med den eksisterende `LENS_SEARCH_JS`
+  uten en eneste ny linje JS-logikk, kun en mer spesifikk CSS-overstyring
+  (`.topbar-search .search-input`, skriftstørrelse 0.95rem -- identisk med
+  `.nav-trigger` -- gir samme høyde, 34-35px, verifisert i nettleseren).
+- Siden `LENS_SEARCH_STYLE`/`LENS_SEARCH_JS` nå ALLTID følger med `TOPBAR_HTML`
+  på hver eneste side, er de doble kopiene som lå direkte i forsiden og
+  guide-malen fjernet (de kjørte tidligere IIFE-en to ganger på samme side,
+  som ville dobbeltbundet event-lyttere på egne søkefelt der -- ikke en feil
+  som var synlig, men unødvendig duplisering fjernet i samme slengen).
+- Logo: 30px -> 24px (mobil), og en glemt `@media (min-width: 640px)`-overstyring
+  som satte den tilbake til 32px ble også funnet og redusert til 26px -- uten den
+  andre endringen hadde ikke reduksjonen hatt noen synlig effekt på desktop i det
+  hele tatt.
+- Mobil (<700px): søkeboksen faller ned til egen fullbredde-rad under menyen
+  (`flex: 1 1 100%`), ingen egen hamburger-meny å ta hensyn til siden toppmenyen
+  allerede bryter linje ved behov.
