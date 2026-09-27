@@ -433,19 +433,35 @@ a { color: inherit; }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .private-label-explainer { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }
-
-.guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
-.guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
-.guide-tile:hover { border-color: var(--blue); }
-.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
-.guide-tile-icon svg { width: 28px; height: 28px; }
-.guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
-.guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
-.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
-@media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
-
-.guide-grid { margin-top: 14px; }
+/* "Felles for hele serien" (samme fakta som "Kort om X" ved Prisinnsikt,
+   men i et kompakt ikon-rutenett Kai spesifikt ba om 2026-09-27 -- de to
+   boksene dekker samme fakta med vilje, siden de har ulik rolle: én er
+   følgesvenn til Prisinnsikt, den andre til Relevante guider lenger ned.) */
+.serie-bottom-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
+@media (min-width: 900px) { .serie-bottom-row { grid-template-columns: 1fr 1fr; align-items: start; } }
+.serie-facts-tiles { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }
+.serie-facts-tiles h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.serie-facts-tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
+.serie-fact-tile { text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }
+.serie-fact-tile-icon { width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
+.serie-fact-tile-icon svg { width: 18px; height: 18px; }
+.serie-fact-tile-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--ink); line-height: 1.25; }
+.serie-fact-tile-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.serie-fact-note { display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.serie-fact-note svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; }
+/* "Relevante guider" -- bildekort (var ren ikon-kort-rutenett, se
+   kommentaren i Python-koden over). */
+.guide-photo-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+@media (min-width: 640px) { .guide-photo-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) { .guide-photo-grid { grid-template-columns: 1fr; } }
+@media (min-width: 1200px) { .guide-photo-grid { grid-template-columns: repeat(3, 1fr); } }
+.guide-photo-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
+.guide-photo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
+.guide-photo-card-image img { width: 100%; height: 100%; object-fit: cover; }
+.guide-photo-card-body { padding: 12px 14px 14px; }
+.guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }
+.guide-photo-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }
 </style>
 </head>
 <body>
@@ -979,37 +995,13 @@ a { color: inherit; }
   
 </div><div class="serie-facts">
     <h2>Kort om EyeQ One-Day Classic</h2>
-    <ul class="serie-facts-list"><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinse</strong><span>Ny linse hver dag</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Tilgjengelig for dagslinser, toriske linser</strong></div></li></ul>
+    <ul class="serie-facts-list"><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinse</strong><span>Ny linse hver dag</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser, Toriske linser</strong><span>Tilgjengelig for</span></div></li></ul>
   </div></div>
   <section class="product-ai-summary" aria-label="Prisoppsummering">
   <p>Vi sammenligner priser på alle 2 variantene i EyeQ One-Day Classic-serien. Billigst akkurat nå er
   <strong>EyeQ One-Day Classic</strong> fra <strong>139 kr</strong>
   hos Interoptik (uten frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
 </section>
-
-  <h2>Sammenlign variantene</h2>
-  <div class="spec-table-card">
-  <div style="overflow-x:auto;">
-  <table class="spec-table">
-    <thead>
-      <tr><th>Variant</th><th>For</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-    <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-classic/"><img class="spec-row-thumb" src="/static/products/biomedics-1day-xtra-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Classic</a></th>
-    <td class="spec-value">Vanlig synskorreksjon</td>
-    <td class="spec-value">30</td>
-    <td class="spec-value">139 kr</td>
-  </tr><tr>
-    <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-classic-for-astigmatism/"><img class="spec-row-thumb" src="/static/products/biomedics-1day-xtra-toric-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Classic For Astigmatism</a></th>
-    <td class="spec-value">Astigmatisme</td>
-    <td class="spec-value">30</td>
-    <td class="spec-value">277 kr</td>
-  </tr>
-    </tbody>
-  </table>
-</div>
-  </div>
 
   <h2>Alle produkter i EyeQ One-Day Classic-serien</h2>
   <div class="product-tile-grid">
@@ -1038,24 +1030,74 @@ a { color: inherit; }
 </div>
   </div>
 
-  <h2>Relevante guider</h2>
-  <div class="guide-grid guide-grid-narrow">
-    <a class="guide-tile" href="/guide/hvordan-bruke-kontaktlinser/">
-  <div class="guide-tile-icon" style="background:var(--sky-tint);color:var(--sky);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="10" y="2" width="4" height="12" rx="2" fill="currentColor"/><ellipse cx="12" cy="18" rx="7" ry="3.3" fill="currentColor" opacity="0.5"/></svg></div>
-  <div class="guide-tile-title">Hvordan sette inn og ta ut kontaktlinser</div>
-  <div class="guide-tile-desc">Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.</div>
-  <div class="guide-tile-link">Les guiden →</div>
-</a><a class="guide-tile" href="/guide/manedslinser-vs-dagslinser/">
-  <div class="guide-tile-icon" style="background:var(--amber-tint);color:var(--amber);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="3" fill="currentColor" opacity="0.18"/><circle cx="8" cy="10.5" r="1.7" fill="currentColor"/><circle cx="12" cy="10.5" r="1.7" fill="currentColor"/><circle cx="16" cy="10.5" r="1.7" fill="currentColor"/><circle cx="8" cy="15" r="1.7" fill="currentColor"/><circle cx="12" cy="15" r="1.7" fill="currentColor"/><circle cx="16" cy="15" r="1.7" fill="currentColor"/></svg></div>
-  <div class="guide-tile-title">Månedslinser vs. dagslinser – hva passer deg?</div>
-  <div class="guide-tile-desc">Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.</div>
-  <div class="guide-tile-link">Les guiden →</div>
-</a><a class="guide-tile" href="/guide/hvordan-velge-kontaktlinser/">
-  <div class="guide-tile-icon" style="background:var(--blue-tint);color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="white"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></div>
-  <div class="guide-tile-title">Hvordan velge kontaktlinser</div>
-  <div class="guide-tile-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
-  <div class="guide-tile-link">Les guiden →</div>
-</a>
+  <h2>Sammenlign variantene</h2>
+  <div class="spec-table-card">
+  <div style="overflow-x:auto;">
+  <table class="spec-table">
+    <thead>
+      <tr><th>Variant</th><th>For</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+    <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-classic/"><img class="spec-row-thumb" src="/static/products/biomedics-1day-xtra-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Classic</a></th>
+    <td class="spec-value">Vanlig synskorreksjon</td>
+    <td class="spec-value">30</td>
+    <td class="spec-value">139 kr</td>
+  </tr><tr>
+    <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-classic-for-astigmatism/"><img class="spec-row-thumb" src="/static/products/biomedics-1day-xtra-toric-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Classic For Astigmatism</a></th>
+    <td class="spec-value">Astigmatisme</td>
+    <td class="spec-value">30</td>
+    <td class="spec-value">277 kr</td>
+  </tr>
+    </tbody>
+  </table>
+</div>
+  </div>
+
+  <div class="serie-bottom-row">
+    <div class="serie-facts-tiles">
+    <h2>Felles for hele serien</h2>
+    <div class="serie-facts-tiles-grid"><div class="serie-fact-tile">
+      <div class="serie-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <div class="serie-fact-tile-value">Dagslinse</div>
+      <div class="serie-fact-tile-label">Ny linse hver dag</div>
+    </div><div class="serie-fact-tile">
+      <div class="serie-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div>
+      <div class="serie-fact-tile-value">Dagslinser, Toriske linser</div>
+      <div class="serie-fact-tile-label">Tilgjengelig for</div>
+    </div></div>
+    
+  </div>
+    <div class="serie-guides">
+    <h2>Relevante guider</h2>
+    <div class="guide-photo-grid">
+      <a class="guide-photo-card" href="/guide/hvordan-bruke-kontaktlinser/">
+    <div class="guide-photo-card-image">
+      <img src="/static/categories/bg-dag-320.webp" alt="" width="320" height="143" loading="lazy" decoding="async">
+    </div>
+    <div class="guide-photo-card-body">
+      <div class="guide-photo-card-title">Hvordan sette inn og ta ut kontaktlinser</div>
+      <div class="guide-photo-card-link">Les guiden →</div>
+    </div>
+  </a><a class="guide-photo-card" href="/guide/manedslinser-vs-dagslinser/">
+    <div class="guide-photo-card-image">
+      <img src="/static/categories/bg-maaned-320.webp" alt="" width="320" height="143" loading="lazy" decoding="async">
+    </div>
+    <div class="guide-photo-card-body">
+      <div class="guide-photo-card-title">Månedslinser vs. dagslinser – hva passer deg?</div>
+      <div class="guide-photo-card-link">Les guiden →</div>
+    </div>
+  </a><a class="guide-photo-card" href="/guide/hvordan-velge-kontaktlinser/">
+    <div class="guide-photo-card-image">
+      <img src="/static/categories/bg-fargede-320.webp" alt="" width="320" height="143" loading="lazy" decoding="async">
+    </div>
+    <div class="guide-photo-card-body">
+      <div class="guide-photo-card-title">Hvordan velge kontaktlinser</div>
+      <div class="guide-photo-card-link">Les guiden →</div>
+    </div>
+  </a>
+    </div>
+  </div>
   </div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om EyeQ One-Day Classic</h2>
