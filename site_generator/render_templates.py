@@ -3952,12 +3952,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         stat_pills.append(("lavender", DROPLET_ICON_SVG, str(len(type_labels_all)), "linsetype" if len(type_labels_all) == 1 else "linsetyper", " · ".join(type_labels_all)))
     if retailer_count:
         stat_pills.append(("amber", store_icon, str(retailer_count), "butikk" if retailer_count == 1 else "butikker", f'Med {brand_label}-produkter akkurat nå'))
-    brand_facts_row_html = "".join(
-        f'''<div class="brand-facts-card">
-    <div class="brand-facts-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
-    <div class="brand-facts-card-value">{escape(number)}</div>
-    <div class="brand-facts-card-label">{escape(unit)}</div>
-    {f'<div class="brand-facts-card-sub">{escape(sub)}</div>' if sub else ''}
+    # Kompakt statistikkstripe integrert nederst i selve hero-kortet
+    # (2026-09-27, etter mockup 42.webp: "Replace the four large Brand
+    # Facts cards below the hero with a compact metadata strip integrated
+    # into the bottom of the hero"). Samme stat_pills-data som over, men
+    # UTEN undertekst-listen (linsetype-oppramsingen er bevisst utelatt her
+    # -- den informasjonen forklares lenger ned på siden, jf. instruksen).
+    brand_hero_stats_html = "".join(
+        f'''<div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--{color});" aria-hidden="true">{icon}</span>
+    <span class="brand-hero-stat-value">{escape(number)}</span>
+    <span class="brand-hero-stat-label">{escape(unit)}</span>
   </div>'''
         for color, icon, number, unit, sub in stat_pills
     )
@@ -4528,17 +4533,20 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-hero-cta:hover {{ opacity: 0.92; }}
 .brand-hero-cta-secondary {{ background: white; color: var(--ink); border: 1px solid var(--border); }}
 .brand-hero-cta-secondary:hover {{ opacity: 1; border-color: var(--blue); }}
-/* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
-   frittstaende kort rett under heroen, IKKE de tidligere sma pillene
-   inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
-.brand-facts-row {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }}
-@media (min-width: 640px) {{ .brand-facts-row {{ grid-template-columns: repeat(4, 1fr); }} }}
-.brand-facts-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }}
-.brand-facts-card-icon {{ width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }}
-.brand-facts-card-icon svg {{ width: 15px; height: 15px; }}
-.brand-facts-card-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--ink); line-height: 1.15; }}
-.brand-facts-card-label {{ font-size: 0.84rem; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.3; }}
-.brand-facts-card-sub {{ font-size: 0.74rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }}
+/* Statistikkstripe integrert nederst i hero-kortet (2026-09-27, etter
+   mockup 42.webp) -- erstatter den tidligere frittstaende
+   .brand-facts-row/.brand-facts-card-raden med fire store kort under
+   heroen. z-index:3 sa stripen ligger over bade hero-innholdet og
+   bilde-panelet (som har z-index:2/ingen), og spenner over hele
+   hero-bredden siden den ligger som fullbredde-barn av .brand-hero, ikke
+   inni .brand-hero-content (som er begrenset til 62% pa store skjermer). */
+.brand-hero-stats {{ position: relative; z-index: 3; display: flex; flex-wrap: wrap; row-gap: 6px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }}
+.brand-hero-stat {{ display: flex; align-items: center; gap: 7px; padding: 0 16px; border-left: 1px solid var(--border); }}
+.brand-hero-stat:first-child {{ padding-left: 0; border-left: none; }}
+.brand-hero-stat-icon {{ display: flex; }}
+.brand-hero-stat-icon svg {{ width: 14px; height: 14px; display: block; }}
+.brand-hero-stat-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }}
+.brand-hero-stat-label {{ font-size: 0.82rem; color: var(--muted); }}
 .brand-sortiment-grid {{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }}
 @media (min-width: 560px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
 @media (min-width: 1024px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }} }}
@@ -4606,11 +4614,11 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     <div class="brand-hero-media" aria-hidden="true">
       <picture>
         <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/brand-560.webp 560w, /static/hero/brand-840.webp 840w, /static/hero/brand-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="385" loading="lazy" decoding="async">
       </picture>
     </div>
+    <div class="brand-hero-stats">{brand_hero_stats_html}</div>
   </div>
-  <div class="brand-facts-row">{brand_facts_row_html}</div>
 
   {series_nav_html}
   {brand_insight_row_html}
@@ -9262,7 +9270,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     <div class="brand-hero-media" aria-hidden="true">
       <picture>
         <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/brand-560.webp 560w, /static/hero/brand-840.webp 840w, /static/hero/brand-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="385" loading="lazy" decoding="async">
       </picture>
     </div>
   </div>

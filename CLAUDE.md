@@ -2543,3 +2543,54 @@ bekrefte varemerke-status per merke på tvers av alle 30 sidene.
 
 Testet: alle 30 merke-sider bygger fortsatt med gyldig JSON-LD, ingen
 mobil-overflow.
+
+## Merke-siden: Fase-2-faktakortene erstattet med en statistikkstripe i heroen (2026-09-27, samme dag)
+
+Kai sendte et nytt mockup-bilde (hero med en integrert nederste stripe i
+stedet for fire frittstående kort under heroen, pluss et nytt bakgrunnsbilde)
+og var eksplisitt: "Replace the four large Brand Facts cards below the hero
+with a compact metadata strip integrated into the bottom of the hero. Show
+only: 21 produkter · 4 serier · 4 linsetyper · 9 butikker, all dynamically
+generated. Use subtle separators and small icons. Target approximately
+60–75 px additional hero height. Remove the long list of lens types from
+this component... Keep the larger card treatment for the later 'Acuvue i
+tall' section."
+
+- **Fjernet** `.brand-facts-row`/`.brand-facts-card*` (CSS og markup) helt.
+  `brand_facts_row_html` erstattet med `brand_hero_stats_html`, bygget fra
+  SAMME `stat_pills`-data som før, men uten `sub`-feltet (linsetype-
+  oppramsingen er bevisst utelatt -- den forklares lenger ned på siden).
+- **Ny `.brand-hero-stats`**: `position:relative; z-index:3`, ligger som
+  fullbredde-søsken av `.brand-hero-content` og `.brand-hero-media` direkte
+  i `.brand-hero` (IKKE inni `.brand-hero-content`, som er begrenset til
+  62% bredde på ≥860px) -- slik spenner stripen over hele heroen, også
+  under bildet. Separert fra knapperaden med en tynn `border-top`, hvert
+  element har `border-left` som subtil skillelinje (untatt første).
+  Målt i bygget side: stripen legger til ~72px hero-høyde (padding-top 14
+  + margin-top 18 + border 1 + selve strip-innholdet ~39px) -- innenfor
+  Kais 60-75px-mål.
+- **Nytt hero-bilde**: kroppet ut fra Kais mockup (`42.webp`, kvinne med
+  linse på fingertuppen, varmere/annen komposisjon enn forrige bilde) og
+  erstattet `static/hero/brand-{560,840,1120}.webp`. Beholdt samme
+  fade-maske-teknikk (`.brand-hero-media` maskerer inn bildet fra venstre),
+  så den kursive "Klarere hverdager"-teksten i mockupen forsvinner i
+  fade-sonen automatisk -- ingen manuell fjerning av tekst fra bildet var
+  nødvendig, kun beskjæring til fotoet selv. `width`/`height`-attributtene
+  på `<img>` oppdatert fra 560×215 til 560×385 (nytt bilde er brattere).
+  Samme filnavn brukes av `render_private_label_brand_page()`, så
+  `height`-attributtet ble oppdatert der også (kun attributtet, ingen
+  strukturendring -- den siden ble ikke bedt om statistikkstripen).
+- **Ikke rørt**: `brand_i_tall_html`/`.brand-i-tall*` ("{Merke} i tall") --
+  eksplisitt bevart som store kort, per instruks.
+
+Kai kommenterte samtidig (om seriekort-raden lenger ned, som nå bryter til
+ny linje når den ikke får plass på én rad): vil senere ha "så mange vi har
+plass til på en rad + en knapp for å se flere" -- IKKE gjort ennå, egen
+runde.
+
+Testet: alle 30 merke-sider bygger uten Traceback/NameError, gyldig
+JSON-LD på alle, FreshLook (1 produkt, 0 serier) viser korrekt kun 3
+stripe-elementer (produkt/linsetype/butikker, "serier" utelatt siden
+`family_summaries` er tom), målt via `getBoundingClientRect()` i
+browser-panelet (skjermbilde-rendering av bygde filer er upålitelig, se
+tidligere notat i dette dokumentet).
