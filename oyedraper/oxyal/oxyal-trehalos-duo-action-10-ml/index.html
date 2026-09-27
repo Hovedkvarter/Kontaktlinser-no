@@ -526,6 +526,18 @@ a { color: inherit; }
 
 .offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
 .offers-head h2 { margin: 0; }
+.offers-sort-label { font-size: 0.78rem; color: var(--muted); }
+/* "Vis alle priser (X butikker)" (Product Mobile Gold Standard v1,
+   2026-09-27) -- .offer-card:nth-child(n+4) treffer alltid de RIKTIGE
+   kortene selv etter at _QTY_CALC_SCRIPT sin render() har sortert om
+   listen (appendChild flytter kortene fysisk i DOM-en), siden nth-child
+   telles på nåværende DOM-rekkefølge, ikke en fast opprinnelig posisjon --
+   de 3 første er alltid de 3 billigste i aktivt prismodus. .offers-list
+   er en EGEN wrapper (ikke .offers selv) slik at nth-child teller kun
+   .offer-card-elementer, ikke .offers-head/knappen ved siden av. */
+.offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: none; }
+.offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
+.offers-show-more:hover { border-color: var(--blue); }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
 .ship-chip:hover { border-color: var(--blue); }
 .ship-chip:focus-visible { outline: 3px solid var(--blue-tint); outline-offset: 1px; border-color: var(--blue); }
@@ -1022,7 +1034,10 @@ a { color: inherit; }
     </div>
   </div>
   <div class="qty-box">
-    <div class="qty-box-title">Hvor mange flasker trenger du?</div>
+    <div class="qty-box-head">
+      <div class="qty-box-title">Antall flasker</div>
+      <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
+    </div>
     <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>flaske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>flasker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>flasker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>flasker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>flasker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall flasker">
@@ -1172,7 +1187,12 @@ a { color: inherit; }
       winnerLink.setAttribute('data-affiliate', best.o.rel.indexOf('sponsored') !== -1 ? '1' : '0');
     }
 
-    var offersList = document.querySelector('.offers');
+    var qtyLabelEl = document.getElementById('offers-qty-label');
+    if (qtyLabelEl) qtyLabelEl.textContent = qty + ' ' + (qty === 1 ? unitSingular : unitPlural);
+    var sortLabelEl = document.getElementById('offers-sort-label');
+    if (sortLabelEl) sortLabelEl.textContent = incl ? 'Sortert etter totalpris' : 'Sortert etter pris (uten frakt)';
+
+    var offersList = document.querySelector('.offers-list');
     var cards = offersList ? offersList.querySelectorAll('.offer-card') : [];
     if (!offersList || !cards.length) return;
     for (var i = 0; i < results.length; i++) {
@@ -1212,6 +1232,14 @@ a { color: inherit; }
   }
   document.addEventListener('click', function (e) {
     if (e.target.closest && e.target.closest('#ship-chip')) setIncl(!state.incl, true);
+    var showMoreBtn = e.target.closest && e.target.closest('#offers-show-more');
+    if (showMoreBtn) {
+      var offersEl = document.querySelector('.offers');
+      if (offersEl) offersEl.classList.remove('is-collapsed');
+      showMoreBtn.remove();
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'offers_show_all' });
+    }
   });
 
   for (var i = 0; i < pills.length; i++) {
@@ -1249,7 +1277,7 @@ a { color: inherit; }
       <h2>Sammenlign priser og butikker</h2>
       <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
     </div>
-    <a class="offer-card is-lowest" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9641)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Foxyal-trehalos-duo-action-extra-9641)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for OXYAL Trehalos Duo Action 10 ml, 112 kr" data-retailer="Lenson" data-affiliate="1">
+    <div class="offers-list"><a class="offer-card is-lowest" href="https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9641)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Foxyal-trehalos-duo-action-extra-9641)" target="_blank" rel="sponsored noopener" aria-label="Gå til Lenson for OXYAL Trehalos Duo Action 10 ml, 112 kr" data-retailer="Lenson" data-affiliate="1">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/lenson.svg" alt="Lenson" loading="lazy"><span style="position:absolute;left:-9999px;">Lenson</span> <span class="lowest-tag">Laveste pris</span></div>
     
@@ -1288,7 +1316,8 @@ a { color: inherit; }
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">50 kr frakt</span></div>
     <span class="price-pill">129 kr</span>
   </div>
-</a>
+</a></div>
+    
   </div>
   <p class="disclosure">
     Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å

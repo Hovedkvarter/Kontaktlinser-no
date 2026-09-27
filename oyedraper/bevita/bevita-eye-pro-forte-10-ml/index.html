@@ -487,6 +487,18 @@ a { color: inherit; }
 
 .offers-head { display: flex; align-items: center; justify-content: space-between; gap: 12px 16px; flex-wrap: wrap; margin: 0 0 12px; }
 .offers-head h2 { margin: 0; }
+.offers-sort-label { font-size: 0.78rem; color: var(--muted); }
+/* "Vis alle priser (X butikker)" (Product Mobile Gold Standard v1,
+   2026-09-27) -- .offer-card:nth-child(n+4) treffer alltid de RIKTIGE
+   kortene selv etter at _QTY_CALC_SCRIPT sin render() har sortert om
+   listen (appendChild flytter kortene fysisk i DOM-en), siden nth-child
+   telles på nåværende DOM-rekkefølge, ikke en fast opprinnelig posisjon --
+   de 3 første er alltid de 3 billigste i aktivt prismodus. .offers-list
+   er en EGEN wrapper (ikke .offers selv) slik at nth-child teller kun
+   .offer-card-elementer, ikke .offers-head/knappen ved siden av. */
+.offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: none; }
+.offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
+.offers-show-more:hover { border-color: var(--blue); }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
 .ship-chip:hover { border-color: var(--blue); }
 .ship-chip:focus-visible { outline: 3px solid var(--blue-tint); outline-offset: 1px; border-color: var(--blue); }
@@ -989,7 +1001,7 @@ a { color: inherit; }
       <h2>Sammenlign priser og butikker</h2>
       <button type="button" class="ship-chip" id="ship-chip" aria-pressed="false"><span class="ship-chip-dot" aria-hidden="true"></span>Pris inkludert frakt</button>
     </div>
-    <a class="offer-card is-lowest" href="https://pin.apotekhjem.no/t/t?a=1487386095&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=103812&amp;fid=2510&amp;url=https://www.apotekhjem.no/bevita-eye-pro-forte-%C3%B8yedr%C3%A5per-10-ml" target="_blank" rel="sponsored noopener" aria-label="Gå til Apotekhjem for Bevita Eye Pro Forte 10 ml, 141 kr" data-retailer="Apotekhjem" data-affiliate="1">
+    <div class="offers-list"><a class="offer-card is-lowest" href="https://pin.apotekhjem.no/t/t?a=1487386095&amp;as=2102229792&amp;t=2&amp;tk=1&amp;cupa_sku=103812&amp;fid=2510&amp;url=https://www.apotekhjem.no/bevita-eye-pro-forte-%C3%B8yedr%C3%A5per-10-ml" target="_blank" rel="sponsored noopener" aria-label="Gå til Apotekhjem for Bevita Eye Pro Forte 10 ml, 141 kr" data-retailer="Apotekhjem" data-affiliate="1">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/apotekhjem.png" alt="Apotekhjem" loading="lazy"><span style="position:absolute;left:-9999px;">Apotekhjem</span> <span class="lowest-tag">Laveste pris</span></div>
     
@@ -998,7 +1010,8 @@ a { color: inherit; }
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">Frakt beregnes i kassen</span></div>
     <span class="price-pill">141 kr</span>
   </div>
-</a>
+</a></div>
+    
   </div>
   <p class="disclosure">
     Butikkene sorteres etter lavest produktpris. Slå på «Pris inkludert frakt» for å
