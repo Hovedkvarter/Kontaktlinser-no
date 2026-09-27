@@ -357,6 +357,20 @@ a { color: inherit; }
 .methodology-row:last-child { border-bottom: none; }
 .methodology-row dt { flex: 0 0 110px; font-weight: 600; font-size: 0.88rem; }
 .methodology-row dd { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+/* Flyttet hit fra render_product_page sin egen <style> 2026-09-27 -- brukes nå
+   av BÅDE produktsiden og serie-siden sitt nye prisinnsikt-panel (se
+   render_family_price_insight()), én kilde i stedet for to kopier. */
+.price-history { margin-top: 28px; }
+.price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
+.price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
+.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
+.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+.price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
+.price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
+.price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
+.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
+.price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
+.price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
@@ -466,17 +480,6 @@ a { color: inherit; }
 .qty-tip-icon { flex-shrink: 0; }
 .qty-static-fallback { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
 
-.price-history { margin-top: 28px; }
-.price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
-.price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
-.price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
-.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
-.price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
-.price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
-.price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
-.price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
-.price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
-.price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 12px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .product-ai-summary.fallback { background: var(--muted-bg); border-left-color: var(--muted); color: var(--muted); }
