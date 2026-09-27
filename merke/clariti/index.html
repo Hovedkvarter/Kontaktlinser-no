@@ -378,21 +378,26 @@ a { color: inherit; }
 .brand-stat-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }
 .brand-stat-value { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
 .brand-section-lead { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
-.brand-serie-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
-@media (min-width: 640px) { .brand-serie-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .brand-serie-grid { grid-template-columns: repeat(3, 1fr); } }
-.brand-serie-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
+.brand-serie-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+@media (min-width: 560px) { .brand-serie-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .brand-serie-grid { grid-template-columns: repeat(var(--brand-serie-cols, 3), 1fr); } }
+.brand-serie-card { display: flex; align-items: center; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 9px 12px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 60px; min-width: 0; }
 .brand-serie-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
-.brand-serie-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }
-.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
-.brand-serie-card-body { padding: 14px 16px 16px; }
-.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; }
-.brand-serie-card-meta { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
-.brand-serie-card-foot { display: flex; align-items: baseline; justify-content: space-between; margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
-.brand-serie-card-foot strong { color: var(--ink); font-weight: 700; }
-.brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-serie-card-thumb { width: 42px; height: 42px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--mist); display: flex; align-items: center; justify-content: center; }
+.brand-serie-card-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }
+.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--blue); }
+.brand-serie-card-text { flex: 1; min-width: 0; }
+.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.82rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-serie-card-meta { font-size: 0.68rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.brand-serie-card-price { font-size: 0.72rem; color: var(--ink); font-weight: 600; margin-top: 2px; }
+.brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
 .brand-facts h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+/* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
+   ved siden av gjen.snitt priser som på serier ... slik at vi har det
+   samme her som på serie") -- samme to-kolonners stretch-mønster som
+   .serie-insight-row (Prisinnsikt + Kort om X). */
+.brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
+@media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1.3fr 1fr; align-items: stretch; } }
 .brand-facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 .brand-fact-tile { text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }
 .brand-fact-tile-icon { width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
@@ -406,12 +411,14 @@ a { color: inherit; }
 .spec-table tbody tr:last-child td { border-bottom: none; }
 .spec-table tbody tr:hover { background: var(--mist); }
 .spec-table a { color: var(--blue); text-decoration: none; font-weight: 600; }
-.brand-price-intel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 32px; }
-.brand-price-intel-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; box-shadow: var(--card-shadow); text-align: center; }
-.brand-price-intel-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
-.brand-price-intel-icon svg { width: 17px; height: 17px; }
-.brand-price-intel-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--ink); }
-.brand-price-intel-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.brand-price-intel { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.brand-price-intel h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.brand-price-intel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.brand-price-intel-card { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; }
+.brand-price-intel-icon { width: 32px; height: 32px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
+.brand-price-intel-icon svg { width: 16px; height: 16px; }
+.brand-price-intel-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
+.brand-price-intel-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 /* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
    allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
    som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
@@ -869,21 +876,15 @@ a { color: inherit; }
 
   <h2>Utforsk Clariti-seriene</h2>
   <p class="brand-section-lead">Clariti er delt inn i 1 produktserier -- velg den som passer ditt behov.</p>
-  <div class="brand-serie-grid">
+  <div class="brand-serie-grid" style="--brand-serie-cols:1;">
     <a class="brand-serie-card" href="/serie/clariti-1day/">
-    <div class="brand-serie-card-image"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" loading="lazy" decoding="async"></div>
-    <div class="brand-serie-card-body">
+    <div class="brand-serie-card-thumb"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" loading="lazy" decoding="async"></div>
+    <div class="brand-serie-card-text">
       <div class="brand-serie-card-name">Clariti 1 day</div>
       <div class="brand-serie-card-meta">Dagslinser · Multifokale linser · Toriske linser</div>
-      <div class="brand-serie-card-foot"><span>5 produkter · 30/90-pakning</span><strong>fra 247 kr</strong></div>
+      <div class="brand-serie-card-price">fra 247 kr</div>
     </div>
   </a>
-  </div>
-  <div class="brand-facts">
-    <h2>Clariti i korte trekk</h2>
-    <div class="brand-facts-grid">
-      <div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">6</div><div class="brand-fact-tile-label">Produkter vi følger</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">CooperVision</div><div class="brand-fact-tile-label">Produsent</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Dagslinser, Multifokale linser, Toriske linser</div><div class="brand-fact-tile-label">Linsetyper</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Somofilcon A (silikonhydrogel)</div><div class="brand-fact-tile-label">Materialer</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="brand-fact-tile-value">Oppdateres daglig</div><div class="brand-fact-tile-label">Prisdata</div></div>
-    </div>
   </div>
   <h2>Slik skiller Clariti-seriene seg</h2>
   <div class="brand-compare-card">
@@ -899,10 +900,17 @@ a { color: inherit; }
       </table>
     </div>
   </div>
-  <h2>Clariti-priser akkurat nå</h2>
-  <div class="brand-price-intel-grid">
-    <div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-price-intel-value">247 kr</div><div class="brand-price-intel-label">Laveste pris akkurat nå -- Clariti 1 day 30-pack hos Lenson</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-price-intel-value">6,8 kr</div><div class="brand-price-intel-label">Laveste pris per linse -- Clariti 1 day 90-pack</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-price-intel-value">5</div><div class="brand-price-intel-label">Norske nettbutikker sammenlignet</div></div>
-  </div>
+  <div class="brand-insight-row"><div class="brand-price-intel">
+    <h2>Clariti-priser akkurat nå</h2>
+    <div class="brand-price-intel-grid">
+      <div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-price-intel-value">247 kr</div><div class="brand-price-intel-label">Laveste pris akkurat nå -- Clariti 1 day 30-pack hos Lenson</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-price-intel-value">6,8 kr</div><div class="brand-price-intel-label">Laveste pris per linse -- Clariti 1 day 90-pack</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-price-intel-value">5</div><div class="brand-price-intel-label">Norske nettbutikker sammenlignet</div></div>
+    </div>
+  </div><div class="brand-facts">
+    <h2>Clariti i korte trekk</h2>
+    <div class="brand-facts-grid">
+      <div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">6</div><div class="brand-fact-tile-label">Produkter vi følger</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">CooperVision</div><div class="brand-fact-tile-label">Produsent</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Dagslinser, Multifokale linser, Toriske linser</div><div class="brand-fact-tile-label">Linsetyper</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Somofilcon A (silikonhydrogel)</div><div class="brand-fact-tile-label">Materialer</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="brand-fact-tile-value">Oppdateres daglig</div><div class="brand-fact-tile-label">Prisdata</div></div>
+    </div>
+  </div></div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om Clariti</h2>
     <div class="faq-category">
