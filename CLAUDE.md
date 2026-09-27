@@ -3278,3 +3278,18 @@ Testet: 320/375/700px -- `.qty-box-row` sin `scrollWidth` matcher
 fortsatt (klikk verifisert, vinnerkort/prisliste sorterer om), "Eget
 antall"-pillen ser grei ut ved 700px. Full sveip, ingen
 Traceback/NameError.
+
+## Produktsiden: tallet i antallspillene var ikke midtstilt (2026-09-27, samme dag)
+
+Kai: "tall må midtstilles inne i boksen sin." Root cause:
+`.wrap-product .qty-pill` byttet `flex-direction` fra `column` til `row`
+(forrige runde, for å legge ikon+tall+enhet på én linje internt), men
+`align-items: center` (arvet fra basisregelen) sentrerer kun KRYSS-aksen
+-- som var HORISONTAL i `column`-modus (derfor så tallet sentrert ut før)
+men ble VERTIKAL i `row`-modus. HOVED-aksen i `row`-modus styres av
+`justify-content`, som ikke var satt og dermed falt tilbake til standard
+`flex-start` (venstrejustert). Fikset med `justify-content: center;`
+lagt til samme regel.
+
+Testet: 375px, tallet sentrert i alle fem piller + "Eget"-pillen, full
+sveip ingen Traceback/NameError.
