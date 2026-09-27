@@ -4116,7 +4116,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-serie-grid {{ display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }}
 @media (min-width: 640px) {{ .brand-serie-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
 @media (min-width: 1024px) {{ .brand-serie-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
-.brand-serie-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
+.brand-serie-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
 .brand-serie-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
 .brand-serie-card-image {{ aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }}
 .brand-serie-card-image img {{ width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box; }}
@@ -4160,21 +4160,44 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .faq-chevron {{ flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }}
 .faq-accordion-item[open] .faq-chevron {{ transform: rotate(180deg); }}
 .faq-accordion-item p {{ margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }}
+/* Toppbanner (2026-09-27, Kai: "bruk toppbilde vi også bruker på serie
+   her på disse for å få det pent") -- SAMME delte bilde som serie-hero
+   (static/hero/serie-*.webp), samme side-panel-med-fade-teknikk. Egne
+   brand-hero-*-klassenavn (ikke gjenbruk av .serie-hero* direkte) siden
+   dette er en annen side, men ellers en bevisst 1:1-kopi av mønsteret. */
+.brand-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }}
+.brand-hero-content {{ position: relative; z-index: 2; }}
+.brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
+.brand-hero-media {{ display: none; }}
+@media (min-width: 860px) {{
+  .brand-hero {{ padding: 26px 40px 24px; }}
+  .brand-hero-content {{ max-width: 62%; }}
+  .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
+  .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
+}}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(brand_label)}</p>
-  <div class="hero">
-    <div class="brand-hero-row">
-      {brand_logo_block}
-      <div class="hero-copy">
-        <div class="kicker">Merke</div>
-        <h1>{escape(brand_label)}</h1>
-        <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
-        {manufacturer_link_html}
+  <div class="brand-hero">
+    <div class="brand-hero-content">
+      <div class="brand-hero-row">
+        {brand_logo_block}
+        <div class="hero-copy">
+          <div class="kicker">Merke</div>
+          <h1>{escape(brand_label)}</h1>
+          <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+          {manufacturer_link_html}
+        </div>
       </div>
+    </div>
+    <div class="brand-hero-media" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+      </picture>
     </div>
     <div class="brand-stat-pills">{brand_stat_pills_html}</div>
   </div>
@@ -8771,20 +8794,40 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
+/* Toppbanner (2026-09-27) -- samme delte bilde/teknikk som serie-hero og
+   render_brand_page() sin egen .brand-hero, se kommentaren der. */
+.brand-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }}
+.brand-hero-content {{ position: relative; z-index: 2; }}
+.brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
+.brand-hero-media {{ display: none; }}
+@media (min-width: 860px) {{
+  .brand-hero {{ padding: 26px 40px 24px; }}
+  .brand-hero-content {{ max-width: 62%; }}
+  .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
+  .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
+}}
 </style>
 </head>
 <body>
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(subbrand)}</p>
-  <div class="hero">
-    <div class="brand-hero-row">
-      {brand_logo_block}
-      <div class="hero-copy">
-        <div class="kicker">Eget merkenavn</div>
-        <h1>{escape(subbrand)} kontaktlinser</h1>
-        <p>Alle {escape(subbrand)}-varianter vi har identifisert, sortert etter lavest pris.</p>
+  <div class="brand-hero">
+    <div class="brand-hero-content">
+      <div class="brand-hero-row">
+        {brand_logo_block}
+        <div class="hero-copy">
+          <div class="kicker">Eget merkenavn</div>
+          <h1>{escape(subbrand)} kontaktlinser</h1>
+          <p>Alle {escape(subbrand)}-varianter vi har identifisert, sortert etter lavest pris.</p>
+        </div>
       </div>
+    </div>
+    <div class="brand-hero-media" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+      </picture>
     </div>
   </div>
 

@@ -2222,3 +2222,25 @@ Testet: Acuvue (4 serier, 21 produkter, blandet materialdekning) og
 FreshLook (0 serier, 1 produkt) -- begge bygger korrekt, FAQPage-schema
 validert gyldig JSON på tvers av alle 30 merke-sider, ingen horisontal
 overflow på mobil (375px) eller desktop.
+
+## Merke-siden: samme toppbanner som serie, og finpuss mot serie sitt visuelle nivå (2026-09-27, samme dag)
+
+Kai, rett etter forrige runde: "bruk toppbilde vi også bruker på serie her
+på disse for å få det pent", og deretter "bruk serie som utgangspunkt til
+hvordan merke siden også skal se ut. Du ser det er stor forskjell."
+
+1. **Toppbanner**: `.hero` på BÅDE `render_brand_page()` og
+   `render_private_label_brand_page()` erstattet med `.brand-hero` -- en
+   bevisst 1:1-kopi av `.serie-hero` sitt mønster (samme delte bilde
+   `static/hero/serie-{560,840,1120}.webp`, samme side-panel-med-fade-
+   maske-teknikk, skjult under 860px). Egne `brand-hero-*`-klassenavn
+   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper).
+2. **Finpuss**: sammenlignet faktiske computed styles side om side mellom
+   Acuvue (`/merke/`) og Dailies Total1 (`/serie/`) i nettleseren i stedet
+   for å gjette -- fant at `<h1>` i `.brand-hero` IKKE hadde samme
+   `clamp(1.5rem, 4vw, 2rem)`-begrensning som `.serie-hero h1`, og dermed
+   rendret synlig større (35,2px mot 32px) enn seriesidens h1, selv om
+   begge sidene bruker samme globale `<h1>`-basestil. Lagt til samme
+   clamp-regel begge steder. Justerte samtidig `.brand-serie-card` sin
+   `border-radius` fra 16px til 14px for å matche resten av kort-språket
+   på siden (`.variant-card`/`.guide-photo-card` bruker begge 14px).
