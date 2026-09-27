@@ -654,15 +654,22 @@ a { color: inherit; }
 .winner-band-cta { background: linear-gradient(165deg, #FFFFFF 0%, #F3FBF7 100%); box-shadow: var(--card-shadow); }
 .winner-band-cta .winner-btn { background: linear-gradient(135deg, #0E7A4E 0%, #0B6A43 100%); }
 .qty-box { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
-.qty-box-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
-.qty-box-title { font-weight: 600; font-size: 0.92rem; }
-.qty-box-head .qty-box-title { margin-bottom: 0; }
+.qty-box-title { font-weight: 600; font-size: 0.92rem; margin-bottom: 10px; }
+/* Antall + fraktbryter PÅ SAMME RAD, også på mobil (Kai, 2026-09-27:
+   "Da er det bare Å få denne rekken på plass.. på en linje på mobil") --
+   tittelen flyttet ut til sin egen linje over (se .qty-box-title), denne
+   raden er nå KUN pillene + fraktboksen, nowrap uansett bredde. De
+   kompakte .qty-pill-reglene lenger ned (scoped til .wrap-product) er
+   det som faktisk gjør plassen til overs -- uten dem hadde ikke raden
+   hatt en sjanse på 375px. */
+.qty-box-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.qty-box-row .qty-pills { flex: 1 1 auto; min-width: 0; }
 /* Frakt-bryteren som egen boks med ikon/etikett/undertekst/ekte
    vippebryter (2026-09-27, etter mockup) -- egen modifier-klasse
    (.ship-chip-boxed) i stedet for å endre den delte .ship-chip/
    .ship-chip-dot-pillen som linsevæske-/private label-sidene fortsatt
    bruker uendret. */
-.ship-chip-boxed { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 10px 14px; text-align: left; white-space: normal; }
+.ship-chip-boxed { display: flex; align-items: center; gap: 10px; border-radius: 14px; padding: 10px 14px; text-align: left; white-space: normal; flex-shrink: 0; }
 .ship-chip-icon { flex-shrink: 0; color: var(--blue); display: flex; }
 .ship-chip-icon svg { width: 20px; height: 20px; }
 .ship-chip-text { display: flex; flex-direction: column; min-width: 0; }
@@ -673,13 +680,30 @@ a { color: inherit; }
 .ship-chip-boxed[aria-pressed="true"] { border-color: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle { background: var(--blue); }
 .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle::before { transform: translateX(16px); }
-@media (min-width: 480px) { .qty-box-head { flex-wrap: nowrap; } .ship-chip-boxed { flex-shrink: 0; } }
 .qty-pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
 @media (min-width: 640px) { .qty-pills { grid-template-columns: repeat(6, 1fr); } }
 .qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
 .qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
 .qty-pill span { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
+/* Kompakt pille-variant, KUN på produktsiden (.wrap-product) -- ikon og
+   enhetstekst ("eske"/"esker") skjules, kun tallet vises, akkurat som
+   mockupen. Linsevæske-/private label-sidene beholder de større,
+   fullstendige pillene uendret siden de ikke deler rad med noen
+   fraktboks og har god plass. */
+.wrap-product .qty-pill { flex-direction: row; padding: 10px 2px; }
+.wrap-product .qty-pill svg, .wrap-product .qty-pill span { display: none; }
+@media (max-width: 479px) {
+  /* Under 480px: enda knappere -- fraktboksens undertekst tar for mye
+     plass til å holde raden på én linje sammen med 5 pluss-tegn-frie
+     tallpiller. */
+  .wrap-product .ship-chip-sub { display: none; }
+  .wrap-product .ship-chip-boxed { padding: 8px 10px; gap: 6px; }
+  .wrap-product .ship-chip-label { font-size: 0.78rem; }
+  .wrap-product .ship-chip-toggle { width: 34px; height: 20px; }
+  .wrap-product .ship-chip-toggle::before { width: 16px; height: 16px; }
+  .wrap-product .ship-chip-boxed[aria-pressed="true"] .ship-chip-toggle::before { transform: translateX(14px); }
+}
 .qty-pill.is-active { background: linear-gradient(180deg, #3ED4E4 0%, var(--blue) 100%); border-color: var(--blue); color: white; box-shadow: 0 3px 0 #1B95A3, 0 4px 6px rgba(11,37,69,0.18); }
 .qty-pill.is-active:active { box-shadow: 0 1px 0 #1B95A3, 0 2px 3px rgba(11,37,69,0.15); }
 .qty-pill.is-active svg { color: white; }
@@ -1251,11 +1275,11 @@ a { color: inherit; }
     </div>
   </div>
   <div class="qty-box">
-    <div class="qty-box-head">
-      <div class="qty-box-title">Antall esker</div>
+    <div class="qty-box-title">Antall esker</div>
+    <div class="qty-box-row">
+      <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
       <button type="button" class="ship-chip ship-chip-boxed" id="ship-chip" aria-pressed="false"><span class="ship-chip-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg></span><span class="ship-chip-text"><span class="ship-chip-label">Pris med frakt</span><span class="ship-chip-sub">Vis totalpris inkl. frakt</span></span><span class="ship-chip-toggle" aria-hidden="true"></span></button>
     </div>
-    <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
     <div class="qty-custom-row" id="qty-custom-row" hidden>
       <input type="number" id="qty-custom-input" min="1" max="50" inputmode="numeric" placeholder="Antall esker">
     </div>
