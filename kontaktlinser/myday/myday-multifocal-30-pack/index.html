@@ -421,7 +421,15 @@ a { color: inherit; }
    akkurat samme grid-column/-row-regler som før (uendret desktop-layout,
    se Kai 2026-09-27: "du gjør først mobil produktsiden ferdig nå,
    korrekt? ikke desktop?"). */
-.hero-media-row { display: flex; align-items: stretch; gap: 12px; }
+/* align-items: flex-start (IKKE stretch) -- med stretch presset bildet seg
+   til vinnerkortets (tallere) naturlige høyde i stedet for å faktisk følge
+   sin egen aspect-ratio, siden stretch og aspect-ratio konkurrerer om
+   kryss-aksen i en flex-rad. flex-start lar hvert element ha sin egen,
+   naturlige høyde -- bildet blir kortere (matcher det faktiske,
+   liggende eskebildet), og vinnerkortet trenger ikke lenger strekke seg
+   opp til en unødvendig høyde bare fordi det står ved siden av et
+   kvadratisk bilde. */
+.hero-media-row { display: flex; align-items: flex-start; gap: 12px; }
 .hero-media-row .hero-product-image { flex: 2 1 0; min-width: 0; margin: 0; }
 .hero-media-row .winner-band { flex: 1 1 0; min-width: 0; margin: 0; }
 @media (min-width: 640px) { .hero-media-row { gap: 16px; } }
@@ -433,15 +441,33 @@ a { color: inherit; }
    uten denne media-grensen, siden display:contents ikke fjerner elementet
    fra treet). */
 @media (max-width: 859px) {
-  .hero-media-row .winner-band-cta { padding: 12px 10px; gap: 8px; }
-  .hero-media-row .winner-band-cta .label { font-size: 0.72rem; letter-spacing: 0.02em; }
-  .hero-media-row .winner-sub { font-size: 0.68rem; }
-  .hero-media-row .winner-band-cta .retailer-logo { height: 20px; max-width: 92px; }
-  .hero-media-row .winner-price-line { font-size: 0.72rem; line-height: 1.35; }
-  .hero-media-row .winner-savings { width: 40px; height: 40px; }
-  .hero-media-row .winner-savings-label { font-size: 0.44rem; }
-  .hero-media-row .winner-savings-pct { font-size: 0.7rem; }
-  .hero-media-row .winner-btn { font-size: 0.76rem; padding: 9px 8px; gap: 4px; }
+  /* Kai, etter første runde: "Laveste Pris mer firkantet" + "veldig mye
+     plass rundt selve bilde". Begge kommer av samme rot-årsak -- den delte
+     .hero-product-image-regelen (brukt over hele siden der et STORT,
+     kvadratisk bilde er riktig) tvang en 1:1-firkant også her, i en langt
+     smalere ~2/3-kolonne, og .hero-media-row sin align-items:stretch
+     presset i tillegg bildet opp til vinnerkortets (tallere) naturlige
+     høyde -- aspect-ratio og stretch konkurrerer om kryss-aksen i en
+     flex-rad, og stretch vant. Fikset i to steg: (1) .hero-media-row
+     bruker nå align-items:flex-start (se der) slik at bildet faktisk får
+     lov til å følge sin egen, kortere aspect-ratio i stedet for å strekkes
+     opp, og (2) vinnerkortet komprimert videre her (tettere linjer, ett
+     linje-slag i stedet for to for "Laveste pris"/"for 1 eske") for å
+     nærme seg Kais egen designspec sitt høyde-mål (140-160px) selv i en
+     smalere ~1/3-kolonne enn spec-bildet opprinnelig viste. */
+  .hero-media-row .hero-product-image { aspect-ratio: 4 / 3; }
+  .hero-media-row .winner-band-cta { padding: 10px 8px; gap: 6px; }
+  .hero-media-row .winner-top { align-items: center; }
+  .hero-media-row .winner-band-cta .label-group { flex-direction: row; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+  .hero-media-row .winner-band-cta .label { font-size: 0.68rem; letter-spacing: 0.01em; }
+  .hero-media-row .winner-sub { font-size: 0.64rem; margin-top: 0; }
+  .hero-media-row .winner-band-cta .retailer { margin-top: 6px !important; }
+  .hero-media-row .winner-band-cta .retailer-logo { height: 18px; max-width: 88px; }
+  .hero-media-row .winner-price-line { font-size: 0.68rem; line-height: 1.3; }
+  .hero-media-row .winner-savings { width: 34px; height: 34px; }
+  .hero-media-row .winner-savings-label { font-size: 0.4rem; }
+  .hero-media-row .winner-savings-pct { font-size: 0.62rem; }
+  .hero-media-row .winner-btn { font-size: 0.72rem; padding: 8px 6px; gap: 4px; margin-top: 2px; }
 }
 @media (min-width: 860px) {
   .hero-card { padding: 28px; }
