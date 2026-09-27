@@ -2337,3 +2337,35 @@ Vita) bevisst er utenfor enhver serie, i stedet for å late som det ikke
 finnes. Rettet samtidig en entall/flertall-bug ("1 serier" -> "1 serie",
 "1 produktserier" -> "1 produktserie") som ble synlig i samme slengen, for
 merker med kun én serie (Precision1, Biotrue m.fl.).
+
+## Merke-siden: nytt ekte toppbilde + faktabasert intro-setning (2026-09-27, samme dag)
+
+Kai sendte en veldig lang, detaljert "Brand Intelligence Gold Standard"-brief
+(22 faser, pastet fra en annen AI-samtale) for en full redesign av
+/merke/acuvue/ som pilot, pluss et nytt, ekte heltbilde (kvinne med linse på
+fingertuppen, lyst/uskarpt til venstre -- egnet for samme fade-side-panel-
+teknikk som allerede er i bruk). Gitt omfanget (22 faser) ble IKKE alt bygget
+i denne runden -- kun de konkrete, lavrisiko-delene som følger direkte av
+brief sin Fase 1 (hero) ble gjort nå; resten venter på tilbakemelding (se
+rapport gitt til Kai i samme runde, ikke gjentatt her).
+
+- **Nytt delt merke-hero-bilde**: `static/hero/brand-{560,840,1120}.webp`
+  (beskåret/optimalisert fra det medfølgende bildet), erstatter det
+  gjenbrukte serie-hero-vannbildet i BÅDE `render_brand_page()` og
+  `render_private_label_brand_page()` sin `.brand-hero-media`. Samme
+  fade-maske-side-panel-teknikk som før, bare nytt bilde -- differensierer
+  nå merke-sidene visuelt fra serie-sidene, som brief sin Fase 1 antydet.
+- **Faktabasert intro-setning**: erstattet den generiske "Alle X-linser vi
+  følger prisen på, sortert etter lavest pris" med en generert setning som
+  faktisk sier noe om merket -- produsent, linsetyper, produkt-/serieantall,
+  f.eks. "Acuvue er en linseserie fra Johnson & Johnson Vision med
+  dagslinser, multifokale linser, månedslinser og toriske linser. Vi følger
+  prisen på 21 produkter, fordelt på 4 serier, sortert etter lavest pris."
+  Bygget fra data vi allerede har (ingen ny kilde), IKKE en hardkodet
+  markedsføringstekst per merke -- degraderer korrekt for et
+  ett-produkt-merke uten serier (testet mot FreshLook: "FreshLook er en
+  linseserie fra Alcon med fargede linser. Vi følger prisen på 1 produkt,
+  sortert etter lavest pris.").
+- Økte samtidig `.brand-hero` sin padding noe (26/40/24px -> 40/44/36px)
+  for å nærme seg brief sin ønskede hero-høyde (320-390px) -- landet på
+  ca. 310px for Acuvue med den nye, lengre introteksten.

@@ -3894,6 +3894,27 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     brand_logo_cls, brand_logo_content = _brand_badge(brand_slug, brand_label)
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>' if brand_logo_cls else ""
 
+    # Kort, faktabasert intro-setning i heroen (2026-09-27, etter en pastet
+    # AI-brief -- "kort, presis, faktabasert introduksjon", eksplisitt IKKE
+    # reklamespråk/udokumenterte påstander). Generert fra data vi faktisk
+    # har (produsent/linsetyper/antall), ikke en hardkodet markedsføringstekst
+    # per merke. Erstatter den forrige, generiske "Alle X-linser vi følger
+    # prisen på"-linjen -- samme informasjon (den flyttet til
+    # manufacturer_link_html/stat-pillene), men denne sier faktisk noe om
+    # SELVE merket.
+    type_labels_lower = [t[0].lower() + t[1:] if t else t for t in type_labels_all]
+    if len(type_labels_lower) <= 1:
+        brand_type_txt = type_labels_lower[0] if type_labels_lower else ""
+    else:
+        brand_type_txt = ", ".join(type_labels_lower[:-1]) + " og " + type_labels_lower[-1]
+    brand_manufacturer_txt = f' fra {escape(MANUFACTURERS[manufacturer_slug]["name"])}' if manufacturer_slug else ""
+    brand_series_txt = f', fordelt på {len(family_summaries)} {"serie" if len(family_summaries) == 1 else "serier"}' if family_summaries else ""
+    brand_intro_sentence = (
+        f'{escape(brand_label)} er en linseserie{brand_manufacturer_txt}'
+        + (f' med {escape(brand_type_txt)}' if brand_type_txt else '')
+        + f'. Vi følger prisen på {len(products)} {"produkt" if len(products) == 1 else "produkter"}{brand_series_txt}, sortert etter lavest pris.'
+    )
+
     category_slugs = sorted({p["category_slug"] for p in products})
     category_chips = "".join(
         f'<button class="chip" data-category="{escape(c)}">{escape(categories[c]["label"])}</button>' for c in category_slugs
@@ -4228,7 +4249,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
 .brand-hero-media {{ display: none; }}
 @media (min-width: 860px) {{
-  .brand-hero {{ padding: 26px 40px 24px; }}
+  .brand-hero {{ padding: 40px 44px 36px; }}
   .brand-hero-content {{ max-width: 62%; }}
   .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
   .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
@@ -4246,15 +4267,15 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         <div class="hero-copy">
           <div class="kicker">Merke</div>
           <h1>{escape(brand_label)}</h1>
-          <p>Alle {escape(brand_label)}-linser vi følger prisen på, sortert etter lavest pris.</p>
+          <p>{brand_intro_sentence}</p>
           {manufacturer_link_html}
         </div>
       </div>
     </div>
     <div class="brand-hero-media" aria-hidden="true">
       <picture>
-        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/brand-560.webp 560w, /static/hero/brand-840.webp 840w, /static/hero/brand-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
       </picture>
     </div>
     <div class="brand-stat-pills">{brand_stat_pills_html}</div>
@@ -8858,7 +8879,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 .brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
 .brand-hero-media {{ display: none; }}
 @media (min-width: 860px) {{
-  .brand-hero {{ padding: 26px 40px 24px; }}
+  .brand-hero {{ padding: 40px 44px 36px; }}
   .brand-hero-content {{ max-width: 62%; }}
   .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
   .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
@@ -8882,8 +8903,8 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     </div>
     <div class="brand-hero-media" aria-hidden="true">
       <picture>
-        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/brand-560.webp 560w, /static/hero/brand-840.webp 840w, /static/hero/brand-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
       </picture>
     </div>
   </div>
