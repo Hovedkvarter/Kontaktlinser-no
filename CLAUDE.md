@@ -3774,6 +3774,66 @@ esker (krever qty-motoren som allerede finnes i
 `render_winner_widget()`). Alt dette er rent additivt -- ingenting av
 det som allerede finnes på siden fjernes i mellomtiden.
 
+## Produktsiden: Price Intelligence-modul, Steg 2 -- Prisforskjell + Prisvinner over tid (2026-09-28)
+
+Kai ba om de neste to av de tre gjenstående kortene fra 31-punkts-
+spec-en: "Prisforskjell mellom butikkene" og "Prisvinner over tid".
+("Kjøper du flere esker?" fortsatt utsatt -- krever en egen runde mot
+qty-motoren.)
+
+- **`_price_intelligence_merchant_spread(offers)`** (regel 10-12):
+  bygger PÅ `_savings_eligible_offers()` (samme sammenligningsgrunnlag
+  som Winner Card sin Savings Signal -- utelater utsolgte/`is_stale`-
+  tilbud), qty=1, uten frakt (sidens standardbasis). Krever >=2
+  gyldige tilbud, ellers vises kortet ikke i det hele tatt (en
+  "spredning" mellom kun ett tilbud er meningsløs). `spread_pct`
+  regnes EKSAKT som Savings Signal og avrundes alltid NEDOVER (regel
+  12). CURRENT data, ikke historikk -- vises derfor KUN én gang (ikke
+  duplisert per periode-fane).
+- **`_price_intelligence_merchant_winners(history)`** (regel 13-16):
+  teller `store`-feltet per dag i HELE historikken (samme "mest
+  komplette, mest ærlige bilde"-begrunnelse som dekningsdatoen,
+  uavhengig av valgt periode-fane). Viktig oppdagelse om uavgjort-
+  regelen (regel 14): `price_history.json` lagrer KUN vinner-butikken
+  per dag (samme `reconcile_product()`-kall som avgjør "laveste pris"
+  på selve siden den dagen) -- en eventuell uavgjort er derfor
+  ALLEREDE avgjort deterministisk av `reconcile_product()` sin egen
+  tie-break-nøkkel i det øyeblikket dataen ble lagret. Denne modulen
+  har ingen tilgang til de andre tilbudene for en historisk dag (kun
+  vinneren finnes lagret), og kan derfor verken gjenoppdage eller
+  telle en historisk uavgjort-situasjon i etterkant -- den teller
+  ganske enkelt den allerede-tie-brutte, lagrede vinneren per dag.
+  "Prisvinneren har endret seg N ganger"-linjen vises kun når N>0
+  (regel 16: "A zero is not automatically interesting").
+- **"Kort oppsummert" utvidet**: `_price_intelligence_summary_text()`
+  tar nå en valgfri `spread`-parameter og legger til én ekstra setning
+  ("Det er 29 % prisforskjell mellom billigste og dyreste butikk
+  akkurat nå") når spredningsdata finnes -- matcher regel 20 sitt
+  eget eksempel ordrett. Utelates helt (ingen tom/feil setning) når
+  spread er `None`.
+- To nye kort i en `.price-intel-cards`-rad, stables på mobil (regel
+  27), side om side på desktop (regel 28) -- lagt til ETTER periode-
+  fanene, ikke inni dem, siden ingen av kortene er periode-avhengige.
+  "Prisvinner over tid" viser en enkel horisontal stolpe per butikk
+  (bredde relativt til øverste butikks dagantall, ikke til periodens
+  totale lengde -- et vanlig, lesbart "leaderboard"-mønster).
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Verifisert i browser: et produkt med rik data
+(Dailies AquaComfort Plus 90-pack, 45 dagers historikk, 5 tilbud) --
+begge kort korrekt utfylt (Synsam 44/45 dager som vinner, Lenson 1
+dag, "prisvinneren har endret seg 1 gang", 29 % spredning, "Kort
+oppsummert" inkluderer nå spredningssetningen). Kritisk kantcase
+testet: et produkt med KUN ÉTT tilbud (Biofinity Multifocal Toric
+3-pack) -- Prisforskjell-kortet korrekt usynlig (ingen "spredning" med
+ett tilbud), Prisvinner-over-tid-kortet vises fortsatt korrekt (én
+butikk, 45 av 45 dager), OG "Kort oppsummert" utelater riktig
+spredningssetningen i stedet for å vise en tom/feil setning. Mobil
+(375px, kort stables i kolonne) og desktop (1440px, kort side om
+side) begge sjekket, ingen horisontal overflow. Merke-siden (`/merke/
+acuvue/`) bekreftet fortsatt kun å bruke den gamle `.price-insight`,
+ingen `.price-intel-cards` der -- null krysspåvirkning.
+
 Testet: bygget + `validate_build.py` OK, full sveip ingen
 Traceback/NameError. Bekreftet fil-encoding var korrekt UTF-8 (`å` =
 riktig kodepunkt 0xe5) da et terminal-visningsartefakt først så ut som

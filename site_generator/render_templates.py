@@ -3925,16 +3925,18 @@ def _price_intelligence_status_text(status: dict, n_days: int, period_label: str
     return "stable", "Stabil pris", f"Laveste produktpris har endret seg lite de siste {n_days} dagene."
 
 
-def _price_intelligence_summary_text(product_name: str, metrics: dict, period_label: str) -> str:
+def _price_intelligence_summary_text(product_name: str, metrics: dict, period_label: str, spread: dict | None = None) -> str:
     """"Kort oppsummert" -- fra strukturerte, deterministiske maler (Kai,
     regel 20: "generated from structured deterministic templates, not
-    free-form AI"), aldri fritekst fra en språkmodell. Kun fakta denne
-    modulens egne, allerede utregnede tall faktisk støtter -- ingen
-    påstand om butikk-spredning her ennå (det tallet hentes fra
-    Prisforskjell-kortet, som er en senere utvidelse av denne modulen)."""
+    free-form AI"), aldri fritekst fra en språkmodell. `spread` (fra
+    _price_intelligence_merchant_spread(), CURRENT tilbud, IKKE historikk)
+    er valgfri og legger til én ekstra, faktabasert setning når den
+    finnes -- matcher regel 20 sitt eget eksempel ("Det er 32 %
+    prisforskjell mellom billigste og dyreste butikk akkurat nå")."""
     status = metrics["status"]
     kind, n_days = status["kind"], metrics["n_days"]
     name = escape(product_name)
+    spread_sentence = f" Det er {spread['spread_pct']} % prisforskjell mellom billigste og dyreste butikk akkurat nå." if spread else ""
     if kind == "flat":
         flat_days = status["flat_days"]
         # VIKTIG: bruk flat_days (den faktiske, sammenhengende
@@ -3947,17 +3949,70 @@ def _price_intelligence_summary_text(product_name: str, metrics: dict, period_la
         # "flat"-status, må selve SETNINGEN referere til det som faktisk
         # er flatt, ikke til en periode den ikke gjelder for.
         if flat_days >= n_days:
-            return f"Prisen på {name} har vært stabil i {period_label.lower()}, med {_fmt_kr(status['current'])} som både laveste og høyeste registrerte pris i perioden."
-        return f"Prisen på {name} har vært uendret på {_fmt_kr(status['current'])} de siste {flat_days} dagene."
+            return f"Prisen på {name} har vært stabil i {period_label.lower()}, med {_fmt_kr(status['current'])} som både laveste og høyeste registrerte pris i perioden.{spread_sentence}"
+        return f"Prisen på {name} har vært uendret på {_fmt_kr(status['current'])} de siste {flat_days} dagene.{spread_sentence}"
     if kind in ("down", "up"):
         retning = "falt" if kind == "down" else "steget"
         lavere_hoyere = "lavere" if kind == "down" else "høyere"
         return (f"Laveste registrerte pris har {retning} fra {_fmt_kr(status['period_start'])} til {_fmt_kr(status['current'])} de siste {n_days} dagene. "
-                f"Dagens laveste pris er {abs(status['pct_change']):.0f} % {lavere_hoyere} enn ved starten av perioden.")
-    return f"Laveste produktpris for {name} har ligget mellom {_fmt_kr(metrics['low'])} og {_fmt_kr(metrics['high'])} de siste {n_days} dagene."
+                f"Dagens laveste pris er {abs(status['pct_change']):.0f} % {lavere_hoyere} enn ved starten av perioden.{spread_sentence}")
+    return f"Laveste produktpris for {name} har ligget mellom {_fmt_kr(metrics['low'])} og {_fmt_kr(metrics['high'])} de siste {n_days} dagene.{spread_sentence}"
 
 
-def render_price_intelligence(history: list[dict], product_name: str, unit_singular: str = "eske") -> str:
+def _price_intelligence_merchant_spread(offers: list[dict]) -> dict | None:
+    """"Prisforskjell mellom butikkene" (regel 10-12) -- CURRENT, levende
+    tilbud (IKKE historikk), samme sammenligningsgrunnlag som Winner Card
+    sin Savings Signal (_savings_eligible_offers(), qty=1, uten frakt --
+    sidens standard prisbasis). Krever >=2 gyldige tilbud, ellers None (en
+    "spredning" mellom kun ett tilbud er meningsløs). spread_pct regnes
+    EKSAKT som Savings Signal (regel 11: "Use the same conceptual basis as
+    Winner Card Savings Signal") og rundes ALLTID nedover (regel 12:
+    "Display whole percentages conservatively")."""
+    pool = _savings_eligible_offers(offers, incl=False)
+    if len(pool) < 2:
+        return None
+    prices = sorted(o["price_nok"] for o in pool)
+    lowest, highest = prices[0], prices[-1]
+    median = statistics.median(prices)
+    spread_pct = math.floor((highest - lowest) / highest * 100) if highest else 0
+    return {"lowest": lowest, "median": median, "highest": highest, "spread_pct": spread_pct, "n_offers": len(pool)}
+
+
+def _price_intelligence_merchant_winners(history: list[dict]) -> dict | None:
+    """"Prisvinner over tid" (regel 13-16) -- KUN fra faktisk lagrede
+    `store`-felt i historikken, aldri utledet/gjettet.
+
+    Uavgjort-regel (regel 14): price_history.json lagrer KUN vinner-
+    butikken for dagen (record_price() kalles med samme reconcile_
+    product() som avgjør "laveste pris" på selve siden den dagen) --
+    en eventuell uavgjort mellom to butikker med eksakt lik pris er
+    derfor ALLEREDE avgjort deterministisk av reconcile_product() sin
+    egen tie-break-nøkkel (_tie_break_key()/AFFILIATE_TIE_PRIORITY) i
+    det øyeblikket dataen ble lagret. Denne modulen har ingen tilgang
+    til de andre tilbudene for en historisk dag (kun vinneren ble
+    lagret), og kan derfor verken gjenoppdage eller telle en historisk
+    uavgjort-situasjon i etterkant -- den regner ganske enkelt den
+    lagrede, allerede-tie-brutte vinneren for hver dag."""
+    wins: dict[str, int] = {}
+    prev_winner: str | None = None
+    changes = 0
+    for entry in history:
+        store = entry.get("store")
+        if not store:
+            continue
+        wins[store] = wins.get(store, 0) + 1
+        if prev_winner is not None and store != prev_winner:
+            changes += 1
+        prev_winner = store
+
+    if not wins:
+        return None
+    ranked = sorted(wins.items(), key=lambda kv: (-kv[1], kv[0]))
+    n_days = len(history)
+    return {"ranked": ranked, "n_days": n_days, "changes": changes, "top_store": ranked[0][0], "top_count": ranked[0][1]}
+
+
+def render_price_intelligence(history: list[dict], product_name: str, unit_singular: str = "eske", offers: list[dict] | None = None) -> str:
     """Price Intelligence-modulen (Product Gold Standard v1, 2026-09-27) --
     erstatter den gamle, enkle "Prisutvikling"-grafen på PRODUKTSIDEN kun
     (render_product_page()). _render_price_history_chart() (den eldre,
@@ -3966,18 +4021,29 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     om produktsidens Prisutvikling-seksjon.
 
     Bygget etter et 31-punkts spec + godkjent mockup, men implementert i
-    etapper (samme disiplin som resten av produktsiden denne dagen). DETTE
-    steget: dekningsdato, toppmetrikker (nå/laveste/høyeste/median),
+    etapper (samme disiplin som resten av produktsiden denne dagen).
+
+    Steg 1: dekningsdato, toppmetrikker (nå/laveste/høyeste/median),
     deterministisk statuskort, periodevelger (KUN aktiverte perioder --
     price_history.json har i dag maks 45 dagers historikk for ethvert
     produkt, så 90 dager/6 måneder/1 år er deaktivert for alle produkter
-    ennå, automatisk, ikke hardkodet), strammere graf, og en kort,
-    mal-generert oppsummering. IKKE bygget ennå (egen runde): Prisforskjell
-    mellom butikkene (krever live offers, ikke historikk), Prisvinner over
-    tid (krever iterering over `store`-feltet per dag), Kjøper du flere
-    esker (krever qty-motoren). Alt dette er ADDITIVT -- ingenting fjernes
-    fra siden i mellomtiden, kun den gamle enkle grafen erstattes med en
-    rikere modul over SAMME underliggende data."""
+    ennå, automatisk, ikke hardkodet), strammere graf, kort mal-generert
+    oppsummering.
+
+    Steg 2 (2026-09-28): "Prisforskjell mellom butikkene" (CURRENT
+    `offers`, ikke historikk -- samme grunnlag som Savings Signal, se
+    _price_intelligence_merchant_spread()) og "Prisvinner over tid" (fra
+    `store`-feltet i historikken, se _price_intelligence_merchant_winners()
+    -- uavgjorte er allerede løst av reconcile_product() sin egen
+    tie-break-nøkkel når hver dags rad ble lagret, denne modulen kan ikke
+    gjenoppdage dem i etterkant). Begge vises KUN én gang (ikke duplisert
+    per periode-panel) siden ingen av dem er periode-avhengige på samme
+    måte som toppmetrikkene/grafen er.
+
+    IKKE bygget ennå (egen runde): "Kjøper du flere esker?" (krever
+    qty-motoren fra render_winner_widget()). Alt dette er ADDITIVT --
+    ingenting fjernes fra siden i mellomtiden, kun den gamle enkle grafen
+    erstattes med en rikere modul over SAMME underliggende data."""
     if len(history) < 7:
         return ""
 
@@ -3986,6 +4052,8 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     periods = _price_intelligence_eligible_periods(coverage_days)
     period_keys = {key for key, _, _ in periods}
     default_key = "30d" if "30d" in period_keys else "all"
+    spread = _price_intelligence_merchant_spread(offers) if offers else None
+    winners = _price_intelligence_merchant_winners(history)
 
     tabs, panels = [], []
     for key, label, days in periods:
@@ -3996,7 +4064,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         tabs.append(f'<button type="button" class="price-intel-period-tab{" active" if active else ""}" data-period="{key}">{escape(label)}</button>')
         status = metrics["status"]
         status_mod, status_title, status_msg = _price_intelligence_status_text(status, metrics["n_days"], label)
-        summary_text = _price_intelligence_summary_text(product_name, metrics, label)
+        summary_text = _price_intelligence_summary_text(product_name, metrics, label, spread)
         chart_svg = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFade-{key}")
         panels.append(f'''<div class="price-intel-panel{" active" if active else ""}" data-period="{key}">
     <div class="price-intel-metrics">
@@ -4031,6 +4099,46 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         for key, label, days in PRICE_INTELLIGENCE_PERIODS
         if key not in period_keys
     )
+
+    # "Prisforskjell mellom butikkene" (regel 10-12) -- CURRENT tilbud, ikke
+    # periode-avhengig, vises derfor KUN én gang (ikke duplisert per
+    # periode-panel). Skjules helt hvis <2 gyldige tilbud (samme grunnlag
+    # som Savings Signal).
+    spread_card = ""
+    if spread:
+        spread_card = f'''<div class="price-intel-card">
+    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
+    <div class="price-intel-card-row"><span>Laveste pris</span><strong>{_fmt_kr(spread["lowest"])}</strong></div>
+    <div class="price-intel-card-row"><span>Medianpris</span><strong>{_fmt_kr(spread["median"])}</strong></div>
+    <div class="price-intel-card-row"><span>Høyeste pris</span><strong>{_fmt_kr(spread["highest"])}</strong></div>
+    <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>{spread["spread_pct"]} %</strong></div>
+    <p class="price-intel-card-note">Basert på priser uten frakt, for 1 {escape(unit_singular)}.</p>
+  </div>'''
+
+    # "Prisvinner over tid" (regel 13-16) -- bruker HELE historikken (ikke
+    # bare valgt periode) for det mest komplette, mest ærlige bildet siden
+    # vi begynte å følge produktet, vises derfor også KUN én gang.
+    winners_card = ""
+    if winners and len(winners["ranked"]) >= 1:
+        max_count = winners["ranked"][0][1]
+        rows = "".join(
+            f'<div class="price-intel-winner-row"><span class="price-intel-winner-store">{escape(store)}</span>'
+            f'<span class="price-intel-winner-bar"><span style="width:{round(count / max_count * 100)}%"></span></span>'
+            f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"}</span></div>'
+            for store, count in winners["ranked"][:6]
+        )
+        changes_sentence = (
+            f' Prisvinneren har endret seg {winners["changes"]} {"gang" if winners["changes"] == 1 else "ganger"} de siste {winners["n_days"]} dagene.'
+            if winners["changes"] > 0 else ""
+        )
+        winners_card = f'''<div class="price-intel-card">
+    <h3>{TROPHY_ICON_SVG}Prisvinner over tid</h3>
+    <div class="price-intel-winners-list">{rows}</div>
+    <p class="price-intel-card-note">{escape(winners["top_store"])} har hatt lavest registrert produktpris i {winners["top_count"]} av de siste {winners["n_days"]} dagene.{changes_sentence}</p>
+  </div>'''
+
+    cards_html = f'<div class="price-intel-cards">{spread_card}{winners_card}</div>' if (spread_card or winners_card) else ""
+
     return f'''<div class="price-intel">
   <div class="price-intel-head">
     <h2>Prisutvikling</h2>
@@ -4040,6 +4148,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
   <div class="price-intel-period-tabs" role="tablist">{"".join(tabs)}{disabled_tabs}</div>
   {"".join(panels)}
   {script_html}
+  {cards_html}
 </div>'''
 
 
@@ -4345,7 +4454,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
     specs_html += manufacturer_link_html
 
-    price_history_html = render_price_intelligence(price_history or [], product["name"])
+    price_history_html = render_price_intelligence(price_history or [], product["name"], offers=offers)
 
     aliases_html = ""
     if aliases:
@@ -4726,6 +4835,26 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .price-intel-summary {{ display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 0; padding: 12px 14px; background: var(--blue-tint); border-radius: 10px; font-size: 0.85rem; line-height: 1.55; color: var(--ink); }}
 .price-intel-summary strong {{ display: block; margin-bottom: 2px; }}
 .price-intel-summary-icon {{ flex-shrink: 0; }}
+/* "Prisforskjell mellom butikkene" + "Prisvinner over tid" (Price
+   Intelligence steg 2, 2026-09-28) -- stables på mobil, side om side
+   på desktop (regel 27/28). Ikke periode-avhengige, ligger derfor
+   UTENFOR periode-fanene, kun én gang. */
+.price-intel-cards {{ display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }}
+.price-intel-card {{ background: var(--mist); border-radius: 12px; padding: 16px 18px; flex: 1; }}
+.price-intel-card h3 {{ display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0 0 12px; color: var(--ink); }}
+.price-intel-card h3 svg {{ width: 18px; height: 18px; color: var(--blue); flex-shrink: 0; }}
+.price-intel-card-row {{ display: flex; align-items: center; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
+.price-intel-card-row:last-of-type {{ border-bottom: none; }}
+.price-intel-card-row strong {{ font-family: 'IBM Plex Mono', monospace; }}
+.price-intel-card-row-highlight {{ margin-top: 4px; padding-top: 10px; border-top: 1px dashed var(--border); border-bottom: none; }}
+.price-intel-card-row-highlight strong {{ color: var(--mint); font-size: 1rem; }}
+.price-intel-card-note {{ font-size: 0.76rem; color: var(--muted); margin: 10px 0 0; line-height: 1.5; }}
+.price-intel-winners-list {{ display: flex; flex-direction: column; gap: 8px; }}
+.price-intel-winner-row {{ display: grid; grid-template-columns: 84px 1fr auto; align-items: center; gap: 10px; font-size: 0.82rem; }}
+.price-intel-winner-store {{ font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+.price-intel-winner-bar {{ display: block; height: 8px; background: white; border-radius: 999px; overflow: hidden; }}
+.price-intel-winner-bar span {{ display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }}
+.price-intel-winner-days {{ color: var(--muted); white-space: nowrap; }}
 @media (min-width: 860px) {{
   .price-intel {{ padding: 28px 32px; }}
   .price-intel-head {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }}
@@ -4733,6 +4862,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   .price-intel-coverage {{ margin-top: 0; flex-shrink: 0; }}
   .price-intel-metrics {{ grid-template-columns: repeat(4, 1fr) 1.3fr; }}
   .price-intel-status {{ grid-column: auto; flex-direction: column; align-items: flex-start; text-align: left; }}
+  .price-intel-cards {{ flex-direction: row; }}
 }}
 {PRICE_LIST_STYLE}</style>
 </head>
