@@ -3940,7 +3940,7 @@ SOLUTION_SEARCH_TERMS = {
 }
 
 
-def build_search_index(products: list[dict], private_labels: list[dict] | None = None, solutions: list[dict] | None = None) -> list[dict]:
+def build_search_index(products: list[dict], private_labels: list[dict] | None = None, solutions: list[dict] | None = None, families: list[dict] | None = None) -> list[dict]:
     """Søkeindeksen som driver autofullføringen (forside: innebygd som
     skjult JSON; guide-sider: hentes fra /data/search-index.json).
     "meta" er den synlige undertekst-linjen i forslagene -- kjedenavnet
@@ -3977,6 +3977,20 @@ def build_search_index(products: list[dict], private_labels: list[dict] | None =
         }
         for label in (private_labels or [])
     ]
+    # Serie-sider (/serie/{slug}/) manglet lenge enhver innkommende lenke utenom
+    # sitemap.xml (se generate_pages.py sin kommentar om "Oppdaget - ikke
+    # indeksert" i Search Console 2026-09-18) -- lagt til her 2026-09-27 slik at
+    # et søk på f.eks. "acuvue moist serie" faktisk finner samle-siden.
+    entries += [
+        {
+            "name": f'{fam["name"]}-serien',
+            "meta": f'Serie · {fam["count"]} varianter',
+            "href": f'/serie/{fam["slug"]}/',
+            "image": fam.get("image"),
+            "search": f'{fam["name"]} serie serien'.lower(),
+        }
+        for fam in (families or [])
+    ]
     return entries
 
 
@@ -4008,7 +4022,7 @@ def render_guide_search_card(guide_slug: str, compact: bool = False) -> str:
   </aside>"""
 
 
-def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None, solution_products: list[dict] | None = None) -> str:
+def render_home_page(catalog: dict, now: datetime | None = None, private_labels: list[dict] | None = None, solution_products: list[dict] | None = None, families: list[dict] | None = None) -> str:
     now = now or datetime.now(timezone.utc)
 
     # Søkeindeksen (under) driver kun søkeforslag-dropdownen -- forsiden
@@ -4020,7 +4034,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         build_search_index(catalog["products"], solutions=solution_products), ensure_ascii=False
     ).replace("</", "<\\/")
     private_label_search_index_json = json.dumps(
-        build_search_index([], private_labels), ensure_ascii=False
+        build_search_index([], private_labels, families=families), ensure_ascii=False
     ).replace("</", "<\\/")
 
     brand_counts: dict[str, int] = {}
@@ -8466,8 +8480,10 @@ def render_family_page(
             cells += f'\n    <td class="spec-value">{wc_txt}</td>'
         if show_bc:
             cells += f'\n    <td class="spec-value">{bc_txt}</td>'
+        row_img = _product_image(r["product"])
+        thumb_html = f'<img class="spec-row-thumb" src="{escape(row_img)}" alt="" loading="lazy">' if row_img else ''
         return f'''<tr>
-    <th scope="row" class="spec-label"><a href="{escape(r["href"])}">{escape(r["display_name"])}</a></th>
+    <th scope="row" class="spec-label"><a href="{escape(r["href"])}">{thumb_html}{escape(r["display_name"])}</a></th>
     {cells}
     <td class="spec-value">{price_txt}</td>
   </tr>'''
@@ -8481,7 +8497,7 @@ def render_family_page(
         table_header_extra += "<th>Basiskurve</th>"
 
     comparison_table = f'''<div style="overflow-x:auto;">
-  <table class="spec-table" style="width:100%;border-collapse:collapse;">
+  <table class="spec-table">
     <thead>
       <tr><th>Variant</th><th>Type</th><th>Pakning</th>{table_header_extra}<th>Fra pris (uten frakt)</th></tr>
     </thead>
@@ -8501,6 +8517,35 @@ def render_family_page(
         f'det er alltid optikeren din som fastsetter riktig type ut fra synsundersøkelsen.</p>'
     ) if guide_links else ""
 
+    # Unikt FAQ-innhold for serie-siden -- svarer på det EKTE spørsmålet en
+    # serie-side finnes for ("hvilke varianter/pakninger finnes"), utledet fra
+    # radene i tabellen over, ikke gjentatt fra enkeltproduktsidene (de har sin
+    # egen FAQ om pris/butikk for akkurat DEN varianten).
+    family_faq: list[dict] = []
+    type_labels = sorted({r["category_label"] for r in rows if r["category_label"]})
+    pack_sizes = sorted({r["pack_size"] for r in rows if r["pack_size"]})
+    if type_labels:
+        type_txt = " og ".join(type_labels) if len(type_labels) <= 2 else ", ".join(type_labels[:-1]) + " og " + type_labels[-1]
+        pack_txt = f' Den fås i {" og ".join(f"{n}-pakning" for n in pack_sizes)}.' if pack_sizes else ""
+        family_faq.append({
+            "question": f'Hvilke varianter finnes av {family_name}?',
+            "answer": f'{family_name}-serien finnes som {type_txt.lower()}.{pack_txt} Se tabellen over for pris på hver variant.',
+        })
+    if lowest_row and lowest_row["best"]:
+        family_faq.append({
+            "question": f'Hva er billigst i {family_name}-serien?',
+            "answer": f'{lowest_row["display_name"]} er billigst akkurat nå, fra {_fmt_kr(lowest_row["best"]["price_nok"])} '
+                      f'hos {lowest_row["best"]["retailer"]} (uten frakt). Prisen varierer mellom variantene i serien.',
+        })
+    materials_present = {r["material"] for r in rows if r["material"]}
+    if len(materials_present) == 1 and len(rows) > 1:
+        family_faq.append({
+            "question": f'Er alle variantene i {family_name}-serien laget av samme materiale?',
+            "answer": f'Ja, hele {family_name}-serien er laget av {next(iter(materials_present))}. '
+                      f'Det er styrkeprofilen (sfærisk, torisk eller multifokal) som skiller variantene, ikke selve linsematerialet.',
+        })
+    family_faq_html, family_faq_schema = _render_faq_block(family_faq, f'Ofte stilte spørsmål om {family_name}')
+
     material_sentence = f' i {rows[0]["material"]}' if show_material and rows[0]["material"] else ""
     manufacturer_sentence = f' fra {escape(manufacturer_name)}' if manufacturer_name else ""
     intro = (
@@ -8509,6 +8554,13 @@ def render_family_page(
         f'Grunnmaterialet og teknologien er delt på tvers av variantene; det som skiller dem er styrkeprofilen '
         f'linsen er formet for å korrigere.</p>'
     )
+
+    # Representativt produktbilde til heroen -- første medlem som faktisk HAR
+    # et lisensiert bilde (samme prioritering som _product_image() selv bruker
+    # internt, bare på tvers av hele familien i stedet for ett enkelt produkt).
+    hero_image_url = next((img for r in rows if (img := _product_image(r["product"]))), None)
+    hero_thumb = _img_tag(hero_image_url, family_name, loading="eager") if hero_image_url \
+        else escape(family_name[:2].upper())
 
     chain_html = ""
     display_name_for_title = family_name
@@ -8571,11 +8623,17 @@ def render_family_page(
 {_og_meta(f'{display_name_for_title}-serien » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/serie/{family_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
+{family_faq_schema}
 <style>{SHARED_STYLE}
-.spec-table th, .spec-table td {{ padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
-.spec-table thead th {{ font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }}
+{HERO_IMAGE_STYLE}
+.spec-table-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }}
+.spec-table {{ width: 100%; border-collapse: collapse; }}
+.spec-table th, .spec-table td {{ padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
+.spec-table thead th {{ font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }}
+.spec-table tbody tr:last-child td {{ border-bottom: none; }}
 .spec-table tbody tr:hover {{ background: var(--mist); }}
-.spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
+.spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 10px; }}
+.spec-row-thumb {{ width: 32px; height: 32px; border-radius: 7px; background: var(--mist); border: 1px solid var(--border); object-fit: contain; padding: 3px; box-sizing: border-box; flex-shrink: 0; }}
 .product-ai-summary {{ background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }}
 .product-ai-summary p {{ margin: 0; }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
@@ -8585,19 +8643,25 @@ def render_family_page(
 {TOPBAR_HTML}
 <div class="wrap wrap-product">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(family_name)}-serien</p>
-  <div class="hero">
-    <div class="hero-copy">
-      <div class="kicker">Produktserie</div>
-      <h1>{escape(family_name)}-serien</h1>
-      {intro}
+  <div class="hero-card">
+    <div class="hero-main">
+      <div class="hero-product-image{' has-photo' if hero_image_url else ''}">{hero_thumb}</div>
+      <div class="hero-copy">
+        <div class="kicker">Produktserie</div>
+        <h1>{escape(family_name)}-serien</h1>
+        {intro}
+      </div>
     </div>
   </div>
   {ai_summary_html}
   {chain_html}
 
   <h2>Sammenlign variantene</h2>
+  <div class="spec-table-card">
   {comparison_table}
+  </div>
   {guide_html}
+  {family_faq_html}
 
   <p class="disclosure">
     Prisene her er produktpriser uten frakt, sortert etter lavest pris. På hver

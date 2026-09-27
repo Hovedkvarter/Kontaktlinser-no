@@ -1756,3 +1756,29 @@ feilsøke).
 - **Ny hero på forsiden (2026-09-26, Concept 1).** Kompakt lyst hero-kort (ca. 340 px) med søkefeltet som hovedelement (2 px blå kant, blå Søk-knapp) og hero-bilde som fader inn fra høyre (CSS-maske). Bildet ligger som beskårne, responsive WebP-varianter i `static/hero/eye-{560,840,1120}.webp` (12/21/30 KB; originalen serveres ikke), lastes kun på desktop (`<picture>` med `media="(min-width: 1024px)"`, `img` har en 1x1 data-URI så mobil ikke laster noe) og preloades med `fetchpriority=high`. Det gamle Unsplash-bildet og bildekreditten er fjernet. Tekst, kategorier, URL-er og søkefunksjon er uendret.
 
 - **Nye kategorikort på forsiden (2026-09-26).** Fem pastellkort med fotorealistisk linse-bakgrunn (`static/categories/bg-{maaned,dag,toriske,fargede,multifokale}-{320,613}.webp`, 1-11 KB hver, beskåret fra kundens illustrasjonsark). `<img loading=lazy>` med srcset, så bildene ikke påvirker LCP (skjult desktop-/mobilkopi laster ingenting). Linsen skaleres med kortbredden og er forankret nede til høyre med maske mot venstre/opp og en pastell-tåke (`::before`) bak teksten. Desktop: 5 i rad, pil vises ved hover; mobil: kompakte rader (ca. 76 px) med liten pil. Tekst, ikoner (inline SVG), lenker uendret.
+
+## Serie-sider styrket: søkeindeks, FAQ-innhold, visuell opprydning (2026-09-27)
+
+Fulgte opp funnet om at serie-siden (`/serie/{slug}/`) manglet nesten all intern
+lenking (kun fra produktsiden + private label-siden, se 2026-09-18-notatet lenger
+opp om "Oppdaget - ikke indeksert"). Kai ba om tre ting samtidig:
+
+- **Søkeindeksen** (`build_search_index()`) tar nå en `families`-liste -- alle 49
+  serie-sider (28 ekte familier + 21 kjede-varianter) er søkbare fra forsiden og
+  guidene ("Biofinity serie" -> treffer `/serie/biofinity/`). Listen beregnes
+  tidlig i `generate_pages.py` sin `build()` (før forsiden rendres, siden den også
+  trenger den til sin egen innebygde indeks) -- bevisst en lett, egen kopi av
+  familie-/kjede-grupperings-logikken (samme prinsipp: korteste slug = base-
+  varianten), IKKE samme kode som selve HTML-bygget lenger nede i filen.
+- **Nytt FAQ-innhold** (`_render_faq_block()`, egen `<script>`-tag, samme mønster
+  som resten av siden -- IKKE slått sammen i samme `@graph` som
+  BreadcrumbList/CollectionPage-schemaet), utledet fra de faktiske radene i
+  tabellen -- ALDRI en påstand vi ikke kan bevise fra dataen: hvilke typer/
+  pakningsstørrelser finnes, hva som er billigst, og (kun når SAMTLIGE varianter
+  faktisk deler materiale) at materialet er likt på tvers av serien.
+- **Visuell opprydning:** heroen bruker nå samme `HERO_IMAGE_STYLE`/`hero-card`-
+  mønster som lens-/tilbehør-/private label-sidene (representativt produktbilde --
+  første medlem med et lisensiert bilde, samme prioritering som `_product_image()`),
+  i stedet for den gamle tekst-only `.hero`. Sammenligningstabellen ligger nå i et
+  hvitt kort (`.spec-table-card`, samme skygge/kant som resten av siden) med et
+  lite produktbilde per rad.

@@ -22,7 +22,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
-from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT, oslo_date
+from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT, oslo_date, _product_image
 from price_history import load_history, record_price, save_history
 from lastmod import resolve_lastmods
 
@@ -154,7 +154,34 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     for label in private_labels:
         aliases_by_product_id.setdefault(label["real_product_id"], []).append(label)
 
-    home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels, solution_products=solution_products)
+    # Serie-sidene i søkeindeksen (se build_search_index() sin kommentar) --
+    # beregnet HER, tidlig, fordi forsiden trenger den samme listen til sin
+    # egen innebygde søkeindeks. Selve HTML-en for hver serie-side bygges
+    # fortsatt lenger nede (uendret) -- denne blokken dupliserer bevisst kun
+    # den lette "hvilke familier/kjede-varianter finnes"-logikken derfra,
+    # IKKE render_family_page()-kallet.
+    _products_by_id_early = {p["id"]: p for p in lens_products}
+    product_families = json.loads(PRODUCT_FAMILIES_PATH.read_text(encoding="utf-8"))["families"] if PRODUCT_FAMILIES_PATH.exists() else []
+    family_search_entries: list[dict] = []
+    for _family in product_families:
+        _valid_ids = [mid for mid in _family["member_ids"] if mid in _products_by_id_early]
+        if len(_valid_ids) < 2:
+            continue
+        _img = next((im for mid in _valid_ids if (im := _product_image(_products_by_id_early[mid]))), None)
+        family_search_entries.append({"name": _family["name"], "slug": _family["slug"], "image": _img, "count": len(_valid_ids)})
+        _member_set = set(_valid_ids)
+        _by_chain: dict[str, dict[str, dict]] = {}
+        for _label in private_labels:
+            if _label["real_product_id"] not in _member_set:
+                continue
+            _by_chain.setdefault(_label["chain"], {}).setdefault(_label["real_product_id"], _label)
+        for _chain, _by_product in _by_chain.items():
+            if len(_by_product) < 2:
+                continue
+            _primary = min(_by_product.values(), key=lambda l: len(l["slug"]))
+            family_search_entries.append({"name": _primary["name"], "slug": _primary["slug"], "image": None, "count": len(_by_product)})
+
+    home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels, solution_products=solution_products, families=family_search_entries)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
 
@@ -162,7 +189,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     # har samme indeks innebygd) -- holder guide-HTML-en lett.
     write_file(
         BUILD_DIR / "data" / "search-index.json",
-        json.dumps(build_search_index(lens_products, private_labels, solution_products), ensure_ascii=False, separators=(",", ":")),
+        json.dumps(build_search_index(lens_products, private_labels, solution_products, family_search_entries), ensure_ascii=False, separators=(",", ":")),
     )
 
     products_by_id = {p["id"]: p for p in lens_products}
