@@ -82,7 +82,7 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hvilken Biotrue-pakning har lavest pris per linse akkurat nå?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Biotrue ONEday 90-pack har lavest pris per linse akkurat nå, ca. 6,8 kr per linse (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Biotrue ONEday 90-pack har lavest pris per linse akkurat nå, ca. 6,3 kr per linse (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -693,8 +693,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1231,7 +1239,7 @@ a { color: inherit; }
     <h2>Biotrue i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">209 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">6,8 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Biotrue ONEday 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">46 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Biotrue ONEday</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Multifokale linser · Toriske linser</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">209 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">6,3 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Biotrue ONEday 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">46 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Biotrue ONEday 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Biotrue ONEday</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Multifokale linser · Toriske linser</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1318,9 +1326,9 @@ a { color: inherit; }
   </div></div>
   </div><div class="price-insight-panel" data-pack="90">
     <div class="price-insight-now">
-      <div class="price-insight-current">706 kr</div>
+      <div class="price-insight-current">686 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Biotrue-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -2 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -5 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>678 kr</strong><span>45 dagers laveste</span></div>
         <div class="price-insight-tile"><strong>722 kr</strong><span>45 dagers snitt</span></div>
@@ -1342,8 +1350,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">723 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">671 kr</text>
-      <path d="M48.0,158.0 L48.0,73.2 L62.2,62.1 L76.4,24.6 L90.5,23.9 L104.7,25.3 L118.9,35.0 L133.1,38.5 L147.3,106.5 L161.5,75.3 L175.6,94.7 L189.8,75.3 L204.0,80.1 L218.2,75.3 L232.4,94.7 L246.5,75.3 L260.7,80.1 L274.9,75.3 L289.1,70.4 L303.3,70.4 L317.5,70.4 L331.6,70.4 L345.8,70.4 L360.0,75.3 L374.2,99.5 L388.4,104.4 L402.5,109.2 L416.7,114.1 L430.9,116.2 L445.1,120.3 L459.3,121.0 L473.5,148.1 L487.6,135.6 L501.8,94.0 L516.0,103.0 L530.2,94.0 L544.4,83.6 L558.5,87.0 L572.7,130.7 L586.9,87.0 L601.1,87.0 L615.3,87.0 L629.5,95.4 L643.6,109.9 L657.8,109.9 L672.0,109.9 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
-      <polyline points="48.0,73.2 62.2,62.1 76.4,24.6 90.5,23.9 104.7,25.3 118.9,35.0 133.1,38.5 147.3,106.5 161.5,75.3 175.6,94.7 189.8,75.3 204.0,80.1 218.2,75.3 232.4,94.7 246.5,75.3 260.7,80.1 274.9,75.3 289.1,70.4 303.3,70.4 317.5,70.4 331.6,70.4 345.8,70.4 360.0,75.3 374.2,99.5 388.4,104.4 402.5,109.2 416.7,114.1 430.9,116.2 445.1,120.3 459.3,121.0 473.5,148.1 487.6,135.6 501.8,94.0 516.0,103.0 530.2,94.0 544.4,83.6 558.5,87.0 572.7,130.7 586.9,87.0 601.1,87.0 615.3,87.0 629.5,95.4 643.6,109.9 657.8,109.9 672.0,109.9" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,73.2 L62.2,62.1 L76.4,24.6 L90.5,23.9 L104.7,25.3 L118.9,35.0 L133.1,38.5 L147.3,106.5 L161.5,75.3 L175.6,94.7 L189.8,75.3 L204.0,80.1 L218.2,75.3 L232.4,94.7 L246.5,75.3 L260.7,80.1 L274.9,75.3 L289.1,70.4 L303.3,70.4 L317.5,70.4 L331.6,70.4 L345.8,70.4 L360.0,75.3 L374.2,99.5 L388.4,104.4 L402.5,109.2 L416.7,114.1 L430.9,116.2 L445.1,120.3 L459.3,121.0 L473.5,148.1 L487.6,135.6 L501.8,94.0 L516.0,103.0 L530.2,94.0 L544.4,83.6 L558.5,87.0 L572.7,130.7 L586.9,87.0 L601.1,87.0 L615.3,87.0 L629.5,95.4 L643.6,109.9 L657.8,109.9 L672.0,137.7 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
+      <polyline points="48.0,73.2 62.2,62.1 76.4,24.6 90.5,23.9 104.7,25.3 118.9,35.0 133.1,38.5 147.3,106.5 161.5,75.3 175.6,94.7 189.8,75.3 204.0,80.1 218.2,75.3 232.4,94.7 246.5,75.3 260.7,80.1 274.9,75.3 289.1,70.4 303.3,70.4 317.5,70.4 331.6,70.4 345.8,70.4 360.0,75.3 374.2,99.5 388.4,104.4 402.5,109.2 416.7,114.1 430.9,116.2 445.1,120.3 459.3,121.0 473.5,148.1 487.6,135.6 501.8,94.0 516.0,103.0 530.2,94.0 544.4,83.6 558.5,87.0 572.7,130.7 586.9,87.0 601.1,87.0 615.3,87.0 629.5,95.4 643.6,109.9 657.8,109.9 672.0,137.7" class="price-history-line" />
       <circle cx="48.0" cy="73.2" r="2.2" class="price-history-dot"><title>14.08: 732 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="62.1" r="2.2" class="price-history-dot"><title>15.08: 740 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="24.6" r="2.2" class="price-history-dot"><title>16.08: 767 kr (snitt for serien)</title></circle>
@@ -1388,8 +1396,8 @@ a { color: inherit; }
       <circle cx="629.5" cy="95.4" r="2.2" class="price-history-dot"><title>24.09: 716 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="109.9" r="2.2" class="price-history-dot"><title>25.09: 706 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="109.9" r="2.2" class="price-history-dot"><title>26.09: 706 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="109.9" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 706 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="101.9" text-anchor="end" class="price-history-current-label">706 kr</text>
+      <circle cx="672.0" cy="137.7" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 686 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="129.7" text-anchor="end" class="price-history-current-label">686 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1441,7 +1449,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/bausch-lomb/">Bausch + Lomb</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">298</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">298</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-astigmatism-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1465,7 +1473,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/bausch-lomb/">Bausch + Lomb</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">610</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">570</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1563,7 +1571,7 @@ a { color: inherit; }
     <p>Biotrue ONEday 30-pack er billigst akkurat nå, fra 209 kr hos Shopping4net (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken Biotrue-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Biotrue ONEday 90-pack har lavest pris per linse akkurat nå, ca. 6,8 kr per linse (uten frakt).</p>
+    <p>Biotrue ONEday 90-pack har lavest pris per linse akkurat nå, ca. 6,3 kr per linse (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no Biotrue?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>Vi sammenligner Biotrue hos 8 norske nettbutikker til sammen, på tvers av alle 5 produktene vi følger.</p>

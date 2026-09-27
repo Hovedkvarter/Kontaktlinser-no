@@ -10,8 +10,10 @@
 Priser hentes automatisk fra forhandlernes egne feeds og produktsider.
 Hver pris vises med tidspunkt for siste kontroll ("sist oppdatert"). Priser
 eldre enn 24 timer eller produkter uten bekreftet lagerstatus vises ikke som
-"lavest pris". Rangeringen av tilbud følger alltid total pris (produktpris +
-frakt) - den påvirkes ikke av om vi har en affiliate-avtale med forhandleren.
+"lavest pris". Standardvisningen sorterer etter produktpris uten frakt;
+brukeren kan slå på «Pris inkludert frakt» for å sortere etter totalpris
+(produktpris + frakt) i stedet. Rekkefølgen påvirkes ikke av om vi har en
+affiliate-avtale med forhandleren.
 
 ## Nøkkelsider
 

@@ -693,8 +693,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1318,9 +1326,9 @@ a { color: inherit; }
   </div></div>
   </div><div class="price-insight-panel" data-pack="6">
     <div class="price-insight-now">
-      <div class="price-insight-current">521 kr</div>
+      <div class="price-insight-current">534 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 4 varianter i Air Optix-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -4 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -1 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>521 kr</strong><span>45 dagers laveste</span></div>
         <div class="price-insight-tile"><strong>541 kr</strong><span>45 dagers snitt</span></div>
@@ -1342,8 +1350,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">538 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">518 kr</text>
-      <path d="M48.0,158.0 L48.0,72.3 L62.2,37.6 L76.4,33.1 L90.5,33.1 L104.7,33.1 L118.9,23.9 L133.1,23.9 L147.3,72.3 L161.5,46.8 L175.6,25.8 L189.8,138.9 L204.0,138.9 L218.2,97.9 L232.4,94.2 L246.5,141.7 L260.7,111.6 L274.9,134.4 L289.1,102.4 L303.3,97.9 L317.5,57.7 L331.6,57.7 L345.8,57.7 L360.0,93.3 L374.2,61.4 L388.4,23.9 L402.5,71.4 L416.7,23.9 L430.9,66.8 L445.1,71.4 L459.3,59.5 L473.5,35.8 L487.6,41.3 L501.8,69.6 L516.0,38.5 L530.2,49.5 L544.4,81.4 L558.5,25.8 L572.7,69.6 L586.9,141.7 L601.1,138.9 L615.3,97.9 L629.5,109.7 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
-      <polyline points="48.0,72.3 62.2,37.6 76.4,33.1 90.5,33.1 104.7,33.1 118.9,23.9 133.1,23.9 147.3,72.3 161.5,46.8 175.6,25.8 189.8,138.9 204.0,138.9 218.2,97.9 232.4,94.2 246.5,141.7 260.7,111.6 274.9,134.4 289.1,102.4 303.3,97.9 317.5,57.7 331.6,57.7 345.8,57.7 360.0,93.3 374.2,61.4 388.4,23.9 402.5,71.4 416.7,23.9 430.9,66.8 445.1,71.4 459.3,59.5 473.5,35.8 487.6,41.3 501.8,69.6 516.0,38.5 530.2,49.5 544.4,81.4 558.5,25.8 572.7,69.6 586.9,141.7 601.1,138.9 615.3,97.9 629.5,109.7 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,72.3 L62.2,37.6 L76.4,33.1 L90.5,33.1 L104.7,33.1 L118.9,23.9 L133.1,23.9 L147.3,72.3 L161.5,46.8 L175.6,25.8 L189.8,138.9 L204.0,138.9 L218.2,97.9 L232.4,94.2 L246.5,141.7 L260.7,111.6 L274.9,134.4 L289.1,102.4 L303.3,97.9 L317.5,57.7 L331.6,57.7 L345.8,57.7 L360.0,93.3 L374.2,61.4 L388.4,23.9 L402.5,71.4 L416.7,23.9 L430.9,66.8 L445.1,71.4 L459.3,59.5 L473.5,35.8 L487.6,41.3 L501.8,69.6 L516.0,38.5 L530.2,49.5 L544.4,81.4 L558.5,25.8 L572.7,69.6 L586.9,141.7 L601.1,138.9 L615.3,97.9 L629.5,109.7 L643.6,148.1 L657.8,148.1 L672.0,102.4 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
+      <polyline points="48.0,72.3 62.2,37.6 76.4,33.1 90.5,33.1 104.7,33.1 118.9,23.9 133.1,23.9 147.3,72.3 161.5,46.8 175.6,25.8 189.8,138.9 204.0,138.9 218.2,97.9 232.4,94.2 246.5,141.7 260.7,111.6 274.9,134.4 289.1,102.4 303.3,97.9 317.5,57.7 331.6,57.7 345.8,57.7 360.0,93.3 374.2,61.4 388.4,23.9 402.5,71.4 416.7,23.9 430.9,66.8 445.1,71.4 459.3,59.5 473.5,35.8 487.6,41.3 501.8,69.6 516.0,38.5 530.2,49.5 544.4,81.4 558.5,25.8 572.7,69.6 586.9,141.7 601.1,138.9 615.3,97.9 629.5,109.7 643.6,148.1 657.8,148.1 672.0,102.4" class="price-history-line" />
       <circle cx="48.0" cy="72.3" r="2.2" class="price-history-dot"><title>14.08: 542 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="37.6" r="2.2" class="price-history-dot"><title>15.08: 551 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="33.1" r="2.2" class="price-history-dot"><title>16.08: 552 kr (snitt for serien)</title></circle>
@@ -1388,8 +1396,8 @@ a { color: inherit; }
       <circle cx="629.5" cy="109.7" r="2.2" class="price-history-dot"><title>24.09: 532 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 521 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 521 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 521 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">521 kr</text>
+      <circle cx="672.0" cy="102.4" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 534 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="94.4" text-anchor="end" class="price-history-current-label">534 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1441,7 +1449,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1457,18 +1465,6 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-hydraglyde-for-astigmatism-6-pack/">Sammenlign priser →</a>
 </div>
-<div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_night_day_aqua.jpg" alt="Air Optix Night &amp; Day Aqua 6-pack" loading="lazy"></div></a>
-  <div class="product-tile-body">
-    <div class="product-tile-category">Månedslinser</div>
-    <a class="product-tile-name-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-name">Air Optix Night &amp; Day Aqua 6-pack</div></a>
-    <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
-    
-    <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
-  </div>
-  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/">Sammenlign priser →</a>
-</div>
 <div class="product-tile" data-category="multifokale-linser">
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_hydraglyde_multifocal_6.jpg" alt="Air Optix plus HydraGlyde Multifocal 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
@@ -1480,6 +1476,18 @@ a { color: inherit; }
     <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">629</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/">Sammenlign priser →</a>
+</div>
+<div class="product-tile" data-category="manedslinser">
+  <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_night_day_aqua.jpg" alt="Air Optix Night &amp; Day Aqua 6-pack" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Månedslinser</div>
+    <a class="product-tile-name-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-name">Air Optix Night &amp; Day Aqua 6-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
+    
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">649</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+  </div>
+  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/">Sammenlign priser →</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -1513,7 +1521,7 @@ a { color: inherit; }
     <div class="brand-sortiment-card-link">Se toriske linser →</div>
   </a>
   </div>
-  <div class="brand-compare-row"><div><h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Air Optix-seriene seg</h2>
+  <div class="brand-compare-row"><div style="min-width:0;"><h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Air Optix-seriene seg</h2>
   <p class="brand-section-lead">1 serie, til sammen 3 av 5 Air Optix-produkter. Ytterligere 2 produkter står utenfor disse seriene, se hele listen nederst.</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">

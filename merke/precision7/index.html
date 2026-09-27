@@ -71,12 +71,12 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hva er billigst i Precision7-sortimentet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Precision7 12-pack er billigst akkurat nå, fra 374 kr hos Lenson (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Precision7 12-pack er billigst akkurat nå, fra 429 kr hos Lenson (uten frakt)."}
       },
       {
         "@type": "Question",
         "name": "Hvilken Precision7-pakning har lavest pris per linse akkurat nå?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Precision7 27-pack har lavest pris per linse akkurat nå, ca. 30,5 kr per linse (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Precision7 27-pack har lavest pris per linse akkurat nå, ca. 35,1 kr per linse (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -687,8 +687,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1216,7 +1224,7 @@ a { color: inherit; }
       <p class="brand-serie-card-desc">Serie med månedslinser i Serafilcon A med Activ-Flo-teknologi, tilgjengelig som standard og torisk variant.</p>
       <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Torisk</span></div>
       <div class="brand-serie-card-spacer"></div>
-      <div class="brand-serie-card-foot"><span>4 produkter</span><strong>Fra 374 kr</strong></div>
+      <div class="brand-serie-card-foot"><span>4 produkter</span><strong>Fra 429 kr</strong></div>
       <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a>
@@ -1225,7 +1233,7 @@ a { color: inherit; }
     <h2>Precision7 i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">374 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Precision7 12-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">30,5 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Precision7 27-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">71 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Precision7 for Astigmatism 27-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">6</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Precision7 12-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Precision7</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Månedslinser · Toriske linser</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">429 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Precision7 12-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">35,1 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Precision7 27-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">50 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Precision7 for Astigmatism 27-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">6</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Precision7 12-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Precision7</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Månedslinser · Toriske linser</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1234,12 +1242,12 @@ a { color: inherit; }
   </div>
   <div class="price-insight-panel active" data-pack="12">
     <div class="price-insight-now">
-      <div class="price-insight-current">449 kr</div>
+      <div class="price-insight-current">514 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Precision7-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -11 % <span class="price-insight-trend-note">vs. 40 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +1 % <span class="price-insight-trend-note">vs. 40 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>449 kr</strong><span>40 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>506 kr</strong><span>40 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>508 kr</strong><span>40 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>600 kr</strong><span>40 dagers høyeste</span></div>
       </div>
     </div>
@@ -1258,8 +1266,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">524 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">437 kr</text>
-      <path d="M48.0,158.0 L48.0,23.9 L64.0,23.9 L80.0,56.0 L96.0,56.0 L112.0,56.0 L128.0,56.0 L144.0,56.0 L160.0,56.0 L176.0,56.0 L192.0,56.0 L208.0,148.1 L224.0,148.1 L240.0,123.4 L256.0,123.4 L272.0,123.4 L288.0,123.4 L304.0,123.4 L320.0,123.4 L336.0,123.4 L352.0,98.7 L368.0,98.7 L384.0,98.7 L400.0,98.7 L416.0,98.7 L432.0,98.7 L448.0,98.7 L464.0,94.6 L480.0,94.6 L496.0,94.6 L512.0,94.6 L528.0,94.6 L544.0,94.6 L560.0,94.6 L576.0,148.1 L592.0,148.1 L608.0,148.1 L624.0,148.1 L640.0,148.1 L656.0,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-12)" />
-      <polyline points="48.0,23.9 64.0,23.9 80.0,56.0 96.0,56.0 112.0,56.0 128.0,56.0 144.0,56.0 160.0,56.0 176.0,56.0 192.0,56.0 208.0,148.1 224.0,148.1 240.0,123.4 256.0,123.4 272.0,123.4 288.0,123.4 304.0,123.4 320.0,123.4 336.0,123.4 352.0,98.7 368.0,98.7 384.0,98.7 400.0,98.7 416.0,98.7 432.0,98.7 448.0,98.7 464.0,94.6 480.0,94.6 496.0,94.6 512.0,94.6 528.0,94.6 544.0,94.6 560.0,94.6 576.0,148.1 592.0,148.1 608.0,148.1 624.0,148.1 640.0,148.1 656.0,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,23.9 L64.0,23.9 L80.0,56.0 L96.0,56.0 L112.0,56.0 L128.0,56.0 L144.0,56.0 L160.0,56.0 L176.0,56.0 L192.0,56.0 L208.0,148.1 L224.0,148.1 L240.0,123.4 L256.0,123.4 L272.0,123.4 L288.0,123.4 L304.0,123.4 L320.0,123.4 L336.0,123.4 L352.0,98.7 L368.0,98.7 L384.0,98.7 L400.0,98.7 L416.0,98.7 L432.0,98.7 L448.0,98.7 L464.0,94.6 L480.0,94.6 L496.0,94.6 L512.0,94.6 L528.0,94.6 L544.0,94.6 L560.0,94.6 L576.0,148.1 L592.0,148.1 L608.0,148.1 L624.0,148.1 L640.0,148.1 L656.0,148.1 L672.0,94.6 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-12)" />
+      <polyline points="48.0,23.9 64.0,23.9 80.0,56.0 96.0,56.0 112.0,56.0 128.0,56.0 144.0,56.0 160.0,56.0 176.0,56.0 192.0,56.0 208.0,148.1 224.0,148.1 240.0,123.4 256.0,123.4 272.0,123.4 288.0,123.4 304.0,123.4 320.0,123.4 336.0,123.4 352.0,98.7 368.0,98.7 384.0,98.7 400.0,98.7 416.0,98.7 432.0,98.7 448.0,98.7 464.0,94.6 480.0,94.6 496.0,94.6 512.0,94.6 528.0,94.6 544.0,94.6 560.0,94.6 576.0,148.1 592.0,148.1 608.0,148.1 624.0,148.1 640.0,148.1 656.0,148.1 672.0,94.6" class="price-history-line" />
       <circle cx="48.0" cy="23.9" r="2.2" class="price-history-dot"><title>19.08: 600 kr (snitt for serien)</title></circle>
       <circle cx="64.0" cy="23.9" r="2.2" class="price-history-dot"><title>20.08: 600 kr (snitt for serien)</title></circle>
       <circle cx="80.0" cy="56.0" r="2.2" class="price-history-dot"><title>21.08: 561 kr (snitt for serien)</title></circle>
@@ -1299,20 +1307,20 @@ a { color: inherit; }
       <circle cx="624.0" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 449 kr (snitt for serien)</title></circle>
       <circle cx="640.0" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 449 kr (snitt for serien)</title></circle>
       <circle cx="656.0" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 449 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 449 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">449 kr</text>
+      <circle cx="672.0" cy="94.6" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 514 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="86.6" text-anchor="end" class="price-history-current-label">514 kr</text>
       <text x="48" y="174" class="price-history-axis-label">19.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="27">
     <div class="price-insight-now">
-      <div class="price-insight-current">936 kr</div>
+      <div class="price-insight-current">1 074 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Precision7-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -12 % <span class="price-insight-trend-note">vs. 40 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +1 % <span class="price-insight-trend-note">vs. 40 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>936 kr</strong><span>40 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>1 062 kr</strong><span>40 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>1 066 kr</strong><span>40 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>1 243 kr</strong><span>40 dagers høyeste</span></div>
       </div>
     </div>
@@ -1331,8 +1339,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">1 090 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">912 kr</text>
-      <path d="M48.0,158.0 L48.0,23.9 L64.0,23.9 L80.0,39.7 L96.0,39.7 L112.0,39.7 L128.0,39.7 L144.0,39.7 L160.0,39.7 L176.0,39.7 L192.0,39.7 L208.0,148.1 L224.0,148.1 L240.0,122.8 L256.0,122.8 L272.0,122.8 L288.0,122.8 L304.0,122.8 L320.0,122.8 L336.0,122.8 L352.0,97.4 L368.0,97.4 L384.0,97.4 L400.0,97.4 L416.0,97.4 L432.0,97.4 L448.0,97.4 L464.0,92.4 L480.0,92.4 L496.0,92.4 L512.0,92.4 L528.0,92.4 L544.0,92.4 L560.0,92.4 L576.0,148.1 L592.0,148.1 L608.0,148.1 L624.0,148.1 L640.0,148.1 L656.0,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-27)" />
-      <polyline points="48.0,23.9 64.0,23.9 80.0,39.7 96.0,39.7 112.0,39.7 128.0,39.7 144.0,39.7 160.0,39.7 176.0,39.7 192.0,39.7 208.0,148.1 224.0,148.1 240.0,122.8 256.0,122.8 272.0,122.8 288.0,122.8 304.0,122.8 320.0,122.8 336.0,122.8 352.0,97.4 368.0,97.4 384.0,97.4 400.0,97.4 416.0,97.4 432.0,97.4 448.0,97.4 464.0,92.4 480.0,92.4 496.0,92.4 512.0,92.4 528.0,92.4 544.0,92.4 560.0,92.4 576.0,148.1 592.0,148.1 608.0,148.1 624.0,148.1 640.0,148.1 656.0,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,23.9 L64.0,23.9 L80.0,39.7 L96.0,39.7 L112.0,39.7 L128.0,39.7 L144.0,39.7 L160.0,39.7 L176.0,39.7 L192.0,39.7 L208.0,148.1 L224.0,148.1 L240.0,122.8 L256.0,122.8 L272.0,122.8 L288.0,122.8 L304.0,122.8 L320.0,122.8 L336.0,122.8 L352.0,97.4 L368.0,97.4 L384.0,97.4 L400.0,97.4 L416.0,97.4 L432.0,97.4 L448.0,97.4 L464.0,92.4 L480.0,92.4 L496.0,92.4 L512.0,92.4 L528.0,92.4 L544.0,92.4 L560.0,92.4 L576.0,148.1 L592.0,148.1 L608.0,148.1 L624.0,148.1 L640.0,148.1 L656.0,148.1 L672.0,92.4 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-27)" />
+      <polyline points="48.0,23.9 64.0,23.9 80.0,39.7 96.0,39.7 112.0,39.7 128.0,39.7 144.0,39.7 160.0,39.7 176.0,39.7 192.0,39.7 208.0,148.1 224.0,148.1 240.0,122.8 256.0,122.8 272.0,122.8 288.0,122.8 304.0,122.8 320.0,122.8 336.0,122.8 352.0,97.4 368.0,97.4 384.0,97.4 400.0,97.4 416.0,97.4 432.0,97.4 448.0,97.4 464.0,92.4 480.0,92.4 496.0,92.4 512.0,92.4 528.0,92.4 544.0,92.4 560.0,92.4 576.0,148.1 592.0,148.1 608.0,148.1 624.0,148.1 640.0,148.1 656.0,148.1 672.0,92.4" class="price-history-line" />
       <circle cx="48.0" cy="23.9" r="2.2" class="price-history-dot"><title>19.08: 1 243 kr (snitt for serien)</title></circle>
       <circle cx="64.0" cy="23.9" r="2.2" class="price-history-dot"><title>20.08: 1 243 kr (snitt for serien)</title></circle>
       <circle cx="80.0" cy="39.7" r="2.2" class="price-history-dot"><title>21.08: 1 204 kr (snitt for serien)</title></circle>
@@ -1372,8 +1380,8 @@ a { color: inherit; }
       <circle cx="624.0" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 936 kr (snitt for serien)</title></circle>
       <circle cx="640.0" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 936 kr (snitt for serien)</title></circle>
       <circle cx="656.0" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 936 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 936 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">936 kr</text>
+      <circle cx="672.0" cy="92.4" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 1 074 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="84.4" text-anchor="end" class="price-history-current-label">1 074 kr</text>
       <text x="48" y="174" class="price-history-axis-label">19.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1413,7 +1421,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">374</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">429</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-12-pack/">Sammenlign priser →</a>
 </div>
@@ -1425,7 +1433,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-for-astigmatism-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">524</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-for-astigmatism-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-for-astigmatism-12-pack/">Sammenlign priser →</a>
 </div>
@@ -1437,7 +1445,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">824</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">949</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-27-pack/">Sammenlign priser →</a>
 </div>
@@ -1449,7 +1457,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-for-astigmatism-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 049</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-for-astigmatism-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 199</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-for-astigmatism-27-pack/">Sammenlign priser →</a>
 </div>
@@ -1484,7 +1492,7 @@ a { color: inherit; }
       <td class="spec-value">4</td>
       <td class="spec-value">Månedslinser · Toriske linser</td><td class="spec-value">Serafilcon A med Activ-Flo-teknologi</td><td class="spec-value">55 %</td>
       <td class="spec-value">12/27</td>
-      <td class="spec-value">374 kr</td>
+      <td class="spec-value">429 kr</td>
     </tr></tbody>
       </table>
     </div>
@@ -1514,10 +1522,10 @@ a { color: inherit; }
     <div class="faq-category-label">Pris og butikker</div>
     <details class="faq-accordion-item">
     <summary>Hva er billigst i Precision7-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Precision7 12-pack er billigst akkurat nå, fra 374 kr hos Lenson (uten frakt).</p>
+    <p>Precision7 12-pack er billigst akkurat nå, fra 429 kr hos Lenson (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken Precision7-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Precision7 27-pack har lavest pris per linse akkurat nå, ca. 30,5 kr per linse (uten frakt).</p>
+    <p>Precision7 27-pack har lavest pris per linse akkurat nå, ca. 35,1 kr per linse (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no Precision7?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>Vi sammenligner Precision7 hos 6 norske nettbutikker til sammen, på tvers av alle 4 produktene vi følger.</p>

@@ -59,7 +59,7 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hva er billigst i everclear-sortimentet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "everclear ADM 30-pack er billigst akkurat nå, fra 149 kr hos Lensway (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "everclear ADM 30-pack er billigst akkurat nå, fra 149 kr hos Lenson (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -675,8 +675,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1186,7 +1194,7 @@ a { color: inherit; }
     <h2>everclear i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">149 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">everclear ADM 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">4,2 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">everclear ADM 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">15 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">everclear ELITE 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">2</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">everclear ADM 30-pack</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">149 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">everclear ADM 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">4,2 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">everclear ADM 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">10 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">everclear PLUS 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">2</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">everclear ADM 30-pack</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1195,12 +1203,12 @@ a { color: inherit; }
   </div>
   <div class="price-insight-panel active" data-pack="6">
     <div class="price-insight-now">
-      <div class="price-insight-current">214 kr</div>
+      <div class="price-insight-current">200 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i everclear-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -10 % <span class="price-insight-trend-note">vs. 30 dagers snitt</span></div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -15 % <span class="price-insight-trend-note">vs. 30 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>200 kr</strong><span>30 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>238 kr</strong><span>30 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>237 kr</strong><span>30 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>276 kr</strong><span>30 dagers høyeste</span></div>
       </div>
     </div>
@@ -1219,8 +1227,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">238 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">194 kr</text>
-      <path d="M48.0,158.0 L48.0,77.7 L69.5,77.7 L91.0,51.2 L112.6,51.2 L134.1,51.2 L155.6,51.2 L177.1,51.2 L198.6,51.2 L220.1,51.2 L241.7,23.9 L263.2,23.9 L284.7,23.9 L306.2,23.9 L327.7,23.9 L349.2,23.9 L370.8,23.9 L392.3,148.1 L413.8,148.1 L435.3,148.1 L456.8,148.1 L478.3,148.1 L499.9,148.1 L521.4,148.1 L542.9,125.7 L564.4,125.7 L585.9,125.7 L607.4,125.7 L629.0,125.7 L650.5,125.7 L672.0,125.7 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
-      <polyline points="48.0,77.7 69.5,77.7 91.0,51.2 112.6,51.2 134.1,51.2 155.6,51.2 177.1,51.2 198.6,51.2 220.1,51.2 241.7,23.9 263.2,23.9 284.7,23.9 306.2,23.9 327.7,23.9 349.2,23.9 370.8,23.9 392.3,148.1 413.8,148.1 435.3,148.1 456.8,148.1 478.3,148.1 499.9,148.1 521.4,148.1 542.9,125.7 564.4,125.7 585.9,125.7 607.4,125.7 629.0,125.7 650.5,125.7 672.0,125.7" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,77.7 L69.5,77.7 L91.0,51.2 L112.6,51.2 L134.1,51.2 L155.6,51.2 L177.1,51.2 L198.6,51.2 L220.1,51.2 L241.7,23.9 L263.2,23.9 L284.7,23.9 L306.2,23.9 L327.7,23.9 L349.2,23.9 L370.8,23.9 L392.3,148.1 L413.8,148.1 L435.3,148.1 L456.8,148.1 L478.3,148.1 L499.9,148.1 L521.4,148.1 L542.9,125.7 L564.4,125.7 L585.9,125.7 L607.4,125.7 L629.0,125.7 L650.5,125.7 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
+      <polyline points="48.0,77.7 69.5,77.7 91.0,51.2 112.6,51.2 134.1,51.2 155.6,51.2 177.1,51.2 198.6,51.2 220.1,51.2 241.7,23.9 263.2,23.9 284.7,23.9 306.2,23.9 327.7,23.9 349.2,23.9 370.8,23.9 392.3,148.1 413.8,148.1 435.3,148.1 456.8,148.1 478.3,148.1 499.9,148.1 521.4,148.1 542.9,125.7 564.4,125.7 585.9,125.7 607.4,125.7 629.0,125.7 650.5,125.7 672.0,148.1" class="price-history-line" />
       <circle cx="48.0" cy="77.7" r="2.2" class="price-history-dot"><title>29.08: 243 kr (snitt for serien)</title></circle>
       <circle cx="69.5" cy="77.7" r="2.2" class="price-history-dot"><title>30.08: 243 kr (snitt for serien)</title></circle>
       <circle cx="91.0" cy="51.2" r="2.2" class="price-history-dot"><title>31.08: 259 kr (snitt for serien)</title></circle>
@@ -1250,8 +1258,8 @@ a { color: inherit; }
       <circle cx="607.4" cy="125.7" r="2.2" class="price-history-dot"><title>24.09: 214 kr (snitt for serien)</title></circle>
       <circle cx="629.0" cy="125.7" r="2.2" class="price-history-dot"><title>25.09: 214 kr (snitt for serien)</title></circle>
       <circle cx="650.5" cy="125.7" r="2.2" class="price-history-dot"><title>26.09: 214 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="125.7" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 214 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="117.7" text-anchor="end" class="price-history-current-label">214 kr</text>
+      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 200 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">200 kr</text>
       <text x="48" y="174" class="price-history-axis-label">29.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1417,7 +1425,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-adm-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">149</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-adm-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">149</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-adm-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1429,7 +1437,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">162</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-plus-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1441,7 +1449,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">209</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">209</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-elite-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1453,7 +1461,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">249</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">239</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-air-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1465,7 +1473,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-adm-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">375</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-adm-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">375</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-adm-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1477,7 +1485,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">529</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">529</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-elite-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1489,7 +1497,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 049</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-elite-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 049</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-elite-180-pack/">Sammenlign priser →</a>
 </div>
@@ -1536,7 +1544,7 @@ a { color: inherit; }
     <div class="faq-category-label">Pris og butikker</div>
     <details class="faq-accordion-item">
     <summary>Hva er billigst i everclear-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>everclear ADM 30-pack er billigst akkurat nå, fra 149 kr hos Lensway (uten frakt).</p>
+    <p>everclear ADM 30-pack er billigst akkurat nå, fra 149 kr hos Lenson (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken everclear-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>everclear ADM 90-pack har lavest pris per linse akkurat nå, ca. 4,2 kr per linse (uten frakt).</p>

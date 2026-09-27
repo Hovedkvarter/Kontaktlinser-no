@@ -84,7 +84,7 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hva er billigst i SofLens-sortimentet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "SofLens Daily Disposable 30-pack er billigst akkurat nå, fra 178 kr hos Lensway (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "SofLens Daily Disposable 30-pack er billigst akkurat nå, fra 178 kr hos Lenson (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -700,8 +700,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1527,7 +1535,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/bausch-lomb/">Bausch + Lomb</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">178</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">178</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1563,7 +1571,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/bausch-lomb/">Bausch + Lomb</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">276</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">276</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-38-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1688,7 +1696,7 @@ a { color: inherit; }
     <div class="faq-category-label">Pris og butikker</div>
     <details class="faq-accordion-item">
     <summary>Hva er billigst i SofLens-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>SofLens Daily Disposable 30-pack er billigst akkurat nå, fra 178 kr hos Lensway (uten frakt).</p>
+    <p>SofLens Daily Disposable 30-pack er billigst akkurat nå, fra 178 kr hos Lenson (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken SofLens-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>SofLens Daily Disposable 90-pack har lavest pris per linse akkurat nå, ca. 4,8 kr per linse (uten frakt).</p>

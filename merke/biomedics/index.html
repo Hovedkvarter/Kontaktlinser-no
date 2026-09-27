@@ -693,8 +693,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1235,7 +1243,7 @@ a { color: inherit; }
       <p class="brand-serie-card-desc">Serie med månedslinser i Ocufilcon D (hydrogel), tilgjengelig som standard og torisk variant.</p>
       <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Torisk</span></div>
       <div class="brand-serie-card-spacer"></div>
-      <div class="brand-serie-card-foot"><span>2 produkter</span><strong>Fra 172 kr</strong></div>
+      <div class="brand-serie-card-foot"><span>2 produkter</span><strong>Fra 206 kr</strong></div>
       <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a>
@@ -1244,7 +1252,7 @@ a { color: inherit; }
     <h2>Biomedics i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">139 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Biomedics 1Day Extra 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">4,6 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Biomedics 1Day Extra 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">74 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Biomedics Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Biomedics Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Biomedics 1Day Extra</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Toriske linser</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">139 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Biomedics 1Day Extra 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">4,6 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Biomedics 1Day Extra 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">55 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Biomedics 1Day Extra 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Biomedics Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Biomedics 1Day Extra</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Toriske linser</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1253,12 +1261,12 @@ a { color: inherit; }
   </div>
   <div class="price-insight-panel active" data-pack="6">
     <div class="price-insight-now">
-      <div class="price-insight-current">273 kr</div>
+      <div class="price-insight-current">318 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Biomedics-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -6 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +8 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>273 kr</strong><span>45 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>292 kr</strong><span>45 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>293 kr</strong><span>45 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>318 kr</strong><span>45 dagers høyeste</span></div>
       </div>
     </div>
@@ -1277,8 +1285,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">295 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">269 kr</text>
-      <path d="M48.0,158.0 L48.0,75.5 L62.2,75.5 L76.4,67.2 L90.5,67.2 L104.7,67.2 L118.9,67.2 L133.1,67.2 L147.3,82.5 L161.5,82.5 L175.6,82.5 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,99.3 L303.3,99.3 L317.5,99.3 L331.6,99.3 L345.8,99.3 L360.0,99.3 L374.2,99.3 L388.4,82.5 L402.5,82.5 L416.7,82.5 L430.9,82.5 L445.1,82.5 L459.3,82.5 L473.5,82.5 L487.6,67.2 L501.8,23.9 L516.0,23.9 L530.2,23.9 L544.4,23.9 L558.5,23.9 L572.7,23.9 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
-      <polyline points="48.0,75.5 62.2,75.5 76.4,67.2 90.5,67.2 104.7,67.2 118.9,67.2 133.1,67.2 147.3,82.5 161.5,82.5 175.6,82.5 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,99.3 303.3,99.3 317.5,99.3 331.6,99.3 345.8,99.3 360.0,99.3 374.2,99.3 388.4,82.5 402.5,82.5 416.7,82.5 430.9,82.5 445.1,82.5 459.3,82.5 473.5,82.5 487.6,67.2 501.8,23.9 516.0,23.9 530.2,23.9 544.4,23.9 558.5,23.9 572.7,23.9 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,75.5 L62.2,75.5 L76.4,67.2 L90.5,67.2 L104.7,67.2 L118.9,67.2 L133.1,67.2 L147.3,82.5 L161.5,82.5 L175.6,82.5 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,99.3 L303.3,99.3 L317.5,99.3 L331.6,99.3 L345.8,99.3 L360.0,99.3 L374.2,99.3 L388.4,82.5 L402.5,82.5 L416.7,82.5 L430.9,82.5 L445.1,82.5 L459.3,82.5 L473.5,82.5 L487.6,67.2 L501.8,23.9 L516.0,23.9 L530.2,23.9 L544.4,23.9 L558.5,23.9 L572.7,23.9 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,23.9 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
+      <polyline points="48.0,75.5 62.2,75.5 76.4,67.2 90.5,67.2 104.7,67.2 118.9,67.2 133.1,67.2 147.3,82.5 161.5,82.5 175.6,82.5 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,99.3 303.3,99.3 317.5,99.3 331.6,99.3 345.8,99.3 360.0,99.3 374.2,99.3 388.4,82.5 402.5,82.5 416.7,82.5 430.9,82.5 445.1,82.5 459.3,82.5 473.5,82.5 487.6,67.2 501.8,23.9 516.0,23.9 530.2,23.9 544.4,23.9 558.5,23.9 572.7,23.9 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,23.9" class="price-history-line" />
       <circle cx="48.0" cy="75.5" r="2.2" class="price-history-dot"><title>14.08: 299 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="75.5" r="2.2" class="price-history-dot"><title>15.08: 299 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="67.2" r="2.2" class="price-history-dot"><title>16.08: 302 kr (snitt for serien)</title></circle>
@@ -1323,17 +1331,17 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 273 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 273 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 273 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 273 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">273 kr</text>
+      <circle cx="672.0" cy="23.9" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 318 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="23.0" text-anchor="end" class="price-history-current-label">318 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="30">
     <div class="price-insight-now">
-      <div class="price-insight-current">208 kr</div>
+      <div class="price-insight-current">219 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Biomedics-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -3 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +1 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>208 kr</strong><span>45 dagers laveste</span></div>
         <div class="price-insight-tile"><strong>216 kr</strong><span>45 dagers snitt</span></div>
@@ -1355,8 +1363,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">214 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">207 kr</text>
-      <path d="M48.0,158.0 L48.0,34.3 L62.2,34.3 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,34.3 L161.5,34.3 L175.6,34.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,55.0 L303.3,55.0 L317.5,55.0 L331.6,55.0 L345.8,55.0 L360.0,55.0 L374.2,55.0 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,34.3 L501.8,34.3 L516.0,34.3 L530.2,34.3 L544.4,34.3 L558.5,34.3 L572.7,34.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
-      <polyline points="48.0,34.3 62.2,34.3 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,34.3 161.5,34.3 175.6,34.3 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,55.0 303.3,55.0 317.5,55.0 331.6,55.0 345.8,55.0 360.0,55.0 374.2,55.0 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,34.3 501.8,34.3 516.0,34.3 530.2,34.3 544.4,34.3 558.5,34.3 572.7,34.3 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,34.3 L62.2,34.3 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,34.3 L161.5,34.3 L175.6,34.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,55.0 L303.3,55.0 L317.5,55.0 L331.6,55.0 L345.8,55.0 L360.0,55.0 L374.2,55.0 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,34.3 L501.8,34.3 L516.0,34.3 L530.2,34.3 L544.4,34.3 L558.5,34.3 L572.7,34.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,34.3 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
+      <polyline points="48.0,34.3 62.2,34.3 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,34.3 161.5,34.3 175.6,34.3 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,55.0 303.3,55.0 317.5,55.0 331.6,55.0 345.8,55.0 360.0,55.0 374.2,55.0 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,34.3 501.8,34.3 516.0,34.3 530.2,34.3 544.4,34.3 558.5,34.3 572.7,34.3 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,34.3" class="price-history-line" />
       <circle cx="48.0" cy="34.3" r="2.2" class="price-history-dot"><title>14.08: 219 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="34.3" r="2.2" class="price-history-dot"><title>15.08: 219 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 220 kr (snitt for serien)</title></circle>
@@ -1401,8 +1409,8 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 208 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 208 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 208 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 208 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">208 kr</text>
+      <circle cx="672.0" cy="34.3" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 219 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="26.3" text-anchor="end" class="price-history-current-label">219 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1532,7 +1540,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">172</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">206</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1544,21 +1552,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">277</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">299</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/">Sammenlign priser →</a>
-</div>
-<div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-toric-6pk.webp" type="image/webp"><img src="/static/products/biomedics-toric-6pk.jpg" alt="Biomedics Toric 6-pack" loading="lazy"></picture></div></a>
-  <div class="product-tile-body">
-    <div class="product-tile-category">Toriske linser</div>
-    <a class="product-tile-name-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-name">Biomedics Toric 6-pack</div></a>
-    <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
-    
-    <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">374</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
-  </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-90pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-90pk.jpg" alt="Biomedics 1Day Extra 90-pack" loading="lazy"></picture></div></a>
@@ -1571,6 +1567,18 @@ a { color: inherit; }
     <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">414</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/">Sammenlign priser →</a>
+</div>
+<div class="product-tile" data-category="toriske-linser">
+  <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-toric-6pk.webp" type="image/webp"><img src="/static/products/biomedics-toric-6pk.jpg" alt="Biomedics Toric 6-pack" loading="lazy"></picture></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Toriske linser</div>
+    <a class="product-tile-name-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-name">Biomedics Toric 6-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
+    
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">429</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+  </div>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">Sammenlign priser →</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
@@ -1615,7 +1623,7 @@ a { color: inherit; }
       <td class="spec-value">2</td>
       <td class="spec-value">Månedslinser · Toriske linser</td><td class="spec-value">Ocufilcon D (hydrogel)</td><td class="spec-value">55 %</td>
       <td class="spec-value">6</td>
-      <td class="spec-value">172 kr</td>
+      <td class="spec-value">206 kr</td>
     </tr></tbody>
       </table>
     </div>

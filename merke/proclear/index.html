@@ -86,12 +86,12 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hva er billigst i Proclear-sortimentet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Proclear 1 Day 30-pack er billigst akkurat nå, fra 179 kr hos Lenson (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Proclear 1 Day 30-pack er billigst akkurat nå, fra 215 kr hos Lenson (uten frakt)."}
       },
       {
         "@type": "Question",
         "name": "Hvilken Proclear-pakning har lavest pris per linse akkurat nå?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Proclear 1 Day 90-pack har lavest pris per linse akkurat nå, ca. 5,4 kr per linse (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Proclear 1 Day 90-pack har lavest pris per linse akkurat nå, ca. 6,0 kr per linse (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -702,8 +702,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1231,7 +1239,7 @@ a { color: inherit; }
       <p class="brand-serie-card-desc">Serie med dagslinser i Omafilcon A (hydrogel, PC Technology), tilgjengelig som standard og multifokal variant.</p>
       <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Multifokal</span></div>
       <div class="brand-serie-card-spacer"></div>
-      <div class="brand-serie-card-foot"><span>3 produkter</span><strong>Fra 179 kr</strong></div>
+      <div class="brand-serie-card-foot"><span>3 produkter</span><strong>Fra 215 kr</strong></div>
       <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a><a class="brand-serie-card" href="/serie/proclear/" style="--serie-tint:var(--sky-tint);">
@@ -1266,7 +1274,7 @@ a { color: inherit; }
     <h2>Proclear i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">179 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Proclear 1 Day 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">5,4 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Proclear 1 Day 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">86 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Proclear Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">6</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Proclear Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Proclear</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Multifokale linser · Månedslinser · Toriske linser</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">215 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Proclear 1 Day 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">6,0 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Proclear 1 Day 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">97 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Proclear Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">6</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Proclear Toric 6-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Proclear</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Multifokale linser · Månedslinser · Toriske linser</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1353,12 +1361,12 @@ a { color: inherit; }
   </div></div>
   </div><div class="price-insight-panel" data-pack="6">
     <div class="price-insight-now">
-      <div class="price-insight-current">343 kr</div>
+      <div class="price-insight-current">336 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 3 varianter i Proclear-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -5 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -6 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>336 kr</strong><span>45 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>360 kr</strong><span>45 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>359 kr</strong><span>45 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>377 kr</strong><span>45 dagers høyeste</span></div>
       </div>
     </div>
@@ -1377,8 +1385,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">357 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">333 kr</text>
-      <path d="M48.0,158.0 L48.0,148.1 L62.2,148.1 L76.4,45.3 L90.5,45.3 L104.7,45.3 L118.9,45.3 L133.1,45.3 L147.3,148.1 L161.5,148.1 L175.6,148.1 L189.8,34.1 L204.0,34.1 L218.2,34.1 L232.4,34.1 L246.5,34.1 L260.7,34.1 L274.9,34.1 L289.1,23.9 L303.3,23.9 L317.5,23.9 L331.6,23.9 L345.8,23.9 L360.0,23.9 L374.2,23.9 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,148.1 L501.8,148.1 L516.0,148.1 L530.2,148.1 L544.4,148.1 L558.5,148.1 L572.7,148.1 L586.9,126.7 L601.1,126.7 L615.3,126.7 L629.5,126.7 L643.6,126.7 L657.8,126.7 L672.0,126.7 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
-      <polyline points="48.0,148.1 62.2,148.1 76.4,45.3 90.5,45.3 104.7,45.3 118.9,45.3 133.1,45.3 147.3,148.1 161.5,148.1 175.6,148.1 189.8,34.1 204.0,34.1 218.2,34.1 232.4,34.1 246.5,34.1 260.7,34.1 274.9,34.1 289.1,23.9 303.3,23.9 317.5,23.9 331.6,23.9 345.8,23.9 360.0,23.9 374.2,23.9 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,148.1 501.8,148.1 516.0,148.1 530.2,148.1 544.4,148.1 558.5,148.1 572.7,148.1 586.9,126.7 601.1,126.7 615.3,126.7 629.5,126.7 643.6,126.7 657.8,126.7 672.0,126.7" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,148.1 L62.2,148.1 L76.4,45.3 L90.5,45.3 L104.7,45.3 L118.9,45.3 L133.1,45.3 L147.3,148.1 L161.5,148.1 L175.6,148.1 L189.8,34.1 L204.0,34.1 L218.2,34.1 L232.4,34.1 L246.5,34.1 L260.7,34.1 L274.9,34.1 L289.1,23.9 L303.3,23.9 L317.5,23.9 L331.6,23.9 L345.8,23.9 L360.0,23.9 L374.2,23.9 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,148.1 L501.8,148.1 L516.0,148.1 L530.2,148.1 L544.4,148.1 L558.5,148.1 L572.7,148.1 L586.9,126.7 L601.1,126.7 L615.3,126.7 L629.5,126.7 L643.6,126.7 L657.8,126.7 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-6)" />
+      <polyline points="48.0,148.1 62.2,148.1 76.4,45.3 90.5,45.3 104.7,45.3 118.9,45.3 133.1,45.3 147.3,148.1 161.5,148.1 175.6,148.1 189.8,34.1 204.0,34.1 218.2,34.1 232.4,34.1 246.5,34.1 260.7,34.1 274.9,34.1 289.1,23.9 303.3,23.9 317.5,23.9 331.6,23.9 345.8,23.9 360.0,23.9 374.2,23.9 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,148.1 501.8,148.1 516.0,148.1 530.2,148.1 544.4,148.1 558.5,148.1 572.7,148.1 586.9,126.7 601.1,126.7 615.3,126.7 629.5,126.7 643.6,126.7 657.8,126.7 672.0,148.1" class="price-history-line" />
       <circle cx="48.0" cy="148.1" r="2.2" class="price-history-dot"><title>14.08: 336 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="148.1" r="2.2" class="price-history-dot"><title>15.08: 336 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="45.3" r="2.2" class="price-history-dot"><title>16.08: 370 kr (snitt for serien)</title></circle>
@@ -1423,17 +1431,17 @@ a { color: inherit; }
       <circle cx="629.5" cy="126.7" r="2.2" class="price-history-dot"><title>24.09: 343 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="126.7" r="2.2" class="price-history-dot"><title>25.09: 343 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="126.7" r="2.2" class="price-history-dot"><title>26.09: 343 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="126.7" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 343 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="118.7" text-anchor="end" class="price-history-current-label">343 kr</text>
+      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 336 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">336 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="30">
     <div class="price-insight-now">
-      <div class="price-insight-current">250 kr</div>
+      <div class="price-insight-current">270 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 2 varianter i Proclear-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -7 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>250 kr</strong><span>45 dagers laveste</span></div>
         <div class="price-insight-tile"><strong>270 kr</strong><span>45 dagers snitt</span></div>
@@ -1455,8 +1463,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">284 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">245 kr</text>
-      <path d="M48.0,158.0 L48.0,111.3 L62.2,111.3 L76.4,23.9 L90.5,30.4 L104.7,30.4 L118.9,30.4 L133.1,30.4 L147.3,122.3 L161.5,122.3 L175.6,122.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,117.7 L303.3,117.7 L317.5,117.7 L331.6,117.7 L345.8,117.7 L360.0,117.7 L374.2,117.7 L388.4,92.0 L402.5,92.0 L416.7,92.0 L430.9,92.0 L445.1,92.0 L459.3,92.0 L473.5,92.0 L487.6,111.3 L501.8,111.3 L516.0,111.3 L530.2,111.3 L544.4,111.3 L558.5,111.3 L572.7,111.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
-      <polyline points="48.0,111.3 62.2,111.3 76.4,23.9 90.5,30.4 104.7,30.4 118.9,30.4 133.1,30.4 147.3,122.3 161.5,122.3 175.6,122.3 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,117.7 303.3,117.7 317.5,117.7 331.6,117.7 345.8,117.7 360.0,117.7 374.2,117.7 388.4,92.0 402.5,92.0 416.7,92.0 430.9,92.0 445.1,92.0 459.3,92.0 473.5,92.0 487.6,111.3 501.8,111.3 516.0,111.3 530.2,111.3 544.4,111.3 558.5,111.3 572.7,111.3 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,111.3 L62.2,111.3 L76.4,23.9 L90.5,30.4 L104.7,30.4 L118.9,30.4 L133.1,30.4 L147.3,122.3 L161.5,122.3 L175.6,122.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,117.7 L303.3,117.7 L317.5,117.7 L331.6,117.7 L345.8,117.7 L360.0,117.7 L374.2,117.7 L388.4,92.0 L402.5,92.0 L416.7,92.0 L430.9,92.0 L445.1,92.0 L459.3,92.0 L473.5,92.0 L487.6,111.3 L501.8,111.3 L516.0,111.3 L530.2,111.3 L544.4,111.3 L558.5,111.3 L572.7,111.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,111.3 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
+      <polyline points="48.0,111.3 62.2,111.3 76.4,23.9 90.5,30.4 104.7,30.4 118.9,30.4 133.1,30.4 147.3,122.3 161.5,122.3 175.6,122.3 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,117.7 303.3,117.7 317.5,117.7 331.6,117.7 345.8,117.7 360.0,117.7 374.2,117.7 388.4,92.0 402.5,92.0 416.7,92.0 430.9,92.0 445.1,92.0 459.3,92.0 473.5,92.0 487.6,111.3 501.8,111.3 516.0,111.3 530.2,111.3 544.4,111.3 558.5,111.3 572.7,111.3 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,111.3" class="price-history-line" />
       <circle cx="48.0" cy="111.3" r="2.2" class="price-history-dot"><title>14.08: 270 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="111.3" r="2.2" class="price-history-dot"><title>15.08: 270 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 318 kr (snitt for serien)</title></circle>
@@ -1501,20 +1509,20 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 250 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 250 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 250 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 250 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">250 kr</text>
+      <circle cx="672.0" cy="111.3" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 270 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="103.3" text-anchor="end" class="price-history-current-label">270 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="90">
     <div class="price-insight-now">
-      <div class="price-insight-current">487 kr</div>
+      <div class="price-insight-current">537 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 1 varianter i Proclear-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -8 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +2 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>487 kr</strong><span>45 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>527 kr</strong><span>45 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>528 kr</strong><span>45 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>587 kr</strong><span>45 dagers høyeste</span></div>
       </div>
     </div>
@@ -1533,8 +1541,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">537 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">479 kr</text>
-      <path d="M48.0,158.0 L48.0,86.0 L62.2,86.0 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,86.0 L161.5,86.0 L175.6,86.0 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,108.3 L303.3,108.3 L317.5,108.3 L331.6,108.3 L345.8,108.3 L360.0,108.3 L374.2,108.3 L388.4,67.4 L402.5,67.4 L416.7,67.4 L430.9,67.4 L445.1,67.4 L459.3,67.4 L473.5,67.4 L487.6,86.0 L501.8,86.0 L516.0,86.0 L530.2,86.0 L544.4,86.0 L558.5,86.0 L572.7,86.0 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
-      <polyline points="48.0,86.0 62.2,86.0 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,86.0 161.5,86.0 175.6,86.0 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,108.3 303.3,108.3 317.5,108.3 331.6,108.3 345.8,108.3 360.0,108.3 374.2,108.3 388.4,67.4 402.5,67.4 416.7,67.4 430.9,67.4 445.1,67.4 459.3,67.4 473.5,67.4 487.6,86.0 501.8,86.0 516.0,86.0 530.2,86.0 544.4,86.0 558.5,86.0 572.7,86.0 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,86.0 L62.2,86.0 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,86.0 L161.5,86.0 L175.6,86.0 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,108.3 L303.3,108.3 L317.5,108.3 L331.6,108.3 L345.8,108.3 L360.0,108.3 L374.2,108.3 L388.4,67.4 L402.5,67.4 L416.7,67.4 L430.9,67.4 L445.1,67.4 L459.3,67.4 L473.5,67.4 L487.6,86.0 L501.8,86.0 L516.0,86.0 L530.2,86.0 L544.4,86.0 L558.5,86.0 L572.7,86.0 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,86.0 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
+      <polyline points="48.0,86.0 62.2,86.0 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,86.0 161.5,86.0 175.6,86.0 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,108.3 303.3,108.3 317.5,108.3 331.6,108.3 345.8,108.3 360.0,108.3 374.2,108.3 388.4,67.4 402.5,67.4 416.7,67.4 430.9,67.4 445.1,67.4 459.3,67.4 473.5,67.4 487.6,86.0 501.8,86.0 516.0,86.0 530.2,86.0 544.4,86.0 558.5,86.0 572.7,86.0 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,86.0" class="price-history-line" />
       <circle cx="48.0" cy="86.0" r="2.2" class="price-history-dot"><title>14.08: 537 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="86.0" r="2.2" class="price-history-dot"><title>15.08: 537 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 587 kr (snitt for serien)</title></circle>
@@ -1579,8 +1587,8 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 487 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 487 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 487 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 487 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">487 kr</text>
+      <circle cx="672.0" cy="86.0" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 537 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="78.0" text-anchor="end" class="price-history-current-label">537 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1620,7 +1628,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">215</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1632,7 +1640,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-sphere-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1644,7 +1652,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">322</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">326</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1656,7 +1664,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">389</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">368</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-toric-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1668,7 +1676,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
@@ -1680,7 +1688,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">487</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">537</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1763,7 +1771,7 @@ a { color: inherit; }
       <td class="spec-value">3</td>
       <td class="spec-value">Dagslinser · Multifokale linser</td><td class="spec-value">Omafilcon A (hydrogel, PC Technology)</td><td class="spec-value">60 %</td>
       <td class="spec-value">30/90</td>
-      <td class="spec-value">179 kr</td>
+      <td class="spec-value">215 kr</td>
     </tr><tr>
       <th scope="row" class="spec-label"><a href="/serie/proclear/">Proclear</a></th>
       <td class="spec-value">3</td>
@@ -1811,10 +1819,10 @@ a { color: inherit; }
     <div class="faq-category-label">Pris og butikker</div>
     <details class="faq-accordion-item">
     <summary>Hva er billigst i Proclear-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Proclear 1 Day 30-pack er billigst akkurat nå, fra 179 kr hos Lenson (uten frakt).</p>
+    <p>Proclear 1 Day 30-pack er billigst akkurat nå, fra 215 kr hos Lenson (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken Proclear-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Proclear 1 Day 90-pack har lavest pris per linse akkurat nå, ca. 5,4 kr per linse (uten frakt).</p>
+    <p>Proclear 1 Day 90-pack har lavest pris per linse akkurat nå, ca. 6,0 kr per linse (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hos hvor mange butikker sammenligner Kontaktlinser.no Proclear?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>Vi sammenligner Proclear hos 6 norske nettbutikker til sammen, på tvers av alle 9 produktene vi følger.</p>

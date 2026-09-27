@@ -91,7 +91,7 @@ function __loadGTM() {
       {
         "@type": "Question",
         "name": "Hva er billigst i Dailies-sortimentet?",
-        "acceptedAnswer": {"@type": "Answer", "text": "Dailies AquaComfort Plus 30-pack er billigst akkurat nå, fra 224 kr hos Lenson (uten frakt)."}
+        "acceptedAnswer": {"@type": "Answer", "text": "Dailies AquaComfort Plus 30-pack er billigst akkurat nå, fra 226 kr hos Interoptik (uten frakt)."}
       },
       {
         "@type": "Question",
@@ -707,8 +707,16 @@ a { color: inherit; }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
-.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
 @media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
@@ -1236,7 +1244,7 @@ a { color: inherit; }
       <p class="brand-serie-card-desc">Serie med dagslinser i Nelfilcon A (hydrogel), tilgjengelig som standard, torisk og multifokal variant.</p>
       <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Torisk</span><span class="brand-serie-card-pill">Multifokal</span></div>
       <div class="brand-serie-card-spacer"></div>
-      <div class="brand-serie-card-foot"><span>7 produkter</span><strong>Fra 224 kr</strong></div>
+      <div class="brand-serie-card-foot"><span>7 produkter</span><strong>Fra 226 kr</strong></div>
       <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a><a class="brand-serie-card" href="/serie/dailies-total1/" style="--serie-tint:var(--sky-tint);">
@@ -1258,7 +1266,7 @@ a { color: inherit; }
     <h2>Dailies i tall</h2>
     <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
     <div class="brand-i-tall-grid">
-      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">224 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">5,8 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">53 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Dailies Total1 Multifocal 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Dailies AquaComfort Plus</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Multifokale linser · Toriske linser</div></div>
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">226 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">5,8 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">53 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Dailies Total1 Multifocal 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">7</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Dailies AquaComfort Plus 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Dailies AquaComfort Plus</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Multifokale linser · Toriske linser</div></div>
     </div>
   </div><div class="price-insight">
   <div class="price-insight-head">
@@ -1267,9 +1275,9 @@ a { color: inherit; }
   </div>
   <div class="price-insight-panel active" data-pack="30">
     <div class="price-insight-now">
-      <div class="price-insight-current">314 kr</div>
+      <div class="price-insight-current">320 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 8 varianter i Dailies-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -4 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -2 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>314 kr</strong><span>45 dagers laveste</span></div>
         <div class="price-insight-tile"><strong>327 kr</strong><span>45 dagers snitt</span></div>
@@ -1291,8 +1299,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">340 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">310 kr</text>
-      <path d="M48.0,158.0 L48.0,88.9 L62.2,88.9 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,61.5 L133.1,61.5 L147.3,118.3 L161.5,118.3 L175.6,118.3 L189.8,137.5 L204.0,137.5 L218.2,137.5 L232.4,144.2 L246.5,144.2 L260.7,144.2 L274.9,144.2 L289.1,122.2 L303.3,122.2 L317.5,122.2 L331.6,122.2 L345.8,122.2 L360.0,122.2 L374.2,122.2 L388.4,110.4 L402.5,110.4 L416.7,110.4 L430.9,109.8 L445.1,109.8 L459.3,109.8 L473.5,109.8 L487.6,132.8 L501.8,132.8 L516.0,132.8 L530.2,132.8 L544.4,132.8 L558.5,132.8 L572.7,132.8 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
-      <polyline points="48.0,88.9 62.2,88.9 76.4,23.9 90.5,23.9 104.7,23.9 118.9,61.5 133.1,61.5 147.3,118.3 161.5,118.3 175.6,118.3 189.8,137.5 204.0,137.5 218.2,137.5 232.4,144.2 246.5,144.2 260.7,144.2 274.9,144.2 289.1,122.2 303.3,122.2 317.5,122.2 331.6,122.2 345.8,122.2 360.0,122.2 374.2,122.2 388.4,110.4 402.5,110.4 416.7,110.4 430.9,109.8 445.1,109.8 459.3,109.8 473.5,109.8 487.6,132.8 501.8,132.8 516.0,132.8 530.2,132.8 544.4,132.8 558.5,132.8 572.7,132.8 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,88.9 L62.2,88.9 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,61.5 L133.1,61.5 L147.3,118.3 L161.5,118.3 L175.6,118.3 L189.8,137.5 L204.0,137.5 L218.2,137.5 L232.4,144.2 L246.5,144.2 L260.7,144.2 L274.9,144.2 L289.1,122.2 L303.3,122.2 L317.5,122.2 L331.6,122.2 L345.8,122.2 L360.0,122.2 L374.2,122.2 L388.4,110.4 L402.5,110.4 L416.7,110.4 L430.9,109.8 L445.1,109.8 L459.3,109.8 L473.5,109.8 L487.6,132.8 L501.8,132.8 L516.0,132.8 L530.2,132.8 L544.4,132.8 L558.5,132.8 L572.7,132.8 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,132.8 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
+      <polyline points="48.0,88.9 62.2,88.9 76.4,23.9 90.5,23.9 104.7,23.9 118.9,61.5 133.1,61.5 147.3,118.3 161.5,118.3 175.6,118.3 189.8,137.5 204.0,137.5 218.2,137.5 232.4,144.2 246.5,144.2 260.7,144.2 274.9,144.2 289.1,122.2 303.3,122.2 317.5,122.2 331.6,122.2 345.8,122.2 360.0,122.2 374.2,122.2 388.4,110.4 402.5,110.4 416.7,110.4 430.9,109.8 445.1,109.8 459.3,109.8 473.5,109.8 487.6,132.8 501.8,132.8 516.0,132.8 530.2,132.8 544.4,132.8 558.5,132.8 572.7,132.8 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,132.8" class="price-history-line" />
       <circle cx="48.0" cy="88.9" r="2.2" class="price-history-dot"><title>14.08: 339 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="88.9" r="2.2" class="price-history-dot"><title>15.08: 339 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 367 kr (snitt for serien)</title></circle>
@@ -1337,20 +1345,20 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 314 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 314 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 314 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 314 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">314 kr</text>
+      <circle cx="672.0" cy="132.8" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 320 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="124.8" text-anchor="end" class="price-history-current-label">320 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="90">
     <div class="price-insight-now">
-      <div class="price-insight-current">827 kr</div>
+      <div class="price-insight-current">878 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 8 varianter i Dailies-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -3 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +2 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>812 kr</strong><span>45 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>856 kr</strong><span>45 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>857 kr</strong><span>45 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>919 kr</strong><span>45 dagers høyeste</span></div>
       </div>
     </div>
@@ -1369,8 +1377,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">866 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">803 kr</text>
-      <path d="M48.0,158.0 L48.0,64.8 L62.2,64.9 L76.4,23.9 L90.5,27.1 L104.7,27.4 L118.9,57.4 L133.1,57.1 L147.3,101.7 L161.5,102.0 L175.6,102.0 L189.8,140.3 L204.0,140.6 L218.2,140.3 L232.4,148.1 L246.5,148.1 L260.7,140.6 L274.9,140.6 L289.1,109.9 L303.3,109.7 L317.5,110.2 L331.6,110.3 L345.8,109.7 L360.0,110.0 L374.2,110.0 L388.4,87.0 L402.5,87.5 L416.7,87.8 L430.9,88.0 L445.1,88.1 L459.3,88.1 L473.5,48.6 L487.6,71.8 L501.8,72.3 L516.0,72.3 L530.2,72.1 L544.4,72.0 L558.5,72.1 L572.7,72.1 L586.9,130.7 L601.1,130.4 L615.3,130.4 L629.5,130.7 L643.6,130.4 L657.8,130.4 L672.0,130.4 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
-      <polyline points="48.0,64.8 62.2,64.9 76.4,23.9 90.5,27.1 104.7,27.4 118.9,57.4 133.1,57.1 147.3,101.7 161.5,102.0 175.6,102.0 189.8,140.3 204.0,140.6 218.2,140.3 232.4,148.1 246.5,148.1 260.7,140.6 274.9,140.6 289.1,109.9 303.3,109.7 317.5,110.2 331.6,110.3 345.8,109.7 360.0,110.0 374.2,110.0 388.4,87.0 402.5,87.5 416.7,87.8 430.9,88.0 445.1,88.1 459.3,88.1 473.5,48.6 487.6,71.8 501.8,72.3 516.0,72.3 530.2,72.1 544.4,72.0 558.5,72.1 572.7,72.1 586.9,130.7 601.1,130.4 615.3,130.4 629.5,130.7 643.6,130.4 657.8,130.4 672.0,130.4" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,64.8 L62.2,64.9 L76.4,23.9 L90.5,27.1 L104.7,27.4 L118.9,57.4 L133.1,57.1 L147.3,101.7 L161.5,102.0 L175.6,102.0 L189.8,140.3 L204.0,140.6 L218.2,140.3 L232.4,148.1 L246.5,148.1 L260.7,140.6 L274.9,140.6 L289.1,109.9 L303.3,109.7 L317.5,110.2 L331.6,110.3 L345.8,109.7 L360.0,110.0 L374.2,110.0 L388.4,87.0 L402.5,87.5 L416.7,87.8 L430.9,88.0 L445.1,88.1 L459.3,88.1 L473.5,48.6 L487.6,71.8 L501.8,72.3 L516.0,72.3 L530.2,72.1 L544.4,72.0 L558.5,72.1 L572.7,72.1 L586.9,130.7 L601.1,130.4 L615.3,130.4 L629.5,130.7 L643.6,130.4 L657.8,130.4 L672.0,71.8 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-90)" />
+      <polyline points="48.0,64.8 62.2,64.9 76.4,23.9 90.5,27.1 104.7,27.4 118.9,57.4 133.1,57.1 147.3,101.7 161.5,102.0 175.6,102.0 189.8,140.3 204.0,140.6 218.2,140.3 232.4,148.1 246.5,148.1 260.7,140.6 274.9,140.6 289.1,109.9 303.3,109.7 317.5,110.2 331.6,110.3 345.8,109.7 360.0,110.0 374.2,110.0 388.4,87.0 402.5,87.5 416.7,87.8 430.9,88.0 445.1,88.1 459.3,88.1 473.5,48.6 487.6,71.8 501.8,72.3 516.0,72.3 530.2,72.1 544.4,72.0 558.5,72.1 572.7,72.1 586.9,130.7 601.1,130.4 615.3,130.4 629.5,130.7 643.6,130.4 657.8,130.4 672.0,71.8" class="price-history-line" />
       <circle cx="48.0" cy="64.8" r="2.2" class="price-history-dot"><title>14.08: 884 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="64.9" r="2.2" class="price-history-dot"><title>15.08: 884 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="23.9" r="2.2" class="price-history-dot"><title>16.08: 919 kr (snitt for serien)</title></circle>
@@ -1415,20 +1423,20 @@ a { color: inherit; }
       <circle cx="629.5" cy="130.7" r="2.2" class="price-history-dot"><title>24.09: 827 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="130.4" r="2.2" class="price-history-dot"><title>25.09: 827 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="130.4" r="2.2" class="price-history-dot"><title>26.09: 827 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="130.4" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 827 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="122.4" text-anchor="end" class="price-history-current-label">827 kr</text>
+      <circle cx="672.0" cy="71.8" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 878 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="63.8" text-anchor="end" class="price-history-current-label">878 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="180">
     <div class="price-insight-now">
-      <div class="price-insight-current">1 377 kr</div>
+      <div class="price-insight-current">1 491 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 3 varianter i Dailies-sortimentet</div>
-      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -5 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
+      <div class="price-insight-trend insight-up"><span aria-hidden="true">↑</span> +3 % <span class="price-insight-trend-note">vs. 45 dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>1 377 kr</strong><span>45 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>1 447 kr</strong><span>45 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>1 450 kr</strong><span>45 dagers snitt</span></div>
         <div class="price-insight-tile"><strong>1 495 kr</strong><span>45 dagers høyeste</span></div>
       </div>
     </div>
@@ -1447,8 +1455,8 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">1 436 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">1 368 kr</text>
-      <path d="M48.0,158.0 L48.0,27.8 L62.2,27.8 L76.4,27.8 L90.5,29.6 L104.7,29.6 L118.9,29.6 L133.1,29.6 L147.3,29.6 L161.5,29.6 L175.6,29.6 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,86.2 L303.3,86.2 L317.5,86.2 L331.6,86.2 L345.8,86.2 L360.0,86.2 L374.2,86.2 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,27.8 L501.8,27.8 L516.0,27.8 L530.2,27.8 L544.4,27.8 L558.5,27.8 L572.7,27.8 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-180)" />
-      <polyline points="48.0,27.8 62.2,27.8 76.4,27.8 90.5,29.6 104.7,29.6 118.9,29.6 133.1,29.6 147.3,29.6 161.5,29.6 175.6,29.6 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,86.2 303.3,86.2 317.5,86.2 331.6,86.2 345.8,86.2 360.0,86.2 374.2,86.2 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,27.8 501.8,27.8 516.0,27.8 530.2,27.8 544.4,27.8 558.5,27.8 572.7,27.8 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,27.8 L62.2,27.8 L76.4,27.8 L90.5,29.6 L104.7,29.6 L118.9,29.6 L133.1,29.6 L147.3,29.6 L161.5,29.6 L175.6,29.6 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,86.2 L303.3,86.2 L317.5,86.2 L331.6,86.2 L345.8,86.2 L360.0,86.2 L374.2,86.2 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,27.8 L501.8,27.8 L516.0,27.8 L530.2,27.8 L544.4,27.8 L558.5,27.8 L572.7,27.8 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,27.8 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-180)" />
+      <polyline points="48.0,27.8 62.2,27.8 76.4,27.8 90.5,29.6 104.7,29.6 118.9,29.6 133.1,29.6 147.3,29.6 161.5,29.6 175.6,29.6 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,86.2 303.3,86.2 317.5,86.2 331.6,86.2 345.8,86.2 360.0,86.2 374.2,86.2 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,27.8 501.8,27.8 516.0,27.8 530.2,27.8 544.4,27.8 558.5,27.8 572.7,27.8 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,27.8" class="price-history-line" />
       <circle cx="48.0" cy="27.8" r="2.2" class="price-history-dot"><title>14.08: 1 491 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="27.8" r="2.2" class="price-history-dot"><title>15.08: 1 491 kr (snitt for serien)</title></circle>
       <circle cx="76.4" cy="27.8" r="2.2" class="price-history-dot"><title>16.08: 1 491 kr (snitt for serien)</title></circle>
@@ -1493,8 +1501,8 @@ a { color: inherit; }
       <circle cx="629.5" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 1 377 kr (snitt for serien)</title></circle>
       <circle cx="643.6" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 1 377 kr (snitt for serien)</title></circle>
       <circle cx="657.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 1 377 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 1 377 kr (snitt for serien)</title></circle>
-      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">1 377 kr</text>
+      <circle cx="672.0" cy="27.8" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 1 491 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="23.0" text-anchor="end" class="price-history-current-label">1 491 kr</text>
       <text x="48" y="174" class="price-history-axis-label">14.08</text>
       <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
     </svg>
@@ -1534,7 +1542,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">224</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">226</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1570,7 +1578,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">279</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">279</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1594,7 +1602,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">359</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">369</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1618,7 +1626,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">449</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">489</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/">Sammenlign priser →</a>
 </div>
@@ -1642,7 +1650,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">699</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1654,7 +1662,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">699</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1666,7 +1674,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">787</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">798</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1678,7 +1686,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">817</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">836</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-90-pack/">Sammenlign priser →</a>
 </div>
@@ -1690,21 +1698,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">899</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">999</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/">Sammenlign priser →</a>
-</div>
-<div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg" alt="Dailies AquaComfort Plus 180-pack" loading="lazy"></div></a>
-  <div class="product-tile-body">
-    <div class="product-tile-category">Dagslinser</div>
-    <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-name">Dailies AquaComfort Plus 180-pack</div></a>
-    <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
-    
-    <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 072</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
-  </div>
-  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-90-2.jpg" alt="Dailies Total1 for Astigmatism 90-pack" loading="lazy"></div></a>
@@ -1714,9 +1710,21 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 124</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 199</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/">Sammenlign priser →</a>
+</div>
+<div class="product-tile" data-category="dagslinser">
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg" alt="Dailies AquaComfort Plus 180-pack" loading="lazy"></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Dagslinser</div>
+    <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-name">Dailies AquaComfort Plus 180-pack</div></a>
+    <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
+    
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 199</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+  </div>
+  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" loading="lazy"></div></a>
@@ -1750,7 +1758,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/alcon/">Alcon</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 574</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 789</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-180-pack/">Sammenlign priser →</a>
 </div>
@@ -1780,7 +1788,7 @@ a { color: inherit; }
     <div class="brand-sortiment-card-link">Se toriske linser →</div>
   </a>
   </div>
-  <div class="brand-compare-row"><div><h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Dailies-seriene seg</h2>
+  <div class="brand-compare-row"><div style="min-width:0;"><h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Dailies-seriene seg</h2>
   <p class="brand-section-lead">2 serier, til sammen 14 av 19 Dailies-produkter. Ytterligere 5 produkter står utenfor disse seriene, se hele listen nederst.</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
@@ -1791,7 +1799,7 @@ a { color: inherit; }
       <td class="spec-value">7</td>
       <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Nelfilcon A (hydrogel)</td><td class="spec-value">69 %</td>
       <td class="spec-value">30/90/180</td>
-      <td class="spec-value">224 kr</td>
+      <td class="spec-value">226 kr</td>
     </tr><tr>
       <th scope="row" class="spec-label"><a href="/serie/dailies-total1/">Dailies Total1</a></th>
       <td class="spec-value">7</td>
@@ -1822,9 +1830,9 @@ a { color: inherit; }
   <div class="brand-3090-card">
     <p>For 7 av 8 sammenlignbare Dailies-produkter har 90-pakningen lavere pris per linse enn tilsvarende 30-pakning akkurat nå. Eksempel -- Dailies Total1 for Astigmatism 30-pack:</p>
     <div class="brand-3090-grid">
-      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><strong>15,0 kr</strong><span>30-pack, per linse</span></div>
-      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><strong>12,5 kr</strong><span>90-pack, per linse</span></div>
-      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><strong>17 %</strong><span>Forskjell -- 90-pakningen billigst</span></div>
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><strong>16,3 kr</strong><span>30-pack, per linse</span></div>
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><strong>13,3 kr</strong><span>90-pack, per linse</span></div>
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><strong>18 %</strong><span>Forskjell -- 90-pakningen billigst</span></div>
     </div>
     <p class="brand-3090-note">Kun samme underliggende produkt sammenlignet (aldri ulike produkter mot hverandre). Husk å regne med frakt for akkurat det antallet du trenger.</p>
   </div>
@@ -1855,7 +1863,7 @@ a { color: inherit; }
     <div class="faq-category-label">Pris og butikker</div>
     <details class="faq-accordion-item">
     <summary>Hva er billigst i Dailies-sortimentet?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <p>Dailies AquaComfort Plus 30-pack er billigst akkurat nå, fra 224 kr hos Lenson (uten frakt).</p>
+    <p>Dailies AquaComfort Plus 30-pack er billigst akkurat nå, fra 226 kr hos Interoptik (uten frakt).</p>
   </details><details class="faq-accordion-item">
     <summary>Hvilken Dailies-pakning har lavest pris per linse akkurat nå?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
     <p>Dailies AquaComfort Plus 90-pack har lavest pris per linse akkurat nå, ca. 5,8 kr per linse (uten frakt).</p>
