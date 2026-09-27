@@ -578,19 +578,36 @@ a { color: inherit; }
      avkuttet tekst. */
   .hero-media-row .winner-btn { font-size: 0.68rem; padding: 8px 4px; gap: 3px; margin-top: 2px; white-space: normal; text-align: center; line-height: 1.25; }
 }
+/* Kicker (merke/serie over H1) + kompakt faktarad ("Dagslinse · 30 linser
+   · Hilafilcon B · BC 8,6") -- Product Desktop Gold Standard v1,
+   2026-09-27, punkt 3+8. Skjult som standard (mobil-Gold-Standard-en
+   fjernet bevisst kickeren over H1 tidligere samme dag, se commit
+   9657bfb1d -- IKKE gjeninnfør den der), vises kun >=860px der Kai
+   bekreftet at det er plass ("Her kan også Soflens eller produsent
+   vises, da det er plass til det"). */
+.hero-kicker, .hero-facts { display: none; }
 @media (min-width: 860px) {
-  .hero-card { padding: 28px; }
+  .hero-kicker { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin: 0 0 4px; }
+  .hero-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 12px 0 0; font-size: 0.88rem; color: var(--muted); }
+  .hero-fact-sep { color: var(--border); }
+}
+/* Product Stage-kortet (bilde + Winner Card + antall/frakt-rad) samlet i
+   ÉN visuell kortboks på desktop, uten å flytte noe i DOM-treet -- se
+   .product-stage under. */
+@media (min-width: 860px) {
+  .product-stage { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
+  .product-stage .hero-card { border: none; border-radius: 0; padding: 0; margin-bottom: 24px; }
+  .product-stage > .qty-box { border: none; background: transparent; padding: 0; margin: 0; }
   .hero-media-row { display: contents; }
-  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
-     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
-     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
-     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
-     direkte barn siden auto-plassering ikke gir riktig resultat når
-     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
-  .hero-main { display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }
-  .hero-main .hero-product-image { grid-column: 1; grid-row: 1 / 3; }
-  .hero-main .hero-copy { grid-column: 2; grid-row: 1; }
-  .hero-main .winner-band { grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }
+  /* KUN to kolonner (bilde + Winner Card) -- IKKE tre som før (Desktop
+     Gold Standard v1, punkt 4: "Vi ønsker ikke tre store kolonner...
+     Den midtre produkttekstkolonnen fjernes"). .hero-copy (kicker/H1/
+     undertittel/fakta) spenner nå hele bredden i rad 1 i stedet for å
+     være en egen midtre kolonne; bilde+Winner Card er rad 2. */
+  .hero-main { display: grid; grid-template-columns: minmax(320px, 1fr) minmax(260px, 320px); grid-template-areas: "copy copy" "image price"; gap: 20px 32px; align-items: start; }
+  .hero-main .hero-copy { grid-area: copy; }
+  .hero-main .hero-product-image { grid-area: image; width: 100%; max-width: 480px; height: auto; aspect-ratio: 4 / 3; margin: 0; }
+  .hero-main .winner-band { grid-area: price; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 28px 18px 18px; align-self: start; }
   .hero-main .winner-left { flex-direction: column; align-items: center; gap: 0; }
   .hero-main .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
   .hero-main .winner-band .label { margin-top: 0; }
@@ -600,7 +617,6 @@ a { color: inherit; }
   .hero-main .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
   .hero-main .winner-price-note { margin-top: 7px; line-height: 1; }
   .hero-main .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
-  .hero-main .product-ai-summary { grid-column: 2 / 4; grid-row: 2; margin: 0; }
 }
 /* wrap-product er delt med linsevæske-/private label-produktsider (som
    fortsatt bruker den gamle, smalere hero-layouten) -- utvider den KUN her,
@@ -662,10 +678,11 @@ a { color: inherit; }
    aspect-ratio) -- tidligere var mobil låst til en fast 200x200px-boks som
    etterlot mye tomt rom i et bredere kort (fant og fikset 2026-08-30, se
    brukerens tilbakemelding om at bildene på mobil produktsider var for
-   små). Samme fulle-bredde-oppførsel gjelder derfor helt til bildet blir en
-   grid-rute som spenner to rader (se .hero-main .hero-product-image over,
-   860px+) -- da skal det heller strekke seg i høyden til å fylle hele det
-   spennet (tekstkolonne + prisboks), ikke tvinges til et fast kvadrat. */
+   små). På desktop (>=860px, Product Desktop Gold Standard v1,
+   2026-09-27) overstyrer `.hero-main .hero-product-image` denne med en
+   egen 4:3-aspect-ratio (se der) -- bildet spenner IKKE lenger to
+   grid-rader (den midtre tekstkolonnen som tidligere ga bildet en tekst-
+   høyde å matche, er fjernet, se punkt 4 i spec-en). */
 .hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
@@ -1313,15 +1330,18 @@ a { color: inherit; }
     <a href="/merke/biotrue/">Biotrue</a> ›
     Biotrue ONEday 30-pack
   </p>
-  <div class="hero-card">
-    <div class="hero-main">
-      <div class="hero-copy">
-        <h1>Biotrue ONEday 30-pack</h1>
-        <p class="hero-subtitle">Sammenlign priser</p>
-      </div>
-      <div class="hero-media-row">
-        <div class="hero-product-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-30pk.jpg" alt="Biotrue ONEday 30-pack" loading="eager"></picture></div>
-        <div class="winner-band winner-band-cta">
+  <div class="product-stage">
+    <div class="hero-card">
+      <div class="hero-main">
+        <div class="hero-copy">
+          <p class="hero-kicker">Biotrue</p>
+          <h1>Biotrue ONEday 30-pack</h1>
+          <p class="hero-subtitle">Sammenlign priser</p>
+          <div class="hero-facts"><span>Dagslinse</span><span class="hero-fact-sep">·</span><span>30 linser</span><span class="hero-fact-sep">·</span><span>Nesofilcon A (Hypergel)</span></div>
+        </div>
+        <div class="hero-media-row">
+          <div class="hero-product-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-30pk.jpg" alt="Biotrue ONEday 30-pack" loading="eager"></picture></div>
+          <div class="winner-band winner-band-cta">
   <div class="winner-top">
     <div class="label-group">
       <div class="label" id="winner-label">Laveste pris</div>
@@ -1333,10 +1353,10 @@ a { color: inherit; }
   <div class="winner-price-line" id="winner-price-line">209 kr/eske + 39 kr frakt</div>
   <a class="winner-btn" id="winner-band-link" href="https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LBO1)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FDagslinser%2FBiotrue-ONEday-30p.htm%3FsClickID%3DTradeDoubler-1-3)" target="_blank" rel="sponsored noopener" aria-label="Gå til Shopping4net for Biotrue ONEday 30-pack" data-retailer="Shopping4net" data-affiliate="1">Gå til butikk <span aria-hidden="true">&#8594;</span></a>
 </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="qty-box">
+    <div class="qty-box">
     <div class="qty-box-title">Antall esker</div>
     <div class="qty-box-row">
       <div class="qty-pills" id="qty-pills"><button type="button" class="qty-pill is-active" data-qty="1"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>1<span>eske</span></button><button type="button" class="qty-pill" data-qty="2"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>2<span>esker</span></button><button type="button" class="qty-pill" data-qty="4"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>4<span>esker</span></button><button type="button" class="qty-pill" data-qty="6"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>6<span>esker</span></button><button type="button" class="qty-pill" data-qty="10"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>10<span>esker</span></button><button type="button" class="qty-pill" data-qty="custom" id="qty-pill-custom"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25z" fill="currentColor"/><path d="M19.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 2.75 2.75 1.83-1.83z" fill="currentColor" opacity="0.6"/></svg>Eget<span>antall</span></button></div>
@@ -1557,6 +1577,7 @@ a { color: inherit; }
   else restoreChoice();
 })();
 </script>
+  </div>
   <div class="offers is-collapsed" id="tilbud">
     <div class="offers-head">
       <h2>Priser for <span id="offers-qty-label">1 eske</span></h2><span class="offers-sort-label" id="offers-sort-label">Sortert etter pris (uten frakt)</span>
