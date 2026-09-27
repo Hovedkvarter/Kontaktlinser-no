@@ -392,12 +392,34 @@ a { color: inherit; }
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
 @media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1.3fr 1fr; align-items: stretch; } }
-.brand-facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
-.brand-fact-tile { text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }
-.brand-fact-tile-icon { width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
-.brand-fact-tile-icon svg { width: 18px; height: 18px; }
-.brand-fact-tile-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--ink); line-height: 1.3; }
-.brand-fact-tile-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.brand-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.brand-facts-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }
+.brand-facts-list svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
+.brand-facts-list strong { display: block; color: var(--ink); font-weight: 600; }
+.brand-facts-list span { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+/* Prisinnsikt-graf -- egen CSS-kopi av .price-insight* fra render_family_page()
+   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
+.price-insight { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.price-insight-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.price-insight-head h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.insight-tabs { display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }
+.insight-tab { border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }
+.insight-tab.active { background: white; color: var(--ink); box-shadow: var(--card-shadow); }
+.price-insight-panel { display: none; }
+.price-insight-panel.active { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.price-insight-current { font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }
+.price-insight-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+.price-insight-trend { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }
+.price-insight-trend-note { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.insight-down { color: var(--mint); }
+.insight-up { color: var(--coral); }
+.insight-flat { color: var(--muted); }
+.price-insight-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.price-insight-tile { background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }
+.price-insight-tile strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.price-insight-tile span { display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-insight-chart .price-history { margin-top: 0; }
+@media (min-width: 860px) { .price-insight-panel.active { grid-template-columns: 1fr 1.3fr; align-items: center; } }
 .brand-compare-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }
 .spec-table { width: 100%; border-collapse: collapse; }
 .spec-table th, .spec-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
@@ -405,14 +427,6 @@ a { color: inherit; }
 .spec-table tbody tr:last-child td { border-bottom: none; }
 .spec-table tbody tr:hover { background: var(--mist); }
 .spec-table a { color: var(--blue); text-decoration: none; font-weight: 600; }
-.brand-price-intel { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
-.brand-price-intel h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
-.brand-price-intel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-.brand-price-intel-card { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; }
-.brand-price-intel-icon { width: 32px; height: 32px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
-.brand-price-intel-icon svg { width: 16px; height: 16px; }
-.brand-price-intel-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
-.brand-price-intel-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 /* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
    allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
    som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
@@ -880,6 +894,92 @@ a { color: inherit; }
     </div>
   </a>
   </div>
+  <div class="brand-insight-row"><div class="price-insight">
+  <div class="price-insight-head">
+    <h2>Prisinnsikt for MIRU</h2>
+    
+  </div>
+  <div class="price-insight-panel active" data-pack="30">
+    <div class="price-insight-now">
+      <div class="price-insight-current">428 kr</div>
+      <div class="price-insight-label">Snitt laveste pris nå &middot; 5 varianter i MIRU-sortimentet</div>
+      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 40 dagers snitt</span></div>
+      <div class="price-insight-tiles">
+        <div class="price-insight-tile"><strong>428 kr</strong><span>40 dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>428 kr</strong><span>40 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>428 kr</strong><span>40 dagers høyeste</span></div>
+      </div>
+    </div>
+    <div class="price-insight-chart"><div class="price-history">
+    
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 40 dager, fra 428 kr til 428 kr">
+      <defs>
+        <linearGradient id="priceHistoryFade-30" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
+      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">480 kr</text>
+      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
+      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">428 kr</text>
+      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
+      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">377 kr</text>
+      <path d="M48.0,158.0 L48.0,86.0 L64.0,86.0 L80.0,86.0 L96.0,86.0 L112.0,86.0 L128.0,86.0 L144.0,86.0 L160.0,86.0 L176.0,86.0 L192.0,86.0 L208.0,86.0 L224.0,86.0 L240.0,86.0 L256.0,86.0 L272.0,86.0 L288.0,86.0 L304.0,86.0 L320.0,86.0 L336.0,86.0 L352.0,86.0 L368.0,86.0 L384.0,86.0 L400.0,86.0 L416.0,86.0 L432.0,86.0 L448.0,86.0 L464.0,86.0 L480.0,86.0 L496.0,86.0 L512.0,86.0 L528.0,86.0 L544.0,86.0 L560.0,86.0 L576.0,86.0 L592.0,86.0 L608.0,86.0 L624.0,86.0 L640.0,86.0 L656.0,86.0 L672.0,86.0 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
+      <polyline points="48.0,86.0 64.0,86.0 80.0,86.0 96.0,86.0 112.0,86.0 128.0,86.0 144.0,86.0 160.0,86.0 176.0,86.0 192.0,86.0 208.0,86.0 224.0,86.0 240.0,86.0 256.0,86.0 272.0,86.0 288.0,86.0 304.0,86.0 320.0,86.0 336.0,86.0 352.0,86.0 368.0,86.0 384.0,86.0 400.0,86.0 416.0,86.0 432.0,86.0 448.0,86.0 464.0,86.0 480.0,86.0 496.0,86.0 512.0,86.0 528.0,86.0 544.0,86.0 560.0,86.0 576.0,86.0 592.0,86.0 608.0,86.0 624.0,86.0 640.0,86.0 656.0,86.0 672.0,86.0" class="price-history-line" />
+      <circle cx="48.0" cy="86.0" r="2.2" class="price-history-dot"><title>19.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="64.0" cy="86.0" r="2.2" class="price-history-dot"><title>20.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="80.0" cy="86.0" r="2.2" class="price-history-dot"><title>21.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="96.0" cy="86.0" r="2.2" class="price-history-dot"><title>22.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="112.0" cy="86.0" r="2.2" class="price-history-dot"><title>23.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="128.0" cy="86.0" r="2.2" class="price-history-dot"><title>24.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="144.0" cy="86.0" r="2.2" class="price-history-dot"><title>25.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="160.0" cy="86.0" r="2.2" class="price-history-dot"><title>26.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="176.0" cy="86.0" r="2.2" class="price-history-dot"><title>27.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="192.0" cy="86.0" r="2.2" class="price-history-dot"><title>28.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="208.0" cy="86.0" r="2.2" class="price-history-dot"><title>29.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="224.0" cy="86.0" r="2.2" class="price-history-dot"><title>30.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="240.0" cy="86.0" r="2.2" class="price-history-dot"><title>31.08: 428 kr (snitt for serien)</title></circle>
+      <circle cx="256.0" cy="86.0" r="2.2" class="price-history-dot"><title>01.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="272.0" cy="86.0" r="2.2" class="price-history-dot"><title>02.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="288.0" cy="86.0" r="2.2" class="price-history-dot"><title>03.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="304.0" cy="86.0" r="2.2" class="price-history-dot"><title>04.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="320.0" cy="86.0" r="2.2" class="price-history-dot"><title>05.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="336.0" cy="86.0" r="2.2" class="price-history-dot"><title>06.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="352.0" cy="86.0" r="2.2" class="price-history-dot"><title>07.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="368.0" cy="86.0" r="2.2" class="price-history-dot"><title>08.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="384.0" cy="86.0" r="2.2" class="price-history-dot"><title>09.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="400.0" cy="86.0" r="2.2" class="price-history-dot"><title>10.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="416.0" cy="86.0" r="2.2" class="price-history-dot"><title>11.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="432.0" cy="86.0" r="2.2" class="price-history-dot"><title>12.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="448.0" cy="86.0" r="2.2" class="price-history-dot"><title>13.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="464.0" cy="86.0" r="2.2" class="price-history-dot"><title>14.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="480.0" cy="86.0" r="2.2" class="price-history-dot"><title>15.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="496.0" cy="86.0" r="2.2" class="price-history-dot"><title>16.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="512.0" cy="86.0" r="2.2" class="price-history-dot"><title>17.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="528.0" cy="86.0" r="2.2" class="price-history-dot"><title>18.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="544.0" cy="86.0" r="2.2" class="price-history-dot"><title>19.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="560.0" cy="86.0" r="2.2" class="price-history-dot"><title>20.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="576.0" cy="86.0" r="2.2" class="price-history-dot"><title>21.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="592.0" cy="86.0" r="2.2" class="price-history-dot"><title>22.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="608.0" cy="86.0" r="2.2" class="price-history-dot"><title>23.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="624.0" cy="86.0" r="2.2" class="price-history-dot"><title>24.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="640.0" cy="86.0" r="2.2" class="price-history-dot"><title>25.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="656.0" cy="86.0" r="2.2" class="price-history-dot"><title>26.09: 428 kr (snitt for serien)</title></circle>
+      <circle cx="672.0" cy="86.0" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 428 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="78.0" text-anchor="end" class="price-history-current-label">428 kr</text>
+      <text x="48" y="174" class="price-history-axis-label">19.08</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg>
+  </div></div>
+  </div>
+  
+</div><div class="brand-facts">
+    <h2>Kort om MIRU</h2>
+    <ul class="brand-facts-list">
+      <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>5</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Menicon</strong><span>Produsent</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser, Multifokale linser, Toriske linser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>12,0 kr per linse</strong><span>Laveste pris per linse -- Miru 1day UpSide 30-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>1 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li>
+    </ul>
+  </div></div>
   <h2>Slik skiller MIRU-seriene seg</h2>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
@@ -894,17 +994,6 @@ a { color: inherit; }
       </table>
     </div>
   </div>
-  <div class="brand-insight-row"><div class="brand-price-intel">
-    <h2>MIRU-priser akkurat nå</h2>
-    <div class="brand-price-intel-grid">
-      <div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-price-intel-value">360 kr</div><div class="brand-price-intel-label">Laveste pris akkurat nå -- Miru 1day UpSide 30-pack hos Interoptik</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-price-intel-value">12,0 kr</div><div class="brand-price-intel-label">Laveste pris per linse -- Miru 1day UpSide 30-pack</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-price-intel-value">1</div><div class="brand-price-intel-label">Norske nettbutikker sammenlignet</div></div>
-    </div>
-  </div><div class="brand-facts">
-    <h2>MIRU i korte trekk</h2>
-    <div class="brand-facts-grid">
-      <div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">5</div><div class="brand-fact-tile-label">Produkter vi følger</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Menicon</div><div class="brand-fact-tile-label">Produsent</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Dagslinser, Multifokale linser, Toriske linser</div><div class="brand-fact-tile-label">Linsetyper</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="brand-fact-tile-value">Oppdateres daglig</div><div class="brand-fact-tile-label">Prisdata</div></div>
-    </div>
-  </div></div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om MIRU</h2>
     <div class="faq-category">

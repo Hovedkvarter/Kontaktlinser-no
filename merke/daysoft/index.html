@@ -369,12 +369,34 @@ a { color: inherit; }
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
 @media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1.3fr 1fr; align-items: stretch; } }
-.brand-facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
-.brand-fact-tile { text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }
-.brand-fact-tile-icon { width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
-.brand-fact-tile-icon svg { width: 18px; height: 18px; }
-.brand-fact-tile-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--ink); line-height: 1.3; }
-.brand-fact-tile-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.brand-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.brand-facts-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }
+.brand-facts-list svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
+.brand-facts-list strong { display: block; color: var(--ink); font-weight: 600; }
+.brand-facts-list span { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+/* Prisinnsikt-graf -- egen CSS-kopi av .price-insight* fra render_family_page()
+   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
+.price-insight { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.price-insight-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.price-insight-head h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.insight-tabs { display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }
+.insight-tab { border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }
+.insight-tab.active { background: white; color: var(--ink); box-shadow: var(--card-shadow); }
+.price-insight-panel { display: none; }
+.price-insight-panel.active { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.price-insight-current { font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }
+.price-insight-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+.price-insight-trend { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }
+.price-insight-trend-note { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.insight-down { color: var(--mint); }
+.insight-up { color: var(--coral); }
+.insight-flat { color: var(--muted); }
+.price-insight-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.price-insight-tile { background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }
+.price-insight-tile strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.price-insight-tile span { display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-insight-chart .price-history { margin-top: 0; }
+@media (min-width: 860px) { .price-insight-panel.active { grid-template-columns: 1fr 1.3fr; align-items: center; } }
 .brand-compare-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }
 .spec-table { width: 100%; border-collapse: collapse; }
 .spec-table th, .spec-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
@@ -382,14 +404,6 @@ a { color: inherit; }
 .spec-table tbody tr:last-child td { border-bottom: none; }
 .spec-table tbody tr:hover { background: var(--mist); }
 .spec-table a { color: var(--blue); text-decoration: none; font-weight: 600; }
-.brand-price-intel { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
-.brand-price-intel h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
-.brand-price-intel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-.brand-price-intel-card { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; }
-.brand-price-intel-icon { width: 32px; height: 32px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
-.brand-price-intel-icon svg { width: 16px; height: 16px; }
-.brand-price-intel-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); }
-.brand-price-intel-label { font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 /* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
    allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
    som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
@@ -843,18 +857,158 @@ a { color: inherit; }
   </div>
 
   
-  
-  <div class="brand-insight-row"><div class="brand-price-intel">
-    <h2>Daysoft-priser akkurat nå</h2>
-    <div class="brand-price-intel-grid">
-      <div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-price-intel-value">217 kr</div><div class="brand-price-intel-label">Laveste pris akkurat nå -- Daysoft SILK 32-pack hos Lenson</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-price-intel-value">5,9 kr</div><div class="brand-price-intel-label">Laveste pris per linse -- Daysoft SILK 96-pack</div></div><div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-price-intel-value">2</div><div class="brand-price-intel-label">Norske nettbutikker sammenlignet</div></div>
+  <div class="brand-insight-row"><div class="price-insight">
+  <div class="price-insight-head">
+    <h2>Prisinnsikt for Daysoft</h2>
+    <div class="insight-tabs" role="tablist"><button type="button" class="insight-tab active" data-pack="32">32 linser</button><button type="button" class="insight-tab" data-pack="96">96 linser</button></div>
+  </div>
+  <div class="price-insight-panel active" data-pack="32">
+    <div class="price-insight-now">
+      <div class="price-insight-current">217 kr</div>
+      <div class="price-insight-label">Snitt laveste pris nå &middot; 1 varianter i Daysoft-sortimentet</div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -6 % <span class="price-insight-trend-note">vs. 30 dagers snitt</span></div>
+      <div class="price-insight-tiles">
+        <div class="price-insight-tile"><strong>217 kr</strong><span>30 dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>230 kr</strong><span>30 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>246 kr</strong><span>30 dagers høyeste</span></div>
+      </div>
     </div>
-  </div><div class="brand-facts">
-    <h2>Daysoft i korte trekk</h2>
-    <div class="brand-facts-grid">
-      <div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">2</div><div class="brand-fact-tile-label">Produkter vi følger</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div><div class="brand-fact-tile-value">Dagslinser</div><div class="brand-fact-tile-label">Linsetyper</div></div><div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="brand-fact-tile-value">Oppdateres daglig</div><div class="brand-fact-tile-label">Prisdata</div></div>
-    </div>
+    <div class="price-insight-chart"><div class="price-history">
+    
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 30 dager, fra 217 kr til 246 kr">
+      <defs>
+        <linearGradient id="priceHistoryFade-32" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
+      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">248 kr</text>
+      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
+      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">232 kr</text>
+      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
+      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">215 kr</text>
+      <path d="M48.0,158.0 L48.0,148.1 L69.5,148.1 L91.0,88.1 L112.6,88.1 L134.1,88.1 L155.6,88.1 L177.1,88.1 L198.6,88.1 L220.1,88.1 L241.7,23.9 L263.2,23.9 L284.7,23.9 L306.2,23.9 L327.7,23.9 L349.2,23.9 L370.8,23.9 L392.3,96.7 L413.8,96.7 L435.3,96.7 L456.8,96.7 L478.3,96.7 L499.9,96.7 L521.4,96.7 L542.9,148.1 L564.4,148.1 L585.9,148.1 L607.4,148.1 L629.0,148.1 L650.5,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-32)" />
+      <polyline points="48.0,148.1 69.5,148.1 91.0,88.1 112.6,88.1 134.1,88.1 155.6,88.1 177.1,88.1 198.6,88.1 220.1,88.1 241.7,23.9 263.2,23.9 284.7,23.9 306.2,23.9 327.7,23.9 349.2,23.9 370.8,23.9 392.3,96.7 413.8,96.7 435.3,96.7 456.8,96.7 478.3,96.7 499.9,96.7 521.4,96.7 542.9,148.1 564.4,148.1 585.9,148.1 607.4,148.1 629.0,148.1 650.5,148.1 672.0,148.1" class="price-history-line" />
+      <circle cx="48.0" cy="148.1" r="2.2" class="price-history-dot"><title>29.08: 217 kr (snitt for serien)</title></circle>
+      <circle cx="69.5" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 217 kr (snitt for serien)</title></circle>
+      <circle cx="91.0" cy="88.1" r="2.2" class="price-history-dot"><title>31.08: 231 kr (snitt for serien)</title></circle>
+      <circle cx="112.6" cy="88.1" r="2.2" class="price-history-dot"><title>01.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="134.1" cy="88.1" r="2.2" class="price-history-dot"><title>02.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="155.6" cy="88.1" r="2.2" class="price-history-dot"><title>03.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="177.1" cy="88.1" r="2.2" class="price-history-dot"><title>04.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="198.6" cy="88.1" r="2.2" class="price-history-dot"><title>05.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="220.1" cy="88.1" r="2.2" class="price-history-dot"><title>06.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="241.7" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="263.2" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="284.7" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="306.2" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="327.7" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="349.2" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="370.8" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="392.3" cy="96.7" r="2.2" class="price-history-dot"><title>14.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="413.8" cy="96.7" r="2.2" class="price-history-dot"><title>15.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="435.3" cy="96.7" r="2.2" class="price-history-dot"><title>16.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="456.8" cy="96.7" r="2.2" class="price-history-dot"><title>17.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="478.3" cy="96.7" r="2.2" class="price-history-dot"><title>18.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="499.9" cy="96.7" r="2.2" class="price-history-dot"><title>19.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="521.4" cy="96.7" r="2.2" class="price-history-dot"><title>20.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="542.9" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="564.4" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="585.9" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="607.4" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="629.0" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="650.5" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 217 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">217 kr</text>
+      <text x="48" y="174" class="price-history-axis-label">29.08</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg>
   </div></div>
+  </div><div class="price-insight-panel" data-pack="96">
+    <div class="price-insight-now">
+      <div class="price-insight-current">562 kr</div>
+      <div class="price-insight-label">Snitt laveste pris nå &middot; 1 varianter i Daysoft-sortimentet</div>
+      <div class="price-insight-trend insight-down"><span aria-hidden="true">↓</span> -6 % <span class="price-insight-trend-note">vs. 30 dagers snitt</span></div>
+      <div class="price-insight-tiles">
+        <div class="price-insight-tile"><strong>562 kr</strong><span>30 dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>597 kr</strong><span>30 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>637 kr</strong><span>30 dagers høyeste</span></div>
+      </div>
+    </div>
+    <div class="price-insight-chart"><div class="price-history">
+    
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 30 dager, fra 562 kr til 637 kr">
+      <defs>
+        <linearGradient id="priceHistoryFade-96" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="48" y1="14.0" x2="672" y2="14.0" class="price-history-gridline" />
+      <text x="42" y="17.0" text-anchor="end" class="price-history-axis-label">643 kr</text>
+      <line x1="48" y1="86.0" x2="672" y2="86.0" class="price-history-gridline" />
+      <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">600 kr</text>
+      <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
+      <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">556 kr</text>
+      <path d="M48.0,158.0 L48.0,148.1 L69.5,148.1 L91.0,86.8 L112.6,86.8 L134.1,86.8 L155.6,86.8 L177.1,86.8 L198.6,86.8 L220.1,86.8 L241.7,23.9 L263.2,23.9 L284.7,23.9 L306.2,23.9 L327.7,23.9 L349.2,23.9 L370.8,23.9 L392.3,86.8 L413.8,86.8 L435.3,86.8 L456.8,86.8 L478.3,86.8 L499.9,86.8 L521.4,86.8 L542.9,148.1 L564.4,148.1 L585.9,148.1 L607.4,148.1 L629.0,148.1 L650.5,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-96)" />
+      <polyline points="48.0,148.1 69.5,148.1 91.0,86.8 112.6,86.8 134.1,86.8 155.6,86.8 177.1,86.8 198.6,86.8 220.1,86.8 241.7,23.9 263.2,23.9 284.7,23.9 306.2,23.9 327.7,23.9 349.2,23.9 370.8,23.9 392.3,86.8 413.8,86.8 435.3,86.8 456.8,86.8 478.3,86.8 499.9,86.8 521.4,86.8 542.9,148.1 564.4,148.1 585.9,148.1 607.4,148.1 629.0,148.1 650.5,148.1 672.0,148.1" class="price-history-line" />
+      <circle cx="48.0" cy="148.1" r="2.2" class="price-history-dot"><title>29.08: 562 kr (snitt for serien)</title></circle>
+      <circle cx="69.5" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 562 kr (snitt for serien)</title></circle>
+      <circle cx="91.0" cy="86.8" r="2.2" class="price-history-dot"><title>31.08: 599 kr (snitt for serien)</title></circle>
+      <circle cx="112.6" cy="86.8" r="2.2" class="price-history-dot"><title>01.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="134.1" cy="86.8" r="2.2" class="price-history-dot"><title>02.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="155.6" cy="86.8" r="2.2" class="price-history-dot"><title>03.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="177.1" cy="86.8" r="2.2" class="price-history-dot"><title>04.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="198.6" cy="86.8" r="2.2" class="price-history-dot"><title>05.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="220.1" cy="86.8" r="2.2" class="price-history-dot"><title>06.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="241.7" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="263.2" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="284.7" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="306.2" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="327.7" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="349.2" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="370.8" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="392.3" cy="86.8" r="2.2" class="price-history-dot"><title>14.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="413.8" cy="86.8" r="2.2" class="price-history-dot"><title>15.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="435.3" cy="86.8" r="2.2" class="price-history-dot"><title>16.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="456.8" cy="86.8" r="2.2" class="price-history-dot"><title>17.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="478.3" cy="86.8" r="2.2" class="price-history-dot"><title>18.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="499.9" cy="86.8" r="2.2" class="price-history-dot"><title>19.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="521.4" cy="86.8" r="2.2" class="price-history-dot"><title>20.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="542.9" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="564.4" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="585.9" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="607.4" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="629.0" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="650.5" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="672.0" cy="148.1" r="3.2" class="price-history-dot price-history-dot-last"><title>27.09: 562 kr (snitt for serien)</title></circle>
+      <text x="672.0" y="140.1" text-anchor="end" class="price-history-current-label">562 kr</text>
+      <text x="48" y="174" class="price-history-axis-label">29.08</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">27.09</text>
+    </svg>
+  </div></div>
+  </div>
+  <script>
+(function () {
+  var wrap = document.currentScript.closest('.price-insight');
+  if (!wrap) return;
+  wrap.querySelectorAll('.insight-tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var pack = tab.getAttribute('data-pack');
+      wrap.querySelectorAll('.insight-tab').forEach(function (t) { t.classList.toggle('active', t === tab); });
+      wrap.querySelectorAll('.price-insight-panel').forEach(function (p) { p.classList.toggle('active', p.getAttribute('data-pack') === pack); });
+    });
+  });
+})();
+</script>
+</div><div class="brand-facts">
+    <h2>Kort om Daysoft</h2>
+    <ul class="brand-facts-list">
+      <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>2</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>5,9 kr per linse</strong><span>Laveste pris per linse -- Daysoft SILK 96-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>2 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li>
+    </ul>
+  </div></div>
+  
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om Daysoft</h2>
     <div class="faq-category">
