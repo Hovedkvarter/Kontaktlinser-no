@@ -4002,3 +4002,39 @@ explainer`/`private-label-caveat`/"Se full produktside for..."-lenken
 alle fortsatt til stede uendret. Kontaktlinse-produktsiden selv
 (`render_product_page()`, bruker IKKE `HERO_IMAGE_STYLE`) bekreftet
 100 % upåvirket av hele denne runden.
+
+## Rettelse: "Pris ved flere esker" + blå oppsummeringsboks faktisk flyttet ned (2026-09-28, samme dag)
+
+Kai, med skjermdump av iWear Oxygen XR (private label): "Her er pris
+ved flere esker og den delen med blå bakgrunn ikke flyttet ned." Reell
+miss i forrige runde -- jeg omstrukturerte hero/quantity-layouten på
+`render_solution_product_page()`/`render_private_label_page()`, men
+glemte at `render_winner_widget()` sitt `qty_multi_inline`-argument
+(standard `True`) fortsatt lot "Pris ved flere X" ligge INNI
+antallsboksen, og `ai_summary_html` (den blå boksen) havnet rett under
+`.product-stage` i stedet for langt nedi siden, slik den allerede var
+plassert på kontaktlinse-produktsiden.
+
+- Begge funksjoners `render_winner_widget()`-kall fikk
+  `qty_multi_inline=False` (fanger nå `qty_multi_html` i stedet for å
+  forkaste den som `_qty_multi_html`), og `{qty_multi_html}` rendres nå
+  som et eget kort rett etter `{price_history_html}` -- samme
+  rekkefølge som kontaktlinse-produktsiden.
+- `{ai_summary_html}` flyttet fra "rett under product-stage" til rett
+  FØR `{product_faq_html}` (etter disclosure-avsnittet, private label-
+  forklaringen/-forbeholdet) -- betydelig lenger ned, matcher
+  kontaktlinse-produktsidens plassering langt nede i innholdet i stedet
+  for øverst i kjøpssonen.
+- Ny delt CSS-regel `.wrap-product > .qty-multi {{...}}` lagt til
+  `HERO_IMAGE_STYLE` (samme "egen hvit kortboks"-styling som
+  kontaktlinse-produktsiden allerede hadde lokalt) -- uten den ville
+  det nye frittstående kortet vært ustylet.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. DOM-rekkefølge bekreftet på det EKSAKTE produktet
+Kai skjermdumpet (iWear Oxygen XR): `.product-stage` → `.offers` →
+`.price-intel` → `.qty-multi` (egen kort) → ... → `.disclosure` →
+`.product-ai-summary` -- riktig på både mobil (375px) og desktop
+(1440px), ingen overflow. Samme rekkefølge bekreftet på en
+linsevæske-side (ReNu Multi-Purpose 60 ml). Kontaktlinse-produktsiden
+sin egen, urørte rekkefølge dobbeltsjekket uendret.

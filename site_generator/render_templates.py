@@ -10070,6 +10070,11 @@ SOLUTION_CATEGORIES = {
 HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
 .hero-subtitle { margin: 2px 0 0; font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+/* "Pris ved flere esker/flasker" som eget, frittstående kort under
+   prislista (qty_multi_inline=False) -- samme mønster som kontaktlinse-
+   produktsiden (Kai, 2026-09-28: "Her er pris ved flere esker og den
+   delen med blå bakgrunn ikke flyttet ned" på private label-siden). */
+.wrap-product > .qty-multi { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
 /* Product (Desktop) Gold Standard v1 -- portert hit fra render_product_page()
    2026-09-28 (Kai: "gjør samme hero-/quantity-redesign på linsevæske og
    private label", etter tidligere scope-avklaring "gjelder alle produkter
@@ -10206,7 +10211,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     unit_singular = product.get("unit_singular", "flaske")
     unit_plural = product.get("unit_plural", "flasker")
     size_unit = product.get("size_unit", "ml")
-    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False)
+    winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, product["name"], unit_singular=unit_singular, unit_plural=unit_plural, product_id=product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False, qty_multi_inline=False)
     # Price Intelligence -- delt med kontaktlinse-produktsiden (Kai,
     # 2026-09-28: "gjelder alle produkter på domenet kontaktlinser.no"),
     # samme funksjon, samme CSS (nå i SHARED_STYLE, se der).
@@ -10381,15 +10386,16 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     {qty_html}
   </div>
   {safety_notice}
-  {ai_summary_html}
   {offers_block}
   {price_history_html}
+  {qty_multi_html}
   {PRICE_DISCLOSURE_HTML}
   <p class="disclosure">
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
+  {ai_summary_html}
   {product_faq_html}
   {METHODOLOGY_HTML}
   {related_html}
@@ -10757,7 +10763,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     real_href = f'/kontaktlinser/{real_product["brand_slug"]}/{real_product["slug"]}/'
     category_label = categories[real_product["category_slug"]]["label"]
 
-    winner_html, qty_html, _qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False)
+    winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, real_product["name"], product_id=real_product["id"], clickouts=clickouts, qty_choices=(1, 2, 4, 6, 8, 10), include_custom_pill=False, qty_multi_inline=False)
     # Price Intelligence -- delt med kontaktlinse-/linsevæske-produktsidene
     # (Kai, 2026-09-28: "gjelder alle produkter på domenet
     # kontaktlinser.no ... egne merkenavn kontaktlinser"). Historikken er
@@ -10953,9 +10959,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     </div>
     {qty_html}
   </div>
-  {ai_summary_html}
   {offers_block}
   {price_history_html}
+  {qty_multi_html}
   <p style="margin-top:16px;"><a href="{escape(real_href)}" style="color:var(--blue);font-weight:600;text-decoration:none;">Se full produktside for {escape(real_name)} →</a></p>
   {f'<a class="pack-size-callout" href="/serie/{escape(family["slug"])}/"><div class="pack-size-callout-text">Se hele <strong>{escape(family["name"])}</strong>-serien — sammenlign sfærisk, torisk og andre varianter</div><div class="pack-size-callout-arrow">→</div></a>' if family else ''}
 
@@ -10979,6 +10985,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     Kontaktlinser.no er en uavhengig prissammenligningstjeneste, ikke en
     forhandler, og har ingen avtale med kjeden bak dette merkenavnet.
   </p>
+  {ai_summary_html}
   {product_faq_html}
   {METHODOLOGY_HTML}
   {related_html}
