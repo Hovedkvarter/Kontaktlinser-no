@@ -391,22 +391,48 @@ a { color: inherit; }
 .brand-stat-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }
 .brand-stat-value { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
 .brand-section-lead { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
-.brand-serie-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
-@media (min-width: 560px) { .brand-serie-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .brand-serie-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
-.brand-serie-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
-.brand-serie-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
-.brand-serie-card-image { aspect-ratio: 4 / 3; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { width: 100%; height: 100%; object-fit: contain; padding: 14px; box-sizing: border-box; }
+/* Series Portrait Cards (2026-09-27, samme dag, etter Kais 19-punkts
+   brief + presisering om kortbredde). Kortet skal ALDRI strekkes bredere
+   bare fordi merket har få serier -- minmax() med en fast maks (340px),
+   IKKE 1fr, så tomme grid-spor bare blir ubrukt luft i stedet for at de
+   fyller ekte kort til unaturlig bredde. auto-fill (ikke auto-fit) sikrer
+   samme oppførsel uansett om det er 1, 2, 3, 4, 5 eller 8 serier. */
+.brand-section-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.brand-section-kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.brand-section-header-row h2 { margin: 0 0 6px; }
+.brand-section-header-row .brand-section-lead { margin: 0; }
+.brand-serie-compare-link { font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; white-space: nowrap; margin-top: 4px; }
+.brand-serie-compare-link:hover { text-decoration: underline; }
+/* minmax(280px, 1fr), IKKE en fast maks-px -- auto-fill teller antall
+   spor etter MIN-verdien kun når maks er ubestemt (1fr), som gir flest
+   mulig kolonner ("4 kort på én rad der plassen tillater" -- en fast
+   maks-px (f.eks. 350px) far derimot brukt til selve spor-TELLINGEN i
+   Grid-spesifikasjonen, som i praksis ga bare 3 kolonner å 1240px
+   containerbredde her, ikke 4). Tomme auto-fill-spor forblir usynlig
+   luft (IKKE strukket brede) selv med 1fr, siden 1fr bare fordeler
+   overskuddsplass likt på ALLE spor (ekte og tomme) -- se
+   CSS_GRID_SERIES_WIDTH-testnotat i CLAUDE.md. */
+.brand-serie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); justify-content: start; align-items: stretch; gap: 18px; margin-bottom: 32px; }
+.brand-serie-card { display: flex; flex-direction: column; max-width: 350px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.brand-serie-card:hover, .brand-serie-card:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }
+.brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
+.brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
-.brand-serie-card-body { padding: 14px 14px 16px; }
-.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.94rem; line-height: 1.3; }
-.brand-serie-card-badge { display: inline-block; margin-top: 8px; padding: 3px 9px; border-radius: 999px; background: var(--mint-tint); color: var(--mint); font-size: 0.68rem; font-weight: 700; }
-.brand-serie-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
-.brand-serie-card-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-size: 0.68rem; font-weight: 600; color: var(--muted); }
-.brand-serie-card-foot { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--muted); }
-.brand-serie-card-foot strong { color: var(--ink); font-weight: 700; margin-left: auto; }
-.brand-serie-card-arrow { color: var(--blue); flex-shrink: 0; }
+.brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
+.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.brand-serie-card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0 0; font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+.brand-serie-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.brand-serie-card-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 0.64rem; font-weight: 500; color: var(--muted); }
+.brand-serie-card-spacer { flex: 1; min-height: 10px; }
+.brand-serie-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }
+.brand-serie-card-foot strong { color: var(--ink); font-weight: 700; }
+.brand-serie-card-cta { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.82rem; font-weight: 600; color: var(--ink); transition: border-color 0.18s ease, color 0.18s ease; }
+.brand-serie-card-cta span { transition: transform 0.18s ease; }
+.brand-serie-card:hover .brand-serie-card-cta, .brand-serie-card:focus-visible .brand-serie-card-cta { border-color: var(--blue); color: var(--blue); }
+.brand-serie-card:hover .brand-serie-card-cta span, .brand-serie-card:focus-visible .brand-serie-card-cta span { transform: translateX(3px); }
 .brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
 .brand-facts h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
 /* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
@@ -1002,16 +1028,27 @@ a { color: inherit; }
   </div></div>
   </div>
 
-  <h2>Utforsk Precision7-seriene</h2>
-  <p class="brand-section-lead">Precision7 er delt inn i 1 produktserie -- velg den som passer ditt behov.</p>
+  <div class="brand-section-header-row">
+    <div>
+      <div class="brand-section-kicker">Produktserier</div>
+      <h2>Utforsk Precision7-seriene</h2>
+      <p class="brand-section-lead">Se forskjeller, varianter, egenskaper og priser i hver produktserie.</p>
+    </div>
+    
+  </div>
   <div class="brand-serie-grid">
-    <a class="brand-serie-card" href="/serie/precision7/">
-    <div class="brand-serie-card-image"><img src="/static/products/precision7-12pk.jpg" alt="" loading="lazy" decoding="async"></div>
+    <a class="brand-serie-card" href="/serie/precision7/" style="--serie-tint:var(--mint-tint);">
+    <div class="brand-serie-card-top">
+      <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
+      <div class="brand-serie-card-image"><img src="/static/products/precision7-12pk.jpg" alt="" loading="lazy" decoding="async"></div>
+    </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Precision7</div>
-      <div class="brand-serie-card-badge">Månedslinser</div>
+      <p class="brand-serie-card-desc">Serie med månedslinser i Serafilcon A med Activ-Flo-teknologi, tilgjengelig som standard og torisk variant.</p>
       <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Torisk</span></div>
-      <div class="brand-serie-card-foot"><span>4 produkter</span><strong>Fra 374 kr</strong><span class="brand-serie-card-arrow" aria-hidden="true">→</span></div>
+      <div class="brand-serie-card-spacer"></div>
+      <div class="brand-serie-card-foot"><span>4 produkter</span><strong>Fra 374 kr</strong></div>
+      <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
     </div>
   </a>
   </div>
@@ -1267,7 +1304,7 @@ a { color: inherit; }
     <div class="brand-sortiment-card-link">Se toriske linser →</div>
   </a>
   </div>
-  <h2>Slik skiller Precision7-seriene seg</h2>
+  <h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Precision7-seriene seg</h2>
   <p class="brand-section-lead">1 serie, til sammen 4 av 4 Precision7-produkter.</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
