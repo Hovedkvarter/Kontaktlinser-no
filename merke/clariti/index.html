@@ -398,18 +398,22 @@ a { color: inherit; }
 .brand-stat-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }
 .brand-stat-value { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
 .brand-section-lead { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
-.brand-serie-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
+.brand-serie-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }
 @media (min-width: 560px) { .brand-serie-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 900px) { .brand-serie-grid { grid-template-columns: repeat(var(--brand-serie-cols, 3), 1fr); } }
-.brand-serie-card { display: flex; align-items: center; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 9px 12px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 60px; min-width: 0; }
+@media (min-width: 900px) { .brand-serie-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
+.brand-serie-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
 .brand-serie-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
-.brand-serie-card-thumb { width: 42px; height: 42px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--mist); display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }
-.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--blue); }
-.brand-serie-card-text { flex: 1; min-width: 0; }
-.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.82rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.brand-serie-card-meta { font-size: 0.68rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.brand-serie-card-price { font-size: 0.72rem; color: var(--ink); font-weight: 600; margin-top: 2px; }
+.brand-serie-card-image { aspect-ratio: 4 / 3; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.brand-serie-card-image img { width: 100%; height: 100%; object-fit: contain; padding: 14px; box-sizing: border-box; }
+.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
+.brand-serie-card-body { padding: 14px 14px 16px; }
+.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.94rem; line-height: 1.3; }
+.brand-serie-card-badge { display: inline-block; margin-top: 8px; padding: 3px 9px; border-radius: 999px; background: var(--mint-tint); color: var(--mint); font-size: 0.68rem; font-weight: 700; }
+.brand-serie-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.brand-serie-card-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-size: 0.68rem; font-weight: 600; color: var(--muted); }
+.brand-serie-card-foot { display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--muted); }
+.brand-serie-card-foot strong { color: var(--ink); font-weight: 700; margin-left: auto; }
+.brand-serie-card-arrow { color: var(--blue); flex-shrink: 0; }
 .brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
 .brand-facts h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
 /* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
@@ -417,7 +421,17 @@ a { color: inherit; }
    samme her som på serie") -- samme to-kolonners stretch-mønster som
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
-@media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1.3fr 1fr; align-items: stretch; } }
+@media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1fr 1fr; align-items: stretch; } }
+.brand-i-tall { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.brand-i-tall h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.brand-i-tall-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+@media (min-width: 480px) and (max-width: 899px) { .brand-i-tall-grid { grid-template-columns: repeat(3, 1fr); } }
+.brand-i-tall-tile { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }
+.brand-i-tall-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.brand-i-tall-icon svg { width: 15px; height: 15px; }
+.brand-i-tall-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }
+.brand-i-tall-label { font-size: 0.76rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }
+.brand-i-tall-sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
 .brand-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
 .brand-facts-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }
 .brand-facts-list svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
@@ -466,6 +480,17 @@ a { color: inherit; }
 .faq-chevron { flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
 .faq-accordion-item[open] .faq-chevron { transform: rotate(180deg); }
 .faq-accordion-item p { margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+/* To-kolonners FAQ (Kai 2026-09-27, etter mockup: "gjør det nøyaktig slik
+   ... så nært som mulig med alt") -- CSS-multikolonne i stedet for å endre
+   _render_family_faq_accordion() sin delte HTML-struktur (den brukes
+   uendret av serie-siden også) -- scoped til .brand-faq-wrap slik at
+   serie-siden sin egen FAQ ikke påvirkes. break-inside:avoid på hver
+   kategori hindrer at en kategori-overskrift havner alene nederst i en
+   kolonne mens spørsmålene fortsetter i neste. */
+@media (min-width: 860px) {
+  .brand-faq-wrap .faq-section { column-count: 2; column-gap: 40px; }
+  .brand-faq-wrap .faq-category { break-inside: avoid; -webkit-column-break-inside: avoid; }
+}
 /* Toppbanner (2026-09-27, Kai: "bruk toppbilde vi også bruker på serie
    her på disse for å få det pent") -- SAMME delte bilde som serie-hero
    (static/hero/serie-*.webp), samme side-panel-med-fade-teknikk. Egne
@@ -498,6 +523,9 @@ a { color: inherit; }
 @media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
 .brand-sortiment-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
 .brand-sortiment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
+.brand-sortiment-card-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.brand-sortiment-card-icon svg { width: 17px; height: 17px; }
+.brand-sortiment-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
 .brand-sortiment-card-count { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }
 .brand-sortiment-card-label { font-weight: 600; font-size: 0.9rem; margin-top: 2px; }
 .brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
@@ -509,8 +537,11 @@ a { color: inherit; }
 .brand-3090-tile strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
-.brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }
-@media (min-width: 640px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
+.brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+.brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; }
+@media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
+@media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
 .brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
 .brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
@@ -927,7 +958,6 @@ a { color: inherit; }
   <div class="brand-hero">
     <div class="brand-hero-content">
       <div class="brand-hero-row">
-        
         <div class="hero-copy">
           <div class="kicker">Merke</div>
           <h1>Clariti</h1>
@@ -945,38 +975,45 @@ a { color: inherit; }
     </div>
   </div>
   <div class="brand-facts-row"><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
     <div class="brand-facts-card-value">6 produkter</div>
     
   </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-icon" style="background:var(--blue-tint);color:var(--blue);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div>
     <div class="brand-facts-card-value">1 serie</div>
     
   </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
+    <div class="brand-facts-card-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
     <div class="brand-facts-card-value">3 linsetyper</div>
     <div class="brand-facts-card-label">Dagslinser · Multifokale linser · Toriske linser</div>
   </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
+    <div class="brand-facts-card-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
     <div class="brand-facts-card-value">5 butikker</div>
     <div class="brand-facts-card-label">Med Clariti-produkter akkurat nå</div>
   </div></div>
 
   <h2>Utforsk Clariti-seriene</h2>
   <p class="brand-section-lead">Clariti er delt inn i 1 produktserie -- velg den som passer ditt behov.</p>
-  <div class="brand-serie-grid" style="--brand-serie-cols:1;">
+  <div class="brand-serie-grid">
     <a class="brand-serie-card" href="/serie/clariti-1day/">
-    <div class="brand-serie-card-thumb"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" loading="lazy" decoding="async"></div>
-    <div class="brand-serie-card-text">
+    <div class="brand-serie-card-image"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" loading="lazy" decoding="async"></div>
+    <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Clariti 1 day</div>
-      <div class="brand-serie-card-meta">Dagslinser · Multifokale linser · Toriske linser</div>
-      <div class="brand-serie-card-price">fra 247 kr</div>
+      <div class="brand-serie-card-badge">Dagslinser</div>
+      <div class="brand-serie-card-pills"><span class="brand-serie-card-pill">Standard</span><span class="brand-serie-card-pill">Torisk</span><span class="brand-serie-card-pill">Multifokal</span></div>
+      <div class="brand-serie-card-foot"><span>5 produkter</span><strong>Fra 247 kr</strong><span class="brand-serie-card-arrow" aria-hidden="true">→</span></div>
     </div>
   </a>
   </div>
-  <div class="brand-insight-row"><div class="price-insight">
+  <div class="brand-insight-row"><div class="brand-i-tall">
+    <h2>Clariti i tall</h2>
+    <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
+    <div class="brand-i-tall-grid">
+      <div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">247 kr</div><div class="brand-i-tall-label">Laveste produktpris</div><div class="brand-i-tall-sub">Clariti 1 day 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div><div class="brand-i-tall-value">6,8 kr</div><div class="brand-i-tall-label">Laveste pris per linse</div><div class="brand-i-tall-sub">Clariti 1 day 90-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div><div class="brand-i-tall-value">22 %</div><div class="brand-i-tall-label">Størst prisforskjell mellom butikker</div><div class="brand-i-tall-sub">Clariti 1 day Toric 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div><div class="brand-i-tall-value">4</div><div class="brand-i-tall-label">Flest butikker</div><div class="brand-i-tall-sub">Clariti 1 day 30-pack</div></div><div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg></div><div class="brand-i-tall-value">Clariti 1 day</div><div class="brand-i-tall-label">Flest varianter</div><div class="brand-i-tall-sub">Dagslinser · Multifokale linser · Toriske linser</div></div>
+    </div>
+  </div><div class="price-insight">
   <div class="price-insight-head">
-    <h2>Prisinnsikt for Clariti</h2>
+    <h2>Clariti-priser</h2>
     <div class="insight-tabs" role="tablist"><button type="button" class="insight-tab active" data-pack="30">30 linser</button><button type="button" class="insight-tab" data-pack="90">90 linser</button></div>
   </div>
   <div class="price-insight-panel active" data-pack="30">
@@ -1149,12 +1186,7 @@ a { color: inherit; }
   });
 })();
 </script>
-</div><div class="brand-facts">
-    <h2>Kort om Clariti</h2>
-    <ul class="brand-facts-list">
-      <li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>6</strong><span>Produkter vi følger</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>CooperVision</strong><span>Produsent</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinser, Multifokale linser, Toriske linser</strong><span>Linsetyper</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Somofilcon A (silikonhydrogel)</strong><span>Materialer</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>6,8 kr per linse</strong><span>Laveste pris per linse -- Clariti 1 day 90-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>5 nettbutikker</strong><span>Sammenlignet av oss, oppdatert daglig</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>22 %</strong><span>Størst prisforskjell mellom butikker -- Clariti 1 day Toric 30-pack</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>4 butikker</strong><span>Flest butikker -- Clariti 1 day 30-pack</span></div></li>
-    </ul>
-  </div></div>
+</div></div>
 
   <h2 id="produkter">Alle Clariti-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
@@ -1246,17 +1278,20 @@ a { color: inherit; }
   <p class="brand-section-lead">3 kategorier med til sammen 6 produkter -- velg den som passer ditt behov.</p>
   <div class="brand-sortiment-grid">
     <a class="brand-sortiment-card" href="#dagslinser" data-category="dagslinser">
-    <div class="brand-sortiment-card-count">2</div>
+    <div class="brand-sortiment-card-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+    <div class="brand-sortiment-card-count">2 produkter</div>
     <div class="brand-sortiment-card-label">Dagslinser</div>
     <div class="brand-sortiment-card-series">Clariti 1 day</div>
     <div class="brand-sortiment-card-link">Se dagslinser →</div>
   </a><a class="brand-sortiment-card" href="#multifokale-linser" data-category="multifokale-linser">
-    <div class="brand-sortiment-card-count">3</div>
+    <div class="brand-sortiment-card-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="8" r="3.5" fill="currentColor"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" fill="currentColor" opacity="0.5"/></svg></div>
+    <div class="brand-sortiment-card-count">3 produkter</div>
     <div class="brand-sortiment-card-label">Multifokale linser</div>
     <div class="brand-sortiment-card-series">Clariti 1 day</div>
     <div class="brand-sortiment-card-link">Se multifokale linser →</div>
   </a><a class="brand-sortiment-card" href="#toriske-linser" data-category="toriske-linser">
-    <div class="brand-sortiment-card-count">1</div>
+    <div class="brand-sortiment-card-icon" style="background:var(--coral-tint);color:var(--coral);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+    <div class="brand-sortiment-card-count">1 produkter</div>
     <div class="brand-sortiment-card-label">Toriske linser</div>
     <div class="brand-sortiment-card-series">Clariti 1 day</div>
     <div class="brand-sortiment-card-link">Se toriske linser →</div>
@@ -1278,7 +1313,6 @@ a { color: inherit; }
       </table>
     </div>
   </div>
-  
   <h2>30 eller 90 linser?</h2>
   <div class="brand-3090-card">
     <p>For 2 av 2 sammenlignbare Clariti-produkter har 90-pakningen lavere pris per linse enn tilsvarende 30-pakning akkurat nå. Eksempel -- Clariti 1 day Multifocal 30-pack:</p>
@@ -1289,7 +1323,7 @@ a { color: inherit; }
     </div>
     <p class="brand-3090-note">Kun samme underliggende produkt sammenlignet (aldri ulike produkter mot hverandre). Husk å regne med frakt for akkurat det antallet du trenger.</p>
   </div>
-  <div class="faq-section">
+  <div class="brand-faq-wrap"><div class="faq-section">
     <h2>Ofte stilte spørsmål om Clariti</h2>
     <div class="faq-category">
     <div class="faq-category-label">Merke og serier</div>
@@ -1325,7 +1359,7 @@ a { color: inherit; }
     <p>Vi sammenligner Clariti hos 5 norske nettbutikker til sammen, på tvers av alle 6 produktene vi følger.</p>
   </details>
   </div>
-  </div>
+  </div></div>
   <h2>Nyttige ressurser</h2>
   <p class="brand-section-lead">Artikler, forklaringer og guider som hjelper deg å ta gode valg.</p>
   <div class="guide-grid">
