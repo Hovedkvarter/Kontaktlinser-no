@@ -2369,3 +2369,91 @@ rapport gitt til Kai i samme runde, ikke gjentatt her).
 - Økte samtidig `.brand-hero` sin padding noe (26/40/24px -> 40/44/36px)
   for å nærme seg brief sin ønskede hero-høyde (320-390px) -- landet på
   ca. 310px for Acuvue med den nye, lengre introteksten.
+
+## Merke-siden: resten av "Gold Standard"-briefen bygget ("gjør alt") (2026-09-27, samme dag)
+
+Kai svarte "gjør alt" på rapporten over, pluss et mockup-referansebilde med
+beskjeden "ikke legg vekt på logo og toppbanner og meny etc" (den delen er
+en fremtidig, separat oppgave -- IKKE rørt, per brief sitt eget forbud mot
+å endre header/nav). Bygget resten av de gjenstående, datastøttede fasene:
+
+- **Fase 2 (faktisk bygget om)**: de små pillene inni selve hero-kortet
+  erstattet med en egen, mer synlig 4-korts rad RETT UNDER heroen
+  (`.brand-facts-row`) -- produkter/serier/linsetyper/butikker -- matcher
+  mockupen Kai sendte bedre enn de opprinnelige pillene.
+- **Hero-CTA**: "Se alle {merke}-produkter →"-knapp i heroen, lenker til
+  `#produkter` (selve produktlisten lenger ned, ikke en ny side).
+- **Fase 7 -- "{Merke}-sortimentet forklart"**: ett kort per KATEGORI
+  (ikke serie) med produktantall + hvilke serier som har den kategorien +
+  en FUNGERENDE "Se X →"-lenke -- klikk kjører samme filter-rad som
+  allerede fantes ved produktlisten (ny `applyBrandFilter()`-funksjon,
+  gjenbrukt av både kategori-chipsene OG disse nye kortene, ikke
+  duplisert logikk). Kun bygget hvis merket har MER ENN ÉN kategori.
+- **Fase 11 -- "30 eller 90 linser?"**: ekte analyse på tvers av merket,
+  parer 30-pack/90-pack av SAMME underliggende produkt via
+  `_pack_size_from_id()` (samme funksjon som resten av siden allerede
+  bruker, ikke en ny matching-mekanisme). Krever minst 2 robuste par før
+  seksjonen bygges -- ett enkelt par hadde bare gjentatt tallet som
+  allerede står i FAQ-en. For Acuvue: "7 av 7 sammenlignbare
+  Acuvue-produkter har 90-pakningen lavere pris per linse enn tilsvarende
+  30-pakning."
+- **To ekstra intelligens-tall** i "Kort om {merke}"-sjekklisten (samme
+  liste som før, bare utvidet): størst prisforskjell mellom butikker for
+  ETT produkt (≥5 % terskel for å telle som reell), og hvilket produkt som
+  har flest butikker.
+- **Materialer i {merke}-sortimentet**: BEVISST kalt "Materialer", IKKE
+  "Materialer og teknologier" med "Les om materialet →"-lenker --
+  `Materiale`-feltet i specs er ÉN sammensatt streng ("Etafilcon A med
+  LACREON-teknologi"), ikke to separat dokumenterte entiteter. Viser de
+  fulle, ekte strengene som informative kort (hvilke serier som bruker
+  hver), ingen splitting, ingen oppdiktede lenker -- direkte i tråd med
+  brief sin egen Fase 9-fallback-regel. Kun bygget ved ≥2 distinkte
+  materialer.
+
+  **Viktig funn underveis**: `BRAND_CONTENT["acuvue"]` (en eksisterende,
+  håndskrevet tekstblokk fra FØR denne økta, fortsatt vist nederst på
+  siden) inneholder faktisk allerede ekte, dokumenterte forklaringer av
+  LACREON/HYDRACLEAR PLUS/TearStable/OptiBlue som løpende tekst -- så et
+  ordentlig Fase-9-kunnskapsgraf-kort FOR ACUVUE SPESIFIKT er trolig
+  mulig, men krever at den prosaen omstruktureres til data (materiale +
+  teknologinavn + kort forklaring som egne felt), ikke noe som bør
+  parses ut med regex fra fritekst. Flagget til Kai, ikke gjort her.
+- **Fase 13 -- "Nyttige ressurser"**: gjenbruker `render_guide_tile()`
+  direkte (samme funksjon som `/guider/`/forsiden) -- siden alle 40
+  guider nå har eget foto, blir dette alltid bildekort uten noen ny
+  komponent. 3 guider valgt adaptivt (alltid "Hvordan velge
+  kontaktlinser", pluss dagslinser-vs-månedslinser ELLER astigmatisme-
+  ELLER multifokal-guiden avhengig av hva merket faktisk har, pluss
+  "Hva betyr BC").
+- **Fase 14 -- "Produsent"-modul**: kompakt boks, kun bygget ved kjent
+  produsent-kobling, lenker til den eksisterende `/produsent/`-siden.
+- **Fase 15 -- "Om informasjonen på denne siden"**: fire elementer,
+  tekstene bevisst identiske med det som allerede står i disclosure-
+  avsnittet (ingen nye/sterkere påstander) -- "oppdateres daglig", IKKE
+  "flere ganger daglig" som brief sitt eget eksempel brukte, siden det
+  ikke er noe vi kan dokumentere. Lenker til de tre eksisterende
+  metodikk-/om oss-sidene.
+- **Fase 16 (oppdateringsdatoer) -- BEVISST IKKE bygget**: brief ba om
+  "Priser sist oppdatert i dag kl. HH:MM". `_verified_tag()` sin egen
+  docstring dokumenterer at et KLOKKESLETT-basert ferskhet-krav ble
+  fjernet tidligere i prosjektet nettopp fordi det ble feil hver gang
+  noen leste en statisk side senere enn byggetidspunktet -- å legge det
+  til igjen her ville gjeninnført akkurat den bug-en som allerede ble
+  fikset. Utelatt, flagget til Kai.
+- **Rekkefølge endret**: "Alle {merke}-produkter" flyttet opp (rett etter
+  Prisinnsikt-raden, samme relative plassering som serie-siden sin egen
+  "Alle produkter i X-serien"), resten av de nye seksjonene følger etter,
+  trust-footeren helt nederst før footer.
+
+Testet: alle 30 merke-sider (inkl. private label-undermerker) bygger med
+gyldig JSON-LD, ingen `NameError`/f-string-bugs, adaptivt bekreftet mot
+FreshLook (1 produkt, 0 serier -- sortiment/sammenligning/materialer/
+30v90/seriekort utelates automatisk, resten vises), "Se X →"-filter-
+lenkene fra sortimentet fungerer og scroller til riktig sted, ingen
+horisontal overflow på mobil (375px) eller desktop (1280px).
+
+**Ikke bygget** (flagget til Kai, ikke silent utelatt): et ordentlig
+strukturert Fase-9-kunnskapsgraf (krever at BRAND_CONTENT sin frie tekst
+omgjøres til data), Fase 16 sitt klokkeslett-baserte "sist oppdatert"
+(bevisst utelatt, se over), og selve header/navigasjon-redesignet fra
+mockupen (eksplisitt utenfor scope denne runden).
