@@ -4924,6 +4924,15 @@ LENS_SEARCH_STYLE = """
 
 LENS_SEARCH_JS = """
 (function () {
+  // Kjøres fra TOPBAR_HTML, som ligger tidlig i <body> -- FØR forsidens
+  // egen .search-row (hero-søkefeltet) er parset inn i DOM-en på sider
+  // som har en slik ekstra rad. Uten denne DOMContentLoaded-sjekken
+  // returnerte scriptet tidlig (rows.length === 0 på det tidspunktet det
+  // kjørte) og bandt ALDRI noen event-lyttere på forsidens søkefelt --
+  // oppdaget 2026-09-27 (Kai: "søkefunksjon virker ikke nå! på
+  // startsiden"). Sider der .search-row allerede finnes når scriptet
+  // kjører (readyState !== 'loading') kjører init() umiddelbart som før.
+  function init() {
   var rows = document.querySelectorAll('.search-row');
   if (!rows.length) return;
 
@@ -5016,6 +5025,12 @@ LENS_SEARCH_JS = """
       if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
     });
   });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
 """
 

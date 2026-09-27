@@ -2708,3 +2708,51 @@ faktakorrekte, men å redesigne dem uten mockup risikerer akkurat den
 typen bomtreff ("vi er langt unna") tidligere runder denne økten viste
 skjer når jeg gjetter på Kais visuelle preferanser i stedet for å se et
 referansebilde først.
+
+## KRITISK FIX: søkefeltet på forsiden virket ikke i det hele tatt (2026-09-27, samme dag)
+
+Kai: "søkefunksjon virker ikke nå! på startsiden" -- ekte regresjon,
+oppdaget og fikset samme dag den ble introdusert (commit `1030b97ad`,
+tidligere i denne økten, FØR sammendraget/oppsummeringen som denne
+CLAUDE.md-loggen fortsetter fra).
+
+**Rotårsak**: `LENS_SEARCH_JS` (den delte søke-IIFE-en, limt inn via
+`TOPBAR_HTML` tidlig i `<body>`) begynner med
+`var rows = document.querySelectorAll('.search-row'); if (!rows.length)
+return;`. Da søkefeltet på toppmenyen ble delt mellom sider (samme
+commit), ble forsidens EGEN kopi av søke-scriptet fjernet med vilje
+("unngår at IIFE-en kjører to ganger... dobbeltbinder event-lyttere",
+se kommentar i koden) -- men forsidens `.search-row` (selve
+hero-søkefeltet) ligger et godt stykke LENGER NED i `<body>` enn
+TOPBAR_HTML sitt script-tag. Siden scriptet er synkront og ikke utsatt,
+kjørte det FØR forsidens `.search-row` i det hele tatt var parset inn i
+DOM-en -- `rows.length` var 0 på kjøretidspunktet, og funksjonen returnerte
+tomt UTEN å binde en eneste event-lytter. Ingen konsoll-feil, ingen
+JSON-feil, ingen bygge-feil -- helt stille, kun synlig ved at søkefeltet
+faktisk ikke reagerte på tastetrykk. Bekreftet empirisk: `python3 -c`
+mot `build/index.html` viste `var rows = document.querySelectorAll(...)`
+på tegn-posisjon 83054, mens `class="search-row"` først dukker opp på
+posisjon 87657 -- scriptet kjørte definitivt for tidlig.
+
+**Fix**: pakket hele IIFE-kroppen inn i en `init()`-funksjon, kalt enten
+umiddelbart (hvis `document.readyState !== 'loading'`, dvs. DOM-en
+allerede er ferdig parset når scriptet kjører -- f.eks. hvis scriptet av
+en eller annen grunn havner sent i body på en fremtidig side) eller via
+`document.addEventListener('DOMContentLoaded', init)` (dekker akkurat
+dette tilfellet -- scriptet ligger tidlig, elementet kommer senere).
+Robust mot begge rekkefølger, ingen dobbeltbinding (kjører kun én gang
+uansett hvilken gren som trigges), null endring i selve søkelogikken.
+
+**Verifisert**: JS-syntaks sjekket med `node --check` på den isolerte
+strengen, ekte klikk+tastetrykk i browser-panelet på forsiden (lokalt
+bygget `build/index.html`) ga nå korrekt forslagsliste med
+produktbilder, samme test på en guide-side (som har 3 `.search-row`-
+forekomster -- meny + evt. andre) fungerte også uendret. Ingen
+Traceback/NameError i noen bygde sider.
+
+**Lærdom for fremtiden**: et delt, synkront `<script>`-tag som gjør
+`querySelectorAll` og forventer at ELEMENTER LENGER NEDE i samme side
+allerede finnes, er en tidsbombe som avhenger av nøyaktig hvor i
+`<body>` scriptet limes inn på HVER side som bruker det -- default til
+`DOMContentLoaded`-mønsteret over for ALL fremtidig delt DOM-avhengig
+inline-JS i dette prosjektet, ikke bare denne ene funksjonen.
