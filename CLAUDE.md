@@ -2141,3 +2141,29 @@ SIDEN av teksten, ikke et eget fullbredde element. Erstattet
 BEGGE problemene i samme endring: mindre plass, OG en nedskalering fra
 640px-kilden til ~70-100px vises skarpt (motsatt av forrige runde sin
 oppskalering til full bredde).
+
+## Serie-siden: "Felles for hele serien" og "Relevante guider" som et matchende par (2026-09-27)
+
+Kai pekte igjen på skjermbilde av bunn-raden (den samme han satte "på vent"
+tidligere i økta): "Relevante guider" hadde ALDRI fått en hvit boks rundt
+seg (bare bar overskrift + bildekort-rutenett rett på sidebakgrunnen),
+mens "Felles for hele serien" har det -- pluss at høyden varierte fritt (3
+bildekort med ekte foto blir naturlig høyere enn én rad ikon-fliser). Ba
+om at de skulle bli "riktig proporsjonert i høyde, boks rundt etc ... så
+det blir tilnærmet likt".
+
+Fikset med tre grep, ingen ny HTML-struktur:
+1. `.serie-guides` fikk samme kort-stil som `.serie-facts-tiles` (hvit bakgrunn,
+   border, radius, skygge, samme h2-størrelse) -- var helt ustylet før.
+2. `.serie-bottom-row` sin `align-items` gikk fra `start` til `stretch`, så
+   begge boksene alltid får samme høyde (den høyeste av de to).
+3. `.serie-facts-tiles` sitt innhold (kortere -- én rad fliser) sentreres nå
+   vertikalt i den ledige plassen (`margin: auto` på fliserutenettet) i
+   stedet for å henge øverst med et stort tomrom under -- ser dermed
+   bevisst ut, ikke som en feil, uansett hvor mye høyere "Relevante guider"
+   sin boks blir.
+
+Fjernet samtidig en unødvendig `.guide-photo-grid`-brekkpunkt-kvirk (gikk
+til 1 kolonne ved ≥900px, tilbake til 3 ved ≥1200px -- en rest fra før
+boksen fikk fast bredde i to-kolonners raden) til bare "3 kolonner fra
+640px og oppover", som stemmer bedre med den nye faste boks-bredden.
