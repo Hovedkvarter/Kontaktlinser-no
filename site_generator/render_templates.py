@@ -2613,6 +2613,34 @@ def _render_product_badges(specs: list[tuple[str, str]]) -> str:
     return f'<div class="hero-badges">{items}</div>'
 
 
+def _hero_facts_html(specs: list[tuple[str, str]], pack_size: int | None) -> str:
+    """Kompakt faktarad i Product Stage, KUN på desktop (Product Desktop Gold
+    Standard v1, 2026-09-27, punkt 8: "Facts må komme fra dokumenterte
+    produktdata" -- maks 3-4 stk, ALDRI et gjettet/fabrikert tall). Et
+    produkt uten f.eks. Basiskurve i specs (som SofLens Daily Disposable)
+    viser rett og slett færre fakta i stedet for å finne på et tall --
+    konsistent med prosjektets "aldri gjett data"-regel. CSS-en
+    (.hero-facts) holder denne skjult under 860px, så mobil-Gold-Standard-
+    en er upåvirket uansett."""
+    spec_dict = dict(specs)
+    facts: list[str] = []
+    brukstid = spec_dict.get("Brukstid")
+    if brukstid:
+        facts.append(escape(brukstid))
+    if pack_size:
+        facts.append(f"{pack_size} linser")
+    materiale = spec_dict.get("Materiale")
+    if materiale:
+        facts.append(escape(materiale))
+    basiskurve = spec_dict.get("Basiskurve")
+    if basiskurve:
+        facts.append(f"BC {escape(basiskurve)}")
+    if not facts:
+        return ""
+    items = '<span class="hero-fact-sep">·</span>'.join(f"<span>{f}</span>" for f in facts[:4])
+    return f'<div class="hero-facts">{items}</div>'
+
+
 def outbound_url(
     o: dict, retailer: str, product_id: str | None, clickouts: dict | None, surface: str
 ) -> str:
@@ -3786,6 +3814,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 
     winner_html, qty_html, qty_multi_html = render_winner_widget(ex_best, offers, product["name"], product_id=product["id"], clickouts=clickouts, include_ship_chip=True, qty_multi_inline=False)
     badges_html = _render_product_badges(product.get("specs", []))
+    hero_facts_html = _hero_facts_html(product.get("specs", []), parsed[1] if parsed else None)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     # "price" er produktprisen alene, ikke fraktinkludert totalsum -- ellers
@@ -4095,19 +4124,36 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
      avkuttet tekst. */
   .hero-media-row .winner-btn {{ font-size: 0.68rem; padding: 8px 4px; gap: 3px; margin-top: 2px; white-space: normal; text-align: center; line-height: 1.25; }}
 }}
+/* Kicker (merke/serie over H1) + kompakt faktarad ("Dagslinse · 30 linser
+   · Hilafilcon B · BC 8,6") -- Product Desktop Gold Standard v1,
+   2026-09-27, punkt 3+8. Skjult som standard (mobil-Gold-Standard-en
+   fjernet bevisst kickeren over H1 tidligere samme dag, se commit
+   9657bfb1d -- IKKE gjeninnfør den der), vises kun >=860px der Kai
+   bekreftet at det er plass ("Her kan også Soflens eller produsent
+   vises, da det er plass til det"). */
+.hero-kicker, .hero-facts {{ display: none; }}
 @media (min-width: 860px) {{
-  .hero-card {{ padding: 28px; }}
+  .hero-kicker {{ display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin: 0 0 4px; }}
+  .hero-facts {{ display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 12px 0 0; font-size: 0.88rem; color: var(--muted); }}
+  .hero-fact-sep {{ color: var(--border); }}
+}}
+/* Product Stage-kortet (bilde + Winner Card + antall/frakt-rad) samlet i
+   ÉN visuell kortboks på desktop, uten å flytte noe i DOM-treet -- se
+   .product-stage under. */
+@media (min-width: 860px) {{
+  .product-stage {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 28px; }}
+  .product-stage .hero-card {{ border: none; border-radius: 0; padding: 0; margin-bottom: 24px; }}
+  .product-stage > .qty-box {{ border: none; background: transparent; padding: 0; margin: 0; }}
   .hero-media-row {{ display: contents; }}
-  /* Bildet spenner BEGGE rader (grid-row: 1 / 3) og strekker seg dermed i
-     høyden til å matche summen av tekstkolonnen (rad 1) og prisboksen
-     (rad 2, som nå spenner under både tekst OG vinner-kortet) -- i stedet
-     for et fast kvadrat som før. Eksplisitt grid-column/-row på alle fire
-     direkte barn siden auto-plassering ikke gir riktig resultat når
-     prisboksen skal bryte ut av tekstkolonnen og spenne to kolonner. */
-  .hero-main {{ display: grid; grid-template-columns: minmax(220px, 380px) 1fr minmax(250px, 300px); grid-template-rows: auto auto; gap: 20px 32px; align-items: stretch; }}
-  .hero-main .hero-product-image {{ grid-column: 1; grid-row: 1 / 3; }}
-  .hero-main .hero-copy {{ grid-column: 2; grid-row: 1; }}
-  .hero-main .winner-band {{ grid-column: 3; grid-row: 1; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 36px 18px 18px; }}
+  /* KUN to kolonner (bilde + Winner Card) -- IKKE tre som før (Desktop
+     Gold Standard v1, punkt 4: "Vi ønsker ikke tre store kolonner...
+     Den midtre produkttekstkolonnen fjernes"). .hero-copy (kicker/H1/
+     undertittel/fakta) spenner nå hele bredden i rad 1 i stedet for å
+     være en egen midtre kolonne; bilde+Winner Card er rad 2. */
+  .hero-main {{ display: grid; grid-template-columns: minmax(320px, 1fr) minmax(260px, 320px); grid-template-areas: "copy copy" "image price"; gap: 20px 32px; align-items: start; }}
+  .hero-main .hero-copy {{ grid-area: copy; }}
+  .hero-main .hero-product-image {{ grid-area: image; width: 100%; max-width: 480px; height: auto; aspect-ratio: 4 / 3; margin: 0; }}
+  .hero-main .winner-band {{ grid-area: price; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 28px 18px 18px; align-self: start; }}
   .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 0; }}
   .hero-main .winner-trophy {{ position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }}
   .hero-main .winner-band .label {{ margin-top: 0; }}
@@ -4117,7 +4163,6 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   .hero-main .price-pill.is-winner {{ display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }}
   .hero-main .winner-price-note {{ margin-top: 7px; line-height: 1; }}
   .hero-main .winner-cta {{ display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }}
-  .hero-main .product-ai-summary {{ grid-column: 2 / 4; grid-row: 2; margin: 0; }}
 }}
 /* wrap-product er delt med linsevæske-/private label-produktsider (som
    fortsatt bruker den gamle, smalere hero-layouten) -- utvider den KUN her,
@@ -4179,10 +4224,11 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
    aspect-ratio) -- tidligere var mobil låst til en fast 200x200px-boks som
    etterlot mye tomt rom i et bredere kort (fant og fikset 2026-08-30, se
    brukerens tilbakemelding om at bildene på mobil produktsider var for
-   små). Samme fulle-bredde-oppførsel gjelder derfor helt til bildet blir en
-   grid-rute som spenner to rader (se .hero-main .hero-product-image over,
-   860px+) -- da skal det heller strekke seg i høyden til å fylle hele det
-   spennet (tekstkolonne + prisboks), ikke tvinges til et fast kvadrat. */
+   små). På desktop (>=860px, Product Desktop Gold Standard v1,
+   2026-09-27) overstyrer `.hero-main .hero-product-image` denne med en
+   egen 4:3-aspect-ratio (se der) -- bildet spenner IKKE lenger to
+   grid-rader (den midtre tekstkolonnen som tidligere ga bildet en tekst-
+   høyde å matche, er fjernet, se punkt 4 i spec-en). */
 .hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ border-radius: 20px; font-size: 2.6rem; }} }}
@@ -4213,19 +4259,23 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     <a href="/merke/{escape(product["brand_slug"])}/">{escape(product["brand_label"])}</a> ›
     {escape(product["name"])}
   </p>
-  <div class="hero-card">
-    <div class="hero-main">
-      <div class="hero-copy">
-        <h1>{escape(product["name"])}</h1>
-        <p class="hero-subtitle">Sammenlign priser</p>
-      </div>
-      <div class="hero-media-row">
-        <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
-        {winner_html}
+  <div class="product-stage">
+    <div class="hero-card">
+      <div class="hero-main">
+        <div class="hero-copy">
+          <p class="hero-kicker">{escape(product["brand_label"])}</p>
+          <h1>{escape(product["name"])}</h1>
+          <p class="hero-subtitle">Sammenlign priser</p>
+          {hero_facts_html}
+        </div>
+        <div class="hero-media-row">
+          <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+          {winner_html}
+        </div>
       </div>
     </div>
+    {qty_html}
   </div>
-  {qty_html}
   {offers_block}
   <noscript><style>.offers-show-more{{display:none}}.offers.is-collapsed .offers-list .offer-card{{display:flex}}</style></noscript>
   {qty_multi_html}

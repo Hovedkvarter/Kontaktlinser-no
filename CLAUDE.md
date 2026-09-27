@@ -3341,3 +3341,127 @@ prispillen. Testet eksplisitt med en lang fraktstreng ("Gratis frakt
 over 1 199 kr", trigges ved å bytte antall esker) -- bekreftet 2-linjers
 bryting (dobbel høyde mot 1-linjes "Gratis frakt") uten overlapp, og
 skjermbilde ved 375px bekrefter det visuelt.
+
+## Produktsiden: Desktop Gold Standard v1, Steg 1 (2026-09-27, samme dag)
+
+Kai delte et desktop-mockup + en fullstendig 26-punkts "Product Desktop
+Gold Standard v1"-spec, i tillegg til et sett "Absolute Requirements"
+som gjelder for hele resten av desktop-arbeidet: KUN desktop (mobil-Gold-
+Standard-en skal forbli pixel/funksjonelt uendret), ALDRI slett
+data/innhold (flytt, ikke fjern), ikke endre datamodellen for å passe
+designet, bevar alt server-rendret/SEO-relevant innhold, og en
+PASS/FAIL-innholdsbevaringssjekk skal rapporteres før noe kalles
+ferdig. Gitt omfanget (26 punkter) implementeres spec-en i små,
+testede steg -- samme disiplin som resten av produktside-arbeidet
+denne dagen -- i stedet for én stor, uverifiserbar endring.
+
+**Revisjon FØR koding** (per spec-ens eget punkt 7): sammenlignet
+nåværende opplevd (via DOM-mål, IKKE skjermbilder -- se under)
+desktop-rendring mot mockupen. Fant at flere punkter allerede var
+implementert i tidligere runder samme dag (commit 8b8d2dd26: desktop
+viser allerede ALLE tilbud uten "Vis alle priser"-kollaps -- spec-ens
+punkt 12 -- og Savings Signal/`compute_savings_pct()` matchet already
+eksakt spec-ens formel/avrunding/10%-terskel/"Spar X%"-ordlyd fra
+punkt 7, og Winner Card inneholdt allerede KUN de tillatte feltene fra
+punkt 6, ingen trust-badges/pokal/rating). Ingen kategori E
+(sletting) identifisert -- alt gjenstående var additivt eller ren
+CSS-omplassering, se punktvis under.
+
+**Implementert i dette steget** (alt scoped til `render_product_page()`
+sin egen `<style>`-blokk og HTML, `@media (min-width: 860px)` -- null
+CSS-endring under 860px, verifisert eksplisitt, se Testet-avsnittet):
+
+- **Kicker (merke/serie) over H1** (punkt 3) -- en tidligere runde
+  samme dag (commit 9657bfb1d) fjernet bevisst en kicker over H1 PÅ
+  MOBIL (for lite plass). Kai ba nå eksplisitt om den tilbake, men kun
+  der det er plass: "Her kan også Soflens eller produsent vises, da
+  det er plass til det." Ny `<p class="hero-kicker">` er `display:none`
+  som standard, vises kun >=860px -- forener begge, tidligere
+  motstridende avgjørelser korrekt uten regresjon på mobil.
+- **Kompakt faktarad** (punkt 8, ny `_hero_facts_html()`-funksjon):
+  "Dagslinse · 30 linser · Hilafilcon B · BC 8,6", maks 4 felt, BYGGET
+  KUN fra faktisk dokumenterte `product["specs"]`-data (Brukstid,
+  pakningsstørrelse fra samme `_pack_size_from_id()` som allerede
+  brukes til søsken-pakning-lenken, Materiale, Basiskurve) -- viser
+  rett og slett færre fakta når et felt mangler (f.eks. SofLens Daily
+  Disposable har ikke Basiskurve/Diameter i katalogen) i stedet for å
+  dikte opp et tall, i tråd med prosjektets stående "aldri gjett
+  data"-regel. Samme `display:none`-til-860px-mønster som kickeren.
+- **Product Stage: fra tre kolonner til to** (punkt 4 -- "Den midtre
+  produkttekstkolonnen fjernes"): `.hero-main`s grid gikk fra
+  `bilde | tekst | pris` til et 2-kolonners
+  `grid-template-areas: "copy copy" "image price"` -- `.hero-copy`
+  (kicker/H1/undertittel/fakta) spenner nå hele bredden i rad 1,
+  bilde+Winner Card er rad 2. Ingen DOM-flytting nødvendig -- begge var
+  allerede direkte grid-barn av `.hero-main`, kun CSS-en endret. Fjernet
+  også en død `.hero-main .product-ai-summary`-grid-regel (AI-
+  sammendraget flyttet til kunnskapssonen tidligere samme dag, denne
+  regelen traff ingenting lenger).
+- **Produktbildets størrelse strammet inn**: første forsøk lot bildet
+  fylle hele den gjenværende kolonnebredden (815px) med aspect-ratio
+  4:3, som ga et 611px høyt bilde -- latterlig dominerende ved siden av
+  et 275px Winner Card. Fikset med `max-width: 480px` på
+  `.hero-main .hero-product-image`, gir et 480×360px bilde og
+  overskuddsplass som ren whitespace i cellen (i tråd med punkt 1: "Mye
+  whitespace er ønskelig").
+- **Quantity-boksen visuelt sammenslått med Product Stage-kortet**
+  (punkt 9 -- "Fjern dagens store separate quantity-seksjon"): en ny,
+  tom `<div class="product-stage">` pakker nå `.hero-card` OG
+  `{{qty_html}}` sammen UTEN å flytte noen av dem i DOM-treet (fortsatt
+  akkurat samme søsken-rekkefølge som før). `.product-stage` har ZERO
+  CSS under 860px (usynlig wrapper), og får kortets bakgrunn/kant/
+  padding kun >=860px, mens `.hero-card` og `.qty-box` mister sine EGNE
+  kant/padding der -- fremstår som ett sammenhengende kort på desktop,
+  helt uendret struktur på mobil. Denne wrapper-teknikken (ny tom div,
+  ingen omorganisering) var bevisst valgt for å garantere mobil-
+  pixel-likhet uten å måtte stole på at ingen andre regler utilsiktet
+  arver noe fra en ny forelder.
+- **Container-bredde** (punkt 1): `.wrap-product` var allerede
+  `max-width: 1280px` (innenfor spec-ens 1200-1300px-mål) -- verifisert
+  at den IKKE strekker seg ved 1920px (forblir 1280px, sentrert, ~312px
+  luft på hver side).
+- **Desktop viser alle tilbud** (punkt 12): allerede implementert i en
+  tidligere runde samme dag (commit 8b8d2dd26) -- kun BEKREFTET på nytt
+  her (0 skjulte `.offer-card` på en 5-butikkers og en 7-butikkers
+  produktside, "Vis alle priser"-knappen `display:none` >=860px), ingen
+  ny kode.
+
+**Bevisst UTSATT til senere steg** (ingen sletting, kun ikke startet
+ennå): punkt 13 (full tabell-hybrid prisliste -- spec-ens eksempel har
+en uklar "Pris/eske" vs "Pris"-kolonne-distinksjon som bør avklares med
+Kai før implementasjon, siden dagens kort kun viser ÉN prisverdi om
+gangen); punkt 11 (ny "Sammenlign priser" + "X butikker med pris..."
+undertekst -- lav risiko, men den eksisterende, fungerende "Priser for
+N esker"-overskriften fra mobil-runden dekker det meste av behovet
+alt); punkt 19 (kunnskapssonens 2-kolonners desktop-layout); punkt 20
+(sticky purchase rail -- Kai selv: "Ikke prioriter før hoveddesignet
+sitter"); punkt 5 (subtil CSS-bakgrunnsglød bak produktbildet, ren
+kosmetikk).
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. **Mobil-uendret-verifisering** (Absolute
+Requirement #1) via DOM, ikke bare skjermbilde: `.hero-kicker`/
+`.hero-facts` bekreftet `display:none` ved 375px, `.product-stage`
+bekreftet `border:0/background:transparent/padding:0` ved 375px (helt
+usynlig wrapper), og et 375px-skjermbilde av produktsiden er
+piksel-identisk med Gold-Standard-skjermbildet tatt tidligere samme
+dag. **Desktop** verifisert via DOM-mål (skjermbilder upålitelige ved
+disse vindusbreddene i denne browser-pane-en, se tidligere runder samme
+dag) på flere produkter og bredder: 1280px (SofLens, 5 tilbud), 1280px
+(Acuvue Moist, 7 tilbud, lang materiale-fakta-verdi), 1440px (Acuvue
+Oasys Max Multifocal for Astigmatism, langt produktnavn -- H1 bryter
+korrekt til 2 linjer i sin egen kolonne uten å presse Winner Card),
+1920px (containerbredde bekreftet uendret). Linsevæske- og private
+label-sidene (`render_solution_product_page`, egen, urørt hero-CSS)
+verifisert å IKKE ha noen `.product-stage`/`.hero-kicker`-klasser i det
+hele tatt -- null krysspåvirkning, som forventet siden alt er scoped
+til `render_product_page()` sin egen lokale stilblokk.
+
+**Innholdsbevaringssjekk** (spec-ens punkt 8): Eksisterende data/
+innhold bevart: PASS (kicker+faktarad er nye, additive elementer;
+full spesifikasjonstabell/FAQ/prishistorikk/kilder/metodikk i
+kunnskapssonen urørt). Mobil uendret: PASS (se over). Server-rendret
+antalls-fallback ("Pris ved flere esker") bevart: PASS, urørt.
+Produktspesifikasjoner bevart: PASS. FAQ/prishistorikk/alternative
+pakninger/kilder/metodikk/strukturert data/interne lenker: PASS, ingen
+av disse er rørt i dette steget.
