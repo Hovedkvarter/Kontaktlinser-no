@@ -444,7 +444,12 @@ a { color: inherit; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
 .price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
-.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+/* fill settes INLINE per <path> (se _render_price_history_chart), ikke her --
+   en side kan nå ha FLERE grafer samtidig (serie-siden sitt prisinnsikt-panel,
+   én per pakningsstørrelse), og en delt CSS-regel med en fast #id ville pekt
+   alle grafene til samme (første) gradient i dokumentet -- funnet 2026-09-27
+   da 90-pakning-fanen viste linjen uten fylt areal under. */
+.price-history-area { stroke: none; }
 .price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
 .price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
 .price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
@@ -1306,7 +1311,7 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">272 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">268 kr</text>
-      <path d="M48.0,158.0 L48.0,23.9 L62.2,23.9 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,23.9 L161.5,23.9 L175.6,23.9 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,23.9 L303.3,23.9 L317.5,23.9 L331.6,23.9 L345.8,23.9 L360.0,23.9 L374.2,23.9 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,23.9 L501.8,23.9 L516.0,23.9 L530.2,23.9 L544.4,23.9 L558.5,23.9 L572.7,23.9 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" />
+      <path d="M48.0,158.0 L48.0,23.9 L62.2,23.9 L76.4,23.9 L90.5,23.9 L104.7,23.9 L118.9,23.9 L133.1,23.9 L147.3,23.9 L161.5,23.9 L175.6,23.9 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,23.9 L303.3,23.9 L317.5,23.9 L331.6,23.9 L345.8,23.9 L360.0,23.9 L374.2,23.9 L388.4,23.9 L402.5,23.9 L416.7,23.9 L430.9,23.9 L445.1,23.9 L459.3,23.9 L473.5,23.9 L487.6,23.9 L501.8,23.9 L516.0,23.9 L530.2,23.9 L544.4,23.9 L558.5,23.9 L572.7,23.9 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade)" />
       <polyline points="48.0,23.9 62.2,23.9 76.4,23.9 90.5,23.9 104.7,23.9 118.9,23.9 133.1,23.9 147.3,23.9 161.5,23.9 175.6,23.9 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,23.9 303.3,23.9 317.5,23.9 331.6,23.9 345.8,23.9 360.0,23.9 374.2,23.9 388.4,23.9 402.5,23.9 416.7,23.9 430.9,23.9 445.1,23.9 459.3,23.9 473.5,23.9 487.6,23.9 501.8,23.9 516.0,23.9 530.2,23.9 544.4,23.9 558.5,23.9 572.7,23.9 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
       <circle cx="48.0" cy="23.9" r="2.2" class="price-history-dot"><title>14.08: 276 kr hos Lenson</title></circle>
       <circle cx="62.2" cy="23.9" r="2.2" class="price-history-dot"><title>15.08: 276 kr hos Lenson</title></circle>

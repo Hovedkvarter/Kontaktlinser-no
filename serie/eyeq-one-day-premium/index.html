@@ -330,7 +330,12 @@ a { color: inherit; }
 .price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
 .price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
-.price-history-area { fill: url(#priceHistoryFade); stroke: none; }
+/* fill settes INLINE per <path> (se _render_price_history_chart), ikke her --
+   en side kan nå ha FLERE grafer samtidig (serie-siden sitt prisinnsikt-panel,
+   én per pakningsstørrelse), og en delt CSS-regel med en fast #id ville pekt
+   alle grafene til samme (første) gradient i dokumentet -- funnet 2026-09-27
+   da 90-pakning-fanen viste linjen uten fylt areal under. */
+.price-history-area { stroke: none; }
 .price-history-line { fill: none; stroke: var(--orange-dark); stroke-width: 2.25; stroke-linejoin: round; stroke-linecap: round; }
 .price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
 .price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
@@ -345,40 +350,60 @@ a { color: inherit; }
    i egen boks) er nå bevisst forbeholdt selve tabellen/pakningsbildene,
    ikke heroen, se Kai sin tilbakemelding om at for mange ulike linsebilder
    på samme side blir rotete. */
-.serie-hero { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 26px 24px 22px; margin-bottom: 20px; }
+.serie-hero { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }
 .serie-hero-content { position: relative; z-index: 2; }
 .serie-hero h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }
 .serie-hero-media { display: none; }
-.serie-stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; position: relative; z-index: 2; }
-.serie-stat-pill { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 7px 11px; box-shadow: var(--card-shadow); }
-.serie-stat-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.serie-stat-icon svg { width: 14px; height: 14px; }
-.serie-stat-label { font-size: 0.7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.3; }
-.serie-stat-value { font-size: 0.84rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+/* Egen rad, IKKE inni .serie-hero-content -- så den kan bruke hele kortets
+   bredde (ikke bare tekstkolonnens 56 %) og få plass til alle pillene på én
+   linje (Kai 2026-09-27: "kan vi få disse på en linje ... og bortover til
+   høyre?"). */
+.serie-stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; position: relative; z-index: 2; }
+.serie-stat-pill { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 6px 10px; box-shadow: var(--card-shadow); }
+.serie-stat-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.serie-stat-icon svg { width: 13px; height: 13px; }
+.serie-stat-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }
+.serie-stat-value { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
 @media (min-width: 860px) {
-  .serie-hero { padding: 32px 42px; }
+  .serie-hero { padding: 26px 40px 24px; }
   .serie-hero-content { max-width: 56%; }
   .serie-hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 46%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }
   .serie-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+  .serie-stat-pills { flex-wrap: nowrap; }
 }
 /* "Finn din variant" -- gjenbruker kategorikortenes egne pastellbilder
    (static/categories/bg-*), IKKE nye linsebilder -- se kommentaren i
-   Python-koden over for begrunnelsen. */
-.variant-finder-lead { color: var(--muted); font-size: 0.92rem; margin: 2px 0 14px; }
-.variant-finder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 14px; }
-.variant-card { display: flex; align-items: center; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 70px; }
+   Python-koden over for begrunnelsen. Strammet inn 2026-09-27 (Kai: "litt
+   mer komprimert ... er litt mye luft"). */
+.variant-finder-lead { color: var(--muted); font-size: 0.88rem; margin: 0 0 10px; }
+.variant-finder-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 10px; }
+.variant-card { display: flex; align-items: center; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 11px 14px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 60px; }
 .variant-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
-.variant-card-thumb { width: 56px; height: 56px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--mist); }
+.variant-card-thumb { width: 48px; height: 48px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--mist); }
 .variant-card-bg { width: 100%; height: 100%; object-fit: cover; }
 .variant-card-text { flex: 1; min-width: 0; }
-.variant-card-need { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }
-.variant-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.92rem; margin-top: 2px; }
-.variant-card-packs { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+.variant-card-need { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }
+.variant-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; margin-top: 1px; }
+.variant-card-packs { font-size: 0.76rem; color: var(--muted); margin-top: 1px; }
 .variant-card-arrow { flex-shrink: 0; color: var(--blue); }
-.variant-finder-note { display: flex; gap: 10px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 12px 14px; font-size: 0.82rem; color: var(--ink); margin: 0 0 24px; }
-.variant-finder-note svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
+.variant-finder-note { display: flex; gap: 9px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 10px 13px; font-size: 0.8rem; color: var(--ink); margin: 0 0 18px; }
+.variant-finder-note svg { flex-shrink: 0; width: 17px; height: 17px; color: var(--blue); margin-top: 1px; }
 .variant-finder-note p { margin: 0; }
-/* Prisinnsikt -- snitt for HELE serien, se render_family_price_insight(). */
+/* Prisinnsikt (venstre) + "Kort om X" (høyre) side om side -- Kai 2026-09-27:
+   "slik at vi får en komprimert prisinnsikt". Nullstiller marginene til de to
+   boksene når de står i denne raden (egne marger gir dobbel avstand ellers). */
+.serie-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 24px; }
+.serie-insight-row > .price-insight, .serie-insight-row > .serie-facts { margin: 0; }
+@media (min-width: 1024px) {
+  .serie-insight-row { grid-template-columns: 1.5fr 1fr; align-items: stretch; }
+}
+.serie-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }
+.serie-facts h2 { margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.serie-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.serie-facts-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }
+.serie-facts-list svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
+.serie-facts-list strong { display: block; color: var(--ink); font-weight: 600; }
+.serie-facts-list span { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
 .price-insight { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 8px 0 24px; box-shadow: var(--card-shadow); }
 .price-insight-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
 .price-insight-head h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
@@ -413,6 +438,19 @@ a { color: inherit; }
 .product-ai-summary { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 12px 18px; margin: 16px 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink); }
 .product-ai-summary p { margin: 0; }
 .private-label-explainer { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }
+
+.guide-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+.guide-tile { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 14px; padding: 22px 20px; box-shadow: var(--card-shadow); text-align: center; }
+.guide-tile:hover { border-color: var(--blue); }
+.guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
+.guide-tile-icon svg { width: 28px; height: 28px; }
+.guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+.guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
+.guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
+@media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .guide-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.guide-grid { margin-top: 14px; }
 </style>
 </head>
 <body>
@@ -815,7 +853,14 @@ a { color: inherit; }
       <div class="kicker">Produktserie</div>
       <h1>EyeQ One-Day Premium-serien</h1>
       <p>EyeQ One-Day Premium er en linseserie fra CooperVision i Omafilcon A (hydrogel, PC Technology) som finnes i flere varianter -- sfærisk, og der det finnes: torisk (astigmatisme) og/eller multifokal (alderssyn). Grunnmaterialet og teknologien er delt på tvers av variantene; det som skiller dem er styrkeprofilen linsen er formet for å korrigere.</p>
-      <div class="serie-stat-pills"><div class="serie-stat-pill">
+    </div>
+    <div class="serie-hero-media" aria-hidden="true">
+      <picture>
+        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 44vw">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <div class="serie-stat-pills"><div class="serie-stat-pill">
     <span class="serie-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></span>
     <div><div class="serie-stat-label">2 produkter</div><div class="serie-stat-value">30-pakning</div></div>
   </div><div class="serie-stat-pill">
@@ -828,19 +873,7 @@ a { color: inherit; }
     <span class="serie-stat-icon" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></span>
     <div><div class="serie-stat-label">Vanninnhold</div><div class="serie-stat-value">60 %</div></div>
   </div></div>
-    </div>
-    <div class="serie-hero-media" aria-hidden="true">
-      <picture>
-        <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/serie-560.webp 560w, /static/hero/serie-840.webp 840w, /static/hero/serie-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 44vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="304" loading="lazy" decoding="async">
-      </picture>
-    </div>
   </div>
-  <section class="product-ai-summary" aria-label="Prisoppsummering">
-  <p>Vi sammenligner priser på alle 2 variantene i EyeQ One-Day Premium-serien. Billigst akkurat nå er
-  <strong>EyeQ One-Day Premium</strong> fra <strong>179 kr</strong>
-  hos Lenson (uten frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
-</section>
   <div class="private-label-explainer">
     <p><strong>Om navnet:</strong> EyeQ One-Day Premium er navnet denne serien selges under. Se hver enkelt variants
     side for hvilket ekte produkt den tilsvarer og hvilken kjede som står bak.</p>
@@ -870,7 +903,7 @@ a { color: inherit; }
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
     <p>Har du allerede fått foreskrevet en bestemt variant av optiker? Velg samme variant, og kontroller alltid BC, styrke og eventuelle CYL/AXIS/ADD-verdier mot resepten din.</p>
   </div>
-  <div class="price-insight">
+  <div class="serie-insight-row"><div class="price-insight">
   <div class="price-insight-head">
     <h2>Prisinnsikt for EyeQ One-Day Premium</h2>
     
@@ -890,7 +923,7 @@ a { color: inherit; }
     
     <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 45 dager, fra 250 kr til 318 kr">
       <defs>
-        <linearGradient id="priceHistoryFade" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
+        <linearGradient id="priceHistoryFade-30" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
@@ -901,7 +934,7 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">284 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">245 kr</text>
-      <path d="M48.0,158.0 L48.0,111.3 L62.2,111.3 L76.4,23.9 L90.5,30.4 L104.7,30.4 L118.9,30.4 L133.1,30.4 L147.3,122.3 L161.5,122.3 L175.6,122.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,117.7 L303.3,117.7 L317.5,117.7 L331.6,117.7 L345.8,117.7 L360.0,117.7 L374.2,117.7 L388.4,92.0 L402.5,92.0 L416.7,92.0 L430.9,92.0 L445.1,92.0 L459.3,92.0 L473.5,92.0 L487.6,111.3 L501.8,111.3 L516.0,111.3 L530.2,111.3 L544.4,111.3 L558.5,111.3 L572.7,111.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" />
+      <path d="M48.0,158.0 L48.0,111.3 L62.2,111.3 L76.4,23.9 L90.5,30.4 L104.7,30.4 L118.9,30.4 L133.1,30.4 L147.3,122.3 L161.5,122.3 L175.6,122.3 L189.8,148.1 L204.0,148.1 L218.2,148.1 L232.4,148.1 L246.5,148.1 L260.7,148.1 L274.9,148.1 L289.1,117.7 L303.3,117.7 L317.5,117.7 L331.6,117.7 L345.8,117.7 L360.0,117.7 L374.2,117.7 L388.4,92.0 L402.5,92.0 L416.7,92.0 L430.9,92.0 L445.1,92.0 L459.3,92.0 L473.5,92.0 L487.6,111.3 L501.8,111.3 L516.0,111.3 L530.2,111.3 L544.4,111.3 L558.5,111.3 L572.7,111.3 L586.9,148.1 L601.1,148.1 L615.3,148.1 L629.5,148.1 L643.6,148.1 L657.8,148.1 L672.0,148.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-30)" />
       <polyline points="48.0,111.3 62.2,111.3 76.4,23.9 90.5,30.4 104.7,30.4 118.9,30.4 133.1,30.4 147.3,122.3 161.5,122.3 175.6,122.3 189.8,148.1 204.0,148.1 218.2,148.1 232.4,148.1 246.5,148.1 260.7,148.1 274.9,148.1 289.1,117.7 303.3,117.7 317.5,117.7 331.6,117.7 345.8,117.7 360.0,117.7 374.2,117.7 388.4,92.0 402.5,92.0 416.7,92.0 430.9,92.0 445.1,92.0 459.3,92.0 473.5,92.0 487.6,111.3 501.8,111.3 516.0,111.3 530.2,111.3 544.4,111.3 558.5,111.3 572.7,111.3 586.9,148.1 601.1,148.1 615.3,148.1 629.5,148.1 643.6,148.1 657.8,148.1 672.0,148.1" class="price-history-line" />
       <circle cx="48.0" cy="111.3" r="2.2" class="price-history-dot"><title>14.08: 270 kr (snitt for serien)</title></circle>
       <circle cx="62.2" cy="111.3" r="2.2" class="price-history-dot"><title>15.08: 270 kr (snitt for serien)</title></circle>
@@ -955,36 +988,90 @@ a { color: inherit; }
   </div></div>
   </div>
   
-</div>
+</div><div class="serie-facts">
+    <h2>Kort om EyeQ One-Day Premium</h2>
+    <ul class="serie-facts-list"><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Dagslinse</strong><span>Ny linse hver dag</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Omafilcon A (hydrogel, PC Technology)</strong><span>Materiale</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>60 %</strong><span>Vanninnhold</span></div></li><li><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 12.5l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Tilgjengelig for dagslinser, multifokale linser</strong></div></li></ul>
+  </div></div>
+  <section class="product-ai-summary" aria-label="Prisoppsummering">
+  <p>Vi sammenligner priser på alle 2 variantene i EyeQ One-Day Premium-serien. Billigst akkurat nå er
+  <strong>EyeQ One-Day Premium</strong> fra <strong>179 kr</strong>
+  hos Lenson (uten frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-09-27">27.09.2026</time>.</p>
+</section>
 
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
   <div style="overflow-x:auto;">
   <table class="spec-table">
     <thead>
-      <tr><th>Variant</th><th>Type</th><th>Pakning</th><th>Materiale</th><th>Vanninnhold</th><th>Fra pris (uten frakt)</th></tr>
+      <tr><th>Variant</th><th>For</th><th>Materiale</th><th>Vanninnhold</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr>
     </thead>
     <tbody>
       <tr>
     <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-premium/"><img class="spec-row-thumb" src="/static/products/proclear-1day-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Premium</a></th>
-    <td class="spec-value">Dagslinser</td>
-    <td class="spec-value">30-pakning</td>
+    <td class="spec-value">Vanlig synskorreksjon</td>
     <td class="spec-value">Omafilcon A (hydrogel, PC Technology)</td>
     <td class="spec-value">60 %</td>
+    <td class="spec-value">30</td>
     <td class="spec-value">179 kr</td>
   </tr><tr>
     <th scope="row" class="spec-label"><a href="/private-label/eyeq-one-day-premium-progressive/"><img class="spec-row-thumb" src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="" loading="lazy">EyeQ One-Day Premium Progressive</a></th>
-    <td class="spec-value">Multifokale linser</td>
-    <td class="spec-value">30-pakning</td>
+    <td class="spec-value">Alderssyn / multifokal</td>
     <td class="spec-value">Omafilcon A (hydrogel, PC Technology)</td>
     <td class="spec-value">60 %</td>
+    <td class="spec-value">30</td>
     <td class="spec-value">322 kr</td>
   </tr>
     </tbody>
   </table>
 </div>
   </div>
-  <p style="margin-top:16px;">Usikker på hvilken variant du trenger? Se vår guide om <a href="/guide/multifokale-kontaktlinser/">multifokale linser ved alderssyn</a> -- det er alltid optikeren din som fastsetter riktig type ut fra synsundersøkelsen.</p>
+
+  <h2>Alle produkter i EyeQ One-Day Premium-serien</h2>
+  <div class="product-tile-grid">
+    <div class="product-tile">
+  <a class="product-tile-image-link" href="/private-label/eyeq-one-day-premium/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-30pk.jpg" alt="EyeQ One-Day Premium" loading="lazy"></picture></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Dagslinser</div>
+    <a class="product-tile-name-link" href="/private-label/eyeq-one-day-premium/"><div class="product-name">EyeQ One-Day Premium</div></a>
+    
+    
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+  </div>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium/">Sammenlign priser →</a>
+</div><div class="product-tile">
+  <a class="product-tile-image-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-multifocal-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="EyeQ One-Day Premium Progressive" loading="lazy"></picture></div></a>
+  <div class="product-tile-body">
+    <div class="product-tile-category">Multifokale linser</div>
+    <a class="product-tile-name-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-name">EyeQ One-Day Premium Progressive</div></a>
+    
+    
+    <div class="product-tile-divider"></div>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">322</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+  </div>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium-progressive/">Sammenlign priser →</a>
+</div>
+  </div>
+
+  <h2>Relevante guider</h2>
+  <div class="guide-grid guide-grid-narrow">
+    <a class="guide-tile" href="/guide/hvordan-bruke-kontaktlinser/">
+  <div class="guide-tile-icon" style="background:var(--sky-tint);color:var(--sky);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="10" y="2" width="4" height="12" rx="2" fill="currentColor"/><ellipse cx="12" cy="18" rx="7" ry="3.3" fill="currentColor" opacity="0.5"/></svg></div>
+  <div class="guide-tile-title">Hvordan sette inn og ta ut kontaktlinser</div>
+  <div class="guide-tile-desc">Trinnvis fremgangsmåte for å sette inn og ta ut kontaktlinser trygt og hygienisk.</div>
+  <div class="guide-tile-link">Les guiden →</div>
+</a><a class="guide-tile" href="/guide/manedslinser-vs-dagslinser/">
+  <div class="guide-tile-icon" style="background:var(--amber-tint);color:var(--amber);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="6" width="16" height="13" rx="3" fill="currentColor" opacity="0.18"/><circle cx="8" cy="10.5" r="1.7" fill="currentColor"/><circle cx="12" cy="10.5" r="1.7" fill="currentColor"/><circle cx="16" cy="10.5" r="1.7" fill="currentColor"/><circle cx="8" cy="15" r="1.7" fill="currentColor"/><circle cx="12" cy="15" r="1.7" fill="currentColor"/><circle cx="16" cy="15" r="1.7" fill="currentColor"/></svg></div>
+  <div class="guide-tile-title">Månedslinser vs. dagslinser – hva passer deg?</div>
+  <div class="guide-tile-desc">Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.</div>
+  <div class="guide-tile-link">Les guiden →</div>
+</a><a class="guide-tile" href="/guide/hvordan-velge-kontaktlinser/">
+  <div class="guide-tile-icon" style="background:var(--blue-tint);color:var(--blue);"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" fill="currentColor"/><circle cx="12" cy="12" r="4" fill="white"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg></div>
+  <div class="guide-tile-title">Hvordan velge kontaktlinser</div>
+  <div class="guide-tile-desc">En kort guide til hva som avgjør riktig kontaktlinsetype: resept, brukshyppighet, synsfeil og øynenes behov.</div>
+  <div class="guide-tile-link">Les guiden →</div>
+</a>
+  </div>
   <div class="faq-section">
     <h2>Ofte stilte spørsmål om EyeQ One-Day Premium</h2>
     <div class="faq-item">
