@@ -227,21 +227,41 @@ a { color: inherit; }
   .nav-item:hover .mega-menu, .nav-item:focus-within .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
 }
 .nav-item.is-open .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); transition-delay: 0s; }
-/* Under 700px er .mega-menu ellers venstre-forankret til SIN EGEN
+/* Under 1280px er .mega-menu ellers venstre-forankret til SIN EGEN
    nav-item-knapp (position:absolute; left:0 relative til .nav-item) -- for
    en knapp langt til høyre i navigasjonen (f.eks. "Guider") skyter en
-   380-720px bred meny da langt utenfor et ~360-400px mobilvindu. Låser i
-   stedet menyen til viewporten med position:fixed og faste sidemarger, og
-   JS-en i TOPBAR_HTML sitt <script> (closeAll()/trigger-click) setter
-   inline top= like under selve topbaren ved åpning -- position:fixed sin
-   top er alltid viewport-relativ, så getBoundingClientRect().bottom
-   fungerer uendret uansett scroll-posisjon. top:70px under er kun et
-   statisk fallback-tall for det (usannsynlige) tilfellet JS ikke kjører.
-   Klarer nav-item bevisst IKKE position:static her -- feil forankrings-
-   kontekst ville kun flyttet problemet et hakk (fortsatt konteksten til
-   den enkelte knappen), position:fixed løser det uansett hvilken knapp
-   som er trigger. */
-@media (max-width: 699px) {
+   380-720px bred meny da langt utenfor et smalt mobilvindu. .topbar er
+   display:flex UTEN justify-content:space-between, så innholdet
+   (logo+nav) henger fast venstrestilt inni boksen -- og siden .topbar selv
+   er en full-bredde blokk (display:flex oppfører seg som display:block for
+   selve boksen) helt opp til den treffer sitt eget max-width-tak (760px
+   under 1024px, 1200px fra og med 1024px, se .topbar-regelen over), flytter
+   IKKE nav-knappene seg til høyre når viewporten vokser -- de blir
+   liggende på nøyaktig samme pikselposisjon fra venstre kant helt til
+   .topbar treffer 1200px-taket sitt og margin:0 auto begynner å sentrere
+   boksen. Målt i praksis skjer det først et sted mellom ca. 1179px og
+   1220px viewport-bredde (avhenger av om scrollbaren tar layoutplass eller
+   ikke, dvs. Windows vs. Mac-overlay-scrollbar) -- IKKE ved 1024px slik man
+   skulle tro av .topbar sitt eget brytpunkt. En fastbredde-meny (540-720px,
+   satt i @media (min-width:700px) over) kan derfor stikke rett utenfor
+   viewporten helt opp til den sonen, og gir horisontal scroll på body selv
+   når menyen er lukket (position:absolute + visibility:hidden opptar
+   fortsatt layoutplass). Låser i stedet menyen til viewporten med
+   position:fixed og faste sidemarger helt opp til og med 1279px -- godt
+   over den målte faresonen, som ekstra margin mot at font-rendering eller
+   fremtidige menytekster flytter kryssingspunktet noe -- og JS-en i
+   TOPBAR_HTML sitt <script> (closeAll()/trigger-click) setter inline top=
+   like under selve topbaren ved åpning -- position:fixed sin top er alltid
+   viewport-relativ, så getBoundingClientRect().bottom fungerer uendret
+   uansett scroll-posisjon. top:70px under er kun et statisk fallback-tall
+   for det (usannsynlige) tilfellet JS ikke kjører. Klarer nav-item bevisst
+   IKKE position:static her -- feil forankringskontekst ville kun flyttet
+   problemet et hakk (fortsatt konteksten til den enkelte knappen),
+   position:fixed løser det uansett hvilken knapp som er trigger. Fra og
+   med 1280px er all praktisk testing (opp til 1920px) uten overflow, siden
+   .topbar da for lengst har truffet 1200px-taket sitt og sentrerer
+   innholdet med god margin til høyre. */
+@media (max-width: 1279px) {
   .mega-menu, .mega-menu-rich {
     position: fixed; left: 12px; right: 12px; top: 70px; width: auto; max-width: none;
     max-height: calc(100vh - 90px); overflow-y: auto; padding: 16px;
@@ -832,12 +852,12 @@ a { color: inherit; }
         if (!isOpen) {
           item.classList.add('is-open');
           trigger.setAttribute('aria-expanded', 'true');
-          // Kun under 700px-brytpunktet (se .mega-menu sin @media (max-width:
-          // 699px) i SHARED_STYLE) -- der er menyen position:fixed og trenger
+          // Kun under 1280px-brytpunktet (se .mega-menu sin @media (max-width:
+          // 1279px) i SHARED_STYLE) -- der er menyen position:fixed og trenger
           // en presis top= like under topbaren, siden CSS-en sitt statiske
           // fallback-tall (70px) ikke tar høyde for at logo+navigasjon kan
           // brytes til to linjer på svært smale skjermer.
-          if (topbarEl && window.innerWidth < 700) {
+          if (topbarEl && window.innerWidth < 1280) {
             var menu = item.querySelector('.mega-menu');
             if (menu) menu.style.top = (topbarEl.getBoundingClientRect().bottom + 8) + 'px';
           }
