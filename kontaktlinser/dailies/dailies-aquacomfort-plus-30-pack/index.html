@@ -588,49 +588,71 @@ a { color: inherit; }
    bekreftet at det er plass ("Her kan også Soflens eller produsent
    vises, da det er plass til det"). */
 .hero-kicker, .hero-facts { display: none; }
+/* Product Stage: EKTE tre-kolonners CSS Grid på desktop -- bilde |
+   produktidentitet+kontroller | Winner Card, ALLE i samme vertikale
+   arbeidsflate. Revidert 2026-09-27, samme dag, etter at Kai konkret
+   avviste forrige forsøk (title+fakta over hele bredden, bilde og
+   Winner Card som separate "øyer" under): "Han har beholdt strukturen
+   fra den gamle heroen og bare restylet elementene... Det er ikke
+   designet vårt." Referansen krever bilde+identitet/kontroller+
+   Winner Card side om side i ÉN rad -- eksakte kolonneproporsjoner og
+   mål-mål (bildehøyde, pillestørrelser, typografi) er Kais egne, ikke
+   estimert.
+
+   .qty-box er FORTSATT en egen, separat DOM-node (søsken av .hero-card
+   inni .product-stage, se render_product_page()) -- IKKE flyttet i
+   treet, av samme grunn som forrige runde: mobil skal forbli 100%
+   uendret. I stedet "flates" .hero-card/.hero-main/.hero-media-row ut
+   med display:contents på desktop, slik at DERES barn (.hero-copy,
+   .hero-product-image, .winner-band) blir direkte grid-barn av
+   .product-stage -- sammen med .qty-box, som allerede var en direkte
+   .product-stage-barn. display:contents er KUN satt inni denne
+   media-queryen, så mobilens DOM-boksmodell er fullstendig upåvirket
+   under 860px. */
 @media (min-width: 860px) {
-  .hero-kicker { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin: 0 0 4px; }
-  .hero-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 12px 0 0; font-size: 0.88rem; color: var(--muted); }
+  .product-stage {
+    display: grid;
+    grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.10fr) minmax(280px, 0.72fr);
+    grid-template-areas: "image identity price" "image controls price";
+    column-gap: 32px;
+    row-gap: 40px;
+    background: white; border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px 36px;
+  }
+  .product-stage .hero-card, .product-stage .hero-main, .product-stage .hero-media-row { display: contents; }
+  .product-stage .hero-kicker { display: block; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+  .product-stage .hero-copy { grid-area: identity; align-self: start; }
+  .product-stage .hero-copy h1 { font-size: 2rem; line-height: 1.18; margin: 0; }
+  .product-stage .hero-subtitle { font-size: 1.2rem; font-weight: 400; margin: 8px 0 0; }
+  .hero-facts { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin: 24px 0 0; font-size: 0.92rem; color: var(--muted); }
   .hero-fact-sep { color: var(--border); }
-}
-/* Product Stage-kortet (bilde + Winner Card + antall/frakt-rad) samlet i
-   ÉN visuell kortboks på desktop, uten å flytte noe i DOM-treet -- se
-   .product-stage under. */
-@media (min-width: 860px) {
-  .product-stage { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 28px; }
-  .product-stage .hero-card { border: none; border-radius: 0; padding: 0; margin-bottom: 24px; }
-  .product-stage > .qty-box { border: none; background: transparent; padding: 0; margin: 0; }
-  /* KUN to kolonner (bilde + Winner Card) -- IKKE tre som før (Desktop
-     Gold Standard v1, punkt 4: "Vi ønsker ikke tre store kolonner...
-     Den midtre produkttekstkolonnen fjernes"). .hero-copy (kicker/H1/
-     undertittel/fakta) er nå en egen, fullbredde rad; bilde+Winner Card
-     er en andre rad under.
-     FØRSTE FORSØK brukte CSS Grid (grid-template-columns:
-     minmax(320px,1fr) ...) -- IKKE gjeninnfør dette. Kai, med
-     skjermdump av den faktiske live-siden: "Det ser
-     helt forferdelig ut" -- en 1fr-kolonne fylte fortsatt HELE den
-     ledige bredden (~815px) selv etter at selve bildet fikk
-     max-width:480px, og det ufylte rommet INNI kolonnen (480px bilde i
-     en 815px kolonne) endte opp som et stort, meningsløst tomt gap
-     MELLOM bildet og Winner Card i stedet for pen whitespace i kanten.
-     Flexbox med en FAST gap (se .hero-media-row under) unngår dette
-     helt: bildet og kortet sitter alltid rett ved siden av hverandre
-     med samme avstand uansett hvor bred siden er, og overskuddsplassen
-     havner naturlig til høyre for begge (ren kant-whitespace, ikke et
-     hull i midten). */
-  .hero-main { display: flex; flex-direction: column; gap: 24px; }
-  .hero-media-row { display: flex; align-items: flex-start; gap: 56px; }
-  .hero-main .hero-product-image { flex: 0 0 auto; width: 480px; max-width: 480px; height: auto; aspect-ratio: 4 / 3; margin: 0; }
-  .hero-main .winner-band { flex: 0 0 320px; width: 320px; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 28px 18px 18px; }
-  .hero-main .winner-left { flex-direction: column; align-items: center; gap: 0; }
-  .hero-main .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
-  .hero-main .winner-band .label { margin-top: 0; }
-  .hero-main .winner-band .retailer { justify-content: center; margin-top: 10px; }
-  .hero-main .winner-band .winner-shipping { margin-top: 10px; }
-  .hero-main .winner-price-group { text-align: center; }
-  .hero-main .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
-  .hero-main .winner-price-note { margin-top: 7px; line-height: 1; }
-  .hero-main .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
+  .product-stage .hero-product-image { grid-area: image; align-self: center; width: 100%; height: 320px; max-width: none; margin: 0; }
+  .product-stage > .qty-box { grid-area: controls; align-self: start; border: none; background: transparent; padding: 0; margin: 0; }
+  /* Kompakte, faste pillestørrelser (56-64x44-48px, "Eget" 80-96px) --
+     IKKE den elastiske repeat(5/6, 1fr)-grid-en fra mobil, som ville
+     strukket pillene til å fylle hele den nå mye smalere midtkolonnen.
+     Valgt tilstand er blek mint/grønn kant/mørk tekst her, IKKE den
+     blå gradienten fra mobil-pillene (Kai, punkt 6: "Remove the bright
+     blue gradient selected state on desktop"). */
+  .product-stage .qty-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .product-stage .qty-pill { width: 60px; height: 46px; padding: 0; box-shadow: none; }
+  .product-stage .qty-pill#qty-pill-custom { width: 88px; }
+  .product-stage .qty-pill.is-active { background: var(--mint-tint); border-color: var(--mint); color: var(--ink); box-shadow: none; }
+  .product-stage .qty-pill.is-active span { color: var(--muted); }
+  /* Fraktbryteren ved siden av pillene når det er plass, ellers bryter
+     den ned til egen linje (Kai, punkt 7: "not at the far right edge
+     of the entire page" -- begge oppsett eksplisitt godkjent). */
+  .product-stage .qty-box-row { flex-wrap: wrap; row-gap: 12px; }
+  .product-stage .winner-band { grid-area: price; align-self: center; margin: 0; width: 100%; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 24px 18px 18px; }
+  .product-stage .winner-left { flex-direction: column; align-items: center; gap: 0; }
+  .product-stage .winner-trophy { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }
+  .product-stage .winner-band .label { margin-top: 0; }
+  .product-stage .winner-band .retailer { justify-content: center; margin-top: 10px; }
+  .product-stage .winner-band .winner-shipping { margin-top: 10px; }
+  .product-stage .winner-price-group { text-align: center; }
+  .product-stage .price-pill.is-winner { display: inline-block; background: none; color: var(--mint); padding: 0; font-size: 1.7rem; line-height: 1; }
+  .product-stage .winner-price-note { margin-top: 7px; line-height: 1; }
+  .product-stage .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
 }
 /* wrap-product er delt med linsevæske-/private label-produktsider (som
    fortsatt bruker den gamle, smalere hero-layouten) -- utvider den KUN her,
