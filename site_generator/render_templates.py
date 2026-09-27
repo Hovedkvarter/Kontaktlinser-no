@@ -3249,7 +3249,7 @@ def _family_price_insight_data(rows: list[dict], price_history: dict) -> dict[in
     return result
 
 
-def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dict]) -> str:
+def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dict], scope_label: str = "i serien") -> str:
     """Prisinnsikt for HELE serien -- se _family_price_insight_data() for
     hvordan tallene regnes ut. Én fane per pakningsstørrelse familien faktisk
     har (kun 30-pack her: én fane, ingen faner å bytte mellom -- unødvendig
@@ -3259,7 +3259,10 @@ def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dic
     også (viser bare det første panelet i så fall). Samme 7-dagers terskel
     som selve grafen (_render_price_history_chart) -- en pakningsstørrelse
     med for lite historikk ennå utelates helt i stedet for å vise et
-    upålitelig snitt."""
+    upålitelig snitt. scope_label: gjenbrukt av render_brand_page() 2026-09-27
+    for et merke-nivå snitt på tvers av HELE merket, ikke bare én serie --
+    "i serien" er da feil (villedende presist), default beholdt uendret for
+    den opprinnelige serie-siden-bruken."""
     pack_sizes = sorted(k for k, v in insight_by_pack.items() if len(v["history"]) >= 7)
     if not pack_sizes:
         return ""
@@ -3283,7 +3286,7 @@ def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dic
         panels.append(f'''<div class="price-insight-panel{active}" data-pack="{pack_size}">
     <div class="price-insight-now">
       <div class="price-insight-current">{_fmt_kr(current)}</div>
-      <div class="price-insight-label">Snitt laveste pris nå &middot; {data["n_products"]} varianter i serien</div>
+      <div class="price-insight-label">Snitt laveste pris nå &middot; {data["n_products"]} varianter {scope_label}</div>
       <div class="price-insight-trend {trend_class}"><span aria-hidden="true">{trend_arrow}</span> {trend_sign}{pct} % <span class="price-insight-trend-note">vs. {n} dagers snitt</span></div>
       <div class="price-insight-tiles">
         <div class="price-insight-tile"><strong>{_fmt_kr(lo)}</strong><span>{n} dagers laveste</span></div>
@@ -3775,7 +3778,7 @@ def _brand_family_summary(family: dict, member_products: list[dict], categories:
     }
 
 
-def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, product_families: list[dict], now: datetime | None = None) -> str:
+def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, product_families: list[dict], now: datetime | None = None, price_history: dict | None = None) -> str:
     """Merke-side (/merke/{slug}/) -- fikk 2026-09-27 samme type løft som
     serie-siden fikk tidligere samme dag, etter Kai sitt ønske ("ikke bare
     på serier"). Legger til et serie-navigasjons-lag, en
@@ -3942,8 +3945,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     {"".join(brand_series_card(s) for s in family_summaries)}
   </div>'''
 
-    # -- "{brand} i korte trekk" -- samme ikon-flise-mønster som serie-siden
-    # sin "Felles for hele serien", men merke-nivå fakta. --
+    # -- "{brand} i korte trekk" -- Kai 2026-09-27: "skal se ut som på
+    # serien" -- IKKE ikon-flisene ("Felles for hele serien" sitt mønster,
+    # brukt et annet sted på serie-siden), men den SPESIFIKKE sjekklisten
+    # ("Kort om X") som på serie-siden alltid står ved siden av Prisinnsikt
+    # -- egen `.brand-facts-list`-CSS-kopi av `.serie-facts-list` (samme
+    # begrunnelse som ellers: ingen kryss-avhengighet mellom sidetyper).
+    # De to pris-tallene som IKKE fanges opp av selve prisinnsikt-grafen
+    # under (pris per linse, antall butikker) er lagt inn her i stedet for
+    # en egen separat stat-kort-seksjon -- Kai: "vi ønsker data, og unike
+    # data som kun kontaktlinser.no skaffer" -- fortsatt med, bare flyttet
+    # inn i sjekklisten fremfor en tredje, overlappende boks.
     brand_fact_rows = [(BOX_ICON_SVG, str(len(products)), "Produkter vi følger")]
     if manufacturer_slug:
         brand_fact_rows.append((TAG_ICON_SVG, MANUFACTURERS[manufacturer_slug]["name"], "Produsent"))
@@ -3951,13 +3963,30 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         brand_fact_rows.append((DROPLET_ICON_SVG, ", ".join(type_labels_all), "Linsetyper"))
     if materials_all:
         brand_fact_rows.append((BOX_ICON_SVG, ", ".join(materials_all) if len(materials_all) <= 3 else f'{len(materials_all)} ulike', "Materialer"))
-    brand_fact_rows.append((CALENDAR_ICON_SVG, "Oppdateres daglig", "Prisdata"))
+    if cheapest_per_lens:
+        per_lens_val, per_lens_row = cheapest_per_lens
+        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",") + " kr per linse"
+        brand_fact_rows.append((TROPHY_ICON_SVG, per_lens_txt, f'Laveste pris per linse -- {per_lens_row["product"]["name"]}'))
+    if retailer_count:
+        store_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg>'
+        brand_fact_rows.append((store_icon, f'{retailer_count} nettbutikker', "Sammenlignet av oss, oppdatert daglig"))
     brand_facts_html = f'''<div class="brand-facts">
-    <h2>{escape(brand_label)} i korte trekk</h2>
-    <div class="brand-facts-grid">
-      {"".join(f'<div class="brand-fact-tile"><div class="brand-fact-tile-icon" aria-hidden="true">{icon}</div><div class="brand-fact-tile-value">{escape(val)}</div><div class="brand-fact-tile-label">{escape(lbl)}</div></div>' for icon, val, lbl in brand_fact_rows)}
-    </div>
+    <h2>Kort om {escape(brand_label)}</h2>
+    <ul class="brand-facts-list">
+      {"".join(f'<li>{CHECK_ICON_SVG}<div><strong>{escape(val)}</strong>{f"<span>{escape(lbl)}</span>" if lbl else ""}</div></li>' for icon, val, lbl in brand_fact_rows)}
+    </ul>
   </div>'''
+
+    # -- Prisinnsikt for HELE merket (snitt per pakningsstørrelse, på tvers
+    # av ALLE produktene -- gjenbruker EKSAKT samme funksjoner som serie-
+    # siden, se _family_price_insight_data()/render_family_price_insight().
+    # Kai 2026-09-27: "hvor er grafen og prisene?" -- de 3 flate stat-
+    # kortene som sto her var IKKE det samme som seriesidens ekte
+    # prisinnsikt-graf, luket derfor ut til fordel for den ekte komponenten. --
+    brand_price_insight_html = ""
+    if price_history:
+        brand_insight_by_pack = _family_price_insight_data(rows, price_history)
+        brand_price_insight_html = render_family_price_insight(brand_label, brand_insight_by_pack, scope_label=f"i {brand_label}-sortimentet")
 
     # -- "Slik skiller seriene seg" -- sammenligningstabell PÅ TVERS av
     # merkets serier (én rad per serie, ikke per behov slik serie-siden sin
@@ -3998,35 +4027,14 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     </div>
   </div>'''
 
-    # -- "Priser akkurat nå" -- pris-intelligens KUN Kontaktlinser.no har,
-    # ikke noe produsenten selv kan vise. --
-    price_intel_cards = []
-    if lowest_row and lowest_row["lowest"]:
-        price_intel_cards.append((TROPHY_ICON_SVG, _fmt_kr(lowest_row["lowest"]["price_nok"]), f'Laveste pris akkurat nå -- {escape(lowest_row["product"]["name"])} hos {escape(lowest_row["lowest"]["retailer"])}'))
-    if cheapest_per_lens:
-        per_lens_val, per_lens_row = cheapest_per_lens
-        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",") + " kr"
-        price_intel_cards.append((BOX_ICON_SVG, per_lens_txt, f'Laveste pris per linse -- {escape(per_lens_row["product"]["name"])}'))
-    if retailer_count:
-        store_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg>'
-        price_intel_cards.append((store_icon, str(retailer_count), "Norske nettbutikker sammenlignet"))
-    price_intel_html = ""
-    if price_intel_cards:
-        price_intel_html = f'''<div class="brand-price-intel">
-    <h2>{escape(brand_label)}-priser akkurat nå</h2>
-    <div class="brand-price-intel-grid">
-      {"".join(f'<div class="brand-price-intel-card"><div class="brand-price-intel-icon" aria-hidden="true">{icon}</div><div class="brand-price-intel-value">{escape(val)}</div><div class="brand-price-intel-label">{lbl}</div></div>' for icon, val, lbl in price_intel_cards)}
-    </div>
-  </div>'''
-
-    # Prisintelligens + "i korte trekk" side om side (samme mønster som
-    # .serie-insight-row) -- Kai 2026-09-27: "Acuvue i korte trekk? kan
-    # være ved siden av gjen.snitt priser som på serier ... slik at vi har
-    # det samme her som på serie". Faller tilbake til bare den ene boksen
-    # (uten tom rad-wrapper) hvis den andre mangler helt.
+    # Prisinnsikt-graf + "Kort om X" side om side (samme mønster som
+    # .serie-insight-row) -- Kai 2026-09-27: "kan være ved siden av
+    # gjen.snitt priser som på serier ... slik at vi har det samme her som
+    # på serie". Faller tilbake til bare den ene boksen (uten tom
+    # rad-wrapper) hvis grafen mangler (for lite prishistorikk ennå).
     brand_insight_row_html = (
-        f'<div class="brand-insight-row">{price_intel_html}{brand_facts_html}</div>'
-        if price_intel_html and brand_facts_html else price_intel_html + brand_facts_html
+        f'<div class="brand-insight-row">{brand_price_insight_html}{brand_facts_html}</div>'
+        if brand_price_insight_html and brand_facts_html else brand_price_insight_html + brand_facts_html
     )
 
     # -- FAQ-regelmotor (samme mønster/komponent som serie-siden sin,
@@ -4149,12 +4157,34 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row {{ display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }}
 @media (min-width: 900px) {{ .brand-insight-row {{ grid-template-columns: 1.3fr 1fr; align-items: stretch; }} }}
-.brand-facts-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }}
-.brand-fact-tile {{ text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }}
-.brand-fact-tile-icon {{ width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }}
-.brand-fact-tile-icon svg {{ width: 18px; height: 18px; }}
-.brand-fact-tile-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.86rem; color: var(--ink); line-height: 1.3; }}
-.brand-fact-tile-label {{ font-size: 0.72rem; color: var(--muted); margin-top: 2px; }}
+.brand-facts-list {{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }}
+.brand-facts-list li {{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }}
+.brand-facts-list svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
+.brand-facts-list strong {{ display: block; color: var(--ink); font-weight: 600; }}
+.brand-facts-list span {{ display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }}
+/* Prisinnsikt-graf -- egen CSS-kopi av .price-insight* fra render_family_page()
+   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
+.price-insight {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
+.price-insight-head {{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }}
+.price-insight-head h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.insight-tabs {{ display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }}
+.insight-tab {{ border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }}
+.insight-tab.active {{ background: white; color: var(--ink); box-shadow: var(--card-shadow); }}
+.price-insight-panel {{ display: none; }}
+.price-insight-panel.active {{ display: grid; grid-template-columns: 1fr; gap: 18px; }}
+.price-insight-current {{ font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }}
+.price-insight-label {{ font-size: 0.82rem; color: var(--muted); margin-top: 2px; }}
+.price-insight-trend {{ display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }}
+.price-insight-trend-note {{ font-weight: 400; color: var(--muted); font-size: 0.8rem; }}
+.insight-down {{ color: var(--mint); }}
+.insight-up {{ color: var(--coral); }}
+.insight-flat {{ color: var(--muted); }}
+.price-insight-tiles {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }}
+.price-insight-tile {{ background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }}
+.price-insight-tile strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
+.price-insight-tile span {{ display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
+.price-insight-chart .price-history {{ margin-top: 0; }}
+@media (min-width: 860px) {{ .price-insight-panel.active {{ grid-template-columns: 1fr 1.3fr; align-items: center; }} }}
 .brand-compare-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
 .spec-table {{ width: 100%; border-collapse: collapse; }}
 .spec-table th, .spec-table td {{ padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
@@ -4162,14 +4192,6 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .spec-table tbody tr:last-child td {{ border-bottom: none; }}
 .spec-table tbody tr:hover {{ background: var(--mist); }}
 .spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
-.brand-price-intel {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
-.brand-price-intel h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
-.brand-price-intel-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }}
-.brand-price-intel-card {{ background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; }}
-.brand-price-intel-icon {{ width: 32px; height: 32px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }}
-.brand-price-intel-icon svg {{ width: 16px; height: 16px; }}
-.brand-price-intel-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); }}
-.brand-price-intel-label {{ font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }}
 /* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
    allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
    som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
@@ -4226,8 +4248,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
   </div>
 
   {series_nav_html}
-  {compare_table_html}
   {brand_insight_row_html}
+  {compare_table_html}
   {brand_faq_html}
 
   <h2>Alle {escape(brand_label)}-produkter</h2>

@@ -2271,3 +2271,55 @@ at vi har det samme her som på serie."
    `.brand-facts`) siden de tidligere var en bar rutenett+overskrift uten
    boks -- samme "boks rundt, tilnærmet likt"-prinsipp som ble brukt på
    "Felles for hele serien"/"Relevante guider"-fiksen tidligere i økta.
+
+## Merke-siden: ekte prisinnsikt-graf (ikke stat-kort), og riktig plassering (2026-09-27, samme dag)
+
+Kai så bilde av forrige runde og spurte rett ut: "hvor er grafen og
+prisene? og Acuvue i korte trekk, skal se ut som på serien. d.v.s. begge
+disse delene, da vi ønsker data, og unike data som kun kontaktlinser.no
+skaffer." Deretter: "og den bør komme over Slik skiller Acuvue-seriene
+seg."
+
+De 3 flate "priser akkurat nå"-stat-kortene fra forrige runde var IKKE det
+samme som seriesidens ekte Prisinnsikt (graf + trend + faner) -- luket helt
+ut til fordel for den ekte komponenten:
+
+- **Ekte graf**: `render_brand_page()` kaller nå `_family_price_insight_data()`
+  og `render_family_price_insight()` -- SAMME funksjoner som serie-siden,
+  uendret, bare kjørt på merkets `rows` (alle produkter, ikke bare de i en
+  serie) i stedet for én families. `render_family_price_insight()` fikk en
+  ny, bakoverkompatibel `scope_label`-parameter (default `"i serien"`,
+  uendret for serie-siden) siden merke-siden sitt snitt er PÅ TVERS AV HELE
+  MERKET, ikke én serie -- "4 varianter i serien" hadde vært direkte
+  misvisende her, nå "4 varianter i Acuvue-sortimentet". Krevde at
+  `render_brand_page()` fikk en ny `price_history`-parameter (tredd inn fra
+  `generate_pages.py`, samme `price_history`-variabel som serie-sidene
+  allerede bruker).
+- **"Kort om {brand}" endret fra ikon-fliser til sjekkliste** -- Kai sitt
+  "skal se ut som på serien" var presist: posisjonen ved siden av
+  Prisinnsikt tilsvarer serie-siden sin "Kort om X" (sjekkliste med
+  haker), IKKE "Felles for hele serien" sitt ikon-flise-rutenett (som
+  brukes et ANNET sted på serie-siden). Ny `.brand-facts-list`, egen
+  CSS-kopi av `.serie-facts-list`.
+- **Pris per linse og antall butikker** (de to tallene fra de fjernede
+  stat-kortene som IKKE dekkes av selve grafen) er flyttet INN i denne
+  samme sjekklisten i stedet for en egen tredje boks -- Kai: "vi ønsker
+  data, og unike data som kun kontaktlinser.no skaffer" -- fortsatt med,
+  bare samlet på ett sted.
+- **Rekkefølge**: prisinnsikt-raden flyttet over sammenligningstabellen
+  (var under) -- Kai: "den bør komme over Slik skiller Acuvue-seriene seg".
+
+Bekreftet i bygget: 26 av 30 merke-sider har nok prishistorikk (≥7 dager)
+til å vise grafen, resten er private label-undermerker (Ascend/EasyVision/
+EyeQ/iWear) som bruker en helt annen renderfunksjon uten denne seksjonen i
+det hele tatt -- ingen ekte merkeside manglet grafen.
+
+**Ikke avklart ennå**: Kai bemerket også "her mangler vi også mange
+produkter" om Acuvue-siden. Bekreftet at 20 av 21 Acuvue-produkter er
+dekket av en serie (kun Acuvue Vita 6-pack står utenfor, siden den ikke
+tilhører noen kuratert familie i product_families.json) -- men den vises
+fortsatt i den uendrede flate "Alle Acuvue-produkter"-listen nederst, så
+ingenting mangler fra SIDEN. Uklart om Kai i stedet mener at selve
+katalogen vår mangler ekte Acuvue-produkter som finnes i markedet (et
+data-/feed-spørsmål, ikke en UI-sak) -- må avklares med Kai før noe gjøres
+her.
