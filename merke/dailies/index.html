@@ -525,17 +525,20 @@ a { color: inherit; }
 .brand-hero-cta:hover { opacity: 0.92; }
 .brand-hero-cta-secondary { background: white; color: var(--ink); border: 1px solid var(--border); }
 .brand-hero-cta-secondary:hover { opacity: 1; border-color: var(--blue); }
-/* Fase-2-faktarad (2026-09-27, etter mockup Kai sendte) -- 4 storre,
-   frittstaende kort rett under heroen, IKKE de tidligere sma pillene
-   inni selve hero-kortet (samme datagrunnlag, bare et mer synlig format). */
-.brand-facts-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
-@media (min-width: 640px) { .brand-facts-row { grid-template-columns: repeat(4, 1fr); } }
-.brand-facts-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px 14px; box-shadow: var(--card-shadow); }
-.brand-facts-card-icon { width: 30px; height: 30px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
-.brand-facts-card-icon svg { width: 15px; height: 15px; }
-.brand-facts-card-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.7rem; color: var(--ink); line-height: 1.15; }
-.brand-facts-card-label { font-size: 0.84rem; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.3; }
-.brand-facts-card-sub { font-size: 0.74rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+/* Statistikkstripe integrert nederst i hero-kortet (2026-09-27, etter
+   mockup 42.webp) -- erstatter den tidligere frittstaende
+   .brand-facts-row/.brand-facts-card-raden med fire store kort under
+   heroen. z-index:3 sa stripen ligger over bade hero-innholdet og
+   bilde-panelet (som har z-index:2/ingen), og spenner over hele
+   hero-bredden siden den ligger som fullbredde-barn av .brand-hero, ikke
+   inni .brand-hero-content (som er begrenset til 62% pa store skjermer). */
+.brand-hero-stats { position: relative; z-index: 3; display: flex; flex-wrap: wrap; row-gap: 6px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+.brand-hero-stat { display: flex; align-items: center; gap: 7px; padding: 0 16px; border-left: 1px solid var(--border); }
+.brand-hero-stat:first-child { padding-left: 0; border-left: none; }
+.brand-hero-stat-icon { display: flex; }
+.brand-hero-stat-icon svg { width: 14px; height: 14px; display: block; }
+.brand-hero-stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
+.brand-hero-stat-label { font-size: 0.82rem; color: var(--muted); }
 .brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
 @media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
@@ -994,31 +997,27 @@ a { color: inherit; }
     <div class="brand-hero-media" aria-hidden="true">
       <picture>
         <source media="(min-width: 860px)" type="image/webp" srcset="/static/hero/brand-560.webp 560w, /static/hero/brand-840.webp 840w, /static/hero/brand-1120.webp 1120w" sizes="(min-width: 1200px) 560px, 40vw">
-        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="215" loading="lazy" decoding="async">
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="385" loading="lazy" decoding="async">
       </picture>
     </div>
-  </div>
-  <div class="brand-facts-row"><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></div>
-    <div class="brand-facts-card-value">19</div>
-    <div class="brand-facts-card-label">produkter</div>
-    
-  </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" style="background:var(--blue-tint);color:var(--blue);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></div>
-    <div class="brand-facts-card-value">2</div>
-    <div class="brand-facts-card-label">serier</div>
-    
-  </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" style="background:var(--lavender-tint);color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></div>
-    <div class="brand-facts-card-value">3</div>
-    <div class="brand-facts-card-label">linsetyper</div>
-    <div class="brand-facts-card-sub">Dagslinser · Multifokale linser · Toriske linser</div>
-  </div><div class="brand-facts-card">
-    <div class="brand-facts-card-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></div>
-    <div class="brand-facts-card-value">8</div>
-    <div class="brand-facts-card-label">butikker</div>
-    <div class="brand-facts-card-sub">Med Dailies-produkter akkurat nå</div>
+    <div class="brand-hero-stats"><div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--mint);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg></span>
+    <span class="brand-hero-stat-value">19</span>
+    <span class="brand-hero-stat-label">produkter</span>
+  </div><div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--blue);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg></span>
+    <span class="brand-hero-stat-value">2</span>
+    <span class="brand-hero-stat-label">serier</span>
+  </div><div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--lavender);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg></span>
+    <span class="brand-hero-stat-value">3</span>
+    <span class="brand-hero-stat-label">linsetyper</span>
+  </div><div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--amber);" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg></span>
+    <span class="brand-hero-stat-value">8</span>
+    <span class="brand-hero-stat-label">butikker</span>
   </div></div>
+  </div>
 
   <h2>Utforsk Dailies-seriene</h2>
   <p class="brand-section-lead">Dailies er delt inn i 2 produktserier -- velg den som passer ditt behov.</p>
