@@ -2323,3 +2323,17 @@ ingenting mangler fra SIDEN. Uklart om Kai i stedet mener at selve
 katalogen vår mangler ekte Acuvue-produkter som finnes i markedet (et
 data-/feed-spørsmål, ikke en UI-sak) -- må avklares med Kai før noe gjøres
 her.
+
+**Oppklart samme dag:** Kai fulgte opp med "jeg tenkte på at jeg bare så 4
+produkter her" -- altså IKKE et datahull, bare at sammenligningstabellen
+("Slik skiller Acuvue-seriene seg") viste 4 RADER (én per serie) uten noe
+som helst som gjorde det tydelig at hver rad faktisk representerer flere
+produkter. Fikset med to grep: (1) ny "Produkter"-kolonne i selve tabellen
+(`s["n_products"]` per serie -- 6/3/5/6 for Acuvue), (2) en ny lead-setning
+over tabellen ("4 serier, til sammen 20 av 21 Acuvue-produkter. Ytterligere
+1 produkt står utenfor disse seriene, se hele listen nederst." for Acuvue)
+som eksplisitt viser BÅDE dekningen og at ett standalone-produkt (Acuvue
+Vita) bevisst er utenfor enhver serie, i stedet for å late som det ikke
+finnes. Rettet samtidig en entall/flertall-bug ("1 serier" -> "1 serie",
+"1 produktserier" -> "1 produktserie") som ble synlig i samme slengen, for
+merker med kun én serie (Precision1, Biotrue m.fl.).

@@ -3940,7 +3940,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     if family_summaries:
         grid_cols = min(len(family_summaries), 6)
         series_nav_html = f'''<h2>Utforsk {escape(brand_label)}-seriene</h2>
-  <p class="brand-section-lead">{escape(brand_label)} er delt inn i {len(family_summaries)} produktserier -- velg den som passer ditt behov.</p>
+  <p class="brand-section-lead">{escape(brand_label)} er delt inn i {len(family_summaries)} {"produktserie" if len(family_summaries) == 1 else "produktserier"} -- velg den som passer ditt behov.</p>
   <div class="brand-serie-grid" style="--brand-serie-cols:{grid_cols};">
     {"".join(brand_series_card(s) for s in family_summaries)}
   </div>'''
@@ -4007,6 +4007,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
             return f'''<tr>
       <th scope="row" class="spec-label"><a href="{escape(s["href"])}">{escape(s["name"])}</a></th>
+      <td class="spec-value">{s["n_products"]}</td>
       {cells}
       <td class="spec-value">{escape(packs_txt)}</td>
       <td class="spec-value">{price_txt}</td>
@@ -4017,11 +4018,23 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             header_extra += "<th>Materiale</th>"
         if show_wc_col:
             header_extra += "<th>Vanninnhold</th>"
+        # Lead-setning + egen "Produkter"-kolonne (2026-09-27, Kai: "jeg
+        # tenkte på at jeg bare så 4 produkter her") -- tabellen har alltid
+        # vist SERIER, ikke enkeltprodukter (4 Acuvue-serier dekker faktisk
+        # 20 av 21 produkter), men det var ikke synlig i tabellen selv uten
+        # å telle radene. Viser nå eksplisitt både antall produkter PER
+        # serie og totalen, pluss et eget produkt utenfor enhver serie der
+        # det finnes (f.eks. Acuvue Vita), i stedet for å late som det ikke
+        # eksisterer.
+        covered_products = sum(s["n_products"] for s in family_summaries)
+        standalone_n = len(products) - covered_products
+        standalone_txt = f' Ytterligere {standalone_n} {"produkt" if standalone_n == 1 else "produkter"} står utenfor disse seriene, se hele listen nederst.' if standalone_n > 0 else ""
         compare_table_html = f'''<h2>Slik skiller {escape(brand_label)}-seriene seg</h2>
+  <p class="brand-section-lead">{len(family_summaries)} {"serie" if len(family_summaries) == 1 else "serier"}, til sammen {covered_products} av {len(products)} {escape(brand_label)}-produkter.{standalone_txt}</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
       <table class="spec-table">
-        <thead><tr><th>Serie</th>{header_extra}<th>Pakninger</th><th>Fra pris (uten frakt)</th></tr></thead>
+        <thead><tr><th>Serie</th><th>Produkter</th>{header_extra}<th>Pakninger</th><th>Fra pris (uten frakt)</th></tr></thead>
         <tbody>{"".join(compare_row(s) for s in family_summaries)}</tbody>
       </table>
     </div>
