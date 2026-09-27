@@ -482,10 +482,19 @@ a { color: inherit; }
    boksene dekker samme fakta med vilje, siden de har ulik rolle: én er
    følgesvenn til Prisinnsikt, den andre til Relevante guider lenger ned.) */
 .serie-bottom-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
-@media (min-width: 900px) { .serie-bottom-row { grid-template-columns: 1fr 1fr; align-items: start; } }
-.serie-facts-tiles { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }
+@media (min-width: 900px) { .serie-bottom-row { grid-template-columns: 1fr 1fr; align-items: stretch; } }
+/* Begge boksene i raden er nå et "matchende par" (Kai 2026-09-27: "riktig
+   proporsjonert i høyde, boks rundt etc så det blir tilnærmet likt") --
+   samme kort-stil (hvit boks, samme border/radius/skygge, samme
+   h2-størrelse) på BÅDE .serie-facts-tiles og .serie-guides, og
+   align-items:stretch over gjør at de alltid får samme høyde som
+   hverandre (den høyeste av de to bestemmer). .serie-facts-tiles sitt
+   innhold er kortere (én rad ikon-fliser), så selve flise-rutenettet
+   sentreres vertikalt i den ledige plassen (margin-top/bottom:auto)
+   i stedet for å henge øverst med et stort tomrom under. */
+.serie-facts-tiles { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }
 .serie-facts-tiles h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
-.serie-facts-tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; }
+.serie-facts-tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-top: auto; margin-bottom: auto; }
 .serie-fact-tile { text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }
 .serie-fact-tile-icon { width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }
 .serie-fact-tile-icon svg { width: 18px; height: 18px; }
@@ -494,11 +503,14 @@ a { color: inherit; }
 .serie-fact-note { display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 .serie-fact-note svg { flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; }
 /* "Relevante guider" -- bildekort (var ren ikon-kort-rutenett, se
-   kommentaren i Python-koden over). */
-.guide-photo-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+   kommentaren i Python-koden over) -- fikk ALDRI en boks rundt seg selv,
+   bare en bar overskrift + rutenett direkte på sidebakgrunnen, derfor
+   mismatchet den synlig mot "Felles for hele serien" sin hvite boks.
+   Samme kort-stil nå (se kommentaren over .serie-facts-tiles). */
+.serie-guides { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.serie-guides h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.guide-photo-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
 @media (min-width: 640px) { .guide-photo-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 900px) { .guide-photo-grid { grid-template-columns: 1fr; } }
-@media (min-width: 1200px) { .guide-photo-grid { grid-template-columns: repeat(3, 1fr); } }
 .guide-photo-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }
 .guide-photo-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }
 .guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
