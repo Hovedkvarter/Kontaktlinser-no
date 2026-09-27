@@ -4144,16 +4144,28 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   .product-stage {{ background: white; border: 1px solid var(--border); border-radius: 20px; padding: 28px; }}
   .product-stage .hero-card {{ border: none; border-radius: 0; padding: 0; margin-bottom: 24px; }}
   .product-stage > .qty-box {{ border: none; background: transparent; padding: 0; margin: 0; }}
-  .hero-media-row {{ display: contents; }}
   /* KUN to kolonner (bilde + Winner Card) -- IKKE tre som før (Desktop
      Gold Standard v1, punkt 4: "Vi ønsker ikke tre store kolonner...
      Den midtre produkttekstkolonnen fjernes"). .hero-copy (kicker/H1/
-     undertittel/fakta) spenner nå hele bredden i rad 1 i stedet for å
-     være en egen midtre kolonne; bilde+Winner Card er rad 2. */
-  .hero-main {{ display: grid; grid-template-columns: minmax(320px, 1fr) minmax(260px, 320px); grid-template-areas: "copy copy" "image price"; gap: 20px 32px; align-items: start; }}
-  .hero-main .hero-copy {{ grid-area: copy; }}
-  .hero-main .hero-product-image {{ grid-area: image; width: 100%; max-width: 480px; height: auto; aspect-ratio: 4 / 3; margin: 0; }}
-  .hero-main .winner-band {{ grid-area: price; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 28px 18px 18px; align-self: start; }}
+     undertittel/fakta) er nå en egen, fullbredde rad; bilde+Winner Card
+     er en andre rad under.
+     FØRSTE FORSØK brukte CSS Grid (grid-template-columns:
+     minmax(320px,1fr) ...) -- IKKE gjeninnfør dette. Kai, med
+     skjermdump av den faktiske live-siden: "Det ser
+     helt forferdelig ut" -- en 1fr-kolonne fylte fortsatt HELE den
+     ledige bredden (~815px) selv etter at selve bildet fikk
+     max-width:480px, og det ufylte rommet INNI kolonnen (480px bilde i
+     en 815px kolonne) endte opp som et stort, meningsløst tomt gap
+     MELLOM bildet og Winner Card i stedet for pen whitespace i kanten.
+     Flexbox med en FAST gap (se .hero-media-row under) unngår dette
+     helt: bildet og kortet sitter alltid rett ved siden av hverandre
+     med samme avstand uansett hvor bred siden er, og overskuddsplassen
+     havner naturlig til høyre for begge (ren kant-whitespace, ikke et
+     hull i midten). */
+  .hero-main {{ display: flex; flex-direction: column; gap: 24px; }}
+  .hero-media-row {{ display: flex; align-items: flex-start; gap: 56px; }}
+  .hero-main .hero-product-image {{ flex: 0 0 auto; width: 480px; max-width: 480px; height: auto; aspect-ratio: 4 / 3; margin: 0; }}
+  .hero-main .winner-band {{ flex: 0 0 320px; width: 320px; margin: 0; background: white; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; padding: 28px 18px 18px; }}
   .hero-main .winner-left {{ flex-direction: column; align-items: center; gap: 0; }}
   .hero-main .winner-trophy {{ position: absolute; top: -22px; left: 50%; transform: translateX(-50%); box-shadow: 0 2px 6px rgba(11, 37, 69, 0.15); }}
   .hero-main .winner-band .label {{ margin-top: 0; }}

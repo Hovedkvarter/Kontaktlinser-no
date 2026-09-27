@@ -3465,3 +3465,55 @@ antalls-fallback ("Pris ved flere esker") bevart: PASS, urørt.
 Produktspesifikasjoner bevart: PASS. FAQ/prishistorikk/alternative
 pakninger/kilder/metodikk/strukturert data/interne lenker: PASS, ingen
 av disse er rørt i dette steget.
+
+## Produktsiden: Desktop Gold Standard v1, Steg 1-rettelse -- ekte grid ga et "forferdelig" gap (2026-09-27, samme dag)
+
+Kai, med skjermdump av den FAKTISKE live-siden (Dailies AquaComfort
+Plus 90-pack, ikke bare den ene testet SofLens-siden): "Desktop vi
+snakker om. Det ser helt forferdelig ut, og langt unna design som ble
+forelagt deg." Skjermdumpet viste et stort, meningsløst tomt gap
+mellom produktbildet og Winner Card -- bildet satt helt til venstre,
+kortet langt ute til høyre, med en enorm tom flate mellom.
+
+**Rotårsak**: Steg 1 sin CSS Grid-løsning (`grid-template-columns:
+minmax(320px, 1fr) minmax(260px, 320px)`) lot `1fr`-kolonnen vokse til
+å fylle HELE den ledige bredden (~815px på en 1280px-side), mens selve
+bildet inni den kolonnen var begrenset til `max-width: 480px` (fikset i
+en tidligere runde SAMME dag for å hindre et enda verre problem --
+bildet ble 611px høyt uten den grensen). De resterende ~335px INNI
+kolonnen, til høyre for bildet men til venstre for neste kolonne, ble
+et rent, uforklarlig tomrom midt i kortet -- ikke pen "premium
+whitespace" (som var intensjonen bak punkt 1 i spec-en), men et synlig
+brutt layout. Ble ikke fanget opp av mine egne DOM-mål i forrige runde
+fordi jeg kun målte AT elementene ikke overlappet og at bredder/
+høyder var fornuftige hver for seg -- jeg målte aldri selve GAPET
+mellom dem, som var det faktiske problemet.
+
+**Fikset**: Byttet fra CSS Grid til Flexbox for bilde+Winner Card-raden
+(`.hero-media-row { display: flex; gap: 56px }`, `.hero-main {
+display: flex; flex-direction: column }` i stedet for grid). Med
+flexbox og en FAST gap sitter bildet og kortet alltid rett ved siden
+av hverandre med nøyaktig samme avstand uansett sidebredde -- ingen
+elastisk kolonne som kan gape opp et tomrom. Eventuell overskudds-
+bredde havner naturlig til HØYRE for begge (ren kant-whitespace, som
+faktisk var intensjonen), i stedet for som et hull mellom dem.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen Traceback/
+NameError (fanget og fikset en selvpåført bug underveis -- ureskapte
+CSS-klammer `{ }` i en kommentar inni f-string-en ga en `NameError:
+name 'display' is not defined`, siden Python tolket dem som
+f-string-uttrykk). DOM-mål på nøyaktig samme produkt Kai skjermdumpet
+(Dailies AquaComfort Plus 90-pack, 1596px bredde -- samme vindusbredde
+som skjermdumpet hans): gap mellom bilde og Winner Card nå eksakt
+56px (var ~487px/et stort tomrom før). Mobil re-verifisert etter denne
+rettelsen (samme produkt, 375px): skjermbilde fortsatt piksel-identisk
+med godkjent Gold Standard.
+
+**Lærdom for videre desktop-arbeid**: mål alltid selve GAPET/
+avstanden mellom relaterte elementer eksplisitt (ikke bare hver
+elements egen bredde/høyde/overlapp) når man bruker CSS Grid med `1fr`-
+eller `minmax(..., 1fr)`-kolonner ved siden av et element med
+`max-width` -- de to kan komme ut av synk og skape usynlige (for
+DOM-målingene) men veldig synlige (for øyet) tomrom. Flexbox med fast
+`gap` er tryggere for denne typen "to elementer skal sitte sammen som
+en enhet"-layout.
