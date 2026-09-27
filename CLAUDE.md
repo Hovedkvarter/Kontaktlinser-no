@@ -2457,3 +2457,51 @@ strukturert Fase-9-kunnskapsgraf (krever at BRAND_CONTENT sin frie tekst
 omgjøres til data), Fase 16 sitt klokkeslett-baserte "sist oppdatert"
 (bevisst utelatt, se over), og selve header/navigasjon-redesignet fra
 mockupen (eksplisitt utenfor scope denne runden).
+
+## Merke-siden: visuell finpuss mot mockupen ("gjør det nøyaktig slik, så nært som mulig med alt") (2026-09-27, samme dag)
+
+Kai sendte mockup-bildet på nytt med "se på screenshot. vi er langt unna",
+pekte på at Acuvue-logoen er fjernet i mockupen ("som er ok"), og avsluttet
+med "gjør det nøyaktig slik, d.v.s. så nært som mulig med alt!" -- et
+tydelig signal om at forrige runde var datamessig riktig, men visuelt for
+langt fra referansen. Gjorde en ren visuell finpuss-runde (ingen ny data):
+
+- **Logo fjernet fra heroen** (`brand_logo_block`/`.brand-hero-row` sin
+  logo-del) -- bare kicker/H1/intro/CTA igjen, matcher mockupen sin rene
+  hero uten egen merke-logo-badge.
+- **Fargerike ikoner overalt** i stedet for ensfarget blått -- Fase-2-
+  faktakortene og "Sortimentet forklart"-kortene bruker nå samme
+  aksentfarge-rotasjon (mint/blue/lavender/amber/coral/sky) som resten av
+  designsystemet allerede har (samme tokens som `GUIDE_ICONS` bruker).
+  Nye ikoner lagt til for toriske linser (øye) og multifokale linser
+  (person), gjenbrukte `SUN_ICON_SVG`/`CALENDAR_ICON_SVG`/`DROPLET_ICON_SVG`
+  for de andre kategoriene.
+- **Seriekortet bygget om fra kompakt ett-linje-kort til fullt vertikalt
+  kort** (bilde øverst, grønn kategori-merkelapp, "Standard/Torisk/
+  Multifokal"-piller utledet fra samme `type_labels` som resten av siden,
+  antall+pris+pil nederst) -- reverserer det kompakte kortet fra tidligere
+  samme dag, siden mockupen (nå den eksplisitte fasiten) viser det fulle
+  kortet. `brand_series_variant_pills()` er ny, utleder pillene rent fra
+  data (aldri en fast liste).
+- **"{Merke} i tall" + "{Merke}-priser" erstatter "Kort om {merke}" +
+  Prisinnsikt**: den forrige sjekklisten (produsent/linsetyper/materialer)
+  er fjernet -- det innholdet dekkes nå uansett av Fase-2-raden,
+  "Produsent"-modulen og "Materialer"-seksjonen, så ingenting gikk tapt.
+  Erstattet med en fargerik stat-flise-boks (laveste pris, laveste pris per
+  linse, størst prisforskjell, flest butikker, flest varianter -- samme
+  robusthet-terskler som før) ved siden av selve prisgrafen.
+  `render_family_price_insight()` fikk en ny, bakoverkompatibel
+  `heading`-parameter (default uendret for serie-siden) slik at merke-siden
+  kan si "Acuvue-priser" i stedet for "Prisinnsikt for Acuvue".
+- **"Slik skiller seriene seg" + "Materialer i {merke}-sortimentet" side om
+  side** (ny `.brand-compare-row`, uten tvunget lik høyde -- en tabell og
+  et kortrutenett har naturlig ulik lengde, ikke et problem her).
+- **FAQ i to kolonner** -- ren CSS-multikolonne (`column-count:2`,
+  `break-inside:avoid` per kategori) scoped til en ny `.brand-faq-wrap`,
+  IKKE en endring av `_render_family_faq_accordion()` sin delte HTML (den
+  brukes uendret av serie-siden, som fortsatt skal være én kolonne).
+
+Testet: alle 30 merke-sider bygger fortsatt med gyldig JSON-LD, FreshLook
+(1 produkt, 0 serier) degraderer riktig (fikk fortsatt "i tall"/pris-graf,
+men ikke seriekort/sammenligning), FAQ går korrekt tilbake til én kolonne
+under 860px, ingen horisontal overflow på mobil eller desktop.

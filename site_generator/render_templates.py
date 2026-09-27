@@ -3249,7 +3249,7 @@ def _family_price_insight_data(rows: list[dict], price_history: dict) -> dict[in
     return result
 
 
-def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dict], scope_label: str = "i serien") -> str:
+def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dict], scope_label: str = "i serien", heading: str | None = None) -> str:
     """Prisinnsikt for HELE serien -- se _family_price_insight_data() for
     hvordan tallene regnes ut. Én fane per pakningsstørrelse familien faktisk
     har (kun 30-pack her: én fane, ingen faner å bytte mellom -- unødvendig
@@ -3313,7 +3313,7 @@ def render_family_price_insight(family_name: str, insight_by_pack: dict[int, dic
 </script>"""
     return f'''<div class="price-insight">
   <div class="price-insight-head">
-    <h2>Prisinnsikt for {escape(family_name)}</h2>
+    <h2>{escape(heading) if heading else f"Prisinnsikt for {escape(family_name)}"}</h2>
     {tabs_html}
   </div>
   {"".join(panels)}
@@ -3926,80 +3926,83 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # hero-kortet) -- samme "kun det vi faktisk kan bevise"-prinsipp som
     # serie-siden sine stat-piller, bare i et tydeligere, egnet format.
     store_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg>'
-    stat_pills = [(BOX_ICON_SVG, f'{len(products)} produkt' if len(products) == 1 else f'{len(products)} produkter', "")]
+    # Rullerende aksentfarger (mint/blue/amber/lavender -- de samme fire
+    # tonene som allerede finnes i designsystemet, se GUIDE_ICONS) i stedet
+    # for ensfarget blått på alle kortene -- Kai 2026-09-27, etter mockup:
+    # "gjør det nøyaktig slik, så nært som mulig med alt".
+    stat_pills = [("mint", BOX_ICON_SVG, f'{len(products)} produkt' if len(products) == 1 else f'{len(products)} produkter', "")]
     if family_summaries:
-        stat_pills.append((TAG_ICON_SVG, f'{len(family_summaries)} serie' if len(family_summaries) == 1 else f'{len(family_summaries)} serier', ""))
+        stat_pills.append(("blue", TAG_ICON_SVG, f'{len(family_summaries)} serie' if len(family_summaries) == 1 else f'{len(family_summaries)} serier', ""))
     if type_labels_all:
-        stat_pills.append((DROPLET_ICON_SVG, f'{len(type_labels_all)} linsetyper' if len(type_labels_all) > 1 else type_labels_all[0], " · ".join(type_labels_all) if len(type_labels_all) > 1 else ""))
+        stat_pills.append(("lavender", DROPLET_ICON_SVG, f'{len(type_labels_all)} linsetyper' if len(type_labels_all) > 1 else type_labels_all[0], " · ".join(type_labels_all) if len(type_labels_all) > 1 else ""))
     if retailer_count:
-        stat_pills.append((store_icon, f'{retailer_count} butikker' if retailer_count != 1 else '1 butikk', f'Med {brand_label}-produkter akkurat nå'))
+        stat_pills.append(("amber", store_icon, f'{retailer_count} butikker' if retailer_count != 1 else '1 butikk', f'Med {brand_label}-produkter akkurat nå'))
     brand_facts_row_html = "".join(
         f'''<div class="brand-facts-card">
-    <div class="brand-facts-card-icon" aria-hidden="true">{icon}</div>
+    <div class="brand-facts-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
     <div class="brand-facts-card-value">{escape(label)}</div>
     {f'<div class="brand-facts-card-label">{escape(value)}</div>' if value else ''}
   </div>'''
-        for icon, label, value in stat_pills
+        for color, icon, label, value in stat_pills
     )
 
     # -- "Utforsk {brand}-seriene" -- kun hvis merket faktisk har minst én
-    # ekte serie (adaptivt, se docstring). Kompakt, horisontalt kort (bilde
-    # venstre, tekst høyre, samme mønster som .variant-card på serie-siden
-    # sin "Finn din variant") i stedet for det tidligere store bildekortet
-    # -- Kai 2026-09-27: "tenker acuvue seriene kan tilpasses en linje (på
-    # pc) ... kompakt og fint er bra". Rutenettet setter selv antall
-    # kolonner = antall serier (til et tak på 6) via en inline CSS-variabel,
-    # slik at de faktisk havner på ÉN linje på desktop der det er plass,
-    # i stedet for å stole på at en fast minmax-bredde tilfeldigvis går opp. --
+    # ekte serie (adaptivt, se docstring). Fullt, vertikalt kort (bilde
+    # øverst, kategori-merke, variant-piller, antall+pris+pil) -- erstattet
+    # 2026-09-27 (samme dag) med det tidligere kompakte ett-linje-kortet
+    # etter at Kai sendte et fullt mockup-referansebilde og ba om å matche
+    # det "så nært som mulig med alt". "Standard/Torisk/Multifokal"-pillene
+    # er utledet fra samme type_labels som resten av siden allerede bruker
+    # (dagslinser/månedslinser/fargede-linser = kategorien vises som eget
+    # merke øverst OG impliserer en "Standard"-pille, toriske/multifokale
+    # linser blir egne piller ved siden av).
+    def brand_series_variant_pills(type_labels: list[str]) -> tuple[str | None, list[str]]:
+        primary = next((t for t in type_labels if t not in ("Toriske linser", "Multifokale linser")), None)
+        pills = ["Standard"] if primary else []
+        if "Toriske linser" in type_labels:
+            pills.append("Torisk")
+        if "Multifokale linser" in type_labels:
+            pills.append("Multifokal")
+        return primary, pills
+
     def brand_series_card(s: dict) -> str:
         img_html = f'<img src="{escape(s["image"])}" alt="" loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
-        meta_txt = " · ".join(s["type_labels"])
+        primary_label, pills = brand_series_variant_pills(s["type_labels"])
+        pills_html = "".join(f'<span class="brand-serie-card-pill">{escape(p)}</span>' for p in pills)
         price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
         return f'''<a class="brand-serie-card" href="{escape(s["href"])}">
-    <div class="brand-serie-card-thumb">{img_html}</div>
-    <div class="brand-serie-card-text">
+    <div class="brand-serie-card-image">{img_html}</div>
+    <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">{escape(s["name"])}</div>
-      {f'<div class="brand-serie-card-meta">{escape(meta_txt)}</div>' if meta_txt else ''}
-      <div class="brand-serie-card-price">fra {price_txt}</div>
+      {f'<div class="brand-serie-card-badge">{escape(primary_label)}</div>' if primary_label else ''}
+      {f'<div class="brand-serie-card-pills">{pills_html}</div>' if pills_html else ''}
+      <div class="brand-serie-card-foot"><span>{s["n_products"]} produkter</span><strong>Fra {price_txt}</strong><span class="brand-serie-card-arrow" aria-hidden="true">→</span></div>
     </div>
   </a>'''
 
     series_nav_html = ""
     if family_summaries:
-        grid_cols = min(len(family_summaries), 6)
         series_nav_html = f'''<h2>Utforsk {escape(brand_label)}-seriene</h2>
   <p class="brand-section-lead">{escape(brand_label)} er delt inn i {len(family_summaries)} {"produktserie" if len(family_summaries) == 1 else "produktserier"} -- velg den som passer ditt behov.</p>
-  <div class="brand-serie-grid" style="--brand-serie-cols:{grid_cols};">
+  <div class="brand-serie-grid">
     {"".join(brand_series_card(s) for s in family_summaries)}
   </div>'''
 
-    # -- "{brand} i korte trekk" -- Kai 2026-09-27: "skal se ut som på
-    # serien" -- IKKE ikon-flisene ("Felles for hele serien" sitt mønster,
-    # brukt et annet sted på serie-siden), men den SPESIFIKKE sjekklisten
-    # ("Kort om X") som på serie-siden alltid står ved siden av Prisinnsikt
-    # -- egen `.brand-facts-list`-CSS-kopi av `.serie-facts-list` (samme
-    # begrunnelse som ellers: ingen kryss-avhengighet mellom sidetyper).
-    # De to pris-tallene som IKKE fanges opp av selve prisinnsikt-grafen
-    # under (pris per linse, antall butikker) er lagt inn her i stedet for
-    # en egen separat stat-kort-seksjon -- Kai: "vi ønsker data, og unike
-    # data som kun kontaktlinser.no skaffer" -- fortsatt med, bare flyttet
-    # inn i sjekklisten fremfor en tredje, overlappende boks.
-    brand_fact_rows = [(BOX_ICON_SVG, str(len(products)), "Produkter vi følger")]
-    if manufacturer_slug:
-        brand_fact_rows.append((TAG_ICON_SVG, MANUFACTURERS[manufacturer_slug]["name"], "Produsent"))
-    if type_labels_all:
-        brand_fact_rows.append((DROPLET_ICON_SVG, ", ".join(type_labels_all), "Linsetyper"))
-    if materials_all:
-        brand_fact_rows.append((BOX_ICON_SVG, ", ".join(materials_all) if len(materials_all) <= 3 else f'{len(materials_all)} ulike', "Materialer"))
+    # -- "{brand} i tall" -- Kai sendte et mockup-referansebilde 2026-09-27
+    # og ba om å matche det "så nært som mulig med alt": IKKE en sjekkliste
+    # ("Kort om X") slik serie-siden har, men en fargerik stat-flise-rad med
+    # rene pris-/tilbudsintelligens-tall (produsent/linsetyper/materialer
+    # dekkes allerede av Fase-2-raden over og de egne materialene-/
+    # produsent-seksjonene lenger ned, så ingen redundans ved å droppe
+    # sjekklisten). Kun de tallene som faktisk er robuste tas med -- "3 gode
+    # er bedre enn 5 hvor to er svake" (samme prinsipp som før).
+    brand_i_tall_tiles = []
+    if lowest_row and lowest_row["lowest"]:
+        brand_i_tall_tiles.append(("mint", TROPHY_ICON_SVG, _fmt_kr(lowest_row["lowest"]["price_nok"]), "Laveste produktpris", lowest_row["product"]["name"]))
     if cheapest_per_lens:
         per_lens_val, per_lens_row = cheapest_per_lens
-        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",") + " kr per linse"
-        brand_fact_rows.append((TROPHY_ICON_SVG, per_lens_txt, f'Laveste pris per linse -- {per_lens_row["product"]["name"]}'))
-    if retailer_count:
-        brand_fact_rows.append((store_icon, f'{retailer_count} nettbutikker', "Sammenlignet av oss, oppdatert daglig"))
-    # To ekstra intelligens-tall fra Kai sin pastede brief (Fase 4) -- kun
-    # tatt med når de faktisk er robuste (≥2 tilbud å sammenligne), ikke
-    # tvunget frem. "3 gode er bedre enn 5 hvor to er svake."
+        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",") + " kr"
+        brand_i_tall_tiles.append(("amber", BOX_ICON_SVG, per_lens_txt, "Laveste pris per linse", per_lens_row["product"]["name"]))
     spread_candidates = []
     for r in rows:
         if len(r["eligible"]) >= 2:
@@ -4009,15 +4012,21 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
                 spread_candidates.append((round((hi - lo) / lo * 100), r))
     biggest_spread = max(spread_candidates, key=lambda t: t[0], default=None)
     if biggest_spread and biggest_spread[0] >= 5:
-        brand_fact_rows.append((TAG_ICON_SVG, f'{biggest_spread[0]} %', f'Størst prisforskjell mellom butikker -- {biggest_spread[1]["product"]["name"]}'))
+        brand_i_tall_tiles.append(("sky", TAG_ICON_SVG, f'{biggest_spread[0]} %', "Størst prisforskjell mellom butikker", biggest_spread[1]["product"]["name"]))
     most_retailers_row = max(rows, key=lambda r: len(r["eligible"]), default=None)
     if most_retailers_row and len(most_retailers_row["eligible"]) >= 2:
-        brand_fact_rows.append((store_icon, f'{len(most_retailers_row["eligible"])} butikker', f'Flest butikker -- {most_retailers_row["product"]["name"]}'))
-    brand_facts_html = f'''<div class="brand-facts">
-    <h2>Kort om {escape(brand_label)}</h2>
-    <ul class="brand-facts-list">
-      {"".join(f'<li>{CHECK_ICON_SVG}<div><strong>{escape(val)}</strong>{f"<span>{escape(lbl)}</span>" if lbl else ""}</div></li>' for icon, val, lbl in brand_fact_rows)}
-    </ul>
+        brand_i_tall_tiles.append(("lavender", store_icon, str(len(most_retailers_row["eligible"])), "Flest butikker", most_retailers_row["product"]["name"]))
+    most_variants_series = max(family_summaries, key=lambda s: len(s["type_labels"]), default=None)
+    if most_variants_series and len(most_variants_series["type_labels"]) >= 2:
+        brand_i_tall_tiles.append(("coral", TROPHY_ICON_SVG, most_variants_series["name"], "Flest varianter", " · ".join(most_variants_series["type_labels"])))
+    brand_i_tall_html = ""
+    if brand_i_tall_tiles:
+        brand_i_tall_html = f'''<div class="brand-i-tall">
+    <h2>{escape(brand_label)} i tall</h2>
+    <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
+    <div class="brand-i-tall-grid">
+      {"".join(f'<div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div><div class="brand-i-tall-value">{escape(val)}</div><div class="brand-i-tall-label">{escape(lbl)}</div><div class="brand-i-tall-sub">{escape(sub)}</div></div>' for color, icon, val, lbl, sub in brand_i_tall_tiles)}
+    </div>
   </div>'''
 
     # -- Prisinnsikt for HELE merket (snitt per pakningsstørrelse, på tvers
@@ -4025,11 +4034,14 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # siden, se _family_price_insight_data()/render_family_price_insight().
     # Kai 2026-09-27: "hvor er grafen og prisene?" -- de 3 flate stat-
     # kortene som sto her var IKKE det samme som seriesidens ekte
-    # prisinnsikt-graf, luket derfor ut til fordel for den ekte komponenten. --
+    # prisinnsikt-graf, luket derfor ut til fordel for den ekte komponenten.
+    # Overskrift endret til "{brand}-priser" (matcher mockupen) via den nye
+    # heading-parameteren -- selve funksjonen er fortsatt uendret/delt med
+    # serie-siden. --
     brand_price_insight_html = ""
     if price_history:
         brand_insight_by_pack = _family_price_insight_data(rows, price_history)
-        brand_price_insight_html = render_family_price_insight(brand_label, brand_insight_by_pack, scope_label=f"i {brand_label}-sortimentet")
+        brand_price_insight_html = render_family_price_insight(brand_label, brand_insight_by_pack, scope_label=f"i {brand_label}-sortimentet", heading=f"{brand_label}-priser")
 
     # -- "Slik skiller seriene seg" -- sammenligningstabell PÅ TVERS av
     # merkets serier (én rad per serie, ikke per behov slik serie-siden sin
@@ -4089,8 +4101,8 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # på serie". Faller tilbake til bare den ene boksen (uten tom
     # rad-wrapper) hvis grafen mangler (for lite prishistorikk ennå).
     brand_insight_row_html = (
-        f'<div class="brand-insight-row">{brand_price_insight_html}{brand_facts_html}</div>'
-        if brand_price_insight_html and brand_facts_html else brand_price_insight_html + brand_facts_html
+        f'<div class="brand-insight-row">{brand_i_tall_html}{brand_price_insight_html}</div>'
+        if brand_i_tall_html and brand_price_insight_html else brand_i_tall_html + brand_price_insight_html
     )
 
     # -- "Materialer i {brand}-sortimentet" -- BEVISST IKKE "Materialer og
@@ -4114,11 +4126,23 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 
     brand_materials_html = ""
     if len(materials_all) >= 2:
-        brand_materials_html = f'''<h2>Materialer i {escape(brand_label)}-sortimentet</h2>
+        brand_materials_html = f'''<div><h2>Materialer i {escape(brand_label)}-sortimentet</h2>
   <p class="brand-section-lead">De dokumenterte materialene {escape(brand_label)}-produktene vi følger er laget av.</p>
   <div class="brand-materials-grid">
     {"".join(brand_material_card(m) for m in materials_all)}
-  </div>'''
+  </div></div>'''
+
+    # Sammenligningstabell + materialer side om side (Kai 2026-09-27, etter
+    # mockup: "gjør det nøyaktig slik ... så nært som mulig med alt") --
+    # samme to-kolonners mønster som insight-raden over, men uten
+    # stretch/tvunget lik høyde (en tabell og et kortrutenett har naturlig
+    # ulik høyde, og det er ikke et problem her slik det var for
+    # "Felles for hele serien"/"Relevante guider"-paret tidligere i økta).
+    compare_table_html_wrapped = f'<div>{compare_table_html}</div>' if compare_table_html else ""
+    brand_compare_row_html = (
+        f'<div class="brand-compare-row">{compare_table_html_wrapped}{brand_materials_html}</div>'
+        if compare_table_html and brand_materials_html else compare_table_html + brand_materials_html
+    )
 
     # -- FAQ-regelmotor (samme mønster/komponent som serie-siden sin,
     # se _render_family_faq_accordion()) -- men merke-spesifikke spørsmål.
@@ -4205,10 +4229,24 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         })
     sortiment_html = ""
     if len(sortiment_cards) > 1:
+        # Ikon+farge per kategori (samme aksentfarge-sett som resten av
+        # merke-siden sitt løft 2026-09-27) -- ukjente/fremtidige
+        # kategorier faller tilbake til TAG_ICON_SVG/blue i stedet for å
+        # krasje eller vise ingenting.
+        eye_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>'
+        person_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="8" r="3.5" fill="currentColor"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" fill="currentColor" opacity="0.5"/></svg>'
+        category_icon_map = {
+            "dagslinser": ("amber", SUN_ICON_SVG), "manedslinser": ("sky", CALENDAR_ICON_SVG),
+            "toriske-linser": ("coral", eye_icon), "multifokale-linser": ("lavender", person_icon),
+            "fargede-linser": ("mint", DROPLET_ICON_SVG),
+        }
+
         def sortiment_card(c: dict) -> str:
             series_txt = " · ".join(c["series_names"]) if c["series_names"] else ""
+            color, icon = category_icon_map.get(c["slug"], ("blue", TAG_ICON_SVG))
             return f'''<a class="brand-sortiment-card" href="#{escape(c["slug"])}" data-category="{escape(c["slug"])}">
-    <div class="brand-sortiment-card-count">{c["count"]}</div>
+    <div class="brand-sortiment-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
+    <div class="brand-sortiment-card-count">{c["count"]} produkter</div>
     <div class="brand-sortiment-card-label">{escape(c["label"])}</div>
     {f'<div class="brand-sortiment-card-series">{escape(series_txt)}</div>' if series_txt else ''}
     <div class="brand-sortiment-card-link">Se {escape(c["label"].lower())} →</div>
@@ -4354,18 +4392,22 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-stat-label {{ font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }}
 .brand-stat-value {{ font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }}
 .brand-section-lead {{ color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }}
-.brand-serie-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }}
+.brand-serie-grid {{ display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 32px; }}
 @media (min-width: 560px) {{ .brand-serie-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-@media (min-width: 900px) {{ .brand-serie-grid {{ grid-template-columns: repeat(var(--brand-serie-cols, 3), 1fr); }} }}
-.brand-serie-card {{ display: flex; align-items: center; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 9px 12px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; min-height: 60px; min-width: 0; }}
+@media (min-width: 900px) {{ .brand-serie-grid {{ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }} }}
+.brand-serie-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
 .brand-serie-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
-.brand-serie-card-thumb {{ width: 42px; height: 42px; border-radius: 9px; overflow: hidden; flex-shrink: 0; background: var(--mist); display: flex; align-items: center; justify-content: center; }}
-.brand-serie-card-thumb img {{ width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }}
-.brand-serie-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--blue); }}
-.brand-serie-card-text {{ flex: 1; min-width: 0; }}
-.brand-serie-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.82rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-.brand-serie-card-meta {{ font-size: 0.68rem; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
-.brand-serie-card-price {{ font-size: 0.72rem; color: var(--ink); font-weight: 600; margin-top: 2px; }}
+.brand-serie-card-image {{ aspect-ratio: 4 / 3; background: var(--mist); overflow: hidden; display: flex; align-items: center; justify-content: center; }}
+.brand-serie-card-image img {{ width: 100%; height: 100%; object-fit: contain; padding: 14px; box-sizing: border-box; }}
+.brand-serie-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }}
+.brand-serie-card-body {{ padding: 14px 14px 16px; }}
+.brand-serie-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.94rem; line-height: 1.3; }}
+.brand-serie-card-badge {{ display: inline-block; margin-top: 8px; padding: 3px 9px; border-radius: 999px; background: var(--mint-tint); color: var(--mint); font-size: 0.68rem; font-weight: 700; }}
+.brand-serie-card-pills {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }}
+.brand-serie-card-pill {{ border: 1px solid var(--border); border-radius: 999px; padding: 2px 9px; font-size: 0.68rem; font-weight: 600; color: var(--muted); }}
+.brand-serie-card-foot {{ display: flex; align-items: center; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 0.76rem; color: var(--muted); }}
+.brand-serie-card-foot strong {{ color: var(--ink); font-weight: 700; margin-left: auto; }}
+.brand-serie-card-arrow {{ color: var(--blue); flex-shrink: 0; }}
 .brand-facts {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
 .brand-facts h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
 /* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
@@ -4373,7 +4415,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
    samme her som på serie") -- samme to-kolonners stretch-mønster som
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row {{ display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }}
-@media (min-width: 900px) {{ .brand-insight-row {{ grid-template-columns: 1.3fr 1fr; align-items: stretch; }} }}
+@media (min-width: 900px) {{ .brand-insight-row {{ grid-template-columns: 1fr 1fr; align-items: stretch; }} }}
+.brand-i-tall {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
+.brand-i-tall h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.brand-i-tall-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }}
+@media (min-width: 480px) and (max-width: 899px) {{ .brand-i-tall-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
+.brand-i-tall-tile {{ background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }}
+.brand-i-tall-icon {{ width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }}
+.brand-i-tall-icon svg {{ width: 15px; height: 15px; }}
+.brand-i-tall-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }}
+.brand-i-tall-label {{ font-size: 0.76rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }}
+.brand-i-tall-sub {{ font-size: 0.7rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }}
 .brand-facts-list {{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }}
 .brand-facts-list li {{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }}
 .brand-facts-list svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
@@ -4422,6 +4474,17 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .faq-chevron {{ flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }}
 .faq-accordion-item[open] .faq-chevron {{ transform: rotate(180deg); }}
 .faq-accordion-item p {{ margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }}
+/* To-kolonners FAQ (Kai 2026-09-27, etter mockup: "gjør det nøyaktig slik
+   ... så nært som mulig med alt") -- CSS-multikolonne i stedet for å endre
+   _render_family_faq_accordion() sin delte HTML-struktur (den brukes
+   uendret av serie-siden også) -- scoped til .brand-faq-wrap slik at
+   serie-siden sin egen FAQ ikke påvirkes. break-inside:avoid på hver
+   kategori hindrer at en kategori-overskrift havner alene nederst i en
+   kolonne mens spørsmålene fortsetter i neste. */
+@media (min-width: 860px) {{
+  .brand-faq-wrap .faq-section {{ column-count: 2; column-gap: 40px; }}
+  .brand-faq-wrap .faq-category {{ break-inside: avoid; -webkit-column-break-inside: avoid; }}
+}}
 /* Toppbanner (2026-09-27, Kai: "bruk toppbilde vi også bruker på serie
    her på disse for å få det pent") -- SAMME delte bilde som serie-hero
    (static/hero/serie-*.webp), samme side-panel-med-fade-teknikk. Egne
@@ -4454,6 +4517,9 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 @media (min-width: 1024px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }} }}
 .brand-sortiment-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }}
 .brand-sortiment-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
+.brand-sortiment-card-icon {{ width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }}
+.brand-sortiment-card-icon svg {{ width: 17px; height: 17px; }}
+.brand-sortiment-card:hover {{ transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37, 99, 235, 0.14); }}
 .brand-sortiment-card-count {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--ink); }}
 .brand-sortiment-card-label {{ font-weight: 600; font-size: 0.9rem; margin-top: 2px; }}
 .brand-sortiment-card-series {{ font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }}
@@ -4465,8 +4531,11 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 .brand-3090-tile strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }}
 .brand-3090-tile span {{ display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }}
 .brand-3090-note {{ margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }}
-.brand-materials-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 32px; }}
-@media (min-width: 640px) {{ .brand-materials-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
+.brand-materials-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }}
+.brand-compare-row {{ display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }}
+.brand-compare-row .brand-compare-card {{ margin-bottom: 0; }}
+@media (min-width: 1024px) {{ .brand-compare-row {{ grid-template-columns: 1.2fr 1fr; align-items: start; }} .brand-materials-grid {{ grid-template-columns: 1fr !important; }} }}
+@media (min-width: 640px) and (max-width: 1023px) {{ .brand-materials-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
 .brand-material-card {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }}
 .brand-material-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }}
 .brand-material-card-series {{ font-size: 0.78rem; color: var(--muted); margin-top: 4px; }}
@@ -4492,7 +4561,6 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
   <div class="brand-hero">
     <div class="brand-hero-content">
       <div class="brand-hero-row">
-        {brand_logo_block}
         <div class="hero-copy">
           <div class="kicker">Merke</div>
           <h1>{escape(brand_label)}</h1>
@@ -4530,10 +4598,9 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
 
   {sortiment_html}
-  {compare_table_html}
-  {brand_materials_html}
+  {brand_compare_row_html}
   {pack_30_90_html}
-  {brand_faq_html}
+  <div class="brand-faq-wrap">{brand_faq_html}</div>
   {brand_guides_html}
   {brand_manufacturer_module_html}
 

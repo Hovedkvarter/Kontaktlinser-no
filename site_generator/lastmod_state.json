@@ -693,15 +693,15 @@
  },
  "/merke/acuvue/": {
   "lastmod": "2026-09-27",
-  "sig": "9c969c045e1b8d4f80811fd1d62da1aafc67e45f"
+  "sig": "f220e24bd8a42102b3c2a6807966cb17925ba9a4"
  },
  "/merke/adore/": {
   "lastmod": "2026-09-27",
-  "sig": "5325170b0323b7c9b12830c367b8276bfd768498"
+  "sig": "285d55797d5a3a7a004cfaaa7d6d1ce61e795299"
  },
  "/merke/air-optix/": {
   "lastmod": "2026-09-27",
-  "sig": "0cdeac1aa02823c39ff64de1c5e9f3e5f43e3824"
+  "sig": "eff720164cdbe7e8471249dc2d4ab1915bfbda2c"
  },
  "/merke/ascend/": {
   "lastmod": "2026-09-27",
@@ -709,39 +709,39 @@
  },
  "/merke/avaira/": {
   "lastmod": "2026-09-27",
-  "sig": "a72fd536abb365a4a0d4080430229abc8f961507"
+  "sig": "2ce0847d6aae725d4c637eda034c0a7f0ada7811"
  },
  "/merke/biofinity/": {
   "lastmod": "2026-09-27",
-  "sig": "14c49cec456fdad7196129531a9b824805cb58ee"
+  "sig": "e4315c7122de3160bdb5fca34f8f909b61555deb"
  },
  "/merke/biomedics/": {
   "lastmod": "2026-09-27",
-  "sig": "65451e8ed80585d0f76fdd38f6e8a7154ca76c14"
+  "sig": "3277adbc4fe57bb3522d25952fe24e24ce07f57e"
  },
  "/merke/biotrue/": {
   "lastmod": "2026-09-27",
-  "sig": "7b7d679643869325a75c4050accdec0cbb9eb493"
+  "sig": "a88380389b8f37a2b84fbd98a7b8d623f95d753c"
  },
  "/merke/clariti/": {
   "lastmod": "2026-09-27",
-  "sig": "636b7cf2b16b76386b54a4e5133943f2e317d74c"
+  "sig": "490162dd136e850850acca3af235be3c1a479b06"
  },
  "/merke/clearlab/": {
   "lastmod": "2026-09-27",
-  "sig": "049cd95d274190a17df367df331bba3ee78911f9"
+  "sig": "20ff44d88bf939ac602f3e9bb20dfd886fb54e95"
  },
  "/merke/clearlii/": {
   "lastmod": "2026-09-27",
-  "sig": "8067559a2b656154cc7b943d34bd945e491f8d71"
+  "sig": "8e068d2f4380ba8de2ba0c7c3787ca387b54e21f"
  },
  "/merke/dailies/": {
   "lastmod": "2026-09-27",
-  "sig": "14604488aafb4aa29453a25f65afe2768402209a"
+  "sig": "a0a32a6e705d00a95e40572fdb5065f96d6077f3"
  },
  "/merke/daysoft/": {
   "lastmod": "2026-09-27",
-  "sig": "a72d3bc5f55784217621f98a168e0413fdb96ded"
+  "sig": "a93b9efd2a37c9eb75cfdfb36c8835748643335b"
  },
  "/merke/easyvision/": {
   "lastmod": "2026-09-27",
@@ -749,7 +749,7 @@
  },
  "/merke/everclear/": {
   "lastmod": "2026-09-27",
-  "sig": "80b228a9719fe8416d1aac2bfc051b1c153d6931"
+  "sig": "b04910d2b861bab16128cd9e5b1380eb86e1d0f1"
  },
  "/merke/eyeq/": {
   "lastmod": "2026-09-27",
@@ -757,7 +757,7 @@
  },
  "/merke/freshlook/": {
   "lastmod": "2026-09-27",
-  "sig": "4159c6dc3e2574f480460d07080ea9ee9ee7e74f"
+  "sig": "eff9d0d3d4e5b145cfcb767e070f98cfed8f5676"
  },
  "/merke/iwear/": {
   "lastmod": "2026-09-27",
@@ -765,51 +765,51 @@
  },
  "/merke/live/": {
   "lastmod": "2026-09-27",
-  "sig": "019d4d2a3ebf8110b396eaaa594ed0bfcdc1f216"
+  "sig": "ceb1fc8eb97ae7ff52fff5c303fe51f74cdc2958"
  },
  "/merke/miru/": {
   "lastmod": "2026-09-27",
-  "sig": "b1ab1229698838d637c5ed1d8cc346a4adbdf5b2"
+  "sig": "eac5f2f17df29469574dd30cbdac0a81a9b1e83e"
  },
  "/merke/myday/": {
   "lastmod": "2026-09-27",
-  "sig": "13c762bf2982216b4a5b5652b0645a681b88ed24"
+  "sig": "ed58ff9fb988194f58ace0eac84816148c951bae"
  },
  "/merke/precision1/": {
   "lastmod": "2026-09-27",
-  "sig": "6a705d1ec6e153e1aa80aa6ed03fcddd00114bf1"
+  "sig": "9af05822eecb38e464337c29a8bc3132a5d4b7a0"
  },
  "/merke/precision7/": {
   "lastmod": "2026-09-27",
-  "sig": "65a107cd82edcfc5f199f72ffe1f24a177527a2a"
+  "sig": "b3cbafdb7d01d929a72b48e7309c7a5e35d970b8"
  },
  "/merke/proclear/": {
   "lastmod": "2026-09-27",
-  "sig": "a1089d9e73496d9e5c97fa0b1e17b17316e4e61d"
+  "sig": "bcb9dafec235995d7ca11fc1be982e967df3513c"
  },
  "/merke/purevision/": {
   "lastmod": "2026-09-27",
-  "sig": "186285cdff011927679e3a43c841bea62990fa19"
+  "sig": "ff6fa51f5b0681718384b06126dc0367c7bed142"
  },
  "/merke/queens-trilogy/": {
   "lastmod": "2026-09-27",
-  "sig": "ed0eeebf58e03e2739de3bc61b9f56bc2d4d39fb"
+  "sig": "1890c2850e23f031a21c04fb443b03d0489b3e71"
  },
  "/merke/soflens/": {
   "lastmod": "2026-09-27",
-  "sig": "12fc78983644757db320a79fbf548123fb2a9d51"
+  "sig": "c87eb3033b6db479de719998ec77e240436de63e"
  },
  "/merke/swati/": {
   "lastmod": "2026-09-27",
-  "sig": "6b9926adcb2fe584cc9397f604d69dfdf1273d72"
+  "sig": "931fcc0cc991f2eaf231e15f107461cb42c4ed3e"
  },
  "/merke/total30/": {
   "lastmod": "2026-09-27",
-  "sig": "43501200f69def112fff75d98cb1217ff079fd0c"
+  "sig": "433357bd1bcf22cb5ba021f51d8dc110899facaa"
  },
  "/merke/ultra/": {
   "lastmod": "2026-09-27",
-  "sig": "2bada73ffd81f3640e0ff2bda9065c0bf5679b68"
+  "sig": "116316d032aa08651f09ad665d7ff9c7da909be4"
  },
  "/om-oss/": {
   "lastmod": "2026-09-27",
