@@ -2697,7 +2697,17 @@ WINNER_WIDGET_STYLE = """
 #qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
 .qty-tip { display: flex; align-items: flex-start; gap: 8px; background: var(--blue-tint); border-radius: 10px; padding: 10px 12px; font-size: 0.82rem; color: var(--ink); margin: 12px 0 0; line-height: 1.5; }
 .qty-tip-icon { flex-shrink: 0; }
-.qty-static-fallback { font-size: 0.75rem; color: var(--muted); line-height: 1.6; margin: 10px 0 0; opacity: 0.85; }
+/* Visuelt skjult (2026-09-27, Kai sitt alternativ 1 for opprydning) -- IKKE
+   fjernet, siden avsnittet er en bevisst JS-fri fallback for AI-crawlere uten
+   JavaScript (GPTBot/ClaudeBot/PerplexityBot m.fl., se docstringen til
+   render_winner_widget()): de kan lese 2/4/10-eksemplene rett i HTML-kilden
+   selv om antallsvelgeren over krever JS for å oppdatere seg interaktivt.
+   Samme informasjon er uansett tilgjengelig for mennesker ett klikk unna i
+   velgeren -- dette er derfor ikke skjult/villedende tekst, bare en duplisert
+   tekstversjon av noe som allerede vises interaktivt. Standard
+   "visually hidden"-mønster (klippet til 1x1px), ikke display:none -- en
+   skjermleser kan fortsatt nå den om ønskelig. */
+.qty-static-fallback { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 """
 
 
@@ -3679,11 +3689,11 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     </div>
   </div>
   {qty_html}
-  {pack_size_callout}
-  {family_callout}
   {offers_block}
   {disclosure_html}
   {price_history_html}
+  {pack_size_callout}
+  {family_callout}
   {specs_html}
   {aliases_html}
   {product_faq_html}

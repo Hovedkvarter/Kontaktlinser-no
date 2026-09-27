@@ -1940,3 +1940,26 @@ variantene"/"Relevante guider"):
   hvilke behov familien faktisk dekker).
 - Luftet inn tettere (`.variant-finder-*`-marginer/gap redusert) etter Kai sin
   "litt mer komprimert, er litt mye luft"-tilbakemelding.
+
+## Produktside: skjult antalls-fallback, flyttet seriekobling (2026-09-27)
+
+Kai ba om å rydde opp visuelt på produktsiden (PC), men ba EKSPLISITT om å sjekke
+implementasjonen først: er `.qty-static-fallback`-avsnittet ("Ved 2 esker: billigst hos
+X...") der av en grunn (SEO/strukturert data/tilgjengelighet) før noe fjernes. Svaret,
+rett fra `render_winner_widget()` sin egen docstring: JA -- det er en bevisst JS-fri
+fallback for AI-crawlere uten JavaScript (GPTBot/ClaudeBot/PerplexityBot m.fl.), som
+ellers aldri ville sett 2/4/10-eksemplene (kun tilgjengelig via `_QTY_CALC_SCRIPT`).
+**Løsning (Kai sitt "alternativ 1"): visuelt skjult, ikke fjernet.** Standard
+"visually hidden"-CSS (klippet til 1×1px, ikke `display:none`) -- avsnittet ligger
+fortsatt i HTML-kilden og leses av crawlere/skjermlesere, men vises ikke for seende
+brukere (samme info er uansett ett klikk unna i selve velgeren, altså ikke skjult/
+villedende tekst i Googles forstand).
+
+Samtidig flyttet `pack_size_callout`/`family_callout` ("Finnes også i X-pakning" / "Se
+hele X-serien") fra rett under antallsvelgeren til RETT UNDER "Prisutvikling"
+(`price_history_html`) på selve produktsiden -- kun her, private label-/serie-sidene har
+ingen prisgraf å plassere den i forhold til.
+
+**Åpent, ikke startet:** Kai ønsker en bredere opprydning av produktsiden (mobil og
+desktop), inspirert av lenspricer.no sin produktside ("kompakt og rett på sak") -- ingen
+konkret plan laget ennå, kun disse to punktvise endringene er gjort.
