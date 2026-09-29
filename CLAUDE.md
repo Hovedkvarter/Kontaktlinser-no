@@ -4673,3 +4673,53 @@ over-tid vises fortsatt korrekt (én butikk, 47/47 dager), "Kort
 oppsummert" utelater riktig spredningssetningen. Ingen regresjon på
 merke-/serie-sidenes egen, urørte `_render_price_history_chart()`/
 `render_family_price_insight()`.
+
+## Prislistens mobil-kollaps: terskel hevet fra 3 til 10 tilbud (2026-09-29, samme dag)
+
+Kai, etter å ha fått bekreftet at Price Intelligence-resetten var live:
+"på mobil også, produktsider. Vis alle treff opp til 10 priser, og
+deretter hvis flere, klikk for å vise alle." Den eksisterende "Vis alle
+priser"-kollapsen (bygget 2026-09-27, se "Product Mobile Gold Standard
+v1, Steg 2" lenger opp) skjulte alt utover de 3 billigste tilbudene på
+mobil bak en klikk-knapp -- Kai ønsket en høyere terskel, slik at de
+fleste produkter (som uansett sjelden har mer enn 5-9 forhandlere, se
+`sources_config.json`-oversikten) viser alle tilbudene direkte uten at
+brukeren må klikke i det hele tatt.
+
+**To steder måtte endres i takt** (samme fallgruve som ville oppstått om
+kun én ble endret): selve terskelen i `render_price_list()` sitt
+`collapse_after`-kall (Python, avgjør OM `is-collapsed`-klassen/knappen
+bygges) OG den hardkodede CSS-selektoren `.offers.is-collapsed
+.offers-list .offer-card:nth-child(n+4)` (avgjør HVILKE kort som
+faktisk skjules når klassen er satt) -- CSS-en var ikke parametrisert
+av selve tallet, bare av om kollapsen var aktiv. Begge endret fra 3/4
+til 10/11 (Python `collapse_after=10`, CSS `nth-child(n+11)`, både
+mobil- og den allerede eksisterende `>=860px`-overstyringen som viser
+alt uansett på desktop).
+
+**Rullet ut til alle tre produktsidetyper for konsistens** (samme
+"lik oppførsel på tvers av kontaktlinser/linsevæske-øyedråper-tilbehør/
+private label"-prinsipp som resten av dagens og gårsdagens arbeid):
+kontaktlinse-produktsiden hadde allerede `collapse_after=3` (hevet til
+10), mens `render_solution_product_page()` og `render_private_label_page()`
+aldri hadde noen kollaps i det hele tatt (viste alltid alle tilbud på
+mobil uansett antall) -- fikk nå samme `collapse_after=10` lagt til, som
+ren fremtidssikring (ingen produkt i katalogen har i dag flere enn 9
+tilbud, se under, så endringen er usynlig i praksis akkurat nå, men
+konsistent og korrekt den dagen et produkt får en 11. forhandler).
+
+**Verifisert**: maks antall tilbud på tvers av hele katalogen i dag er 9
+(Biofinity 6-pack/Toric 6-pack) -- ingen produkt trigger kollapsen i
+det hele tatt akkurat nå, alle tilbud vises direkte på mobil uten
+klikk. Testet likevel eksplisitt at selve mekanismen fungerer riktig
+ved den nye terskelen: syntetisk DOM-test (klonet tilbudskort til 13
+stk på en ekte produktside, satt `is-collapsed`-klassen manuelt) viste
+nøyaktig 10 synlige kort, ikke 3 -- bekrefter at CSS-en faktisk skjuler
+fra kort 11 og ikke lenger fra kort 4. Sjekket på alle tre sidetyper på
+mobil (375px, `document.body.scrollWidth === window.innerWidth`, ingen
+overflow): kontaktlinse-produktside (Biofinity Toric 6-pack, 8 tilbud,
+alle synlige, ingen "Vis alle"-knapp), linsevæske (ReNu Multi-Purpose
+60 ml, 2 tilbud), private label (iWear Oxygen XR, 4 tilbud). Desktop
+uendret (viste allerede alle tilbud uansett antall, se tidligere runde
+samme uke: "Vis alle priser"-kollapsen skal KUN gjelde mobil"). Bygget +
+`validate_build.py` OK (201/201), full sveip ingen Traceback/NameError.

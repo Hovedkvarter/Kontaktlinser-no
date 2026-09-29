@@ -3320,18 +3320,20 @@ PRICE_LIST_STYLE = """
    desktop-korreksjon: "Do not collapse the merchant price list. On
    desktop, render all valid current offers immediately [...] The full
    merchant list is part of the value proposition"). Server-siden bygger
-   fortsatt `is-collapsed`-klassen og knappen når det er >3 tilbud
-   (samme `collapse_after`-param, brukt av BÅDE mobil og desktop), men
-   CSS-en her gjør kollapsen usynlig >=860px -- samme brytpunkt som
-   resten av sidens desktop-layout (.hero-main sitt grid). Ingen
-   JS-endring nødvendig: _QTY_CALC_SCRIPT sin render() sorterer og
+   fortsatt `is-collapsed`-klassen og knappen når det er >10 tilbud
+   (samme `collapse_after`-param, brukt av BÅDE mobil og desktop, terskel
+   hevet fra 3 til 10 på Kais eksplisitte ønske 2026-09-29: "Vis alle
+   treff opp til 10 priser, og deretter hvis flere, klikk for å vise
+   alle"), men CSS-en her gjør kollapsen usynlig >=860px -- samme
+   brytpunkt som resten av sidens desktop-layout (.hero-main sitt grid).
+   Ingen JS-endring nødvendig: _QTY_CALC_SCRIPT sin render() sorterer og
    re-append'er HELE listen uansett skjerm-bredde, kollapsen var alltid
    bare et rent CSS-lag oppå den samme, allerede fullstendige listen. */
-.offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: none; }
+.offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: none; }
 .offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
 .offers-show-more:hover { border-color: var(--blue); }
 @media (min-width: 860px) {
-  .offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: flex; }
+  .offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: flex; }
   .offers-show-more { display: none; }
 }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
@@ -3614,8 +3616,9 @@ def render_price_list(offers: list[dict], product_name: str, product_id: str, cl
     qty_unit_label/collapse_after: kun brukt av produktsiden (Product Mobile
     Gold Standard v1, 2026-09-27) -- qty_unit_label bytter overskriften til
     en dynamisk "Priser for 1 eske" (+ sorteringsetikett) i stedet for
-    `title`, og collapse_after (f.eks. 3) skjuler resten av kortene bak en
-    "Vis alle priser (X butikker)"-knapp. Begge er None/av som standard,
+    `title`, og collapse_after (10 på produktsiden) skjuler resten av
+    kortene bak en "Vis alle priser (X butikker)"-knapp. Begge er None/av
+    som standard,
     så linsevæske-/øyedråpe- og private label-alias-sidene er uendret.
 
     product_ship_chip_html: kun produktsiden (Kai, 2026-09-27, "IMPORTANT
@@ -4516,7 +4519,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
         else escape(product["brand_label"][:2].upper())
 
     ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
-    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=3, product_ship_chip_html=ship_chip_html)
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=10, product_ship_chip_html=ship_chip_html)
 
     if best:
         ai_summary_html = f"""<section class="product-ai-summary" aria-label="Prisoppsummering">
@@ -10343,7 +10346,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     # enkle prikke-chippen -- samme "samme hero-/quantity-redesign"-runde
     # (2026-09-28) som resten av denne funksjonen.
     ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
-    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, product_ship_chip_html=ship_chip_html)
+    offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, collapse_after=10, product_ship_chip_html=ship_chip_html)
     long_description = product.get("long_description", product.get("description", ""))
     # Se samme begrunnelse i render_product_page -- meta-beskrivelsen skal
     # lede med selve prissammenligningen, ikke produktbeskrivelsen. Antall
@@ -11228,7 +11231,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
     offers_block, ex_best = render_price_list(offers, real_product["name"], real_product["id"], clickouts,
                                               title=f"Sammenlign priser på {real_product['name']}",
-                                              show_ship_chip=False, product_ship_chip_html=ship_chip_html)
+                                              show_ship_chip=False, collapse_after=10, product_ship_chip_html=ship_chip_html)
 
     in_stock_offers = [o for o in offers if o["in_stock"]]
     about_offers_schema = ""
