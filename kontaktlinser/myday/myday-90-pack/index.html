@@ -1278,7 +1278,7 @@ a { color: inherit; }
         suggestions.innerHTML = matches.map(function (item) {
           var thumb = item.image
             ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
-            : '<div class="product-thumb">' + esc(item.meta.slice(0, 2).toUpperCase()) + '</div>';
+            : '<div class="product-thumb">' + esc((item.badge || item.meta).slice(0, 2).toUpperCase()) + '</div>';
           return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
             '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
             '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
