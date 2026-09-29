@@ -4581,3 +4581,95 @@ Traceback/NameError. Grep bekreftet alle fem forventede badge-verdier
 (`AS`/`EA`/`EY`/`IW`/`TR`) til stede i den bygde JSON-en. Verifisert i
 browser: søk på "iwear" viser nå "IW"-ikon på alle iWear-forslag, søk på
 "truelens" viser "TR" -- begge korrekt, ingen "EG" igjen noe sted.
+
+## Price Intelligence: visuelt reset (ikke et datarewrite) (2026-09-29, samme dag)
+
+Kai sendte en detaljert 13-punkts "PRICE INTELLIGENCE — VISUAL RESET"-
+brief + et godkjent mockup-bilde (`57.webp`) for det eksisterende Price
+Intelligence-modulen (bygget 2026-09-27/28, se de to seksjonene lenger
+opp om "Product Gold Standard v1" og "rullet ut til ALLE produkttyper").
+Kai sin egen ramme, sitert direkte: "This is a visual/layout reset, not
+a data rewrite... Preserve everything functional... Please follow the
+attached visual reference closely rather than creatively reinterpreting
+it." Briefen ble først sendt UTEN selve mockup-bildet (kun tekst som
+refererte "the attached approved mockup") -- fulgte "verifiser før du
+siterer"-prinsippet fra minnet og ba Kai sende bildet i stedet for å
+gjette på et referansedesign jeg ikke hadde sett, siden nettopp denne
+oppgaven var eksplisitt om å matche et visuelt forelegg presist.
+
+**Alt data-/beregningsgrunnlag er UENDRET** -- kun CSS og markup-
+struktur i `render_price_intelligence()` og de tilhørende
+`_price_intelligence_*()`-hjelperne er rørt:
+
+- **Layout omorganisert til tre separate visuelle soner** i stedet for
+  én sammenhengende `.price-intel-panel` per periode: metrikk-stripen
+  (Pris nå/Laveste/Høyeste/N-dagers median + statuskort) vises nå FØR
+  periode-fanene (var etter grafen), selve grafen ETTER fanene (uendret
+  posisjon), og "Kort oppsummert" flyttet til HELT NEDERST i modulen,
+  etter alle tre intelligens-kortene (Prisforskjell/Prisvinner/Kjøper du
+  flere esker) -- var tidligere øverst i hver periode-panel. Tre
+  parallelle DOM-grupper (`metric_strips`/`chart_panels`/
+  `summary_strips`) bygges nå i loopen over `PRICE_INTELLIGENCE_PERIODS`
+  i stedet for én kombinert streng, alle med samme `data-period`-
+  attributt slik at én generisk JS-håndterer (`querySelectorAll('[data-
+  period]').forEach(...)`) fortsatt bytter dem samlet ved fanebytte,
+  uansett hvor i DOM-en de fysisk ligger.
+- **Ny "Kjøper du flere esker?"-tabell** (`_price_intelligence_quantity_table()`)
+  -- samme antalls-/pris-beregning som Winner Card sin egen
+  quantity-motor (`_savings_eligible_offers(offers, incl=False)`, uten
+  frakt, samme basis som resten av modulen), viser billigste butikk +
+  totalpris for 1/2/4/6/8/10 esker og sporer om billigste butikk faktisk
+  endrer seg ved høyere antall. Skjules helt ved <2 sammenlignbare
+  tilbud (samme "skjul heller enn å anslå"-regel som resten av modulen).
+- **"Prisvinner over tid" viser nå 0-dagers-rader også**: `_price_
+  intelligence_merchant_winners()` fikk et nytt `all_retailers`-
+  parameter som legger inn enhver forhandler som SELGER produktet i dag
+  men aldri har vunnet laveste pris, med "0 dager" -- var tidligere
+  helt fraværende fra listen, ga et ufullstendig bilde av konkurransen.
+- **Visuell stil**: kort byttet fra grå `.mist`-fylte bokser til hvite
+  kort med tynn kant (matcher resten av sidens `.offer-card`-språk),
+  metrikk-/statuskort byttet fra blå- til mint-tinting som standard
+  (mint = "nøytral/informativ" her, ikke en besparelse-påstand -- kun
+  opp/ned-avvik farges rødt/coral via `.price-intel-status-up`/`-high`),
+  periode-fanenes aktive tilstand byttet fra blå til mørk navy
+  (`var(--ink)`) for å matche knappespråket ellers på siden.
+
+**To reelle bugs funnet og fikset under egen testing, før noe ble sendt
+til Kai**:
+1. **Periode-fanenes rekkefølge var faktisk feil for ethvert produkt med
+   under 90 dagers historikk** (som er ALLE produkter i dag, se forrige
+   Price Intelligence-runde: maks 45 dagers historikk finnes ennå) --
+   den gamle koden bygde kun de KVALIFISERTE fanene først og la de
+   deaktiverte til etterpå, og siden "All historikk" alltid er
+   kvalifisert (ingen dagsterskel) havnet den som fane nr. 2
+   ("30 dager, All historikk, 90 dager, 6 måneder, 1 år") i stedet for
+   sist, i strid med briefens eksplisitte rekkefølgekrav
+   ("30 dager | 90 dager | 6 måneder | 1 år | All historikk"). Fikset
+   ved å iterere ÉN gang over hele `PRICE_INTELLIGENCE_PERIODS` i fast
+   rekkefølge og rendre en deaktivert knapp inline for hver ukvalifisert
+   periode, i stedet for å samle dem separat. Verifisert på en live
+   47-dagers-historikk-side at rekkefølgen nå er korrekt.
+2. **CSS-selector-mismatch**: skrev først `.price-intel-status-
+   historical_high`, men `_price_intelligence_status_text()` returnerer
+   faktisk modifikatorstrengen `"high"` (ikke `"historical_high"`) for
+   det tilfellet -- rettet til `.price-intel-status-high`.
+
+Testet: bygget + `validate_build.py` OK (201/201), full sveip ingen
+Traceback/NameError. Verifisert i browser på Dailies AquaComfort Plus
+90-pack (47 dagers historikk, 7 tilbud -- rik data): korrekt rekkefølge
+overalt (metrikker → faner i riktig rekkefølge → graf → tre
+intelligens-kort → "Kort oppsummert" nederst), desktop (1100px, målt
+via `getComputedStyle`/`getBoundingClientRect`, ikke bare skjermbilde
+pga. ustabil skjermbilde-rendering i browser-panelet denne økten):
+metrikk-stripe 4-kolonners + statuskort i én rad, intelligens-kortene i
+et ekte 3-kolonners grid (322px hver), "Kort oppsummert" korrekt
+posisjonert ETTER kortene med blå tint-bakgrunn. Spot-sjekket
+`unit_plural`-gjennomstrømning på ReNu Multi-Purpose 60 ml (linsevæske)
+-- "Kjøper du flere FLASKER?" (ikke "esker"), alle rader/tekster bruker
+riktig enhetsord gjennom hele modulen. Kantcase testet på Biofinity
+Multifocal Toric 3-pack (kun 1 tilbud): Prisforskjell- og Kjøper-du-
+flere-esker-kortene korrekt fraværende (krever ≥2 tilbud), Prisvinner-
+over-tid vises fortsatt korrekt (én butikk, 47/47 dager), "Kort
+oppsummert" utelater riktig spredningssetningen. Ingen regresjon på
+merke-/serie-sidenes egen, urørte `_render_price_history_chart()`/
+`render_family_price_insight()`.
