@@ -205,6 +205,14 @@ a { color: inherit; }
 .mega-brand-card-logo.has-logo-dark { background: var(--ink); border-radius: 6px; padding: 4px; }
 .mega-brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); }
 .mega-brand-card-name { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+/* "Alle merker A-Å" (2026-09-29) -- CSS-multikolonne (samme teknikk som
+   .footer-brand-list) i stedet for et grid, siden listen har et variabelt
+   antall lenker (25+ i dag, vokser når nye merker/private label-serier
+   legges til) og multikolonne fyller kolonnene i lesevennlig topp-til-bunn-
+   rekkefølge uten at vi må telle rader manuelt. break-inside:avoid hindrer
+   at én lenke visuelt kuttes over kolonnegrensen. */
+.mega-allbrands { columns: 2; column-gap: 14px; }
+.mega-allbrands-link { font-size: 0.83rem; padding: 5px 8px; margin: 0 -8px; break-inside: avoid; }
 .mega-promo-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 150px; border-radius: 14px; background-size: cover; background-position: center; padding: 16px; color: white !important; text-decoration: none; }
 .mega-promo-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
 .mega-promo-text { font-size: 0.78rem; opacity: 0.92; margin-top: 4px; }
@@ -747,56 +755,42 @@ a { color: inherit; }
           <div class="mega-rich-col">
             <div class="mega-panel-kicker">Merker</div>
             <div class="mega-panel-heading">Bla i alle kontaktlinsemerker</div>
-            <p class="mega-panel-text">Utforsk populære merker, eller søk etter produsent.</p>
-            <div class="mega-col-title" style="margin-top:18px;">Bla etter produsent</div>
-            <a class="mega-link-row" href="/produsent/coopervision/">
-          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
-          <span class="mega-link-row-text"><span class="mega-link-row-label">CooperVision</span><span class="mega-link-row-sub">Se merkene →</span></span>
-          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>
-        <a class="mega-link-row" href="/produsent/alcon/">
-          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
-          <span class="mega-link-row-text"><span class="mega-link-row-label">Alcon</span><span class="mega-link-row-sub">Se merkene →</span></span>
-          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>
-        <a class="mega-link-row" href="/produsent/bausch-lomb/">
-          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
-          <span class="mega-link-row-text"><span class="mega-link-row-label">Bausch + Lomb</span><span class="mega-link-row-sub">Se merkene →</span></span>
-          <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>
-        <a class="mega-link-row" href="/produsent/jnj-vision/">
-          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/></svg></span>
-          <span class="mega-link-row-text"><span class="mega-link-row-label">Johnson & Johnson Vision</span><span class="mega-link-row-sub">Se merkene →</span></span>
+            <p class="mega-panel-text">Ekte merker og optikerkjedenes egne serier, sortert alfabetisk.</p>
+            <div class="mega-col-title" style="margin-top:18px;">Nyttig å vite</div>
+            <a class="mega-link-row" href="/private-label/">
+          <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span class="mega-link-row-text"><span class="mega-link-row-label">Optikerkjedenes varemerker</span><span class="mega-link-row-sub">Samme linse, andre navn</span></span>
           <svg class="mega-link-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
         </a>
           </div>
           <div class="mega-rich-col">
-            <div class="mega-col-title">Populære merker</div>
-            <div class="mega-brand-grid">
-              <a class="mega-brand-card" href="/merke/biofinity/">
-          <span class="mega-brand-card-logo mega-brand-card-fallback">BI</span>
-          <span class="mega-brand-card-name">Biofinity</span>
-        </a>
-        <a class="mega-brand-card" href="/merke/acuvue/">
-          <span class="mega-brand-card-logo has-logo"><img class="brand-logo-img" src="/static/logos/acuvue.png" alt="" loading="lazy"></span>
-          <span class="mega-brand-card-name">Acuvue</span>
-        </a>
-        <a class="mega-brand-card" href="/merke/air-optix/">
-          <span class="mega-brand-card-logo mega-brand-card-fallback">AI</span>
-          <span class="mega-brand-card-name">Air Optix</span>
-        </a>
-        <a class="mega-brand-card" href="/merke/dailies/">
-          <span class="mega-brand-card-logo mega-brand-card-fallback">DA</span>
-          <span class="mega-brand-card-name">Dailies</span>
-        </a>
-        <a class="mega-brand-card" href="/merke/precision1/">
-          <span class="mega-brand-card-logo mega-brand-card-fallback">PR</span>
-          <span class="mega-brand-card-name">Precision1</span>
-        </a>
-        <a class="mega-brand-card" href="/merke/biotrue/">
-          <span class="mega-brand-card-logo mega-brand-card-fallback">BI</span>
-          <span class="mega-brand-card-name">Biotrue</span>
-        </a>
+            <div class="mega-col-title">Alle merker A–Å</div>
+            <div class="mega-allbrands">
+              <a class="mega-menu-link mega-allbrands-link" href="/merke/acuvue/">Acuvue</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/adore/">ADORE</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/air-optix/">Air Optix</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/ascend/">Ascend</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/avaira/">Avaira</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/biofinity/">Biofinity</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/biomedics/">Biomedics</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/biotrue/">Biotrue</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/clariti/">Clariti</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/clearlii/">Clearlii</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/dailies/">Dailies</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/easyvision/">Easyvision</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/eyeq/">EyeQ</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/freshlook/">FreshLook</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/iwear/">iWear</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/live/">Live</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/miru/">MIRU</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/myday/">MyDay</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/precision1/">Precision1</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/precision7/">Precision7</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/proclear/">Proclear</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/purevision/">PureVision</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/soflens/">SofLens</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/total30/">TOTAL30</a>
+        <a class="mega-menu-link mega-allbrands-link" href="/merke/ultra/">ULTRA</a>
             </div>
           </div>
         </div>
