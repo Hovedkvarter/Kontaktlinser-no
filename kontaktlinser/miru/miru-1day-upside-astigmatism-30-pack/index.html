@@ -498,7 +498,13 @@ a { color: inherit; }
   .price-intel-metrics-strip.active { grid-template-columns: repeat(4, 1fr) 1.3fr; }
   .price-intel-metric, .price-intel-status { min-height: 92px; }
   .price-intel-status { grid-column: auto; }
-  .price-intel-cards { grid-template-columns: repeat(3, 1fr); }
+  /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
+     2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
+     third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
+     _price_intelligence_quantity_table()), så raden kan reelt ha 2 eller
+     3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
+     ingen tom kolonne. */
+  .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 }
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
@@ -1356,15 +1362,15 @@ a { color: inherit; }
   </div>
   <div class="price-intel-metrics-strip active" data-period="30d">
     <div class="price-intel-metric price-intel-metric-now"><strong>484 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>Laveste registrerte pris<br>31. august 2026</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>Høyeste registrerte pris<br>31. august 2026</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>30-dagers median</span></div>
+    <div class="price-intel-metric"><strong>484 kr</strong><span>Laveste registrerte pris<br>Først registrert 31. august 2026</span></div>
+    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>484 kr</strong><span>Høyeste prisnivå<br>Først registrert 31. august 2026</span></div>
+    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>484 kr</strong><span>30-dagers median</span></div>
     <div class="price-intel-status price-intel-status-flat"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har vært 484 kr i 30 dager.</span></div>
   </div><div class="price-intel-metrics-strip" data-period="all">
     <div class="price-intel-metric price-intel-metric-now"><strong>484 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>Laveste registrerte pris<br>19. august 2026</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>Høyeste registrerte pris<br>19. august 2026</span></div>
-    <div class="price-intel-metric"><strong>484 kr</strong><span>42-dagers median</span></div>
+    <div class="price-intel-metric"><strong>484 kr</strong><span>Laveste registrerte pris<br>Først registrert 19. august 2026</span></div>
+    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>484 kr</strong><span>Høyeste prisnivå<br>Først registrert 19. august 2026</span></div>
+    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>484 kr</strong><span>42-dagers median</span></div>
     <div class="price-intel-status price-intel-status-flat"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har vært 484 kr i 42 dager.</span></div>
   </div>
   <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button></div>
@@ -1377,9 +1383,9 @@ a { color: inherit; }
         </linearGradient>
       </defs>
       <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
-      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">542 kr</text>
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">509 kr</text>
       <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
-      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">426 kr</text>
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">459 kr</text>
       <path d="M46.0,120.0 L46.0,66.0 L67.6,66.0 L89.2,66.0 L110.8,66.0 L132.3,66.0 L153.9,66.0 L175.5,66.0 L197.1,66.0 L218.7,66.0 L240.3,66.0 L261.9,66.0 L283.4,66.0 L305.0,66.0 L326.6,66.0 L348.2,66.0 L369.8,66.0 L391.4,66.0 L413.0,66.0 L434.6,66.0 L456.1,66.0 L477.7,66.0 L499.3,66.0 L520.9,66.0 L542.5,66.0 L564.1,66.0 L585.7,66.0 L607.2,66.0 L628.8,66.0 L650.4,66.0 L672.0,66.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
       <polyline points="46.0,66.0 67.6,66.0 89.2,66.0 110.8,66.0 132.3,66.0 153.9,66.0 175.5,66.0 197.1,66.0 218.7,66.0 240.3,66.0 261.9,66.0 283.4,66.0 305.0,66.0 326.6,66.0 348.2,66.0 369.8,66.0 391.4,66.0 413.0,66.0 434.6,66.0 456.1,66.0 477.7,66.0 499.3,66.0 520.9,66.0 542.5,66.0 564.1,66.0 585.7,66.0 607.2,66.0 628.8,66.0 650.4,66.0 672.0,66.0" class="price-history-line" />
       <circle cx="672.0" cy="66.0" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -1426,9 +1432,9 @@ a { color: inherit; }
         </linearGradient>
       </defs>
       <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
-      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">542 kr</text>
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">509 kr</text>
       <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
-      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">426 kr</text>
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">459 kr</text>
       <path d="M46.0,120.0 L46.0,66.0 L61.3,66.0 L76.5,66.0 L91.8,66.0 L107.1,66.0 L122.3,66.0 L137.6,66.0 L152.9,66.0 L168.1,66.0 L183.4,66.0 L198.7,66.0 L214.0,66.0 L229.2,66.0 L244.5,66.0 L259.8,66.0 L275.0,66.0 L290.3,66.0 L305.6,66.0 L320.8,66.0 L336.1,66.0 L351.4,66.0 L366.6,66.0 L381.9,66.0 L397.2,66.0 L412.4,66.0 L427.7,66.0 L443.0,66.0 L458.2,66.0 L473.5,66.0 L488.8,66.0 L504.0,66.0 L519.3,66.0 L534.6,66.0 L549.9,66.0 L565.1,66.0 L580.4,66.0 L595.7,66.0 L610.9,66.0 L626.2,66.0 L641.5,66.0 L656.7,66.0 L672.0,66.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
       <polyline points="46.0,66.0 61.3,66.0 76.5,66.0 91.8,66.0 107.1,66.0 122.3,66.0 137.6,66.0 152.9,66.0 168.1,66.0 183.4,66.0 198.7,66.0 214.0,66.0 229.2,66.0 244.5,66.0 259.8,66.0 275.0,66.0 290.3,66.0 305.6,66.0 320.8,66.0 336.1,66.0 351.4,66.0 366.6,66.0 381.9,66.0 397.2,66.0 412.4,66.0 427.7,66.0 443.0,66.0 458.2,66.0 473.5,66.0 488.8,66.0 504.0,66.0 519.3,66.0 534.6,66.0 549.9,66.0 565.1,66.0 580.4,66.0 595.7,66.0 610.9,66.0 626.2,66.0 641.5,66.0 656.7,66.0 672.0,66.0" class="price-history-line" />
       <circle cx="672.0" cy="66.0" r="3.2" class="price-history-dot price-history-dot-last" />

@@ -528,7 +528,13 @@ a { color: inherit; }
   .price-intel-metrics-strip.active { grid-template-columns: repeat(4, 1fr) 1.3fr; }
   .price-intel-metric, .price-intel-status { min-height: 92px; }
   .price-intel-status { grid-column: auto; }
-  .price-intel-cards { grid-template-columns: repeat(3, 1fr); }
+  /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
+     2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
+     third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
+     _price_intelligence_quantity_table()), så raden kan reelt ha 2 eller
+     3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
+     ingen tom kolonne. */
+  .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 }
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
@@ -1656,15 +1662,15 @@ a { color: inherit; }
   </div>
   <div class="price-intel-metrics-strip active" data-period="30d">
     <div class="price-intel-metric price-intel-metric-now"><strong>199 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>199 kr</strong><span>Laveste registrerte pris<br>14. september 2026</span></div>
-    <div class="price-intel-metric"><strong>222 kr</strong><span>Høyeste registrerte pris<br>31. august 2026</span></div>
-    <div class="price-intel-metric"><strong>222 kr</strong><span>30-dagers median</span></div>
+    <div class="price-intel-metric"><strong>199 kr</strong><span>Laveste registrerte pris<br>Først registrert 14. september 2026</span></div>
+    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>222 kr</strong><span>Høyeste prisnivå<br>Først registrert 31. august 2026</span></div>
+    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>222 kr</strong><span>30-dagers median</span></div>
     <div class="price-intel-status price-intel-status-low"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v12M6 16l-3-3M6 16l3-3M12 4v16M18 4v9M18 13l-3-3M18 13l3-3"/></svg></span><span><strong>Laveste registrerte pris</strong>Dagens pris er den laveste vi har registrert i denne perioden (30 dager).</span></div>
   </div><div class="price-intel-metrics-strip" data-period="all">
     <div class="price-intel-metric price-intel-metric-now"><strong>199 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>199 kr</strong><span>Laveste registrerte pris<br>14. august 2026</span></div>
-    <div class="price-intel-metric"><strong>222 kr</strong><span>Høyeste registrerte pris<br>16. august 2026</span></div>
-    <div class="price-intel-metric"><strong>222 kr</strong><span>47-dagers median</span></div>
+    <div class="price-intel-metric"><strong>199 kr</strong><span>Laveste registrerte pris<br>Først registrert 14. august 2026</span></div>
+    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>222 kr</strong><span>Høyeste prisnivå<br>Først registrert 16. august 2026</span></div>
+    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>222 kr</strong><span>47-dagers median</span></div>
     <div class="price-intel-status price-intel-status-low"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4v12M6 16l-3-3M6 16l3-3M12 4v16M18 4v9M18 13l-3-3M18 13l3-3"/></svg></span><span><strong>Laveste registrerte pris</strong>Dagens pris er den laveste vi har registrert i denne perioden (All historikk).</span></div>
   </div>
   <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button></div>
@@ -1677,43 +1683,43 @@ a { color: inherit; }
         </linearGradient>
       </defs>
       <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
-      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">224 kr</text>
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">225 kr</text>
       <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
-      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">197 kr</text>
-      <path d="M46.0,120.0 L46.0,21.0 L67.6,21.0 L89.2,21.0 L110.8,21.0 L132.3,21.0 L153.9,21.0 L175.5,21.0 L197.1,21.0 L218.7,21.0 L240.3,21.0 L261.9,21.0 L283.4,21.0 L305.0,21.0 L326.6,21.0 L348.2,111.0 L369.8,111.0 L391.4,111.0 L413.0,111.0 L434.6,111.0 L456.1,111.0 L477.7,111.0 L499.3,21.0 L520.9,21.0 L542.5,21.0 L564.1,21.0 L585.7,21.0 L607.2,21.0 L628.8,111.0 L650.4,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,21.0 67.6,21.0 89.2,21.0 110.8,21.0 132.3,21.0 153.9,21.0 175.5,21.0 197.1,21.0 218.7,21.0 240.3,21.0 261.9,21.0 283.4,21.0 305.0,21.0 326.6,21.0 348.2,111.0 369.8,111.0 391.4,111.0 413.0,111.0 434.6,111.0 456.1,111.0 477.7,111.0 499.3,21.0 520.9,21.0 542.5,21.0 564.1,21.0 585.7,21.0 607.2,21.0 628.8,111.0 650.4,111.0 672.0,111.0" class="price-history-line" />
-      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="21.0" r="9" class="price-intel-hit"><title>31. august: 222 kr hos Lensit</title></circle>
-      <circle cx="67.6" cy="21.0" r="9" class="price-intel-hit"><title>1. september: 222 kr hos Lensit</title></circle>
-      <circle cx="89.2" cy="21.0" r="9" class="price-intel-hit"><title>2. september: 222 kr hos Lensit</title></circle>
-      <circle cx="110.8" cy="21.0" r="9" class="price-intel-hit"><title>3. september: 222 kr hos Lensit</title></circle>
-      <circle cx="132.3" cy="21.0" r="9" class="price-intel-hit"><title>4. september: 222 kr hos Lensit</title></circle>
-      <circle cx="153.9" cy="21.0" r="9" class="price-intel-hit"><title>5. september: 222 kr hos Lensit</title></circle>
-      <circle cx="175.5" cy="21.0" r="9" class="price-intel-hit"><title>6. september: 222 kr hos Lensit</title></circle>
-      <circle cx="197.1" cy="21.0" r="9" class="price-intel-hit"><title>7. september: 222 kr hos Lensit</title></circle>
-      <circle cx="218.7" cy="21.0" r="9" class="price-intel-hit"><title>8. september: 222 kr hos Lensit</title></circle>
-      <circle cx="240.3" cy="21.0" r="9" class="price-intel-hit"><title>9. september: 222 kr hos Lensit</title></circle>
-      <circle cx="261.9" cy="21.0" r="9" class="price-intel-hit"><title>10. september: 222 kr hos Lensit</title></circle>
-      <circle cx="283.4" cy="21.0" r="9" class="price-intel-hit"><title>11. september: 222 kr hos Lensit</title></circle>
-      <circle cx="305.0" cy="21.0" r="9" class="price-intel-hit"><title>12. september: 222 kr hos Lensit</title></circle>
-      <circle cx="326.6" cy="21.0" r="9" class="price-intel-hit"><title>13. september: 222 kr hos Lensit</title></circle>
-      <circle cx="348.2" cy="111.0" r="9" class="price-intel-hit"><title>14. september: 199 kr hos Lenson</title></circle>
-      <circle cx="369.8" cy="111.0" r="9" class="price-intel-hit"><title>15. september: 199 kr hos Lenson</title></circle>
-      <circle cx="391.4" cy="111.0" r="9" class="price-intel-hit"><title>16. september: 199 kr hos Lenson</title></circle>
-      <circle cx="413.0" cy="111.0" r="9" class="price-intel-hit"><title>17. september: 199 kr hos Lenson</title></circle>
-      <circle cx="434.6" cy="111.0" r="9" class="price-intel-hit"><title>18. september: 199 kr hos Lenson</title></circle>
-      <circle cx="456.1" cy="111.0" r="9" class="price-intel-hit"><title>19. september: 199 kr hos Lenson</title></circle>
-      <circle cx="477.7" cy="111.0" r="9" class="price-intel-hit"><title>20. september: 199 kr hos Lenson</title></circle>
-      <circle cx="499.3" cy="21.0" r="9" class="price-intel-hit"><title>21. september: 222 kr hos Lensway</title></circle>
-      <circle cx="520.9" cy="21.0" r="9" class="price-intel-hit"><title>22. september: 222 kr hos Lensway</title></circle>
-      <circle cx="542.5" cy="21.0" r="9" class="price-intel-hit"><title>23. september: 222 kr hos Lensway</title></circle>
-      <circle cx="564.1" cy="21.0" r="9" class="price-intel-hit"><title>24. september: 222 kr hos Lensway</title></circle>
-      <circle cx="585.7" cy="21.0" r="9" class="price-intel-hit"><title>25. september: 222 kr hos Lensway</title></circle>
-      <circle cx="607.2" cy="21.0" r="9" class="price-intel-hit"><title>26. september: 222 kr hos Lensway</title></circle>
-      <circle cx="628.8" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 199 kr hos Lenson</title></circle>
-      <circle cx="650.4" cy="111.0" r="9" class="price-intel-hit"><title>28. september: 199 kr hos Lenson</title></circle>
-      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>29. september: 199 kr hos Lenson</title></circle>
-      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">199 kr</text>
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">196 kr</text>
+      <path d="M46.0,120.0 L46.0,23.2 L67.6,23.2 L89.2,23.2 L110.8,23.2 L132.3,23.2 L153.9,23.2 L175.5,23.2 L197.1,23.2 L218.7,23.2 L240.3,23.2 L261.9,23.2 L283.4,23.2 L305.0,23.2 L326.6,23.2 L348.2,108.8 L369.8,108.8 L391.4,108.8 L413.0,108.8 L434.6,108.8 L456.1,108.8 L477.7,108.8 L499.3,23.2 L520.9,23.2 L542.5,23.2 L564.1,23.2 L585.7,23.2 L607.2,23.2 L628.8,108.8 L650.4,108.8 L672.0,108.8 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,23.2 67.6,23.2 89.2,23.2 110.8,23.2 132.3,23.2 153.9,23.2 175.5,23.2 197.1,23.2 218.7,23.2 240.3,23.2 261.9,23.2 283.4,23.2 305.0,23.2 326.6,23.2 348.2,108.8 369.8,108.8 391.4,108.8 413.0,108.8 434.6,108.8 456.1,108.8 477.7,108.8 499.3,23.2 520.9,23.2 542.5,23.2 564.1,23.2 585.7,23.2 607.2,23.2 628.8,108.8 650.4,108.8 672.0,108.8" class="price-history-line" />
+      <circle cx="672.0" cy="108.8" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="23.2" r="9" class="price-intel-hit"><title>31. august: 222 kr hos Lensit</title></circle>
+      <circle cx="67.6" cy="23.2" r="9" class="price-intel-hit"><title>1. september: 222 kr hos Lensit</title></circle>
+      <circle cx="89.2" cy="23.2" r="9" class="price-intel-hit"><title>2. september: 222 kr hos Lensit</title></circle>
+      <circle cx="110.8" cy="23.2" r="9" class="price-intel-hit"><title>3. september: 222 kr hos Lensit</title></circle>
+      <circle cx="132.3" cy="23.2" r="9" class="price-intel-hit"><title>4. september: 222 kr hos Lensit</title></circle>
+      <circle cx="153.9" cy="23.2" r="9" class="price-intel-hit"><title>5. september: 222 kr hos Lensit</title></circle>
+      <circle cx="175.5" cy="23.2" r="9" class="price-intel-hit"><title>6. september: 222 kr hos Lensit</title></circle>
+      <circle cx="197.1" cy="23.2" r="9" class="price-intel-hit"><title>7. september: 222 kr hos Lensit</title></circle>
+      <circle cx="218.7" cy="23.2" r="9" class="price-intel-hit"><title>8. september: 222 kr hos Lensit</title></circle>
+      <circle cx="240.3" cy="23.2" r="9" class="price-intel-hit"><title>9. september: 222 kr hos Lensit</title></circle>
+      <circle cx="261.9" cy="23.2" r="9" class="price-intel-hit"><title>10. september: 222 kr hos Lensit</title></circle>
+      <circle cx="283.4" cy="23.2" r="9" class="price-intel-hit"><title>11. september: 222 kr hos Lensit</title></circle>
+      <circle cx="305.0" cy="23.2" r="9" class="price-intel-hit"><title>12. september: 222 kr hos Lensit</title></circle>
+      <circle cx="326.6" cy="23.2" r="9" class="price-intel-hit"><title>13. september: 222 kr hos Lensit</title></circle>
+      <circle cx="348.2" cy="108.8" r="9" class="price-intel-hit"><title>14. september: 199 kr hos Lenson</title></circle>
+      <circle cx="369.8" cy="108.8" r="9" class="price-intel-hit"><title>15. september: 199 kr hos Lenson</title></circle>
+      <circle cx="391.4" cy="108.8" r="9" class="price-intel-hit"><title>16. september: 199 kr hos Lenson</title></circle>
+      <circle cx="413.0" cy="108.8" r="9" class="price-intel-hit"><title>17. september: 199 kr hos Lenson</title></circle>
+      <circle cx="434.6" cy="108.8" r="9" class="price-intel-hit"><title>18. september: 199 kr hos Lenson</title></circle>
+      <circle cx="456.1" cy="108.8" r="9" class="price-intel-hit"><title>19. september: 199 kr hos Lenson</title></circle>
+      <circle cx="477.7" cy="108.8" r="9" class="price-intel-hit"><title>20. september: 199 kr hos Lenson</title></circle>
+      <circle cx="499.3" cy="23.2" r="9" class="price-intel-hit"><title>21. september: 222 kr hos Lensway</title></circle>
+      <circle cx="520.9" cy="23.2" r="9" class="price-intel-hit"><title>22. september: 222 kr hos Lensway</title></circle>
+      <circle cx="542.5" cy="23.2" r="9" class="price-intel-hit"><title>23. september: 222 kr hos Lensway</title></circle>
+      <circle cx="564.1" cy="23.2" r="9" class="price-intel-hit"><title>24. september: 222 kr hos Lensway</title></circle>
+      <circle cx="585.7" cy="23.2" r="9" class="price-intel-hit"><title>25. september: 222 kr hos Lensway</title></circle>
+      <circle cx="607.2" cy="23.2" r="9" class="price-intel-hit"><title>26. september: 222 kr hos Lensway</title></circle>
+      <circle cx="628.8" cy="108.8" r="9" class="price-intel-hit"><title>27. september: 199 kr hos Lenson</title></circle>
+      <circle cx="650.4" cy="108.8" r="9" class="price-intel-hit"><title>28. september: 199 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="108.8" r="9" class="price-intel-hit"><title>29. september: 199 kr hos Lenson</title></circle>
+      <text x="672.0" y="100.8" text-anchor="end" class="price-history-current-label">199 kr</text>
       <text x="46" y="135" class="price-history-axis-label">31.08</text>
       <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
     </svg></div>
@@ -1726,82 +1732,75 @@ a { color: inherit; }
         </linearGradient>
       </defs>
       <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
-      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">224 kr</text>
+      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">225 kr</text>
       <line x1="46" y1="120.0" x2="672" y2="120.0" class="price-history-gridline" />
-      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">197 kr</text>
-      <path d="M46.0,120.0 L46.0,111.0 L59.6,111.0 L73.2,21.0 L86.8,21.0 L100.4,21.0 L114.0,21.0 L127.7,21.0 L141.3,111.0 L154.9,111.0 L168.5,111.0 L182.1,21.0 L195.7,21.0 L209.3,21.0 L222.9,21.0 L236.5,21.0 L250.1,21.0 L263.7,21.0 L277.3,21.0 L291.0,21.0 L304.6,21.0 L318.2,21.0 L331.8,21.0 L345.4,21.0 L359.0,21.0 L372.6,21.0 L386.2,21.0 L399.8,21.0 L413.4,21.0 L427.0,21.0 L440.7,21.0 L454.3,21.0 L467.9,111.0 L481.5,111.0 L495.1,111.0 L508.7,111.0 L522.3,111.0 L535.9,111.0 L549.5,111.0 L563.1,21.0 L576.7,21.0 L590.3,21.0 L604.0,21.0 L617.6,21.0 L631.2,21.0 L644.8,111.0 L658.4,111.0 L672.0,111.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,111.0 59.6,111.0 73.2,21.0 86.8,21.0 100.4,21.0 114.0,21.0 127.7,21.0 141.3,111.0 154.9,111.0 168.5,111.0 182.1,21.0 195.7,21.0 209.3,21.0 222.9,21.0 236.5,21.0 250.1,21.0 263.7,21.0 277.3,21.0 291.0,21.0 304.6,21.0 318.2,21.0 331.8,21.0 345.4,21.0 359.0,21.0 372.6,21.0 386.2,21.0 399.8,21.0 413.4,21.0 427.0,21.0 440.7,21.0 454.3,21.0 467.9,111.0 481.5,111.0 495.1,111.0 508.7,111.0 522.3,111.0 535.9,111.0 549.5,111.0 563.1,21.0 576.7,21.0 590.3,21.0 604.0,21.0 617.6,21.0 631.2,21.0 644.8,111.0 658.4,111.0 672.0,111.0" class="price-history-line" />
-      <circle cx="672.0" cy="111.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="111.0" r="9" class="price-intel-hit"><title>14. august: 199 kr hos Lenson</title></circle>
-      <circle cx="59.6" cy="111.0" r="9" class="price-intel-hit"><title>15. august: 199 kr hos Lenson</title></circle>
-      <circle cx="73.2" cy="21.0" r="9" class="price-intel-hit"><title>16. august: 222 kr hos Lensit</title></circle>
-      <circle cx="86.8" cy="21.0" r="9" class="price-intel-hit"><title>17. august: 222 kr hos Lensit</title></circle>
-      <circle cx="100.4" cy="21.0" r="9" class="price-intel-hit"><title>18. august: 222 kr hos Lensit</title></circle>
-      <circle cx="114.0" cy="21.0" r="9" class="price-intel-hit"><title>19. august: 222 kr hos Lensit</title></circle>
-      <circle cx="127.7" cy="21.0" r="9" class="price-intel-hit"><title>20. august: 222 kr hos Lensit</title></circle>
-      <circle cx="141.3" cy="111.0" r="9" class="price-intel-hit"><title>21. august: 199 kr hos Lenson</title></circle>
-      <circle cx="154.9" cy="111.0" r="9" class="price-intel-hit"><title>22. august: 199 kr hos Lenson</title></circle>
-      <circle cx="168.5" cy="111.0" r="9" class="price-intel-hit"><title>23. august: 199 kr hos Lenson</title></circle>
-      <circle cx="182.1" cy="21.0" r="9" class="price-intel-hit"><title>24. august: 222 kr hos Lensit</title></circle>
-      <circle cx="195.7" cy="21.0" r="9" class="price-intel-hit"><title>25. august: 222 kr hos Lensit</title></circle>
-      <circle cx="209.3" cy="21.0" r="9" class="price-intel-hit"><title>26. august: 222 kr hos Lensit</title></circle>
-      <circle cx="222.9" cy="21.0" r="9" class="price-intel-hit"><title>27. august: 222 kr hos Lensit</title></circle>
-      <circle cx="236.5" cy="21.0" r="9" class="price-intel-hit"><title>28. august: 222 kr hos Lensit</title></circle>
-      <circle cx="250.1" cy="21.0" r="9" class="price-intel-hit"><title>29. august: 222 kr hos Lensit</title></circle>
-      <circle cx="263.7" cy="21.0" r="9" class="price-intel-hit"><title>30. august: 222 kr hos Lensit</title></circle>
-      <circle cx="277.3" cy="21.0" r="9" class="price-intel-hit"><title>31. august: 222 kr hos Lensit</title></circle>
-      <circle cx="291.0" cy="21.0" r="9" class="price-intel-hit"><title>1. september: 222 kr hos Lensit</title></circle>
-      <circle cx="304.6" cy="21.0" r="9" class="price-intel-hit"><title>2. september: 222 kr hos Lensit</title></circle>
-      <circle cx="318.2" cy="21.0" r="9" class="price-intel-hit"><title>3. september: 222 kr hos Lensit</title></circle>
-      <circle cx="331.8" cy="21.0" r="9" class="price-intel-hit"><title>4. september: 222 kr hos Lensit</title></circle>
-      <circle cx="345.4" cy="21.0" r="9" class="price-intel-hit"><title>5. september: 222 kr hos Lensit</title></circle>
-      <circle cx="359.0" cy="21.0" r="9" class="price-intel-hit"><title>6. september: 222 kr hos Lensit</title></circle>
-      <circle cx="372.6" cy="21.0" r="9" class="price-intel-hit"><title>7. september: 222 kr hos Lensit</title></circle>
-      <circle cx="386.2" cy="21.0" r="9" class="price-intel-hit"><title>8. september: 222 kr hos Lensit</title></circle>
-      <circle cx="399.8" cy="21.0" r="9" class="price-intel-hit"><title>9. september: 222 kr hos Lensit</title></circle>
-      <circle cx="413.4" cy="21.0" r="9" class="price-intel-hit"><title>10. september: 222 kr hos Lensit</title></circle>
-      <circle cx="427.0" cy="21.0" r="9" class="price-intel-hit"><title>11. september: 222 kr hos Lensit</title></circle>
-      <circle cx="440.7" cy="21.0" r="9" class="price-intel-hit"><title>12. september: 222 kr hos Lensit</title></circle>
-      <circle cx="454.3" cy="21.0" r="9" class="price-intel-hit"><title>13. september: 222 kr hos Lensit</title></circle>
-      <circle cx="467.9" cy="111.0" r="9" class="price-intel-hit"><title>14. september: 199 kr hos Lenson</title></circle>
-      <circle cx="481.5" cy="111.0" r="9" class="price-intel-hit"><title>15. september: 199 kr hos Lenson</title></circle>
-      <circle cx="495.1" cy="111.0" r="9" class="price-intel-hit"><title>16. september: 199 kr hos Lenson</title></circle>
-      <circle cx="508.7" cy="111.0" r="9" class="price-intel-hit"><title>17. september: 199 kr hos Lenson</title></circle>
-      <circle cx="522.3" cy="111.0" r="9" class="price-intel-hit"><title>18. september: 199 kr hos Lenson</title></circle>
-      <circle cx="535.9" cy="111.0" r="9" class="price-intel-hit"><title>19. september: 199 kr hos Lenson</title></circle>
-      <circle cx="549.5" cy="111.0" r="9" class="price-intel-hit"><title>20. september: 199 kr hos Lenson</title></circle>
-      <circle cx="563.1" cy="21.0" r="9" class="price-intel-hit"><title>21. september: 222 kr hos Lensway</title></circle>
-      <circle cx="576.7" cy="21.0" r="9" class="price-intel-hit"><title>22. september: 222 kr hos Lensway</title></circle>
-      <circle cx="590.3" cy="21.0" r="9" class="price-intel-hit"><title>23. september: 222 kr hos Lensway</title></circle>
-      <circle cx="604.0" cy="21.0" r="9" class="price-intel-hit"><title>24. september: 222 kr hos Lensway</title></circle>
-      <circle cx="617.6" cy="21.0" r="9" class="price-intel-hit"><title>25. september: 222 kr hos Lensway</title></circle>
-      <circle cx="631.2" cy="21.0" r="9" class="price-intel-hit"><title>26. september: 222 kr hos Lensway</title></circle>
-      <circle cx="644.8" cy="111.0" r="9" class="price-intel-hit"><title>27. september: 199 kr hos Lenson</title></circle>
-      <circle cx="658.4" cy="111.0" r="9" class="price-intel-hit"><title>28. september: 199 kr hos Lenson</title></circle>
-      <circle cx="672.0" cy="111.0" r="9" class="price-intel-hit"><title>29. september: 199 kr hos Lenson</title></circle>
-      <text x="672.0" y="103.0" text-anchor="end" class="price-history-current-label">199 kr</text>
+      <text x="40" y="123.0" text-anchor="end" class="price-history-axis-label">196 kr</text>
+      <path d="M46.0,120.0 L46.0,108.8 L59.6,108.8 L73.2,23.2 L86.8,23.2 L100.4,23.2 L114.0,23.2 L127.7,23.2 L141.3,108.8 L154.9,108.8 L168.5,108.8 L182.1,23.2 L195.7,23.2 L209.3,23.2 L222.9,23.2 L236.5,23.2 L250.1,23.2 L263.7,23.2 L277.3,23.2 L291.0,23.2 L304.6,23.2 L318.2,23.2 L331.8,23.2 L345.4,23.2 L359.0,23.2 L372.6,23.2 L386.2,23.2 L399.8,23.2 L413.4,23.2 L427.0,23.2 L440.7,23.2 L454.3,23.2 L467.9,108.8 L481.5,108.8 L495.1,108.8 L508.7,108.8 L522.3,108.8 L535.9,108.8 L549.5,108.8 L563.1,23.2 L576.7,23.2 L590.3,23.2 L604.0,23.2 L617.6,23.2 L631.2,23.2 L644.8,108.8 L658.4,108.8 L672.0,108.8 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,108.8 59.6,108.8 73.2,23.2 86.8,23.2 100.4,23.2 114.0,23.2 127.7,23.2 141.3,108.8 154.9,108.8 168.5,108.8 182.1,23.2 195.7,23.2 209.3,23.2 222.9,23.2 236.5,23.2 250.1,23.2 263.7,23.2 277.3,23.2 291.0,23.2 304.6,23.2 318.2,23.2 331.8,23.2 345.4,23.2 359.0,23.2 372.6,23.2 386.2,23.2 399.8,23.2 413.4,23.2 427.0,23.2 440.7,23.2 454.3,23.2 467.9,108.8 481.5,108.8 495.1,108.8 508.7,108.8 522.3,108.8 535.9,108.8 549.5,108.8 563.1,23.2 576.7,23.2 590.3,23.2 604.0,23.2 617.6,23.2 631.2,23.2 644.8,108.8 658.4,108.8 672.0,108.8" class="price-history-line" />
+      <circle cx="672.0" cy="108.8" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="108.8" r="9" class="price-intel-hit"><title>14. august: 199 kr hos Lenson</title></circle>
+      <circle cx="59.6" cy="108.8" r="9" class="price-intel-hit"><title>15. august: 199 kr hos Lenson</title></circle>
+      <circle cx="73.2" cy="23.2" r="9" class="price-intel-hit"><title>16. august: 222 kr hos Lensit</title></circle>
+      <circle cx="86.8" cy="23.2" r="9" class="price-intel-hit"><title>17. august: 222 kr hos Lensit</title></circle>
+      <circle cx="100.4" cy="23.2" r="9" class="price-intel-hit"><title>18. august: 222 kr hos Lensit</title></circle>
+      <circle cx="114.0" cy="23.2" r="9" class="price-intel-hit"><title>19. august: 222 kr hos Lensit</title></circle>
+      <circle cx="127.7" cy="23.2" r="9" class="price-intel-hit"><title>20. august: 222 kr hos Lensit</title></circle>
+      <circle cx="141.3" cy="108.8" r="9" class="price-intel-hit"><title>21. august: 199 kr hos Lenson</title></circle>
+      <circle cx="154.9" cy="108.8" r="9" class="price-intel-hit"><title>22. august: 199 kr hos Lenson</title></circle>
+      <circle cx="168.5" cy="108.8" r="9" class="price-intel-hit"><title>23. august: 199 kr hos Lenson</title></circle>
+      <circle cx="182.1" cy="23.2" r="9" class="price-intel-hit"><title>24. august: 222 kr hos Lensit</title></circle>
+      <circle cx="195.7" cy="23.2" r="9" class="price-intel-hit"><title>25. august: 222 kr hos Lensit</title></circle>
+      <circle cx="209.3" cy="23.2" r="9" class="price-intel-hit"><title>26. august: 222 kr hos Lensit</title></circle>
+      <circle cx="222.9" cy="23.2" r="9" class="price-intel-hit"><title>27. august: 222 kr hos Lensit</title></circle>
+      <circle cx="236.5" cy="23.2" r="9" class="price-intel-hit"><title>28. august: 222 kr hos Lensit</title></circle>
+      <circle cx="250.1" cy="23.2" r="9" class="price-intel-hit"><title>29. august: 222 kr hos Lensit</title></circle>
+      <circle cx="263.7" cy="23.2" r="9" class="price-intel-hit"><title>30. august: 222 kr hos Lensit</title></circle>
+      <circle cx="277.3" cy="23.2" r="9" class="price-intel-hit"><title>31. august: 222 kr hos Lensit</title></circle>
+      <circle cx="291.0" cy="23.2" r="9" class="price-intel-hit"><title>1. september: 222 kr hos Lensit</title></circle>
+      <circle cx="304.6" cy="23.2" r="9" class="price-intel-hit"><title>2. september: 222 kr hos Lensit</title></circle>
+      <circle cx="318.2" cy="23.2" r="9" class="price-intel-hit"><title>3. september: 222 kr hos Lensit</title></circle>
+      <circle cx="331.8" cy="23.2" r="9" class="price-intel-hit"><title>4. september: 222 kr hos Lensit</title></circle>
+      <circle cx="345.4" cy="23.2" r="9" class="price-intel-hit"><title>5. september: 222 kr hos Lensit</title></circle>
+      <circle cx="359.0" cy="23.2" r="9" class="price-intel-hit"><title>6. september: 222 kr hos Lensit</title></circle>
+      <circle cx="372.6" cy="23.2" r="9" class="price-intel-hit"><title>7. september: 222 kr hos Lensit</title></circle>
+      <circle cx="386.2" cy="23.2" r="9" class="price-intel-hit"><title>8. september: 222 kr hos Lensit</title></circle>
+      <circle cx="399.8" cy="23.2" r="9" class="price-intel-hit"><title>9. september: 222 kr hos Lensit</title></circle>
+      <circle cx="413.4" cy="23.2" r="9" class="price-intel-hit"><title>10. september: 222 kr hos Lensit</title></circle>
+      <circle cx="427.0" cy="23.2" r="9" class="price-intel-hit"><title>11. september: 222 kr hos Lensit</title></circle>
+      <circle cx="440.7" cy="23.2" r="9" class="price-intel-hit"><title>12. september: 222 kr hos Lensit</title></circle>
+      <circle cx="454.3" cy="23.2" r="9" class="price-intel-hit"><title>13. september: 222 kr hos Lensit</title></circle>
+      <circle cx="467.9" cy="108.8" r="9" class="price-intel-hit"><title>14. september: 199 kr hos Lenson</title></circle>
+      <circle cx="481.5" cy="108.8" r="9" class="price-intel-hit"><title>15. september: 199 kr hos Lenson</title></circle>
+      <circle cx="495.1" cy="108.8" r="9" class="price-intel-hit"><title>16. september: 199 kr hos Lenson</title></circle>
+      <circle cx="508.7" cy="108.8" r="9" class="price-intel-hit"><title>17. september: 199 kr hos Lenson</title></circle>
+      <circle cx="522.3" cy="108.8" r="9" class="price-intel-hit"><title>18. september: 199 kr hos Lenson</title></circle>
+      <circle cx="535.9" cy="108.8" r="9" class="price-intel-hit"><title>19. september: 199 kr hos Lenson</title></circle>
+      <circle cx="549.5" cy="108.8" r="9" class="price-intel-hit"><title>20. september: 199 kr hos Lenson</title></circle>
+      <circle cx="563.1" cy="23.2" r="9" class="price-intel-hit"><title>21. september: 222 kr hos Lensway</title></circle>
+      <circle cx="576.7" cy="23.2" r="9" class="price-intel-hit"><title>22. september: 222 kr hos Lensway</title></circle>
+      <circle cx="590.3" cy="23.2" r="9" class="price-intel-hit"><title>23. september: 222 kr hos Lensway</title></circle>
+      <circle cx="604.0" cy="23.2" r="9" class="price-intel-hit"><title>24. september: 222 kr hos Lensway</title></circle>
+      <circle cx="617.6" cy="23.2" r="9" class="price-intel-hit"><title>25. september: 222 kr hos Lensway</title></circle>
+      <circle cx="631.2" cy="23.2" r="9" class="price-intel-hit"><title>26. september: 222 kr hos Lensway</title></circle>
+      <circle cx="644.8" cy="108.8" r="9" class="price-intel-hit"><title>27. september: 199 kr hos Lenson</title></circle>
+      <circle cx="658.4" cy="108.8" r="9" class="price-intel-hit"><title>28. september: 199 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="108.8" r="9" class="price-intel-hit"><title>29. september: 199 kr hos Lenson</title></circle>
+      <text x="672.0" y="100.8" text-anchor="end" class="price-history-current-label">199 kr</text>
       <text x="46" y="135" class="price-history-axis-label">14.08</text>
       <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
     </svg></div>
   </div>
   <div class="price-intel-cards"><div class="price-intel-card">
     <h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
-    <div class="price-intel-card-row"><span>Laveste pris</span><strong>199 kr</strong></div>
+    <div class="price-intel-card-row"><span>Laveste butikkpris</span><strong>199 kr</strong></div>
     <div class="price-intel-card-row"><span>Medianpris</span><strong>302 kr</strong></div>
-    <div class="price-intel-card-row"><span>Høyeste pris</span><strong>329 kr</strong></div>
+    <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>329 kr</strong></div>
     <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>39 %</strong></div>
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 eske.</p>
   </div><div class="price-intel-card">
     <h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinner over tid</h3>
     <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensit</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">26 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:58%"></span></span><span class="price-intel-winner-days">15 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensway</span><span class="price-intel-winner-bar"><span style="width:23%"></span></span><span class="price-intel-winner-days">6 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Coptikk</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Extra Optical</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div></div>
     <p class="price-intel-card-note">Lensit har hatt lavest registrert produktpris i 26 av de siste 47 dagene. Prisvinneren har endret seg 6 ganger de siste 47 dagene.</p>
-  </div><div class="price-intel-card">
-    <h3 class="price-intel-card-h-qty"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 8l9-4 9 4-9 4-9-4z" fill="currentColor" opacity="0.5"/><path d="M3 8v8l9 4v-8L3 8z" fill="currentColor" opacity="0.8"/><path d="M21 8v8l-9 4v-8l9-4z" fill="currentColor"/></svg>Kjøper du flere esker?</h3>
-    <table class="price-intel-qty-table">
-      <thead><tr><th>Antall</th><th>Laveste pris</th><th>Butikk</th></tr></thead>
-      <tbody><tr><td>1 eske</td><td>199 kr</td><td>Lenson</td></tr><tr><td>2 esker</td><td>398 kr</td><td>Lenson</td></tr><tr><td>4 esker</td><td>796 kr</td><td>Lenson</td></tr><tr><td>6 esker</td><td>1 194 kr</td><td>Lenson</td></tr><tr><td>8 esker</td><td>1 592 kr</td><td>Lenson</td></tr><tr><td>10 esker</td><td>1 990 kr</td><td>Lenson</td></tr></tbody>
-    </table>
-    <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk kan endre seg ved flere esker.</p>
   </div></div>
   <div class="price-intel-summary active" data-period="30d">
     <span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span>
