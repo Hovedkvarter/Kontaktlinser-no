@@ -6214,7 +6214,7 @@ LENS_SEARCH_JS = """
         suggestions.innerHTML = matches.map(function (item) {
           var thumb = item.image
             ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
-            : '<div class="product-thumb">' + esc(item.meta.slice(0, 2).toUpperCase()) + '</div>';
+            : '<div class="product-thumb">' + esc((item.badge || item.meta).slice(0, 2).toUpperCase()) + '</div>';
           return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
             '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
             '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
@@ -6311,6 +6311,22 @@ def build_search_index(products: list[dict], private_labels: list[dict] | None =
             "href": f'/private-label/{label["slug"]}/',
             "image": None,
             "search": f'{label["name"]} {label["chain"]}'.lower(),
+            # "badge" (2026-09-29, Kai: "ser vi ikke har slikt lite ikon på
+            # de nye.." -> "det gjelder alle Eget merkenavn") -- uten dette
+            # falt JS-en (se LENS_SEARCH_JS) tilbake til å ta de 2 første
+            # bokstavene av "meta" for søkeforslagets fallback-ikon når
+            # "image" er null (alltid null her, med vilje -- vi viser aldri
+            # det ekte produktets bilde under et privat merkenavn). Siden
+            # "meta" er den SAMME generiske teksten ("Eget merkenavn") for
+            # alle 84 private label-produkter, ga det samme meningsløse
+            # "EG"-ikon på tvers av ALLE av dem -- ikke en TrueLens-spesifikk
+            # feil, men en eksisterende feil i alle fire opprinnelige kjeder
+            # også, først synlig nå som det femte settet gjorde mønsteret
+            # tydelig. "badge" gir i stedet et produktrelevant fallback-ikon
+            # fra selve merkenavnet (f.eks. "TrueLens Premium Daily" -> "TR",
+            # "iWear Oxygen XR" -> "IW"), samme prinsipp som ekte produkter
+            # allerede får via sin egen brand_label.
+            "badge": label["name"][:2].upper(),
         }
         for label in (private_labels or [])
     ]

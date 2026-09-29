@@ -4534,3 +4534,50 @@ Regresjon: iWear sin eksisterende, urørte CSS-illustrasjon sjekket på nytt
 og fortsatt 100 % uendret (kun den NYE `Mister Spex`-grenen i
 `render_private_label_illustration()` ble lagt til, ingen eksisterende
 kode i de fire andre `_pli_*`-funksjonene rørt).
+
+## To små funn under gjennomgang av Easyvision-koblingene + en ekte, site-wide søkefeil (2026-09-29, samme dag)
+
+Kai ba meg gå gjennom resten av de 20 Easyvision-koblingene for flere
+duplikater, etter at han selv la merke til at Umere og Sential begge
+pekte til Clariti 1 day. Gruppert alle 20 programmatisk etter
+`real_product_id`: **Umere+Sential er det ENESTE duplikatet** -- de
+resterende 18 er alle unike 1:1-koblinger. Ingen endring nødvendig
+(duplikatet var allerede bekreftet legitimt i forrige runde samme dag --
+Lensway bekrefter uavhengig at BEGGE navnene faktisk selges under nøyaktig
+samme fysiske Clariti 1 day-produkt).
+
+**Reelt, site-wide funn under samme gjennomgang** (ikke det Kai spurte
+om, men oppdaget via et skjermbilde han viste av søkeforslagene): Kai la
+merke til at et lite ikon manglet på "de nye" (TrueLens) -- viste seg
+raskt (Kai selv: "ahh det gjelder alle Eget merkenavn") å IKKE være en
+TrueLens-spesifikk mangel, men en eksisterende feil i `LENS_SEARCH_JS`
+sin søkeforslag-fallback som har rammet alle 84 private label-produkter
+siden søket ble bygget (ikke noe innført i dagens TrueLens-arbeid) --
+bare usynlig/lite lagt merke til før det femte settet (TrueLens) gjorde
+mønsteret tydelig for Kai.
+
+**Rot-årsak**: `build_search_index()` sine private label-oppføringer har
+`"image": None` (med vilje -- vi viser aldri det ekte produktets bilde
+under et privat merkenavn) og `"meta": "Eget merkenavn"` (også med vilje
+-- kjedenavnet skal ikke avsløres der). Søkeforslagenes JS-fallback for
+manglende bilde tok imidlertid de 2 første bokstavene av nettopp `meta`
+-- som for ALLE private label-produkter er den samme generiske teksten
+"Eget merkenavn", og ga dermed samme meningsløse "EG"-ikon på tvers av
+alle 84 produkter (iWear, EyeQ, Ascend, Easyvision OG TrueLens), ikke et
+brand-relevant ikon slik ekte produkter får (deres fallback bruker
+`brand_label`, som faktisk er merkerelevant).
+
+**Fiks**: ny `"badge"`-nøkkel lagt til KUN på private label-oppføringene
+i `build_search_index()`, satt til `label["name"][:2].upper()` (f.eks.
+"TrueLens Premium Daily" -> "TR", "iWear Oxygen XR" -> "IW", "EyeQ 24" ->
+"EY", "Ascend Premier" -> "AS", "Easyvision Opteyes" -> "EA"). JS-en
+(`LENS_SEARCH_JS`) endret til `(item.badge || item.meta).slice(0,
+2).toUpperCase()` -- bakoverkompatibel, ekte produkter/løsninger/serier
+(som ikke har `badge`) faller fortsatt tilbake til sin eksisterende,
+allerede-riktige `meta`-baserte oppførsel, uendret.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Grep bekreftet alle fem forventede badge-verdier
+(`AS`/`EA`/`EY`/`IW`/`TR`) til stede i den bygde JSON-en. Verifisert i
+browser: søk på "iwear" viser nå "IW"-ikon på alle iWear-forslag, søk på
+"truelens" viser "TR" -- begge korrekt, ingen "EG" igjen noe sted.
