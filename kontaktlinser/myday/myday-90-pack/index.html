@@ -487,57 +487,88 @@ a { color: inherit; }
 .price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.76rem; color: var(--muted); background: white; border: 1px solid var(--border); border-radius: 10px; padding: 7px 11px; }
 .price-intel-coverage svg { width: 15px; height: 15px; color: var(--blue); flex-shrink: 0; }
 .price-intel-coverage strong { color: var(--ink); }
-/* Metrikk-stripen (2026-09-29 visuelt reset) -- 5 kompakte felt, IKKE
-   store dashboard-fliser (mål: ~90-105px høyde på desktop, se .price-intel-metric
-   min-height under). Kun én av N perioders strip er noensinne synlig
-   (.active), resten sitter skjult i DOM-en (server-rendret, ikke JS-bygget --
-   funker uten JS også, viser bare default-perioden). */
-.price-intel-metrics-strip { display: none; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-bottom: 12px; }
-.price-intel-metrics-strip.active { display: grid; }
-.price-intel-metric { background: var(--mist); border-radius: 10px; padding: 9px 11px; display: flex; flex-direction: column; justify-content: center; min-height: 62px; box-sizing: border-box; }
-.price-intel-metric strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: var(--ink); line-height: 1.15; }
-.price-intel-metric span { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 3px; line-height: 1.3; }
-.price-intel-metric-now { background: var(--mint-tint); }
-.price-intel-metric-now strong { color: var(--mint); }
-.price-intel-status { grid-column: 1 / -1; display: flex; align-items: center; gap: 9px; background: var(--mint-tint); border-radius: 10px; padding: 9px 11px; min-height: 62px; box-sizing: border-box; }
-.price-intel-status-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; }
-.price-intel-status-icon svg { width: 15px; height: 15px; color: var(--mint); }
-.price-intel-status span { font-size: 0.7rem; color: var(--muted); line-height: 1.3; }
-.price-intel-status span strong { display: block; font-size: 0.8rem; color: var(--ink); margin-bottom: 1px; }
-.price-intel-status-up, .price-intel-status-high { background: #FDECEC; }
-.price-intel-status-up .price-intel-status-icon svg, .price-intel-status-high .price-intel-status-icon svg { color: #D64545; }
-/* Periodevelger -- kompakte piller, aktiv = mørk navy (ikke blå), matcher
-   mockupen sin nøytrale, konsumentvendte tone fremfor site-standard blå. */
-.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+/* Price Intelligence v2 -- "premium data publication"-redesign
+   (2026-09-29, Kai, godkjent mockup-bilde 58.webp er visuell fasit).
+   Filosofi: mindre dashboard-kort/grå-blå flater, mer typografi/luft/
+   tynne skillelinjer -- tallene ER designet, ikke pakket inn i bokser.
+   All underliggende logikk/beregning er UENDRET fra logikk-/semantikk-
+   runden tidligere samme dag -- dette er ren presentasjon. */
+.price-intel-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin: 0 0 4px; }
+.price-intel-coverage-days { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+/* Primærraden: "Pris nå" (dominerende) + tre skilte historikk-metrikker
+   + en atskilt statuspille. Kun én periodes .price-intel-primary er
+   noensinne synlig (.active) -- server-rendret, fungerer uten JS. */
+.price-intel-primary { display: none; margin-bottom: 16px; }
+.price-intel-primary.active { display: block; }
+.price-intel-metrics-row { display: flex; flex-wrap: wrap; gap: 14px 0; }
+.price-intel-metric-col { flex: 1 1 46%; box-sizing: border-box; padding-right: 10px; }
+.price-intel-metric-current { flex: 1 1 100%; margin-bottom: 2px; }
+.price-intel-value { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.15rem; color: var(--ink); line-height: 1.1; }
+.price-intel-value-lg { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
+.price-intel-metric-label { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.price-intel-metric-sublabel { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+.price-intel-current-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; color: var(--mint); margin-top: 6px; }
+.price-intel-current-dot i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block; font-style: normal; }
+/* Status: fortsatt en diskret tinted "konklusjon"-pille (regel 5: "may
+   remain a subtle tinted module because it represents a conclusion
+   rather than a raw metric"), men nå atskilt fra rådataraden, ikke en
+   grid-rute blant metrikkene. */
+.price-intel-status-pill { display: flex; align-items: center; gap: 9px; background: var(--mint-tint); border-radius: 12px; padding: 11px 14px; margin-top: 14px; }
+.price-intel-status-pill .price-intel-status-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; }
+.price-intel-status-pill .price-intel-status-icon svg { width: 15px; height: 15px; color: var(--mint); }
+.price-intel-status-pill span { font-size: 0.76rem; color: var(--muted); line-height: 1.4; }
+.price-intel-status-pill span strong { display: block; font-size: 0.86rem; color: var(--ink); margin-bottom: 1px; }
+.price-intel-status-pill.price-intel-status-up, .price-intel-status-pill.price-intel-status-high { background: #FDECEC; }
+.price-intel-status-pill.price-intel-status-up .price-intel-status-icon svg, .price-intel-status-pill.price-intel-status-high .price-intel-status-icon svg { color: #D64545; }
+/* Periodevelger -- uendret fra forrige runde: kompakte piller, aktiv =
+   mørk navy. */
+.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
 .price-intel-period-tab { font-size: 0.76rem; font-weight: 600; font-family: inherit; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }
 .price-intel-period-tab.active { background: var(--ink); border-color: var(--ink); color: white; }
 .price-intel-period-tab:disabled { opacity: 0.35; cursor: not-allowed; }
 .price-intel-chart-panel { display: none; }
 .price-intel-chart-panel.active { display: block; }
+/* Grafens "hylle" -- smalnes inn og sentreres på stor desktop (regel
+   8/9: "the chart should NOT span the entire Price Intelligence width...
+   narrower but still important", 220-240px høyde beholdt uendret). */
+.price-intel-chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px 12px; margin-bottom: 6px; font-size: 0.72rem; color: var(--muted); flex-wrap: wrap; }
+.price-intel-chart-toolbar-badge { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; background: white; }
+.price-intel-chart-toolbar-badge svg { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
 .price-intel-chart .price-history-chart { padding: 2px 0; }
 .price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
-/* Intelligens-raden -- tre LIKE, kompakte hvite kort (ikke fylte
-   grå/blå flater) -- hvit skal dominere, kortene skiller seg kun med en
-   tynn kant, se mockup-referansen 2026-09-29. */
+/* Intelligens-raden -- fortsatt tre tynt-kantede hvite kort, EN
+   komponent mockupen selv beholder uendret ("match... three lower
+   intelligence cards"). */
 .price-intel-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
 .price-intel-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0 0 10px; color: var(--ink); }
+.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0; color: var(--ink); }
+.price-intel-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.price-intel-card-head-note { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
 .price-intel-card h3 svg { width: 16px; height: 16px; flex-shrink: 0; }
 .price-intel-card-h-spread svg, .price-intel-card-h-qty svg { color: var(--blue); }
 .price-intel-card-h-winner svg { color: var(--amber); }
 .price-intel-card-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 0.84rem; color: var(--ink); }
 .price-intel-card-row span { color: var(--muted); }
 .price-intel-card-row strong { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
-.price-intel-card-row-highlight { margin-top: 3px; padding-top: 9px; border-top: 1px solid var(--border); }
-.price-intel-card-row-highlight span { color: var(--ink); font-weight: 600; }
-.price-intel-card-row-highlight strong { color: var(--mint); font-size: 1rem; }
+/* "31 %"-utropet -- egen, fremtredende callout (regel 12: "make the
+   proprietary spread metric prominent"), erstatter den tidligere
+   ren-tekst-raden med samme tall. */
+.price-intel-spread-callout { margin-top: 9px; padding: 11px 12px; background: var(--mint-tint); border-radius: 10px; }
+.price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
+.price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
+.price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .price-intel-winner-bar { display: block; height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden; }
 .price-intel-winner-bar span { display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }
 .price-intel-winner-days { color: var(--muted); white-space: nowrap; font-size: 0.74rem; }
+/* 0-dagers-butikker: beholdt synlig (Kai bekreftet dette eksplisitt
+   tidligere samme uke -- "viser at de faktisk er sammenlignet"), men nå
+   visuelt dempet (regel 13: "Do not let zero-value merchants create
+   visual clutter"). */
+.price-intel-winner-row-zero { opacity: 0.5; }
 /* "Kjøper du flere esker?" -- ren tabell, IKKE et eget kortsett per rad. */
 .price-intel-qty-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .price-intel-qty-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.02em; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
@@ -545,20 +576,45 @@ a { color: inherit; }
 .price-intel-qty-table tr:last-child td { border-bottom: none; }
 .price-intel-qty-table td:first-child { font-weight: 600; }
 .price-intel-qty-table td:nth-child(2) { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
-/* "Kort oppsummert" -- flyttet til BUNNEN (konklusjon, ikke intro), smal
-   lyseblå stripe i stedet for en stor blå boks. */
-.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
+/* "Kort fortalt" -- diskre konklusjon, ikke en stor blå dashboard-boks
+   (regel 17: "Do not make it look like an AI response"). */
+.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 18px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
 .price-intel-summary.active { display: flex; }
 .price-intel-summary strong { display: block; margin-bottom: 2px; color: var(--blue); }
 .price-intel-summary-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+/* Egen-data-stripen (regel 16) -- små, redaksjonelle statistikker med
+   tynne skillelinjer, IKKE flere kort. Adaptiv: bygges kun av elementer
+   som faktisk har data (se render_price_intelligence()). */
+.price-intel-stat-strip { display: none; flex-wrap: wrap; gap: 14px 0; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.price-intel-stat-strip.active { display: flex; }
+.price-intel-stat { flex: 1 1 46%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding-right: 10px; }
+.price-intel-stat svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
+.price-intel-stat strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: var(--ink); }
+.price-intel-stat span { display: block; font-size: 0.68rem; color: var(--muted); line-height: 1.3; margin-top: 1px; }
+/* Footer -- metodikklenke + en ÆRLIG oppdateringsdato. Bevisst INGEN
+   klokkeslett ("kl. HH:MM") slik mockupen viste -- samme lærdom som
+   Fase 16 tidligere samme dag (se _price_intel_chart_domain sin
+   docstring-nabo lenger opp): en tid-stemplet påstand på en STATISK
+   side blir feil i det øyeblikket noen leser siden senere enn
+   byggetidspunktet. Bruker i stedet den samme "sist bekreftet
+   {dato}"-konvensjonen som resten av siden allerede følger konsekvent. */
+.price-intel-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
+.price-intel-footer a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.price-intel-footer-source { display: flex; align-items: center; gap: 6px; }
+.price-intel-footer-source svg { width: 13px; height: 13px; flex-shrink: 0; }
 @media (min-width: 860px) {
-  .price-intel { padding: 22px 26px; }
+  .price-intel { padding: 26px 30px; }
   .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
   .price-intel-head-text p { max-width: 520px; }
   .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
-  .price-intel-metrics-strip.active { grid-template-columns: repeat(4, 1fr) 1.3fr; }
-  .price-intel-metric, .price-intel-status { min-height: 92px; }
-  .price-intel-status { grid-column: auto; }
+  .price-intel-primary.active { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .price-intel-metrics-row { flex: 1 1 auto; flex-wrap: nowrap; }
+  .price-intel-metric-col { flex: 0 0 auto; padding: 0 20px; border-left: 1px solid var(--border); }
+  .price-intel-metric-col:first-child, .price-intel-metric-current { border-left: none; padding-left: 0; flex-basis: auto; margin-bottom: 0; }
+  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; max-width: 300px; }
+  /* Regel 8: 75-82 % av innholdsbredden, ikke hele -- IKKE en proporsjonal
+     nedskalering av høyden (regel 9), kun bredden begrenses og sentreres. */
+  .price-intel-chart-shell { max-width: 1100px; margin-inline: auto; }
   /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
      2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
      third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
@@ -566,6 +622,7 @@ a { color: inherit; }
      3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
      ingen tom kolonne. */
   .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .price-intel-stat { flex: 0 1 auto; }
 }
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
@@ -1677,27 +1734,65 @@ a { color: inherit; }
   <div class="price-intel">
   <div class="price-intel-head">
     <div class="price-intel-head-text">
+      <p class="price-intel-eyebrow">Prisintelligens</p>
       <h2>Prisutvikling</h2>
-      <p>Vi følger laveste produktpris hos butikkene vi sammenligner, slik at du kan se hvordan prisen har endret seg over tid.</p>
+      <p>Vi har fulgt laveste produktpris hos butikkene siden 14. august 2026, slik at du kan se hvordan prisen har endret seg over tid.</p>
     </div>
-    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong></span></div>
+    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong><span class="price-intel-coverage-days">47 dager med data</span></span></div>
   </div>
-  <div class="price-intel-metrics-strip active" data-period="30d">
-    <div class="price-intel-metric price-intel-metric-now"><strong>849 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>749 kr</strong><span>Laveste registrerte pris<br>Først registrert 21. september 2026</span></div>
-    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>849 kr</strong><span>Høyeste prisnivå<br>Først registrert 7. september 2026</span></div>
-    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>813 kr</strong><span>30-dagers median</span></div>
-    <div class="price-intel-status price-intel-status-high"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V8M6 8l-3 3M6 8l3 3M12 20V4M18 20v-9M18 11l-3 3M18 11l3 3"/></svg></span><span><strong>Høyt prisnivå</strong>Dagens pris er nær det høyeste nivået vi har registrert i denne perioden (30 dager).</span></div>
-  </div><div class="price-intel-metrics-strip" data-period="all">
-    <div class="price-intel-metric price-intel-metric-now"><strong>849 kr</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>749 kr</strong><span>Laveste registrerte pris<br>Først registrert 24. august 2026</span></div>
-    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>899 kr</strong><span>Høyeste prisnivå<br>Først registrert 16. august 2026</span></div>
-    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>849 kr</strong><span>47-dagers median</span></div>
-    <div class="price-intel-status price-intel-status-stable"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har endret seg lite de siste 47 dagene.</span></div>
+  <div class="price-intel-primary active" data-period="30d">
+    <div class="price-intel-metrics-row">
+      <div class="price-intel-metric-col price-intel-metric-current">
+        <span class="price-intel-value-lg">849 kr</span>
+        <span class="price-intel-metric-label">Pris nå</span>
+        <span class="price-intel-current-dot"><i></i>Laveste pris akkurat nå</span>
+      </div>
+      <div class="price-intel-metric-col">
+        <span class="price-intel-value">749 kr</span>
+        <span class="price-intel-metric-label">Laveste pris<br>siste 30 dager</span>
+        <span class="price-intel-metric-sublabel">Først registrert 21. september 2026</span>
+      </div>
+      <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
+        <span class="price-intel-value">849 kr</span>
+        <span class="price-intel-metric-label">Høyeste prisnivå<br>siste 30 dager</span>
+      </div>
+      <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
+        <span class="price-intel-value">813 kr</span>
+        <span class="price-intel-metric-label">30-dagers median</span>
+      </div>
+    </div>
+    <div class="price-intel-status-pill price-intel-status-high"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V8M6 8l-3 3M6 8l3 3M12 20V4M18 20v-9M18 11l-3 3M18 11l3 3"/></svg></span><span><strong>Høyt prisnivå</strong>Dagens pris er nær det høyeste nivået vi har registrert i denne perioden (30 dager).</span></div>
+  </div><div class="price-intel-primary" data-period="all">
+    <div class="price-intel-metrics-row">
+      <div class="price-intel-metric-col price-intel-metric-current">
+        <span class="price-intel-value-lg">849 kr</span>
+        <span class="price-intel-metric-label">Pris nå</span>
+        <span class="price-intel-current-dot"><i></i>Laveste pris akkurat nå</span>
+      </div>
+      <div class="price-intel-metric-col">
+        <span class="price-intel-value">749 kr</span>
+        <span class="price-intel-metric-label">Laveste pris<br>i hele perioden</span>
+        <span class="price-intel-metric-sublabel">Først registrert 24. august 2026</span>
+      </div>
+      <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
+        <span class="price-intel-value">899 kr</span>
+        <span class="price-intel-metric-label">Høyeste prisnivå<br>i hele perioden</span>
+      </div>
+      <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
+        <span class="price-intel-value">849 kr</span>
+        <span class="price-intel-metric-label">47-dagers median</span>
+      </div>
+    </div>
+    <div class="price-intel-status-pill price-intel-status-stable"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har endret seg lite de siste 47 dagene.</span></div>
   </div>
   <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button></div>
   <div class="price-intel-chart-panel active" data-period="30d">
-    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 749 kr til 849 kr">
+    <div class="price-intel-chart-shell">
+      <div class="price-intel-chart-toolbar">
+        <span>Laveste registrerte produktpris per dag</span>
+        <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
+      </div>
+      <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 749 kr til 849 kr">
       <defs>
         <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -1745,8 +1840,14 @@ a { color: inherit; }
       <text x="46" y="135" class="price-history-axis-label">31.08</text>
       <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
     </svg></div>
+    </div>
   </div><div class="price-intel-chart-panel" data-period="all">
-    <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 749 kr til 899 kr">
+    <div class="price-intel-chart-shell">
+      <div class="price-intel-chart-toolbar">
+        <span>Laveste registrerte produktpris per dag</span>
+        <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
+      </div>
+      <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 749 kr til 899 kr">
       <defs>
         <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -1811,25 +1912,31 @@ a { color: inherit; }
       <text x="46" y="135" class="price-history-axis-label">14.08</text>
       <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
     </svg></div>
+    </div>
   </div>
   <div class="price-intel-cards"><div class="price-intel-card">
-    <h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
+    <div class="price-intel-card-head"><h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3></div>
     <div class="price-intel-card-row"><span>Laveste butikkpris</span><strong>849 kr</strong></div>
     <div class="price-intel-card-row"><span>Medianpris</span><strong>857 kr</strong></div>
     <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>981 kr</strong></div>
-    <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>13 %</strong></div>
+    <div class="price-intel-spread-callout"><strong>13 %</strong><span>Forskjell mellom laveste og høyeste butikkpris</span></div>
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 eske.</p>
   </div><div class="price-intel-card">
-    <h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinner over tid</h3>
-    <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">36 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensway</span><span class="price-intel-winner-bar"><span style="width:19%"></span></span><span class="price-intel-winner-days">7 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Synsam</span><span class="price-intel-winner-bar"><span style="width:11%"></span></span><span class="price-intel-winner-days">4 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Interoptik</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Shopping4net</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div></div>
+    <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">Siste 47 dager</span></div>
+    <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">36 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensway</span><span class="price-intel-winner-bar"><span style="width:19%"></span></span><span class="price-intel-winner-days">7 dager</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Synsam</span><span class="price-intel-winner-bar"><span style="width:11%"></span></span><span class="price-intel-winner-days">4 dager</span></div><div class="price-intel-winner-row price-intel-winner-row-zero"><span class="price-intel-winner-store">Interoptik</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div><div class="price-intel-winner-row price-intel-winner-row-zero"><span class="price-intel-winner-store">Shopping4net</span><span class="price-intel-winner-bar"><span style="width:0%"></span></span><span class="price-intel-winner-days">0 dager</span></div></div>
     <p class="price-intel-card-note">Lenson har hatt lavest registrert produktpris i 36 av de siste 47 dagene. Prisvinneren har endret seg 8 ganger de siste 47 dagene.</p>
   </div></div>
   <div class="price-intel-summary active" data-period="30d">
     <span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span>
-    <span><strong>Kort oppsummert</strong>Laveste produktpris for MyDay 90-pack har ligget mellom 749 kr og 849 kr de siste 30 dagene. Det er 13 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span>
+    <span><strong>Kort fortalt</strong>Laveste produktpris for MyDay 90-pack har ligget mellom 749 kr og 849 kr de siste 30 dagene. Det er 13 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span>
   </div><div class="price-intel-summary" data-period="all">
     <span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span>
-    <span><strong>Kort oppsummert</strong>Laveste produktpris for MyDay 90-pack har ligget mellom 749 kr og 899 kr de siste 47 dagene. Det er 13 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span>
+    <span><strong>Kort fortalt</strong>Laveste produktpris for MyDay 90-pack har ligget mellom 749 kr og 899 kr de siste 47 dagene. Det er 13 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span>
+  </div>
+  <div class="price-intel-stat-strip active" data-period="30d"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>3 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>8 ganger</strong><span>har prisvinneren skiftet de siste 47 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner siste 47 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>13,4 %</strong><span>prisvariasjon siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>749 kr</strong><span>laveste pris vi har registrert</span></div></div></div><div class="price-intel-stat-strip" data-period="all"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>3 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>8 ganger</strong><span>har prisvinneren skiftet de siste 47 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner siste 47 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>20,0 %</strong><span>prisvariasjon i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>749 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
+  <div class="price-intel-footer">
+    <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
+    <span>Prisdata sist bekreftet: 29. september 2026</span>
   </div>
   <script>
 (function () {
