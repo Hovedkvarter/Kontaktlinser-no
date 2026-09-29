@@ -4302,3 +4302,69 @@ navigerer korrekt til `/merke/iwear/`. Mobil (375px, accordion-varianten)
 sjekket eksplisitt: to-kolonners listen er fullt lesbar og
 `document.body.scrollWidth === window.innerWidth` -- ingen horisontal
 overflow.
+
+## Toppmenyens "Kontaktlinser"-dropdown: fra rikt 3-kolonners design til minimalistisk Lensway-inspirert Type/Varemerke-liste (2026-09-29)
+
+Kai, med skjermbilder av Lensway sin egen "Linser"-dropdown (kompakt
+"Type"-liste + "Vis mer" og en utvidet visning med "Type"/"Varemerke"
+side om side + en svart "Vis alle linser"-knapp): "slik som her under
+kontaktlinser.no gjøres mye mer minimalistisk når man klikker på
+kontaktlinser." Fulgt av et direkte spørsmål: "Har vi en side som kan
+vises som lensway, alle kontaktlinser?"
+
+**Svar på spørsmålet (ingen kode endret av dette alene):** Nei -- vi har
+ingen flat "alle kontaktlinser i én liste"-side. Dette er bevisst,
+dokumentert tidligere (2026-08-15): forsiden hadde opprinnelig nettopp en
+slik liste, fjernet med vilje av SEO-hensyn (keyword cannibalization mot
+kategori-/merke-sidene, dårlig skalering med voksende katalog). Avklart
+med Kai via to spørsmål -- ba først om retning på (1) hva en
+"vis alle"-knapp skal peke til og (2) hvor fyldig varemerke-listen i den
+nye menyen skal være -- Kai svarte i stedet direkte: "tenker vi heller
+har en knapp som sier 'alle merker', som da går til
+https://kontaktlinser.no/#merker". Det avgjorde begge spørsmålene på én
+gang: ingen ny "alle linser"-side bygges (SEO-avgjørelsen fra august står
+fast), og knappen kalles "Alle merker" (ikke "alle linser") siden den
+faktisk peker til merke-seksjonen.
+
+**Implementert**: `_topbar_html()` sin "Kontaktlinser"-meny gikk fra en
+rik 3-kolonners design (fargede ikon-rader per linsetype med undertekst,
+en 3-kolonners logo-kort-grid for "Populære merker", et bakgrunnsbilde-
+promo-kort til guiden) til en ren, kompakt 2-kolonners tekstliste --
+`.mega-rich-grid-2col-plain` (ny CSS-breddevariant, 400px, matcher
+Lensway sin kompakte bredde bedre enn den gamle 720px-varianten):
+- **"Type"**: de 5 ekte kategoriene våre (`_MEGA_CATEGORIES`, uendret
+  datakilde) som rene `.mega-menu-link`-tekstlenker, pluss "Optikerkjedenes
+  varemerker" (`/private-label/`) som et 6. listeelement -- samme grep
+  som Lensway selv gjør (blander "type" og "samlekategori" i én liste,
+  se deres egen "Optikerkjedenes varemerker"-rad i skjermbildet). Ingen
+  "Vis mer"-kollaps bygget her -- Lensway trenger den for sine ~10 typer,
+  vi har bare 6 elementer totalt, ikke nok til å trenge skjuling.
+- **"Varemerke"**: samme 6 kuraterte, populære merkene som før
+  (`_MEGA_TOP_BRANDS`, uendret liste), nå som rene tekstlenker i stedet
+  for logo-kort. Bevisst IKKE byttet til den fulle 25-merker-listen
+  (`_MEGA_ALL_BRANDS_HTML` fra Merker-menyen, forrige runde samme dag) --
+  ville dupliserte hele Merker-dropdownen inni denne menyen også.
+- **Bunn-knapp**: "Alle merker →" til `/#merker`, erstatter den
+  tidligere "Se alle kontaktlinser →" (pekte til `/#kategorier`) --
+  direkte etter Kais presisering.
+
+**Dødkode fjernet** (ikke bare skjult -- ingen annen side/meny brukte
+dem): `_mega_type_row()`, `_mega_brand_card()`, `_MEGA_TYPE_ROWS_HTML`,
+`_MEGA_BRAND_CARDS_HTML`, `_MEGA_USEFUL_LINKS_HTML`, `_BOOK_ICON`,
+`_CALENDAR_ICON`, samt CSS-reglene `.mega-type-row*`, `.mega-brand-grid`/
+`.mega-brand-card*`, `.mega-promo-card*` og `.mega-rich-grid-3col`
+(uten "-plain"). `_mega_link_row()`/`_SHIELD_ICON`/`.mega-link-row*` er
+UENDRET og fortsatt i bruk (Merker-menyens "Optikerkjedenes
+varemerker"-rad, forrige runde samme dag) -- ikke fjernet.
+`_MEGA_CATEGORIES`/`_MEGA_TOP_BRANDS` (selve datalistene, bare
+rendringen endret) er også uendret og gjenbrukt direkte.
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError, grep bekreftet ingen gjenværende referanser til de
+fjernede symbolene/CSS-klassene noe sted i filen. Verifisert i browser
+(`TOPBAR_HTML` delt sitewide): Kontaktlinser-menyen åpnet på desktop
+(kompakt, matcher Lensway-referansen godt) og mobil (375px accordion,
+`document.body.scrollWidth === window.innerWidth`, ingen overflow),
+"Alle merker →" bekreftet `href="/#merker"` via DOM. Merker- og
+Guider-menyene (urørt i denne runden) sjekket på nytt for regresjon --
+begge fortsatt korrekte.

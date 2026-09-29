@@ -138,33 +138,17 @@ a { color: inherit; }
      Guider) unødvendig brede og økte risikoen for at de skjøt utenfor
      viewport ved 1024px (nedre støttede breddegrense), siden posisjonen
      deres i navigasjonen varierer. */
-  .mega-menu-rich:has(.mega-rich-grid-3col) { width: 720px; }
   .mega-menu-rich:has(.mega-rich-grid-2col) { width: 580px; }
   .mega-menu-rich:has(.mega-rich-grid-3col-plain) { width: 540px; }
-  .mega-rich-grid-3col { grid-template-columns: 190px 210px 230px; }
+  .mega-menu-rich:has(.mega-rich-grid-2col-plain) { width: 400px; }
   .mega-rich-grid-2col { grid-template-columns: 220px 1fr; }
   .mega-rich-grid-3col-plain { grid-template-columns: repeat(3, 150px); gap: 18px; }
+  .mega-rich-grid-2col-plain { grid-template-columns: repeat(2, 170px); gap: 18px; }
 }
 .mega-rich-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mega-panel-kicker { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
 .mega-panel-heading { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--ink); margin: 4px 0 0; }
 .mega-panel-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
-.mega-type-row { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); padding: 8px 10px; margin: 0 -10px; border-radius: 10px; transition: background 0.12s ease; }
-.mega-type-row:hover { background: var(--mist); }
-.mega-type-row-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.mega-type-row-icon svg { width: 18px; height: 18px; }
-.mega-type-row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-.mega-type-row-label { font-weight: 600; font-size: 0.87rem; }
-.mega-type-row-desc { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
-.mega-type-row-chevron { flex-shrink: 0; width: 15px; height: 15px; color: var(--muted); }
-.mega-brand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.mega-brand-card { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; transition: border-color 0.15s; text-align: center; }
-.mega-brand-card:hover { border-color: var(--blue); }
-.mega-brand-card-logo { display: flex; align-items: center; justify-content: center; width: 100%; height: 30px; }
-.mega-brand-card-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.mega-brand-card-logo.has-logo-dark { background: var(--ink); border-radius: 6px; padding: 4px; }
-.mega-brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); }
-.mega-brand-card-name { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
 /* "Alle merker A-Å" (2026-09-29) -- CSS-multikolonne (samme teknikk som
    .footer-brand-list) i stedet for et grid, siden listen har et variabelt
    antall lenker (25+ i dag, vokser når nye merker/private label-serier
@@ -173,10 +157,6 @@ a { color: inherit; }
    at én lenke visuelt kuttes over kolonnegrensen. */
 .mega-allbrands { columns: 2; column-gap: 14px; }
 .mega-allbrands-link { font-size: 0.83rem; padding: 5px 8px; margin: 0 -8px; break-inside: avoid; }
-.mega-promo-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 150px; border-radius: 14px; background-size: cover; background-position: center; padding: 16px; color: white !important; text-decoration: none; }
-.mega-promo-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
-.mega-promo-text { font-size: 0.78rem; opacity: 0.92; margin-top: 4px; }
-.mega-promo-cta { display: inline-block; margin-top: 10px; background: white; color: var(--blue); font-weight: 700; font-size: 0.78rem; padding: 7px 12px; border-radius: 999px; width: fit-content; }
 .mega-link-row { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); padding: 7px 10px; margin: 0 -10px; border-radius: 8px; transition: background 0.12s ease; }
 .mega-link-row:hover { background: var(--mist); }
 .mega-link-row-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; }
@@ -771,45 +751,12 @@ CATEGORY_EXPLAINERS = {
 
 _SHIELD_ICON = '<path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/>'
 _BUILDING_ICON = '<path d="M3 21V10l6-4 6 4v11"/><path d="M9 21v-5h4v5"/><path d="M15 21V13l6-3v11"/>'
-_BOOK_ICON = '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'
-_CALENDAR_ICON = '<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/>'
-
-
-def _mega_type_row(slug: str, label: str) -> str:
-    """Samme visuelle mønster som forsidens kategori-rader (farget
-    ikon-sirkel + tittel + undertekst + pil), men egen CSS-klasse
-    (.mega-type-row, ikke .category-row) -- TOPBAR_HTML ligger i HVER
-    sides <body>, inkludert forsiden selv, så hadde denne gjenbrukt
-    .category-row rett av ville forsidens egen @media(1024px)-variant
-    (vertikalt sentrerte kolonne-kort) utilsiktet også truffet
-    dropdown-menyen når den vises der."""
-    icon = CATEGORY_ICONS.get(slug, "")
-    color = CATEGORY_COLORS.get(slug, "blue")
-    tagline = CATEGORY_TAGLINES.get(slug, "")
-    return f'''<a class="mega-type-row" href="/kontaktlinser/{slug}/">
-          <span class="mega-type-row-icon" style="background:var(--{color}-tint);color:var(--{color});"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">{icon}</svg></span>
-          <span class="mega-type-row-text"><span class="mega-type-row-label">{label}</span><span class="mega-type-row-desc">{tagline}</span></span>
-          <svg class="mega-type-row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-        </a>'''
-
-
-def _mega_brand_card(slug: str, name: str) -> str:
-    """Merkekort med ekte logo der vi har en (BRAND_LOGOS) -- samme
-    nominativ-varemerke-prinsipp som resten av siden. Mangler merket egen
-    logo, vises produsentens logo (f.eks. Alcon for Precision1/Dailies/Air
-    Optix), akkurat som på selve merkesiden -- aldri en oppdiktet logo."""
-    cls, content = _brand_badge(slug, name)
-    logo_cls = "mega-brand-card-logo " + cls if cls else "mega-brand-card-logo mega-brand-card-fallback"
-    return f'''<a class="mega-brand-card" href="/merke/{slug}/">
-          <span class="{logo_cls}">{content}</span>
-          <span class="mega-brand-card-name">{escape(name)}</span>
-        </a>'''
 
 
 def _mega_link_row(icon_svg: str, label: str, sublabel: str, href: str) -> str:
-    """Rad med lite ikon + tittel + undertekst + pil -- til 'Bla etter
-    produsent'/'Nyttig å vite'-listene i dropdownene. Alle href-er som
-    bruker denne MÅ peke til en side som faktisk finnes -- ikke gjett."""
+    """Rad med lite ikon + tittel + undertekst + pil -- til 'Nyttig å
+    vite'-listen i Merker-dropdownen. Alle href-er som bruker denne MÅ
+    peke til en side som faktisk finnes -- ikke gjett."""
     return f'''<a class="mega-link-row" href="{href}">
           <span class="mega-link-row-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{icon_svg}</svg></span>
           <span class="mega-link-row-text"><span class="mega-link-row-label">{label}</span><span class="mega-link-row-sub">{sublabel}</span></span>
@@ -817,24 +764,31 @@ def _mega_link_row(icon_svg: str, label: str, sublabel: str, href: str) -> str:
         </a>'''
 
 
+# Kontaktlinser-dropdownen (2026-09-29) -- Kai viste Lensway sin
+# tilsvarende meny som referanse: "slik som her under kontaktlinser.no
+# gjøres mye mer minimalistisk når man klikker på kontaktlinser" --
+# erstattet den tidligere rike 3-kolonners menyen (fargede ikon-rader,
+# merke-logo-kort, et bakgrunnsbilde-promo-kort) med rene, korte
+# tekstlenke-lister, samme minimalistiske stil som Lensway sin "Type"/
+# "Varemerke"-meny. Begge datalistene (_MEGA_CATEGORIES/_MEGA_TOP_BRANDS)
+# er UENDRET -- kun rendringen er ny (plain `.mega-menu-link` i stedet for
+# ikon-rader/logo-kort).
 _MEGA_TOP_BRANDS = [
     ("biofinity", "Biofinity"), ("acuvue", "Acuvue"), ("air-optix", "Air Optix"),
     ("dailies", "Dailies"), ("precision1", "Precision1"), ("biotrue", "Biotrue"),
 ]
-_MEGA_BRAND_CARDS_HTML = "\n        ".join(_mega_brand_card(s, n) for s, n in _MEGA_TOP_BRANDS)
+_MEGA_TOP_BRANDS_PLAIN_HTML = "\n        ".join(
+    f'<a class="mega-menu-link" href="/merke/{slug}/">{escape(name)}</a>' for slug, name in _MEGA_TOP_BRANDS
+)
 
 _MEGA_CATEGORIES = [
     ("dagslinser", "Dagslinser"), ("manedslinser", "Månedslinser"),
     ("toriske-linser", "Toriske linser"), ("fargede-linser", "Fargede linser"),
     ("multifokale-linser", "Multifokale linser"),
 ]
-_MEGA_TYPE_ROWS_HTML = "\n        ".join(_mega_type_row(s, n) for s, n in _MEGA_CATEGORIES)
-
-_MEGA_USEFUL_LINKS_HTML = "\n        ".join([
-    _mega_link_row(_SHIELD_ICON, "Optikerkjedenes varemerker", "Samme linse, andre navn", "/private-label/"),
-    _mega_link_row(_BOOK_ICON, "Hvordan velge riktig linse?", "Guide", "/guide/hvordan-velge-kontaktlinser/"),
-    _mega_link_row(_CALENDAR_ICON, "Linseabonnement", "Abonnement vs. kjøpe selv", "/guide/kontaktlinseabonnement-vs-kjope-selv/"),
-])
+_MEGA_CATEGORY_LINKS_HTML = "\n        ".join(
+    f'<a class="mega-menu-link" href="/kontaktlinser/{slug}/">{escape(label)}</a>' for slug, label in _MEGA_CATEGORIES
+)
 
 # Søkeboksen i toppmenyen (2026-09-27, brukerens eget ønske om at den skal
 # passe visuelt til resten av menyen -- "lik høyde", altså samme skriftstørrelse
@@ -892,31 +846,18 @@ def _topbar_html(show_search: bool = True) -> str:
     <div class="nav-item">
       <button type="button" class="nav-trigger" aria-haspopup="true" aria-expanded="false">Kontaktlinser <span class="nav-caret">▾</span></button>
       <div class="mega-menu mega-menu-rich">
-        <div class="mega-rich-grid mega-rich-grid-3col">
+        <div class="mega-rich-grid mega-rich-grid-2col-plain">
           <div class="mega-rich-col">
-            <div class="mega-panel-kicker">Finn kontaktlinser</div>
-            <div class="mega-panel-heading">Velg riktig linsetype for dine behov</div>
-            <div class="mega-col-title" style="margin-top:18px;">Etter type</div>
-            {_MEGA_TYPE_ROWS_HTML}
+            <div class="mega-col-title">Type</div>
+            {_MEGA_CATEGORY_LINKS_HTML}
+            <a class="mega-menu-link" href="/private-label/">Optikerkjedenes varemerker</a>
           </div>
           <div class="mega-rich-col">
-            <div class="mega-col-title">Populære merker</div>
-            <div class="mega-brand-grid">
-              {_MEGA_BRAND_CARDS_HTML}
-            </div>
-            <a class="mega-menu-link mega-see-all" href="/#merker">Se alle merker →</a>
-          </div>
-          <div class="mega-rich-col">
-            <a class="mega-promo-card" href="/guide/hvordan-velge-kontaktlinser/" style="background-image:linear-gradient(180deg, rgba(11,37,69,0.1), rgba(11,37,69,0.82)), url('/static/hero-eye.jpg');">
-              <span class="mega-promo-title">Finn den perfekte linsen for deg</span>
-              <span class="mega-promo-text">Sammenlign priser fra norske nettbutikker</span>
-              <span class="mega-promo-cta">Utforsk guiden →</span>
-            </a>
-            <div class="mega-col-title" style="margin-top:18px;">Nyttig å vite</div>
-            {_MEGA_USEFUL_LINKS_HTML}
+            <div class="mega-col-title">Varemerke</div>
+            {_MEGA_TOP_BRANDS_PLAIN_HTML}
           </div>
         </div>
-        <a class="mega-menu-link mega-see-all" href="/#kategorier">Se alle kontaktlinser →</a>
+        <a class="mega-menu-link mega-see-all" href="/#merker">Alle merker →</a>
       </div>
     </div>
     <div class="nav-item">
