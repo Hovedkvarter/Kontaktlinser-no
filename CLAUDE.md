@@ -4723,3 +4723,131 @@ alle synlige, ingen "Vis alle"-knapp), linsevæske (ReNu Multi-Purpose
 uendret (viste allerede alle tilbud uansett antall, se tidligere runde
 samme uke: "Vis alle priser"-kollapsen skal KUN gjelde mobil"). Bygget +
 `validate_build.py` OK (201/201), full sveip ingen Traceback/NameError.
+
+## Price Intelligence: logikk-/semantikk-/final polish-runde (2026-09-29, samme dag)
+
+Kai, etter to visuelle runder på Price Intelligence-modulen, fulgte opp med et
+eget "Intelligence Logic & Final Polish"-brief (30 punkter, eksplisitt "not
+another design brief... primarily about making sure the intelligence is
+mathematically correct, semantically precise, not visually misleading,
+genuinely useful, deterministic, adaptive"). Gikk gjennom hele modulen
+funksjon for funksjon FØR noe ble endret for å skille reelle mangler fra
+allerede-korrekt logikk (mye var allerede riktig -- tie-break er allerede en
+dokumentert, deterministisk prioritetsliste, ikke array-/databaserekkefølge;
+"én rad per kalenderdag" var allerede garantert av `record_price()`; manglende
+observasjonsdager telles allerede aldri som uendret/null, siden de ganske
+enkelt er fraværende fra historikk-listen). Fem reelle funn ble rettet:
+
+1. **Materialitetsbrist i statusklassifiseringen (den viktigste fiksen,
+   bekreftet med Kais eget eksempel).** `_price_intelligence_status()` (~
+   render_templates.py:3748) klassifiserte `historical_low`/`historical_high`
+   kun på "current == period_low/period_high", uansett hvor lite spennet i
+   perioden faktisk var. Biofinity Toric 6-pack sitt ekte tall (449->454 kr,
+   ~1,1 %) ble dermed flagget rødt "Høyeste registrerte pris" bare fordi
+   dagens pris traff periodens (ubetydelige) tak. Lagt til et krav om et
+   MATERIELT spenn (`range_pct >= STATUS_STABLE_TOLERANCE_PCT`, samme 3
+   %-toleranse som resten av statuslogikken allerede brukte) før
+   historical_low/high i det hele tatt kan utløses -- ellers faller
+   klassifiseringen naturlig gjennom til "stable" via samme
+   pct_change-sjekk. Verifisert direkte på det eksakte eksempelet Kai ga:
+   viser nå korrekt "Stabil pris / Laveste produktpris har endret seg lite
+   de siste 30 dagene" i stedet for en falsk rød høy-pris-advarsel.
+2. **Terminologi-forvirring mellom to ulike "høy/lav"-begreper.** Kai sitt
+   poeng 1-3: historisk prisserie (laveste/høyeste REGISTRERTE pris over
+   tid) og dagens butikk-spredning (laveste/høyeste BUTIKKPRIS akkurat nå)
+   er to helt forskjellige tall som lett forveksles når de bruker samme
+   ord. Historikk-metrikken "Høyeste registrerte pris" er nå "Høyeste
+   prisnivå" (med en `title`-tooltip: "Høyeste registrerte verdi for den
+   laveste tilgjengelige produktprisen i valgt periode."), status-tittelen
+   for samme tilstand er "Høyt prisnivå" (var også "Høyeste registrerte
+   pris" -- samme kollisjon). "Prisforskjell mellom butikkene"-kortets rader
+   omdøpt til "Laveste butikkpris"/"Høyeste butikkpris" (var "Laveste
+   pris"/"Høyeste pris"). "Laveste registrerte pris" (historikk-metrikk OG
+   status-tittel) er UENDRET -- Kai selv: hold denne, og unngå promoterende
+   språk som "Fantastisk pris" der (allerede rent faktabasert, ingen
+   endring nødvendig).
+3. **Laveste/høyeste-dato omformulert.** Datoen ved siden av "Laveste
+   registrerte pris"/"Høyeste prisnivå" viser nå "Først registrert {dato}"
+   i stedet for en bar dato -- unngår at en verdi som faktisk gjaldt flere
+   dager på rad leses som om den kun eksisterte akkurat den ene datoen.
+   Python sin `min()`/`max()` med `key=` plukker allerede FØRSTE forekomst
+   kronologisk (window er alltid eldst->nyest-sortert) -- selve
+   beregningen var korrekt fra før, kun teksten var upresis.
+4. **30-dagers median: presis definisjon, lagt til som tooltip** ("Medianen
+   av den laveste registrerte produktprisen for hver dag i perioden.") --
+   selve beregningen (`_price_intelligence_window(history, days)` =
+   `history[-days:]`, ett element per faktisk observert dag, aldri
+   kalenderdag-basert eller hullfylt) var allerede riktig per Kais egen
+   definisjon i punkt 5, trengte bare en synlig forklaring.
+5. **Y-akse-eksaggerasjon i grafen (Kais konkrete eksempel: 449->454 kr
+   fylte nesten hele grafhøyden).** Ny sentralisert
+   `_price_intel_chart_domain()` (rett før `_render_price_intelligence_chart()`)
+   erstatter den gamle "10 % av observert spenn"-paddingen med et GULV:
+   visningsspennet er nå minst `_CHART_MIN_ABS_RANGE_NOK` (25 kr) ELLER
+   `_CHART_MIN_PCT_RANGE` (9 %) av medianprisen, whichever er størst.
+   Verifisert eksakt tallmatch på Biofinity Toric-eksemplet: median 454 kr
+   -> gulv 40,86 kr -> endelig aksespenn 428-475 kr (var tidligere presset
+   ned til noen få kroner rundt selve linjen). Gulvet er KUN en nedre
+   grense -- et ekte, stort spenn klippes ALDRI (regel 14), bekreftet på
+   everclear REFRESH 250 ml (ekte 35->89 kr-spenn over hele historikken,
+   aksen viser fortsatt hele det ekte spennet, 31-93 kr, ikke presset
+   sammen).
+6. **"Kjøper du flere esker?" skjules nå betinget, ikke alltid.** Kai,
+   punkt 18-20: kortet skal kun vises når det faktisk AVSLØRER noe (f.eks.
+   vinnerbutikken endrer seg ved et gitt antall) -- ren gangetabell er
+   "merely arithmetic", ikke intelligens. `_price_intelligence_quantity_table()`
+   returnerer nå `None` når `change_qty` aldri settes (samme butikk vinner
+   ved alle 6 viste antall). **Reelt, sjekket funn:** siden ingen forhandler
+   i katalogen i dag har volumbasert prising (hver butikks pris er lineær,
+   pris × antall), er dette MATEMATISK UMULIG å utløse under dagens
+   datamodell -- kjørt programmatisk mot alle 201 produkter, 0 har en
+   vinnerbytte ved noe antall. Kortet er derfor nå usynlig på HELE siden
+   inntil enten (a) en forhandler får ekte volumrabatter i data, eller (b)
+   frakt-avhengig vinnerbytte bygges inn (Kai sitt punkt 21 -- eksplisitt
+   IKKE gjort denne runden, se under). Dette er en direkte, korrekt
+   konsekvens av regelen slik Kai formulerte den, ikke en bug -- men
+   verdt å flagge tydelig siden det fjerner et helt kort fra alle
+   produktsider. `.price-intel-cards` sin desktop-CSS byttet fra fast
+   `repeat(3, 1fr)` til `repeat(auto-fit, minmax(220px, 1fr))` (regel 22)
+   slik at en 2-korts rad (Prisforskjell + Prisvinner, det vanlige
+   resultatet nå) fyller bredden jevnt i stedet for å la en tom tredje
+   kolonne stå igjen -- verifisert 991px container -> to 490px-kort, ingen
+   gap.
+
+**Bevisst IKKE gjort denne runden** (vurdert, men utenfor "polish"-scope
+uten en egen, større funksjonsrunde):
+- **Punkt 21 (frakt-avhengig antalls-vinner).** Ville krevd enten
+  klientside-omregning av qty-tabellen når frakt-bryteren slås på, eller
+  to parallelle statiske tabeller -- en reell funksjonsutvidelse, ikke en
+  logikk-fiks. Kortet er uansett konsekvent "uten frakt"-basert (samme
+  basis som "Prisforskjell mellom butikkene"), forklart i egen note --
+  ikke en blanding av produktpris- og totalpris-intelligens, bare ikke
+  frakt-bevisst ennå.
+- **Punkt 11 (graderte minimumskrav per periodelengde).** Modulen har
+  allerede en hard nedre grense (skjules helt under 7 dagers historikk)
+  pluss periode-for-periode data-kvalitetsporter
+  (`_price_intelligence_eligible_periods()`, 30/90/182/365 dager) --
+  vurdert som tilstrekkelig dekning av prinsippet uten å bygge et eget,
+  mer finmasket "7-29 dager = begrensede uttalelser"-lag denne runden.
+- **Punkt 16 (retroaktiv uavgjort-deteksjon i historikken).** `price_history.json`
+  lagrer kun ÉN vinnerbutikk per dag (samme tie-break som avgjorde
+  "laveste pris" på siden den dagen) -- allerede dokumentert i koden at
+  en eventuell uavgjort er avgjort deterministisk FØR lagring, ikke
+  gjenoppdagbart i etterkant uten å endre selve datamodellen
+  (price_history.py, alle konsumenter av `store`-feltet). Vurdert som en
+  skjemaendring, ikke en logikk-polish -- flagget, ikke gjort.
+
+Testet: `python3 -c "import ast; ast.parse(...)"` OK, bygget + `validate_build.py`
+OK (201/201). Verifisert konkret mot Kais eget Biofinity Toric-eksempel (se
+funn 1 og 5 over, eksakte tall matchet). Sjekket edge-caser: produkt med kun
+1 tilbud (Biofinity Multifocal Toric 3-pack -- spread-kort og qty-kort
+korrekt fraværende, "flat"-status upåvirket siden flat_days-sjekken kommer
+FØR materialitets-sjekken i prioritetsrekkefølgen), linsevæske
+(unit_plural="flasker" flyter fortsatt riktig gjennom tooltip-tekstene).
+Full sveip av bygget: 0 sider rendrer faktisk "Kjøper du flere ...?"-kortet
+(`grep '>Kjøper du flere'` -- de 426 falske positive treffene fra en første,
+for grov sveip var CSS-kommentarer/-selektorer i den delte stilarket, ikke
+faktisk innhold), 260 sider viser "Høyeste prisnivå", 237 viser "Laveste
+butikkpris", 24 sider treffer den nye, materialitets-krevende "Høyt
+prisnivå"-statusen (ned fra et ukjent, men garantert høyere antall før
+materialitetskravet ble lagt til).

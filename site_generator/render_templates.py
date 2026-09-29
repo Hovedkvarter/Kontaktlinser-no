@@ -464,7 +464,13 @@ a { color: inherit; }
   .price-intel-metrics-strip.active { grid-template-columns: repeat(4, 1fr) 1.3fr; }
   .price-intel-metric, .price-intel-status { min-height: 92px; }
   .price-intel-status { grid-column: auto; }
-  .price-intel-cards { grid-template-columns: repeat(3, 1fr); }
+  /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
+     2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
+     third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
+     _price_intelligence_quantity_table()), så raden kan reelt ha 2 eller
+     3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
+     ingen tom kolonne. */
+  .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
 }
 """
 
@@ -3755,7 +3761,15 @@ def _price_intelligence_status(window: list[dict]) -> dict:
       2. historical_low/historical_high: dagens pris er nøyaktig lik
          laveste/høyeste pris i DETTE vinduet (ikke nødvendigvis
          all-time -- "relevant history period" i regel 6, konsekvent med
-         at alle andre tall i modulen også er periode-relative).
+         at alle andre tall i modulen også er periode-relative) OG
+         spennet i vinduet er MATERIELT (range_pct >=
+         STATUS_STABLE_TOLERANCE_PCT). Uten materialitets-kravet ville et
+         produkt som har svingt mellom 449 og 454 kr (~1,1 %) blitt
+         flagget "høyeste registrerte pris" i rødt bare fordi dagens pris
+         tilfeldigvis traff periodens (ubetydelige) tak -- funnet og
+         rettet 2026-09-29 etter et konkret Kai-eksempel (Biofinity Toric
+         6-pack). Et lite, ikke-meningsfullt spenn faller i stedet
+         gjennom til "stable" via pct_change-sjekken under.
       3. down/up: prisendring fra vinduets FØRSTE til SISTE observasjon,
          utenfor +-STATUS_STABLE_TOLERANCE_PCT.
       4. Ellers: stable (liten, ikke-meningsfull svingning)."""
@@ -3772,12 +3786,14 @@ def _price_intelligence_status(window: list[dict]) -> dict:
             break
 
     pct_change = ((current - period_start) / period_start * 100) if period_start else 0.0
+    range_pct = ((period_high - period_low) / period_low * 100) if period_low else 0.0
+    material_range = range_pct >= STATUS_STABLE_TOLERANCE_PCT
 
     if flat_days >= STATUS_FLAT_MIN_DAYS:
         kind = "flat"
-    elif current == period_low and period_low != period_high:
+    elif material_range and current == period_low and period_low != period_high:
         kind = "historical_low"
-    elif current == period_high and period_low != period_high:
+    elif material_range and current == period_high and period_low != period_high:
         kind = "historical_high"
     elif pct_change <= -STATUS_STABLE_TOLERANCE_PCT:
         kind = "down"
@@ -3793,6 +3809,7 @@ def _price_intelligence_status(window: list[dict]) -> dict:
         "period_low": period_low,
         "period_high": period_high,
         "pct_change": pct_change,
+        "range_pct": range_pct,
         "flat_days": flat_days,
     }
 
@@ -3933,6 +3950,41 @@ def _render_price_history_chart(history: list[dict], show_heading: bool = True, 
   </div>"""
 
 
+# Chart Y-akse-gulv (logikk-/semantikk-runden 2026-09-29, regel 12-14, Kai:
+# "the current chart auto-range can make tiny price movements look
+# enormous... 449 -> 454 kr currently fills almost the full vertical plot
+# range"). Et rent prosentvis padd av OBSERVERT spenn (den gamle logikken)
+# gir et vilkårlig lite vindu når spennet selv er lite -- en ekte ~1 %
+# bevegelse fyller da hele grafhøyden og ser ut som et stup/rebound. Gulvet
+# under sikrer et visningsspenn på MINST `_CHART_MIN_ABS_RANGE_NOK` kr
+# ELLER `_CHART_MIN_PCT_RANGE` av referanseprisen (medianen), whichever er
+# størst -- for et ~450 kr-produkt blir det ~9 % = ~40 kr, så en 449->454
+# kr-bevegelse fortsatt er synlig, men ikke dominerer hele grafen. Gulvet
+# er KUN en nedre grense (regel 14: "Never clip observations to satisfy
+# the minimum-domain rule") -- et ekte, større spenn (f.eks. 299->499 kr)
+# vinner alltid over gulvet og klippes aldri.
+_CHART_MIN_ABS_RANGE_NOK = 25.0
+_CHART_MIN_PCT_RANGE = 0.09
+
+
+def _price_intel_chart_domain(prices: list[float]) -> tuple[float, float]:
+    """Y-aksens (min, max) for Price Intelligence-grafen -- se
+    _CHART_MIN_ABS_RANGE_NOK/_CHART_MIN_PCT_RANGE over for begrunnelsen.
+    Dekker også det tidligere spesialtilfellet "helt flat pris" (real_min
+    == real_max) naturlig: da er observert spenn 0, og hele visningsspennet
+    kommer fra gulvet alene, symmetrisk rundt prisen -- ingen egen
+    if-gren nødvendig lenger."""
+    real_min, real_max = min(prices), max(prices)
+    reference = statistics.median(prices)
+    min_visual_range = max(_CHART_MIN_ABS_RANGE_NOK, reference * _CHART_MIN_PCT_RANGE)
+    observed_range = real_max - real_min
+    visual_range = max(observed_range, min_visual_range)
+    extra = (visual_range - observed_range) / 2
+    lo, hi = real_min - extra, real_max + extra
+    pad = visual_range * 0.08
+    return lo - pad, hi + pad
+
+
 def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> str:
     """Strammere graf enn _render_price_history_chart() (KUN brukt av denne,
     IKKE av merke-/serie-sidenes _family_price_insight_data()-visning, som
@@ -3946,13 +3998,7 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
     n = len(window)
     prices = [h["price"] for h in window]
     real_min, real_max = min(prices), max(prices)
-
-    if real_min == real_max:
-        half_span = max(10.0, real_min * 0.12)
-        min_price, max_price = real_min - half_span, real_min + half_span
-    else:
-        pad = (real_max - real_min) * 0.1
-        min_price, max_price = real_min - pad, real_max + pad
+    min_price, max_price = _price_intel_chart_domain(prices)
     price_range = max_price - min_price
 
     width, height = 680, 140
@@ -4027,7 +4073,20 @@ def _price_intelligence_status_text(status: dict, n_days: int, period_label: str
     """(css-modifikator, kort tittel, forklarende setning) for statuskortet
     -- ALLTID fra de deterministiske reglene i _price_intelligence_status(),
     ALDRI en generert kommentar (Kai, regel 5: "Do not use an LLM to invent
-    price commentary")."""
+    price commentary").
+
+    "historical_high" sin tittel er bevisst "Høyt prisnivå", IKKE "Høyeste
+    registrerte pris" (logikk-/semantikk-runden 2026-09-29, Kai: "these
+    are NOT the same thing" -- historisk-serie-maks og dagens
+    butikk-maks/-median i "Prisforskjell mellom butikkene"-kortet må ha
+    synlig ulike etiketter, ellers leses de lett som samme tall). Siden
+    statusen nå også krever et MATERIELT spenn (se
+    _price_intelligence_status()), utløses denne kun når dagens pris
+    faktisk er nær en reell topp, ikke ved en 1 kr-svingning som
+    tilfeldigvis traff periodens tak. "historical_low" beholder sin
+    faktiske, ikke-selgende tittel "Laveste registrerte pris" (Kai:
+    unngå promoterende språk som "Fantastisk pris" -- et rent faktautsagn
+    er riktig her uansett)."""
     kind = status["kind"]
     current = status["current"]
     if kind == "flat":
@@ -4035,7 +4094,7 @@ def _price_intelligence_status_text(status: dict, n_days: int, period_label: str
     if kind == "historical_low":
         return "low", "Laveste registrerte pris", f"Dagens pris er den laveste vi har registrert i denne perioden ({period_label})."
     if kind == "historical_high":
-        return "high", "Høyeste registrerte pris", f"Dagens pris er den høyeste vi har registrert i denne perioden ({period_label})."
+        return "high", "Høyt prisnivå", f"Dagens pris er nær det høyeste nivået vi har registrert i denne perioden ({period_label})."
     if kind == "down":
         return "down", "Pris ned", f"Laveste produktpris har falt {abs(status['pct_change']):.0f} % de siste {n_days} dagene."
     if kind == "up":
@@ -4150,7 +4209,19 @@ def _price_intelligence_quantity_table(offers: list[dict], unit_singular: str, u
     regnet direkte fra levende tilbud (samme prinsipp som qty-multi-raden
     i render_winner_widget(), men uten frakt siden resten av denne
     modulen konsekvent er uten-frakt-basert). Krever >=2 gyldige tilbud,
-    samme terskel som resten av modulen."""
+    samme terskel som resten av modulen.
+
+    Skjules HELT (returnerer None) når vinnerbutikken er den samme på
+    tvers av ALLE viste antall (logikk-/semantikk-runden 2026-09-29,
+    Kai: "Do not show the Quantity Intelligence card merely because
+    quantity calculations exist... Intelligence should reveal
+    something, not merely repeat arithmetic"). Uten volumrabatter i
+    datamodellen (hver butikks pris er lineær -- pris × antall) er
+    vinnerbytte den ENESTE reelle intelligensen tabellen kan avdekke;
+    når ingen bytte skjer er raden bare gangetabellen for den ene
+    billigste butikken, og Kai ba eksplisitt om å heller skjule kortet
+    enn å fylle det med generisk "billigste butikk kan endre seg"-tekst
+    når vi konkret VET at den ikke gjør det i dette tilfellet."""
     pool = _savings_eligible_offers(offers, incl=False)
     if len(pool) < 2:
         return None
@@ -4165,6 +4236,8 @@ def _price_intelligence_quantity_table(offers: list[dict], unit_singular: str, u
             first_store = best_o["retailer"]
         elif change_qty is None and best_o["retailer"] != first_store:
             change_qty = qty
+    if change_qty is None:
+        return None
     return {"rows": rows, "change_qty": change_qty}
 
 
@@ -4200,7 +4273,55 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     kunne plassere dem tre ulike steder visuelt (topp/midt/bunn) mens de
     fortsatt oppdateres samlet. JS-en toggler nå ALLE elementer med et
     `data-period`-attributt i ett steg (inkludert selve fane-knappene, som
-    også har attributtet) i stedet for tre separate spørringer."""
+    også har attributtet) i stedet for tre separate spørringer.
+
+    LOGIKK-/SEMANTIKK-RUNDE (2026-09-29, Kai, "not another design brief
+    ... primarily about making sure the intelligence is mathematically
+    correct, semantically precise, not visually misleading, genuinely
+    useful, deterministic, adaptive"): ren logikk-/tekst-polish, IKKE en
+    ny visuell runde. Fem reelle funn rettet:
+      1. `_price_intelligence_status()` klassifiserte tidligere
+         historical_low/high kun på "current == period_low/high", uansett
+         hvor LITE spennet i perioden var -- et produkt som svingte
+         449<->454 kr (~1,1 %) ble flagget rødt "høyeste registrerte
+         pris" bare fordi dagens pris traff periodens (ubetydelige) tak.
+         Krever nå et MATERIELT spenn (range_pct >=
+         STATUS_STABLE_TOLERANCE_PCT) før historical_low/high i det hele
+         tatt kan utløses -- ellers faller den naturlig gjennom til
+         "stable" via samme toleranse som resten av statuslogikken.
+      2. Historikk-metrikkenes "Høyeste registrerte pris" er nå "Høyeste
+         prisnivå" (+ tooltip), og status-tittelen for historical_high er
+         "Høyt prisnivå" -- unngår at disse forveksles med "Prisforskjell
+         mellom butikkene" sin egen, helt ANNERLEDES "høyeste pris"
+         (dagens butikk-maks, ikke historisk serie-maks). Den kortets rader
+         omdøpt til "Laveste/Høyeste BUTIKKpris" av samme grunn.
+      3. Laveste/høyeste-dato viser nå "Først registrert {dato}" i stedet
+         for en bar dato -- unngår at en verdi som faktisk gjaldt i flere
+         dager leses som om den kun eksisterte akkurat den ene datoen
+         (Python sin min()/max() plukker allerede FØRSTE forekomst
+         kronologisk, kun teksten var upresis).
+      4. `_render_price_intelligence_chart()` sitt Y-akse-spenn hadde
+         ikke noe gulv -- et lite observert spenn (449-454 kr) ble padded
+         med kun 10 % av SEG SELV, som fylte hele grafhøyden med en
+         ubetydelig bevegelse. Ny `_price_intel_chart_domain()` sikrer et
+         visningsspenn på minst `_CHART_MIN_ABS_RANGE_NOK` kr eller
+         `_CHART_MIN_PCT_RANGE` av medianprisen -- ekte, større spenn
+         klippes aldri, gulvet er kun en nedre grense.
+      5. "Kjøper du flere esker?" skjules nå helt når vinnerbutikken er
+         den samme uansett antall (`_price_intelligence_quantity_table()`
+         returnerer None) -- uten volumrabatter i datamodellen er
+         vinnerbytte den eneste reelle intelligensen tabellen kan vise;
+         ren gangetabell er ikke intelligens. `.price-intel-cards` sin
+         desktop-CSS byttet fra fast `repeat(3,...)` til
+         `repeat(auto-fit, minmax(220px,1fr))` slik at raden ikke får en
+         tom tredje kolonne når kortet er skjult.
+    Databehandlingen ellers -- tie-break ved lik butikkpris
+    (`_tie_break_key()`/`AFFILIATE_TIE_PRIORITY`, allerede en dokumentert,
+    deterministisk prioritetsliste, ALDRI array-/databaserekkefølge), én
+    rad per faktisk kalenderdag (`record_price()` overskriver, legger
+    aldri til duplikater), og at manglende observasjonsdager aldri telles
+    som uendret/null (de er ganske enkelt fraværende fra historikk-listen)
+    -- var allerede korrekt og er UENDRET denne runden."""
     if len(history) < 7:
         return ""
 
@@ -4242,9 +4363,9 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
 
         metric_strips.append(f'''<div class="price-intel-metrics-strip{active_cls}" data-period="{key}">
     <div class="price-intel-metric price-intel-metric-now"><strong>{_fmt_kr(metrics["current"])}</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>{_fmt_kr(metrics["low"])}</strong><span>Laveste registrerte pris<br>{_format_no_date(metrics["low_date"])}</span></div>
-    <div class="price-intel-metric"><strong>{_fmt_kr(metrics["high"])}</strong><span>Høyeste registrerte pris<br>{_format_no_date(metrics["high_date"])}</span></div>
-    <div class="price-intel-metric"><strong>{_fmt_kr(metrics["median"])}</strong><span>{metrics["n_days"]}-dagers median</span></div>
+    <div class="price-intel-metric"><strong>{_fmt_kr(metrics["low"])}</strong><span>Laveste registrerte pris<br>Først registrert {_format_no_date(metrics["low_date"])}</span></div>
+    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>{_fmt_kr(metrics["high"])}</strong><span>Høyeste prisnivå<br>Først registrert {_format_no_date(metrics["high_date"])}</span></div>
+    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>{_fmt_kr(metrics["median"])}</strong><span>{metrics["n_days"]}-dagers median</span></div>
     <div class="price-intel-status price-intel-status-{status_mod}"><span class="price-intel-status-icon">{_PRICE_INTEL_STATUS_ICONS[status["kind"]]}</span><span><strong>{escape(status_title)}</strong>{escape(status_msg)}</span></div>
   </div>''')
         chart_panels.append(f'''<div class="price-intel-chart-panel{active_cls}" data-period="{key}">
@@ -4275,14 +4396,21 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
 
     # "Prisforskjell mellom butikkene" (regel 10-12) -- CURRENT tilbud, ikke
     # periode-avhengig, vises derfor KUN én gang. Skjules helt hvis <2
-    # gyldige tilbud (samme grunnlag som Savings Signal).
+    # gyldige tilbud (samme grunnlag som Savings Signal). Radetikettene er
+    # bevisst "Laveste/Høyeste BUTIKKpris" (ikke bare "Laveste/Høyeste
+    # pris") -- logikk-/semantikk-runden 2026-09-29, Kai: dette er
+    # DAGENS spredning mellom butikker, et helt annet tall enn
+    # historikk-metrikkenes "Laveste registrerte pris"/"Høyeste
+    # prisnivå" over. Uten den presiseringen kan f.eks. 454 kr (dagens
+    # laveste butikkpris) og 666 kr (dagens høyeste butikkpris) lett
+    # forveksles med historiske min/maks-tall lenger opp i modulen.
     spread_card = ""
     if spread:
         spread_card = f'''<div class="price-intel-card">
     <h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
-    <div class="price-intel-card-row"><span>Laveste pris</span><strong>{_fmt_kr(spread["lowest"])}</strong></div>
+    <div class="price-intel-card-row"><span>Laveste butikkpris</span><strong>{_fmt_kr(spread["lowest"])}</strong></div>
     <div class="price-intel-card-row"><span>Medianpris</span><strong>{_fmt_kr(spread["median"])}</strong></div>
-    <div class="price-intel-card-row"><span>Høyeste pris</span><strong>{_fmt_kr(spread["highest"])}</strong></div>
+    <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>{_fmt_kr(spread["highest"])}</strong></div>
     <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>{spread["spread_pct"]} %</strong></div>
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 {escape(unit_singular)}.</p>
   </div>'''
@@ -4308,18 +4436,21 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <p class="price-intel-card-note">{escape(winners["top_store"])} har hatt lavest registrert produktpris i {winners["top_count"]} av de siste {winners["n_days"]} dagene.{changes_sentence}</p>
   </div>'''
 
-    # "Kjøper du flere esker?" (visuelt reset-brief punkt 9) -- samme
-    # CURRENT-tilbud-grunnlag som Prisforskjell-kortet, vises derfor også
-    # KUN én gang.
+    # "Kjøper du flere esker?" (visuelt reset-brief punkt 9, betinget
+    # skjult av _price_intelligence_quantity_table() selv -- se dens
+    # docstring for begrunnelsen) -- samme CURRENT-tilbud-grunnlag som
+    # Prisforskjell-kortet, vises derfor også KUN én gang. Siden kortet
+    # nå KUN rendres når vinnerbutikken faktisk endrer seg et sted i
+    # tabellen, sier notatet det konkrete antallet det skjer ved i
+    # stedet for den tidligere generiske "kan endre seg"-hedgingen
+    # (logikk-/semantikk-runden 2026-09-29, Kai: "do not use generic
+    # text... when we know it does not [change]" -- her vet vi tvert
+    # imot at den GJØR det, så teksten sier nøyaktig det).
     qty_card = ""
     if qty_table:
         rows_html = "".join(
             f'<tr><td>{r["qty"]} {escape(unit_singular) if r["qty"] == 1 else escape(unit_plural)}</td><td>{_fmt_kr(r["total"])}</td><td>{escape(r["store"])}</td></tr>'
             for r in qty_table["rows"]
-        )
-        change_sentence = (
-            f' Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.'
-            if qty_table["change_qty"] else ""
         )
         qty_card = f'''<div class="price-intel-card">
     <h3 class="price-intel-card-h-qty">{BOX_ICON_SVG}Kjøper du flere {escape(unit_plural)}?</h3>
@@ -4327,7 +4458,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
       <thead><tr><th>Antall</th><th>Laveste pris</th><th>Butikk</th></tr></thead>
       <tbody>{rows_html}</tbody>
     </table>
-    <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk kan endre seg ved flere {escape(unit_plural)}.{change_sentence}</p>
+    <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.</p>
   </div>'''
 
     cards_html = f'<div class="price-intel-cards">{spread_card}{winners_card}{qty_card}</div>' if (spread_card or winners_card or qty_card) else ""
