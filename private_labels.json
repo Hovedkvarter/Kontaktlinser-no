@@ -1,5 +1,5 @@
 {
-  "$comment": "Optikerkjedenes egne private label-navn for kontaktlinser vi allerede har i produkts_meta.json -- KUN høy-sikkerhet-koblinger, bekreftet direkte mot Lensway sin egen 'Optikerkjedenes varemerke'-seksjon (https://www.lensway.no/kontaktlinser/linseliste?p_privateBrand=...), som eksplisitt forklarer hvilket produsent-navn hver private label-linse faktisk selges under. real_product_id peker til den eksisterende oppføringen i products_meta.json -- ingen egen prisdata her, siden det er nøyaktig samme fysiske produkt/samme tilbud. Verifisert 2026-08-15, re-verifisert 2026-08-15 mot Lensway sitt eget produkt-API (viewproductpageinfo) -- fant og rettet 3 feil der XR-varianten pekte til biofinity-xr-6pk, men Lensway sin egen pakningsstørrelse-data for samme produkt-id (4244) viste at det er 3-pack, ikke 6-pack (samme kjente id-4244-forveksling som allerede var dokumentert for Lenson/Lensway sine scrape_targets).",
+  "$comment": "Optikerkjedenes egne private label-navn for kontaktlinser vi allerede har i produkts_meta.json -- KUN høy-sikkerhet-koblinger, bekreftet direkte mot Lensway sin egen 'Optikerkjedenes varemerke'-seksjon (https://www.lensway.no/kontaktlinser/linseliste?p_privateBrand=...), som eksplisitt forklarer hvilket produsent-navn hver private label-linse faktisk selges under. real_product_id peker til den eksisterende oppføringen i products_meta.json -- ingen egen prisdata her, siden det er nøyaktig samme fysiske produkt/samme tilbud. Verifisert 2026-08-15, re-verifisert 2026-08-15 mot Lensway sitt eget produkt-API (viewproductpageinfo) -- fant og rettet 3 feil der XR-varianten pekte til biofinity-xr-6pk, men Lensway sin egen pakningsstørrelse-data for samme produkt-id (4244) viste at det er 3-pack, ikke 6-pack (samme kjente id-4244-forveksling som allerede var dokumentert for Lenson/Lensway sine scrape_targets). 2026-09-29: 5. kjede lagt til -- 'Mister Spex' sitt eget merke 'TrueLens', oppdaget etter et tips fra Kai (Mister Spex kjøpte/eier Lensit). Bekreftet på samme måte som de fire andre kjedene, PLUSS krysssjekket mot Lensit sine egne spesifikasjonstabeller (identisk materiale/vanninnhold/Dk-t/diameter/basiskurve som våre eksisterende Live/MyDay-oppføringer) -- se Lensway sin '/kontaktlinser/linseliste?p_privateBrand=Mister+Spex'-side og hver enkelt produktsides eksplisitte 'Finnes under navnet: X'-tekst. Alle 10 TrueLens-produkter og alle 10 canonical-produktene fantes allerede i katalogen vår.",
   "labels": [
     {
       "slug": "iwear-oxygen",
@@ -384,6 +384,66 @@
       "name": "Ascend Active Multifocal 1 Day",
       "chain": "Coptikk",
       "real_product_id": "proclear-1day-multifocal-30pk"
+    },
+    {
+      "slug": "truelens-premium-daily",
+      "name": "TrueLens Premium Daily",
+      "chain": "Mister Spex",
+      "real_product_id": "live-30pk"
+    },
+    {
+      "slug": "truelens-platinum-daily",
+      "name": "TrueLens Platinum Daily",
+      "chain": "Mister Spex",
+      "real_product_id": "myday-30pk"
+    },
+    {
+      "slug": "truelens-platinum-daily-toric",
+      "name": "TrueLens Platinum Daily Toric",
+      "chain": "Mister Spex",
+      "real_product_id": "myday-toric-30pk"
+    },
+    {
+      "slug": "truelens-platinum-daily-multifocal",
+      "name": "TrueLens Platinum Daily Multifocal",
+      "chain": "Mister Spex",
+      "real_product_id": "myday-multifocal-30pk"
+    },
+    {
+      "slug": "truelens-platinum-monthly",
+      "name": "TrueLens Platinum Monthly",
+      "chain": "Mister Spex",
+      "real_product_id": "ultra-6pk"
+    },
+    {
+      "slug": "truelens-platinum-monthly-toric",
+      "name": "TrueLens Platinum Monthly Toric",
+      "chain": "Mister Spex",
+      "real_product_id": "ultra-astigmatism-6pk"
+    },
+    {
+      "slug": "truelens-platinum-monthly-multifocal",
+      "name": "TrueLens Platinum Monthly Multifocal",
+      "chain": "Mister Spex",
+      "real_product_id": "ultra-presbyopia-6pk"
+    },
+    {
+      "slug": "truelens-premium-monthly",
+      "name": "TrueLens Premium Monthly",
+      "chain": "Mister Spex",
+      "real_product_id": "purevision2-6pk"
+    },
+    {
+      "slug": "truelens-premium-monthly-toric",
+      "name": "TrueLens Premium Monthly Toric",
+      "chain": "Mister Spex",
+      "real_product_id": "purevision2-astigmatism-6pk"
+    },
+    {
+      "slug": "truelens-premium-monthly-multifocal",
+      "name": "TrueLens Premium Monthly Multifocal",
+      "chain": "Mister Spex",
+      "real_product_id": "purevision2-presbyopia-6pk"
     }
   ]
 }

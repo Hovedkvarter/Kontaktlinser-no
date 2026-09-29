@@ -1467,6 +1467,7 @@ PRIVATE_LABEL_SUBBRANDS = {
     "Synsam": "EyeQ",
     "Specsavers": "Easyvision",
     "Coptikk": "Ascend",
+    "Mister Spex": "TrueLens",
 }
 
 # "Alle merker A-Å" i toppmenyens Merker-dropdown (2026-09-29). Kai, med
@@ -12210,7 +12211,8 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
         chain_labels = sorted(by_chain[chain], key=lambda l: l["name"])
         rows = "\n".join(render_row(chain, l) for l in chain_labels)
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
-        sections_html += f"""<h2 id="{escape(chain.lower())}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--blue);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
+        chain_anchor = chain.lower().replace(" ", "-")
+        sections_html += f"""<h2 id="{escape(chain_anchor)}" style="scroll-margin-top:20px;">{escape(chain)} <a href="/merke/{escape(subbrand.lower())}/" style="font-size:0.75rem;font-weight:600;color:var(--blue);text-decoration:none;">Se {escape(subbrand)}-siden →</a></h2>
   <div style="overflow-x:auto;">
   <table class="pl-table">
     <thead><tr><th>Kjedens navn</th><th>Egentlig</th><th>Kategori</th><th>Fra pris</th></tr></thead>

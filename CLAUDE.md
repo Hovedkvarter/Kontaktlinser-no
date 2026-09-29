@@ -4368,3 +4368,103 @@ fjernede symbolene/CSS-klassene noe sted i filen. Verifisert i browser
 "Alle merker →" bekreftet `href="/#merker"` via DOM. Merker- og
 Guider-menyene (urørt i denne runden) sjekket på nytt for regresjon --
 begge fortsatt korrekte.
+
+## 5. private label-kjede oppdaget og lagt til: Mister Spex/TrueLens (2026-09-29)
+
+Kai fulgte opp assessment-runden over med et konkret tips: "ja. og klarer
+du å finne flere slike private labels i norge som ikke kontaktlinser.no
+har? utfordring.." (limt inn fra en annen AI-samtale, se forrige
+CLAUDE.md-seksjon for min vurdering av selve svaret -- TrueLens var det
+eneste sporet med reell substans, Everclear og "flere Easyvision-varianter"
+ble vurdert som svake/allerede dekket). Kai ba deretter eksplisitt om å
+verifisere TrueLens-sporet, pluss et eget tips: "jeg tror mister spex
+kjøpte lensit før de la ned i norge og eier lensit og har da også disse
+produktene for det norske markedet" (med lenke til Lensit sitt eget søk).
+
+**Verifisert på tre uavhengige måter, samme kildedisiplin som de 4
+eksisterende kjedene:**
+1. Lensit (allerede skrapet forhandler) -- 9 TrueLens-produkter, med
+   spesifikasjonstabeller (materiale/vanninnhold/Dk-t/diameter/basiskurve)
+   som er identiske med våre eksisterende Live/MyDay-oppføringer.
+2. Lenson/Lensway (allerede integrert) -- 10 TrueLens-produkter hver
+   (`lensway.no/searchlw?s=truelens`), under URL-mønsteret
+   `-private-{id}` -- samme markør Lensway bruker for alle eksisterende
+   private-label-SKU-er.
+3. **Gullstandard-bekreftelse**: Lensway sin egen
+   `/kontaktlinser/linseliste?p_privateBrand=Mister+Spex`-side (samme
+   "Optikerkjedenes varemerke"-mekanisme de 46 opprinnelige koblingene ble
+   bygget fra) + hver enkelt produktsides eksplisitte "Finnes under
+   navnet: X"-tekst, f.eks.: "TrueLens Premium Daily heter Live hos oss.
+   Det er samme navn som produsenten CooperVision har gitt den... Lensway
+   har ikke noe samarbeide med Mister Spex, men selger den under navnet
+   som produsenten har gitt den." Samme sideTITTEL-mønster ("X - Linser -
+   Produsent | Lensway") ga alle 10 mappingene direkte, uten å måtte lete
+   i selve brødteksten for hver.
+
+**Alle 10 mappinger** (lagt til i `private_labels.json`, `chain: "Mister
+Spex"`) -- to kvalitetsnivåer, Daily-varianter fra CooperVision,
+Monthly-varianter fra Bausch + Lomb:
+
+| TrueLens-navn | Ekte produkt | Produsent |
+|---|---|---|
+| Premium Daily | Live 30-pack | CooperVision |
+| Platinum Daily | MyDay 30-pack | CooperVision |
+| Platinum Daily Toric | MyDay Toric 30-pack | CooperVision |
+| Platinum Daily Multifocal | MyDay Multifocal 30-pack | CooperVision |
+| Platinum Monthly | ULTRA 6-pack | Bausch + Lomb |
+| Platinum Monthly Toric | ULTRA for Astigmatism 6-pack | Bausch + Lomb |
+| Platinum Monthly Multifocal | ULTRA for Presbyopia 6-pack | Bausch + Lomb |
+| Premium Monthly | PureVision2 6-pack | Bausch + Lomb |
+| Premium Monthly Toric | PureVision2 for Astigmatism 6-pack | Bausch + Lomb |
+| Premium Monthly Multifocal | PureVision2 for Presbyopia 6-pack | Bausch + Lomb |
+
+Alle 10 canonical-produktene fantes allerede i katalogen vår -- ingen nye
+produkter måtte legges til, kun nye alias-koblinger.
+
+**Implementert**: `"Mister Spex": "TrueLens"` lagt til
+`PRIVATE_LABEL_SUBBRANDS` (render_templates.py) -- resten er HELT
+automatisk fra eksisterende, generaliserte kodesti (samme mønster som
+gjorde EyeQ/iWear/Ascend/Easyvision-arbeidet tidligere denne dagen
+byggbart uten sidetype-spesifikk kode): `/merke/truelens/`,
+10× `/private-label/truelens-*/`, TrueLens sitt eget kort i forsidens
+"Merker"-rutenett, en ny seksjon på `/private-label/`, og TrueLens i
+toppmenyens "Alle merker A-Å"-liste (fra forrige runde samme dag) --
+INGEN av disse stedene trengte kode-endring, kun de to datafilene.
+3 nye `/serie/truelens-*/`-sider ble også bygget automatisk (samme
+kryssreferanse-mekanisme som allerede kobler private label-varianter inn
+i eksisterende produktserier der en familie deler ≥2 medlemmer).
+
+**Ingen logo/illustrasjon for TrueLens ennå** -- `PRIVATE_LABEL_SUBBRAND_LOGOS`
+og `render_private_label_illustration()` har ingen TrueLens-oppføring,
+så serien faller korrekt tilbake til en initial-badge ("TR") og det ekte
+produktbildet som sample-image på oversiktskortene -- samme fallback-vei
+iWear brukte før den fikk sin egen tekst-ordmerke-logo, ingen krasj.
+
+**Liten, ekte bug fanget og fikset i samme runde** (ikke TrueLens-
+spesifikk, men eksponert av det nye kjedenavnet): `render_private_label_index_page()`
+sin per-kjede seksjons-anker brukte `chain.lower()` direkte som HTML
+`id`-attributt -- fungerte greit for alle eksisterende ett-ords-kjedenavn
+(Brilleland/Synsam/Specsavers/Coptikk), men ga et ugyldig
+`id="mister spex"` (mellomrom i en HTML-id) for det nye kjedenavnet.
+Fikset med `chain.lower().replace(" ", "-")` -> `id="mister-spex"`.
+
+Testet: bygget + `validate_build.py` OK (201/201), full sveip ingen
+Traceback/NameError. JSON-LD validert gyldig (`json.loads()`) på
+`/merke/truelens/`, to individuelle `/private-label/truelens-*/`-sider
+og `/private-label/`-oversikten. Verifisert i browser: `/merke/truelens/`
+viser korrekt "10 produkter · 4 ekte merker · 4 linsetyper · 8 butikker",
+prisinnsikt-graf og produktgrid med riktig "= Live 30-pack" / "= MyDay
+30-pack" osv. per kort; `/private-label/truelens-premium-daily/` viser
+ekte, levende tilbud fra Lensway/Lenson/Lensit (samme tilbudsdata som
+`live-30pk` allerede har); `/private-label/`-oversikten har en ny
+"Mister Spex → Se TrueLens-siden →"-seksjon med riktig anker-id; forsidens
+Merker-grid og toppmenyens "Alle merker A-Å" (nå 26 merker) viser begge
+TrueLens automatisk. Mobil (375px) sjekket på `/merke/truelens/` --
+`document.body.scrollWidth === window.innerWidth`, ingen overflow.
+
+**Ikke gjort i denne runden** (flagget, ikke glemt): den opprinnelige
+Easyvision Linarial/Lenson-URL-verifiseringen (fra forrige runde) ble
+avbrutt da Kai styrte samtalen mot TrueLens -- fortsatt uverifisert.
+Everclear-"audit" og "flere Easyvision-varianter"-sporet fra samme
+AI-samtale ble vurdert som lav prioritet/sannsynlig blindvei i
+assessment-runden, ikke fulgt opp.
