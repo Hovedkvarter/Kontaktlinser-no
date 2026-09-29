@@ -10386,10 +10386,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     <div class="hero-card hero-card-solution">
       <div class="hero-main">
         <div class="hero-copy">
-          <div class="kicker">{escape(product["brand_label"])}</div>
+          <div class="hero-kicker">{escape(product["brand_label"])}</div>
           <h1>{escape(product["name"])}</h1>
-          <p>{escape(long_description)}</p>
-          {price_per_unit_html}
+          <p class="hero-subtitle">Sammenlign priser</p>
         </div>
         <div class="hero-media-row">
           <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
@@ -10409,6 +10408,9 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     forhandler eller et apotek. Rådfør deg med optiker eller øyelege om
     hva som passer for deg og dine kontaktlinser.
   </p>
+  <h2>Om {escape(product["name"])}</h2>
+  <p>{escape(long_description)}</p>
+  {price_per_unit_html}
   {ai_summary_html}
   {product_faq_html}
   {METHODOLOGY_HTML}
@@ -10961,9 +10963,9 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     <div class="hero-card hero-card-solution">
       <div class="hero-main">
         <div class="hero-copy">
-        <div class="kicker">Eget merkenavn</div>
+        <div class="hero-kicker">Eget merkenavn</div>
         <h1>{escape(private_name)} er egentlig {escape(real_name)}</h1>
-        <p>{escape(private_name)} er et eget varenavn for denne linsen. Det er samme produkt som {escape(real_name)} fra {escape(real_brand)}, bare i egen innpakning. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
+        <p class="hero-subtitle">Sammenlign priser</p>
         </div>
         <div class="hero-media-row">
           <div class="hero-product-image pli-hero">{hero_visual}</div>

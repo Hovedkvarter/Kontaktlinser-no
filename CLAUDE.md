@@ -4118,3 +4118,64 @@ ingen overflow. Desktop (1440px) på samme side dobbeltsjekket
 uendret. Tabellen er fortsatt fullt brukbar på mobil -- ren
 horisontal scroll INNI sitt eget kort, ikke skjult/fjernet
 innhold.
+
+## Mobil hero: linsevæske/øyedråper/Tilbehør og private label matcher nå kontaktlinse-produktsiden nøyaktig (2026-09-29)
+
+Kai, ny dag: "på optikerkjedenes egne merkevarer på mobil, ser det ut som
+den ikke er lik som de andre produktsidene. og samme med alle produkter
+innunder tilbehør, som inkluderer linsevæske osv.. Vi skal ha en lik side
+for produktsider på mobil. for alle produktsider." + "spør hvis du er
+usikker".
+
+**Reell, konkret forskjell** (bekreftet via mobil-skjermbilder, ikke bare
+kode-lesing): kontaktlinse-produktsiden sin mobile hero (Gold Standard v1,
+se tidligere runder) viser KUN kicker (skjult), H1 og "Sammenlign priser"
+-- ingen forklaringstekst i selve kjøpskortet. `render_solution_product_page()`
+og `render_private_label_page()` hadde derimot fortsatt en synlig kicker PÅ
+MOBIL, pluss en hel avsnitt forklaringstekst inni `.hero-copy` (produkt-
+beskrivelsen for linsevæske/øyedråper/Tilbehør, "X er egentlig Y..."-
+forklaringen for private label) -- gjorde heroen synlig høyere/tyngre enn
+referansen.
+
+**Avklart med Kai via spørsmål** (reelt innholds-tradeoff, spesielt for
+private label sin identitetsforklaring): valgte BEGGE anbefalte alternativer
+-- (1) flytt ALL forklaringstekst ut av mobil-heroen, for begge sidetyper,
+også private label sin "det er samme produkt som..."-forklaring, slik at
+heroen blir like kompakt overalt; (2) skjul kickeren på mobil her også
+(vis kun på desktop), samme mønster som kontaktlinse-produktsiden allerede
+har.
+
+**Implementert** (kun `.hero-copy`-markupen i de to funksjonene, ingen
+`HERO_IMAGE_STYLE`-CSS-endring nødvendig -- `.hero-kicker`/`.hero-subtitle`
+fantes allerede der fra Gold Standard-retrofiten dagen før, bare ikke i
+bruk i selve markupen ennå):
+- `render_solution_product_page()`: `<div class="kicker">`→
+  `<div class="hero-kicker">`, og den inline lange beskrivelsen +
+  `price_per_unit_html` erstattet med `<p class="hero-subtitle">Sammenlign
+  priser</p>`. Beskrivelsen er IKKE slettet -- flyttet til en ny
+  `<h2>Om {produktnavn}</h2><p>{beskrivelse}</p>{price_per_unit_html}`-
+  seksjon rett før `{ai_summary_html}` (etter prisdisclosure-avsnittet),
+  samme "flytt, ikke fjern"-prinsipp som resten av mobil-redesignet denne
+  uken.
+- `render_private_label_page()`: samme kicker-bytte, og
+  "det er samme produkt som X, bare i egen innpakning..."-forklaringen
+  erstattet med samme `hero-subtitle`. INGEN ny seksjon trengtes her --
+  bekreftet via en eksisterende kodekommentar at akkurat dette innholdet
+  allerede er dekket av `.private-label-explainer`-boksen lenger ned på
+  siden (bevisst utelatt fra FAQ-en av samme grunn) -- å legge det til på
+  nytt et sted til hadde vært ren duplisering, ikke tapt informasjon.
+
+Testet: bygget + `validate_build.py` OK (201/201 produkter har priser),
+full sveip ingen Traceback/NameError. Verifisert i browser-panelet BÅDE
+mobil (375px) og desktop (≥860px) på iWear Oxygen XR (private label) og
+ReNu Multi-Purpose 60 ml (linsevæske): mobil viser nå nøyaktig samme
+kompakte mønster som referansen (ingen synlig kicker, H1 + "Sammenlign
+priser", ingen forklaringstekst i kjøpskortet); desktop viser kickeren
+korrekt igjen (RENU / EGET MERKENAVN), og den nye "Om ReNu..."-seksjonen
+på linsevæske-siden rendrer riktig med beskrivelse + pris-per-enhet, uten
+noe hull i `.product-stage`-gridets identitetsområde. Regresjonssjekket i
+tillegg: en peroksidbasert linsevæske (AOSept Plus 360 ml -- safety-notice-
+boksen rendrer fortsatt riktig rett under heroen) og et Tilbehør-produkt
+(SWATI Lens Case & Tweezers) på mobil, begge korrekte. Kontaktlinse-
+produktsiden (`render_product_page()`) er ikke rørt i denne runden --
+egen, allerede testet lokal CSS-kopi, ingen risiko for krysspåvirkning.
