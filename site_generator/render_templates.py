@@ -1835,6 +1835,58 @@ def _pli_iwear(slug: str) -> str | None:
 </div>"""
 
 
+TRUELENS_ILLUSTRATIONS = {
+    "truelens-premium-daily", "truelens-platinum-daily", "truelens-platinum-daily-toric",
+    "truelens-platinum-daily-multifocal", "truelens-premium-monthly", "truelens-premium-monthly-toric",
+    "truelens-premium-monthly-multifocal", "truelens-platinum-monthly", "truelens-platinum-monthly-toric",
+    "truelens-platinum-monthly-multifocal",
+}
+
+
+def _pli_truelens(slug: str) -> str | None:
+    """TrueLens (Mister Spex)-illustrasjoner -- i motsetning til de tre andre
+    kjedene (rene CSS-tegnede "fake bokser", se _pli_iwear() m.fl.) er dette
+    ekte rasterbilder Kai leverte 2026-09-29 (kuttet fra et samlet
+    referanseark han selv sa er "Illustrasjoner av TrueLens-serien. Faktisk
+    emballasje kan avvike."). Egne, ikke-offisielle mockups av TrueLens-
+    emballasjen, IKKE offisielle produktbilder fra Mister Spex -- samme
+    "illustrasjon, ikke ekte produktbilde"-behandling som de tre andre
+    kjedene likevel, per eksplisitt instruks. object-fit:contain (ikke
+    cover) siden bildene er portrettformat (~1,25:1) mens den delte
+    .pli-tile-wrap/.pli-frame er tegnet for de andre kjedenes brede
+    2,49:1-illustrasjonscanvas -- contain unngår at boksmotivet beskjæres,
+    på bekostning av synlig luft i sidekantene på det brede rutenett-kortet.
+
+    Rot-årsak funnet 2026-09-29 (etter to mislykkede forsøk -- fast px-grense,
+    så prosent-grense, begge uten effekt): den delte `.pli-tile-wrap` (satt
+    av KALLEREN, ikke her) har `aspect-ratio:560/225`, men INGEN
+    `overflow:hidden` på seg selv. Uten det ignorerer CSS-motoren
+    aspect-ratio når et barn sitt "automatic minimum size" (min-content)
+    krever mer plass -- og et bilde i portrettformat (340×~270,
+    height:auto) krever nettopp det, så `.pli-tile-wrap` ble stille strukket
+    til bildets EGEN ratio (~1,25:1) i stedet for den tiltenkte 2,49:1,
+    og spiste dermed opp all plassen "Egen illustrasjon..."-bildeteksten
+    trengte (bekreftet med getBoundingClientRect(): `.pli-tile-wrap` sin
+    egen høyde matchet bildets naturlige ratio, ikke 560/225, uansett
+    skjermbredde). De tre andre kjedenes CSS-tegnede illustrasjoner rammes
+    aldri av dette siden ALT innholdet deres allerede er absolutt
+    posisjonert (se `_pli_iwear()` m.fl.) -- de bidrar null til
+    "automatic minimum size"-beregningen. Løsningen her er identisk:
+    `<img>` tas ut av normal flyt med `position:absolute` inni en tom
+    `position:relative`-wrapper (som selv IKKE bidrar med noe
+    min-content-krav), slik at `.pli-tile-wrap` sin aspect-ratio endelig
+    får virke som tiltenkt, og bildeteksten får plassen den trenger."""
+    if slug not in TRUELENS_ILLUSTRATIONS:
+        return None
+    return (
+        '<div style="position:relative;width:100%;height:100%;">'
+        f'<img src="/static/private-label/{slug}.webp" alt="" loading="lazy" '
+        'style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;" '
+        'role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">'
+        '</div>'
+    )
+
+
 def render_private_label_illustration(chain: str, slug: str) -> str | None:
     """Returnerer illustrasjons-HTML for en private label-variant, eller None
     hvis vi ikke har noen. Kjeden brukes KUN til å velge riktig visuell
@@ -1847,6 +1899,8 @@ def render_private_label_illustration(chain: str, slug: str) -> str | None:
         return _pli_ascend(slug)
     if chain == "Specsavers":
         return _pli_easyvision(slug)
+    if chain == "Mister Spex":
+        return _pli_truelens(slug)
     return None
 
 

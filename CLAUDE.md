@@ -4468,3 +4468,69 @@ avbrutt da Kai styrte samtalen mot TrueLens -- fortsatt uverifisert.
 Everclear-"audit" og "flere Easyvision-varianter"-sporet fra samme
 AI-samtale ble vurdert som lav prioritet/sannsynlig blindvei i
 assessment-runden, ikke fulgt opp.
+
+## TrueLens-illustrasjoner: dobbeltsjekk + ekte bilder fra Kai (2026-09-29, samme dag)
+
+Kai: "dobbeltsjekk at alle er korrekte og så sender jeg deg en liste over
+bilder du kan bruke som vi har laget. husk å markere slik som iwear at
+dette er illustrerte bilder etc.."
+
+**Dobbeltsjekk**: alle 10 TrueLens-koblinger re-verifisert individuelt
+(ikke bare sidetittel denne gangen, men Lensway sin fulle "Finnes under
+navnet: X"-brødtekst per produkt) -- alle 10 bekreftet 100 % korrekte mot
+`private_labels.json`, ingen feil funnet.
+
+**Bilder**: Kai sendte et samlet referanseark (17 boksrendere,
+"Illustrasjoner av TrueLens-serien. Faktisk emballasje kan avvike." --
+Kai sin egen ordlyd, ikke noe vi la til) som PNG/webp-fil (ikke bare
+inline i chatten som forrige, ufullstendige arket). Alle 10 nødvendige
+bokser (matchet mot våre 10 label-slugs, valgte 30-pack-varianten der
+både 30/90 var vist siden det er den faktiske canonical-koblingen) kuttet
+ut med samme numpy-baserte rad-/kolonne-gap-deteksjon som guide-bildene
+tidligere i prosjektet (kolonne-std-avvik per rad-bånd, med
+gap-sammenslåing for å håndtere smale skygge-artefakter mellom boksene --
+enkel bakgrunn-median-terskel var for støyfølsom på grunn av en svak
+gradient over hele arket). Lagret som `static/private-label/truelens-
+{slug}.webp` (340px bredde, 5,7-8,8 KB hver).
+
+**Ny `_pli_truelens(slug)`** wired inn i `render_private_label_illustration()`
+for `chain == "Mister Spex"`. Prinsipielt annerledes enn de tre andre
+kjedenes rene CSS-tegnede "fake bokser" (`_pli_iwear()` m.fl.) -- dette er
+ekte rasterbilder, ikke vektor-illustrasjon -- men samme
+"illustrasjon, ikke ekte produktbilde"-behandling (`role="img"
+aria-label="Illustrasjon, ikke et ekte produktbilde"` + den synlige
+"Egen illustrasjon, ikke et ekte produktbilde. Les mer →"-bildeteksten
+til `/om-produktillustrasjoner/`), nøyaktig som Kai ba om.
+
+**To reelle CSS-bugs funnet og fikset underveis** (begge oppdaget empirisk
+med `getBoundingClientRect()` i browser-panelet, ikke antatt):
+1. Første forsøk (`height:100%` på bildet) arvet stille HELE
+   `.hero-product-image` sin faste boks-høyde og dyttet bildeteksten under
+   fullstendig utenfor det synlige (`overflow:hidden`-klipte) området --
+   usynlig, men til stede i DOM-en.
+2. Rot-årsaken var dypere enn selve bildet: den DELTE `.pli-tile-wrap`
+   (satt av kalleren, brukt av ALLE fem kjeder) har `aspect-ratio:560/225`
+   men INGEN `overflow:hidden` på seg selv -- uten det ignorerer
+   CSS-motoren aspect-ratio når et barns "automatic minimum size" krever
+   mer plass, og et portrettformat-bilde (`height:auto`) krevde nettopp
+   det. `.pli-tile-wrap` ble dermed stille strukket til BILDETS egen ratio
+   (~1,25:1) i stedet for den tiltenkte 2,49:1 -- bekreftet med
+   `getComputedStyle` (aspect-ratio sto riktig i CSS-en, men faktisk
+   rendret høyde matchet ikke). De tre andre kjedene rammes aldri av dette
+   siden ALT innholdet deres allerede er absolutt posisjonert (bidrar null
+   til "automatic minimum size"). Fikset ved å gjøre det samme for
+   TrueLens: bildet ligger nå i en tom `position:relative`-wrapper med
+   `<img>` selv `position:absolute;inset:0` -- tatt helt ut av normal
+   flyt, slik at `.pli-tile-wrap` sin aspect-ratio endelig får virke som
+   tiltenkt (bekreftet: 2,49:1 nøyaktig, på alle 10 rutenett-fliser OG på
+   produktsidens hero, både mobil og desktop).
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Verifisert i browser på BEGGE stedene illustrasjonen
+brukes (produktside-hero og merke-side-rutenett), på BÅDE mobil (375px --
+der bildeteksten opprinnelig pakket om til 2 linjer og var enda mer utsatt
+for klipping enn desktop) og desktop, for flere ulike TrueLens-produkter.
+Regresjon: iWear sin eksisterende, urørte CSS-illustrasjon sjekket på nytt
+og fortsatt 100 % uendret (kun den NYE `Mister Spex`-grenen i
+`render_private_label_illustration()` ble lagt til, ingen eksisterende
+kode i de fire andre `_pli_*`-funksjonene rørt).
