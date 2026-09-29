@@ -320,7 +320,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
             labels_by_chain.setdefault(label["chain"], []).append(label)
         for chain, chain_labels in labels_by_chain.items():
             slug = PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower()
-            html = render_private_label_brand_page(chain, chain_labels, products_by_id, catalog["categories"], now)
+            html = render_private_label_brand_page(chain, chain_labels, products_by_id, catalog["categories"], now, price_history=price_history)
             write_file(BUILD_DIR / "merke" / slug / "index.html", html)
             print(f"  merke    -> /merke/{slug}/ ({chain})")
 

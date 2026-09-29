@@ -4963,6 +4963,230 @@ def _brand_family_summary(family: dict, member_products: list[dict], categories:
     }
 
 
+BRAND_PAGE_STYLE = """
+/* Merke-siden sitt løft (2026-09-27, samme dag som serie-siden sin
+   FAQ-regelmotor) -- egne brand-*-klassenavn (ikke gjenbruk av
+   serie-siden sine serie-*-klassenavn, selv der mønsteret er identisk)
+   for å holde de to sidetypene sin CSS uavhengige av hverandre. */
+.brand-stat-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.brand-stat-pill { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 6px 10px; box-shadow: var(--card-shadow); }
+.brand-stat-icon { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.brand-stat-icon svg { width: 13px; height: 13px; }
+.brand-stat-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }
+.brand-stat-value { font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
+.brand-section-lead { color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }
+/* Series Portrait Cards (2026-09-27, samme dag, etter Kais 19-punkts
+   brief + presisering om kortbredde). Kortet skal ALDRI strekkes bredere
+   bare fordi merket har få serier -- minmax() med en fast maks (340px),
+   IKKE 1fr, så tomme grid-spor bare blir ubrukt luft i stedet for at de
+   fyller ekte kort til unaturlig bredde. auto-fill (ikke auto-fit) sikrer
+   samme oppførsel uansett om det er 1, 2, 3, 4, 5 eller 8 serier. */
+.brand-section-header-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+.brand-section-kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.brand-section-header-row h2 { margin: 0 0 6px; }
+.brand-section-header-row .brand-section-lead { margin: 0; }
+.brand-serie-compare-link { font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; white-space: nowrap; margin-top: 4px; }
+.brand-serie-compare-link:hover { text-decoration: underline; }
+/* minmax(280px, 1fr), IKKE en fast maks-px -- auto-fill teller antall
+   spor etter MIN-verdien kun når maks er ubestemt (1fr), som gir flest
+   mulig kolonner ("4 kort på én rad der plassen tillater" -- en fast
+   maks-px (f.eks. 350px) far derimot brukt til selve spor-TELLINGEN i
+   Grid-spesifikasjonen, som i praksis ga bare 3 kolonner å 1240px
+   containerbredde her, ikke 4). Tomme auto-fill-spor forblir usynlig
+   luft (IKKE strukket brede) selv med 1fr, siden 1fr bare fordeler
+   overskuddsplass likt på ALLE spor (ekte og tomme) -- se
+   CSS_GRID_SERIES_WIDTH-testnotat i CLAUDE.md. */
+.brand-serie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); justify-content: start; align-items: stretch; gap: 18px; margin-bottom: 32px; }
+.brand-serie-card { display: flex; flex-direction: column; max-width: 350px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.brand-serie-card:hover, .brand-serie-card:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }
+.brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
+.brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
+.brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
+.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
+.brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
+.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.brand-serie-card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0 0; font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
+.brand-serie-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.brand-serie-card-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 0.64rem; font-weight: 500; color: var(--muted); }
+.brand-serie-card-spacer { flex: 1; min-height: 10px; }
+.brand-serie-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }
+.brand-serie-card-foot strong { color: var(--ink); font-weight: 700; }
+.brand-serie-card-cta { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.82rem; font-weight: 600; color: var(--ink); transition: border-color 0.18s ease, color 0.18s ease; }
+.brand-serie-card-cta span { transition: transform 0.18s ease; }
+.brand-serie-card:hover .brand-serie-card-cta, .brand-serie-card:focus-visible .brand-serie-card-cta { border-color: var(--blue); color: var(--blue); }
+.brand-serie-card:hover .brand-serie-card-cta span, .brand-serie-card:focus-visible .brand-serie-card-cta span { transform: translateX(3px); }
+.brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.brand-facts h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+/* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
+   ved siden av gjen.snitt priser som på serier ... slik at vi har det
+   samme her som på serie") -- samme to-kolonners stretch-mønster som
+   .serie-insight-row (Prisinnsikt + Kort om X). */
+.brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
+@media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1fr 1fr; align-items: stretch; } }
+.brand-i-tall { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.brand-i-tall h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.brand-i-tall-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
+@media (min-width: 480px) and (max-width: 899px) { .brand-i-tall-grid { grid-template-columns: repeat(3, 1fr); } }
+.brand-i-tall-tile { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }
+.brand-i-tall-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.brand-i-tall-icon svg { width: 15px; height: 15px; }
+.brand-i-tall-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }
+.brand-i-tall-label { font-size: 0.76rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }
+.brand-i-tall-sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
+.brand-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+.brand-facts-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }
+.brand-facts-list svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }
+.brand-facts-list strong { display: block; color: var(--ink); font-weight: 600; }
+.brand-facts-list span { display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+/* Prisinnsikt-graf -- egen CSS-kopi av .price-insight* fra render_family_page()
+   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
+.price-insight { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
+.price-insight-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.price-insight-head h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.insight-tabs { display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }
+.insight-tab { border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }
+.insight-tab.active { background: white; color: var(--ink); box-shadow: var(--card-shadow); }
+.price-insight-panel { display: none; }
+.price-insight-panel.active { display: grid; grid-template-columns: 1fr; gap: 18px; }
+.price-insight-current { font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }
+.price-insight-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+.price-insight-trend { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }
+.price-insight-trend-note { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
+.insight-down { color: var(--mint); }
+.insight-up { color: var(--coral); }
+.insight-flat { color: var(--muted); }
+.price-insight-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
+.price-insight-tile { background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }
+.price-insight-tile strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.price-insight-tile span { display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.price-insight-chart .price-history { margin-top: 0; }
+@media (min-width: 860px) { .price-insight-panel.active { grid-template-columns: 1fr 1.3fr; align-items: center; } }
+.brand-compare-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table th, .spec-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+.spec-table thead th { font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }
+.spec-table tbody tr:last-child td { border-bottom: none; }
+.spec-table tbody tr:hover { background: var(--mist); }
+.spec-table a { color: var(--blue); text-decoration: none; font-weight: 600; }
+/* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
+   allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
+   som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
+.faq-category { margin-top: 22px; }
+.faq-category:first-child { margin-top: 0; }
+.faq-category-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }
+.faq-accordion-item { border-top: 1px solid var(--border); }
+.faq-accordion-item:last-child { border-bottom: 1px solid var(--border); }
+.faq-accordion-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
+.faq-accordion-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
+.faq-accordion-item[open] .faq-chevron { transform: rotate(180deg); }
+.faq-accordion-item p { margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+/* To-kolonners FAQ (Kai 2026-09-27, etter mockup: "gjør det nøyaktig slik
+   ... så nært som mulig med alt") -- CSS-multikolonne i stedet for å endre
+   _render_family_faq_accordion() sin delte HTML-struktur (den brukes
+   uendret av serie-siden også) -- scoped til .brand-faq-wrap slik at
+   serie-siden sin egen FAQ ikke påvirkes. break-inside:avoid på hver
+   kategori hindrer at en kategori-overskrift havner alene nederst i en
+   kolonne mens spørsmålene fortsetter i neste. */
+@media (min-width: 860px) {
+  .brand-faq-wrap .faq-section { column-count: 2; column-gap: 40px; }
+  .brand-faq-wrap .faq-category { break-inside: avoid; -webkit-column-break-inside: avoid; }
+}
+/* Toppbanner (2026-09-27, Kai: "bruk toppbilde vi også bruker på serie
+   her på disse for å få det pent") -- SAMME delte bilde som serie-hero
+   (static/hero/serie-*.webp), samme side-panel-med-fade-teknikk. Egne
+   brand-hero-*-klassenavn (ikke gjenbruk av .serie-hero* direkte) siden
+   dette er en annen side, men ellers en bevisst 1:1-kopi av mønsteret. */
+.brand-hero { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }
+.brand-hero-content { position: relative; z-index: 2; }
+.brand-hero h1 { font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }
+.brand-hero-media { display: none; }
+@media (min-width: 860px) {
+  .brand-hero { padding: 40px 44px 36px; }
+  .brand-hero-content { max-width: 62%; }
+  .brand-hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }
+  .brand-hero-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+}
+.brand-hero-subtitle { font-size: 0.98rem; font-weight: 600; color: var(--muted); margin: 2px 0 0; }
+.brand-hero-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }
+.brand-hero-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 0; }
+.brand-hero-cta:hover { opacity: 0.92; }
+.brand-hero-cta-secondary { background: white; color: var(--ink); border: 1px solid var(--border); }
+.brand-hero-cta-secondary:hover { opacity: 1; border-color: var(--blue); }
+/* Statistikkstripe integrert nederst i hero-kortet (2026-09-27, etter
+   mockup 42.webp) -- erstatter den tidligere frittstaende
+   .brand-facts-row/.brand-facts-card-raden med fire store kort under
+   heroen. z-index:3 sa stripen ligger over bade hero-innholdet og
+   bilde-panelet (som har z-index:2/ingen), og spenner over hele
+   hero-bredden siden den ligger som fullbredde-barn av .brand-hero, ikke
+   inni .brand-hero-content (som er begrenset til 62% pa store skjermer).
+   Ingen skillelinjer (verken over stripen eller mellom elementene) --
+   Kai, samme dag: "Den kan fjernes. går over halsen på modellen.. Disse
+   kan bare flyte naturlig uten streker" -- border-top gikk rett over
+   modellens hals i bildet. Ren luft (gap) i stedet for border-left. */
+.brand-hero-stats { position: relative; z-index: 3; display: flex; flex-wrap: wrap; column-gap: 26px; row-gap: 8px; margin-top: 38px; }
+.brand-hero-stat { display: flex; align-items: center; gap: 7px; }
+.brand-hero-stat-icon { display: flex; }
+.brand-hero-stat-icon svg { width: 14px; height: 14px; display: block; }
+.brand-hero-stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
+.brand-hero-stat-label { font-size: 0.82rem; color: var(--muted); }
+.brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+@media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-sortiment-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } }
+.brand-sortiment-card { display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.brand-sortiment-card:hover, .brand-sortiment-card:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }
+.brand-sortiment-card-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.brand-sortiment-card-icon svg { width: 17px; height: 17px; }
+.brand-sortiment-card-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.brand-sortiment-card-count { font-weight: 600; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+.brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.brand-sortiment-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }
+.brand-3090-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-3090-card p { margin: 0 0 14px; font-size: 0.9rem; line-height: 1.6; color: var(--ink); }
+.brand-3090-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.brand-3090-tile { background: var(--mist); border-radius: 10px; padding: 12px 8px; text-align: center; }
+.brand-3090-tile-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+.brand-3090-tile-icon svg { width: 13px; height: 13px; }
+.brand-3090-tile strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }
+.brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+.brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
+.brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
+   grid-barn arver "min-width:auto" som standard, som nekter dem å
+   krympe under bredden til innholdet sitt (her: en bred sammenlign-
+   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
+   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
+   viewport) -- selv om tabellen selv allerede hadde sin egen
+   overflow-x:auto-innpakning, som ikke hjelper når selve
+   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
+.brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
+.brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
+@media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
+@media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
+.brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
+.brand-material-card-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.brand-material-card-icon svg { width: 16px; height: 16px; }
+.brand-material-card-body { min-width: 0; }
+.brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
+.brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+.brand-manufacturer-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
+.brand-manufacturer-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
+.brand-manufacturer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }
+.brand-manufacturer-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-top: 8px; text-decoration: none; }
+.brand-trust { margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--border); }
+.brand-trust h2 { font-size: 1rem; margin: 0 0 14px; }
+.brand-trust-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 640px) { .brand-trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .brand-trust-grid { grid-template-columns: repeat(4, 1fr); } }
+.brand-trust-item strong { display: block; font-size: 0.85rem; color: var(--ink); margin-bottom: 3px; }
+.brand-trust-item p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.brand-trust-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }
+.brand-trust-links a { font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+"""
+
+
 def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, product_families: list[dict], now: datetime | None = None, price_history: dict | None = None) -> str:
     """Merke-side (/merke/{slug}/) -- fikk 2026-09-27 samme type løft som
     serie-siden fikk tidligere samme dag, etter Kai sitt ønske ("ikke bare
@@ -5645,226 +5869,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 {brand_faq_schema}
 <style>{SHARED_STYLE}
 {GUIDE_TILE_STYLE}
-/* Merke-siden sitt løft (2026-09-27, samme dag som serie-siden sin
-   FAQ-regelmotor) -- egne brand-*-klassenavn (ikke gjenbruk av
-   serie-siden sine serie-*-klassenavn, selv der mønsteret er identisk)
-   for å holde de to sidetypene sin CSS uavhengige av hverandre. */
-.brand-stat-pills {{ display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }}
-.brand-stat-pill {{ display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 6px 10px; box-shadow: var(--card-shadow); }}
-.brand-stat-icon {{ width: 24px; height: 24px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }}
-.brand-stat-icon svg {{ width: 13px; height: 13px; }}
-.brand-stat-label {{ font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.25; }}
-.brand-stat-value {{ font-size: 0.82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }}
-.brand-section-lead {{ color: var(--muted); font-size: 0.88rem; margin: 0 0 14px; }}
-/* Series Portrait Cards (2026-09-27, samme dag, etter Kais 19-punkts
-   brief + presisering om kortbredde). Kortet skal ALDRI strekkes bredere
-   bare fordi merket har få serier -- minmax() med en fast maks (340px),
-   IKKE 1fr, så tomme grid-spor bare blir ubrukt luft i stedet for at de
-   fyller ekte kort til unaturlig bredde. auto-fill (ikke auto-fit) sikrer
-   samme oppførsel uansett om det er 1, 2, 3, 4, 5 eller 8 serier. */
-.brand-section-header-row {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }}
-.brand-section-kicker {{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; margin-bottom: 2px; }}
-.brand-section-header-row h2 {{ margin: 0 0 6px; }}
-.brand-section-header-row .brand-section-lead {{ margin: 0; }}
-.brand-serie-compare-link {{ font-size: 0.85rem; font-weight: 600; color: var(--blue); text-decoration: none; white-space: nowrap; margin-top: 4px; }}
-.brand-serie-compare-link:hover {{ text-decoration: underline; }}
-/* minmax(280px, 1fr), IKKE en fast maks-px -- auto-fill teller antall
-   spor etter MIN-verdien kun når maks er ubestemt (1fr), som gir flest
-   mulig kolonner ("4 kort på én rad der plassen tillater" -- en fast
-   maks-px (f.eks. 350px) far derimot brukt til selve spor-TELLINGEN i
-   Grid-spesifikasjonen, som i praksis ga bare 3 kolonner å 1240px
-   containerbredde her, ikke 4). Tomme auto-fill-spor forblir usynlig
-   luft (IKKE strukket brede) selv med 1fr, siden 1fr bare fordeler
-   overskuddsplass likt på ALLE spor (ekte og tomme) -- se
-   CSS_GRID_SERIES_WIDTH-testnotat i CLAUDE.md. */
-.brand-serie-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); justify-content: start; align-items: stretch; gap: 18px; margin-bottom: 32px; }}
-.brand-serie-card {{ display: flex; flex-direction: column; max-width: 350px; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }}
-.brand-serie-card:hover, .brand-serie-card:focus-visible {{ transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }}
-.brand-serie-card-top {{ padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }}
-.brand-serie-card-eyebrow {{ display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }}
-.brand-serie-card-image {{ height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }}
-.brand-serie-card-image img {{ max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }}
-.brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img {{ transform: scale(1.02); }}
-.brand-serie-card-fallback {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }}
-.brand-serie-card-body {{ flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }}
-.brand-serie-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }}
-.brand-serie-card-desc {{ display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0 0; font-size: 0.82rem; line-height: 1.45; color: var(--muted); }}
-.brand-serie-card-pills {{ display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }}
-.brand-serie-card-pill {{ border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 0.64rem; font-weight: 500; color: var(--muted); }}
-.brand-serie-card-spacer {{ flex: 1; min-height: 10px; }}
-.brand-serie-card-foot {{ display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--muted); }}
-.brand-serie-card-foot strong {{ color: var(--ink); font-weight: 700; }}
-.brand-serie-card-cta {{ display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 12px; padding: 9px 14px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.82rem; font-weight: 600; color: var(--ink); transition: border-color 0.18s ease, color 0.18s ease; }}
-.brand-serie-card-cta span {{ transition: transform 0.18s ease; }}
-.brand-serie-card:hover .brand-serie-card-cta, .brand-serie-card:focus-visible .brand-serie-card-cta {{ border-color: var(--blue); color: var(--blue); }}
-.brand-serie-card:hover .brand-serie-card-cta span, .brand-serie-card:focus-visible .brand-serie-card-cta span {{ transform: translateX(3px); }}
-.brand-facts {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
-.brand-facts h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
-/* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
-   ved siden av gjen.snitt priser som på serier ... slik at vi har det
-   samme her som på serie") -- samme to-kolonners stretch-mønster som
-   .serie-insight-row (Prisinnsikt + Kort om X). */
-.brand-insight-row {{ display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }}
-@media (min-width: 900px) {{ .brand-insight-row {{ grid-template-columns: 1fr 1fr; align-items: stretch; }} }}
-.brand-i-tall {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
-.brand-i-tall h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
-.brand-i-tall-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }}
-@media (min-width: 480px) and (max-width: 899px) {{ .brand-i-tall-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
-.brand-i-tall-tile {{ background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }}
-.brand-i-tall-icon {{ width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }}
-.brand-i-tall-icon svg {{ width: 15px; height: 15px; }}
-.brand-i-tall-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }}
-.brand-i-tall-label {{ font-size: 0.76rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }}
-.brand-i-tall-sub {{ font-size: 0.7rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }}
-.brand-facts-list {{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }}
-.brand-facts-list li {{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }}
-.brand-facts-list svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
-.brand-facts-list strong {{ display: block; color: var(--ink); font-weight: 600; }}
-.brand-facts-list span {{ display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }}
-/* Prisinnsikt-graf -- egen CSS-kopi av .price-insight* fra render_family_page()
-   (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
-.price-insight {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
-.price-insight-head {{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }}
-.price-insight-head h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
-.insight-tabs {{ display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }}
-.insight-tab {{ border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }}
-.insight-tab.active {{ background: white; color: var(--ink); box-shadow: var(--card-shadow); }}
-.price-insight-panel {{ display: none; }}
-.price-insight-panel.active {{ display: grid; grid-template-columns: 1fr; gap: 18px; }}
-.price-insight-current {{ font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }}
-.price-insight-label {{ font-size: 0.82rem; color: var(--muted); margin-top: 2px; }}
-.price-insight-trend {{ display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }}
-.price-insight-trend-note {{ font-weight: 400; color: var(--muted); font-size: 0.8rem; }}
-.insight-down {{ color: var(--mint); }}
-.insight-up {{ color: var(--coral); }}
-.insight-flat {{ color: var(--muted); }}
-.price-insight-tiles {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }}
-.price-insight-tile {{ background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }}
-.price-insight-tile strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
-.price-insight-tile span {{ display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
-.price-insight-chart .price-history {{ margin-top: 0; }}
-@media (min-width: 860px) {{ .price-insight-panel.active {{ grid-template-columns: 1fr 1.3fr; align-items: center; }} }}
-.brand-compare-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
-.spec-table {{ width: 100%; border-collapse: collapse; }}
-.spec-table th, .spec-table td {{ padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
-.spec-table thead th {{ font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }}
-.spec-table tbody tr:last-child td {{ border-bottom: none; }}
-.spec-table tbody tr:hover {{ background: var(--mist); }}
-.spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
-/* FAQ-accordion -- samme klassenavn/oppførsel som _render_family_faq_accordion()
-   allerede bruker på serie-siden (egen CSS-kopi her, se samme begrunnelse
-   som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
-.faq-category {{ margin-top: 22px; }}
-.faq-category:first-child {{ margin-top: 0; }}
-.faq-category-label {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }}
-.faq-accordion-item {{ border-top: 1px solid var(--border); }}
-.faq-accordion-item:last-child {{ border-bottom: 1px solid var(--border); }}
-.faq-accordion-item summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }}
-.faq-accordion-item summary::-webkit-details-marker {{ display: none; }}
-.faq-chevron {{ flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }}
-.faq-accordion-item[open] .faq-chevron {{ transform: rotate(180deg); }}
-.faq-accordion-item p {{ margin: 0 0 15px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }}
-/* To-kolonners FAQ (Kai 2026-09-27, etter mockup: "gjør det nøyaktig slik
-   ... så nært som mulig med alt") -- CSS-multikolonne i stedet for å endre
-   _render_family_faq_accordion() sin delte HTML-struktur (den brukes
-   uendret av serie-siden også) -- scoped til .brand-faq-wrap slik at
-   serie-siden sin egen FAQ ikke påvirkes. break-inside:avoid på hver
-   kategori hindrer at en kategori-overskrift havner alene nederst i en
-   kolonne mens spørsmålene fortsetter i neste. */
-@media (min-width: 860px) {{
-  .brand-faq-wrap .faq-section {{ column-count: 2; column-gap: 40px; }}
-  .brand-faq-wrap .faq-category {{ break-inside: avoid; -webkit-column-break-inside: avoid; }}
-}}
-/* Toppbanner (2026-09-27, Kai: "bruk toppbilde vi også bruker på serie
-   her på disse for å få det pent") -- SAMME delte bilde som serie-hero
-   (static/hero/serie-*.webp), samme side-panel-med-fade-teknikk. Egne
-   brand-hero-*-klassenavn (ikke gjenbruk av .serie-hero* direkte) siden
-   dette er en annen side, men ellers en bevisst 1:1-kopi av mønsteret. */
-.brand-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }}
-.brand-hero-content {{ position: relative; z-index: 2; }}
-.brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
-.brand-hero-media {{ display: none; }}
-@media (min-width: 860px) {{
-  .brand-hero {{ padding: 40px 44px 36px; }}
-  .brand-hero-content {{ max-width: 62%; }}
-  .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
-  .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
-}}
-.brand-hero-subtitle {{ font-size: 0.98rem; font-weight: 600; color: var(--muted); margin: 2px 0 0; }}
-.brand-hero-cta-row {{ display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 4px; }}
-.brand-hero-cta {{ display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; font-weight: 600; font-size: 0.88rem; padding: 10px 18px; border-radius: 10px; text-decoration: none; margin: 0; }}
-.brand-hero-cta:hover {{ opacity: 0.92; }}
-.brand-hero-cta-secondary {{ background: white; color: var(--ink); border: 1px solid var(--border); }}
-.brand-hero-cta-secondary:hover {{ opacity: 1; border-color: var(--blue); }}
-/* Statistikkstripe integrert nederst i hero-kortet (2026-09-27, etter
-   mockup 42.webp) -- erstatter den tidligere frittstaende
-   .brand-facts-row/.brand-facts-card-raden med fire store kort under
-   heroen. z-index:3 sa stripen ligger over bade hero-innholdet og
-   bilde-panelet (som har z-index:2/ingen), og spenner over hele
-   hero-bredden siden den ligger som fullbredde-barn av .brand-hero, ikke
-   inni .brand-hero-content (som er begrenset til 62% pa store skjermer).
-   Ingen skillelinjer (verken over stripen eller mellom elementene) --
-   Kai, samme dag: "Den kan fjernes. går over halsen på modellen.. Disse
-   kan bare flyte naturlig uten streker" -- border-top gikk rett over
-   modellens hals i bildet. Ren luft (gap) i stedet for border-left. */
-.brand-hero-stats {{ position: relative; z-index: 3; display: flex; flex-wrap: wrap; column-gap: 26px; row-gap: 8px; margin-top: 38px; }}
-.brand-hero-stat {{ display: flex; align-items: center; gap: 7px; }}
-.brand-hero-stat-icon {{ display: flex; }}
-.brand-hero-stat-icon svg {{ width: 14px; height: 14px; display: block; }}
-.brand-hero-stat-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }}
-.brand-hero-stat-label {{ font-size: 0.82rem; color: var(--muted); }}
-.brand-sortiment-grid {{ display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }}
-@media (min-width: 560px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-@media (min-width: 1024px) {{ .brand-sortiment-grid {{ grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }} }}
-.brand-sortiment-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 16px; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); cursor: pointer; transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }}
-.brand-sortiment-card:hover, .brand-sortiment-card:focus-visible {{ transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }}
-.brand-sortiment-card-icon {{ width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }}
-.brand-sortiment-card-icon svg {{ width: 17px; height: 17px; }}
-.brand-sortiment-card-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }}
-.brand-sortiment-card-count {{ font-weight: 600; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }}
-.brand-sortiment-card-series {{ font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }}
-.brand-sortiment-card-link {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }}
-.brand-3090-card {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
-.brand-3090-card p {{ margin: 0 0 14px; font-size: 0.9rem; line-height: 1.6; color: var(--ink); }}
-.brand-3090-grid {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }}
-.brand-3090-tile {{ background: var(--mist); border-radius: 10px; padding: 12px 8px; text-align: center; }}
-.brand-3090-tile-icon {{ width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }}
-.brand-3090-tile-icon svg {{ width: 13px; height: 13px; }}
-.brand-3090-tile strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }}
-.brand-3090-tile span {{ display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }}
-.brand-3090-note {{ margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }}
-.brand-materials-grid {{ display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }}
-/* min-width:0 er nødvendig -- .brand-compare-card er et grid-barn, og
-   grid-barn arver "min-width:auto" som standard, som nekter dem å
-   krympe under bredden til innholdet sitt (her: en bred sammenlign-
-   tabell). Uten denne linjen tvang tabellen HELE siden til å bli
-   bredere enn mobilskjermen (bekreftet: 761px scrollWidth på en 375px
-   viewport) -- selv om tabellen selv allerede hadde sin egen
-   overflow-x:auto-innpakning, som ikke hjelper når selve
-   grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
-.brand-compare-row {{ display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }}
-.brand-compare-row .brand-compare-card {{ margin-bottom: 0; min-width: 0; }}
-@media (min-width: 1024px) {{ .brand-compare-row {{ grid-template-columns: 1.2fr 1fr; align-items: start; }} .brand-materials-grid {{ grid-template-columns: 1fr !important; }} }}
-@media (min-width: 640px) and (max-width: 1023px) {{ .brand-materials-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-.brand-material-card {{ display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }}
-.brand-material-card-icon {{ flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }}
-.brand-material-card-icon svg {{ width: 16px; height: 16px; }}
-.brand-material-card-body {{ min-width: 0; }}
-.brand-material-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }}
-.brand-material-card-series {{ font-size: 0.78rem; color: var(--muted); margin-top: 4px; }}
-.brand-manufacturer-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }}
-.brand-manufacturer-kicker {{ font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }}
-.brand-manufacturer-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }}
-.brand-manufacturer-link {{ display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-top: 8px; text-decoration: none; }}
-.brand-trust {{ margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--border); }}
-.brand-trust h2 {{ font-size: 1rem; margin: 0 0 14px; }}
-.brand-trust-grid {{ display: grid; grid-template-columns: 1fr; gap: 14px; }}
-@media (min-width: 640px) {{ .brand-trust-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-@media (min-width: 1024px) {{ .brand-trust-grid {{ grid-template-columns: repeat(4, 1fr); }} }}
-.brand-trust-item strong {{ display: block; font-size: 0.85rem; color: var(--ink); margin-bottom: 3px; }}
-.brand-trust-item p {{ margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }}
-.brand-trust-links {{ display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }}
-.brand-trust-links a {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }}
+{BRAND_PAGE_STYLE}
 </style>
 </head>
 <body>
@@ -10520,13 +10525,40 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
 </html>"""
 
 
-def render_private_label_brand_page(chain: str, labels: list[dict], products_by_id: dict, categories: dict, now: datetime | None = None) -> str:
+def render_private_label_brand_page(chain: str, labels: list[dict], products_by_id: dict, categories: dict, now: datetime | None = None, price_history: dict | None = None) -> str:
     """Egen 'merke'-side for en optikerkjedes private label-serie (f.eks.
     /merke/eyeq/ for Synsam sin EyeQ-serie) -- samme URL-mønster og
     kortstil som render_brand_page(), men kildedata er private_labels.json
     + de ekte produktenes tilbud (ingen egen prisdata her heller, se
-    render_private_label_page()). Gir serien sin egen indekserbare side i
-    stedet for å kun leve som en seksjon på /private-label/."""
+    render_private_label_page()).
+
+    2026-09-29: løftet til SAMME struktur som render_brand_page() (Kai:
+    "Ønsker likt som alle andre merker") -- stat-stripe i heroen,
+    "{subbrand} i tall", ekte prisinnsikt-graf (gjenbruker
+    _family_price_insight_data()/render_family_price_insight() PÅ TVERS av
+    alle variantene, akkurat som merke-siden gjør på tvers av et merkets
+    produkter), "{subbrand}-sortimentet forklart" per kategori, en
+    materialer-seksjon, "30 eller 90 linser?", FAQ-regelmotor og
+    ressurs-/tillit-bunn -- alt via den delte `BRAND_PAGE_STYLE`-konstanten
+    (flyttet ut av render_brand_page() sin egen <style>-blokk i samme
+    runde, nøyaktig samme CSS, ingen duplisering).
+
+    BEVISST UTELATT (adaptivt, samme prinsipp som et ekte merke uten egen
+    serie i render_brand_page()): "Utforsk seriene"-kortene og
+    "Slik skiller seriene seg"-tabellen, siden private label-varianter ikke
+    har noen egen product_families.json-gruppering (hver variant er en
+    1:1-alias for ett ekte produkt, ikke en flerpakning/flervariant-serie
+    i seg selv) -- family_summaries er derfor alltid tom liste her, og de
+    to seksjonene som avhenger av den faller naturlig bort, akkurat som de
+    allerede gjør for et ekte merke uten kuratert familie (f.eks.
+    FreshLook). Heller ingen egen "Produsent"-modul, siden ett sett private
+    label-varianter typisk spenner FLERE produsenter (EyeQ blander
+    CooperVision og Alcon, se CLAUDE.md) -- ingen enkelt produsent å lenke
+    til.
+
+    Kai, eksplisitt: "vi beholder også i tillegg under toppbanneren" --
+    `.private-label-explainer`-boksen ("Hva er {subbrand}?") ligger derfor
+    UENDRET rett under `.brand-hero`, FØR noen av de nye seksjonene."""
     now = now or datetime.now(timezone.utc)
     subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
     slug = subbrand.lower()
@@ -10539,7 +10571,20 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         offers = reconcile_product(real_product["offers"], now)
         eligible = [o for o in offers if o["in_stock"]]
         lowest = min(eligible, key=lambda o: (o["price_nok"], o["total"]), default=None)
-        rows.append({"label": label, "real_product": real_product, "lowest": lowest})
+        specs = {spec_label: value for spec_label, value in real_product.get("specs", [])}
+        pack = _pack_size_from_id(real_product["id"])
+        category_slug = real_product.get("category_slug", "")
+        rows.append({
+            "label": label, "real_product": real_product, "lowest": lowest, "eligible": eligible,
+            "category_label": categories.get(category_slug, {}).get("label", ""),
+            "material": specs.get("Materiale"), "pack_size": pack[1] if pack else None,
+            # Syntetisk "product"-dict -- lar oss gjenbruke generiske
+            # hjelpefunksjoner (_family_price_insight_data, _pack_size_from_id)
+            # som forventer product["id"]/product["category_slug"] uten å late
+            # som label selv er et ekte katalogprodukt. id er BEVISST
+            # real_product sin -- samme fysiske vare, samme prishistorikk.
+            "product": {"id": real_product["id"], "name": label["name"], "category_slug": category_slug},
+        })
 
     rows.sort(key=lambda r: r["lowest"]["price_nok"] if r["lowest"] else float("inf"))
 
@@ -10597,6 +10642,280 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 
     meta_description = f"{subbrand} er et eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
 
+    # -- Tall på tvers av HELE settet, brukt av stat-stripen, "i tall" og
+    # FAQ-en -- samme utregningsmønster som render_brand_page(). --
+    all_eligible = [o for r in rows for o in r["eligible"]]
+    retailer_count = len({o["retailer"] for o in all_eligible})
+    type_labels_all = sorted({r["category_label"] for r in rows if r["category_label"]})
+    materials_all = sorted({r["material"] for r in rows if r["material"]})
+    # Ekte merker-listen finnes IKKE på et ekte merke -- egen, ny
+    # informasjon som bare private label-siden kan vise (hvilke reelle
+    # produsent-merker settet faktisk består av).
+    real_brands_all = sorted({r["real_product"]["brand_label"] for r in rows if r["real_product"].get("brand_label")})
+    lowest_row = min((r for r in rows if r["lowest"]), key=lambda r: r["lowest"]["price_nok"], default=None)
+    per_lens_rows = [
+        (r["lowest"]["price_nok"] / r["pack_size"], r) for r in rows if r["lowest"] and r["pack_size"]
+    ]
+    cheapest_per_lens = min(per_lens_rows, key=lambda t: t[0], default=None)
+
+    type_labels_lower = [t[0].lower() + t[1:] if t else t for t in type_labels_all]
+    if len(type_labels_lower) <= 1:
+        brand_type_txt = type_labels_lower[0] if type_labels_lower else ""
+    else:
+        brand_type_txt = ", ".join(type_labels_lower[:-1]) + " og " + type_labels_lower[-1]
+    brand_subtitle_html = f'<p class="brand-hero-subtitle">Eget merkenavn hos {escape(chain)}</p>'
+    brand_intro_sentence = (
+        f'{escape(subbrand)} er {escape(chain)} sitt eget merkenavn for kontaktlinser'
+        + (f', med {escape(brand_type_txt)}' if brand_type_txt else '')
+        + f'. Vi følger prisen på {len(rows)} {"variant" if len(rows) == 1 else "varianter"}, sortert etter lavest pris.'
+    )
+
+    store_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg>'
+    stat_pills = [("mint", BOX_ICON_SVG, str(len(rows)), "produkt" if len(rows) == 1 else "produkter", "")]
+    if real_brands_all:
+        stat_pills.append(("blue", TAG_ICON_SVG, str(len(real_brands_all)), "ekte merke" if len(real_brands_all) == 1 else "ekte merker", " · ".join(real_brands_all)))
+    if type_labels_all:
+        stat_pills.append(("lavender", DROPLET_ICON_SVG, str(len(type_labels_all)), "linsetype" if len(type_labels_all) == 1 else "linsetyper", " · ".join(type_labels_all)))
+    if retailer_count:
+        stat_pills.append(("amber", store_icon, str(retailer_count), "butikk" if retailer_count == 1 else "butikker", f'Med {subbrand}-produkter akkurat nå'))
+    brand_hero_stats_html = "".join(
+        f'''<div class="brand-hero-stat">
+    <span class="brand-hero-stat-icon" style="color:var(--{color});" aria-hidden="true">{icon}</span>
+    <span class="brand-hero-stat-value">{escape(number)}</span>
+    <span class="brand-hero-stat-label">{escape(unit)}</span>
+  </div>'''
+        for color, icon, number, unit, sub in stat_pills
+    )
+
+    # -- "{subbrand} i tall" -- samme mønster som render_brand_page(), men
+    # uten "flest varianter"-tile (den krever en product_families-serie vi
+    # ikke bygger her, se docstring). --
+    brand_i_tall_tiles = []
+    if lowest_row and lowest_row["lowest"]:
+        brand_i_tall_tiles.append(("mint", TROPHY_ICON_SVG, _fmt_kr(lowest_row["lowest"]["price_nok"]), "Laveste produktpris", lowest_row["label"]["name"]))
+    if cheapest_per_lens:
+        per_lens_val, per_lens_row = cheapest_per_lens
+        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",") + " kr"
+        brand_i_tall_tiles.append(("amber", BOX_ICON_SVG, per_lens_txt, "Laveste pris per linse", per_lens_row["label"]["name"]))
+    spread_candidates = []
+    for r in rows:
+        if len(r["eligible"]) >= 2:
+            prices = [o["price_nok"] for o in r["eligible"]]
+            lo, hi = min(prices), max(prices)
+            if lo > 0:
+                spread_candidates.append((round((hi - lo) / lo * 100), r))
+    biggest_spread = max(spread_candidates, key=lambda t: t[0], default=None)
+    if biggest_spread and biggest_spread[0] >= 5:
+        brand_i_tall_tiles.append(("sky", TAG_ICON_SVG, f'{biggest_spread[0]} %', "Størst prisforskjell mellom butikker", biggest_spread[1]["label"]["name"]))
+    most_retailers_row = max(rows, key=lambda r: len(r["eligible"]), default=None)
+    if most_retailers_row and len(most_retailers_row["eligible"]) >= 2:
+        brand_i_tall_tiles.append(("lavender", store_icon, str(len(most_retailers_row["eligible"])), "Flest butikker", most_retailers_row["label"]["name"]))
+    brand_i_tall_html = ""
+    if brand_i_tall_tiles:
+        brand_i_tall_html = f'''<div class="brand-i-tall">
+    <h2>{escape(subbrand)} i tall</h2>
+    <p class="brand-section-lead">Basert på produktene og prisene vi følger akkurat nå.</p>
+    <div class="brand-i-tall-grid">
+      {"".join(f'<div class="brand-i-tall-tile"><div class="brand-i-tall-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div><div class="brand-i-tall-value">{escape(val)}</div><div class="brand-i-tall-label">{escape(lbl)}</div><div class="brand-i-tall-sub">{escape(sub)}</div></div>' for color, icon, val, lbl, sub in brand_i_tall_tiles)}
+    </div>
+  </div>'''
+
+    # -- Prisinnsikt for HELE settet (snitt per pakningsstørrelse, PÅ TVERS
+    # av alle variantene) -- gjenbruker EKSAKT samme funksjoner som
+    # serie-/merke-siden, se _family_price_insight_data(). Historikken er
+    # lagret på real_product["id"] (samme fysiske vare), se rows-bygget over. --
+    brand_price_insight_html = ""
+    if price_history:
+        brand_insight_by_pack = _family_price_insight_data(rows, price_history)
+        brand_price_insight_html = render_family_price_insight(subbrand, brand_insight_by_pack, scope_label=f"i {subbrand}-sortimentet", heading=f"{subbrand}-priser")
+
+    brand_insight_row_html = (
+        f'<div class="brand-insight-row">{brand_i_tall_html}{brand_price_insight_html}</div>'
+        if brand_i_tall_html and brand_price_insight_html else brand_i_tall_html + brand_price_insight_html
+    )
+
+    # -- "Materialer" -- de dokumenterte materialene til de EKTE produktene
+    # settet tilsvarer. Ingen "brukes i serie X"-undertekst (ingen
+    # familie-gruppering her, se docstring) -- rene, informative kort. --
+    material_colors = ["sky", "mint", "lavender", "amber", "coral"]
+
+    def brand_material_card(m: str, i: int) -> str:
+        color = material_colors[i % len(material_colors)]
+        return f'''<div class="brand-material-card">
+    <div class="brand-material-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{DROPLET_ICON_SVG}</div>
+    <div class="brand-material-card-body">
+      <div class="brand-material-card-name">{escape(m)}</div>
+    </div>
+  </div>'''
+
+    brand_materials_html = ""
+    if len(materials_all) >= 2:
+        brand_materials_html = f'''<div><h2>Materialer i {escape(subbrand)}-sortimentet</h2>
+  <p class="brand-section-lead">De dokumenterte materialene de ekte linsene {escape(subbrand)} tilsvarer er laget av.</p>
+  <div class="brand-materials-grid">
+    {"".join(brand_material_card(m, i) for i, m in enumerate(materials_all))}
+  </div></div>'''
+
+    # -- "30 eller 90 linser?" -- samme robusthet-terskel (minst 2 par) som
+    # render_brand_page(), matchet via real_product["id"] (product["id"]
+    # i rows-bygget over er bevisst real_product sin, se der). --
+    pack_pairs = []
+    by_stem: dict[str, dict[int, dict]] = {}
+    for r in rows:
+        parsed = _pack_size_from_id(r["product"]["id"])
+        if parsed and r["lowest"]:
+            stem, pack = parsed
+            by_stem.setdefault(stem, {})[pack] = r
+    for stem, by_pack in by_stem.items():
+        if 30 in by_pack and 90 in by_pack:
+            r30, r90 = by_pack[30], by_pack[90]
+            p30 = r30["lowest"]["price_nok"] / 30
+            p90 = r90["lowest"]["price_nok"] / 90
+            pack_pairs.append({"name": r30["label"]["name"], "p30": p30, "p90": p90})
+    pack_30_90_html = ""
+    if len(pack_pairs) >= 2:
+        n_90_cheaper = sum(1 for pp in pack_pairs if pp["p90"] < pp["p30"])
+        best_example = max(pack_pairs, key=lambda pp: abs(pp["p30"] - pp["p90"]))
+        p30_txt = f'{best_example["p30"]:.1f}'.replace(".", ",")
+        p90_txt = f'{best_example["p90"]:.1f}'.replace(".", ",")
+        diff_pct = round(abs(best_example["p30"] - best_example["p90"]) / best_example["p30"] * 100)
+        cheaper_word = "90-pakningen" if best_example["p90"] < best_example["p30"] else "30-pakningen"
+        pack_30_90_html = f'''<h2>30 eller 90 linser?</h2>
+  <div class="brand-3090-card">
+    <p>For {n_90_cheaper} av {len(pack_pairs)} sammenlignbare {escape(subbrand)}-produkter har 90-pakningen lavere pris per linse enn tilsvarende 30-pakning akkurat nå. Eksempel -- {escape(best_example["name"])}:</p>
+    <div class="brand-3090-grid">
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--sky-tint);color:var(--sky);" aria-hidden="true">{BOX_ICON_SVG}</div><strong>{p30_txt} kr</strong><span>30-pack, per linse</span></div>
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--mint-tint);color:var(--mint);" aria-hidden="true">{BOX_ICON_SVG}</div><strong>{p90_txt} kr</strong><span>90-pack, per linse</span></div>
+      <div class="brand-3090-tile"><div class="brand-3090-tile-icon" style="background:var(--amber-tint);color:var(--amber);" aria-hidden="true">{TAG_ICON_SVG}</div><strong>{diff_pct} %</strong><span>Forskjell -- {escape(cheaper_word)} billigst</span></div>
+    </div>
+    <p class="brand-3090-note">Kun samme underliggende produkt sammenlignet (aldri ulike produkter mot hverandre). Husk å regne med frakt for akkurat det antallet du trenger.</p>
+  </div>'''
+
+    # -- "{subbrand}-sortimentet forklart" -- én kortoversikt per KATEGORI,
+    # samme mønster som render_brand_page(), men uten "series_names"
+    # (ingen familie-gruppering her). --
+    sortiment_cards = []
+    for cat_slug in category_slugs:
+        cat_rows = [r for r in rows if r["product"]["category_slug"] == cat_slug]
+        if not cat_rows:
+            continue
+        sortiment_cards.append({
+            "label": categories.get(cat_slug, {}).get("label", cat_slug),
+            "slug": cat_slug,
+            "count": len(cat_rows),
+        })
+    sortiment_html = ""
+    if len(sortiment_cards) > 1:
+        eye_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3" fill="currentColor" stroke="none"/></svg>'
+        person_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="8" r="3.5" fill="currentColor"/><path d="M5 20c0-4 3-6.5 7-6.5s7 2.5 7 6.5" fill="currentColor" opacity="0.5"/></svg>'
+        category_icon_map = {
+            "dagslinser": ("amber", SUN_ICON_SVG), "manedslinser": ("sky", CALENDAR_ICON_SVG),
+            "toriske-linser": ("coral", eye_icon), "multifokale-linser": ("lavender", person_icon),
+            "fargede-linser": ("mint", DROPLET_ICON_SVG),
+        }
+
+        def sortiment_card(c: dict) -> str:
+            color, icon = category_icon_map.get(c["slug"], ("blue", TAG_ICON_SVG))
+            return f'''<a class="brand-sortiment-card" href="#{escape(c["slug"])}" data-category="{escape(c["slug"])}">
+    <div class="brand-sortiment-card-icon" style="background:var(--{color}-tint);color:var(--{color});" aria-hidden="true">{icon}</div>
+    <div class="brand-sortiment-card-label">{escape(c["label"])}</div>
+    <div class="brand-sortiment-card-count">{c["count"]} {"produkt" if c["count"] == 1 else "produkter"}</div>
+    <div class="brand-sortiment-card-link">Se {escape(c["label"].lower())} →</div>
+  </a>'''
+        sortiment_html = f'''<h2>{escape(subbrand)}-sortimentet forklart</h2>
+  <p class="brand-section-lead">{len(sortiment_cards)} kategorier med til sammen {len(rows)} produkter -- velg den som passer ditt behov.</p>
+  <div class="brand-sortiment-grid">
+    {"".join(sortiment_card(c) for c in sortiment_cards)}
+  </div>'''
+
+    # -- FAQ-regelmotor (samme komponent som serie-/merke-siden, se
+    # _render_family_faq_accordion()). --
+    faq_produkt: list[dict] = []
+    if real_brands_all:
+        faq_produkt.append({
+            "question": f'Hvilke ekte merker er {subbrand} egentlig?',
+            "answer": f'{subbrand}-produktene vi følger tilsvarer disse ekte merkene: {", ".join(real_brands_all)}. Se produktkortene under for hvilket ekte produkt hver enkelt {subbrand}-variant er identisk med.',
+        })
+    if "toriske-linser" in category_slugs:
+        faq_produkt.append({
+            "question": f'Finnes {subbrand} for astigmatisme?',
+            "answer": f'Ja, {subbrand} har varianter for astigmatisme. Se produktene under for hvilke.',
+        })
+    if "multifokale-linser" in category_slugs:
+        faq_produkt.append({
+            "question": f'Finnes {subbrand} som multifokale linser?',
+            "answer": f'Ja, {subbrand} har multifokale varianter for alderssyn (presbyopi). Se produktene under for hvilke.',
+        })
+    if "dagslinser" in category_slugs and "manedslinser" in category_slugs:
+        faq_produkt.append({
+            "question": f'Har {subbrand} både dagslinser og månedslinser?',
+            "answer": f'Ja, {subbrand}-sortimentet vårt dekker både dagslinser (kastes hver dag) og månedslinser (gjenbrukes med rengjøring).',
+        })
+    faq_spec: list[dict] = []
+    if materials_all:
+        faq_spec.append({
+            "question": f'Hvilke materialer brukes i linsene {subbrand} tilsvarer?',
+            "answer": f'De ekte linsene {subbrand}-produktene vi følger tilsvarer, er laget av {", ".join(materials_all)}. Materialet varierer mellom variantene.' if len(materials_all) > 1
+                      else f'De ekte linsene {subbrand}-produktene vi følger tilsvarer, er laget av {materials_all[0]}.',
+        })
+    faq_pris: list[dict] = []
+    if lowest_row and lowest_row["lowest"]:
+        faq_pris.append({
+            "question": f'Hva er billigst i {subbrand}-sortimentet?',
+            "answer": f'{lowest_row["label"]["name"]} er billigst akkurat nå, fra {_fmt_kr(lowest_row["lowest"]["price_nok"])} hos {lowest_row["lowest"]["retailer"]} (uten frakt).',
+        })
+    if cheapest_per_lens:
+        per_lens_val, per_lens_row = cheapest_per_lens
+        per_lens_txt = f'{per_lens_val:.1f}'.replace(".", ",")
+        faq_pris.append({
+            "question": f'Hvilken {subbrand}-pakning har lavest pris per linse akkurat nå?',
+            "answer": f'{per_lens_row["label"]["name"]} har lavest pris per linse akkurat nå, ca. {per_lens_txt} kr per linse (uten frakt).',
+        })
+    if retailer_count:
+        faq_pris.append({
+            "question": f'Hos hvor mange butikker kan jeg sammenligne {subbrand}?',
+            "answer": f'Vi sammenligner {subbrand} hos {retailer_count} norske nettbutikker til sammen, på tvers av alle {len(rows)} variantene vi følger.',
+        })
+    brand_faq_html, brand_faq_schema = _render_family_faq_accordion(
+        [("Merke og varianter", faq_produkt), ("Spesifikasjoner", faq_spec), ("Pris og butikker", faq_pris)],
+        f'Ofte stilte spørsmål om {subbrand}',
+    )
+
+    # -- "Nyttige ressurser" -- samme gjenbruk av render_guide_tile() som
+    # render_brand_page(). --
+    brand_guide_slugs = ["hvordan-velge-kontaktlinser"]
+    if "dagslinser" in category_slugs and "manedslinser" in category_slugs:
+        brand_guide_slugs.append("manedslinser-vs-dagslinser")
+    elif "toriske-linser" in category_slugs:
+        brand_guide_slugs.append("kontaktlinser-med-astigmatisme")
+    elif "multifokale-linser" in category_slugs:
+        brand_guide_slugs.append("multifokale-kontaktlinser")
+    else:
+        brand_guide_slugs.append("hvordan-bruke-kontaktlinser")
+    brand_guide_slugs.append("bc-forklart")
+    brand_guides_html = f'''<h2>Nyttige ressurser</h2>
+  <p class="brand-section-lead">Artikler, forklaringer og guider som hjelper deg å ta gode valg.</p>
+  <div class="guide-grid">
+    {"".join(render_guide_tile(gslug, GUIDE_CONTENT[gslug]) for gslug in brand_guide_slugs if gslug in GUIDE_CONTENT)}
+  </div>'''
+
+    # -- "Om informasjonen på denne siden" -- identisk tekst/lenker som
+    # render_brand_page() sin trust-footer, ingen nye påstander. --
+    brand_trust_html = f'''<div class="brand-trust">
+    <h2>Om informasjonen på denne siden</h2>
+    <div class="brand-trust-grid">
+      <div class="brand-trust-item"><strong>Produktinformasjon</strong><p>Basert på dokumenterte produsentspesifikasjoner og vår produktdatabase.</p></div>
+      <div class="brand-trust-item"><strong>Priser</strong><p>Hentes fra norske nettbutikker og oppdateres daglig.</p></div>
+      <div class="brand-trust-item"><strong>Kommersielle lenker</strong><p>Vi kan motta provisjon når du går videre til en butikk. Dette påvirker aldri prisrekkefølgen.</p></div>
+      <div class="brand-trust-item"><strong>Sammenligning</strong><p>Pris per linse beregnes fra pakningsstørrelse. Totalpris inkluderer frakt der fraktdata er tilgjengelig.</p></div>
+    </div>
+    <p class="brand-trust-links">
+      <a href="/slik-sammenligner-vi-priser/">Slik sammenligner vi priser →</a>
+      <a href="/slik-matcher-vi-produkter/">Slik matcher vi produkter →</a>
+      <a href="/om-oss/">Om Kontaktlinser.no →</a>
+    </p>
+  </div>'''
+
     schema_items = ",\n      ".join(
         f'''{{"@type": "ListItem", "position": {i+1}, "url": "{BASE_URL}/private-label/{r["label"]["slug"]}/", "name": "{escape(r["label"]["name"])}"}}'''
         for i, r in enumerate(rows)
@@ -10624,23 +10943,14 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 {_og_meta(f'{subbrand} kontaktlinser – Sammenlign priser | Kontaktlinser.no', meta_description, f'{BASE_URL}/merke/{slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
+{brand_faq_schema}
 <style>{SHARED_STYLE}
+{GUIDE_TILE_STYLE}
+{BRAND_PAGE_STYLE}
 {PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
 .private-label-caveat {{ background: #FFF4E5; border: 1px solid #F0C674; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 0.85rem; line-height: 1.6; color: var(--ink); }}
-/* Toppbanner (2026-09-27) -- samme delte bilde/teknikk som serie-hero og
-   render_brand_page() sin egen .brand-hero, se kommentaren der. */
-.brand-hero {{ position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: linear-gradient(100deg, #FFFFFF 0%, #F6F9FD 55%, #E9F1FB 100%); box-shadow: var(--card-shadow); padding: 22px 24px; margin-bottom: 20px; }}
-.brand-hero-content {{ position: relative; z-index: 2; }}
-.brand-hero h1 {{ font-size: clamp(1.5rem, 4vw, 2rem); margin: 4px 0 8px; }}
-.brand-hero-media {{ display: none; }}
-@media (min-width: 860px) {{
-  .brand-hero {{ padding: 40px 44px 36px; }}
-  .brand-hero-content {{ max-width: 62%; }}
-  .brand-hero-media {{ display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 42%; overflow: hidden; border-radius: 0 24px 24px 0; pointer-events: none; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 40%); mask-image: linear-gradient(90deg, transparent 0, #000 40%); }}
-  .brand-hero-media img {{ display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }}
-}}
 </style>
 </head>
 <body>
@@ -10654,7 +10964,11 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         <div class="hero-copy">
           <div class="kicker">Eget merkenavn</div>
           <h1>{escape(subbrand)} kontaktlinser</h1>
-          <p>Alle {escape(subbrand)}-varianter vi har identifisert, sortert etter lavest pris.</p>
+          {brand_subtitle_html}
+          <p>{brand_intro_sentence}</p>
+          <div class="brand-hero-cta-row">
+            <a class="brand-hero-cta" href="#produkter">Se alle {escape(subbrand)}-produkter →</a>
+          </div>
         </div>
       </div>
     </div>
@@ -10664,12 +10978,16 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" width="560" height="385" loading="lazy" decoding="async">
       </picture>
     </div>
+    <div class="brand-hero-stats">{brand_hero_stats_html}</div>
   </div>
 
   <div class="private-label-explainer">
     <p><strong>Hva er {escape(subbrand)}?</strong> {escape(subbrand)} er et eget varenavn for kontaktlinser, i stedet for produsentens opprinnelige navn. Det er ikke en egen linseprodusent – hver {escape(subbrand)}-linse er identisk med en kjent linse fra en av de store produsentene, bare med egen emballasje og navn. Prisene under er hentet fra det ekte produktet, siden det er nøyaktig samme fysiske vare. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
   </div>
 
+  {brand_insight_row_html}
+
+  <h2 id="produkter">Alle {escape(subbrand)}-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
     {category_chips}
@@ -10684,6 +11002,12 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
   {'<p style="margin:10px 0 0;font-size:0.78rem;color:var(--muted);">Noen varianter over vises med en egen illustrasjon i stedet for et ekte produktbilde. <a href="/om-produktillustrasjoner/" style="color:var(--muted);text-decoration:underline;">Les hvorfor →</a></p>' if any_pli_illustration else ''}
+
+  {sortiment_html}
+  {brand_materials_html}
+  {pack_30_90_html}
+  <div class="brand-faq-wrap">{brand_faq_html}</div>
+  {brand_guides_html}
 
   <div class="private-label-caveat">
     <strong>Vær obs på dette før du bytter:</strong> Koblingene over er satt sammen basert på tilgjengelig informasjon om produsent og produktspesifikasjoner. Kontaktlinser.no har ingen avtale med kjeden bak dette merkenavnet og kan ikke garantere at hver kobling stemmer i alle tilfeller – pakningsstørrelse eller tilgjengelige styrker kan for eksempel avvike. Bekreft alltid med din optiker eller synsresept før du bytter mellom disse navnene.
@@ -10700,18 +11024,19 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     har avtale med. Kontaktlinser.no er en uavhengig
     prissammenligningstjeneste, ikke en forhandler.
   </p>
+
+  {brand_trust_html}
 </div>
 
 <script>
   const filterRow = document.getElementById('filter-row');
   const list = document.getElementById('product-list');
 
-  filterRow.addEventListener('click', e => {{
-    const btn = e.target.closest('.chip');
+  function applyBrandFilter(category) {{
+    const btn = filterRow.querySelector('.chip[data-category="' + category + '"]');
     if (!btn) return;
     filterRow.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
     btn.classList.add('active');
-    const category = btn.dataset.category;
     let visible = 0;
     list.querySelectorAll('.product-tile').forEach(card => {{
       const show = category === 'all' || card.dataset.category === category;
@@ -10719,6 +11044,23 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
       if (show) visible++;
     }});
     document.getElementById('result-count').textContent = visible + ' produkter';
+  }}
+
+  const initialCategory = window.location.hash.replace('#', '');
+  if (initialCategory && filterRow.querySelector('.chip[data-category="' + initialCategory + '"]')) {{
+    applyBrandFilter(initialCategory);
+  }}
+  document.querySelectorAll('.brand-sortiment-card').forEach(card => {{
+    card.addEventListener('click', () => {{
+      applyBrandFilter(card.dataset.category);
+      document.getElementById('produkter').scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+    }});
+  }});
+
+  filterRow.addEventListener('click', e => {{
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    applyBrandFilter(btn.dataset.category);
   }});
 </script>
 {render_footer()}
@@ -10726,7 +11068,6 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 {CONSENT_SCRIPT}
 </body>
 </html>"""
-
 
 def render_private_label_page(label: dict, real_product: dict, categories: dict, now: datetime | None = None, family: dict | None = None, clickouts: dict | None = None, price_history: list[dict] | None = None) -> str:
     """En del optikerkjeder pakker om ekte kontaktlinser under sitt eget

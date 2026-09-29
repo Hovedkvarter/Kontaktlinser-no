@@ -4179,3 +4179,74 @@ boksen rendrer fortsatt riktig rett under heroen) og et Tilbehør-produkt
 (SWATI Lens Case & Tweezers) på mobil, begge korrekte. Kontaktlinse-
 produktsiden (`render_product_page()`) er ikke rørt i denne runden --
 egen, allerede testet lokal CSS-kopi, ingen risiko for krysspåvirkning.
+
+## Private label-merkesidene (EyeQ/iWear/Ascend/Easyvision) løftet til samme nivå som ekte merker (2026-09-29)
+
+Kai, med to referansebilder: "https://kontaktlinser.no/merke/eyeq/ Ønsker
+likt som alle andre merker, men vi beholder også i tillegg under
+toppbanneren [bilde 1: den eksisterende «Hva er EyeQ?»-boksen]. ref til et
+annet merke i bilde 2 [Dailies -- toppbanner med stat-stripe og to knapper]."
+
+`render_private_label_brand_page()` (`/merke/{eyeq|iwear|ascend|easyvision}/`)
+hadde siden 2026-09-27 kun fått toppbanneret (`.brand-hero`) fra
+`render_brand_page()` sitt løft, ikke resten -- ingen stat-stripe, ingen
+"i tall", ingen ekte prisinnsikt-graf, ingen sortiment-/materialer-
+seksjon, ingen FAQ-regelmotor, ingen guide-ressurser. Løftet nå til
+samme struktur, brukt av alle fire kjeder siden de deler én renderfunksjon
+(konsistens var selve poenget med "likt som alle andre merker" -- ikke
+fornuftig å gjøre bare EyeQ annerledes enn de tre søsknene).
+
+**Forutsetning, gjort i samme runde:** `render_brand_page()` sin ~220
+linjer lange `.brand-*`-CSS (stat-stripe, "i tall"-fliser, prisinnsikt-
+graf, sortiment-kort, materialer-kort, 30/90-analyse, FAQ-accordion,
+toppbanner) lå tidligere hardkodet i selve funksjonens `<style>`-blokk --
+flyttet til en ny delt konstant `BRAND_PAGE_STYLE` (samme presedens som
+Price Intelligence-CSS-en fikk 2026-09-28: "flyttet fra lokal til delt").
+`render_brand_page()` refererer nå `{BRAND_PAGE_STYLE}` i stedet for å
+duplisere reglene, og `render_private_label_brand_page()` bruker den
+samme konstanten -- én CSS-kilde, ingen drift mulig mellom de to
+sidetypene. Verifisert at `/merke/acuvue/` (ekte merke) er pikselidentisk
+etter flyttingen, testet i browser før noe annet ble bygget.
+
+**Datatilpasning:** hver private label-"rad" bygges fra `label` (visnings-
+navn/slug) + `real_product` (ekte tilbud/specs/pris-id) -- en syntetisk
+`row["product"]`-dict bærer `real_product["id"]` (for `_pack_size_from_id()`
+og som nøkkel i `price_history`, siden historikken er lagret på den ekte
+varens id) mens visningstekst konsekvent bruker `label["name"]`.
+
+**Bevisst utelatt** (adaptivt, samme prinsipp som et ekte merke uten
+kuratert `product_families.json`-serie, f.eks. FreshLook): "Utforsk
+seriene"-kortene og "Slik skiller seriene seg"-tabellen -- private
+label-varianter er 1:1-alias for ett ekte produkt hver, ingen egen
+flerpakning-/flervariant-familie å gruppere. `family_summaries` er derfor
+alltid tom liste her, og de to seksjonene faller bort helt av seg selv
+(samme kodesti som allerede håndterer det for et ekte merke uten serie).
+Ingen egen "Produsent"-modul heller -- ett sett private label-varianter
+spenner ofte FLERE produsenter (EyeQ blander CooperVision og Alcon, se
+tidligere notat i dette dokumentet), så det finnes ingen entydig
+produsent å lenke til.
+
+**Ny, ekte informasjon private label-siden alene kan vise:** en
+"X ekte merker"-stat i hero-stripen (distinkte `real_product["brand_label"]`
+på tvers av settet) og en tilsvarende FAQ-post ("Hvilke ekte merker er
+{subbrand} egentlig?") -- ingen ekte merkeside har noe tilsvarende, siden
+et ekte merke per definisjon bare er ett merke.
+
+**Kai sitt eksplisitte krav:** `.private-label-explainer`-boksen ("Hva er
+{subbrand}?") flyttet UENDRET til rett under `.brand-hero`, FØR alle de
+nye seksjonene (stat-stripe/i-tall/prisinnsikt/sortiment/materialer/FAQ/
+guider) -- ikke fjernet, ikke omskrevet, bare beholdt på akkurat den
+plasseringen bildet viste.
+
+Testet: bygget + `validate_build.py` OK (201/201), full sveip ingen
+Traceback/NameError. JSON-LD (BreadcrumbList + ItemList + FAQPage)
+validert gyldig på alle fire sider (`json.loads()` på hvert
+`<script type="application/ld+json">`-blokk). Alle fire besøkt i
+browser-panelet på både desktop (1440px, hero/i-tall/prisinnsikt/
+produktgrid/sortiment/materialer/FAQ/guider/tillit-footer alle bekreftet
+rendret) og mobil (375px, `document.body.scrollWidth === window.innerWidth`
+på alle fire -- ingen horisontal overflow). "30 eller 90 linser?"-
+seksjonen er korrekt fraværende på alle fire i dag (ingen har ≥2 robuste
+30/90-par ennå) -- adaptivt, ikke en feil. `render_brand_page()` sin egen
+utrulling (30 ekte merke-sider) re-verifisert uendret etter
+`BRAND_PAGE_STYLE`-flyttingen.
