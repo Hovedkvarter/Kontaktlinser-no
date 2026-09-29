@@ -889,18 +889,20 @@ a { color: inherit; }
    desktop-korreksjon: "Do not collapse the merchant price list. On
    desktop, render all valid current offers immediately [...] The full
    merchant list is part of the value proposition"). Server-siden bygger
-   fortsatt `is-collapsed`-klassen og knappen når det er >3 tilbud
-   (samme `collapse_after`-param, brukt av BÅDE mobil og desktop), men
-   CSS-en her gjør kollapsen usynlig >=860px -- samme brytpunkt som
-   resten av sidens desktop-layout (.hero-main sitt grid). Ingen
-   JS-endring nødvendig: _QTY_CALC_SCRIPT sin render() sorterer og
+   fortsatt `is-collapsed`-klassen og knappen når det er >10 tilbud
+   (samme `collapse_after`-param, brukt av BÅDE mobil og desktop, terskel
+   hevet fra 3 til 10 på Kais eksplisitte ønske 2026-09-29: "Vis alle
+   treff opp til 10 priser, og deretter hvis flere, klikk for å vise
+   alle"), men CSS-en her gjør kollapsen usynlig >=860px -- samme
+   brytpunkt som resten av sidens desktop-layout (.hero-main sitt grid).
+   Ingen JS-endring nødvendig: _QTY_CALC_SCRIPT sin render() sorterer og
    re-append'er HELE listen uansett skjerm-bredde, kollapsen var alltid
    bare et rent CSS-lag oppå den samme, allerede fullstendige listen. */
-.offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: none; }
+.offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: none; }
 .offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
 .offers-show-more:hover { border-color: var(--blue); }
 @media (min-width: 860px) {
-  .offers.is-collapsed .offers-list .offer-card:nth-child(n+4) { display: flex; }
+  .offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: flex; }
   .offers-show-more { display: none; }
 }
 .ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
