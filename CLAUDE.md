@@ -4851,3 +4851,144 @@ faktisk innhold), 260 sider viser "Høyeste prisnivå", 237 viser "Laveste
 butikkpris", 24 sider treffer den nye, materialitets-krevende "Høyt
 prisnivå"-statusen (ned fra et ukjent, men garantert høyere antall før
 materialitetskravet ble lagt til).
+
+## Price Intelligence v2: "premium data publication"-redesign (2026-09-29, samme dag)
+
+Kai fulgte opp logikkrunden med et nytt, 24-punkts visuelt brief
+("More data. Less UI chrome... Think: premium financial/data publication,
+not SaaS dashboard") + et godkjent mockup-bilde (`58.webp`), sendt i to
+meldinger -- en fullstendig skriftlig spec, deretter en eksplisitt
+presisering: **"THE ATTACHED MOCKUP WINS"** for alt visuelt (hierarki,
+typografi, metrikk-plassering, kort-stil), mens den skriftlige spec-en
+fortsatt er fasit for datalogikk/eligibility/semantikk/tilgjengelighet der
+de to skulle stå i konflikt. Ren presentasjonsrunde -- ingen av logikk-
+/semantikk-runden sine beregninger, terskler eller eligibility-regler er
+rørt.
+
+**Fem strukturelle endringer** (`render_price_intelligence()`, ny
+`_price_intelligence_recent_winner_count()`-hjelper, CSS i `SHARED_STYLE`):
+
+1. **"Pris nå" er nå visuelt dominerende** (2,1rem, egen stor verdi) med de
+   tre historikk-metrikkene (Laveste/Høyeste/Median) ved siden av som en
+   tynn, skilt-delt rad (`border-left` mellom kolonnene) i stedet for like
+   store grå grid-fliser -- "the numbers themselves should become the
+   visual design". Statuspillen (`.price-intel-status-pill`) er nå en egen,
+   atskilt komponent ved siden av raden på desktop, fortsatt tinted (Kai,
+   regel 5: "may remain a subtle tinted module because it represents a
+   conclusion"), men ikke lenger en grid-rute blant rådataene. Mobil
+   (<860px): "Pris nå" står alene øverst, de tre andre wrapper i et
+   kompakt 2-kolonners rutenett under (uten skillelinjer -- se
+   "Lærdom"-punktet nederst for hvorfor).
+2. **Grafen har fått en smal "hylle" på stor desktop**
+   (`.price-intel-chart-shell{max-width:1100px;margin-inline:auto}`, regel
+   8) -- IKKE en proporsjonal nedskalering av høyden (regel 9, uendret 140px
+   plot-høyde). En ny, bevisst IKKE-interaktiv verktøylinje over grafen
+   ("Laveste registrerte produktpris per dag" + en badge "Viser laveste
+   registrerte pris per dag") -- UTEN nedoverpil/chevron, siden det ikke
+   finnes noen reell alternativ dataserie å velge mellom ennå; å tegne en
+   falsk interaktiv kontroll der ingenting skjer ved klikk ville vært
+   misvisende UI, selv om mockupen viste noe som lignet en dropdown.
+3. **"31 %"-tallet i "Prisforskjell mellom butikkene" har fått en egen,
+   fremtredende callout-boks** (`.price-intel-spread-callout`, mint-tinted,
+   regel 12: "make the proprietary spread metric prominent") i stedet for
+   en rad blant de andre. 0-dagers-butikker i "Prisvinnere over tid"
+   (omdøpt fra entall "Prisvinner" til flertall "Prisvinnere", matcher
+   mockupen) er beholdt SYNLIGE -- Kai bekreftet eksplisitt tidligere
+   samme uke at dette er ønsket ("viser at de faktisk er sammenlignet,
+   ikke bare fraværende") -- men nå visuelt DEMPET
+   (`.price-intel-winner-row-zero{opacity:.5}`, regel 13: "Do not let
+   zero-value merchants create visual clutter") -- dempning i stedet for
+   fjerning, for å ikke motsi den tidligere, eksplisitte avgjørelsen.
+   "Kjøper du flere esker?"-tabellens kolonne "Laveste pris" er omdøpt til
+   "Pris totalt" (klarere -- kolonnen viser produktpris × antall, en
+   TOTAL, ikke en "laveste" i seg selv; regel 19: "Every proprietary metric
+   should carry: metric + value + period/context").
+4. **Ny "egen-data"-stripe nederst** (`.price-intel-stat-strip`, regel 16)
+   -- fem redaksjonelle statistikker med tynne skillelinjer, ingen kort:
+   dager siden siste prisendring (gjenbruker `status["flat_days"]`,
+   allerede beregnet), antall prisvinnerbytter (gjenbruker
+   `winners["changes"]`), antall DISTINKTE prisvinnere de siste
+   `min(90, coverage_days)` dagene (ny `_price_intelligence_recent_winner_count()`
+   -- bevisst et KORTERE, eget vindu enn "Prisvinnere over tid"-kortet,
+   som alltid bruker hele historikken; sier aldri "90 dager" for et
+   produkt med færre enn 90 dagers historikk, samme "aldri påstå en
+   periode vi ikke dekker"-prinsipp som resten av modulen), periodens
+   prisvariasjon i prosent (`status["range_pct"]`, lagt til i
+   logikkrunden tidligere samme dag) og periodens laveste pris. Hvert
+   element er BETINGET -- vises kun når den underliggende dataen faktisk
+   finnes/er meningsfull (f.eks. "prisvariasjon"-elementet skjules helt
+   ved en 100 % flat pris, siden `low == high` da gjør prosenttallet
+   meningsløst). Periode-avhengig som resten av modulen (bytter med
+   fanene via samme `data-period`-mekanisme), UNNTATT
+   prisvinner-distinkt-tallet, som bevisst bruker sitt eget, faste
+   90-dagers-vindu uavhengig av valgt fane.
+5. **Bevisst IKKE implementert: mockupens klokkeslett** ("Sist oppdatert:
+   29. september 2026, kl. 08:14") og "Oppdatert i dag"-merkelappen på
+   Kort fortalt-boksen. Samme, allerede dokumenterte lærdom som Fase 16 på
+   merke-siden TIDLIGERE SAMME DAG: et tid-/dagsrelativt ferskhet-utsagn
+   på en STATISK, bygget-én-gang-per-dag side blir usant i intervallet
+   mellom to bygg (en leser kl. 20:00 ville sett en løgnaktig "kl. 08:14"
+   eller "i dag" som egentlig gjelder gårsdagens bygg).
+   `price_history.json` lagrer uansett aldri klokkeslett, kun kalenderdato
+   -- et påstått klokkeslett måtte enten vært oppdiktet eller
+   byggetidspunktet selv (som blir feil få timer senere). Footeren viser i
+   stedet "Prisdata sist bekreftet: {historikkens siste dato}", samme
+   "sist bekreftet {dato}"-konvensjon som resten av siden allerede
+   følger konsekvent.
+
+**Ny footer-linje** (`.price-intel-footer`): skjold-ikon + "Alle priser
+hentes daglig fra norske nettbutikker. Les mer om hvordan vi samler inn
+priser →" (lenke til den eksisterende `/slik-sammenligner-vi-priser/`)
+venstre, "Prisdata sist bekreftet: {dato}" høyre.
+
+**Ett avvik fra mockupens eksakte tall, flagget til Kai, ikke justert
+uten hans bekreftelse:** regel 8 ba om en graf-bredde på "75-82 % av
+Price Intelligence-innholdsbredden", men "start med 1100px" som konkret
+tall. Målt direkte i browser-panelet: modulens eget innholdsområde
+(`.price-intel-chart-panel`) når maks ca. 1178px bred på denne siden
+(`.wrap-product` sitt eget 1280px-tak minus modulens egen sidepadding),
+så et 1100px-tak gir faktisk ~93 % av innholdsbredden der, ikke 75-82 %
+-- prosentmålet forutsatte trolig en bredere beholder enn det som faktisk
+finnes på produktsiden i dag. Fulgte det konkrete pikseltallet (den
+primære, utvetydige instruksen -- "Start with 1100px") fremfor å gjette
+meg til et smalere tall for å treffe prosentmålet; sier fra til Kai i
+stedet, siden en eventuell innsnevring er en synlig designbeslutning han
+bør ta, ikke noe jeg bør avgjøre stille.
+
+**Lærdom for mobil-CSS ved skift av layout-metafor** (unngikk en reell
+bug FØR den ble sendt til Kai, ikke i etterkant): et første utkast brukte
+`border-left`-skillelinjer på ALLE fire metrikk-kolonner (inkl. "Pris nå"
+som første kolonne), ment å KUN gjelde på desktop -- men `flex-wrap:wrap`
+på mobil ville latt kolonne 3 (som visuelt havner FØRST i sin egen,
+nye rad når raden bryter) beholde en igjenværende venstre-kant fra sin
+CSS-regel, selv om den ikke lenger sto ved siden av en annen kolonne.
+Løst ved å holde skillelinjene HELT ute av mobil-CSS-en (ren `flex-wrap`
+uten border, kun luft) og kun legge dem til inni `@media
+(min-width:860px)`, der `flex-wrap:nowrap` garanterer at rekkefølgen
+aldri brytes opp -- skillelinjer mellom kolonner er kun trygt når
+naboskapet er garantert stabilt.
+
+Testet: `python3 -c "import ast; ast.parse(...)"` OK, bygget +
+`validate_build.py` OK (201/201), full sveip ingen Traceback/NameError.
+Verifisert i browser mot Kais eksakte Biofinity Toric-eksempel (`get_page_text`
+matcher mockupen nesten ord for ord: eyebrow, "47 dager med data",
+"454 kr / Pris nå / Laveste pris akkurat nå", "Stabil pris", riktig
+fane-rekkefølge, spread-callout, "Prisvinnere over tid" med dempede
+0-dagers-rader, egen-data-stripen med 5 elementer, footer). Chart-bredde
+målt eksplisitt ved 1200/1500/1920px viewport (1100px-taket slår inn og
+sentrerer korrekt ved bred nok skjerm, 39px luft på hver side ved
+1500px+). Mobil (375px) verifisert via DOM (`scrollWidth===innerWidth`,
+kun 1 `.price-intel-cards`/1 aktiv `.price-intel-chart-panel`/1 footer i
+DOM-en -- et tilsynelatende "duplisert innhold"-skjermbilde viste seg å
+være et rent skjermbilde-verktøy-rendringsartefakt, ikke en reell bug,
+bekreftet ved å telle faktiske DOM-noder i stedet for å stole på
+skjermbildet, samme kjente ustabilitet i browser-panelet som er
+dokumentert flere ganger tidligere denne uken). Edge-caser: linsevæske
+(ReNu Multi-Purpose 60 ml, "flaske"/"flasker" flyter riktig gjennom HELE
+den nye stripen og footeren også), 1-tilbud-produkt (Biofinity Multifocal
+Toric 3-pack -- spread-kort korrekt fraværende, egen-data-stripen viser
+riktig entall "1 butikk" og utelater riktig "N ganger har
+prisvinneren skiftet"-linjen siden changes==0). Ingen krysspåvirkning på
+merke-/serie-sidenes egen, urørte `_render_price_history_chart()`
+(`grep 'class="price-intel"'` mot en merke-side: 0 treff, kun de delte
+CSS-reglene er til stede der som før).

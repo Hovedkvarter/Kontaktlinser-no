@@ -392,57 +392,88 @@ a { color: inherit; }
 .price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.76rem; color: var(--muted); background: white; border: 1px solid var(--border); border-radius: 10px; padding: 7px 11px; }
 .price-intel-coverage svg { width: 15px; height: 15px; color: var(--blue); flex-shrink: 0; }
 .price-intel-coverage strong { color: var(--ink); }
-/* Metrikk-stripen (2026-09-29 visuelt reset) -- 5 kompakte felt, IKKE
-   store dashboard-fliser (mål: ~90-105px høyde på desktop, se .price-intel-metric
-   min-height under). Kun én av N perioders strip er noensinne synlig
-   (.active), resten sitter skjult i DOM-en (server-rendret, ikke JS-bygget --
-   funker uten JS også, viser bare default-perioden). */
-.price-intel-metrics-strip { display: none; grid-template-columns: repeat(2, 1fr); gap: 7px; margin-bottom: 12px; }
-.price-intel-metrics-strip.active { display: grid; }
-.price-intel-metric { background: var(--mist); border-radius: 10px; padding: 9px 11px; display: flex; flex-direction: column; justify-content: center; min-height: 62px; box-sizing: border-box; }
-.price-intel-metric strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1rem; color: var(--ink); line-height: 1.15; }
-.price-intel-metric span { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 3px; line-height: 1.3; }
-.price-intel-metric-now { background: var(--mint-tint); }
-.price-intel-metric-now strong { color: var(--mint); }
-.price-intel-status { grid-column: 1 / -1; display: flex; align-items: center; gap: 9px; background: var(--mint-tint); border-radius: 10px; padding: 9px 11px; min-height: 62px; box-sizing: border-box; }
-.price-intel-status-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; }
-.price-intel-status-icon svg { width: 15px; height: 15px; color: var(--mint); }
-.price-intel-status span { font-size: 0.7rem; color: var(--muted); line-height: 1.3; }
-.price-intel-status span strong { display: block; font-size: 0.8rem; color: var(--ink); margin-bottom: 1px; }
-.price-intel-status-up, .price-intel-status-high { background: #FDECEC; }
-.price-intel-status-up .price-intel-status-icon svg, .price-intel-status-high .price-intel-status-icon svg { color: #D64545; }
-/* Periodevelger -- kompakte piller, aktiv = mørk navy (ikke blå), matcher
-   mockupen sin nøytrale, konsumentvendte tone fremfor site-standard blå. */
-.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+/* Price Intelligence v2 -- "premium data publication"-redesign
+   (2026-09-29, Kai, godkjent mockup-bilde 58.webp er visuell fasit).
+   Filosofi: mindre dashboard-kort/grå-blå flater, mer typografi/luft/
+   tynne skillelinjer -- tallene ER designet, ikke pakket inn i bokser.
+   All underliggende logikk/beregning er UENDRET fra logikk-/semantikk-
+   runden tidligere samme dag -- dette er ren presentasjon. */
+.price-intel-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin: 0 0 4px; }
+.price-intel-coverage-days { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+/* Primærraden: "Pris nå" (dominerende) + tre skilte historikk-metrikker
+   + en atskilt statuspille. Kun én periodes .price-intel-primary er
+   noensinne synlig (.active) -- server-rendret, fungerer uten JS. */
+.price-intel-primary { display: none; margin-bottom: 16px; }
+.price-intel-primary.active { display: block; }
+.price-intel-metrics-row { display: flex; flex-wrap: wrap; gap: 14px 0; }
+.price-intel-metric-col { flex: 1 1 46%; box-sizing: border-box; padding-right: 10px; }
+.price-intel-metric-current { flex: 1 1 100%; margin-bottom: 2px; }
+.price-intel-value { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.15rem; color: var(--ink); line-height: 1.1; }
+.price-intel-value-lg { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
+.price-intel-metric-label { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.price-intel-metric-sublabel { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+.price-intel-current-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; color: var(--mint); margin-top: 6px; }
+.price-intel-current-dot i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block; font-style: normal; }
+/* Status: fortsatt en diskret tinted "konklusjon"-pille (regel 5: "may
+   remain a subtle tinted module because it represents a conclusion
+   rather than a raw metric"), men nå atskilt fra rådataraden, ikke en
+   grid-rute blant metrikkene. */
+.price-intel-status-pill { display: flex; align-items: center; gap: 9px; background: var(--mint-tint); border-radius: 12px; padding: 11px 14px; margin-top: 14px; }
+.price-intel-status-pill .price-intel-status-icon { flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; }
+.price-intel-status-pill .price-intel-status-icon svg { width: 15px; height: 15px; color: var(--mint); }
+.price-intel-status-pill span { font-size: 0.76rem; color: var(--muted); line-height: 1.4; }
+.price-intel-status-pill span strong { display: block; font-size: 0.86rem; color: var(--ink); margin-bottom: 1px; }
+.price-intel-status-pill.price-intel-status-up, .price-intel-status-pill.price-intel-status-high { background: #FDECEC; }
+.price-intel-status-pill.price-intel-status-up .price-intel-status-icon svg, .price-intel-status-pill.price-intel-status-high .price-intel-status-icon svg { color: #D64545; }
+/* Periodevelger -- uendret fra forrige runde: kompakte piller, aktiv =
+   mørk navy. */
+.price-intel-period-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
 .price-intel-period-tab { font-size: 0.76rem; font-weight: 600; font-family: inherit; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border); background: white; color: var(--muted); cursor: pointer; }
 .price-intel-period-tab.active { background: var(--ink); border-color: var(--ink); color: white; }
 .price-intel-period-tab:disabled { opacity: 0.35; cursor: not-allowed; }
 .price-intel-chart-panel { display: none; }
 .price-intel-chart-panel.active { display: block; }
+/* Grafens "hylle" -- smalnes inn og sentreres på stor desktop (regel
+   8/9: "the chart should NOT span the entire Price Intelligence width...
+   narrower but still important", 220-240px høyde beholdt uendret). */
+.price-intel-chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px 12px; margin-bottom: 6px; font-size: 0.72rem; color: var(--muted); flex-wrap: wrap; }
+.price-intel-chart-toolbar-badge { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; background: white; }
+.price-intel-chart-toolbar-badge svg { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
 .price-intel-chart .price-history-chart { padding: 2px 0; }
 .price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
-/* Intelligens-raden -- tre LIKE, kompakte hvite kort (ikke fylte
-   grå/blå flater) -- hvit skal dominere, kortene skiller seg kun med en
-   tynn kant, se mockup-referansen 2026-09-29. */
+/* Intelligens-raden -- fortsatt tre tynt-kantede hvite kort, EN
+   komponent mockupen selv beholder uendret ("match... three lower
+   intelligence cards"). */
 .price-intel-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
 .price-intel-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
-.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0 0 10px; color: var(--ink); }
+.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0; color: var(--ink); }
+.price-intel-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+.price-intel-card-head-note { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
 .price-intel-card h3 svg { width: 16px; height: 16px; flex-shrink: 0; }
 .price-intel-card-h-spread svg, .price-intel-card-h-qty svg { color: var(--blue); }
 .price-intel-card-h-winner svg { color: var(--amber); }
 .price-intel-card-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 0.84rem; color: var(--ink); }
 .price-intel-card-row span { color: var(--muted); }
 .price-intel-card-row strong { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
-.price-intel-card-row-highlight { margin-top: 3px; padding-top: 9px; border-top: 1px solid var(--border); }
-.price-intel-card-row-highlight span { color: var(--ink); font-weight: 600; }
-.price-intel-card-row-highlight strong { color: var(--mint); font-size: 1rem; }
+/* "31 %"-utropet -- egen, fremtredende callout (regel 12: "make the
+   proprietary spread metric prominent"), erstatter den tidligere
+   ren-tekst-raden med samme tall. */
+.price-intel-spread-callout { margin-top: 9px; padding: 11px 12px; background: var(--mint-tint); border-radius: 10px; }
+.price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
+.price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
+.price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .price-intel-winner-bar { display: block; height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden; }
 .price-intel-winner-bar span { display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }
 .price-intel-winner-days { color: var(--muted); white-space: nowrap; font-size: 0.74rem; }
+/* 0-dagers-butikker: beholdt synlig (Kai bekreftet dette eksplisitt
+   tidligere samme uke -- "viser at de faktisk er sammenlignet"), men nå
+   visuelt dempet (regel 13: "Do not let zero-value merchants create
+   visual clutter"). */
+.price-intel-winner-row-zero { opacity: 0.5; }
 /* "Kjøper du flere esker?" -- ren tabell, IKKE et eget kortsett per rad. */
 .price-intel-qty-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
 .price-intel-qty-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.02em; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
@@ -450,20 +481,45 @@ a { color: inherit; }
 .price-intel-qty-table tr:last-child td { border-bottom: none; }
 .price-intel-qty-table td:first-child { font-weight: 600; }
 .price-intel-qty-table td:nth-child(2) { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
-/* "Kort oppsummert" -- flyttet til BUNNEN (konklusjon, ikke intro), smal
-   lyseblå stripe i stedet for en stor blå boks. */
-.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
+/* "Kort fortalt" -- diskre konklusjon, ikke en stor blå dashboard-boks
+   (regel 17: "Do not make it look like an AI response"). */
+.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 18px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
 .price-intel-summary.active { display: flex; }
 .price-intel-summary strong { display: block; margin-bottom: 2px; color: var(--blue); }
 .price-intel-summary-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+/* Egen-data-stripen (regel 16) -- små, redaksjonelle statistikker med
+   tynne skillelinjer, IKKE flere kort. Adaptiv: bygges kun av elementer
+   som faktisk har data (se render_price_intelligence()). */
+.price-intel-stat-strip { display: none; flex-wrap: wrap; gap: 14px 0; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.price-intel-stat-strip.active { display: flex; }
+.price-intel-stat { flex: 1 1 46%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding-right: 10px; }
+.price-intel-stat svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
+.price-intel-stat strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: var(--ink); }
+.price-intel-stat span { display: block; font-size: 0.68rem; color: var(--muted); line-height: 1.3; margin-top: 1px; }
+/* Footer -- metodikklenke + en ÆRLIG oppdateringsdato. Bevisst INGEN
+   klokkeslett ("kl. HH:MM") slik mockupen viste -- samme lærdom som
+   Fase 16 tidligere samme dag (se _price_intel_chart_domain sin
+   docstring-nabo lenger opp): en tid-stemplet påstand på en STATISK
+   side blir feil i det øyeblikket noen leser siden senere enn
+   byggetidspunktet. Bruker i stedet den samme "sist bekreftet
+   {dato}"-konvensjonen som resten av siden allerede følger konsekvent. */
+.price-intel-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
+.price-intel-footer a { color: var(--blue); font-weight: 600; text-decoration: none; }
+.price-intel-footer-source { display: flex; align-items: center; gap: 6px; }
+.price-intel-footer-source svg { width: 13px; height: 13px; flex-shrink: 0; }
 @media (min-width: 860px) {
-  .price-intel { padding: 22px 26px; }
+  .price-intel { padding: 26px 30px; }
   .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
   .price-intel-head-text p { max-width: 520px; }
   .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
-  .price-intel-metrics-strip.active { grid-template-columns: repeat(4, 1fr) 1.3fr; }
-  .price-intel-metric, .price-intel-status { min-height: 92px; }
-  .price-intel-status { grid-column: auto; }
+  .price-intel-primary.active { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+  .price-intel-metrics-row { flex: 1 1 auto; flex-wrap: nowrap; }
+  .price-intel-metric-col { flex: 0 0 auto; padding: 0 20px; border-left: 1px solid var(--border); }
+  .price-intel-metric-col:first-child, .price-intel-metric-current { border-left: none; padding-left: 0; flex-basis: auto; margin-bottom: 0; }
+  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; max-width: 300px; }
+  /* Regel 8: 75-82 % av innholdsbredden, ikke hele -- IKKE en proporsjonal
+     nedskalering av høyden (regel 9), kun bredden begrenses og sentreres. */
+  .price-intel-chart-shell { max-width: 1100px; margin-inline: auto; }
   /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
      2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
      third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
@@ -471,6 +527,7 @@ a { color: inherit; }
      3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
      ingen tom kolonne. */
   .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .price-intel-stat { flex: 0 1 auto; }
 }
 """
 
@@ -4199,6 +4256,27 @@ def _price_intelligence_merchant_winners(history: list[dict], all_retailers: set
     return {"ranked": ranked, "n_days": n_days, "changes": changes, "top_store": ranked[0][0], "top_count": ranked[0][1]}
 
 
+def _price_intelligence_recent_winner_count(history: list[dict], window_days: int = 90) -> dict | None:
+    """"N butikker har vært prisvinner siste {vindu} dager" -- egen-data-
+    stripen (v2-redesign, regel 16). Bevisst et ANNET, kortere vindu enn
+    "Prisvinner over tid"-kortet (som alltid bruker HELE historikken) --
+    et eget, kort vindu er mer relevant som en "hvor konkurranseutsatt er
+    dette produktet nylig"-indikator. Vinduet er `min(window_days,
+    len(history))`, ALDRI en påstått lengde vi ikke faktisk har data for
+    -- samme "ikke lov til å hevde en periode vi ikke dekker"-prinsipp
+    som resten av modulen (se `_price_intelligence_eligible_periods()`).
+    Ingen `all_retailers` her (i motsetning til `_price_intelligence_
+    merchant_winners()` sin bruk andre steder) -- denne tellingen skal
+    KUN telle butikker som faktisk har vunnet minst én dag i vinduet, en
+    0-dagers-butikk ville gitt en misvisende "flere konkurrenter" enn
+    det som faktisk er observert der."""
+    window = history[-window_days:] if len(history) >= window_days else history
+    w = _price_intelligence_merchant_winners(window)
+    if not w:
+        return None
+    return {"n_stores": len(w["ranked"]), "n_days": len(window)}
+
+
 def _price_intelligence_quantity_table(offers: list[dict], unit_singular: str, unit_plural: str, qty_choices: tuple[int, ...] = (1, 2, 4, 6, 8, 10)) -> dict | None:
     """"Kjøper du flere esker?" (visuelt reset-brief punkt 9, 2026-09-29) --
     samme sammenligningsgrunnlag som resten av modulen: CURRENT tilbud
@@ -4321,12 +4399,77 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     rad per faktisk kalenderdag (`record_price()` overskriver, legger
     aldri til duplikater), og at manglende observasjonsdager aldri telles
     som uendret/null (de er ganske enkelt fraværende fra historikk-listen)
-    -- var allerede korrekt og er UENDRET denne runden."""
+    -- var allerede korrekt og er UENDRET denne runden.
+
+    V2 -- "PREMIUM DATA PUBLICATION"-REDESIGN (2026-09-29, samme dag, Kai,
+    godkjent mockup-bilde 58.webp som visuell fasit -- "the attached
+    mockup wins" der den avviker fra den skriftlige spec-en, men den
+    skriftlige spec-en er fortsatt fasit for datalogikk/eligibility/
+    semantikk/tilgjengelighet). Ren presentasjon, INGEN
+    beregning/eligibility-regel endret fra runden over. Fem strukturelle
+    endringer:
+      1. "Pris nå" er nå VISUELT DOMINERENDE (2,1rem, egen stor verdi),
+         med de tre historikk-metrikkene ved siden av som en tynn,
+         skilt-delt rad (`.price-intel-metrics-row`/`-col`,
+         `border-left` som skillelinje) i stedet for like store
+         grid-fliser -- "the numbers themselves should become the visual
+         design", ikke pakket i grå bokser. Statuspillen er nå en egen,
+         atskilt komponent ved siden av (fortsatt tinted -- regel 5: "may
+         remain a subtle tinted module because it represents a
+         conclusion"), ikke en grid-rute blant rådataene.
+      2. Grafen har fått en smal "hylle" på stor desktop
+         (`.price-intel-chart-shell{max-width:1100px}`, regel 8) -- IKKE
+         en proporsjonal nedskalering av høyden (regel 9), kun bredden
+         begrenses og sentreres. En liten, IKKE-INTERAKTIV verktøylinje
+         over grafen ("Laveste registrerte produktpris per dag" +
+         "Viser laveste registrerte pris per dag") -- bevisst uten
+         nedoverpil/dropdown-chevron, siden det ikke finnes noen reell
+         alternativ dataserie å velge mellom ennå; å tegne en falsk
+         interaktiv kontroll ville vært misvisende UI.
+      3. "31 %"-tallet i "Prisforskjell mellom butikkene" har fått en
+         egen, fremtredende callout-boks (`.price-intel-spread-callout`,
+         regel 12: "make the proprietary spread metric prominent") i
+         stedet for en rad blant de andre. 0-dagers-butikker i
+         "Prisvinnere over tid" er beholdt synlige (Kai bekreftet
+         eksplisitt tidligere samme uke at dette er ønsket -- "viser at
+         de faktisk er sammenlignet"), men visuelt dempet
+         (`.price-intel-winner-row-zero`, regel 13: "Do not let
+         zero-value merchants create visual clutter" -- løst med
+         dempning, ikke fjerning, for å ikke motsi den tidligere,
+         eksplisitte avgjørelsen).
+      4. Ny "egen-data"-stripe nederst (regel 16,
+         `.price-intel-stat-strip`) -- fem redaksjonelle statistikker
+         (dager siden prisendring, antall prisvinnerbytter, antall
+         distinkte prisvinnere de siste `min(90, coverage_days)` dagene
+         via ny `_price_intelligence_recent_winner_count()`,
+         periodens prisvariasjon i prosent, periodens laveste pris) --
+         KUN elementer der underliggende data faktisk finnes (adaptiv,
+         regel 16: "Only display metrics that are meaningful and
+         supported"). Periode-avhengig som resten av modulen (bytter med
+         fanene), bortsett fra prisvinner-tallet som bruker sitt eget,
+         faste 90-dagers-vindu (samme "ikke la et helt annet tall late
+         som det følger den valgte fanen"-prinsipp som resten av siden).
+      5. Bevisst IKKE implementert: mockupens "Sist oppdatert: ... kl.
+         HH:MM"-klokkeslett. Samme lærdom som allerede dokumentert for
+         merke-siden samme dag ("Fase 16... et KLOKKESLETT-basert
+         ferskhet-krav ble fjernet tidligere i prosjektet nettopp fordi
+         det ble feil hver gang noen leste en statisk side senere enn
+         byggetidspunktet") -- `price_history.json` lagrer uansett aldri
+         klokkeslett, kun kalenderdato, så et påstått klokkeslett måtte
+         vært either oppdiktet eller byggetidspunktet (som blir usant få
+         timer senere på en statisk side). Footeren viser i stedet
+         `historikkens siste dato` via den samme "sist bekreftet
+         {dato}"-konvensjonen resten av siden allerede bruker
+         konsekvent. Samme grunn: mockupens "Oppdatert i dag"-merkelapp
+         på Kort fortalt-boksen er IKKE implementert -- en relativ "i
+         dag"-påstand på en statisk side blir usann i intervallet mellom
+         to daglige bygg, akkurat samme feilklasse."""
     if len(history) < 7:
         return ""
 
     coverage_days = len(history)
     coverage_start = history[0]["date"]
+    latest_date = history[-1]["date"]
     periods = _price_intelligence_eligible_periods(coverage_days)
     period_keys = {key for key, _, _ in periods}
     default_key = "30d" if "30d" in period_keys else "all"
@@ -4334,6 +4477,13 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     all_retailers = {o["retailer"] for o in offers} if offers else set()
     winners = _price_intelligence_merchant_winners(history, all_retailers)
     qty_table = _price_intelligence_quantity_table(offers, unit_singular, unit_plural) if offers else None
+    recent_winners = _price_intelligence_recent_winner_count(history, 90)
+    # Bidireksjonal "bytte"-pil, kun brukt av egen-data-stripen sitt
+    # "N ganger har prisvinneren skiftet"-element -- ingen delt konstant
+    # finnes fra før som passer semantisk (TROPHY_ICON_SVG er allerede
+    # brukt til selve butikknavnet, ikke byttefrekvensen).
+    _swap_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg>'
+    _chart_toolbar_icon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>'
 
     # Ett gjennomløp over PRICE_INTELLIGENCE_PERIODS i FAST rekkefølge (30
     # dager -> 90 dager -> 6 måneder -> 1 år -> All historikk), IKKE
@@ -4343,7 +4493,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # mockupens eksplisitte rekkefølge (visuelt reset-brief punkt 4).
     # Oppdaget 2026-09-29 ved å faktisk sjekke et produkt med færre enn 90
     # dagers historikk i browser-panelet, ikke antatt.
-    tabs, metric_strips, chart_panels, summary_strips = [], [], [], []
+    tabs, primary_strips, chart_panels, stat_strips, summary_strips = [], [], [], [], []
     n_enabled = 0
     for key, label, days in PRICE_INTELLIGENCE_PERIODS:
         if key not in period_keys:
@@ -4360,21 +4510,67 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         status_mod, status_title, status_msg = _price_intelligence_status_text(status, metrics["n_days"], label)
         summary_text = _price_intelligence_summary_text(product_name, metrics, label, spread)
         chart_svg = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFade-{key}")
+        period_phrase = "i hele perioden" if key == "all" else f"siste {label}"
 
-        metric_strips.append(f'''<div class="price-intel-metrics-strip{active_cls}" data-period="{key}">
-    <div class="price-intel-metric price-intel-metric-now"><strong>{_fmt_kr(metrics["current"])}</strong><span>Pris nå<br>(laveste i dag)</span></div>
-    <div class="price-intel-metric"><strong>{_fmt_kr(metrics["low"])}</strong><span>Laveste registrerte pris<br>Først registrert {_format_no_date(metrics["low_date"])}</span></div>
-    <div class="price-intel-metric" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode."><strong>{_fmt_kr(metrics["high"])}</strong><span>Høyeste prisnivå<br>Først registrert {_format_no_date(metrics["high_date"])}</span></div>
-    <div class="price-intel-metric" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden."><strong>{_fmt_kr(metrics["median"])}</strong><span>{metrics["n_days"]}-dagers median</span></div>
-    <div class="price-intel-status price-intel-status-{status_mod}"><span class="price-intel-status-icon">{_PRICE_INTEL_STATUS_ICONS[status["kind"]]}</span><span><strong>{escape(status_title)}</strong>{escape(status_msg)}</span></div>
+        primary_strips.append(f'''<div class="price-intel-primary{active_cls}" data-period="{key}">
+    <div class="price-intel-metrics-row">
+      <div class="price-intel-metric-col price-intel-metric-current">
+        <span class="price-intel-value-lg">{_fmt_kr(metrics["current"])}</span>
+        <span class="price-intel-metric-label">Pris nå</span>
+        <span class="price-intel-current-dot"><i></i>Laveste pris akkurat nå</span>
+      </div>
+      <div class="price-intel-metric-col">
+        <span class="price-intel-value">{_fmt_kr(metrics["low"])}</span>
+        <span class="price-intel-metric-label">Laveste pris<br>{period_phrase}</span>
+        <span class="price-intel-metric-sublabel">Først registrert {_format_no_date(metrics["low_date"])}</span>
+      </div>
+      <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
+        <span class="price-intel-value">{_fmt_kr(metrics["high"])}</span>
+        <span class="price-intel-metric-label">Høyeste prisnivå<br>{period_phrase}</span>
+      </div>
+      <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
+        <span class="price-intel-value">{_fmt_kr(metrics["median"])}</span>
+        <span class="price-intel-metric-label">{metrics["n_days"]}-dagers median</span>
+      </div>
+    </div>
+    <div class="price-intel-status-pill price-intel-status-{status_mod}"><span class="price-intel-status-icon">{_PRICE_INTEL_STATUS_ICONS[status["kind"]]}</span><span><strong>{escape(status_title)}</strong>{escape(status_msg)}</span></div>
   </div>''')
         chart_panels.append(f'''<div class="price-intel-chart-panel{active_cls}" data-period="{key}">
-    <div class="price-intel-chart">{chart_svg}</div>
+    <div class="price-intel-chart-shell">
+      <div class="price-intel-chart-toolbar">
+        <span>Laveste registrerte produktpris per dag</span>
+        <span class="price-intel-chart-toolbar-badge">{_chart_toolbar_icon}Viser laveste registrerte pris per dag</span>
+      </div>
+      <div class="price-intel-chart">{chart_svg}</div>
+    </div>
   </div>''')
         summary_strips.append(f'''<div class="price-intel-summary{active_cls}" data-period="{key}">
     <span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span>
-    <span><strong>Kort oppsummert</strong>{summary_text}</span>
+    <span><strong>Kort fortalt</strong>{summary_text}</span>
   </div>''')
+
+        # Egen-data-stripe (v2-redesign, regel 16) -- KUN elementer der
+        # underliggende data faktisk finnes/er meningsfull, se
+        # docstringen over for hvert elements datakilde.
+        stat_parts = []
+        if status["flat_days"] >= 1:
+            n = status["flat_days"]
+            stat_parts.append((CALENDAR_ICON_SVG, f'{n} {"dag" if n == 1 else "dager"}', 'siden siste prisendring'))
+        if winners and winners["changes"] > 0:
+            n = winners["changes"]
+            stat_parts.append((_swap_icon, f'{n} {"gang" if n == 1 else "ganger"}', f'har prisvinneren skiftet de siste {winners["n_days"]} dagene'))
+        if recent_winners:
+            n = recent_winners["n_stores"]
+            stat_parts.append((TROPHY_ICON_SVG, f'{n} {"butikk" if n == 1 else "butikker"}', f'har vært prisvinner siste {recent_winners["n_days"]} dagene'))
+        if metrics["low"] != metrics["high"]:
+            range_pct_display = f'{status["range_pct"]:.1f}'.replace('.', ',')
+            stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisvariasjon {period_phrase}'))
+        stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert'))
+        stat_html = "".join(
+            f'<div class="price-intel-stat">{icon}<div><strong>{escape(val)}</strong><span>{escape(desc)}</span></div></div>'
+            for icon, val, desc in stat_parts
+        )
+        stat_strips.append(f'<div class="price-intel-stat-strip{active_cls}" data-period="{key}">{stat_html}</div>')
 
     if n_enabled == 0:
         return ""
@@ -4404,24 +4600,29 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # prisnivå" over. Uten den presiseringen kan f.eks. 454 kr (dagens
     # laveste butikkpris) og 666 kr (dagens høyeste butikkpris) lett
     # forveksles med historiske min/maks-tall lenger opp i modulen.
+    # "31 %"-tallet er nå en egen, fremtredende callout-boks (v2-redesign
+    # regel 12), ikke bare en rad blant de andre.
     spread_card = ""
     if spread:
         spread_card = f'''<div class="price-intel-card">
-    <h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3>
+    <div class="price-intel-card-head"><h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3></div>
     <div class="price-intel-card-row"><span>Laveste butikkpris</span><strong>{_fmt_kr(spread["lowest"])}</strong></div>
     <div class="price-intel-card-row"><span>Medianpris</span><strong>{_fmt_kr(spread["median"])}</strong></div>
     <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>{_fmt_kr(spread["highest"])}</strong></div>
-    <div class="price-intel-card-row price-intel-card-row-highlight"><span>Forskjell lavest &rarr; høyest</span><strong>{spread["spread_pct"]} %</strong></div>
+    <div class="price-intel-spread-callout"><strong>{spread["spread_pct"]} %</strong><span>Forskjell mellom laveste og høyeste butikkpris</span></div>
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 {escape(unit_singular)}.</p>
   </div>'''
 
-    # "Prisvinner over tid" (regel 13-16) -- bruker HELE historikken (ikke
-    # bare valgt periode), vises derfor også KUN én gang.
+    # "Prisvinnere over tid" (regel 13-16) -- bruker HELE historikken (ikke
+    # bare valgt periode), vises derfor også KUN én gang. 0-dagers-
+    # butikker beholdes synlige (Kai bekreftet dette eksplisitt en
+    # tidligere runde samme uke), men visuelt dempet (v2-redesign regel
+    # 13: "Do not let zero-value merchants create visual clutter").
     winners_card = ""
     if winners and len(winners["ranked"]) >= 1:
         max_count = max(1, winners["ranked"][0][1])
         rows = "".join(
-            f'<div class="price-intel-winner-row"><span class="price-intel-winner-store">{escape(store)}</span>'
+            f'<div class="price-intel-winner-row{" price-intel-winner-row-zero" if count == 0 else ""}"><span class="price-intel-winner-store">{escape(store)}</span>'
             f'<span class="price-intel-winner-bar"><span style="width:{round(count / max_count * 100)}%"></span></span>'
             f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"}</span></div>'
             for store, count in winners["ranked"][:6]
@@ -4431,7 +4632,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
             if winners["changes"] > 0 else ""
         )
         winners_card = f'''<div class="price-intel-card">
-    <h3 class="price-intel-card-h-winner">{TROPHY_ICON_SVG}Prisvinner over tid</h3>
+    <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner">{TROPHY_ICON_SVG}Prisvinnere over tid</h3><span class="price-intel-card-head-note">Siste {winners["n_days"]} dager</span></div>
     <div class="price-intel-winners-list">{rows}</div>
     <p class="price-intel-card-note">{escape(winners["top_store"])} har hatt lavest registrert produktpris i {winners["top_count"]} av de siste {winners["n_days"]} dagene.{changes_sentence}</p>
   </div>'''
@@ -4445,7 +4646,11 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # stedet for den tidligere generiske "kan endre seg"-hedgingen
     # (logikk-/semantikk-runden 2026-09-29, Kai: "do not use generic
     # text... when we know it does not [change]" -- her vet vi tvert
-    # imot at den GJØR det, så teksten sier nøyaktig det).
+    # imot at den GJØR det, så teksten sier nøyaktig det). Kolonnen
+    # "Laveste pris" er omdøpt til "Pris totalt" (v2-redesign) -- den
+    # viser produktpris × antall, altså en TOTAL, ikke "laveste" i seg
+    # selv (regel 19: "Every proprietary metric should carry: metric +
+    # value + period/context").
     qty_card = ""
     if qty_table:
         rows_html = "".join(
@@ -4453,12 +4658,12 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
             for r in qty_table["rows"]
         )
         qty_card = f'''<div class="price-intel-card">
-    <h3 class="price-intel-card-h-qty">{BOX_ICON_SVG}Kjøper du flere {escape(unit_plural)}?</h3>
+    <div class="price-intel-card-head"><h3 class="price-intel-card-h-qty">{BOX_ICON_SVG}Kjøper du flere {escape(unit_plural)}?</h3></div>
     <table class="price-intel-qty-table">
-      <thead><tr><th>Antall</th><th>Laveste pris</th><th>Butikk</th></tr></thead>
+      <thead><tr><th>Antall</th><th>Pris totalt</th><th>Butikk</th></tr></thead>
       <tbody>{rows_html}</tbody>
     </table>
-    <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.</p>
+    <p class="price-intel-qty-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.</p>
   </div>'''
 
     cards_html = f'<div class="price-intel-cards">{spread_card}{winners_card}{qty_card}</div>' if (spread_card or winners_card or qty_card) else ""
@@ -4466,16 +4671,22 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     return f'''<div class="price-intel">
   <div class="price-intel-head">
     <div class="price-intel-head-text">
+      <p class="price-intel-eyebrow">Prisintelligens</p>
       <h2>Prisutvikling</h2>
-      <p>Vi følger laveste produktpris hos butikkene vi sammenligner, slik at du kan se hvordan prisen har endret seg over tid.</p>
+      <p>Vi har fulgt laveste produktpris hos butikkene siden {_format_no_date(coverage_start)}, slik at du kan se hvordan prisen har endret seg over tid.</p>
     </div>
-    <div class="price-intel-coverage">{CALENDAR_ICON_SVG}<span>Vi har fulgt prisen siden<br><strong>{_format_no_date(coverage_start)}</strong></span></div>
+    <div class="price-intel-coverage">{CALENDAR_ICON_SVG}<span>Vi har fulgt prisen siden<br><strong>{_format_no_date(coverage_start)}</strong><span class="price-intel-coverage-days">{coverage_days} dager med data</span></span></div>
   </div>
-  {"".join(metric_strips)}
+  {"".join(primary_strips)}
   <div class="price-intel-period-tabs" role="tablist">{"".join(tabs)}</div>
   {"".join(chart_panels)}
   {cards_html}
   {"".join(summary_strips)}
+  {"".join(stat_strips)}
+  <div class="price-intel-footer">
+    <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{_SHIELD_ICON}</svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
+    <span>Prisdata sist bekreftet: {_format_no_date(latest_date)}</span>
+  </div>
   {script_html}
 </div>'''
 
