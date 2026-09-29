@@ -464,6 +464,7 @@ a { color: inherit; }
 .price-intel-value { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.15rem; color: var(--ink); line-height: 1.1; }
 .price-intel-value-lg { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
 .price-intel-metric-label { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
+.price-intel-metric-info { display: inline-block; opacity: 0.7; margin-left: 2px; }
 .price-intel-metric-sublabel { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
 .price-intel-current-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; color: var(--mint); margin-top: 6px; }
 .price-intel-current-dot i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block; font-style: normal; }
@@ -494,11 +495,23 @@ a { color: inherit; }
 .price-intel-chart-toolbar-badge svg { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
 .price-intel-chart .price-history-chart { padding: 2px 0; }
 .price-intel-hit { fill: transparent; stroke: none; cursor: pointer; }
-/* Intelligens-raden -- fortsatt tre tynt-kantede hvite kort, EN
-   komponent mockupen selv beholder uendret ("match... three lower
-   intelligence cards"). */
-.price-intel-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
-.price-intel-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+/* Mellomliggende dato-tikker (ikke første/siste) skjules under 640px --
+   samme kompakte to-etiketters mobilvisning som før, mens desktop nå
+   viser alle (v2-redesign runde 2, rapport #3). */
+@media (max-width: 639px) {
+  .price-intel-chart .price-history-axis-label-x:not(.price-history-axis-label-edge) { display: none; }
+}
+/* Intelligens-raden -- fortsatt tynt-kantede hvite kort, men nå kappet i
+   bredde og SENTRERT som en gruppe (v2-redesign runde 2, rapport #4/#6:
+   "do not simply stretch the remaining two cards to fill the entire
+   width... Keep them at approximately the same intended card width").
+   flex i stedet for grid auto-fit -- auto-fit STREKKER hvert spor til å
+   dele bredden likt uansett antall kort, nøyaktig det som ga de
+   "gigantiske 50/50-kortene" Kai pekte på; flex+justify-content:center
+   lar hvert kort beholde sin egen, tiltenkte bredde og heller la
+   overskuddsplassen bli synlig luft på sidene av raden. */
+.price-intel-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 14px; }
+.price-intel-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; flex: 1 1 260px; }
 .price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0; color: var(--ink); }
 .price-intel-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
 .price-intel-card-head-note { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
@@ -536,14 +549,14 @@ a { color: inherit; }
 .price-intel-qty-table td:nth-child(2) { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
 /* "Kort fortalt" -- diskre konklusjon, ikke en stor blå dashboard-boks
    (regel 17: "Do not make it look like an AI response"). */
-.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 18px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
+.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
 .price-intel-summary.active { display: flex; }
 .price-intel-summary strong { display: block; margin-bottom: 2px; color: var(--blue); }
 .price-intel-summary-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
 /* Egen-data-stripen (regel 16) -- små, redaksjonelle statistikker med
    tynne skillelinjer, IKKE flere kort. Adaptiv: bygges kun av elementer
    som faktisk har data (se render_price_intelligence()). */
-.price-intel-stat-strip { display: none; flex-wrap: wrap; gap: 14px 0; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); }
+.price-intel-stat-strip { display: none; flex-wrap: wrap; gap: 12px 0; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
 .price-intel-stat-strip.active { display: flex; }
 .price-intel-stat { flex: 1 1 46%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding-right: 10px; }
 .price-intel-stat svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
@@ -556,30 +569,51 @@ a { color: inherit; }
    side blir feil i det øyeblikket noen leser siden senere enn
    byggetidspunktet. Bruker i stedet den samme "sist bekreftet
    {dato}"-konvensjonen som resten av siden allerede følger konsekvent. */
-.price-intel-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
+.price-intel-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 0.72rem; color: var(--muted); }
 .price-intel-footer a { color: var(--blue); font-weight: 600; text-decoration: none; }
 .price-intel-footer-source { display: flex; align-items: center; gap: 6px; }
 .price-intel-footer-source svg { width: 13px; height: 13px; flex-shrink: 0; }
 @media (min-width: 860px) {
-  .price-intel { padding: 26px 30px; }
+  /* Hele modulen kappet smalere enn siden rundt (v2-redesign runde 2,
+     rapport #1: "Hele komposisjonen er for bred og flat... match the
+     mockup's compact centered composition") -- IKKE bare grafen. Uten
+     dette tak strekker `.price-intel` seg til `.wrap-product` sin fulle
+     1280px, og alt inni (metrikkrad, kort, graf) arver den bredden og
+     virker "flat"/tynt utspredt uansett hvor mye de enkelte delene
+     strammes til. 1000px valgt som et bevisst, tydelig SMALERE tak enn
+     siden for øvrig -- gir modulen sin egen, synlig sentrerte
+     "publisert markedsrapport"-identitet i stedet for å flyte sammen
+     med resten av den brede produktsiden.*/
+  .price-intel { padding: 24px 28px; max-width: 1000px; margin-inline: auto; }
   .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
-  .price-intel-head-text p { max-width: 520px; }
+  .price-intel-head-text p { max-width: 480px; }
   .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
-  .price-intel-primary.active { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
-  .price-intel-metrics-row { flex: 1 1 auto; flex-wrap: nowrap; }
-  .price-intel-metric-col { flex: 0 0 auto; padding: 0 20px; border-left: 1px solid var(--border); }
+  /* IKKE justify-content:space-between -- det var nøyaktig det som ga
+     det synlige, "malplasserte" tomrommet mellom siste metrikk-kolonne
+     og statuspillen Kai pekte på (runde 2, rapport #3: "Stabil pris har
+     blitt en stor grønn boks helt ute til høyre"). Rådataraden og
+     pillen skal sitte SAMMEN med et fast, moderat mellomrom, ikke
+     spres ut over hele bredden av en flex-rad. */
+  .price-intel-primary.active { display: flex; align-items: flex-start; gap: 28px; }
+  .price-intel-metrics-row { flex: 0 1 auto; flex-wrap: nowrap; }
+  .price-intel-metric-col { flex: 0 0 auto; padding: 0 18px; border-left: 1px solid var(--border); }
   .price-intel-metric-col:first-child, .price-intel-metric-current { border-left: none; padding-left: 0; flex-basis: auto; margin-bottom: 0; }
-  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; max-width: 300px; }
-  /* Regel 8: 75-82 % av innholdsbredden, ikke hele -- IKKE en proporsjonal
-     nedskalering av høyden (regel 9), kun bredden begrenses og sentreres. */
-  .price-intel-chart-shell { max-width: 1100px; margin-inline: auto; }
-  /* auto-fit (ikke fast repeat(3,...)) -- logikk-/semantikk-runden
-     2026-09-29, regel 22: "If two eligible cards: do NOT leave an empty
-     third column." Kjøper-du-flere-esker-kortet skjules nå betinget (se
-     _price_intelligence_quantity_table()), så raden kan reelt ha 2 eller
-     3 kort -- auto-fit strekker de faktiske kortene jevnt uansett antall,
-     ingen tom kolonne. */
-  .price-intel-cards { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; width: 260px; }
+  /* Grafens "hylle" -- 680px, dvs. grafens EGEN native viewBox-bredde
+     (`_render_price_intelligence_chart()` sin `width=680`), ikke et
+     vilkårlig tall -- runde 2, rapport #3: "the chart is still too
+     large... the attached image is the sizing reference", ikke en
+     strekking av hele det (nå smalere) modulinnholdet. Innenfor et
+     ~940px innholdsområde (1000px modul minus padding) gir 680px synlig,
+     bevisst luft på begge sider, som i mockupen. */
+  .price-intel-chart-shell { max-width: 680px; margin-inline: auto; }
+  /* Kortene kapper nå i .price-intel-card selv (flex-basis 260px, se
+     over) -- her settes kun et TAK per kort (runde 2, rapport #4/#6) slik
+     at 2 eller 3 kort forblir sin egen, tiltenkte bredde og heller
+     etterlater synlig luft i raden (via justify-content:center) enn å
+     strekkes til å fylle 100 % når et kort (typisk "Kjøper du flere
+     esker?") er betinget skjult. */
+  .price-intel-card { flex: 0 1 300px; max-width: 300px; }
   .price-intel-stat { flex: 0 1 auto; }
 }
 
@@ -1682,11 +1716,11 @@ a { color: inherit; }
       </div>
       <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
         <span class="price-intel-value">438 kr</span>
-        <span class="price-intel-metric-label">Høyeste prisnivå<br>siste 30 dager</span>
+        <span class="price-intel-metric-label">Høyeste prisnivå<br>siste 30 dager <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
       </div>
       <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
         <span class="price-intel-value">429 kr</span>
-        <span class="price-intel-metric-label">30-dagers median</span>
+        <span class="price-intel-metric-label">30-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
       </div>
     </div>
     <div class="price-intel-status-pill price-intel-status-stable"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har endret seg lite de siste 30 dagene.</span></div>
@@ -1704,11 +1738,11 @@ a { color: inherit; }
       </div>
       <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
         <span class="price-intel-value">438 kr</span>
-        <span class="price-intel-metric-label">Høyeste prisnivå<br>i hele perioden</span>
+        <span class="price-intel-metric-label">Høyeste prisnivå<br>i hele perioden <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
       </div>
       <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
         <span class="price-intel-value">429 kr</span>
-        <span class="price-intel-metric-label">47-dagers median</span>
+        <span class="price-intel-metric-label">47-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
       </div>
     </div>
     <div class="price-intel-status-pill price-intel-status-stable"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har endret seg lite de siste 47 dagene.</span></div>
@@ -1765,8 +1799,14 @@ a { color: inherit; }
       <circle cx="650.4" cy="39.9" r="9" class="price-intel-hit"><title>28. september: 429 kr hos Lenson</title></circle>
       <circle cx="672.0" cy="39.9" r="9" class="price-intel-hit"><title>29. september: 429 kr hos Lenson</title></circle>
       <text x="672.0" y="31.9" text-anchor="end" class="price-history-current-label">429 kr</text>
-      <text x="46" y="135" class="price-history-axis-label">31.08</text>
-      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
+      <text x="46.0" y="135" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">31.08</text>
+      <text x="132.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.09</text>
+      <text x="218.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">08.09</text>
+      <text x="305.0" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">12.09</text>
+      <text x="391.4" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
+      <text x="477.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
+      <text x="564.1" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">24.09</text>
+      <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">29.09</text>
     </svg></div>
     </div>
   </div><div class="price-intel-chart-panel" data-period="all">
@@ -1837,8 +1877,14 @@ a { color: inherit; }
       <circle cx="658.4" cy="39.9" r="9" class="price-intel-hit"><title>28. september: 429 kr hos Lenson</title></circle>
       <circle cx="672.0" cy="39.9" r="9" class="price-intel-hit"><title>29. september: 429 kr hos Lenson</title></circle>
       <text x="672.0" y="31.9" text-anchor="end" class="price-history-current-label">429 kr</text>
-      <text x="46" y="135" class="price-history-axis-label">14.08</text>
-      <text x="672" y="135" text-anchor="end" class="price-history-axis-label">29.09</text>
+      <text x="46.0" y="135" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
+      <text x="141.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">21.08</text>
+      <text x="236.5" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.08</text>
+      <text x="331.8" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.09</text>
+      <text x="427.0" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">11.09</text>
+      <text x="522.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">18.09</text>
+      <text x="617.6" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">25.09</text>
+      <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">29.09</text>
     </svg></div>
     </div>
   </div>
