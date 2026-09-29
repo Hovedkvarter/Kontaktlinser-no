@@ -4992,3 +4992,92 @@ prisvinneren skiftet"-linjen siden changes==0). Ingen krysspåvirkning på
 merke-/serie-sidenes egen, urørte `_render_price_history_chart()`
 (`grep 'class="price-intel"'` mot en merke-side: 0 treff, kun de delte
 CSS-reglene er til stede der som før).
+
+## Price Intelligence v2, runde 2: "reproduser mockupen", ikke bare idéene (2026-09-29, samme dag)
+
+Kai fulgte opp med et strengt "STOP -- THIS DOES NOT MATCH THE APPROVED
+MOCKUP"-brief (relayed fra en annen AI-samtale): forrige runde hadde
+"tatt idéene fra bildet og presset dem inn i den eksisterende
+komponenten" i stedet for å gjenskape selve layout-proporsjonene --
+konkret: hele modulen for bred/flat, grafen fortsatt for stor, "Stabil
+pris" en stor grønn boks langt til høyre med synlig tomrom foran, de to
+gjenværende intelligens-kortene strukket til "gigantiske 50/50", og
+manglende dato-etiketter/info-ikon.
+
+**Verifiserte funn FØR noe ble endret** (samme "verifiser før du
+handler"-disiplin som resten av økta) -- et eget punkt i samme brief
+hevdet i tillegg at "Kort fortalt", egen-data-stripen og footeren var
+helt BORTE. Sjekket direkte mot den LIVE produksjonssiden (skjermbilde
++ DOM-inspeksjon, ikke antatt): alle tre var faktisk til stede og
+korrekt rendret -- dette punktet var feil, sannsynligvis fra en
+foreldet/avkortet gjennomgang på Kais side, IKKE en reell mangel. Resten
+av kritikken (proporsjoner, graf-størrelse, tomrommet ved statuspillen,
+kort-strekking, kun 2 dato-etiketter, manglende info-ikon) var derimot
+alle reelle, konkret verifiserbare avvik -- bekreftet med skjermbilder
+og `getBoundingClientRect()`-mål før noe ble fikset.
+
+**Root-cause-fiks, ikke flikking** (samme CSS i `SHARED_STYLE`,
+`render_price_intelligence()` og `_render_price_intelligence_chart()`):
+
+1. **Hele `.price-intel`-modulen fikk et eget bredde-tak** (`max-width:
+   1000px; margin-inline:auto` ved >=860px) -- var tidligere UBEGRENSET
+   (arvet `.wrap-product` sin fulle 1280px), som gjorde alt inni --
+   metrikkrad, kort, graf -- "flatt utspredt" uansett hvor mye de
+   enkelte delene ble strammet til. Dette var selve rot-årsaken bak
+   flertallet av de andre punktene, ikke bare punkt 1 isolert.
+2. **Grafens rot-årsak-fiks for "tomrommet ved Stabil pris"**:
+   `.price-intel-primary.active` brukte `justify-content:space-between`,
+   som eksplisitt SPREDDE metrikkraden og statuspillen over hele
+   radbredden -- nøyaktig det synlige gapet Kai pekte på. Fjernet
+   `space-between`, erstattet med et fast `gap:28px` slik at de to
+   sitter SAMMEN, uansett hvor bred selve modulen er.
+3. **Grafen kappet til sin egen native bredde** (680px, samme tall som
+   `_render_price_intelligence_chart()` sin egen SVG-`width`) i stedet
+   for det tidligere 1100px-taket -- "the attached image is the sizing
+   reference", ikke et vilkårlig prosenttall. Innenfor et nå ~940px
+   innholdsområde gir 680px synlig, symmetrisk luft på begge sider.
+4. **Kortene byttet fra CSS Grid `auto-fit` til flexbox med
+   `justify-content:center`** -- `auto-fit` STREKKER hvert spor til å
+   dele bredden likt uansett antall kort, som var nøyaktig mekanismen
+   bak de "gigantiske 50/50-kortene". Hvert kort har nå et fast
+   intendert tak (`flex:0 1 300px; max-width:300px`), og
+   `justify-content:center` sentrerer 1, 2 eller 3 kort som en gruppe --
+   verifisert eksplisitt at et ENKELT kort (produkt med kun 1 tilbud)
+   forblir 300px bredt i en 942px rad, IKKE strukket til full bredde.
+5. **Flere dato-etiketter på grafens X-akse** -- ny tikk-beregning i
+   `_render_price_intelligence_chart()` (ca. én tikk per uke, 7-9 totalt)
+   erstatter det gamle "kun første og siste dato". Samme server-rendrede
+   SVG for mobil og desktop -- en ny CSS-regel
+   (`@media(max-width:639px){.price-history-axis-label-x:not(.price-history-axis-label-edge){display:none}}`)
+   skjuler de mellomliggende på mobil, som beholder den kompakte
+   to-etiketters visningen uendret. **Egen bug fanget og fikset i egen
+   testing, før noe ble sendt til Kai**: første forsøk lot siste
+   regulære tikk (f.eks. "28.09") stå rett attmed det alltid-inkluderte
+   sluttpunktet ("29.09") -- så nære at de visuelt kolliderte målt i
+   browser-panelet (kun 21,6px fra hverandre i et 680px viewBox). Fikset
+   ved å droppe den siste regulære tikken når den ligger nærmere
+   sluttpunktet enn et halvt tikk-intervall.
+6. **Synlig (i)-ikon lagt til** ved siden av "Høyeste prisnivå" og
+   "30-dagers median" (ny `.price-intel-metric-info`-span, gjenbruker
+   samme ⓘ-glyf som resten av siden) -- de hadde allerede en
+   `title`-hover-tooltip fra logikkrunden, men INGEN visuell indikasjon
+   på at feltet var informativt/hover-bart, som Kai påpekte manglet.
+7. **Tettere vertikal rytme**: margin-top/padding-top redusert med
+   2-4px på tvers av kort-rad/oppsummering/data-stripe/footer (18->14,
+   14->12 osv.) -- liten endring hver for seg, men samlet en synlig
+   tettere, mer "redaksjonell" tetthet i stedet for luftig/flat.
+
+Testet: bygget + `validate_build.py` OK (201/201), full sveip ingen
+Traceback/NameError. Verifisert eksplisitt på nytt mot Biofinity Toric
+6-pack (samme eksempel Kai brukte i kritikken): modul 1000px, graf-hylle
+680px, kort 300px hver, `gap:28px` (ikke lenger space-between) mellom
+metrikkrad og statuspille -- alle mål bekreftet med
+`getBoundingClientRect()`, ikke bare visuelt antatt. Dato-tikker
+verifisert til 8 jevnt fordelte etiketter (31.08 -> 29.09) uten
+kollisjon etter fiksen. Mobil (375px) re-sjekket: kun 2 synlige
+dato-etiketter (uendret oppførsel), kort faller naturlig til ~297px
+(under 300px-taket, ingen strekking uansett på en smal skjerm). Testet
+1-tilbuds-produkt (Biofinity Multifocal Toric 3-pack) eksplisitt for å
+bekrefte punkt 4: ett enkelt kort forblir 300px, sentrert, IKKE strukket
+til 942px. Linsevæske (ReNu Multi-Purpose 60 ml) bekreftet samme
+1000px/300px-mål som kontaktlinse-produktsiden.
