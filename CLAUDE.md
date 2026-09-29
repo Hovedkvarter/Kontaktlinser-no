@@ -4250,3 +4250,55 @@ seksjonen er korrekt fraværende på alle fire i dag (ingen har ≥2 robuste
 30/90-par ennå) -- adaptivt, ikke en feil. `render_brand_page()` sin egen
 utrulling (30 ekte merke-sider) re-verifisert uendret etter
 `BRAND_PAGE_STYLE`-flyttingen.
+
+## Toppmenyens "Merker"-dropdown: fra "Bla etter produsent" til en komplett "Alle merker A–Å"-liste (2026-09-29)
+
+Kai, med skjermbilde av den daværende dropdownen: "denne er ikke fin.
+brukere trenger ikke bli sendt til Produsent. De ønsker å komme til
+kontaktlinse merker. La oss lage en pen oversikt over kun alle merker
+her, også iwear og de.."
+
+Den gamle "Merker"-menyen (`_topbar_html()`, `nav-item` for "Merker") had
+en venstre kolonne med "Bla etter produsent" -- fire lenker til
+`/produsent/{slug}/`-sidene (CooperVision/Alcon/Bausch+Lomb/Johnson &
+Johnson Vision) -- og en høyre kolonne med de samme 6 "Populære
+merker"-kortene som "Kontaktlinser"-menyen allerede viser. Ingen private
+label-serier (iWear/EyeQ/Ascend/Easyvision) var synlige noe sted i denne
+menyen.
+
+**Ny, komplett `_MEGA_ALL_BRANDS_HTML`** (definert rett etter
+`PRIVATE_LABEL_SUBBRANDS`, siden den avhenger av både den og
+`FOOTER_BRANDS` -- ingen tredje, manuelt vedlikeholdt merkeliste bygget
+fra bunnen): `FOOTER_BRANDS` (21 ekte merker) + de 4 private label-seriene
+fra `PRIVATE_LABEL_SUBBRANDS.values()`, slått sammen til én alfabetisk
+sortert liste (25 lenker totalt) og vist som en kompakt to-kolonners
+tekstliste (`.mega-allbrands`, CSS `columns: 2`, samme teknikk som
+`.footer-brand-list` allerede bruker -- fyller kolonnene naturlig
+topp-til-bunn uten at antallet må telles manuelt når nye merker legges
+til). **Bevisst IKKE splittet i "ekte merker" og "private label" slik
+footeren gjør det** -- Kai ba eksplisitt om at iWear m.fl. skal stå
+sammen med de andre i én oversikt, ikke i en egen seksjon.
+
+Venstre kolonne er forenklet til kicker/heading/kort intro-tekst + ÉN
+gjenbrukt lenke-rad (`_mega_link_row(_SHIELD_ICON, "Optikerkjedenes
+varemerker", ...)`, samme komponent som allerede fantes i "Nyttig å
+vite"-listen i Kontaktlinser-menyen) som forklarer hvorfor iWear/EyeQ
+o.l. dukker opp blant "kontaktlinsemerker" -- i stedet for den fjernede
+produsent-listen. `_MEGA_MANUFACTURER_LINKS_HTML`-konstanten (kun brukt
+her) er fjernet helt, ikke bare skjult. "Populære merker"-kortene
+(`_MEGA_BRAND_CARDS_HTML`) er også fjernet fra DENNE menyen -- Kai sitt
+"kun alle merker" tolket bokstavelig: én tydelig ting menyen gjør, ikke
+en kort populær-liste ved siden av den fulle listen. `_MEGA_BRAND_CARDS_HTML`
+selv er UENDRET og fortsatt i bruk i "Kontaktlinser"-menyens egen
+"Populære merker"-kolonne (ikke rørt, annen meny).
+
+Testet: bygget + `validate_build.py` OK, full sveip ingen
+Traceback/NameError. Verifisert i browser (`TOPBAR_HTML` er delt
+sitewide, så én verifisering dekker alle 400+ sider): dropdownen åpnet på
+forsiden ved 1280px (position:absolute-varianten) og standard desktop-
+bredde, alle 25 lenker til stede og alfabetisk sortert med iWear/EyeQ/
+Ascend/Easyvision naturlig innimellom de ekte merkene, klikk på "iWear"
+navigerer korrekt til `/merke/iwear/`. Mobil (375px, accordion-varianten)
+sjekket eksplisitt: to-kolonners listen er fullt lesbar og
+`document.body.scrollWidth === window.innerWidth` -- ingen horisontal
+overflow.

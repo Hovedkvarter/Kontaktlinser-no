@@ -165,6 +165,14 @@ a { color: inherit; }
 .mega-brand-card-logo.has-logo-dark { background: var(--ink); border-radius: 6px; padding: 4px; }
 .mega-brand-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); }
 .mega-brand-card-name { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+/* "Alle merker A-Å" (2026-09-29) -- CSS-multikolonne (samme teknikk som
+   .footer-brand-list) i stedet for et grid, siden listen har et variabelt
+   antall lenker (25+ i dag, vokser når nye merker/private label-serier
+   legges til) og multikolonne fyller kolonnene i lesevennlig topp-til-bunn-
+   rekkefølge uten at vi må telle rader manuelt. break-inside:avoid hindrer
+   at én lenke visuelt kuttes over kolonnegrensen. */
+.mega-allbrands { columns: 2; column-gap: 14px; }
+.mega-allbrands-link { font-size: 0.83rem; padding: 5px 8px; margin: 0 -8px; break-inside: avoid; }
 .mega-promo-card { display: flex; flex-direction: column; justify-content: flex-end; min-height: 150px; border-radius: 14px; background-size: cover; background-position: center; padding: 16px; color: white !important; text-decoration: none; }
 .mega-promo-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.25; }
 .mega-promo-text { font-size: 0.78rem; opacity: 0.92; margin-top: 4px; }
@@ -822,11 +830,6 @@ _MEGA_CATEGORIES = [
 ]
 _MEGA_TYPE_ROWS_HTML = "\n        ".join(_mega_type_row(s, n) for s, n in _MEGA_CATEGORIES)
 
-_MEGA_MANUFACTURER_LINKS_HTML = "\n        ".join(_mega_link_row(_BUILDING_ICON, name, "Se merkene →", f"/produsent/{slug}/") for slug, name in [
-    ("coopervision", "CooperVision"), ("alcon", "Alcon"),
-    ("bausch-lomb", "Bausch + Lomb"), ("jnj-vision", "Johnson & Johnson Vision"),
-])
-
 _MEGA_USEFUL_LINKS_HTML = "\n        ".join([
     _mega_link_row(_SHIELD_ICON, "Optikerkjedenes varemerker", "Samme linse, andre navn", "/private-label/"),
     _mega_link_row(_BOOK_ICON, "Hvordan velge riktig linse?", "Guide", "/guide/hvordan-velge-kontaktlinser/"),
@@ -923,14 +926,14 @@ def _topbar_html(show_search: bool = True) -> str:
           <div class="mega-rich-col">
             <div class="mega-panel-kicker">Merker</div>
             <div class="mega-panel-heading">Bla i alle kontaktlinsemerker</div>
-            <p class="mega-panel-text">Utforsk populære merker, eller søk etter produsent.</p>
-            <div class="mega-col-title" style="margin-top:18px;">Bla etter produsent</div>
-            {_MEGA_MANUFACTURER_LINKS_HTML}
+            <p class="mega-panel-text">Ekte merker og optikerkjedenes egne serier, sortert alfabetisk.</p>
+            <div class="mega-col-title" style="margin-top:18px;">Nyttig å vite</div>
+            {_mega_link_row(_SHIELD_ICON, "Optikerkjedenes varemerker", "Samme linse, andre navn", "/private-label/")}
           </div>
           <div class="mega-rich-col">
-            <div class="mega-col-title">Populære merker</div>
-            <div class="mega-brand-grid">
-              {_MEGA_BRAND_CARDS_HTML}
+            <div class="mega-col-title">Alle merker A–Å</div>
+            <div class="mega-allbrands">
+              {_MEGA_ALL_BRANDS_HTML}
             </div>
           </div>
         </div>
@@ -1524,6 +1527,29 @@ PRIVATE_LABEL_SUBBRANDS = {
     "Specsavers": "Easyvision",
     "Coptikk": "Ascend",
 }
+
+# "Alle merker A-Å" i toppmenyens Merker-dropdown (2026-09-29). Kai, med
+# skjermbilde av den gamle dropdownen: "brukere trenger ikke bli sendt til
+# Produsent. De ønsker å komme til kontaktlinse merker. La oss lage en pen
+# oversikt over kun alle merker her, også iwear og de." -- erstatter den
+# tidligere "Bla etter produsent"-listen (som pekte til /produsent/-sidene)
+# med en komplett, alfabetisk liste over ALLE /merke/-sider: ekte merker
+# (FOOTER_BRANDS) OG optikerkjedenes egne serier (PRIVATE_LABEL_SUBBRANDS)
+# om hverandre -- bevisst IKKE splittet i to seksjoner slik footeren gjør
+# det (footeren skiller dem eksplisitt), siden Kai her spesifikt ba om at
+# iWear m.fl. skal stå sammen med de andre i én oversikt. Bygget fra de to
+# samme, allerede etablerte kildelistene -- ingen tredje merkeliste å
+# holde manuelt i sync ved siden av disse to. Ligger her (ikke sammen med
+# de andre _MEGA_*-konstantene lenger oppe i filen) fordi den avhenger av
+# begge -- FOOTER_BRANDS og PRIVATE_LABEL_SUBBRANDS er begge definert
+# tidligere i modulen enn dette punktet, men etter _MEGA_TOP_BRANDS m.fl.
+_MEGA_ALL_BRANDS = sorted(
+    FOOTER_BRANDS + [(subbrand.lower(), subbrand) for subbrand in PRIVATE_LABEL_SUBBRANDS.values()],
+    key=lambda t: t[1].lower(),
+)
+_MEGA_ALL_BRANDS_HTML = "\n        ".join(
+    f'<a class="mega-menu-link mega-allbrands-link" href="/merke/{slug}/">{escape(name)}</a>' for slug, name in _MEGA_ALL_BRANDS
+)
 
 # Egne (ikke offisielle/registrerte) ordmerke-logoer for seriene, laget av
 # bruker 2026-08-30 -- IKKE hentet fra kjeden, se disclaimer-avsnittet i
