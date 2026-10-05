@@ -477,6 +477,7 @@ a { color: inherit; }
 .price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
 .price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
+.price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
@@ -650,7 +651,6 @@ a { color: inherit; }
   .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
   .price-intel-history-details>summary{display:none}
-  .price-intel-history-details:not([open])>.price-intel-history-table-wrap{display:block}
 }
 @media (max-width:859px){
   .price-intel{margin-top:22px;padding:18px 14px;border-radius:14px}
@@ -695,13 +695,13 @@ a { color: inherit; }
   .price-intel-history-table th,.price-intel-history-table td{display:block;padding:0;border:0;text-align:left!important;white-space:normal}
   .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Space Grotesk',sans-serif;font-size:.88rem}
   .price-intel-history-table td{font-size:.78rem}
-  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
 }
 
 """
@@ -4805,7 +4805,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         if metrics["low"] != metrics["high"]:
             range_pct_display = f'{status["range_pct"]:.1f}'.replace('.', ',')
             stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisspenn {period_phrase}'))
-        stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert'))
+        stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert' if key == "all" else 'laveste pris i perioden'))
         stat_html = "".join(
             f'<div class="price-intel-stat">{icon}<div><strong>{escape(val)}</strong><span>{escape(desc)}</span></div></div>'
             for icon, val, desc in stat_parts
@@ -4824,26 +4824,33 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         # vinnerrangering/andel/bytter bytter sammen med graf og metrikker.
         if period_winners and len(period_winners["ranked"]) >= 1:
             max_count = max(1, period_winners["ranked"][0][1])
+            positive_winners = [(store, count) for store, count in period_winners["ranked"] if count > 0]
+            zero_winner_count = sum(1 for _store, count in period_winners["ranked"] if count == 0)
             winner_rows = "".join(
-                f'<div class="price-intel-winner-row{" price-intel-winner-row-zero" if count == 0 else ""}"><span class="price-intel-winner-store">{escape(store)}</span>'
+                f'<div class="price-intel-winner-row"><span class="price-intel-winner-store">{escape(store)}</span>'
                 f'<span class="price-intel-winner-bar"><span style="width:{round(count / max_count * 100)}%"></span></span>'
-                f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"}{" &middot; " + str(round(count / period_winners["total_wins"] * 100)) + " %" if count and period_winners["total_wins"] else ""}</span></div>'
-                for store, count in period_winners["ranked"][:6]
+                f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"} &middot; {round(count / period_winners["total_wins"] * 100)} %</span></div>'
+                for store, count in positive_winners
+            )
+            zero_note = (
+                f'<p class="price-intel-zero-note">{zero_winner_count} {"annen butikk" if zero_winner_count == 1 else "andre butikker"} er også sammenlignet, men har ikke vært billigst i perioden.</p>'
+                if zero_winner_count else ""
             )
             changes_sentence = (
-                f' Prisvinneren har endret seg {period_winners["changes"]} {"gang" if period_winners["changes"] == 1 else "ganger"} {period_phrase}.'
+                f' Prisvinneren har endret seg {period_winners["changes"]} {"gang" if period_winners["changes"] == 1 else "ganger"} i perioden.'
                 if period_winners["changes"] > 0 else ""
             )
             tops = period_winners["top_stores"]
             if len(tops) == 1:
-                top_sentence = f'{escape(tops[0])} har hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager {period_phrase}.'
+                top_sentence = f'{escape(tops[0])} har hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager i perioden.'
             else:
                 names = ", ".join(escape(t) for t in tops[:-1]) + " og " + escape(tops[-1])
                 both = "begge" if len(tops) == 2 else "alle"
-                top_sentence = f'{names} har {both} hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager {period_phrase}.'
+                top_sentence = f'{names} har {both} hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager i perioden.'
             winner_panels.append(f'''<div class="price-intel-card price-intel-winners-panel{active_cls}" data-period="{key}">
       <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner">{TROPHY_ICON_SVG}Prisvinnere over tid</h3><span class="price-intel-card-head-note">{escape(label)}</span></div>
       <div class="price-intel-winners-list">{winner_rows}</div>
+      {zero_note}
       <p class="price-intel-card-note">{top_sentence}{changes_sentence}</p>
     </div>''')
 
@@ -4876,10 +4883,14 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     if n_enabled == 0:
         return ""
 
-    script_html = "" if n_enabled <= 1 else """<script>
+    script_html = """<script>
 (function () {
   var wrap = document.currentScript.closest('.price-intel');
   if (!wrap) return;
+  var historyDetails = wrap.querySelector('.price-intel-history-details');
+  if (historyDetails && window.matchMedia && window.matchMedia('(max-width: 859px)').matches) {
+    historyDetails.removeAttribute('open');
+  }
   wrap.querySelectorAll('.price-intel-period-tab[data-period]').forEach(function (tab) {
     tab.addEventListener('click', function () {
       var period = tab.getAttribute('data-period');
@@ -4968,7 +4979,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         <p>Samme prisdata som i grafen, publisert som lesbare nøkkeltall for periodene vi har nok historikk til å beregne.</p>
       </div>
     </div>
-    <details class="price-intel-history-details">
+    <details class="price-intel-history-details" open>
       <summary>Se historiske nøkkeltall</summary>
       <div class="price-intel-history-table-wrap">
         <table class="price-intel-history-table">
