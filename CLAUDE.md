@@ -5081,3 +5081,44 @@ dato-etiketter (uendret oppførsel), kort faller naturlig til ~297px
 bekrefte punkt 4: ett enkelt kort forblir 300px, sentrert, IKKE strukket
 til 942px. Linsevæske (ReNu Multi-Purpose 60 ml) bekreftet samme
 1000px/300px-mål som kontaktlinse-produktsiden.
+
+## Price Intelligence v2, runde 3: full modulbredde, typografi, samlet konklusjon (2026-10-05)
+
+Kai bekreftet etter live-måling at "smalere" gjaldt KUN grafen, ikke hele
+modulen -- runde 2 hadde feiltolket det og kappet `.price-intel` til
+1000px. Rettet:
+
+- **Modulen er tilbake til full innholdsbredde** (1240px ved 1400px
+  viewport); grafen er fortsatt smalere og sentrert (`max-width:980px`,
+  var 680px -- for lite mot en bred modul), nå i en tynn ramme med
+  verktøylinjen inni (som i mockupen, men uten falsk dropdown-chevron).
+- **Typografi (kun >=860px):** "Pris nå" 3rem (48px, var 33,6px),
+  sekundærverdier 1,6rem, etiketter 0,8rem. Forklaringstekst
+  (`.price-intel-metric-desc`, dempet) gjeninnført under "Høyeste
+  prisnivå" og median.
+- **Y-akse:** ny `_nice_axis_ticks()` gir 3-5 runde nivåer innenfor det
+  UENDREDE domenet fra `_price_intel_chart_domain()` (materialitet/
+  minimumsspenn urørt).
+- **Kort:** hvert kort er nå `calc((100% - 24px)/3)` bredt, sentrert --
+  to kort = ca. 33 % hver (385px av 1178px), tre kort = mockupens
+  tre-kolonne-layout. "Kjøper du flere esker?"-logikken (skjult uten
+  vinnerbytte) er uendret.
+- **"Kort fortalt" + datastripen er ETT modul** (`.price-intel-conclusion`,
+  blå boks med hvit stripe under, tynne skillelinjer mellom de fem
+  statistikkene på desktop) i stedet for to blokker.
+- **Status mot median:** `_vs_median_text()` gir f.eks. "Dagens laveste
+  pris er 479 kr, 5,5 % over 53-dagers medianen på 454 kr." for
+  Høyt prisnivå / Laveste registrerte pris (regnet dynamisk).
+- **Uavgjort i prisvinnere:** `_price_intelligence_merchant_winners()`
+  returnerer `top_stores`/`total_wins`; teksten nevner alle butikker med
+  samme toppantall ("Lensit og Lenson har begge hatt ... i 23 av de siste
+  53 dagene"), og hver rad viser andel av dager med vinner ("23 dager ·
+  43 %"). Verifisert mot de ekte tallene (23/23/7 -> 43/43/13 %).
+- Fortsatt bevisst uten klokkeslett, "Oppdatert i dag" og falsk dropdown
+  (statisk side / ærlighet).
+
+Test-lærdom: lokal `catalog_live.json` har utgåtte tilbud når dagen har
+skiftet, så spread-/qty-kortene forsvinner lokalt. Verifiser layout ved å
+bygge fra en midlertidig kopi med ferske `checked_at` (ikke commit den, og
+`git checkout site_generator/price_history.json` etterpå -- et lokalt bygg
+skriver dagens rad dit).
