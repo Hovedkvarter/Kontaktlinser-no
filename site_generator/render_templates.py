@@ -573,6 +573,121 @@ a { color: inherit; }
   .price-intel-stat:first-child { border-left: none; padding-left: 0; }
   .price-intel-stat-strip { flex-wrap: nowrap; padding: 16px 20px; }
 }
+
+/* Price Intelligence Gold Standard v1 — ChatGPT branch, 2026-10-05.
+   Presentation-only override layer. The existing calculation engine,
+   offer engine, affiliate logic and shared brand/series chart rules stay intact. */
+.price-intel{
+  max-width:none;
+  padding:22px 18px;
+  border-radius:18px;
+  box-shadow:none;
+}
+.price-intel-head{margin-bottom:24px}
+.price-intel-eyebrow{font-size:.68rem;letter-spacing:.11em}
+.price-intel-head-text h2{font-size:1.45rem;letter-spacing:-.02em}
+.price-intel-head-text p{max-width:620px;font-size:.86rem;line-height:1.6}
+.price-intel-coverage{border:0;background:transparent;padding:0;font-size:.73rem}
+.price-intel-primary{padding:0 0 20px;border-bottom:1px solid var(--border)}
+.price-intel-metrics-row{gap:18px 0}
+.price-intel-value-lg,.price-intel-value{letter-spacing:-.035em}
+.price-intel-metric-label{font-weight:500}
+.price-intel-metric-desc{display:none}
+.price-intel-status-pill{border:0;box-shadow:none}
+.price-intel-period-tabs{margin:18px 0 20px}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
+.price-intel-chart .price-history-chart{border:0;border-radius:0}
+.price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.price-intel-card{
+  border:0;border-radius:0;padding:22px 24px;background:transparent;
+  max-width:none!important;flex:1 1 50%;
+}
+.price-intel-card+.price-intel-card{border-left:1px solid var(--border)}
+.price-intel-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.055em}
+.price-intel-card-head-note{font-size:.68rem}
+.price-intel-card-row{font-size:.82rem;padding:4px 0}
+.price-intel-spread-callout{background:transparent;border-radius:0;padding:14px 0 0;margin-top:12px;border-top:1px solid var(--border)}
+.price-intel-spread-callout strong{font-size:2rem;color:var(--ink);letter-spacing:-.04em}
+.price-intel-winner-bar{height:5px}
+.price-intel-conclusion{margin-top:28px;border-radius:14px;background:#f3f7fb;border:1px solid #e6edf4}
+.price-intel-summary{padding:18px 20px}
+.price-intel-summary strong{color:var(--ink);font-size:.9rem}
+.price-intel-summary-icon{display:none}
+.price-intel-stat-strip{padding:16px 20px;background:rgba(255,255,255,.72)}
+.price-intel-stat svg{display:none}
+.price-intel-stat strong{font-size:1rem;letter-spacing:-.02em}
+.price-intel-stat span{font-size:.69rem}
+.price-intel-history-data{margin-top:30px;padding-top:26px;border-top:1px solid var(--border)}
+.price-intel-section-kicker{margin:0 0 4px;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
+.price-intel-section-head h3{margin:0;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--ink)}
+.price-intel-section-head p{margin:5px 0 0;max-width:680px;font-size:.76rem;line-height:1.5;color:var(--muted)}
+.price-intel-history-table-wrap{margin-top:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.price-intel-history-table{width:100%;border-collapse:collapse;min-width:760px;font-size:.76rem}
+.price-intel-history-table th,.price-intel-history-table td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.price-intel-history-table thead th{font-size:.64rem;text-transform:uppercase;letter-spacing:.045em;color:var(--muted);font-weight:600}
+.price-intel-history-table th:first-child,.price-intel-history-table td:first-child{text-align:left}
+.price-intel-history-table tbody th{font-weight:650;color:var(--ink)}
+.price-intel-history-table tbody td{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.price-intel-footer{margin-top:18px}
+
+@media (min-width:860px){
+  .price-intel{padding:32px 36px}
+  .price-intel-head{align-items:flex-start}
+  .price-intel-primary.active{gap:34px;align-items:center}
+  .price-intel-metrics-row{justify-content:flex-start!important}
+  .price-intel-metric-current{min-width:170px}
+  .price-intel-metric-col{padding:0 22px}
+  .price-intel-value-lg{font-size:3.2rem}
+  .price-intel-value{font-size:1.55rem}
+  .price-intel-status-pill{width:260px;padding:14px 16px}
+  .price-intel-chart-shell{max-width:980px}
+  .price-intel-card{flex:0 1 50%;max-width:50%!important}
+  .price-intel-stat-strip{gap:0}
+}
+@media (max-width:859px){
+  .price-intel{margin-top:22px;padding:18px 14px;border-radius:14px}
+  .price-intel-head{margin-bottom:18px}
+  .price-intel-head-text h2{font-size:1.25rem}
+  .price-intel-coverage{margin-top:10px}
+  .price-intel-primary.active{display:block}
+  .price-intel-metric-current{flex:1 1 100%;padding-bottom:10px}
+  .price-intel-value-lg{font-size:2.45rem}
+  .price-intel-value{font-size:1.2rem}
+  .price-intel-metric-col{flex:1 1 50%;padding:8px 12px 8px 0;border:0}
+  .price-intel-metric-col:nth-child(even){padding-left:12px;border-left:1px solid var(--border)}
+  .price-intel-status-pill{width:auto;margin-top:12px}
+  .price-intel-period-tabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:3px;scrollbar-width:none}
+  .price-intel-period-tabs::-webkit-scrollbar{display:none}
+  .price-intel-period-tab{flex:0 0 auto}
+  .price-intel-chart-toolbar-badge{display:none}
+  .price-intel-cards{display:block;margin-top:24px}
+  .price-intel-card{width:100%;max-width:none!important;padding:18px 4px}
+  .price-intel-card+.price-intel-card{border-left:0;border-top:1px solid var(--border)}
+  .price-intel-winner-row{grid-template-columns:72px 1fr auto}
+  .price-intel-conclusion{margin-top:22px}
+  .price-intel-summary{padding:16px}
+  .price-intel-stat-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;padding:16px}
+  .price-intel-stat{display:block;padding:0;border:0}
+  .price-intel-history-data{margin-top:24px;padding-top:22px}
+  .price-intel-history-table-wrap{overflow:visible}
+  .price-intel-history-table{min-width:0;display:block}
+  .price-intel-history-table thead{display:none}
+  .price-intel-history-table tbody{display:block}
+  .price-intel-history-table tr{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .price-intel-history-table th,.price-intel-history-table td{display:block;padding:0;border:0;text-align:left!important;white-space:normal}
+  .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Space Grotesk',sans-serif;font-size:.88rem}
+  .price-intel-history-table td{font-size:.78rem}
+  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.62rem;color:var(--muted);text-transform:uppercase}
+}
+
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -4606,7 +4721,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # mockupens eksplisitte rekkefølge (visuelt reset-brief punkt 4).
     # Oppdaget 2026-09-29 ved å faktisk sjekke et produkt med færre enn 90
     # dagers historikk i browser-panelet, ikke antatt.
-    tabs, primary_strips, chart_panels, stat_strips, summary_strips = [], [], [], [], []
+    tabs, primary_strips, chart_panels, stat_strips, summary_strips, history_table_rows = [], [], [], [], [], []
     n_enabled = 0
     for key, label, days in PRICE_INTELLIGENCE_PERIODS:
         if key not in period_keys:
@@ -4674,7 +4789,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
             stat_parts.append((TROPHY_ICON_SVG, f'{n} {"butikk" if n == 1 else "butikker"}', f'har vært prisvinner siste {recent_winners["n_days"]} dagene'))
         if metrics["low"] != metrics["high"]:
             range_pct_display = f'{status["range_pct"]:.1f}'.replace('.', ',')
-            stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisvariasjon {period_phrase}'))
+            stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisspenn {period_phrase}'))
         stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert'))
         stat_html = "".join(
             f'<div class="price-intel-stat">{icon}<div><strong>{escape(val)}</strong><span>{escape(desc)}</span></div></div>'
@@ -4688,6 +4803,33 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>{summary_text}</span></div>
     <div class="price-intel-stat-strip">{stat_html}</div>
   </div>''')
+
+        # Gold Standard: server-rendret "Prishistorikk i tall". Dette er
+        # samme canonical beregning som driver graf/metrikker, ikke en
+        # separat SEO-kopi. Dermed kan bruker, crawler og senere Chillout
+        # Specialist lese periodedata uten å måtte tolke SVG eller klikke
+        # faner. Kun perioder med faktisk nok historikk rendres.
+        period_winners = _price_intelligence_merchant_winners(metrics["window"], set())
+        price_changes = sum(
+            1 for prev, cur in zip(metrics["window"], metrics["window"][1:])
+            if prev["price"] != cur["price"]
+        )
+        winner_changes = period_winners["changes"] if period_winners else 0
+        distinct_winners = (
+            len([1 for _store, count in period_winners["ranked"] if count > 0])
+            if period_winners else 0
+        )
+        range_pct_text = f'{status["range_pct"]:.1f} %'.replace('.', ',')
+        history_table_rows.append(
+            f'<tr><th scope="row">{escape(label)}</th>'
+            f'<td>{_fmt_kr(metrics["low"])}</td>'
+            f'<td>{_fmt_kr(metrics["high"])}</td>'
+            f'<td>{_fmt_kr(metrics["median"])}</td>'
+            f'<td>{escape(range_pct_text)}</td>'
+            f'<td>{price_changes}</td>'
+            f'<td>{winner_changes}</td>'
+            f'<td>{distinct_winners}</td></tr>'
+        )
 
     if n_enabled == 0:
         return ""
@@ -4806,6 +4948,21 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
   {"".join(chart_panels)}
   {cards_html}
   {"".join(summary_strips)}
+  <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">
+    <div class="price-intel-section-head">
+      <div>
+        <p class="price-intel-section-kicker">Historiske nøkkeltall</p>
+        <h3 id="price-intel-history-title">Prishistorikk i tall</h3>
+        <p>Samme prisdata som i grafen, publisert som lesbare nøkkeltall for periodene vi har nok historikk til å beregne.</p>
+      </div>
+    </div>
+    <div class="price-intel-history-table-wrap">
+      <table class="price-intel-history-table">
+        <thead><tr><th>Periode</th><th>Laveste</th><th>Høyeste prisnivå</th><th>Median</th><th>Prisspenn</th><th>Prisendringer</th><th>Vinnerbytter</th><th>Butikker billigst</th></tr></thead>
+        <tbody>{"".join(history_table_rows)}</tbody>
+      </table>
+    </div>
+  </section>
   <div class="price-intel-footer">
     <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{_SHIELD_ICON}</svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
     <span>Prisdata sist bekreftet: {_format_no_date(latest_date)}</span>
