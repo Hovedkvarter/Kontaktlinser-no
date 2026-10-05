@@ -5159,3 +5159,21 @@ ingen overlapp; 1300/1400/1600 px -> pillen til høyre, ingen overlapp; 768 og
 375 px uendret. NB (ikke fra denne endringen, ikke rettet): hero-vinnerkortet
 (`.winner-band-cta`) gir sideoverflow på 860-1200px viewport (`scrollWidth` >
 viewport) -- eget funn utenfor Price Intelligence.
+
+## "Prishistorikk i tall" scroller ikke lenger på smal desktop (2026-10-05)
+
+Tabellen (8 kolonner, `min-width: 760px`, `white-space: nowrap`) lå i en
+`overflow-x: auto`-beholder og scrollet sidelengs når modulens innhold ble
+smalere enn 760px, dvs. ved ca. 860-1010px viewport (modulen er da maks 720px
+bred, 648px innhold etter padding). Kai ba om at den ikke skal scrolle der.
+
+Fiks (kun CSS, `SHARED_STYLE` rett etter `.price-intel-history-table tbody td`):
+`@media (min-width:860px) { @container pintel (max-width:800px) { ... } }` --
+`min-width: 0`, cellepadding 9px 5px, kolonneoverskrifter 0.58rem som kan
+brytes (`white-space: normal`), celleskrift 0.72rem. Samme `pintel`-container
+som statuspille-fiksen. Mobil (<860px) bruker fortsatt det stablede
+kort-oppsettet; >=1024px (innhold >800px) er urørt. `overflow-x: auto` er
+beholdt som sikkerhetsnett.
+
+Målt: 860/900/1000/1023px -> tabell 646px i 646px beholder (scrollWidth ==
+clientWidth, ingen scroll, overskrift 30px høy); 1100/1400px uendret (971/1166px).
