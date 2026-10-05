@@ -465,6 +465,7 @@ a { color: inherit; }
 .price-intel-value-lg { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
 .price-intel-metric-label { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 .price-intel-metric-info { display: inline-block; opacity: 0.7; margin-left: 2px; }
+.price-intel-metric-desc { display: block; font-size: 0.66rem; color: var(--muted); opacity: 0.85; margin-top: 5px; line-height: 1.4; max-width: 190px; }
 .price-intel-metric-sublabel { display: block; font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
 .price-intel-current-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 600; color: var(--mint); margin-top: 6px; }
 .price-intel-current-dot i { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block; font-style: normal; }
@@ -490,6 +491,7 @@ a { color: inherit; }
 /* Grafens "hylle" -- smalnes inn og sentreres på stor desktop (regel
    8/9: "the chart should NOT span the entire Price Intelligence width...
    narrower but still important", 220-240px høyde beholdt uendret). */
+.price-intel-chart-shell { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px 8px; }
 .price-intel-chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px 12px; margin-bottom: 6px; font-size: 0.72rem; color: var(--muted); flex-wrap: wrap; }
 .price-intel-chart-toolbar-badge { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; background: white; }
 .price-intel-chart-toolbar-badge svg { width: 13px; height: 13px; color: var(--muted); flex-shrink: 0; }
@@ -530,7 +532,7 @@ a { color: inherit; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
-.price-intel-winner-row { display: grid; grid-template-columns: 74px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
+.price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .price-intel-winner-bar { display: block; height: 6px; background: var(--mist); border-radius: 999px; overflow: hidden; }
 .price-intel-winner-bar span { display: block; height: 100%; background: var(--orange-dark); border-radius: 999px; }
@@ -549,15 +551,15 @@ a { color: inherit; }
 .price-intel-qty-table td:nth-child(2) { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
 /* "Kort fortalt" -- diskre konklusjon, ikke en stor blå dashboard-boks
    (regel 17: "Do not make it look like an AI response"). */
-.price-intel-summary { display: none; gap: 10px; align-items: flex-start; margin-top: 16px; padding: 12px 16px; background: var(--blue-tint); border-radius: 10px; font-size: 0.82rem; line-height: 1.55; color: var(--ink); }
-.price-intel-summary.active { display: flex; }
+.price-intel-conclusion { display: none; margin-top: 16px; border-radius: 12px; overflow: hidden; background: var(--blue-tint); }
+.price-intel-conclusion.active { display: block; }
+.price-intel-summary { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; font-size: 0.84rem; line-height: 1.55; color: var(--ink); }
 .price-intel-summary strong { display: block; margin-bottom: 2px; color: var(--blue); }
 .price-intel-summary-icon { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
 /* Egen-data-stripen (regel 16) -- små, redaksjonelle statistikker med
    tynne skillelinjer, IKKE flere kort. Adaptiv: bygges kun av elementer
    som faktisk har data (se render_price_intelligence()). */
-.price-intel-stat-strip { display: none; flex-wrap: wrap; gap: 12px 0; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
-.price-intel-stat-strip.active { display: flex; }
+.price-intel-stat-strip { display: flex; flex-wrap: wrap; gap: 12px 0; padding: 14px 16px; background: white; border-top: 1px solid var(--border); }
 .price-intel-stat { flex: 1 1 46%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding-right: 10px; }
 .price-intel-stat svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
 .price-intel-stat strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: var(--ink); }
@@ -584,7 +586,7 @@ a { color: inherit; }
      siden for øvrig -- gir modulen sin egen, synlig sentrerte
      "publisert markedsrapport"-identitet i stedet for å flyte sammen
      med resten av den brede produktsiden.*/
-  .price-intel { padding: 24px 28px; max-width: 1000px; margin-inline: auto; }
+  .price-intel { padding: 26px 30px; }
   .price-intel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
   .price-intel-head-text p { max-width: 480px; }
   .price-intel-coverage { margin-top: 0; flex-shrink: 0; }
@@ -598,7 +600,13 @@ a { color: inherit; }
   .price-intel-metrics-row { flex: 0 1 auto; flex-wrap: nowrap; }
   .price-intel-metric-col { flex: 0 0 auto; padding: 0 18px; border-left: 1px solid var(--border); }
   .price-intel-metric-col:first-child, .price-intel-metric-current { border-left: none; padding-left: 0; flex-basis: auto; margin-bottom: 0; }
-  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; width: 260px; }
+  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; width: 290px; padding: 16px 18px; }
+  .price-intel-primary.active .price-intel-metrics-row { flex: 1 1 auto; justify-content: space-between; }
+  .price-intel-value-lg { font-size: 3rem; }
+  .price-intel-value { font-size: 1.6rem; }
+  .price-intel-metric-label { font-size: 0.8rem; }
+  .price-intel-metric-sublabel { font-size: 0.72rem; }
+  .price-intel-metric-desc { font-size: 0.7rem; max-width: 210px; }
   /* Grafens "hylle" -- 680px, dvs. grafens EGEN native viewBox-bredde
      (`_render_price_intelligence_chart()` sin `width=680`), ikke et
      vilkårlig tall -- runde 2, rapport #3: "the chart is still too
@@ -606,15 +614,17 @@ a { color: inherit; }
      strekking av hele det (nå smalere) modulinnholdet. Innenfor et
      ~940px innholdsområde (1000px modul minus padding) gir 680px synlig,
      bevisst luft på begge sider, som i mockupen. */
-  .price-intel-chart-shell { max-width: 680px; margin-inline: auto; }
+  .price-intel-chart-shell { max-width: 980px; margin-inline: auto; padding: 14px 18px 10px; }
   /* Kortene kapper nå i .price-intel-card selv (flex-basis 260px, se
      over) -- her settes kun et TAK per kort (runde 2, rapport #4/#6) slik
      at 2 eller 3 kort forblir sin egen, tiltenkte bredde og heller
      etterlater synlig luft i raden (via justify-content:center) enn å
      strekkes til å fylle 100 % når et kort (typisk "Kjøper du flere
      esker?") er betinget skjult. */
-  .price-intel-card { flex: 0 1 300px; max-width: 300px; }
-  .price-intel-stat { flex: 0 1 auto; }
+  .price-intel-card { flex: 0 1 calc((100% - 24px) / 3); max-width: calc((100% - 24px) / 3); }
+  .price-intel-stat { flex: 1 1 0; padding: 0 14px; border-left: 1px solid var(--border); }
+  .price-intel-stat:first-child { border-left: none; padding-left: 0; }
+  .price-intel-stat-strip { flex-wrap: nowrap; padding: 16px 20px; }
 }
 
 
