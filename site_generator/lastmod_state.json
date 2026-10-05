@@ -129,15 +129,15 @@
  },
  "/kontaktlinser/biofinity/biofinity-6-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "06db00e72666087c4442b58f171f9dc37b0427c9"
+  "sig": "4ca1adaf2f66483e7e1aec92352b8f784dea3bc0"
  },
  "/kontaktlinser/biofinity/biofinity-energys-6-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "40bd356780e537cdac75e1c44780e399f8075cab"
+  "sig": "bd34edbc6c7cf6554cb45498bfdf733650d9a811"
  },
  "/kontaktlinser/biofinity/biofinity-multifocal-6-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "1759441036e77a47438b9f410fe6d60a35aba395"
+  "sig": "7660c9506387a48ffe55a40d60e428692ce4d217"
  },
  "/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/": {
   "lastmod": "2026-10-05",
@@ -145,11 +145,11 @@
  },
  "/kontaktlinser/biofinity/biofinity-toric-6-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "3667261a6857a238b2b691ba53f2b77056dffe3a"
+  "sig": "bb091b39637ac7645277754a0c866be3f572527f"
  },
  "/kontaktlinser/biofinity/biofinity-xr-3-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "9eec2368c14e7e4798337c0f1711a193269750e6"
+  "sig": "1e4588e8aa3689f7185811ecba2af8db55234daa"
  },
  "/kontaktlinser/biofinity/biofinity-xr-6-pack/": {
   "lastmod": "2026-10-05",
@@ -157,7 +157,7 @@
  },
  "/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/": {
   "lastmod": "2026-10-05",
-  "sig": "b4e7b3e48d69efe8a95593379293b1e75b92a833"
+  "sig": "74ce086e539892eae80289c7bbe2ca79cefaf757"
  },
  "/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/": {
   "lastmod": "2026-10-05",
@@ -997,19 +997,19 @@
  },
  "/private-label/ascend-premier-multifocal-distance/": {
   "lastmod": "2026-10-05",
-  "sig": "b1883fff6c22382b6042dd94c63e9edf9057eaf7"
+  "sig": "3c59d5607f2c3ecb9c4c82101e40bb1e600b2ff8"
  },
  "/private-label/ascend-premier-multifocal-near/": {
   "lastmod": "2026-10-05",
-  "sig": "8f533e36169d1458ce8d251938b0d7ad2688269c"
+  "sig": "16cd3a9deb61ab4950022c6339cf0ef21a1fef2a"
  },
  "/private-label/ascend-premier-toric/": {
   "lastmod": "2026-10-05",
-  "sig": "9b99d724ad77a69b4d4ca9a3a0918432fee1a8ed"
+  "sig": "982852a63215135dafb24d4ef725d21e8033584d"
  },
  "/private-label/ascend-premier/": {
   "lastmod": "2026-10-05",
-  "sig": "d54e3f89a29a1d6ad31379349ee7e31ece7e4fef"
+  "sig": "3161e4d77f9875d742f10b932c200c7345ef4bb3"
  },
  "/private-label/easyvision-clearus/": {
   "lastmod": "2026-10-05",
@@ -1041,19 +1041,19 @@
  },
  "/private-label/easyvision-opteyes-multifocal/": {
   "lastmod": "2026-10-05",
-  "sig": "954aebb0d83b437a166b7035f27bac699b253a40"
+  "sig": "26e0065dd8765c422bff0ebb79977901426ab548"
  },
  "/private-label/easyvision-opteyes-toric/": {
   "lastmod": "2026-10-05",
-  "sig": "f82b45037b3a240a49775e379d77bd168450a60e"
+  "sig": "8ba1c7b99aeabdc22a9598f5488a95b720a2175b"
  },
  "/private-label/easyvision-opteyes-xr/": {
   "lastmod": "2026-10-05",
-  "sig": "1c99cab495ba4640335ab7a1b47260ffca5417e8"
+  "sig": "e8b3645c113c7da8cb7052f93a42e7dccd7a939c"
  },
  "/private-label/easyvision-opteyes/": {
   "lastmod": "2026-10-05",
-  "sig": "3647712fd15da8695b1d607e24ee613966e83f58"
+  "sig": "13eb200d7f58506e10e963650ee2066d7e11b30a"
  },
  "/private-label/easyvision-sential/": {
   "lastmod": "2026-10-05",
@@ -1093,23 +1093,23 @@
  },
  "/private-label/eyeq-24-for-astigmatism/": {
   "lastmod": "2026-10-05",
-  "sig": "7e9ad9544f2a22b47e9ea6e90683428b0dea0837"
+  "sig": "dc59529f0d63159c351f425e16dccb0ce7197178"
  },
  "/private-label/eyeq-24-progressive/": {
   "lastmod": "2026-10-05",
-  "sig": "64039894f68186772d75148798733f6d7ee804fa"
+  "sig": "15cb12601f8bfbffae4452d17c26438e0be9abcd"
  },
  "/private-label/eyeq-24-xr/": {
   "lastmod": "2026-10-05",
-  "sig": "752d81dff192c54bfd5216bc90ead43a8f5c4322"
+  "sig": "a3c5620a2845607e21b25e192a07f692b21c74f7"
  },
  "/private-label/eyeq-24/": {
   "lastmod": "2026-10-05",
-  "sig": "fd6aa271dca0aebb25773dc8c453efa9446d6587"
+  "sig": "93df59fa2bd39d8d01bb57bebe4cfea7a1516673"
  },
  "/private-label/eyeq-digital-focus/": {
   "lastmod": "2026-10-05",
-  "sig": "cae28512931850075bea0f5be9d865795fbdab55"
+  "sig": "5a3212ab906e7e4cf8993add9b624d54c883cbc6"
  },
  "/private-label/eyeq-hydro-for-astigmatism/": {
   "lastmod": "2026-10-05",
@@ -1213,23 +1213,23 @@
  },
  "/private-label/iwear-oxygen-astigmatism/": {
   "lastmod": "2026-10-05",
-  "sig": "b3a5211a6e0400c7a4d76bf79b28d7376ca969e7"
+  "sig": "f092da024c0ffb591a2ea7e049ba9182c25c7908"
  },
  "/private-label/iwear-oxygen-presbyopia/": {
   "lastmod": "2026-10-05",
-  "sig": "7efea33215cdd5dace0769331c635d18f1e30b14"
+  "sig": "cbd4c5f090140a75957573d7507f091bbb8ad7ef"
  },
  "/private-label/iwear-oxygen-relax/": {
   "lastmod": "2026-10-05",
-  "sig": "5e70b13ef4de7a4cb43f0ddf9c7d0e1d1d414044"
+  "sig": "7659c85980ca22a379c619841508d96240733b38"
  },
  "/private-label/iwear-oxygen-xr/": {
   "lastmod": "2026-10-05",
-  "sig": "7760da814089657b857bdd68d31e9618f6504595"
+  "sig": "1a0fe81f73dd6f18233a710aff9f1422af180b81"
  },
  "/private-label/iwear-oxygen/": {
   "lastmod": "2026-10-05",
-  "sig": "7a737e09e6a1e8f766fd4465224479dcb0777960"
+  "sig": "aea33f2a86ecdb341c8658bfbeb75ba00e2f8aec"
  },
  "/private-label/truelens-platinum-daily-multifocal/": {
   "lastmod": "2026-10-05",
