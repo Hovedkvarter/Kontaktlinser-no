@@ -516,6 +516,12 @@ a { color: inherit; }
    tynne skillelinjer -- tallene ER designet, ikke pakket inn i bokser.
    All underliggende logikk/beregning er UENDRET fra logikk-/semantikk-
    runden tidligere samme dag -- dette er ren presentasjon. */
+/* Egen "container" slik at topplaget (metrikkrad + statuspille) kan tilpasse
+   seg MODULENS faktiske bredde, ikke viewporten -- modulen er smalere enn
+   viewporten (siden rundt + padding), så en @media-terskel ville truffet
+   feil. Uten container-query-støtte gjelder bare mobil-stylingen (stablet),
+   som er trygg. */
+.price-intel { container-type: inline-size; container-name: pintel; }
 .price-intel-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin: 0 0 4px; }
 .price-intel-coverage-days { display: block; font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
 /* Primærraden: "Pris nå" (dominerende) + tre skilte historikk-metrikker
@@ -662,17 +668,30 @@ a { color: inherit; }
      blitt en stor grønn boks helt ute til høyre"). Rådataraden og
      pillen skal sitte SAMMEN med et fast, moderat mellomrom, ikke
      spres ut over hele bredden av en flex-rad. */
-  .price-intel-primary.active { display: flex; align-items: flex-start; gap: 28px; }
-  .price-intel-metrics-row { flex: 0 1 auto; flex-wrap: nowrap; }
-  .price-intel-metric-col { flex: 0 0 auto; padding: 0 18px; border-left: 1px solid var(--border); }
+  /* Robust topplag: flex-wrap (ingen absolute posisjonering/negative
+     marger) -- statuspillen ligger til høyre KUN når den faktisk får
+     plass ved siden av metrikkraden, ellers wrapper den ned på egen rad,
+     venstrejustert, i sin naturlige bredde. Dermed kan den aldri dekke
+     metrikktekst, uansett modulbredde eller tekstlengde. */
+  .price-intel-primary.active { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 20px 24px; }
+  .price-intel-metrics-row { flex: 0 1 auto; flex-wrap: nowrap; min-width: 0; }
+  .price-intel-metric-col { flex: 0 0 auto; padding: 0 16px; border-left: 1px solid var(--border); }
   .price-intel-metric-col:first-child, .price-intel-metric-current { border-left: none; padding-left: 0; flex-basis: auto; margin-bottom: 0; }
-  .price-intel-status-pill { margin-top: 0; flex-shrink: 0; width: 290px; padding: 16px 18px; }
-  .price-intel-primary.active .price-intel-metrics-row { flex: 1 1 auto; justify-content: space-between; }
+  .price-intel-status-pill { margin-top: 0; flex: 0 1 270px; min-width: 240px; max-width: 360px; padding: 16px 18px; box-sizing: border-box; }
   .price-intel-value-lg { font-size: 3rem; }
   .price-intel-value { font-size: 1.6rem; }
   .price-intel-metric-label { font-size: 0.8rem; }
   .price-intel-metric-sublabel { font-size: 0.72rem; }
-  .price-intel-metric-desc { font-size: 0.7rem; max-width: 210px; }
+  .price-intel-metric-desc { font-size: 0.7rem; max-width: 185px; }
+  /* Smal modul (smal desktop/tablet): metrikkene går i et 3-kolonne-rutenett
+     under "Pris nå" (som mobil, uten skillelinjer), og statuspillen tar
+     egen rad under -- venstrejustert, aldri bredere enn 420px. */
+  @container pintel (max-width: 940px) {
+    .price-intel-metrics-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 0; width: 100%; }
+    .price-intel-metric-current { grid-column: 1 / -1; }
+    .price-intel-metric-col, .price-intel-metric-col:first-child { padding: 0 14px 0 0; border-left: none; }
+    .price-intel-status-pill { flex: 1 1 100%; max-width: 420px; }
+  }
   /* Grafens "hylle" -- 680px, dvs. grafens EGEN native viewBox-bredde
      (`_render_price_intelligence_chart()` sin `width=680`), ikke et
      vilkårlig tall -- runde 2, rapport #3: "the chart is still too
