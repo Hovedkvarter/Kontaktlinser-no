@@ -599,6 +599,8 @@ a { color: inherit; }
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
+.price-intel-chart-mobile{display:none}
+.price-intel-chart-desktop{display:block}
 .price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .price-intel-card{
   border:0;border-radius:0;padding:22px 24px;background:transparent;
@@ -643,7 +645,7 @@ a { color: inherit; }
   .price-intel-value{font-size:1.55rem}
   .price-intel-status-pill{width:260px;padding:14px 16px}
   .price-intel-chart-shell{max-width:980px}
-  .price-intel-card{flex:0 1 50%;max-width:50%!important}
+  .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
 }
 @media (max-width:859px){
@@ -662,6 +664,10 @@ a { color: inherit; }
   .price-intel-period-tabs::-webkit-scrollbar{display:none}
   .price-intel-period-tab{flex:0 0 auto}
   .price-intel-chart-toolbar-badge{display:none}
+  .price-intel-chart-desktop{display:none}
+  .price-intel-chart-mobile{display:block;width:100%;height:auto}
+  .price-intel-chart-wrap{width:100%}
+  .price-intel-chart-mobile .price-history-axis-label-x{display:block!important}
   .price-intel-cards{display:block;margin-top:24px}
   .price-intel-card{width:100%;max-width:none!important;padding:18px 4px}
   .price-intel-card+.price-intel-card{border-left:0;border-top:1px solid var(--border)}
@@ -4220,7 +4226,7 @@ def _nice_axis_ticks(lo: float, hi: float, target: int = 4) -> list[float]:
     return [lo + span * i / (target - 1) for i in range(target)]
 
 
-def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> str:
+def _render_price_intelligence_chart(window: list[dict], gradient_id: str, mobile: bool = False) -> str:
     """Strammere graf enn _render_price_history_chart() (KUN brukt av denne,
     IKKE av merke-/serie-sidenes _family_price_insight_data()-visning, som
     fortsatt bruker den gamle -- uendret der, se Kai sin regel om å ikke
@@ -4236,8 +4242,8 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
     min_price, max_price = _price_intel_chart_domain(prices)
     price_range = max_price - min_price
 
-    width, height = 680, 140
-    pad_left, pad_right, pad_top, pad_bottom = 46, 8, 12, 20
+    width, height = ((340, 205) if mobile else (680, 140))
+    pad_left, pad_right, pad_top, pad_bottom = ((42, 8, 12, 24) if mobile else (46, 8, 12, 20))
     plot_w = width - pad_left - pad_right
     plot_h = height - pad_top - pad_bottom
     baseline_y = pad_top + plot_h
@@ -4278,25 +4284,23 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
     )
     # Flere dato-etiketter på desktop (v2-redesign, rapport #3: mockupen
     # viser ~7-9 datoer -- "31. aug · 3. sep · 6. sep · ... · 29. sep",
-    # ikke bare første/siste). Serveren rendrer ALLE tikkene (samme HTML
-    # på mobil og desktop, ingen JS/duplisert graf nødvendig) -- CSS
-    # skjuler de mellomliggende under 640px (`.price-history-axis-label-x`
-    # uten `-edge`-klassen), slik at mobil fortsatt bare viser første/siste
+    # ikke bare første/siste). Desktop rendrer opptil ni tikker. Mobilvarianten bruker samme data, men
+    # en egen smal SVG-geometri med tre tikker (første/midt/siste), slik at
+    # grafen beholder lesbar høyde og aksetekst på 375px uten horisontal scroll
     # (samme kompakte mobilvisning som før). Ca. én tikk per uke, med et
     # tak på 9 for å unngå overfylt akse på et helt års historikk.
-    tick_step = max(1, round((n - 1) / 7)) if n > 1 else 1
-    tick_idx = sorted(set(range(0, n, tick_step))) if n > 1 else [0]
-    # Siste regulære tikk droppes hvis den ligger for nær selve sluttpunktet
-    # (n-1, alltid lagt til separat under) -- uten dette kunne to nesten
-    # sammenfallende datoer (f.eks. "28.09" og "29.09") ende opp side ved
-    # side og visuelt kollidere, oppdaget empirisk i browser-panelet, ikke
-    # antatt.
-    if n > 1 and tick_idx and (n - 1 - tick_idx[-1]) < tick_step / 2:
-        tick_idx = tick_idx[:-1]
-    if n > 1:
-        tick_idx.append(n - 1)
-    if len(tick_idx) > 9:
-        tick_idx = sorted(set(tick_idx[::2]) | {0, n - 1})
+    if mobile and n > 1:
+        tick_idx = sorted(set([0, (n - 1) // 2, n - 1]))
+    else:
+        tick_step = max(1, round((n - 1) / 7)) if n > 1 else 1
+        tick_idx = sorted(set(range(0, n, tick_step))) if n > 1 else [0]
+        # Siste regulære tikk droppes hvis den ligger for nær selve sluttpunktet.
+        if n > 1 and tick_idx and (n - 1 - tick_idx[-1]) < tick_step / 2:
+            tick_idx = tick_idx[:-1]
+        if n > 1:
+            tick_idx.append(n - 1)
+        if len(tick_idx) > 9:
+            tick_idx = sorted(set(tick_idx[::2]) | {0, n - 1})
     date_axis_html = "\n      ".join(
         f'<text x="{x_for(i):.1f}" y="{height - 5}" '
         f'text-anchor="{"start" if i == 0 else "end" if i == n - 1 else "middle"}" '
@@ -4304,7 +4308,7 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
         f'{escape(short_date(window[i]["date"]))}</text>'
         for i in tick_idx
     )
-    return f"""<svg viewBox="0 0 {width} {height}" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
+    return f"""<svg viewBox="0 0 {width} {height}" class="price-history-chart price-intel-chart {"price-intel-chart-mobile" if mobile else "price-intel-chart-desktop"}" role="img" aria-label="Prisutvikling, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
       <defs>
         <linearGradient id="{gradient_id}" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -4738,6 +4742,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         status_mod, status_title, status_msg = _price_intelligence_status_text(status, metrics["n_days"], label, metrics["median"])
         summary_text = _price_intelligence_summary_text(product_name, metrics, label, spread)
         chart_svg = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFade-{key}")
+        chart_svg_mobile = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFadeMobile-{key}", mobile=True)
         period_phrase = "i hele perioden" if key == "all" else f"siste {label}"
 
         primary_strips.append(f'''<div class="price-intel-primary{active_cls}" data-period="{key}">
@@ -4771,7 +4776,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         <span>Laveste registrerte produktpris per dag</span>
         <span class="price-intel-chart-toolbar-badge">{_chart_toolbar_icon}Viser laveste registrerte pris per dag</span>
       </div>
-      <div class="price-intel-chart">{chart_svg}</div>
+      <div class="price-intel-chart-wrap">{chart_svg}{chart_svg_mobile}</div>
     </div>
   </div>''')
         # Egen-data-stripe (v2-redesign, regel 16) -- KUN elementer der
