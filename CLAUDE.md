@@ -5177,3 +5177,32 @@ beholdt som sikkerhetsnett.
 
 Målt: 860/900/1000/1023px -> tabell 646px i 646px beholder (scrollWidth ==
 clientWidth, ingen scroll, overskrift 30px høy); 1100/1400px uendret (971/1166px).
+
+## Extra Optical: affiliate-lenkene er ødelagte hos Adtraction -- midlertidig direkte-lenking (2026-10-05)
+
+Kai: "extra optical linkene virker ikke". Undersøkt (curl + ekte nettleser):
+`/go/tgt_...` (Chillout) svarer korrekt med 302 til feedens Adtraction-lenke
+(`track.adtraction.com/t/t?a=1487383541&as=2102229792&...&fid=1650&url=<mål>`),
+men Adtraction svarer "Invalid link -- The link you are trying to access is
+broken or no longer available". Feeden (2756 rader) gir fortsatt akkurat de
+samme lenkene, og målsidene på extraoptical.no svarer 200 -- så feilen er hos
+Adtraction/programmet (pauset/avsluttet program eller deaktivert annonseplass
+`as=2102229792`), ikke i vår kode. Tradedoubler-lenker (Lensway/Shopping4net)
+testet ende til ende og fungerer. 82 produkter har Extra Optical-tilbud.
+
+Kai valgte alternativ B: lenke direkte til extraoptical.no (ingen sporing).
+Implementert i `reconcile_product()` via `DIRECT_LINK_RETAILERS = {"Extra
+Optical"}` + `_direct_url_from_adtraction()` (henter `url=`-parameteren): tilbudet
+får `source = "direct_link"`, dvs. `rel="nofollow noopener"`, `data-affiliate=0`,
+UTM-parametre, INGEN Chillout-clickout (outbound_url bruker kun clickout for
+`affiliate_feed`) og INGEN affiliate-fortrinn ved lik pris. Staleness bruker
+fortsatt feedens 36-timersgrense (beregnes fra opprinnelig source). Alle 143
+Extra Optical-lenker i bygget, vinnerbanneret (10 sider) og antallskalkulatorens
+JSON (127 oppføringer) er verifisert direkte, og ingen side inneholder lenger
+`track.adtraction.com`. Fanger alle flater siden det skjer ETT sted i
+reconcile_product.
+
+TILBAKERULLING når Adtraction er løst: tøm `DIRECT_LINK_RETAILERS` (én endring).
+Sjekk først i Adtraction: programstatus for Extra Optical, at kanalen
+(`as=2102229792`) er godkjent, og at en nygenerert sporingslenke har samme
+`a=`/`as=` som feeden. Inntil da tjener vi INGEN provisjon på Extra Optical.

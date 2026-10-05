@@ -20,7 +20,7 @@ import re
 import statistics
 from datetime import datetime, timedelta, timezone
 from html import escape
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
 
@@ -2742,6 +2742,26 @@ AFFILIATE_TIE_PRIORITY: dict[str, int] = {
 }
 
 
+# Forhandlere vi MIDLERTIDIG lenker direkte til (uten affiliate-sporing) fordi
+# deres affiliate-lenke er ødelagt hos nettverket. Extra Optical (Adtraction,
+# a=1487383541&as=2102229792) svarer "Invalid link -- broken or no longer
+# available" for ALLE sporingslenker fra og med 2026-10-05 (feeden gir fortsatt
+# de samme lenkene, så feilen er hos Adtraction/programmet, ikke her). Slike
+# tilbud rendres som ikke-affiliate (source "direct_link": rel nofollow, UTM,
+# ingen Chillout-clickout, ingen affiliate-fortrinn ved lik pris) med
+# mål-URL-en hentet ut av `url=`-parameteren i Adtraction-lenken. TILBAKERULLING:
+# tøm settet når Adtraction-lenkene virker igjen (én endring, ingen annen kode).
+DIRECT_LINK_RETAILERS: set[str] = {"Extra Optical"}
+
+
+def _direct_url_from_adtraction(url: str) -> str | None:
+    """Mål-URL-en bak en Adtraction-sporingslenke (`...&url=<mål>`, alltid siste
+    parameter). None hvis lenken ikke har et http(s)-mål -- da beholdes
+    originalen uendret."""
+    m = re.search(r"[?&]url=(https?://[^\s]+)$", url)
+    return unquote(m.group(1)) if m else None
+
+
 def _tie_break_key(o: dict) -> tuple:
     """Sorteringsnøkkel for eksakt lik totalpris -- brukt av BÅDE
     _pick_lowest() (hvem får "Lavest pris"-merket) og reconcile_product()
@@ -2828,8 +2848,18 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None
         )
         is_stale = age_hours > limit
         total = o["price_nok"] + o["shipping_nok"]
-        url = o["url"] if o.get("source") == "affiliate_feed" else _add_utm_params(o["url"])
-        enriched.append({**o, "total": total, "is_stale": is_stale, "url": url})
+        source = o.get("source")
+        direct_url = (
+            _direct_url_from_adtraction(o["url"])
+            if o.get("retailer") in DIRECT_LINK_RETAILERS and source == "affiliate_feed"
+            else None
+        )
+        if direct_url:
+            source, base_url = "direct_link", direct_url
+        else:
+            base_url = o["url"]
+        url = base_url if source == "affiliate_feed" else _add_utm_params(base_url)
+        enriched.append({**o, "total": total, "is_stale": is_stale, "url": url, "source": source})
 
     newest = max((o["checked_at"] for o in enriched), default=None)
     newest_day = oslo_date(newest) if newest else None
