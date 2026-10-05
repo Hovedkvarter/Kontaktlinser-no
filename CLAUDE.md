@@ -5122,3 +5122,40 @@ skiftet, så spread-/qty-kortene forsvinner lokalt. Verifiser layout ved å
 bygge fra en midlertidig kopi med ferske `checked_at` (ikke commit den, og
 `git checkout site_generator/price_history.json` etterpå -- et lokalt bygg
 skriver dagens rad dit).
+
+## Price Intelligence: statusboksen overlappet metrikkene på smalere/mellomstore bredder (2026-10-05)
+
+Kai rapporterte at den røde "Høyt prisnivå"-boksen la seg over metrikkteksten
+til høyre på mellomstore bredder. Reprodusert og målt FØR endring: metrikkraden
+(`.price-intel-metrics-row`, `flex-wrap: nowrap`, kolonner `flex: 0 0 auto`) har
+en naturlig bredde på 913px, mens statuspillen var `flex-shrink: 0; width:
+290px` + 28px gap -- 1231px totalt i en modul med maks 1180px innhold. Overlappet
+fantes derfor på ALLE desktopbredder (selv 1400px: median-kolonnen stakk ~25px
+under pillen), og ved 1000px ga det til og med sideoverflow.
+
+Rot-årsak var at toppraden ikke kunne wrappe og at ingenting skalerte med
+MODULENS bredde. Fiks (kun CSS i `SHARED_STYLE`, ingen absolute/transform/
+negative marger):
+- `.price-intel` er nå en container (`container-type: inline-size;
+  container-name: pintel`) -- modulen er smalere enn viewporten, så
+  `@media` ville truffet feil terskel.
+- ≥860px: `.price-intel-primary.active` er `flex-wrap: wrap` med `gap: 20px
+  24px`. Pillen er `flex: 0 1 270px; min-width: 240px; max-width: 360px` og
+  ligger til høyre KUN hvis den faktisk får plass; ellers wrapper den ned på
+  egen rad, venstrejustert, i naturlig bredde. Fungerer også for lange
+  statustekster (stress-testet).
+- Metrikkradens naturlige bredde strammet fra 913px til 849px (kolonnepadding
+  18->16px, forklaringstekst `max-width` 210->185px) slik at pillen faktisk
+  får plass ved siden av ved full modulbredde (849 + 24 + 270 = 1143 <= 1180).
+- `@container pintel (max-width: 940px)` (inni `@media (min-width: 860px)`):
+  metrikkene går i et 3-kolonne-rutenett under "Pris nå" (som mobil, uten
+  skillelinjer) og pillen tar egen rad (maks 420px).
+- Mobil (<860px) er urørt (blokk-layout som før); uten container-query-støtte
+  gjelder kun mobilstylingen, som er trygg.
+
+Målt (`getBoundingClientRect`, overlapp pille-metrikk, metrikker inni modulen,
+"Vi har fulgt..."-kortet vs. introtekst): 860/1000/1100/1200 px -> pillen under,
+ingen overlapp; 1300/1400/1600 px -> pillen til høyre, ingen overlapp; 768 og
+375 px uendret. NB (ikke fra denne endringen, ikke rettet): hero-vinnerkortet
+(`.winner-band-cta`) gir sideoverflow på 860-1200px viewport (`scrollWidth` >
+viewport) -- eget funn utenfor Price Intelligence.
