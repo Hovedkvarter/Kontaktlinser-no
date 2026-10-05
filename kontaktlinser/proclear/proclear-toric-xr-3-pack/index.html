@@ -513,6 +513,7 @@ a { color: inherit; }
 .price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
 .price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
+.price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
@@ -609,6 +610,136 @@ a { color: inherit; }
   .price-intel-stat:first-child { border-left: none; padding-left: 0; }
   .price-intel-stat-strip { flex-wrap: nowrap; padding: 16px 20px; }
 }
+
+/* Price Intelligence Gold Standard v1 — ChatGPT branch, 2026-10-05.
+   Presentation-only override layer. The existing calculation engine,
+   offer engine, affiliate logic and shared brand/series chart rules stay intact. */
+.price-intel{
+  max-width:none;
+  padding:22px 18px;
+  border-radius:18px;
+  box-shadow:none;
+}
+.price-intel-head{margin-bottom:24px}
+.price-intel-eyebrow{font-size:.68rem;letter-spacing:.11em}
+.price-intel-head-text h2{font-size:1.45rem;letter-spacing:-.02em}
+.price-intel-head-text p{max-width:620px;font-size:.86rem;line-height:1.6}
+.price-intel-coverage{border:0;background:transparent;padding:0;font-size:.73rem}
+.price-intel-primary{padding:0 0 20px;border-bottom:1px solid var(--border)}
+.price-intel-metrics-row{gap:18px 0}
+.price-intel-value-lg,.price-intel-value{letter-spacing:-.035em}
+.price-intel-metric-label{font-weight:500}
+.price-intel-metric-desc{display:none}
+.price-intel-status-pill{border:0;box-shadow:none}
+.price-intel-period-tabs{margin:18px 0 20px}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
+.price-intel-chart .price-history-chart{border:0;border-radius:0}
+.price-intel-chart-mobile{display:none}
+.price-intel-chart-desktop{display:block}
+.price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.price-intel-card{
+  border:0;border-radius:0;padding:22px 24px;background:transparent;
+  max-width:none!important;flex:1 1 50%;
+}
+.price-intel-card+.price-intel-card{border-left:1px solid var(--border)}
+.price-intel-winners-panel{display:none}
+.price-intel-winners-panel.active{display:block}
+.price-intel-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.055em}
+.price-intel-card-head-note{font-size:.68rem}
+.price-intel-card-row{font-size:.82rem;padding:4px 0}
+.price-intel-spread-callout{background:transparent;border-radius:0;padding:14px 0 0;margin-top:12px;border-top:1px solid var(--border)}
+.price-intel-spread-callout strong{font-size:2rem;color:var(--ink);letter-spacing:-.04em}
+.price-intel-winner-bar{height:5px}
+.price-intel-conclusion{margin-top:28px;border-radius:14px;background:#f3f7fb;border:1px solid #e6edf4}
+.price-intel-summary{padding:18px 20px}
+.price-intel-summary strong{color:var(--ink);font-size:.9rem}
+.price-intel-summary-icon{display:none}
+.price-intel-stat-strip{padding:16px 20px;background:rgba(255,255,255,.72)}
+.price-intel-stat svg{display:none}
+.price-intel-stat strong{font-size:1rem;letter-spacing:-.02em}
+.price-intel-stat span{font-size:.69rem}
+.price-intel-history-data{margin-top:30px;padding-top:26px;border-top:1px solid var(--border)}
+.price-intel-section-kicker{margin:0 0 4px;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
+.price-intel-section-head h3{margin:0;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--ink)}
+.price-intel-section-head p{margin:5px 0 0;max-width:680px;font-size:.76rem;line-height:1.5;color:var(--muted)}
+.price-intel-history-table-wrap{margin-top:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.price-intel-history-table{width:100%;border-collapse:collapse;min-width:760px;font-size:.76rem}
+.price-intel-history-table th,.price-intel-history-table td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.price-intel-history-table thead th{font-size:.64rem;text-transform:uppercase;letter-spacing:.045em;color:var(--muted);font-weight:600}
+.price-intel-history-table th:first-child,.price-intel-history-table td:first-child{text-align:left}
+.price-intel-history-table tbody th{font-weight:650;color:var(--ink)}
+.price-intel-history-table tbody td{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.price-intel-footer{margin-top:18px}
+
+@media (min-width:860px){
+  .price-intel{padding:32px 36px}
+  .price-intel-head{align-items:flex-start}
+  .price-intel-primary.active{gap:34px;align-items:center}
+  .price-intel-metrics-row{justify-content:flex-start!important}
+  .price-intel-metric-current{min-width:170px}
+  .price-intel-metric-col{padding:0 22px}
+  .price-intel-value-lg{font-size:3.2rem}
+  .price-intel-value{font-size:1.55rem}
+  .price-intel-status-pill{width:260px;padding:14px 16px}
+  .price-intel-chart-shell{max-width:980px}
+  .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
+  .price-intel-stat-strip{gap:0}
+  .price-intel-history-details>summary{display:none}
+}
+@media (max-width:859px){
+  .price-intel{margin-top:22px;padding:18px 14px;border-radius:14px}
+  .price-intel-head{margin-bottom:18px}
+  .price-intel-head-text h2{font-size:1.25rem}
+  .price-intel-coverage{margin-top:10px}
+  .price-intel-primary.active{display:block}
+  .price-intel-metric-current{flex:1 1 100%;padding-bottom:10px}
+  .price-intel-value-lg{font-size:2.45rem}
+  .price-intel-value{font-size:1.2rem}
+  .price-intel-metric-col{flex:1 1 50%;padding:8px 12px 8px 0;border:0}
+  .price-intel-metric-col:nth-child(even){padding-left:12px;border-left:1px solid var(--border)}
+  .price-intel-status-pill{width:auto;margin-top:12px}
+  .price-intel-period-tabs{flex-wrap:wrap;overflow:visible;gap:8px;padding-bottom:0}
+  .price-intel-period-tab{flex:0 0 auto;min-height:40px;padding:8px 13px}
+  .price-intel-period-tab:disabled{display:none}
+  .price-intel-chart-toolbar-badge{display:none}
+  .price-intel-chart-desktop{display:none}
+  .price-intel-chart-mobile{display:block;width:100%;height:auto}
+  .price-intel-chart-wrap{width:100%}
+  .price-intel-chart-mobile .price-history-axis-label-x{display:block!important}
+  .price-intel-cards{display:block;margin-top:24px}
+  .price-intel-card{width:100%;max-width:none!important;padding:18px 4px}
+  .price-intel-card+.price-intel-card{border-left:0;border-top:1px solid var(--border)}
+  .price-intel-winner-row{grid-template-columns:72px 1fr auto}
+  .price-intel-conclusion{margin-top:22px}
+  .price-intel-summary{padding:16px}
+  .price-intel-stat-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;padding:16px}
+  .price-intel-stat{display:block;padding:0;border:0}
+  .price-intel-history-data{margin-top:24px;padding-top:22px}
+  .price-intel-history-details{margin-top:12px}
+  .price-intel-history-details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:42px;padding:10px 0;font-size:.78rem;font-weight:650;color:var(--blue)}
+  .price-intel-history-details>summary::-webkit-details-marker{display:none}
+  .price-intel-history-details>summary::after{content:"+";font-size:1.1rem;color:var(--muted)}
+  .price-intel-history-details[open]>summary::after{content:"–"}
+  .price-intel-history-details:not([open])>.price-intel-history-table-wrap{display:none}
+  .price-intel-history-table-wrap{overflow:visible}
+  .price-intel-history-table{min-width:0;display:block}
+  .price-intel-history-table thead{display:none}
+  .price-intel-history-table tbody{display:block}
+  .price-intel-history-table tr{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .price-intel-history-table th,.price-intel-history-table td{display:block;padding:0;border:0;text-align:left!important;white-space:normal}
+  .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Space Grotesk',sans-serif;font-size:.88rem}
+  .price-intel-history-table td{font-size:.78rem}
+  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+}
+
 
 .hero-card { background: white; border: 1px solid var(--border); border-radius: 20px; padding: 20px; margin-bottom: 20px; }
 .hero-card .hero-copy h1 { font-size: 1.6rem; }
@@ -1520,7 +1651,7 @@ a { color: inherit; }
         <span>Laveste registrerte produktpris per dag</span>
         <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
       </div>
-      <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
+      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
       <defs>
         <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -1575,6 +1706,56 @@ a { color: inherit; }
       <text x="477.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">26.09</text>
       <text x="564.1" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.09</text>
       <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">05.10</text>
+    </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
+      <defs>
+        <linearGradient id="priceIntelFadeMobile-30d" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="42" y1="137.3" x2="332" y2="137.3" class="price-history-gridline" />
+      <text x="36" y="140.3" text-anchor="end" class="price-history-axis-label">600 kr</text>
+      <line x1="42" y1="79.0" x2="332" y2="79.0" class="price-history-gridline" />
+      <text x="36" y="82.0" text-anchor="end" class="price-history-axis-label">700 kr</text>
+      <line x1="42" y1="20.7" x2="332" y2="20.7" class="price-history-gridline" />
+      <text x="36" y="23.7" text-anchor="end" class="price-history-axis-label">800 kr</text>
+      <path d="M42.0,181.0 L42.0,169.3 L52.0,169.3 L62.0,23.7 L72.0,23.7 L82.0,23.7 L92.0,23.7 L102.0,23.7 L112.0,23.7 L122.0,23.7 L132.0,23.7 L142.0,23.7 L152.0,23.7 L162.0,23.7 L172.0,23.7 L182.0,23.7 L192.0,23.7 L202.0,23.7 L212.0,23.7 L222.0,23.7 L232.0,23.7 L242.0,23.7 L252.0,23.7 L262.0,23.7 L272.0,23.7 L282.0,23.7 L292.0,23.7 L302.0,23.7 L312.0,23.7 L322.0,23.7 L332.0,23.7 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
+      <polyline points="42.0,169.3 52.0,169.3 62.0,23.7 72.0,23.7 82.0,23.7 92.0,23.7 102.0,23.7 112.0,23.7 122.0,23.7 132.0,23.7 142.0,23.7 152.0,23.7 162.0,23.7 172.0,23.7 182.0,23.7 192.0,23.7 202.0,23.7 212.0,23.7 222.0,23.7 232.0,23.7 242.0,23.7 252.0,23.7 262.0,23.7 272.0,23.7 282.0,23.7 292.0,23.7 302.0,23.7 312.0,23.7 322.0,23.7 332.0,23.7" class="price-history-line" />
+      <circle cx="332.0" cy="23.7" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="169.3" r="9" class="price-intel-hit"><title>6. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="52.0" cy="169.3" r="9" class="price-intel-hit"><title>7. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="62.0" cy="23.7" r="9" class="price-intel-hit"><title>8. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="72.0" cy="23.7" r="9" class="price-intel-hit"><title>9. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="82.0" cy="23.7" r="9" class="price-intel-hit"><title>10. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="92.0" cy="23.7" r="9" class="price-intel-hit"><title>11. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="102.0" cy="23.7" r="9" class="price-intel-hit"><title>12. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="112.0" cy="23.7" r="9" class="price-intel-hit"><title>13. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="122.0" cy="23.7" r="9" class="price-intel-hit"><title>14. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="132.0" cy="23.7" r="9" class="price-intel-hit"><title>15. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="142.0" cy="23.7" r="9" class="price-intel-hit"><title>16. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="152.0" cy="23.7" r="9" class="price-intel-hit"><title>17. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="162.0" cy="23.7" r="9" class="price-intel-hit"><title>18. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="172.0" cy="23.7" r="9" class="price-intel-hit"><title>19. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="182.0" cy="23.7" r="9" class="price-intel-hit"><title>20. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="192.0" cy="23.7" r="9" class="price-intel-hit"><title>21. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="202.0" cy="23.7" r="9" class="price-intel-hit"><title>22. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="212.0" cy="23.7" r="9" class="price-intel-hit"><title>23. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="222.0" cy="23.7" r="9" class="price-intel-hit"><title>24. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="232.0" cy="23.7" r="9" class="price-intel-hit"><title>25. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="242.0" cy="23.7" r="9" class="price-intel-hit"><title>26. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="252.0" cy="23.7" r="9" class="price-intel-hit"><title>27. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="262.0" cy="23.7" r="9" class="price-intel-hit"><title>28. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="272.0" cy="23.7" r="9" class="price-intel-hit"><title>29. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="282.0" cy="23.7" r="9" class="price-intel-hit"><title>30. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="292.0" cy="23.7" r="9" class="price-intel-hit"><title>1. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="302.0" cy="23.7" r="9" class="price-intel-hit"><title>2. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="312.0" cy="23.7" r="9" class="price-intel-hit"><title>3. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="322.0" cy="23.7" r="9" class="price-intel-hit"><title>4. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="332.0" cy="23.7" r="9" class="price-intel-hit"><title>5. oktober: 795 kr hos Extra Optical</title></circle>
+      <text x="332.0" y="21.0" text-anchor="end" class="price-history-current-label">795 kr</text>
+      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">06.09</text>
+      <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">05.10</text>
     </svg></div>
     </div>
   </div><div class="price-intel-chart-panel" data-period="all">
@@ -1583,7 +1764,7 @@ a { color: inherit; }
         <span>Laveste registrerte produktpris per dag</span>
         <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
       </div>
-      <div class="price-intel-chart"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
+      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
       <defs>
         <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -1661,21 +1842,118 @@ a { color: inherit; }
       <text x="467.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">18.09</text>
       <text x="551.6" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">25.09</text>
       <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">05.10</text>
+    </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 545 kr til 795 kr">
+      <defs>
+        <linearGradient id="priceIntelFadeMobile-all" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
+          <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+      <line x1="42" y1="137.3" x2="332" y2="137.3" class="price-history-gridline" />
+      <text x="36" y="140.3" text-anchor="end" class="price-history-axis-label">600 kr</text>
+      <line x1="42" y1="79.0" x2="332" y2="79.0" class="price-history-gridline" />
+      <text x="36" y="82.0" text-anchor="end" class="price-history-axis-label">700 kr</text>
+      <line x1="42" y1="20.7" x2="332" y2="20.7" class="price-history-gridline" />
+      <text x="36" y="23.7" text-anchor="end" class="price-history-axis-label">800 kr</text>
+      <path d="M42.0,181.0 L42.0,169.3 L47.6,169.3 L53.2,143.1 L58.7,143.1 L64.3,143.1 L69.9,143.1 L75.5,143.1 L81.0,169.3 L86.6,169.3 L92.2,169.3 L97.8,169.3 L103.3,169.3 L108.9,169.3 L114.5,169.3 L120.1,169.3 L125.7,169.3 L131.2,169.3 L136.8,169.3 L142.4,169.3 L148.0,169.3 L153.5,169.3 L159.1,169.3 L164.7,169.3 L170.3,169.3 L175.8,169.3 L181.4,23.7 L187.0,23.7 L192.6,23.7 L198.2,23.7 L203.7,23.7 L209.3,23.7 L214.9,23.7 L220.5,23.7 L226.0,23.7 L231.6,23.7 L237.2,23.7 L242.8,23.7 L248.3,23.7 L253.9,23.7 L259.5,23.7 L265.1,23.7 L270.7,23.7 L276.2,23.7 L281.8,23.7 L287.4,23.7 L293.0,23.7 L298.5,23.7 L304.1,23.7 L309.7,23.7 L315.3,23.7 L320.8,23.7 L326.4,23.7 L332.0,23.7 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,169.3 47.6,169.3 53.2,143.1 58.7,143.1 64.3,143.1 69.9,143.1 75.5,143.1 81.0,169.3 86.6,169.3 92.2,169.3 97.8,169.3 103.3,169.3 108.9,169.3 114.5,169.3 120.1,169.3 125.7,169.3 131.2,169.3 136.8,169.3 142.4,169.3 148.0,169.3 153.5,169.3 159.1,169.3 164.7,169.3 170.3,169.3 175.8,169.3 181.4,23.7 187.0,23.7 192.6,23.7 198.2,23.7 203.7,23.7 209.3,23.7 214.9,23.7 220.5,23.7 226.0,23.7 231.6,23.7 237.2,23.7 242.8,23.7 248.3,23.7 253.9,23.7 259.5,23.7 265.1,23.7 270.7,23.7 276.2,23.7 281.8,23.7 287.4,23.7 293.0,23.7 298.5,23.7 304.1,23.7 309.7,23.7 315.3,23.7 320.8,23.7 326.4,23.7 332.0,23.7" class="price-history-line" />
+      <circle cx="332.0" cy="23.7" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="169.3" r="9" class="price-intel-hit"><title>14. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="47.6" cy="169.3" r="9" class="price-intel-hit"><title>15. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="53.2" cy="143.1" r="9" class="price-intel-hit"><title>16. august: 590 kr hos Extra Optical</title></circle>
+      <circle cx="58.7" cy="143.1" r="9" class="price-intel-hit"><title>17. august: 590 kr hos Extra Optical</title></circle>
+      <circle cx="64.3" cy="143.1" r="9" class="price-intel-hit"><title>18. august: 590 kr hos Extra Optical</title></circle>
+      <circle cx="69.9" cy="143.1" r="9" class="price-intel-hit"><title>19. august: 590 kr hos Extra Optical</title></circle>
+      <circle cx="75.5" cy="143.1" r="9" class="price-intel-hit"><title>20. august: 590 kr hos Extra Optical</title></circle>
+      <circle cx="81.0" cy="169.3" r="9" class="price-intel-hit"><title>21. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="86.6" cy="169.3" r="9" class="price-intel-hit"><title>22. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="92.2" cy="169.3" r="9" class="price-intel-hit"><title>23. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="97.8" cy="169.3" r="9" class="price-intel-hit"><title>24. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="103.3" cy="169.3" r="9" class="price-intel-hit"><title>25. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="108.9" cy="169.3" r="9" class="price-intel-hit"><title>26. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="114.5" cy="169.3" r="9" class="price-intel-hit"><title>27. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="120.1" cy="169.3" r="9" class="price-intel-hit"><title>28. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="125.7" cy="169.3" r="9" class="price-intel-hit"><title>29. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="131.2" cy="169.3" r="9" class="price-intel-hit"><title>30. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="136.8" cy="169.3" r="9" class="price-intel-hit"><title>31. august: 545 kr hos Extra Optical</title></circle>
+      <circle cx="142.4" cy="169.3" r="9" class="price-intel-hit"><title>1. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="148.0" cy="169.3" r="9" class="price-intel-hit"><title>2. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="153.5" cy="169.3" r="9" class="price-intel-hit"><title>3. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="159.1" cy="169.3" r="9" class="price-intel-hit"><title>4. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="164.7" cy="169.3" r="9" class="price-intel-hit"><title>5. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="170.3" cy="169.3" r="9" class="price-intel-hit"><title>6. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="175.8" cy="169.3" r="9" class="price-intel-hit"><title>7. september: 545 kr hos Extra Optical</title></circle>
+      <circle cx="181.4" cy="23.7" r="9" class="price-intel-hit"><title>8. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="187.0" cy="23.7" r="9" class="price-intel-hit"><title>9. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="192.6" cy="23.7" r="9" class="price-intel-hit"><title>10. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="198.2" cy="23.7" r="9" class="price-intel-hit"><title>11. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="203.7" cy="23.7" r="9" class="price-intel-hit"><title>12. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="209.3" cy="23.7" r="9" class="price-intel-hit"><title>13. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="214.9" cy="23.7" r="9" class="price-intel-hit"><title>14. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="220.5" cy="23.7" r="9" class="price-intel-hit"><title>15. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="226.0" cy="23.7" r="9" class="price-intel-hit"><title>16. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="231.6" cy="23.7" r="9" class="price-intel-hit"><title>17. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="237.2" cy="23.7" r="9" class="price-intel-hit"><title>18. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="242.8" cy="23.7" r="9" class="price-intel-hit"><title>19. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="248.3" cy="23.7" r="9" class="price-intel-hit"><title>20. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="253.9" cy="23.7" r="9" class="price-intel-hit"><title>21. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="259.5" cy="23.7" r="9" class="price-intel-hit"><title>22. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="265.1" cy="23.7" r="9" class="price-intel-hit"><title>23. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="270.7" cy="23.7" r="9" class="price-intel-hit"><title>24. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="276.2" cy="23.7" r="9" class="price-intel-hit"><title>25. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="281.8" cy="23.7" r="9" class="price-intel-hit"><title>26. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="287.4" cy="23.7" r="9" class="price-intel-hit"><title>27. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="293.0" cy="23.7" r="9" class="price-intel-hit"><title>28. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="298.5" cy="23.7" r="9" class="price-intel-hit"><title>29. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="304.1" cy="23.7" r="9" class="price-intel-hit"><title>30. september: 795 kr hos Extra Optical</title></circle>
+      <circle cx="309.7" cy="23.7" r="9" class="price-intel-hit"><title>1. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="315.3" cy="23.7" r="9" class="price-intel-hit"><title>2. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="320.8" cy="23.7" r="9" class="price-intel-hit"><title>3. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="326.4" cy="23.7" r="9" class="price-intel-hit"><title>4. oktober: 795 kr hos Extra Optical</title></circle>
+      <circle cx="332.0" cy="23.7" r="9" class="price-intel-hit"><title>5. oktober: 795 kr hos Extra Optical</title></circle>
+      <text x="332.0" y="21.0" text-anchor="end" class="price-history-current-label">795 kr</text>
+      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
+      <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">09.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">05.10</text>
     </svg></div>
     </div>
   </div>
-  <div class="price-intel-cards"><div class="price-intel-card">
-    <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">Siste 53 dager</span></div>
-    <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Extra Optical</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">53 dager &middot; 100 %</span></div></div>
-    <p class="price-intel-card-note">Extra Optical har hatt lavest registrert produktpris i 53 av de siste 53 dagene.</p>
-  </div></div>
+  <div class="price-intel-cards"><div class="price-intel-card price-intel-winners-panel active" data-period="30d">
+      <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">30 dager</span></div>
+      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Extra Optical</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">30 dager &middot; 100 %</span></div></div>
+      
+      <p class="price-intel-card-note">Extra Optical har hatt lavest registrert produktpris i 30 av 30 observerte dager i perioden.</p>
+    </div><div class="price-intel-card price-intel-winners-panel" data-period="all">
+      <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">All historikk</span></div>
+      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Extra Optical</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">53 dager &middot; 100 %</span></div></div>
+      
+      <p class="price-intel-card-note">Extra Optical har hatt lavest registrert produktpris i 53 av 53 observerte dager i perioden.</p>
+    </div></div>
   <div class="price-intel-conclusion active" data-period="30d">
     <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Prisen på Proclear Toric XR 3-pack har vært uendret på 795 kr de siste 28 dagene.</span></div>
-    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>28 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 53 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>45,9 %</strong><span>prisvariasjon siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>545 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
+    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>28 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>45,9 %</strong><span>prisspenn siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>545 kr</strong><span>laveste pris i perioden</span></div></div></div>
   </div><div class="price-intel-conclusion" data-period="all">
     <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Prisen på Proclear Toric XR 3-pack har vært uendret på 795 kr de siste 28 dagene.</span></div>
-    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>28 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 53 dagene</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>45,9 %</strong><span>prisvariasjon i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>545 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
+    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>28 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>45,9 %</strong><span>prisspenn i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>545 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
   </div>
+  <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">
+    <div class="price-intel-section-head">
+      <div>
+        <p class="price-intel-section-kicker">Historiske nøkkeltall</p>
+        <h3 id="price-intel-history-title">Prishistorikk i tall</h3>
+        <p>Samme prisdata som i grafen, publisert som lesbare nøkkeltall for periodene vi har nok historikk til å beregne.</p>
+      </div>
+    </div>
+    <details class="price-intel-history-details" open>
+      <summary>Se historiske nøkkeltall</summary>
+      <div class="price-intel-history-table-wrap">
+        <table class="price-intel-history-table">
+          <thead><tr><th>Periode</th><th>Laveste</th><th>Høyeste prisnivå</th><th>Median</th><th>Prisspenn</th><th>Prisendringer</th><th>Vinnerbytter</th><th>Butikker billigst</th></tr></thead>
+          <tbody><tr><th scope="row">30 dager</th><td>545 kr</td><td>795 kr</td><td>795 kr</td><td>45,9 %</td><td>1</td><td>0</td><td>1</td></tr><tr><th scope="row">All historikk</th><td>545 kr</td><td>795 kr</td><td>795 kr</td><td>45,9 %</td><td>3</td><td>0</td><td>1</td></tr></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
   <div class="price-intel-footer">
     <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
     <span>Prisdata sist bekreftet: 5. oktober 2026</span>
@@ -1684,6 +1962,10 @@ a { color: inherit; }
 (function () {
   var wrap = document.currentScript.closest('.price-intel');
   if (!wrap) return;
+  var historyDetails = wrap.querySelector('.price-intel-history-details');
+  if (historyDetails && window.matchMedia && window.matchMedia('(max-width: 859px)').matches) {
+    historyDetails.removeAttribute('open');
+  }
   wrap.querySelectorAll('.price-intel-period-tab[data-period]').forEach(function (tab) {
     tab.addEventListener('click', function () {
       var period = tab.getAttribute('data-period');
