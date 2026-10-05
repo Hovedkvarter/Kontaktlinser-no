@@ -737,6 +737,19 @@ a { color: inherit; }
 .price-intel-history-table th:first-child,.price-intel-history-table td:first-child{text-align:left}
 .price-intel-history-table tbody th{font-weight:650;color:var(--ink)}
 .price-intel-history-table tbody td{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+/* Smal desktop (modulens innhold <= 800px, dvs. ca. 860-1010px viewport): den
+   8-kolonners tabellen har min-width 760px og ville scrollet sidelengs. Her
+   komprimeres den i stedet: ingen min-width, tettere padding, mindre
+   kolonneoverskrifter som får brytes over to linjer. Gjelder kun >=860px
+   (mobil <860px bruker det stablede kort-oppsettet under). */
+@media (min-width:860px){
+  @container pintel (max-width:800px){
+    .price-intel-history-table{min-width:0}
+    .price-intel-history-table th,.price-intel-history-table td{padding:9px 5px}
+    .price-intel-history-table thead th{font-size:.58rem;letter-spacing:.02em;white-space:normal;line-height:1.25;vertical-align:bottom}
+    .price-intel-history-table td{font-size:.72rem}
+  }
+}
 .price-intel-footer{margin-top:18px}
 
 @media (min-width:860px){
