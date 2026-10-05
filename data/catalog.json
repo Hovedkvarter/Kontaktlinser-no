@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-05T16:58:38Z",
+  "generated_at": "2026-10-05T18:39:49Z",
   "currency": "NOK",
   "products": [
     {
@@ -64,7 +64,7 @@
           "shipping": 45,
           "total_price": 390.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=ACUVUE+OASYS+HYDRACLEAR+Plus+6+st&fid=1650&url=https://extraoptical.no/acuvue-oasys-with-hydraclear-plus-6-stk",
+          "url": "https://extraoptical.no/acuvue-oasys-with-hydraclear-plus-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194059+00:00"
         },
         {
@@ -169,7 +169,7 @@
           "shipping": 45,
           "total_price": 470.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+6+stk-1&fid=1650&url=https://extraoptical.no/biofinity-6-stk-1",
+          "url": "https://extraoptical.no/biofinity-6-stk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200340+00:00"
         },
         {
@@ -271,7 +271,7 @@
           "shipping": 45,
           "total_price": 350.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-DAY+ACUVUE+MOIST+30+stk&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-30-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193762+00:00"
         }
       ]
@@ -403,7 +403,7 @@
           "shipping": 45,
           "total_price": 460.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=ACUVUE+OASYS+1-Day+HYDRALUXE+30+st&fid=1650&url=https://extraoptical.no/acuvue-oasys-1-day-with-hydraluxe-30-stk",
+          "url": "https://extraoptical.no/acuvue-oasys-1-day-with-hydraluxe-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193994+00:00"
         }
       ]
@@ -424,7 +424,7 @@
           "shipping": 45,
           "total_price": 390.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=ACUVUE+OASYS+for+ASTIGMATISM+6+stk&fid=1650&url=https://extraoptical.no/acuvue-oasys-for-astigmatism-6-stk",
+          "url": "https://extraoptical.no/acuvue-oasys-for-astigmatism-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194039+00:00"
         },
         {
@@ -544,7 +544,7 @@
           "shipping": 45,
           "total_price": 410.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-Day+ACUVUE+MOIST+Toric+30+stk&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-for-astigmatism-30-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-for-astigmatism-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193874+00:00"
         }
       ]
@@ -619,7 +619,7 @@
           "shipping": 45,
           "total_price": 640.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+Toric+6+stk&fid=1650&url=https://extraoptical.no/biofinity-toric-6-stk",
+          "url": "https://extraoptical.no/biofinity-toric-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194180+00:00"
         },
         {
@@ -850,7 +850,7 @@
           "shipping": 45,
           "total_price": 920.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+Multifocal+6+stk&fid=1650&url=https://extraoptical.no/biofinity-multifocal-6-stk",
+          "url": "https://extraoptical.no/biofinity-multifocal-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194160+00:00"
         }
       ]
@@ -928,7 +928,7 @@
           "shipping": 45,
           "total_price": 640.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+XR+6+stk&fid=1650&url=https://extraoptical.no/biofinity-xr-6-stk",
+          "url": "https://extraoptical.no/biofinity-xr-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.196058+00:00"
         },
         {
@@ -1201,7 +1201,7 @@
           "shipping": 45,
           "total_price": 600.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=MyDay+1+day+Multifocal+30+stk&fid=1650&url=https://extraoptical.no/myday-1-day-multifocal-30-stk",
+          "url": "https://extraoptical.no/myday-1-day-multifocal-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.215142+00:00"
         }
       ]
@@ -1267,7 +1267,7 @@
           "shipping": 45,
           "total_price": 630.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=MyDay+1+Day+Toric+30+stk&fid=1650&url=https://extraoptical.no/myday-1-day-toric-30-stk",
+          "url": "https://extraoptical.no/myday-1-day-toric-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.215213+00:00"
         }
       ]
@@ -1315,7 +1315,7 @@
           "shipping": 45,
           "total_price": 340.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+6+stk-1&fid=1650&url=https://extraoptical.no/proclear-6-stk-1",
+          "url": "https://extraoptical.no/proclear-6-stk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200360+00:00"
         }
       ]
@@ -1363,7 +1363,7 @@
           "shipping": 45,
           "total_price": 640.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+Toric+6+stk&fid=1650&url=https://extraoptical.no/proclear-toric-6-stk",
+          "url": "https://extraoptical.no/proclear-toric-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194739+00:00"
         },
         {
@@ -1525,7 +1525,7 @@
           "shipping": 45,
           "total_price": 490.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Air+Optix+Aqua+Hydraglyde+6+stk&fid=1650&url=https://extraoptical.no/air-optix-hydraglyde-6-stk-2",
+          "url": "https://extraoptical.no/air-optix-hydraglyde-6-stk-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194121+00:00"
         },
         {
@@ -1600,7 +1600,7 @@
           "shipping": 45,
           "total_price": 830.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Air+Optix+HydraGlyde+Multifocal+6+st&fid=1650&url=https://extraoptical.no/air-optix-multifocal-6-stk",
+          "url": "https://extraoptical.no/air-optix-multifocal-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194140+00:00"
         }
       ]
@@ -1666,7 +1666,7 @@
           "shipping": 45,
           "total_price": 790.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Air+Optix+Astigmatism+6+stk&fid=1650&url=https://extraoptical.no/air-optix-astigmatism-6-stk",
+          "url": "https://extraoptical.no/air-optix-astigmatism-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194100+00:00"
         }
       ]
@@ -1732,7 +1732,7 @@
           "shipping": 45,
           "total_price": 500.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+30+stk&fid=1650&url=https://extraoptical.no/dailies-total1-30-stk-1",
+          "url": "https://extraoptical.no/dailies-total1-30-stk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204108+00:00"
         }
       ]
@@ -1798,7 +1798,7 @@
           "shipping": 45,
           "total_price": 690.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+Multifocal+30+stk&fid=1650&url=https://extraoptical.no/dailies-total1-multifocal-30-stk",
+          "url": "https://extraoptical.no/dailies-total1-multifocal-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194576+00:00"
         }
       ]
@@ -1855,7 +1855,7 @@
           "shipping": 45,
           "total_price": 590.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+Toric+30+stk&fid=1650&url=https://extraoptical.no/dailies-total1-toric-30-pk",
+          "url": "https://extraoptical.no/dailies-total1-toric-30-pk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204733+00:00"
         }
       ]
@@ -1930,7 +1930,7 @@
           "shipping": 45,
           "total_price": 340.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+AquaComfort+Plus+30+stk&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-30-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194366+00:00"
         }
       ]
@@ -1969,7 +1969,7 @@
           "shipping": 45,
           "total_price": 650.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=TOTAL30+SPHERE+6P&fid=1650&url=https://extraoptical.no/total30-6pk",
+          "url": "https://extraoptical.no/total30-6pk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204128+00:00"
         },
         {
@@ -2026,7 +2026,7 @@
           "shipping": 45,
           "total_price": 410.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PRECISION1+30+stk&fid=1650&url=https://extraoptical.no/precision1-30-stk",
+          "url": "https://extraoptical.no/precision1-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194511+00:00"
         }
       ]
@@ -2074,7 +2074,7 @@
           "shipping": 45,
           "total_price": 470.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PRECISION1_Toric_30+stk&fid=1650&url=https://extraoptical.no/precision1-toric-30-stk-1",
+          "url": "https://extraoptical.no/precision1-toric-30-stk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.205044+00:00"
         }
       ]
@@ -2113,7 +2113,7 @@
           "shipping": 45,
           "total_price": 260.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Soflens+59+6stk&fid=1650&url=https://extraoptical.no/soflens-59-6stk",
+          "url": "https://extraoptical.no/soflens-59-6stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195046+00:00"
         },
         {
@@ -2161,7 +2161,7 @@
           "shipping": 45,
           "total_price": 250.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Daily+Disposable+30+stk&fid=1650&url=https://extraoptical.no/soflens-daily-disposable-30-stk",
+          "url": "https://extraoptical.no/soflens-daily-disposable-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195068+00:00"
         },
         {
@@ -2245,7 +2245,7 @@
           "shipping": 45,
           "total_price": 690.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Toric+for+Astigmatism+6+stk&fid=1650&url=https://extraoptical.no/soflens-toric-for-astigmatism-6-stk",
+          "url": "https://extraoptical.no/soflens-toric-for-astigmatism-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195149+00:00"
         }
       ]
@@ -2284,7 +2284,7 @@
           "shipping": 45,
           "total_price": 420.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PureVision+2+6+stk&fid=1650&url=https://extraoptical.no/purevision-2hd-6-stk",
+          "url": "https://extraoptical.no/purevision-2hd-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194919+00:00"
         },
         {
@@ -2377,7 +2377,7 @@
           "shipping": 45,
           "total_price": 350.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biotrue+ONEday+30+stk&fid=1650&url=https://extraoptical.no/biotrue-oneday-30-stk",
+          "url": "https://extraoptical.no/biotrue-oneday-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194303+00:00"
         }
       ]
@@ -2482,7 +2482,7 @@
           "shipping": 45,
           "total_price": 280.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+55+Evolution+6+stk&fid=1650&url=https://extraoptical.no/biomedics-55-evolution-6-stk",
+          "url": "https://extraoptical.no/biomedics-55-evolution-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194263+00:00"
         },
         {
@@ -2534,15 +2534,6 @@
           "checked_at": "2026-10-05T01:15:45.866087+00:00"
         },
         {
-          "merchant": "Extra Optical",
-          "price": 745.0,
-          "shipping": 45,
-          "total_price": 790.0,
-          "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Air+Optix+Night+and+Day+Aqua+6+st&fid=1650&url=https://extraoptical.no/air-optix-night-day-aqua-6-stk",
-          "checked_at": "2026-10-05T01:15:43.194080+00:00"
-        },
-        {
           "merchant": "Coptikk",
           "price": 790.0,
           "shipping": 0.0,
@@ -2550,6 +2541,15 @@
           "availability": "in_stock",
           "url": "https://www.coptikk.no/linsebutikk/dognlinser/air-optix-night-and-day-6-linser?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-04T02:02:57.123177+00:00"
+        },
+        {
+          "merchant": "Extra Optical",
+          "price": 745.0,
+          "shipping": 45,
+          "total_price": 790.0,
+          "availability": "in_stock",
+          "url": "https://extraoptical.no/air-optix-night-day-aqua-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-05T01:15:43.194080+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -2605,7 +2605,7 @@
           "shipping": 45,
           "total_price": 500.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PureVision+6+stk-2&fid=1650&url=https://extraoptical.no/purevision-6-pak-2",
+          "url": "https://extraoptical.no/purevision-6-pak-2?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200379+00:00"
         }
       ]
@@ -2626,7 +2626,7 @@
           "shipping": 45,
           "total_price": 590.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PureVision+Multifocal+6+stk&fid=1650&url=https://extraoptical.no/purevision-multi-focal-6-stk",
+          "url": "https://extraoptical.no/purevision-multi-focal-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194945+00:00"
         },
         {
@@ -2740,7 +2740,7 @@
           "shipping": 45,
           "total_price": 715.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PureVision+2+for+Presbyopia+6+stk&fid=1650&url=https://extraoptical.no/purevision-2-for-presbyopia-6-stk",
+          "url": "https://extraoptical.no/purevision-2-for-presbyopia-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194898+00:00"
         },
         {
@@ -2881,7 +2881,7 @@
           "shipping": 45,
           "total_price": 450.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biotrue+ONEday+for+Presbyopia+30+stk&fid=1650&url=https://extraoptical.no/biotrue-oneday-for-presbyopia-30-stk",
+          "url": "https://extraoptical.no/biotrue-oneday-for-presbyopia-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194343+00:00"
         }
       ]
@@ -3100,7 +3100,7 @@
           "shipping": 45,
           "total_price": 260.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+1+day+Extra+30+stk&fid=1650&url=https://extraoptical.no/biomedics-1-day-extra-30-stk",
+          "url": "https://extraoptical.no/biomedics-1-day-extra-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194199+00:00"
         }
       ]
@@ -3166,7 +3166,7 @@
           "shipping": 45,
           "total_price": 410.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+1+Day+Extra+Toric+30+stk&fid=1650&url=https://extraoptical.no/biomedics-1-day-extra-toric-30-stk",
+          "url": "https://extraoptical.no/biomedics-1-day-extra-toric-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194239+00:00"
         }
       ]
@@ -3214,7 +3214,7 @@
           "shipping": 45,
           "total_price": 540.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+Toric+6+stk&fid=1650&url=https://extraoptical.no/biomedics-toric-6-stk",
+          "url": "https://extraoptical.no/biomedics-toric-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194283+00:00"
         },
         {
@@ -3328,7 +3328,7 @@
           "shipping": 45,
           "total_price": 900.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=TOTAL30+Toric+6pk&fid=1650&url=https://extraoptical.no/total30-6pk-1",
+          "url": "https://extraoptical.no/total30-6pk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.205377+00:00"
         }
       ]
@@ -3643,7 +3643,7 @@
           "shipping": 45,
           "total_price": 340.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Focus+Dailies+ll+day+Comfort+30+stk&fid=1650&url=https://extraoptical.no/focus-dailies-all-day-comfort-30-stk",
+          "url": "https://extraoptical.no/focus-dailies-all-day-comfort-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200227+00:00"
         },
         {
@@ -3718,7 +3718,7 @@
           "shipping": 45,
           "total_price": 840.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-DAY+ACUVUE+MOIST+90+stk&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-90-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193843+00:00"
         },
         {
@@ -3775,7 +3775,7 @@
           "shipping": 0.0,
           "total_price": 965.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-Day+ACUVUE+MOIST+Toric+90+st&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-for-astigmatism-90-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-for-astigmatism-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193899+00:00"
         },
         {
@@ -3850,7 +3850,7 @@
           "shipping": 0.0,
           "total_price": 1095.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=ACUVUE+OASYS+1-Day+HYDRALUXE+90+st&fid=1650&url=https://extraoptical.no/acuvue-oasys-1-day-with-hydraluxe-90-stk",
+          "url": "https://extraoptical.no/acuvue-oasys-1-day-with-hydraluxe-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194019+00:00"
         }
       ]
@@ -3946,7 +3946,7 @@
           "shipping": 45,
           "total_price": 610.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biomedics+1+day+Extra+90+stk&fid=1650&url=https://extraoptical.no/biomedics-1-day-extra-90-stk",
+          "url": "https://extraoptical.no/biomedics-1-day-extra-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194219+00:00"
         }
       ]
@@ -4003,7 +4003,7 @@
           "shipping": 45,
           "total_price": 850.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biotrue+ONEday+90+stk&fid=1650&url=https://extraoptical.no/biotrue-oneday-90-stk",
+          "url": "https://extraoptical.no/biotrue-oneday-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194323+00:00"
         }
       ]
@@ -4138,7 +4138,7 @@
           "shipping": 45,
           "total_price": 790.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+90+stk&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-90-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194387+00:00"
         }
       ]
@@ -4195,7 +4195,7 @@
           "shipping": 0.0,
           "total_price": 995.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total+1+90+stk&fid=1650&url=https://extraoptical.no/dailies-total1-90-stk",
+          "url": "https://extraoptical.no/dailies-total1-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194533+00:00"
         },
         {
@@ -4243,7 +4243,7 @@
           "shipping": 0.0,
           "total_price": 1425.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+Toric+90+pk&fid=1650&url=https://extraoptical.no/dailies-total1-toric-90-pk-1",
+          "url": "https://extraoptical.no/dailies-total1-toric-90-pk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204759+00:00"
         },
         {
@@ -4309,7 +4309,7 @@
           "shipping": 0.0,
           "total_price": 1425.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+Multifocal+90+stk&fid=1650&url=https://extraoptical.no/dailies-total1-multifocal-90-stk",
+          "url": "https://extraoptical.no/dailies-total1-multifocal-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194596+00:00"
         },
         {
@@ -4393,7 +4393,7 @@
           "shipping": 45,
           "total_price": 800.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Focus+Dailies+all+day+Comfort+90+stk&fid=1650&url=https://extraoptical.no/focus-dailies-all-day-comfort-90-stk",
+          "url": "https://extraoptical.no/focus-dailies-all-day-comfort-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200264+00:00"
         }
       ]
@@ -4489,7 +4489,7 @@
           "shipping": 45,
           "total_price": 920.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PRECISION1+90+stk&fid=1650&url=https://extraoptical.no/precision-1-90-stk",
+          "url": "https://extraoptical.no/precision-1-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204079+00:00"
         },
         {
@@ -4537,7 +4537,7 @@
           "shipping": 0.0,
           "total_price": 1155.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=PRECISION1_Toric+_90+stk&fid=1650&url=https://extraoptical.no/precision-1-toric-90-stk",
+          "url": "https://extraoptical.no/precision-1-toric-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.205067+00:00"
         },
         {
@@ -4603,7 +4603,7 @@
           "shipping": 45,
           "total_price": 620.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Daily+Disposable+90+stk&fid=1650&url=https://extraoptical.no/soflens-daily-disposable-90-stk",
+          "url": "https://extraoptical.no/soflens-daily-disposable-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195088+00:00"
         }
       ]
@@ -4672,7 +4672,7 @@
           "shipping": 45,
           "total_price": 380.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-DAY+ACUVUE+MOIST+MULTIFOCAL+30+stk&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-multifocal-30-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-multifocal-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193926+00:00"
         },
         {
@@ -4720,7 +4720,7 @@
           "shipping": 0.0,
           "total_price": 995.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-DAY+ACUVUE+MOIST+MULTIFOCAL+90+stk&fid=1650&url=https://extraoptical.no/1-day-acuvue-moist-multifocal-90-stk",
+          "url": "https://extraoptical.no/1-day-acuvue-moist-multifocal-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.193950+00:00"
         },
         {
@@ -4777,7 +4777,7 @@
           "shipping": 45,
           "total_price": 460.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=1-DAY+ACUVUE+OASYS+for+ASTIGMATISM+30+stk-1&fid=1650&url=https://extraoptical.no/acuvue-oasys-1day-for-astigmatism-30stk",
+          "url": "https://extraoptical.no/acuvue-oasys-1day-for-astigmatism-30stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.214711+00:00"
         }
       ]
@@ -4837,7 +4837,7 @@
           "shipping": 0.0,
           "total_price": 995.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+Multifocal+Toric+3+stk&fid=1650&url=https://extraoptical.no/biofinity-multifocal-toric-3-stk",
+          "url": "https://extraoptical.no/biofinity-multifocal-toric-3-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.215178+00:00"
         }
       ]
@@ -4876,7 +4876,7 @@
           "shipping": 45,
           "total_price": 700.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+Toric+XR+3+stk&fid=1650&url=https://extraoptical.no/biofinity-toric-xr-3-stk",
+          "url": "https://extraoptical.no/biofinity-toric-xr-3-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.204784+00:00"
         },
         {
@@ -4924,7 +4924,7 @@
           "shipping": 45,
           "total_price": 370.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Biofinity+XR+3+stk-1&fid=1650&url=https://extraoptical.no/biofinity-xr-3-stk-1",
+          "url": "https://extraoptical.no/biofinity-xr-3-stk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200319+00:00"
         },
         {
@@ -4972,7 +4972,7 @@
           "shipping": 0.0,
           "total_price": 1265.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+180+stk&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-180-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-180-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194407+00:00"
         }
       ]
@@ -5020,7 +5020,7 @@
           "shipping": 45,
           "total_price": 520.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+Multi+30+st&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-multifocal-30-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-multifocal-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194430+00:00"
         }
       ]
@@ -5059,7 +5059,7 @@
           "shipping": 0.0,
           "total_price": 1155.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+Multi+90+st&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-multifocal-90-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-multifocal-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194451+00:00"
         }
       ]
@@ -5107,7 +5107,7 @@
           "shipping": 45,
           "total_price": 420.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+Toric+30+st&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-toric-30-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-toric-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194471+00:00"
         }
       ]
@@ -5155,7 +5155,7 @@
           "shipping": 0.0,
           "total_price": 995.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Aquacomfort+Plus+Toric+90+st&fid=1650&url=https://extraoptical.no/dailies-aquacomfort-plus-toric-90-stk",
+          "url": "https://extraoptical.no/dailies-aquacomfort-plus-toric-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194492+00:00"
         }
       ]
@@ -5194,7 +5194,7 @@
           "shipping": 0.0,
           "total_price": 1985.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Dailies+Total1+180+stk&fid=1650&url=https://extraoptical.no/dailies-total1-180-stk",
+          "url": "https://extraoptical.no/dailies-total1-180-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194556+00:00"
         }
       ]
@@ -5215,7 +5215,7 @@
           "shipping": 0.0,
           "total_price": 1485.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Focus+Dailies+all+day+Comfort+180+st&fid=1650&url=https://extraoptical.no/focus-dailies-all-day-comfort-180-stk",
+          "url": "https://extraoptical.no/focus-dailies-all-day-comfort-180-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200297+00:00"
         }
       ]
@@ -5263,7 +5263,7 @@
           "shipping": 45,
           "total_price": 300.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+1+day+30+stk&fid=1650&url=https://extraoptical.no/proclear-1-day-30-stk",
+          "url": "https://extraoptical.no/proclear-1-day-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194616+00:00"
         }
       ]
@@ -5311,7 +5311,7 @@
           "shipping": 45,
           "total_price": 740.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+1+day+90+stk&fid=1650&url=https://extraoptical.no/proclear-1-day-90-stk",
+          "url": "https://extraoptical.no/proclear-1-day-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194635+00:00"
         }
       ]
@@ -5359,7 +5359,7 @@
           "shipping": 45,
           "total_price": 470.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+1+day+Multifocal+30+stk&fid=1650&url=https://extraoptical.no/proclear-1-day-multifocal-30-stk",
+          "url": "https://extraoptical.no/proclear-1-day-multifocal-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194655+00:00"
         }
       ]
@@ -5407,7 +5407,7 @@
           "shipping": 45,
           "total_price": 640.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+Multifocal+6+stk&fid=1650&url=https://extraoptical.no/proclear-multifocal-6-stk",
+          "url": "https://extraoptical.no/proclear-multifocal-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194675+00:00"
         }
       ]
@@ -5428,7 +5428,7 @@
           "shipping": 0.0,
           "total_price": 995.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+Multifocal+Toric+3+stk&fid=1650&url=https://extraoptical.no/proclear-multifocal-toric-3-stk",
+          "url": "https://extraoptical.no/proclear-multifocal-toric-3-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194695+00:00"
         }
       ]
@@ -5449,7 +5449,7 @@
           "shipping": 45,
           "total_price": 740.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+Multifocal+XR+3+stk&fid=1650&url=https://extraoptical.no/proclear-multifocal-xr-3-stk",
+          "url": "https://extraoptical.no/proclear-multifocal-xr-3-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194719+00:00"
         }
       ]
@@ -5470,7 +5470,7 @@
           "shipping": 45,
           "total_price": 840.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Proclear+Toric+XR+3+stk&fid=1650&url=https://extraoptical.no/proclear-toric-xr-3-stk",
+          "url": "https://extraoptical.no/proclear-toric-xr-3-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.194872+00:00"
         }
       ]
@@ -5518,7 +5518,7 @@
           "shipping": 45,
           "total_price": 434.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Soflens+38+6+stk&fid=1650&url=https://extraoptical.no/soflens-38-6-stk",
+          "url": "https://extraoptical.no/soflens-38-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195012+00:00"
         }
       ]
@@ -5566,7 +5566,7 @@
           "shipping": 45,
           "total_price": 390.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Daily+Disposable+Toric+30+st&fid=1650&url=https://extraoptical.no/soflens-daily-disposable-for-astigmatism-30-stk",
+          "url": "https://extraoptical.no/soflens-daily-disposable-for-astigmatism-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195109+00:00"
         }
       ]
@@ -5596,7 +5596,7 @@
           "shipping": 45,
           "total_price": 600.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=SofLens+Multifocal+6+stk&fid=1650&url=https://extraoptical.no/soflens-multi-focal-6-stk",
+          "url": "https://extraoptical.no/soflens-multi-focal-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.195129+00:00"
         },
         {
@@ -5833,7 +5833,7 @@
           "shipping": 45,
           "total_price": 340.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Focus+Dailies+ll+day+Comfort+30+stk&fid=1650&url=https://extraoptical.no/focus-dailies-all-day-comfort-30-stk",
+          "url": "https://extraoptical.no/focus-dailies-all-day-comfort-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200227+00:00"
         },
         {
@@ -5908,7 +5908,7 @@
           "shipping": 45,
           "total_price": 800.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Focus+Dailies+all+day+Comfort+90+stk&fid=1650&url=https://extraoptical.no/focus-dailies-all-day-comfort-90-stk",
+          "url": "https://extraoptical.no/focus-dailies-all-day-comfort-90-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-05T01:15:43.200264+00:00"
         }
       ]
@@ -6887,7 +6887,7 @@
           "shipping": 45,
           "total_price": 120.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Nor_PureMoist+90ml&fid=1650&url=https://extraoptical.no/puremoist-linseveske-90ml-1#variant=1404",
+          "url": "https://extraoptical.no/puremoist-linseveske-90ml-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning#variant=1404",
           "checked_at": "2026-10-05T01:15:43.195950+00:00"
         },
         {
@@ -6953,7 +6953,7 @@
           "shipping": 45,
           "total_price": 204.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Nor_PureMoist+300ml&fid=1650&url=https://extraoptical.no/puremoist-linseveske-300ml-1#variant=1403",
+          "url": "https://extraoptical.no/puremoist-linseveske-300ml-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning#variant=1403",
           "checked_at": "2026-10-05T01:15:43.195921+00:00"
         }
       ]
@@ -6996,15 +6996,6 @@
           "checked_at": "2026-10-05T01:16:05.071441+00:00"
         },
         {
-          "merchant": "Extra Optical",
-          "price": 115.0,
-          "shipping": 45,
-          "total_price": 160.0,
-          "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Nor_Express+355ml&fid=1650&url=https://extraoptical.no/express-linseveske-355ml-1#variant=1403",
-          "checked_at": "2026-10-05T01:15:43.195996+00:00"
-        },
-        {
           "merchant": "Lensway",
           "price": 110.0,
           "shipping": 50,
@@ -7012,6 +7003,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-56)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fopti-free-express-extra-56)",
           "checked_at": "2026-10-05T01:15:57.125760+00:00"
+        },
+        {
+          "merchant": "Extra Optical",
+          "price": 115.0,
+          "shipping": 45,
+          "total_price": 160.0,
+          "availability": "in_stock",
+          "url": "https://extraoptical.no/express-linseveske-355ml-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning#variant=1403",
+          "checked_at": "2026-10-05T01:15:43.195996+00:00"
         }
       ]
     },
@@ -7031,7 +7031,7 @@
           "shipping": 45,
           "total_price": 110.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Nor_Express+120ml&fid=1650&url=https://extraoptical.no/express-linseveske-120ml#variant=1403",
+          "url": "https://extraoptical.no/express-linseveske-120ml?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning#variant=1403",
           "checked_at": "2026-10-05T01:15:43.205538+00:00"
         }
       ]
@@ -7070,7 +7070,7 @@
           "shipping": 45,
           "total_price": 220.0,
           "availability": "in_stock",
-          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=Nor_Aosept+360ml&fid=1650&url=https://extraoptical.no/aosept-linseveske-360ml-1#variant=1403",
+          "url": "https://extraoptical.no/aosept-linseveske-360ml-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning#variant=1403",
           "checked_at": "2026-10-05T01:15:43.196014+00:00"
         }
       ]
