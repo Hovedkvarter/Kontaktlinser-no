@@ -477,6 +477,7 @@ a { color: inherit; }
 .price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
 .price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
+.price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
@@ -573,6 +574,136 @@ a { color: inherit; }
   .price-intel-stat:first-child { border-left: none; padding-left: 0; }
   .price-intel-stat-strip { flex-wrap: nowrap; padding: 16px 20px; }
 }
+
+/* Price Intelligence Gold Standard v1 — ChatGPT branch, 2026-10-05.
+   Presentation-only override layer. The existing calculation engine,
+   offer engine, affiliate logic and shared brand/series chart rules stay intact. */
+.price-intel{
+  max-width:none;
+  padding:22px 18px;
+  border-radius:18px;
+  box-shadow:none;
+}
+.price-intel-head{margin-bottom:24px}
+.price-intel-eyebrow{font-size:.68rem;letter-spacing:.11em}
+.price-intel-head-text h2{font-size:1.45rem;letter-spacing:-.02em}
+.price-intel-head-text p{max-width:620px;font-size:.86rem;line-height:1.6}
+.price-intel-coverage{border:0;background:transparent;padding:0;font-size:.73rem}
+.price-intel-primary{padding:0 0 20px;border-bottom:1px solid var(--border)}
+.price-intel-metrics-row{gap:18px 0}
+.price-intel-value-lg,.price-intel-value{letter-spacing:-.035em}
+.price-intel-metric-label{font-weight:500}
+.price-intel-metric-desc{display:none}
+.price-intel-status-pill{border:0;box-shadow:none}
+.price-intel-period-tabs{margin:18px 0 20px}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
+.price-intel-chart .price-history-chart{border:0;border-radius:0}
+.price-intel-chart-mobile{display:none}
+.price-intel-chart-desktop{display:block}
+.price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.price-intel-card{
+  border:0;border-radius:0;padding:22px 24px;background:transparent;
+  max-width:none!important;flex:1 1 50%;
+}
+.price-intel-card+.price-intel-card{border-left:1px solid var(--border)}
+.price-intel-winners-panel{display:none}
+.price-intel-winners-panel.active{display:block}
+.price-intel-card h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.055em}
+.price-intel-card-head-note{font-size:.68rem}
+.price-intel-card-row{font-size:.82rem;padding:4px 0}
+.price-intel-spread-callout{background:transparent;border-radius:0;padding:14px 0 0;margin-top:12px;border-top:1px solid var(--border)}
+.price-intel-spread-callout strong{font-size:2rem;color:var(--ink);letter-spacing:-.04em}
+.price-intel-winner-bar{height:5px}
+.price-intel-conclusion{margin-top:28px;border-radius:14px;background:#f3f7fb;border:1px solid #e6edf4}
+.price-intel-summary{padding:18px 20px}
+.price-intel-summary strong{color:var(--ink);font-size:.9rem}
+.price-intel-summary-icon{display:none}
+.price-intel-stat-strip{padding:16px 20px;background:rgba(255,255,255,.72)}
+.price-intel-stat svg{display:none}
+.price-intel-stat strong{font-size:1rem;letter-spacing:-.02em}
+.price-intel-stat span{font-size:.69rem}
+.price-intel-history-data{margin-top:30px;padding-top:26px;border-top:1px solid var(--border)}
+.price-intel-section-kicker{margin:0 0 4px;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
+.price-intel-section-head h3{margin:0;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--ink)}
+.price-intel-section-head p{margin:5px 0 0;max-width:680px;font-size:.76rem;line-height:1.5;color:var(--muted)}
+.price-intel-history-table-wrap{margin-top:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.price-intel-history-table{width:100%;border-collapse:collapse;min-width:760px;font-size:.76rem}
+.price-intel-history-table th,.price-intel-history-table td{padding:10px 12px;border-bottom:1px solid var(--border);text-align:right;white-space:nowrap}
+.price-intel-history-table thead th{font-size:.64rem;text-transform:uppercase;letter-spacing:.045em;color:var(--muted);font-weight:600}
+.price-intel-history-table th:first-child,.price-intel-history-table td:first-child{text-align:left}
+.price-intel-history-table tbody th{font-weight:650;color:var(--ink)}
+.price-intel-history-table tbody td{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.price-intel-footer{margin-top:18px}
+
+@media (min-width:860px){
+  .price-intel{padding:32px 36px}
+  .price-intel-head{align-items:flex-start}
+  .price-intel-primary.active{gap:34px;align-items:center}
+  .price-intel-metrics-row{justify-content:flex-start!important}
+  .price-intel-metric-current{min-width:170px}
+  .price-intel-metric-col{padding:0 22px}
+  .price-intel-value-lg{font-size:3.2rem}
+  .price-intel-value{font-size:1.55rem}
+  .price-intel-status-pill{width:260px;padding:14px 16px}
+  .price-intel-chart-shell{max-width:980px}
+  .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
+  .price-intel-stat-strip{gap:0}
+  .price-intel-history-details>summary{display:none}
+}
+@media (max-width:859px){
+  .price-intel{margin-top:22px;padding:18px 14px;border-radius:14px}
+  .price-intel-head{margin-bottom:18px}
+  .price-intel-head-text h2{font-size:1.25rem}
+  .price-intel-coverage{margin-top:10px}
+  .price-intel-primary.active{display:block}
+  .price-intel-metric-current{flex:1 1 100%;padding-bottom:10px}
+  .price-intel-value-lg{font-size:2.45rem}
+  .price-intel-value{font-size:1.2rem}
+  .price-intel-metric-col{flex:1 1 50%;padding:8px 12px 8px 0;border:0}
+  .price-intel-metric-col:nth-child(even){padding-left:12px;border-left:1px solid var(--border)}
+  .price-intel-status-pill{width:auto;margin-top:12px}
+  .price-intel-period-tabs{flex-wrap:wrap;overflow:visible;gap:8px;padding-bottom:0}
+  .price-intel-period-tab{flex:0 0 auto;min-height:40px;padding:8px 13px}
+  .price-intel-period-tab:disabled{display:none}
+  .price-intel-chart-toolbar-badge{display:none}
+  .price-intel-chart-desktop{display:none}
+  .price-intel-chart-mobile{display:block;width:100%;height:auto}
+  .price-intel-chart-wrap{width:100%}
+  .price-intel-chart-mobile .price-history-axis-label-x{display:block!important}
+  .price-intel-cards{display:block;margin-top:24px}
+  .price-intel-card{width:100%;max-width:none!important;padding:18px 4px}
+  .price-intel-card+.price-intel-card{border-left:0;border-top:1px solid var(--border)}
+  .price-intel-winner-row{grid-template-columns:72px 1fr auto}
+  .price-intel-conclusion{margin-top:22px}
+  .price-intel-summary{padding:16px}
+  .price-intel-stat-strip{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;padding:16px}
+  .price-intel-stat{display:block;padding:0;border:0}
+  .price-intel-history-data{margin-top:24px;padding-top:22px}
+  .price-intel-history-details{margin-top:12px}
+  .price-intel-history-details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:42px;padding:10px 0;font-size:.78rem;font-weight:650;color:var(--blue)}
+  .price-intel-history-details>summary::-webkit-details-marker{display:none}
+  .price-intel-history-details>summary::after{content:"+";font-size:1.1rem;color:var(--muted)}
+  .price-intel-history-details[open]>summary::after{content:"–"}
+  .price-intel-history-details:not([open])>.price-intel-history-table-wrap{display:none}
+  .price-intel-history-table-wrap{overflow:visible}
+  .price-intel-history-table{min-width:0;display:block}
+  .price-intel-history-table thead{display:none}
+  .price-intel-history-table tbody{display:block}
+  .price-intel-history-table tr{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;padding:14px 0;border-bottom:1px solid var(--border)}
+  .price-intel-history-table th,.price-intel-history-table td{display:block;padding:0;border:0;text-align:left!important;white-space:normal}
+  .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Space Grotesk',sans-serif;font-size:.88rem}
+  .price-intel-history-table td{font-size:.78rem}
+  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+}
+
 """
 
 # Navnet er historisk (fonter) - inneholder nå også favicon-taggene, satt
@@ -4105,7 +4236,7 @@ def _nice_axis_ticks(lo: float, hi: float, target: int = 4) -> list[float]:
     return [lo + span * i / (target - 1) for i in range(target)]
 
 
-def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> str:
+def _render_price_intelligence_chart(window: list[dict], gradient_id: str, mobile: bool = False) -> str:
     """Strammere graf enn _render_price_history_chart() (KUN brukt av denne,
     IKKE av merke-/serie-sidenes _family_price_insight_data()-visning, som
     fortsatt bruker den gamle -- uendret der, se Kai sin regel om å ikke
@@ -4121,8 +4252,8 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
     min_price, max_price = _price_intel_chart_domain(prices)
     price_range = max_price - min_price
 
-    width, height = 680, 140
-    pad_left, pad_right, pad_top, pad_bottom = 46, 8, 12, 20
+    width, height = ((340, 205) if mobile else (680, 140))
+    pad_left, pad_right, pad_top, pad_bottom = ((42, 8, 12, 24) if mobile else (46, 8, 12, 20))
     plot_w = width - pad_left - pad_right
     plot_h = height - pad_top - pad_bottom
     baseline_y = pad_top + plot_h
@@ -4163,25 +4294,23 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
     )
     # Flere dato-etiketter på desktop (v2-redesign, rapport #3: mockupen
     # viser ~7-9 datoer -- "31. aug · 3. sep · 6. sep · ... · 29. sep",
-    # ikke bare første/siste). Serveren rendrer ALLE tikkene (samme HTML
-    # på mobil og desktop, ingen JS/duplisert graf nødvendig) -- CSS
-    # skjuler de mellomliggende under 640px (`.price-history-axis-label-x`
-    # uten `-edge`-klassen), slik at mobil fortsatt bare viser første/siste
+    # ikke bare første/siste). Desktop rendrer opptil ni tikker. Mobilvarianten bruker samme data, men
+    # en egen smal SVG-geometri med tre tikker (første/midt/siste), slik at
+    # grafen beholder lesbar høyde og aksetekst på 375px uten horisontal scroll
     # (samme kompakte mobilvisning som før). Ca. én tikk per uke, med et
     # tak på 9 for å unngå overfylt akse på et helt års historikk.
-    tick_step = max(1, round((n - 1) / 7)) if n > 1 else 1
-    tick_idx = sorted(set(range(0, n, tick_step))) if n > 1 else [0]
-    # Siste regulære tikk droppes hvis den ligger for nær selve sluttpunktet
-    # (n-1, alltid lagt til separat under) -- uten dette kunne to nesten
-    # sammenfallende datoer (f.eks. "28.09" og "29.09") ende opp side ved
-    # side og visuelt kollidere, oppdaget empirisk i browser-panelet, ikke
-    # antatt.
-    if n > 1 and tick_idx and (n - 1 - tick_idx[-1]) < tick_step / 2:
-        tick_idx = tick_idx[:-1]
-    if n > 1:
-        tick_idx.append(n - 1)
-    if len(tick_idx) > 9:
-        tick_idx = sorted(set(tick_idx[::2]) | {0, n - 1})
+    if mobile and n > 1:
+        tick_idx = sorted(set([0, (n - 1) // 2, n - 1]))
+    else:
+        tick_step = max(1, round((n - 1) / 7)) if n > 1 else 1
+        tick_idx = sorted(set(range(0, n, tick_step))) if n > 1 else [0]
+        # Siste regulære tikk droppes hvis den ligger for nær selve sluttpunktet.
+        if n > 1 and tick_idx and (n - 1 - tick_idx[-1]) < tick_step / 2:
+            tick_idx = tick_idx[:-1]
+        if n > 1:
+            tick_idx.append(n - 1)
+        if len(tick_idx) > 9:
+            tick_idx = sorted(set(tick_idx[::2]) | {0, n - 1})
     date_axis_html = "\n      ".join(
         f'<text x="{x_for(i):.1f}" y="{height - 5}" '
         f'text-anchor="{"start" if i == 0 else "end" if i == n - 1 else "middle"}" '
@@ -4189,7 +4318,7 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str) -> st
         f'{escape(short_date(window[i]["date"]))}</text>'
         for i in tick_idx
     )
-    return f"""<svg viewBox="0 0 {width} {height}" class="price-history-chart price-intel-chart" role="img" aria-label="Prisutvikling, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
+    return f"""<svg viewBox="0 0 {width} {height}" class="price-history-chart price-intel-chart {"price-intel-chart-mobile" if mobile else "price-intel-chart-desktop"}" role="img" aria-label="Prisutvikling, fra {_fmt_kr(real_min)} til {_fmt_kr(real_max)}">
       <defs>
         <linearGradient id="{gradient_id}" x1="0" y1="{pad_top}" x2="0" y2="{baseline_y}" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
@@ -4588,9 +4717,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     default_key = "30d" if "30d" in period_keys else "all"
     spread = _price_intelligence_merchant_spread(offers) if offers else None
     all_retailers = {o["retailer"] for o in offers} if offers else set()
-    winners = _price_intelligence_merchant_winners(history, all_retailers)
     qty_table = _price_intelligence_quantity_table(offers, unit_singular, unit_plural) if offers else None
-    recent_winners = _price_intelligence_recent_winner_count(history, 90)
     # Bidireksjonal "bytte"-pil, kun brukt av egen-data-stripen sitt
     # "N ganger har prisvinneren skiftet"-element -- ingen delt konstant
     # finnes fra før som passer semantisk (TROPHY_ICON_SVG er allerede
@@ -4606,7 +4733,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # mockupens eksplisitte rekkefølge (visuelt reset-brief punkt 4).
     # Oppdaget 2026-09-29 ved å faktisk sjekke et produkt med færre enn 90
     # dagers historikk i browser-panelet, ikke antatt.
-    tabs, primary_strips, chart_panels, stat_strips, summary_strips = [], [], [], [], []
+    tabs, primary_strips, chart_panels, stat_strips, summary_strips, history_table_rows, winner_panels = [], [], [], [], [], [], []
     n_enabled = 0
     for key, label, days in PRICE_INTELLIGENCE_PERIODS:
         if key not in period_keys:
@@ -4623,7 +4750,9 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         status_mod, status_title, status_msg = _price_intelligence_status_text(status, metrics["n_days"], label, metrics["median"])
         summary_text = _price_intelligence_summary_text(product_name, metrics, label, spread)
         chart_svg = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFade-{key}")
+        chart_svg_mobile = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFadeMobile-{key}", mobile=True)
         period_phrase = "i hele perioden" if key == "all" else f"siste {label}"
+        period_winners = _price_intelligence_merchant_winners(metrics["window"], all_retailers)
 
         primary_strips.append(f'''<div class="price-intel-primary{active_cls}" data-period="{key}">
     <div class="price-intel-metrics-row">
@@ -4656,7 +4785,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         <span>Laveste registrerte produktpris per dag</span>
         <span class="price-intel-chart-toolbar-badge">{_chart_toolbar_icon}Viser laveste registrerte pris per dag</span>
       </div>
-      <div class="price-intel-chart">{chart_svg}</div>
+      <div class="price-intel-chart-wrap">{chart_svg}{chart_svg_mobile}</div>
     </div>
   </div>''')
         # Egen-data-stripe (v2-redesign, regel 16) -- KUN elementer der
@@ -4666,16 +4795,17 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         if status["flat_days"] >= 1:
             n = status["flat_days"]
             stat_parts.append((CALENDAR_ICON_SVG, f'{n} {"dag" if n == 1 else "dager"}', 'siden siste prisendring'))
-        if winners and winners["changes"] > 0:
-            n = winners["changes"]
-            stat_parts.append((_swap_icon, f'{n} {"gang" if n == 1 else "ganger"}', f'har prisvinneren skiftet de siste {winners["n_days"]} dagene'))
-        if recent_winners:
-            n = recent_winners["n_stores"]
-            stat_parts.append((TROPHY_ICON_SVG, f'{n} {"butikk" if n == 1 else "butikker"}', f'har vært prisvinner siste {recent_winners["n_days"]} dagene'))
+        if period_winners and period_winners["changes"] > 0:
+            n = period_winners["changes"]
+            stat_parts.append((_swap_icon, f'{n} {"gang" if n == 1 else "ganger"}', f'har prisvinneren skiftet {period_phrase}'))
+        if period_winners:
+            n = len([1 for _store, count in period_winners["ranked"] if count > 0])
+            if n > 0:
+                stat_parts.append((TROPHY_ICON_SVG, f'{n} {"butikk" if n == 1 else "butikker"}', f'har vært prisvinner {period_phrase}'))
         if metrics["low"] != metrics["high"]:
             range_pct_display = f'{status["range_pct"]:.1f}'.replace('.', ',')
-            stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisvariasjon {period_phrase}'))
-        stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert'))
+            stat_parts.append((_PRICE_INTEL_STATUS_ICONS["up"], f'{range_pct_display} %', f'prisspenn {period_phrase}'))
+        stat_parts.append((TAG_ICON_SVG, _fmt_kr(metrics["low"]), 'laveste pris vi har registrert' if key == "all" else 'laveste pris i perioden'))
         stat_html = "".join(
             f'<div class="price-intel-stat">{icon}<div><strong>{escape(val)}</strong><span>{escape(desc)}</span></div></div>'
             for icon, val, desc in stat_parts
@@ -4689,13 +4819,78 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <div class="price-intel-stat-strip">{stat_html}</div>
   </div>''')
 
+        # Prisvinnere følger valgt periode. Dagens butikkspredning er
+        # fortsatt et øyeblikksbilde og står fast, mens historisk
+        # vinnerrangering/andel/bytter bytter sammen med graf og metrikker.
+        if period_winners and len(period_winners["ranked"]) >= 1:
+            max_count = max(1, period_winners["ranked"][0][1])
+            positive_winners = [(store, count) for store, count in period_winners["ranked"] if count > 0]
+            zero_winner_count = sum(1 for _store, count in period_winners["ranked"] if count == 0)
+            winner_rows = "".join(
+                f'<div class="price-intel-winner-row"><span class="price-intel-winner-store">{escape(store)}</span>'
+                f'<span class="price-intel-winner-bar"><span style="width:{round(count / max_count * 100)}%"></span></span>'
+                f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"} &middot; {round(count / period_winners["total_wins"] * 100)} %</span></div>'
+                for store, count in positive_winners
+            )
+            zero_note = (
+                f'<p class="price-intel-zero-note">{zero_winner_count} {"annen butikk" if zero_winner_count == 1 else "andre butikker"} er også sammenlignet, men har ikke vært billigst i perioden.</p>'
+                if zero_winner_count else ""
+            )
+            changes_sentence = (
+                f' Prisvinneren har endret seg {period_winners["changes"]} {"gang" if period_winners["changes"] == 1 else "ganger"} i perioden.'
+                if period_winners["changes"] > 0 else ""
+            )
+            tops = period_winners["top_stores"]
+            if len(tops) == 1:
+                top_sentence = f'{escape(tops[0])} har hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager i perioden.'
+            else:
+                names = ", ".join(escape(t) for t in tops[:-1]) + " og " + escape(tops[-1])
+                both = "begge" if len(tops) == 2 else "alle"
+                top_sentence = f'{names} har {both} hatt lavest registrert produktpris i {period_winners["top_count"]} av {period_winners["n_days"]} observerte dager i perioden.'
+            winner_panels.append(f'''<div class="price-intel-card price-intel-winners-panel{active_cls}" data-period="{key}">
+      <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner">{TROPHY_ICON_SVG}Prisvinnere over tid</h3><span class="price-intel-card-head-note">{escape(label)}</span></div>
+      <div class="price-intel-winners-list">{winner_rows}</div>
+      {zero_note}
+      <p class="price-intel-card-note">{top_sentence}{changes_sentence}</p>
+    </div>''')
+
+        # Gold Standard: server-rendret "Prishistorikk i tall". Dette er
+        # samme canonical beregning som driver graf/metrikker, ikke en
+        # separat SEO-kopi. Dermed kan bruker, crawler og senere Chillout
+        # Specialist lese periodedata uten å måtte tolke SVG eller klikke
+        # faner. Kun perioder med faktisk nok historikk rendres.
+        price_changes = sum(
+            1 for prev, cur in zip(metrics["window"], metrics["window"][1:])
+            if prev["price"] != cur["price"]
+        )
+        winner_changes = period_winners["changes"] if period_winners else 0
+        distinct_winners = (
+            len([1 for _store, count in period_winners["ranked"] if count > 0])
+            if period_winners else 0
+        )
+        range_pct_text = f'{status["range_pct"]:.1f} %'.replace('.', ',')
+        history_table_rows.append(
+            f'<tr><th scope="row">{escape(label)}</th>'
+            f'<td>{_fmt_kr(metrics["low"])}</td>'
+            f'<td>{_fmt_kr(metrics["high"])}</td>'
+            f'<td>{_fmt_kr(metrics["median"])}</td>'
+            f'<td>{escape(range_pct_text)}</td>'
+            f'<td>{price_changes}</td>'
+            f'<td>{winner_changes}</td>'
+            f'<td>{distinct_winners}</td></tr>'
+        )
+
     if n_enabled == 0:
         return ""
 
-    script_html = "" if n_enabled <= 1 else """<script>
+    script_html = """<script>
 (function () {
   var wrap = document.currentScript.closest('.price-intel');
   if (!wrap) return;
+  var historyDetails = wrap.querySelector('.price-intel-history-details');
+  if (historyDetails && window.matchMedia && window.matchMedia('(max-width: 859px)').matches) {
+    historyDetails.removeAttribute('open');
+  }
   wrap.querySelectorAll('.price-intel-period-tab[data-period]').forEach(function (tab) {
     tab.addEventListener('click', function () {
       var period = tab.getAttribute('data-period');
@@ -4730,37 +4925,6 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 {escape(unit_singular)}.</p>
   </div>'''
 
-    # "Prisvinnere over tid" (regel 13-16) -- bruker HELE historikken (ikke
-    # bare valgt periode), vises derfor også KUN én gang. 0-dagers-
-    # butikker beholdes synlige (Kai bekreftet dette eksplisitt en
-    # tidligere runde samme uke), men visuelt dempet (v2-redesign regel
-    # 13: "Do not let zero-value merchants create visual clutter").
-    winners_card = ""
-    if winners and len(winners["ranked"]) >= 1:
-        max_count = max(1, winners["ranked"][0][1])
-        rows = "".join(
-            f'<div class="price-intel-winner-row{" price-intel-winner-row-zero" if count == 0 else ""}"><span class="price-intel-winner-store">{escape(store)}</span>'
-            f'<span class="price-intel-winner-bar"><span style="width:{round(count / max_count * 100)}%"></span></span>'
-            f'<span class="price-intel-winner-days">{count} {"dag" if count == 1 else "dager"}{" &middot; " + str(round(count / winners["total_wins"] * 100)) + " %" if count and winners["total_wins"] else ""}</span></div>'
-            for store, count in winners["ranked"][:6]
-        )
-        changes_sentence = (
-            f' Prisvinneren har endret seg {winners["changes"]} {"gang" if winners["changes"] == 1 else "ganger"} de siste {winners["n_days"]} dagene.'
-            if winners["changes"] > 0 else ""
-        )
-        tops = winners["top_stores"]
-        if len(tops) == 1:
-            top_sentence = f'{escape(tops[0])} har hatt lavest registrert produktpris i {winners["top_count"]} av de siste {winners["n_days"]} dagene.'
-        else:
-            names = ", ".join(escape(t) for t in tops[:-1]) + " og " + escape(tops[-1])
-            both = "begge" if len(tops) == 2 else "alle"
-            top_sentence = f'{names} har {both} hatt lavest registrert produktpris i {winners["top_count"]} av de siste {winners["n_days"]} dagene.'
-        winners_card = f'''<div class="price-intel-card">
-    <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner">{TROPHY_ICON_SVG}Prisvinnere over tid</h3><span class="price-intel-card-head-note">Siste {winners["n_days"]} dager</span></div>
-    <div class="price-intel-winners-list">{rows}</div>
-    <p class="price-intel-card-note">{top_sentence}{changes_sentence}</p>
-  </div>'''
-
     # "Kjøper du flere esker?" (visuelt reset-brief punkt 9, betinget
     # skjult av _price_intelligence_quantity_table() selv -- se dens
     # docstring for begrunnelsen) -- samme CURRENT-tilbud-grunnlag som
@@ -4790,7 +4954,8 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <p class="price-intel-qty-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.</p>
   </div>'''
 
-    cards_html = f'<div class="price-intel-cards">{spread_card}{winners_card}{qty_card}</div>' if (spread_card or winners_card or qty_card) else ""
+    winner_panels_html = "".join(winner_panels)
+    cards_html = f'<div class="price-intel-cards">{spread_card}{winner_panels_html}{qty_card}</div>' if (spread_card or winner_panels_html or qty_card) else ""
 
     return f'''<div class="price-intel">
   <div class="price-intel-head">
@@ -4806,6 +4971,24 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
   {"".join(chart_panels)}
   {cards_html}
   {"".join(summary_strips)}
+  <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">
+    <div class="price-intel-section-head">
+      <div>
+        <p class="price-intel-section-kicker">Historiske nøkkeltall</p>
+        <h3 id="price-intel-history-title">Prishistorikk i tall</h3>
+        <p>Samme prisdata som i grafen, publisert som lesbare nøkkeltall for periodene vi har nok historikk til å beregne.</p>
+      </div>
+    </div>
+    <details class="price-intel-history-details" open>
+      <summary>Se historiske nøkkeltall</summary>
+      <div class="price-intel-history-table-wrap">
+        <table class="price-intel-history-table">
+          <thead><tr><th>Periode</th><th>Laveste</th><th>Høyeste prisnivå</th><th>Median</th><th>Prisspenn</th><th>Prisendringer</th><th>Vinnerbytter</th><th>Butikker billigst</th></tr></thead>
+          <tbody>{"".join(history_table_rows)}</tbody>
+        </table>
+      </div>
+    </details>
+  </section>
   <div class="price-intel-footer">
     <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{_SHIELD_ICON}</svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
     <span>Prisdata sist bekreftet: {_format_no_date(latest_date)}</span>
