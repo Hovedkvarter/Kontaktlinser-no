@@ -5271,3 +5271,29 @@ Offer-schema-strategi eller ProductGroup-strategi.
 - Tester: `python3 test_seo_schema.py` (nye, 8 stk). NB: `test_clickout_rendering.py`
   (6 feiler: `render_winner_widget` returnerer 3 verdier, testen forventer 2) og
   `test_chillout_clickout.py` (importsti) feilet allerede på HEAD før denne runden.
+
+
+## Product SEO Growth Round 1 (2026-10-07)
+
+Basert på `kontaktlinser_product_seo_growth_round_1_2026-10-07.md`. Tre små, regelstyrte
+tiltak. Ingen endring av URL, canonical, Product-identitet, Offer-schema, ProductGroup,
+titler, H1, meta description eller pakningsspesifikke SEO-tekster.
+
+- **DN-1 Sibling-boksen lister alle andre pakninger.** `find_pack_siblings()` finner
+  alle andre pakningsstørrelser av samme produkt (lik id-stamme foran `-Npk`, samme merke
+  og kategori, aldri navnelikhet), stigende. `pack_size_callout` har nå én rad per søsken
+  med pris per linse og prosentforskjell (samme formel som før). Med ett søsken er markup
+  identisk med før. Rammer de 5 tre-pakningsgruppene (15 produkter).
+- **DN-2 «Hvor lenge varer»-FAQ følger produktegenskapen.** `_is_daily_lens()` leser
+  spesifikasjonen `Brukstid == "Dagslinse"` i stedet for `category_slug == "dagslinser"`.
+  Teksten er den eksisterende, uendret. Rammer 37 daglige toriske (18), multifokale (18)
+  og fargede (1) linser som tidligere ikke fikk spørsmålet.
+- **DN-3 Alternativ stavemåte (lite eksperiment).** Valgfritt `alt_name` på en familie i
+  `product_families.json` (i dag bare `dailies-total1`: «Dailies Total 1»). Gir én nøytral
+  setning i «Om»-teksten: «Produktnavnet kan også skrives Dailies Total 1 Multifocal.»
+  Kun på produktsider, aldri i title, H1, meta, URL, canonical eller JSON-LD. Maks én
+  forekomst per side, kun de 7 Dailies Total1-sidene. Mål `dailies total 1`-søk separat
+  etter 3 til 4 uker.
+- Tester: `python3 test_product_seo_growth.py` (14 stk, bevist med mutasjoner).
+- **Måling:** GSC-baseline for Everclear ELITE 90 og Dailies Total1 Multifocal 90 står i
+  PR-beskrivelsen. Sammenlign sidenivå og query-nivå etter 3 til 4 uker.

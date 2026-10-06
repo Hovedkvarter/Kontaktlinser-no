@@ -4085,6 +4085,37 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
     return stem, int(size_part)
 
 
+def find_pack_siblings(product: dict, products_by_id: dict) -> list[tuple[int, dict]]:
+    """ALLE andre pakningsstørrelser av samme faktiske produkt, stigende etter
+    pakningsstørrelse. "Samme produkt" = lik produkt-stamme i den interne
+    canonical id-en (alt foran avsluttende -Npk) OG samme merke og kategori;
+    aldri navnelikhet. En variant med annet navn i stammen (f.eks.
+    '...-astigmatism-30pk' mot '...-30pk') er et eget produkt og telles ikke."""
+    parsed = _pack_size_from_id(product["id"])
+    if not parsed:
+        return []
+    stem = parsed[0]
+    siblings: list[tuple[int, dict]] = []
+    for pid, other in products_by_id.items():
+        if pid == product["id"]:
+            continue
+        other_parsed = _pack_size_from_id(pid)
+        if not other_parsed or other_parsed[0] != stem:
+            continue
+        if other.get("brand_slug") != product.get("brand_slug") or other.get("category_slug") != product.get("category_slug"):
+            continue
+        siblings.append((other_parsed[1], other))
+    siblings.sort(key=lambda s: s[0])
+    return siblings
+
+
+def _is_daily_lens(product: dict) -> bool:
+    """Dagslinse ut fra den faktiske produktegenskapen (spesifikasjonen
+    "Brukstid"), ikke ut fra hvilken kategori produktet tilfeldigvis ligger i:
+    toriske, multifokale og fargede dagslinser ligger i egne kategorier."""
+    return any(label == "Brukstid" and value == "Dagslinse" for label, value in product.get("specs", []))
+
+
 _NORWEGIAN_MONTHS = ["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"]
 
 
@@ -5277,36 +5308,43 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
     parsed = _pack_size_from_id(product["id"])
     siblings: list[tuple[int, dict]] = []
     if parsed and best and products_by_id:
-        base_stem, pack_size = parsed
-        for pid, p in products_by_id.items():
-            if pid == product["id"]:
-                continue
-            p_parsed = _pack_size_from_id(pid)
-            if p_parsed and p_parsed[0] == base_stem:
-                siblings.append((p_parsed[1], p))
-        if siblings:
-            siblings.sort(key=lambda s: abs(s[0] - pack_size))
-            sibling_pack_size, sibling = siblings[0]
+        _, pack_size = parsed
+        siblings = find_pack_siblings(product, products_by_id)
+        this_per_lens = best["total"] / pack_size
+        callout_rows: list[str] = []
+        for sibling_pack_size, sibling in siblings:
             sibling_offers = reconcile_product(sibling["offers"], now)
             sibling_eligible = [o for o in sibling_offers if o["in_stock"]]
             sibling_best = min(sibling_eligible, key=lambda o: o["total"], default=None)
-            if sibling_best:
-                this_per_lens = best["total"] / pack_size
-                sibling_per_lens = sibling_best["total"] / sibling_pack_size
-                sibling_href = f'/kontaktlinser/{sibling["brand_slug"]}/{sibling["slug"]}/'
-                diff_pct = abs(sibling_per_lens - this_per_lens) / this_per_lens * 100
-                if diff_pct < 1:
-                    comparison = "omtrent samme pris per linse"
-                else:
-                    retning = "billigere" if sibling_per_lens < this_per_lens else "dyrere"
-                    comparison = f"{diff_pct:.0f} % {retning} per linse"
-                per_lens_str = f"{sibling_per_lens:.2f}".replace(".", ",") + " kr/linse"
-                pack_size_callout = f"""<a class="pack-size-callout" href="{escape(sibling_href)}">
+            if not sibling_best:
+                continue
+            sibling_per_lens = sibling_best["total"] / sibling_pack_size
+            sibling_href = f'/kontaktlinser/{sibling["brand_slug"]}/{sibling["slug"]}/'
+            diff_pct = abs(sibling_per_lens - this_per_lens) / this_per_lens * 100
+            if diff_pct < 1:
+                comparison = "omtrent samme pris per linse"
+            else:
+                retning = "billigere" if sibling_per_lens < this_per_lens else "dyrere"
+                comparison = f"{diff_pct:.0f} % {retning} per linse"
+            per_lens_str = f"{sibling_per_lens:.2f}".replace(".", ",") + " kr/linse"
+            callout_rows.append(f"""<a class="pack-size-callout" href="{escape(sibling_href)}">
   <div class="pack-size-callout-text">
     Finnes også i <strong>{sibling_pack_size}-pakning</strong> — {per_lens_str} ({comparison})
   </div>
   <div class="pack-size-callout-arrow">→</div>
-</a>"""
+</a>""")
+        # En rad per andre pakningsstørrelse, stigende. Med ett søsken er
+        # markup identisk med før.
+        pack_size_callout = "\n".join(callout_rows)
+
+    # Alternativ stavemåte (kun familier med eksplisitt "alt_name" i
+    # product_families.json, i dag bare Dailies Total1): én nøytral setning i
+    # "Om"-teksten, aldri i tittel, H1, URL, canonical eller schema.
+    alt_name_html = ""
+    alt_name = (family or {}).get("alt_name")
+    if alt_name and family["name"] in product["name"]:
+        base_name = re.sub(r"\s+\d+-pack$", "", product["name"])
+        alt_name_html = f"<p>Produktnavnet kan også skrives {escape(base_name.replace(family['name'], alt_name, 1))}.</p>"
 
     family_callout = ""
     if family:
@@ -5506,7 +5544,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
             "question": f'Hvor mange linser er det i {product["name"]}?',
             "answer": f'Én pakke inneholder {pack_size} linser.',
         })
-        if product["category_slug"] == "dagslinser":
+        if _is_daily_lens(product):
             days_two_eyes = pack_size // 2
             product_faq.append({
                 "question": f'Hvor lenge varer {product["name"]}?',
@@ -5840,7 +5878,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <div class="kz">
     {ai_summary_html}
     <h2>Om {escape(product["name"])}</h2>
-    <p>{escape(long_description)}</p>
+    <p>{escape(long_description)}</p>{alt_name_html}
     {badges_html}
     {aliases_html}
     {kz_specs_html}
