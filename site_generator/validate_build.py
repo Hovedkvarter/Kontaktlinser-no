@@ -100,19 +100,58 @@ def check_absolute_image_urls(errors: list[str]) -> None:
                     errors.append(f"RELATIV JSON-LD image: {rel} ({v})")
 
 
+# Rotfiler som workflowen kopierer inn i output ETTER validate_build (se
+# build-and-deploy.yml, steget "Legg til robots.txt, llms.txt, sitemap ..."). De
+# finnes derfor ikke i BUILD_DIR når sjekken kjører, men skal ligge i repo-roten.
+_ROOT_FILE_RE = re.compile(r"^(robots\.txt|llms\.txt|sitemap\.xml|sitemap-[a-z0-9-]+\.xml)$")
+# Slutter URL-en på tegnsetting i løpende tekst ("se https://kontaktlinser.no/om-oss/.")
+# hører tegnet til setningen, ikke til URL-en.
+_LLMS_URL_RE = re.compile(r"https://kontaktlinser\.no(/[^\s,)>\]\"'<]*)")
+_LLMS_TRAILING_PUNCTUATION = ".:;!?"
+
+
+def llms_internal_paths(text: str) -> list[str]:
+    """Rene stier (uten query, fragment og avsluttende tegnsetting) for alle
+    https://kontaktlinser.no-URL-er i teksten. Eksterne URL-er og relative
+    lenker fanges ikke av mønsteret og sjekkes dermed ikke, som før."""
+    paths: set[str] = set()
+    for raw in _LLMS_URL_RE.findall(text):
+        path = re.split(r"[?#]", raw.rstrip(_LLMS_TRAILING_PUNCTUATION), maxsplit=1)[0]
+        paths.add(path or "/")
+    return sorted(paths)
+
+
+def llms_path_exists(path: str, build_dir: Path, repo_root: Path) -> bool:
+    """True hvis stien peker på noe som faktisk publiseres: forsiden, en bygd
+    side (.../index.html), en fil i output (f.eks. /static/logo.png), eller en av
+    rotfilene som kopieres inn etter validering. Alt annet er en død lenke."""
+    parts = [p for p in path.split("/") if p]
+    if any(p in (".", "..") for p in parts):
+        return False
+    if not parts:
+        return (build_dir / "index.html").is_file()
+    rel = "/".join(parts)
+    if path.endswith("/"):
+        # Avsluttende skråstrek betyr en sideadresse, aldri en fil (/robots.txt/ er 404)
+        return (build_dir / rel / "index.html").is_file()
+    if len(parts) == 1 and _ROOT_FILE_RE.match(parts[0]):
+        # sitemap.xml ble også tidligere alltid godtatt; resten må finnes i repo-roten
+        if parts[0] == "sitemap.xml" or (repo_root / parts[0]).is_file() or (build_dir / parts[0]).is_file():
+            return True
+    return (build_dir / rel).is_file() or (build_dir / rel / "index.html").is_file()
+
+
 def check_llms_txt(errors: list[str]) -> None:
     """llms.txt er håndskrevet og ligger i repo-roten, så den kan drive ut av
-    synk med siten. Hver kontaktlinser.no-URL i den skal peke på en side som
-    faktisk bygges (eller sitemap.xml). Ingen SEO-avhengighet, bare hygiene."""
-    llms = Path(__file__).parent.parent / "llms.txt"
+    synk med siten. Hver kontaktlinser.no-URL i den skal peke på noe som faktisk
+    publiseres (se llms_path_exists). Ingen SEO-avhengighet, bare hygiene."""
+    repo_root = Path(__file__).parent.parent
+    llms = repo_root / "llms.txt"
     if not llms.exists():
         return
-    for url in sorted(set(re.findall(r"https://kontaktlinser\.no(/[^\s,)>]*)", llms.read_text(encoding="utf-8")))):
-        if url == "/sitemap.xml":
-            continue
-        target = BUILD_DIR / url.strip("/") / "index.html" if url != "/" else BUILD_DIR / "index.html"
-        if not target.exists():
-            errors.append(f"llms.txt peker på en side som ikke finnes: {url}")
+    for path in llms_internal_paths(llms.read_text(encoding="utf-8")):
+        if not llms_path_exists(path, BUILD_DIR, repo_root):
+            errors.append(f"llms.txt peker på en side som ikke finnes: {path}")
 
 
 def check_orphan_pages(errors: list[str]) -> None:
