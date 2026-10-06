@@ -5206,3 +5206,63 @@ TILBAKERULLING når Adtraction er løst: tøm `DIRECT_LINK_RETAILERS` (én endri
 Sjekk først i Adtraction: programstatus for Extra Optical, at kanalen
 (`as=2102229792`) er godkjent, og at en nygenerert sporingslenke har samme
 `a=`/`as=` som feeden. Inntil da tjener vi INGEN provisjon på Extra Optical.
+
+
+## SEO/schema-runde 1 etter Web Standard-auditen (2026-10-06)
+
+Basert på `kontaktlinser_seo_schema_audit_2026-10-06.md`. Stramt avgrenset: ingen
+endring av Product/Offer-arkitektur, canonical Product-identitet, URL-struktur,
+Offer-schema-strategi eller ProductGroup-strategi.
+
+- **Absolutte bilde-URL-er.** `_abs_url()` i render_templates.py brukes for
+  `og:image` (`_og_meta`) og `Product.image` (kontaktlinser og linsevæske/øyedråper/
+  tilbehør). Egne bilder (`manual_image`, 54 produkter) hadde rot-relativ sti i begge.
+  Hvilket bilde som velges er uendret.
+- **Byggeporter (validate_build.py):** `check_absolute_image_urls` feiler bygget hvis
+  noen `og:image` eller JSON-LD `image` er relativ. `check_llms_txt` feiler hvis en URL
+  i llms.txt ikke peker på en bygget side (llms.txt lenket til `/merke/` og `/guide/`,
+  begge 404).
+- **Bildedimensjoner.** `<img>` får `width`/`height` via `_dim_attrs()`. Egne filer under
+  `/static/` leses direkte fra bildeheaderen (ren Python, ingen PIL i CI; verifisert mot
+  PIL på alle 208 bilder). Feedbilder (forhandlerens CDN) slås opp i
+  `image_dimensions.json`, som lages av `probe_image_dimensions.py` (manuelt verktøy,
+  ikke CI; leser kun bildeheaderen, lagrer ingen bilder). Byggingen gjør aldri
+  nettverkskall. Ukjent dimensjon gir ingen attributter, aldri en gjetning. Kjør
+  `python3 probe_image_dimensions.py` når nye feedbilder dukker opp. CSS: `height:auto`
+  lagt til på `.product-tile-image img` og `.brand-serie-card-image img` (reglene som ikke
+  satte høyde selv), slik at attributtene ikke endrer layout. Verifisert med
+  `getBoundingClientRect` før/etter på kategori-, merke-, serie-, produkt- og
+  linsevæskeside ved 1280 og 375 px: identisk layout.
+- **IKKE gjort (bevisst):** (1) Flytting av feedbilder til eget domene/CDN: rettighetene
+  for å hoste forhandlerbilder selv er ikke avklart (`LICENSED_IMAGE_SOURCES` gjelder
+  visning via feed), og det finnes ingen eksisterende bildepipeline for feedbilder, så
+  bildekilden er uendret og flagget. (2) `srcset`/`sizes`: egne produktbilder finnes bare
+  i én størrelse (900 px) + WebP, og Extra Optical-bildene (1760x1200 / 2200x1500) kan
+  ikke skaleres via URL. Cloudinary (Lensway/Lenson) kan det, men det krever en
+  `sizes`-strategi per layout, ikke gjort her.
+- **`/index.html`.** GitHub Pages serverer `/<sti>/index.html` som egen 200-URL, og det
+  kan ikke avskaffes fra repoet (ingen server-side redirect). Canonical på de sidene
+  peker allerede på slash-URL-en, så signalet er konsistent, men statuskoden er 200.
+  Riktig livssyklus er en 301 på kanten. **Ikke satt opp (Cloudflare er dashbord-only):**
+  Single Redirect (Rules > Redirect Rules), wildcard-mønster
+  `https://kontaktlinser.no/*index.html` -> `https://kontaktlinser.no/${1}`, status 301,
+  behold query string. Én hopp (ingen kjede). Verifiser etter aktivering at
+  `/index.html` -> `/` og `/guider/index.html` -> `/guider/`. Uverifisert at wildcard-
+  redirect er tilgjengelig på gjeldende Cloudflare-plan.
+- **llms.txt** forenklet: ingen forhandlerliste, ingen frakt-/ferskhetspåstander, ingen
+  rangeringsløfte (alt dette står på metodikksidene, som den peker til). Kun stabile
+  nøkkelsider. Ikke en SEO-avhengighet, og drift fanges nå av `check_llms_txt`.
+- **Copy-kvalitet** (kun maler, ikke innhold): serie-meta/og-description «fra 527 kr kr»
+  -> «fra 527 kr» og « -- » -> « – » (52 sider); serie-FAQ «serien,, for alderssyn» ->
+  «serien, for alderssyn» (26 sider); samme « -- » -> « – » i meta description på
+  private label-merkesidene (5 sider). `--` som tankestrek i løpende brødtekst og i
+  langbeskrivelser (JSON-LD `description` fra products_meta, FAQ-svar) er IKKE endret.
+- **Guide-schema.** `Article` har nå `image` (guidens eget foto, absolutt) og
+  `mainEntityOfPage`; ny `BreadcrumbList` = nøyaktig den synlige brødsmulen (Hjem >
+  guidetittel, ingen oppdiktet mellomnivå). Gjelder alle 40 guider.
+- **/guider/ i sitemap.** Oppfyller alle kriterier (200, selvrefererende canonical, ingen
+  noindex, ekte landingsside for 40 guider) og ligger nå først i `sitemap-guider.xml`
+  (`site_content.json` fikk `guide_index`).
+- Tester: `python3 test_seo_schema.py` (nye, 8 stk). NB: `test_clickout_rendering.py`
+  (6 feiler: `render_winner_widget` returnerer 3 verdier, testen forventer 2) og
+  `test_chillout_clickout.py` (importsti) feilet allerede på HEAD før denne runden.

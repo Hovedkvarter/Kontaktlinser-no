@@ -1,41 +1,30 @@
 # kontaktlinser.no
 
-> Prissammenligning for kontaktlinser i Norge. Vi samler priser fra norske
-> nettbutikker (Interoptik, Lensway, Lenson, Specsavers og flere) og viser
-> alltid billigste tilgjengelige tilbud per produkt, sortert etter total pris
-> inkludert frakt.
+> Uavhengig norsk prissammenligning for kontaktlinser, linsevæske og øyedråper. Kontaktlinser.no samler priser fra norske nettbutikker og viser tilbud per produkt.
 
-## Metodikk og pålitelighet
+## Metodikk og åpenhet
 
-Priser hentes automatisk fra forhandlernes egne feeds og produktsider.
-Hver pris vises med tidspunkt for siste kontroll ("sist oppdatert"). Priser
-eldre enn 24 timer eller produkter uten bekreftet lagerstatus vises ikke som
-"lavest pris". Standardvisningen sorterer etter produktpris uten frakt;
-brukeren kan slå på «Pris inkludert frakt» for å sortere etter totalpris
-(produktpris + frakt) i stedet. Rekkefølgen påvirkes ikke av om vi har en
-affiliate-avtale med forhandleren.
+Hvordan priser samles inn, hvordan produkter kobles sammen, hvordan tilbud rangeres og hvordan siden finansieres er beskrevet på sidene under. De er den autoritative kilden. Denne filen gjentar bevisst ikke tall eller regler som kan endre seg.
 
-## Nøkkelsider
-
-- Kategorier: https://kontaktlinser.no/kontaktlinser/manedslinser/, https://kontaktlinser.no/kontaktlinser/dagslinser/, https://kontaktlinser.no/kontaktlinser/toriske-linser/, https://kontaktlinser.no/kontaktlinser/fargede-linser/, https://kontaktlinser.no/kontaktlinser/multifokale-linser/
-- Linsevæske: https://kontaktlinser.no/linsevaeske/
-- Øyedråper: https://kontaktlinser.no/oyedraper/
-- Tilbehør (linseetui og hjelpemidler): https://kontaktlinser.no/tilbehor/
-- Optikerkjedenes egne merker (private label): https://kontaktlinser.no/private-label/
-- Merker: https://kontaktlinser.no/merke/
-- Full produktoversikt: https://kontaktlinser.no/sitemap.xml
-- Guider: https://kontaktlinser.no/guide/
-- Om oss: https://kontaktlinser.no/om-oss/
 - Slik sammenligner vi priser: https://kontaktlinser.no/slik-sammenligner-vi-priser/
 - Slik matcher vi produkter: https://kontaktlinser.no/slik-matcher-vi-produkter/
 - Redaksjonelle prinsipper: https://kontaktlinser.no/redaksjonelle-prinsipper/
 - Affiliate og finansiering: https://kontaktlinser.no/affiliate-og-finansiering/
+- Meld feil: https://kontaktlinser.no/meld-feil/
+
+## Nøkkelsider
+
+- Forside (merker og kategorier): https://kontaktlinser.no/
+- Månedslinser: https://kontaktlinser.no/kontaktlinser/manedslinser/
+- Dagslinser: https://kontaktlinser.no/kontaktlinser/dagslinser/
+- Toriske linser: https://kontaktlinser.no/kontaktlinser/toriske-linser/
+- Fargede linser: https://kontaktlinser.no/kontaktlinser/fargede-linser/
+- Multifokale linser: https://kontaktlinser.no/kontaktlinser/multifokale-linser/
+- Linsevæske: https://kontaktlinser.no/linsevaeske/
+- Øyedråper: https://kontaktlinser.no/oyedraper/
+- Tilbehør: https://kontaktlinser.no/tilbehor/
+- Optikerkjedenes egne merker: https://kontaktlinser.no/private-label/
+- Guider: https://kontaktlinser.no/guider/
+- Alle sider (sitemap): https://kontaktlinser.no/sitemap.xml
+- Om oss: https://kontaktlinser.no/om-oss/
 - Personvern og cookies: https://kontaktlinser.no/personvern/
-
-## Om oss
-
-Kontaktlinser.no er en uavhengig, norsk prissammenligningstjeneste. Vi kan
-motta provisjon fra forhandlere via affiliate-lenker; dette påvirker ikke
-prisen kunden betaler og ikke rangeringen av tilbud. Se
-https://kontaktlinser.no/slik-sammenligner-vi-priser/ og
-https://kontaktlinser.no/slik-matcher-vi-produkter/ for full metodikk.

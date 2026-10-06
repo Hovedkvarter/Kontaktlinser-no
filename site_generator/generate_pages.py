@@ -469,6 +469,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         + [f"/kontaktlinser/{s}/" for s in category_slugs]
         + [f"/merke/{s}/" for s in brand_slugs]
         + [f"/produsent/{s}/" for s in manufacturer_slugs]
+        + ["/guider/"]
         + [f"/guide/{s}/" for s in guide_slugs]
         + list(product_paths.values()) + list(solution_paths.values()) + label_paths + family_paths
     )
@@ -515,6 +516,9 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         "categories": [{"slug": s, "lastmod": lm[f"/kontaktlinser/{s}/"]} for s in category_slugs],
         "brands": [{"slug": s, "lastmod": lm[f"/merke/{s}/"]} for s in brand_slugs],
         "manufacturers": [{"slug": s, "lastmod": lm[f"/produsent/{s}/"]} for s in manufacturer_slugs],
+        # Guide-oversikten (/guider/) er en indekserbar landingsside for alle guidene og
+        # hører hjemme i guide-sitemapen. lastmod er innholds-signaturbasert som for andre sider.
+        "guide_index": {"path": "/guider/", "lastmod": lm["/guider/"]},
         "guides": [{"slug": s, "lastmod": lm[f"/guide/{s}/"]} for s in guide_slugs],
         "products": [
             {"brand_slug": p["brand_slug"], "product_slug": p["slug"], "lastmod": lm[product_paths[p["id"]]]}

@@ -61,6 +61,60 @@ def _internal_href_targets(html: str) -> set[str]:
     return targets
 
 
+def _collect_image_values(node, out: list[str]) -> None:
+    """Alle verdier under en "image"-nøkkel i et JSON-LD-tre (streng, liste eller ImageObject.url)."""
+    if isinstance(node, dict):
+        for key, value in node.items():
+            if key == "image":
+                items = value if isinstance(value, list) else [value]
+                for it in items:
+                    if isinstance(it, str):
+                        out.append(it)
+                    elif isinstance(it, dict) and isinstance(it.get("url"), str):
+                        out.append(it["url"])
+            else:
+                _collect_image_values(value, out)
+    elif isinstance(node, list):
+        for item in node:
+            _collect_image_values(item, out)
+
+
+def check_absolute_image_urls(errors: list[str]) -> None:
+    """Web Standard (bygge-port): og:image og alle bilde-felt i JSON-LD skal være
+    absolutte URL-er, aldri rot-relative (/static/...)."""
+    for html_file in BUILD_DIR.rglob("*.html"):
+        html = html_file.read_text(encoding="utf-8")
+        rel = html_file.relative_to(BUILD_DIR).as_posix()
+        for og in re.findall(r'<meta property="og:image" content="([^"]*)"', html):
+            if not og.startswith(("http://", "https://")):
+                errors.append(f"RELATIV og:image: {rel} ({og})")
+        for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.DOTALL):
+            try:
+                data = json.loads(block)
+            except json.JSONDecodeError:
+                continue  # ugyldig JSON-LD fanges av sjekken i main()
+            values: list[str] = []
+            _collect_image_values(data, values)
+            for v in values:
+                if not v.startswith(("http://", "https://")):
+                    errors.append(f"RELATIV JSON-LD image: {rel} ({v})")
+
+
+def check_llms_txt(errors: list[str]) -> None:
+    """llms.txt er håndskrevet og ligger i repo-roten, så den kan drive ut av
+    synk med siten. Hver kontaktlinser.no-URL i den skal peke på en side som
+    faktisk bygges (eller sitemap.xml). Ingen SEO-avhengighet, bare hygiene."""
+    llms = Path(__file__).parent.parent / "llms.txt"
+    if not llms.exists():
+        return
+    for url in sorted(set(re.findall(r"https://kontaktlinser\.no(/[^\s,)>]*)", llms.read_text(encoding="utf-8")))):
+        if url == "/sitemap.xml":
+            continue
+        target = BUILD_DIR / url.strip("/") / "index.html" if url != "/" else BUILD_DIR / "index.html"
+        if not target.exists():
+            errors.append(f"llms.txt peker på en side som ikke finnes: {url}")
+
+
 def check_orphan_pages(errors: list[str]) -> None:
     """Enhver side i det ferdigbygde nettstedet som INGEN annen side
     faktisk lenker til -- kun oppdagbar for krypere via sitemap.xml -- er
@@ -120,6 +174,8 @@ def main() -> int:
             warnings.append(f"Ingen tilbud: {product['id']} (publiseres uten priser)")
 
     check_orphan_pages(errors)
+    check_absolute_image_urls(errors)
+    check_llms_txt(errors)
 
     missing_ratio = missing_offers_count / len(catalog["products"]) if catalog["products"] else 0
     if missing_ratio > MAX_MISSING_RATIO:
