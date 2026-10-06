@@ -5284,6 +5284,12 @@ titler, H1, meta description eller pakningsspesifikke SEO-tekster.
   og kategori, aldri navnelikhet), stigende. `pack_size_callout` har nå én rad per søsken
   med pris per linse og prosentforskjell (samme formel som før). Med ett søsken er markup
   identisk med før. Rammer de 5 tre-pakningsgruppene (15 produkter).
+  **Avgrensning:** dette er en Kontaktlinser.no property-/katalogregel som bygger på den
+  lokale id-konvensjonen `<stamme>-<N>pk` (N = antall linser per pakning). Id-ene er
+  Kontaktlinser.no sine egne interne produkt-id-er, ikke Chillouts canonical `product_id`
+  (opak `prd_...`, der disse id-ene bare er et alias). Regelen er IKKE en universell
+  canonical Product identity-regel for Chillout eller andre properties og skal ikke
+  gjenbrukes der; en annen property må definere sin egen variant-/pakningsregel.
 - **DN-2 «Hvor lenge varer»-FAQ følger produktegenskapen.** `_is_daily_lens()` leser
   spesifikasjonen `Brukstid == "Dagslinse"` i stedet for `category_slug == "dagslinser"`.
   Teksten er den eksisterende, uendret. Rammer 37 daglige toriske (18), multifokale (18)

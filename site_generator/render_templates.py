@@ -4087,9 +4087,21 @@ def _pack_size_from_id(product_id: str) -> tuple[str, int] | None:
 
 def find_pack_siblings(product: dict, products_by_id: dict) -> list[tuple[int, dict]]:
     """ALLE andre pakningsstørrelser av samme faktiske produkt, stigende etter
-    pakningsstørrelse. "Samme produkt" = lik produkt-stamme i den interne
-    canonical id-en (alt foran avsluttende -Npk) OG samme merke og kategori;
-    aldri navnelikhet. En variant med annet navn i stammen (f.eks.
+    pakningsstørrelse.
+
+    KONTAKTLINSER.NO-REGEL (egenskap/katalog), IKKE en universell canonical
+    Product identity-regel. Regelen bygger på denne siten sin LOKALE
+    id-konvensjon `<stamme>-<N>pk`, der `<N>` er antall linser per pakning
+    (f.eks. `everclear-elite-90pk` -> stamme `everclear-elite`, 90 linser).
+    Disse id-ene er Kontaktlinser.no sine egne interne produkt-id-er og koder
+    pakningsstørrelse; de er IKKE Chillouts canonical `product_id` (en opak
+    `prd_...`-id, der Kontaktlinser-id-en bare er et alias). Regelen sier derfor
+    ingenting om produktidentitet for Chillout eller andre properties og skal
+    ikke gjenbrukes der. En annen property må definere sin egen
+    variant-/pakningsregel.
+
+    "Samme produkt" = lik stamme foran avsluttende -Npk OG samme merke og
+    kategori; aldri navnelikhet. En variant med annet navn i stammen (f.eks.
     '...-astigmatism-30pk' mot '...-30pk') er et eget produkt og telles ikke."""
     parsed = _pack_size_from_id(product["id"])
     if not parsed:
