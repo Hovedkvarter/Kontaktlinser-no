@@ -361,7 +361,7 @@ a { color: inherit; }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
-.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -837,7 +837,7 @@ a { color: inherit; }
 .brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
 .brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
@@ -1441,7 +1441,7 @@ a { color: inherit; }
     <a class="brand-serie-card" href="/serie/proclear-1day/" style="--serie-tint:var(--mint-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--amber-tint);color:var(--amber);">DAGSLINSER</span>
-      <div class="brand-serie-card-image"><img src="/static/products/proclear-1day-30pk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="/static/products/proclear-1day-30pk.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Proclear 1 Day</div>
@@ -1454,7 +1454,7 @@ a { color: inherit; }
   </a><a class="brand-serie-card" href="/serie/proclear/" style="--serie-tint:var(--sky-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
-      <div class="brand-serie-card-image"><img src="/static/products/proclear-sphere-6pk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="/static/products/proclear-sphere-6pk.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Proclear</div>
@@ -1467,7 +1467,7 @@ a { color: inherit; }
   </a><a class="brand-serie-card" href="/serie/proclear-xr/" style="--serie-tint:var(--lavender-tint);">
     <div class="brand-serie-card-top">
       
-      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="" width="2200" height="1500" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Proclear Multifocal XR</div>
@@ -1866,7 +1866,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-30pk.jpg" alt="Proclear 1 Day 30-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-30pk.jpg" alt="Proclear 1 Day 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-1-day-30-pack/"><div class="product-name">Proclear 1 Day 30-pack</div></a>
@@ -1878,7 +1878,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-sphere-6pk.webp" type="image/webp"><img src="/static/products/proclear-sphere-6pk.jpg" alt="Proclear Sphere 6-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-sphere-6pk.webp" type="image/webp"><img src="/static/products/proclear-sphere-6pk.jpg" alt="Proclear Sphere 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-name">Proclear Sphere 6-pack</div></a>
@@ -1890,7 +1890,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-sphere-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-multifocal-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="Proclear 1 Day Multifocal 30-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-multifocal-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="Proclear 1 Day Multifocal 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-name">Proclear 1 Day Multifocal 30-pack</div></a>
@@ -1902,7 +1902,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-toric-6pk.webp" type="image/webp"><img src="/static/products/proclear-toric-6pk.jpg" alt="Proclear Toric 6-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-toric-6pk.webp" type="image/webp"><img src="/static/products/proclear-toric-6pk.jpg" alt="Proclear Toric 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-toric-6-pack/"><div class="product-name">Proclear Toric 6-pack</div></a>
@@ -1914,7 +1914,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-toric-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-multifocal-6pk.webp" type="image/webp"><img src="/static/products/proclear-multifocal-6pk.jpg" alt="Proclear Multifocal 6-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-multifocal-6pk.webp" type="image/webp"><img src="/static/products/proclear-multifocal-6pk.jpg" alt="Proclear Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-name">Proclear Multifocal 6-pack</div></a>
@@ -1926,7 +1926,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-90pk.webp" type="image/webp"><img src="/static/products/proclear-1day-90pk.jpg" alt="Proclear 1 Day 90-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-90pk.webp" type="image/webp"><img src="/static/products/proclear-1day-90pk.jpg" alt="Proclear 1 Day 90-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-1-day-90-pack/"><div class="product-name">Proclear 1 Day 90-pack</div></a>
@@ -1938,7 +1938,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-name">Proclear Multifocal XR 3-pack</div></a>
@@ -1950,7 +1950,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Toric_XR_3pk.jpg" alt="Proclear Toric XR 3-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Toric_XR_3pk.jpg" alt="Proclear Toric XR 3-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-toric-xr-3-pack/"><div class="product-name">Proclear Toric XR 3-pack</div></a>
@@ -1962,7 +1962,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-toric-xr-3-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg" alt="Proclear Multifocal Toric 3-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg" alt="Proclear Multifocal Toric 3-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-name">Proclear Multifocal Toric 3-pack</div></a>

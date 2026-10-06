@@ -355,7 +355,7 @@ a { color: inherit; }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
-.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -831,7 +831,7 @@ a { color: inherit; }
 .brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
 .brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
@@ -1435,7 +1435,7 @@ a { color: inherit; }
     <a class="brand-serie-card" href="/serie/biofinity-xr/" style="--serie-tint:var(--mint-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
-      <div class="brand-serie-card-image"><img src="/static/products/biofinity-xr-3pk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="/static/products/biofinity-xr-3pk.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Biofinity XR</div>
@@ -1448,7 +1448,7 @@ a { color: inherit; }
   </a><a class="brand-serie-card" href="/serie/biofinity/" style="--serie-tint:var(--sky-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
-      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="" width="800" height="400" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Biofinity</div>
@@ -1673,7 +1673,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-xr-3pk.webp" type="image/webp"><img src="/static/products/biofinity-xr-3pk.jpg" alt="Biofinity XR 3-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-xr-3pk.webp" type="image/webp"><img src="/static/products/biofinity-xr-3pk.jpg" alt="Biofinity XR 3-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-name">Biofinity XR 3-pack</div></a>
@@ -1685,7 +1685,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-name">Biofinity 6-pack</div></a>
@@ -1697,7 +1697,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg" alt="Biofinity Energys 6-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg" alt="Biofinity Energys 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-name">Biofinity Energys 6-pack</div></a>
@@ -1709,7 +1709,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-toric-6pk.webp" type="image/webp"><img src="/static/products/biofinity-toric-6pk.jpg" alt="Biofinity Toric 6-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-toric-6pk.webp" type="image/webp"><img src="/static/products/biofinity-toric-6pk.jpg" alt="Biofinity Toric 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/"><div class="product-name">Biofinity Toric 6-pack</div></a>
@@ -1721,7 +1721,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-xr-toric-3pk.webp" type="image/webp"><img src="/static/products/biofinity-xr-toric-3pk.jpg" alt="Biofinity XR Toric 3-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-xr-toric-3pk.webp" type="image/webp"><img src="/static/products/biofinity-xr-toric-3pk.jpg" alt="Biofinity XR Toric 3-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/"><div class="product-name">Biofinity XR Toric 3-pack</div></a>
@@ -1733,7 +1733,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg" alt="Biofinity XR 6-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg" alt="Biofinity XR 6-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-name">Biofinity XR 6-pack</div></a>
@@ -1745,7 +1745,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-multifocal-6pk.webp" type="image/webp"><img src="/static/products/biofinity-multifocal-6pk.jpg" alt="Biofinity Multifocal 6-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-multifocal-6pk.webp" type="image/webp"><img src="/static/products/biofinity-multifocal-6pk.jpg" alt="Biofinity Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-name">Biofinity Multifocal 6-pack</div></a>
@@ -1757,7 +1757,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" width="800" height="400" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-name">Biofinity Multifocal Toric 3-pack</div></a>

@@ -366,7 +366,7 @@ a { color: inherit; }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
-.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -842,7 +842,7 @@ a { color: inherit; }
 .brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
 .brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
@@ -1446,7 +1446,7 @@ a { color: inherit; }
     <a class="brand-serie-card" href="/serie/dailies-aquacomfort-plus/" style="--serie-tint:var(--mint-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--amber-tint);color:var(--amber);">DAGSLINSER</span>
-      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg" alt="" width="1760" height="1200" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Dailies AquaComfort Plus</div>
@@ -1459,7 +1459,7 @@ a { color: inherit; }
   </a><a class="brand-serie-card" href="/serie/dailies-total1/" style="--serie-tint:var(--sky-tint);">
     <div class="brand-serie-card-top">
       <span class="brand-serie-card-eyebrow" style="background:var(--amber-tint);color:var(--amber);">DAGSLINSER</span>
-      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="" loading="lazy" decoding="async"></div>
+      <div class="brand-serie-card-image"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="" width="1760" height="1200" loading="lazy" decoding="async"></div>
     </div>
     <div class="brand-serie-card-body">
       <div class="brand-serie-card-name">Dailies Total1</div>
@@ -1771,7 +1771,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg" alt="Dailies AquaComfort Plus 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg" alt="Dailies AquaComfort Plus 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/"><div class="product-name">Dailies AquaComfort Plus 30-pack</div></a>
@@ -1783,7 +1783,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Focus Dailies 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Focus Dailies 30-pack" width="1600" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/focus-dailies-30-pack/"><div class="product-name">Focus Dailies 30-pack</div></a>
@@ -1795,7 +1795,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Dailies All Day Comfort 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg" alt="Dailies All Day Comfort 30-pack" width="1600" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/"><div class="product-name">Dailies All Day Comfort 30-pack</div></a>
@@ -1807,7 +1807,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-30st_main.jpg" alt="Dailies AquaComfort Plus Toric 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-30st_main.jpg" alt="Dailies AquaComfort Plus Toric 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/"><div class="product-name">Dailies AquaComfort Plus Toric 30-pack</div></a>
@@ -1819,7 +1819,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="Dailies Total1 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg" alt="Dailies Total1 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-30-pack/"><div class="product-name">Dailies Total1 30-pack</div></a>
@@ -1831,7 +1831,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg" alt="Dailies AquaComfort Plus Multifocal 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg" alt="Dailies AquaComfort Plus Multifocal 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-name">Dailies AquaComfort Plus Multifocal 30-pack</div></a>
@@ -1843,7 +1843,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg" alt="Dailies Total1 Multifocal 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg" alt="Dailies Total1 Multifocal 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-name">Dailies Total1 Multifocal 30-pack</div></a>
@@ -1855,7 +1855,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-30-2.jpg" alt="Dailies Total1 for Astigmatism 30-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-30-2.jpg" alt="Dailies Total1 for Astigmatism 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"><div class="product-name">Dailies Total1 for Astigmatism 30-pack</div></a>
@@ -1867,7 +1867,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_90pk.jpg" alt="Dailies AquaComfort Plus 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_90pk.jpg" alt="Dailies AquaComfort Plus 90-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/"><div class="product-name">Dailies AquaComfort Plus 90-pack</div></a>
@@ -1879,7 +1879,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-CB_1.jpg" alt="Focus Dailies 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-CB_1.jpg" alt="Focus Dailies 90-pack" width="270" height="270" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/focus-dailies-90-pack/"><div class="product-name">Focus Dailies 90-pack</div></a>
@@ -1891,7 +1891,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg" alt="Dailies All Day Comfort 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg" alt="Dailies All Day Comfort 90-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"><div class="product-name">Dailies All Day Comfort 90-pack</div></a>
@@ -1903,7 +1903,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-90st_main.jpg" alt="Dailies AquaComfort Plus Toric 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-90st_main.jpg" alt="Dailies AquaComfort Plus Toric 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/"><div class="product-name">Dailies AquaComfort Plus Toric 90-pack</div></a>
@@ -1915,7 +1915,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-90-180.jpg" alt="Dailies Total1 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-90-180.jpg" alt="Dailies Total1 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-90-pack/"><div class="product-name">Dailies Total1 90-pack</div></a>
@@ -1927,7 +1927,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/dailies-aquacomfort-plus-multifocal-90pk.webp" type="image/webp"><img src="/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg" alt="Dailies AquaComfort Plus Multifocal 90-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/dailies-aquacomfort-plus-multifocal-90pk.webp" type="image/webp"><img src="/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg" alt="Dailies AquaComfort Plus Multifocal 90-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-name">Dailies AquaComfort Plus Multifocal 90-pack</div></a>
@@ -1939,7 +1939,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg" alt="Dailies AquaComfort Plus 180-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg" alt="Dailies AquaComfort Plus 180-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/"><div class="product-name">Dailies AquaComfort Plus 180-pack</div></a>
@@ -1951,7 +1951,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-180-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-90-2.jpg" alt="Dailies Total1 for Astigmatism 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-90-2.jpg" alt="Dailies Total1 for Astigmatism 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"><div class="product-name">Dailies Total1 for Astigmatism 90-pack</div></a>
@@ -1963,7 +1963,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-name">Dailies Total1 Multifocal 90-pack</div></a>
@@ -1975,7 +1975,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-180-2.jpg" alt="Focus Dailies 180-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/focus-dailies-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-180-2.jpg" alt="Focus Dailies 180-pack" width="1600" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/focus-dailies-180-pack/"><div class="product-name">Focus Dailies 180-pack</div></a>
@@ -1987,7 +1987,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/dailies/focus-dailies-180-pack/">Sammenlign priser →</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-180_main.jpg" alt="Dailies Total1 180-pack" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-180_main.jpg" alt="Dailies Total1 180-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/dailies/dailies-total1-180-pack/"><div class="product-name">Dailies Total1 180-pack</div></a>

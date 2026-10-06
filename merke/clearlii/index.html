@@ -341,7 +341,7 @@ a { color: inherit; }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
-.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -817,7 +817,7 @@ a { color: inherit; }
 .brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
 .brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
@@ -1688,7 +1688,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
-  <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-daily-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/clearlii-daily-30pk.webp" type="image/webp"><img src="/static/products/clearlii-daily-30pk.jpg" alt="Clearlii Daily 30-pack" loading="lazy"></picture></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-daily-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/clearlii-daily-30pk.webp" type="image/webp"><img src="/static/products/clearlii-daily-30pk.jpg" alt="Clearlii Daily 30-pack" width="1000" height="564" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clearlii/clearlii-daily-30-pack/"><div class="product-name">Clearlii Daily 30-pack</div></a>
