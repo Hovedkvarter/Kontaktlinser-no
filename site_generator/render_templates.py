@@ -18,8 +18,10 @@ import json
 import math
 import re
 import statistics
+import struct
 from datetime import datetime, timedelta, timezone
 from html import escape
+from pathlib import Path
 from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
@@ -43,13 +45,102 @@ def _json_str(s: str) -> str:
 BASE_URL = "https://kontaktlinser.no"
 
 
+def _abs_url(url: str | None) -> str | None:
+    """Rot-relativ sti (/static/...) -> absolutt https-URL. Allerede absolutte
+    URL-er returneres uendret. Brukes for ALLE bilde-URL-er i metadata og
+    strukturert data (og:image, Product.image, Article.image): Web Standard
+    krever absolutte bilde-URL-er der, mens selve <img src> trygt kan være
+    rot-relativ."""
+    if url and url.startswith("/") and not url.startswith("//"):
+        return BASE_URL + url
+    return url
+
+
+# --- Bildedimensjoner (width/height på <img>, hindrer layoutskift) -----------
+# Egne filer under /static/ leses direkte fra disk (ren Python, ingen PIL --
+# CI installerer bare requests/beautifulsoup4). Bilder vi viser fra en
+# forhandlers feed (ikke våre filer) slås opp i image_dimensions.json, som
+# lages av probe_image_dimensions.py og committes; verken byggingen eller
+# denne funksjonen gjør noen gang nettverkskall. Ukjent dimensjon -> ingen
+# width/height-attributter (aldri en gjetning).
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+_IMAGE_DIMS_FILE = _REPO_ROOT / "image_dimensions.json"
+_dims_cache: dict[str, tuple[int, int] | None] = {}
+_upstream_dims: dict[str, list[int]] | None = None
+
+
+def _read_image_size(path: Path) -> tuple[int, int] | None:
+    """Bredde/høyde fra JPEG-, PNG- eller WebP-header. None hvis ukjent format."""
+    try:
+        with open(path, "rb") as f:
+            head = f.read(32)
+            if head[:8] == b"\x89PNG\r\n\x1a\n":
+                return struct.unpack(">II", head[16:24])
+            if head[:4] == b"RIFF" and head[8:12] == b"WEBP":
+                kind = head[12:16]
+                if kind == b"VP8X":
+                    return (1 + int.from_bytes(head[24:27], "little"), 1 + int.from_bytes(head[27:30], "little"))
+                if kind == b"VP8L":
+                    bits = int.from_bytes(head[21:25], "little")
+                    return ((bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1)
+                if kind == b"VP8 ":
+                    w, h = struct.unpack("<HH", head[26:30])
+                    return (w & 0x3FFF, h & 0x3FFF)
+                return None
+            if head[:2] == b"\xff\xd8":
+                f.seek(2)
+                while True:
+                    marker = f.read(2)
+                    if len(marker) < 2 or marker[0] != 0xFF:
+                        return None
+                    code = marker[1]
+                    if code in (0xD8, 0x01) or 0xD0 <= code <= 0xD7:
+                        continue
+                    seglen = struct.unpack(">H", f.read(2))[0]
+                    if code in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7, 0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+                        _, h, w = struct.unpack(">BHH", f.read(5))
+                        return (w, h)
+                    f.seek(seglen - 2, 1)
+    except (OSError, struct.error):
+        return None
+    return None
+
+
+def _image_dims(url: str | None) -> tuple[int, int] | None:
+    global _upstream_dims
+    if not url:
+        return None
+    if url in _dims_cache:
+        return _dims_cache[url]
+    dims = None
+    if url.startswith("/static/"):
+        dims = _read_image_size(_REPO_ROOT / url.lstrip("/"))
+    else:
+        if _upstream_dims is None:
+            try:
+                _upstream_dims = json.loads(_IMAGE_DIMS_FILE.read_text(encoding="utf-8"))["images"]
+            except (OSError, ValueError, KeyError):
+                _upstream_dims = {}
+        d = _upstream_dims.get(url)
+        if d and len(d) == 2 and d[0] > 0 and d[1] > 0:
+            dims = (int(d[0]), int(d[1]))
+    _dims_cache[url] = dims
+    return dims
+
+
+def _dim_attrs(url: str | None) -> str:
+    """` width="W" height="H"` for kjente bilder, ellers tom streng."""
+    d = _image_dims(url)
+    return f' width="{d[0]}" height="{d[1]}"' if d else ""
+
+
 def _og_meta(title: str, description: str, url: str, image: str | None = None) -> str:
     """Open Graph/Twitter Card-tagger, delt av alle sidetyper -- gjenbruker
     alltid samme tittel/beskrivelse som den vanlige <title>/<meta
     description> på siden, aldri egen tekst, slik at de to aldri kan komme
     ut av synk med hverandre. Faller tilbake til logoen når siden ikke har
     et eget produktbilde (kategori/merke/guide/forside osv.)."""
-    img = image or f"{BASE_URL}/static/logo.png"
+    img = _abs_url(image) or f"{BASE_URL}/static/logo.png"
     return f"""<meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(description)}">
 <meta property="og:type" content="website">
@@ -320,7 +411,7 @@ a { color: inherit; }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
-.product-tile-image img { display: block; width: 86%; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
+.product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
 .product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
@@ -2918,11 +3009,12 @@ def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy
     manufacturer_kit) -- vi kontrollerer ikke de filene og har ingen WebP-
     variant av dem."""
     cls_attr = f' class="{escape(css_class)}"' if css_class else ""
+    dims = _dim_attrs(image_url)
     if image_url.startswith("/static/products/") and image_url.endswith(".jpg"):
         webp_url = image_url[:-4] + ".webp"
         return (f'<picture><source srcset="{escape(webp_url)}" type="image/webp">'
-                f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}" loading="{loading}"></picture>')
-    return f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}" loading="{loading}">'
+                f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}"></picture>')
+    return f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}">'
 
 
 def _product_image(product: dict) -> str | None:
@@ -5338,7 +5430,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}{schema_props}
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(_abs_url(image_url))}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}{schema_props}
 }}'''
     schema_json = f'''{{
   "@context": "https://schema.org",
@@ -5843,7 +5935,7 @@ BRAND_PAGE_STYLE = """
 .brand-serie-card-top { padding: 16px 16px 0; background: linear-gradient(180deg, var(--serie-tint, var(--mist)) 0%, rgba(255, 255, 255, 0) 68%); }
 .brand-serie-card-eyebrow { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
-.brand-serie-card-image img { max-width: 76%; max-height: 100%; object-fit: contain; transition: transform 0.18s ease; }
+.brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
 .brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
@@ -6263,7 +6355,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         return f"Serie med {primary_label.lower()} i {escape(material)}, tilgjengelig som {variant_txt}."
 
     def brand_series_card(s: dict, index: int) -> str:
-        img_html = f'<img src="{escape(s["image"])}" alt="" loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
+        img_html = f'<img src="{escape(s["image"])}" alt=""{_dim_attrs(s["image"])} loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
         primary_label, pills = brand_series_variant_pills(s["type_labels"])
         pills_html = "".join(f'<span class="brand-serie-card-pill">{escape(p)}</span>' for p in pills)
         price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
@@ -9306,15 +9398,31 @@ def render_guide_page(slug: str) -> str | None:
 
     updated_iso = guide["updated"]
     updated_display = datetime.strptime(updated_iso, "%Y-%m-%d").strftime("%d.%m.%Y")
+    guide_url = f"{BASE_URL}/guide/{slug}/"
+    # Samme bilde som vises på siden (og guide-kortet), absolutt URL. Utelates
+    # hvis guiden ikke har eget foto -- aldri en generisk logo som artikkelbilde.
+    guide_photo_url = f"{BASE_URL}/static/guides/{GUIDE_PHOTOS[slug]}.webp" if slug in GUIDE_PHOTOS else None
+    article_image_line = f'\n  "image": "{escape(guide_photo_url)}",' if guide_photo_url else ""
     article_schema = f"""<script type="application/ld+json">{{
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "{escape(guide["title"])}",
-  "description": "{escape(guide["description"])}",
+  "description": "{escape(guide["description"])}",{article_image_line}
+  "mainEntityOfPage": {{"@type": "WebPage", "@id": "{guide_url}"}},
   "author": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
   "publisher": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
   "datePublished": "{updated_iso}",
   "dateModified": "{updated_iso}"
+}}</script>"""
+    # BreadcrumbList = nøyaktig den synlige brødsmulen under (Hjem > guidetittel),
+    # ingen oppdiktet mellomnivå.
+    breadcrumb_schema = f"""<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{"@type": "ListItem", "position": 1, "name": "Hjem", "item": "{BASE_URL}/"}},
+    {{"@type": "ListItem", "position": 2, "name": "{_json_str(guide["title"])}", "item": "{guide_url}"}}
+  ]
 }}</script>"""
 
     # Kompakt søkeboks rett etter første avsnitt (alle guider åpner med et
@@ -9351,6 +9459,7 @@ def render_guide_page(slug: str) -> str | None:
 {FONT_LINKS}
 {faq_schema}
 {article_schema}
+{breadcrumb_schema}
 <style>{SHARED_STYLE}
 .guide-byline {{ font-size: 0.82rem; color: var(--muted); margin: -6px 0 0; }}
 .guide-hero-row {{ display: flex; align-items: center; justify-content: space-between; gap: 16px; }}
@@ -11150,7 +11259,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
   "@type": "Product",
   "name": "{escape(product["name"])}",
   "description": "{escape(long_description)}",
-  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(image_url)}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}
+  "brand": {{"@type": "Brand", "name": "{escape(product["brand_label"])}"}}{f', "image": "{escape(_abs_url(image_url))}"' if image_url else ""}{f', "dateModified": "{date_modified}"' if date_modified else ""}{offers_schema}
   }}]
 }}"""
     schema_json_html = f'<script type="application/ld+json">{schema_json}</script>' if in_stock_offers else ""
@@ -11497,7 +11606,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         brand_logo_cls, brand_logo_content = "", escape(subbrand[:2].upper())
     brand_logo_block = f'<div class="brand-hero-logo {brand_logo_cls}">{brand_logo_content}</div>'
 
-    meta_description = f"{subbrand} er et eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert -- de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
+    meta_description = f"{subbrand} er et eget merkenavn for kontaktlinser. Sammenlign priser på alle {len(rows)} {subbrand}-varianter vi har identifisert – de er identiske med kjente linser fra store produsenter, bare i egen innpakning."
 
     # -- Tall på tvers av HELE settet, brukt av stat-stripen, "i tall" og
     # FAQ-en -- samme utregningsmønster som render_brand_page(). --
@@ -12334,7 +12443,7 @@ def render_family_page(
         if show_power_dim:
             cells += f'\n    <td class="spec-value">{escape(g["power_dim"])}</td>'
         row_img = _product_image(g["product"])
-        thumb_html = f'<img class="spec-row-thumb" src="{escape(row_img)}" alt="" loading="lazy">' if row_img else ''
+        thumb_html = f'<img class="spec-row-thumb" src="{escape(row_img)}" alt=""{_dim_attrs(row_img)} loading="lazy">' if row_img else ''
         return f'''<tr>
     <th scope="row" class="spec-label"><a href="{escape(g["href"])}">{thumb_html}{escape(g["name"])}</a></th>
     {cells}
@@ -12637,12 +12746,12 @@ def render_family_page(
         rep_name = re.sub(r"\s+\d+-pack$", "", rep["display_name"])
         has_add_spec = any(r["specs"].get("Addisjon") for r in multi_group_rows)
         add_txt = (
-            ' med en egen ADD-verdi (tilleggsstyrke for nærsyn/lesing) i tillegg til vanlig styrke'
+            ', med en egen ADD-verdi (tilleggsstyrke for nærsyn/lesing) i tillegg til vanlig styrke'
             if has_add_spec else ', for alderssyn (presbyopi) i tillegg til vanlig styrke'
         )
         faq_produkt.append({
             "question": f'Finnes {family_name} som multifokal linse for alderssyn?',
-            "answer": f'Ja, {rep_name} er multifokal-varianten i {family_name}-serien,{add_txt}.',
+            "answer": f'Ja, {rep_name} er multifokal-varianten i {family_name}-serien{add_txt}.',
         })
     if len(materials_present) == 1 and len(rows) > 1:
         faq_produkt.append({
@@ -12806,8 +12915,8 @@ def render_family_page(
 </section>'''
 
     meta_description = (
-        f'Sammenlign priser på hele {family_name}-serien -- sfærisk, torisk og/eller multifokal -- '
-        f'fra {_fmt_kr(min(prices))} kr. Oppdatert daglig.'
+        f'Sammenlign priser på hele {family_name}-serien – sfærisk, torisk og/eller multifokal – '
+        f'fra {_fmt_kr(min(prices))}. Oppdatert daglig.'
     ) if prices else f'Sammenlign priser på hele {family_name}-serien.'
 
     item_list_items = []

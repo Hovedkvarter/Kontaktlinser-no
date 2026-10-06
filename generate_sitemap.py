@@ -70,6 +70,10 @@ def main(content_path: str = "site_content.json") -> None:
     guide_entries = [
         url_entry(f"/guide/{g['slug']}/", g["lastmod"]) for g in content["guides"]
     ]
+    guide_index = content.get("guide_index")
+    if guide_index:
+        # Oversikten først: indekserbar landingsside (canonical = seg selv, 200)
+        guide_entries.insert(0, url_entry(guide_index["path"], guide_index["lastmod"]))
     write_urlset("sitemap-guider.xml", guide_entries)
 
     solution_entries = [
