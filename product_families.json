@@ -136,6 +136,7 @@
     {
       "slug": "dailies-total1",
       "name": "Dailies Total1",
+      "alt_name": "Dailies Total 1",
       "member_ids": [
         "dailies-total1-30pk",
         "dailies-total1-90pk",

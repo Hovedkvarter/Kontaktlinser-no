@@ -123,6 +123,15 @@ def build_public_catalog(lens_products: list[dict], solution_products: list[dict
     }
 
 
+def family_lookup_entry(family: dict) -> dict:
+    """Det produktsiden trenger om serien den hører til. "alt_name" er en valgfri,
+    eksplisitt alternativ stavemåte av serienavnet (se product_families.json)."""
+    entry = {"slug": family["slug"], "name": family["name"]}
+    if family.get("alt_name"):
+        entry["alt_name"] = family["alt_name"]
+    return entry
+
+
 def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
           clickouts: dict | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
@@ -213,7 +222,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
         if len(valid_member_ids) < 2:
             continue
         for mid in valid_member_ids:
-            family_by_product_id[mid] = {"slug": family["slug"], "name": family["name"]}
+            family_by_product_id[mid] = family_lookup_entry(family)
 
         member_id_set = set(valid_member_ids)
         labels_for_family_by_chain: dict[str, dict[str, dict]] = {}
