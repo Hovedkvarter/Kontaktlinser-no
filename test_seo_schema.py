@@ -124,6 +124,83 @@ def test_guide_index_goes_into_the_guide_sitemap():
     assert "<loc>https://kontaktlinser.no/guide/a/</loc>" in xml
 
 
+# --- check_llms_txt: grensetilfeller (oppfolging etter review av PR #2) ---------
+
+def _llms_errors(text: str) -> list[str]:
+    """Kjor check_llms_txt mot en liten, kunstig site: forsiden, /om-oss/ og
+    /static/logo.png i output, og robots.txt, llms.txt og sitemap-produkter.xml
+    bare i repo-roten (slik de ligger nar validate_build kjorer)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        build = root / "site_generator" / "build"
+        for rel in ("index.html", "om-oss/index.html", "static/logo.png"):
+            (build / rel).parent.mkdir(parents=True, exist_ok=True)
+            (build / rel).write_bytes(b"x")
+        for name in ("robots.txt", "sitemap-produkter.xml"):
+            (root / name).write_text("x", encoding="utf-8")
+        (root / "llms.txt").write_text(text, encoding="utf-8")
+        old_file, old_build = vb.__file__, vb.BUILD_DIR
+        vb.__file__, vb.BUILD_DIR = str(root / "site_generator" / "validate_build.py"), build
+        try:
+            errors: list[str] = []
+            vb.check_llms_txt(errors)
+        finally:
+            vb.__file__, vb.BUILD_DIR = old_file, old_build
+        return errors
+
+
+def test_llms_check_accepts_fragment_and_query():
+    assert _llms_errors("https://kontaktlinser.no/#merker\n") == []
+    assert _llms_errors("https://kontaktlinser.no/om-oss/?x=1\n") == []
+    assert _llms_errors("https://kontaktlinser.no/om-oss/?x=1#del\n") == []
+    assert _llms_errors("https://kontaktlinser.no/om-oss#del\n") == []
+
+
+def test_llms_check_accepts_root_files_that_are_copied_after_validation():
+    for url in ("robots.txt", "llms.txt", "sitemap.xml", "sitemap-produkter.xml"):
+        assert _llms_errors(f"https://kontaktlinser.no/{url}\n") == [], url
+
+
+def test_llms_check_treats_static_files_as_files():
+    assert _llms_errors("https://kontaktlinser.no/static/logo.png\n") == []
+
+
+def test_llms_check_ignores_normal_punctuation_after_the_url():
+    for tail in (".", ",", ";", ":", "!", "?", ")", ".)", ").", "\n", ">", "]", '"', "'"):
+        text = f"Se (https://kontaktlinser.no/om-oss/{tail} og mer\n"
+        assert _llms_errors(text) == [], repr(tail)
+    assert _llms_errors("[Om oss](https://kontaktlinser.no/om-oss/)\n") == []
+    assert _llms_errors("Se https://kontaktlinser.no/robots.txt.\n") == []
+
+
+def test_llms_check_keeps_ignoring_external_and_relative_links():
+    text = "https://www.example.com/finnes-ikke/\n[x](/finnes-ikke/)\nhttp://kontaktlinser.no/finnes-ikke/\n"
+    assert _llms_errors(text) == []
+
+
+def test_llms_check_still_fails_dead_internal_links():
+    dead = {
+        "https://kontaktlinser.no/finnes-ikke/": "/finnes-ikke/",
+        "https://kontaktlinser.no/finnes-ikke/?x=1": "/finnes-ikke/",
+        "https://kontaktlinser.no/finnes-ikke/#a": "/finnes-ikke/",
+        "Se https://kontaktlinser.no/finnes-ikke/.": "/finnes-ikke/",
+        "https://kontaktlinser.no/om-oss/mangler/": "/om-oss/mangler/",
+        "https://kontaktlinser.no/sitemap-finnes-ikke.xml": "/sitemap-finnes-ikke.xml",
+        "https://kontaktlinser.no/static/mangler.png": "/static/mangler.png",
+        "https://kontaktlinser.no/robots.txt/": "/robots.txt/",
+        "https://kontaktlinser.no/../etc/passwd": "/../etc/passwd",
+    }
+    for text, path in dead.items():
+        errors = _llms_errors(text + "\n")
+        assert len(errors) == 1 and errors[0].endswith(path), (text, errors)
+
+
+def test_llms_check_reports_each_dead_link_once_next_to_valid_ones():
+    text = "https://kontaktlinser.no/om-oss/ https://kontaktlinser.no/a/ https://kontaktlinser.no/a/#x https://kontaktlinser.no/robots.txt\n"
+    errors = _llms_errors(text)
+    assert len(errors) == 1 and errors[0].endswith("/a/"), errors
+
+
 def main() -> int:
     failed = 0
     for fn in [v for k, v in sorted(globals().items()) if k.startswith("test_") and callable(v)]:

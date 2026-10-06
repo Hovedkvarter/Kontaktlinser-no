@@ -5221,7 +5221,12 @@ Offer-schema-strategi eller ProductGroup-strategi.
 - **Byggeporter (validate_build.py):** `check_absolute_image_urls` feiler bygget hvis
   noen `og:image` eller JSON-LD `image` er relativ. `check_llms_txt` feiler hvis en URL
   i llms.txt ikke peker på en bygget side (llms.txt lenket til `/merke/` og `/guide/`,
-  begge 404).
+  begge 404). Sjekken strippes for fragment, query og avsluttende tegnsetting (`.:;!?`)
+  før oppslag, godtar rotfilene `robots.txt`, `llms.txt` og `sitemap*.xml` (kopieres inn
+  etter validate_build) og faktiske filer i output (`/static/...`), men en avsluttende
+  skråstrek betyr alltid en side (`/robots.txt/` feiler). Reelt døde interne lenker og
+  `..`-stier feiler fortsatt; eksterne URL-er og relative lenker sjekkes ikke. Tester:
+  `test_llms_check_*` i test_seo_schema.py.
 - **Bildedimensjoner.** `<img>` får `width`/`height` via `_dim_attrs()`. Egne filer under
   `/static/` leses direkte fra bildeheaderen (ren Python, ingen PIL i CI; verifisert mot
   PIL på alle 208 bilder). Feedbilder (forhandlerens CDN) slås opp i
