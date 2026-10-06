@@ -10,6 +10,12 @@ on:
   workflow_dispatch: {}
   push:
     branches: [main]
+  # Kjører build + validering på pull requests mot main. Alle steg med
+  # bivirkninger (skraping, commit/push tilbake til repoet, publisering til
+  # GitHub Pages) er avgrenset under, slik at en PR aldri kan endre main
+  # eller den publiserte siden.
+  pull_request:
+    branches: [main]
 
 # Nødvendig for at jobben skal ha lov til å publisere til GitHub Pages
 permissions:
@@ -39,7 +45,7 @@ jobs:
         # forhandlere), kjør build_catalog.py lokalt og committ resultatet
         # (site_generator/catalog_live.json) sammen med endringen, slik
         # praksis har vært hele denne økten.
-        if: github.event_name != 'push'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           # Kun den planlagte kjøringen får gjenbruke skrapede priser som er
           # yngre enn ~36 t (build_catalog.py, SCRAPE_MAX_AGE_HOURS) -- feedene
@@ -56,7 +62,7 @@ jobs:
         # priser"-handling. Fant og fikset 2026-08-11 etter at nettopp dette
         # skjedde gjentatte ganger i løpet av en økt med mange pushes.
         # [skip ci] hindrer at denne commiten trigger enda en kjøring.
-        if: github.event_name != 'push'
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -86,6 +92,8 @@ jobs:
         # her forsvinner historikken igjen ved neste checkout, samme
         # problem som catalog_live.json hadde før 2026-08-11-fiksen.
         # [skip ci] hindrer at denne commiten trigger enda en kjøring.
+        # Ikke på pull requests: en PR skal aldri skrive til repoet.
+        if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -108,6 +116,8 @@ jobs:
           cp commission-factory*.html site_generator/build/ 2>/dev/null || true
 
       - name: Publiser til GitHub Pages
+        # Aldri fra en pull request: kun main (push), planlagt kjøring og manuell.
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
