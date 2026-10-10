@@ -1054,7 +1054,7 @@ a { color: inherit; }
    grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 .brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
-@media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
+@media (min-width: 860px) { .brand-materials-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
 .brand-material-card-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -1075,6 +1075,27 @@ a { color: inherit; }
 .brand-trust-item p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 .brand-trust-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }
 .brand-trust-links a { font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+
+/* Full-width series comparison; compact materials below. */
+.brand-compare-card .spec-table { table-layout: fixed; }
+.brand-compare-card .spec-table th, .brand-compare-card .spec-table td { padding: 16px 14px; vertical-align: top; overflow-wrap: anywhere; line-height: 1.5; }
+.brand-compare-card .spec-table thead th { font-size: .7rem; letter-spacing: .02em; }
+.brand-compare-card .spec-table th:first-child { width: 20%; }
+.brand-compare-card .spec-table th:nth-child(2) { width: 10%; }
+.brand-compare-card .spec-table td:last-child { font-weight: 700; white-space: nowrap; }
+.brand-compare-card .spec-table tbody tr:last-child th { border-bottom: 0; }
+.brand-material-card { padding: 12px; box-shadow: none; gap: 9px; }
+.brand-material-card-icon { width: 26px; height: 26px; }
+.brand-material-card-name { font-size: .8rem; line-height: 1.4; }
+@media (max-width: 859px) {
+  .brand-compare-card { background: transparent; border: 0; box-shadow: none; overflow: visible; }
+  .brand-compare-card .spec-table, .brand-compare-card .spec-table tbody { display: block; }
+  .brand-compare-card .spec-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .brand-compare-card .spec-table tbody tr { display: block; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+  .brand-compare-card .spec-table th:first-child { display: block; width: auto; padding: 0 0 12px; font-size: 1rem; }
+  .brand-compare-card .spec-table td { display: grid; grid-template-columns: 105px minmax(0,1fr); gap: 12px; padding: 8px 0; font-size: .8rem; border: 0; }
+  .brand-compare-card .spec-table td::before { content: attr(data-label); color: var(--muted); font-weight: 400; white-space: normal; }
+}
 
 </style>
 </head>
@@ -2219,35 +2240,35 @@ a { color: inherit; }
   </a>
   </div>
   <div class="brand-compare-row"><div style="min-width:0;"><h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller Acuvue-seriene seg</h2>
-  <p class="brand-section-lead">4 serier, til sammen 20 av 21 Acuvue-produkter. Ytterligere 1 produkt står utenfor disse seriene, se hele listen nederst.</p>
+  <p class="brand-section-lead">4 serier, til sammen 20 av 21 Acuvue-produkter. Ytterligere 1 produkt står utenfor disse seriene, se <a href="#produkter">hele produktlisten</a>.</p>
   <div class="brand-compare-card">
     <div style="overflow-x:auto;">
       <table class="spec-table">
         <thead><tr><th>Serie</th><th>Produkter</th><th>Bruk</th><th>Materiale</th><th>Vanninnhold</th><th>Pakninger</th><th>Fra pris (uten frakt)</th></tr></thead>
         <tbody><tr>
       <th scope="row" class="spec-label"><a href="/serie/acuvue-moist/">1-Day Acuvue Moist</a></th>
-      <td class="spec-value">6</td>
-      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Etafilcon A med LACREON-teknologi</td><td class="spec-value">58 %</td>
-      <td class="spec-value">30/90</td>
-      <td class="spec-value">232 kr</td>
+      <td class="spec-value" data-label="Produkter">6</td>
+      <td class="spec-value" data-label="Bruk">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value" data-label="Materiale">Etafilcon A med LACREON-teknologi</td><td class="spec-value" data-label="Vanninnhold">58 %</td>
+      <td class="spec-value" data-label="Pakninger">30/90</td>
+      <td class="spec-value" data-label="Fra pris (uten frakt)">232 kr</td>
     </tr><tr>
       <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys/">Acuvue Oasys</a></th>
-      <td class="spec-value">3</td>
-      <td class="spec-value">Multifokale linser · Månedslinser · Toriske linser</td><td class="spec-value">Senofilcon A (silikonhydrogel)</td><td class="spec-value">38 %</td>
-      <td class="spec-value">6</td>
-      <td class="spec-value">262 kr</td>
+      <td class="spec-value" data-label="Produkter">3</td>
+      <td class="spec-value" data-label="Bruk">Multifokale linser · Månedslinser · Toriske linser</td><td class="spec-value" data-label="Materiale">Senofilcon A (silikonhydrogel)</td><td class="spec-value" data-label="Vanninnhold">38 %</td>
+      <td class="spec-value" data-label="Pakninger">6</td>
+      <td class="spec-value" data-label="Fra pris (uten frakt)">262 kr</td>
     </tr><tr>
       <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-1day-hydraluxe/">Acuvue Oasys 1-Day with Hydraluxe</a></th>
-      <td class="spec-value">5</td>
-      <td class="spec-value">Dagslinser · Toriske linser</td><td class="spec-value">–</td><td class="spec-value">38 %</td>
-      <td class="spec-value">30/90/180</td>
-      <td class="spec-value">276 kr</td>
+      <td class="spec-value" data-label="Produkter">5</td>
+      <td class="spec-value" data-label="Bruk">Dagslinser · Toriske linser</td><td class="spec-value" data-label="Materiale">–</td><td class="spec-value" data-label="Vanninnhold">38 %</td>
+      <td class="spec-value" data-label="Pakninger">30/90/180</td>
+      <td class="spec-value" data-label="Fra pris (uten frakt)">276 kr</td>
     </tr><tr>
       <th scope="row" class="spec-label"><a href="/serie/acuvue-oasys-max-1day/">Acuvue Oasys MAX 1-Day</a></th>
-      <td class="spec-value">6</td>
-      <td class="spec-value">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value">Senofilcon A med TearStable-teknologi</td><td class="spec-value">38 %</td>
-      <td class="spec-value">30/90</td>
-      <td class="spec-value">344 kr</td>
+      <td class="spec-value" data-label="Produkter">6</td>
+      <td class="spec-value" data-label="Bruk">Dagslinser · Multifokale linser · Toriske linser</td><td class="spec-value" data-label="Materiale">Senofilcon A med TearStable-teknologi</td><td class="spec-value" data-label="Vanninnhold">38 %</td>
+      <td class="spec-value" data-label="Pakninger">30/90</td>
+      <td class="spec-value" data-label="Fra pris (uten frakt)">344 kr</td>
     </tr></tbody>
       </table>
     </div>
