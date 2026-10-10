@@ -395,6 +395,9 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .mobile-products-first { display: flex; flex-direction: column; }
+  .mobile-products-first > .priority-products { order: -1; min-width: 0; }
+  .mobile-products-first > .supporting-content { min-width: 0; }
   .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
   .product-tile-price-label-default { display: none; }
   .product-tile-high-price { display: inline; }
@@ -1454,6 +1457,8 @@ a { color: inherit; }
   </div></div>
   </div>
 
+  <div class="mobile-products-first">
+  <div class="supporting-content">
   <div class="brand-section-header-row">
     <div>
       <div class="brand-section-kicker">Produktserier</div>
@@ -1790,7 +1795,8 @@ a { color: inherit; }
 })();
 </script>
 </div></div>
-
+  </div>
+  <div class="priority-products">
   <h2 id="produkter">Alle ULTRA-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
@@ -1869,6 +1875,9 @@ a { color: inherit; }
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  </div>
+  </div>
 
   <h2>ULTRA-sortimentet forklart</h2>
   <p class="brand-section-lead">4 kategorier med til sammen 5 produkter -- velg den som passer ditt behov.</p>

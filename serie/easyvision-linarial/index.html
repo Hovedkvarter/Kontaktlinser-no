@@ -394,6 +394,9 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .mobile-products-first { display: flex; flex-direction: column; }
+  .mobile-products-first > .priority-products { order: -1; min-width: 0; }
+  .mobile-products-first > .supporting-content { min-width: 0; }
   .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
   .product-tile-price-label-default { display: none; }
   .product-tile-high-price { display: inline; }
@@ -1347,6 +1350,8 @@ a { color: inherit; }
     <div><div class="serie-stat-label">Vanninnhold</div><div class="serie-stat-value">54 %</div></div>
   </div></div>
   </div>
+  <div class="mobile-products-first">
+  <div class="supporting-content">
   <div class="private-label-explainer">
     <p><strong>Om navnet:</strong> Easyvision Linarial er navnet denne serien selges under. Se hver enkelt variants
     side for hvilket ekte produkt den tilsvarer og hvilken kjede som står bak.</p>
@@ -1491,7 +1496,8 @@ a { color: inherit; }
   <strong>Easyvision Linarial</strong> fra <strong>283 kr</strong>
   hos Brilleland (uten frakt). Prisene oppdateres daglig, sist bekreftet <time datetime="2026-10-10">10.10.2026</time>.</p>
 </section>
-
+  </div>
+  <div class="priority-products">
   <h2>Alle produkter i Easyvision Linarial-serien</h2>
   <div class="product-tile-grid">
     <div class="product-tile">
@@ -1531,6 +1537,8 @@ a { color: inherit; }
   </div>
   <a class="product-tile-cta" href="/private-label/easyvision-linarial-multifocal/">Sammenlign priser</a>
 </div>
+  </div>
+  </div>
   </div>
 
   <h2>Sammenlign variantene</h2>
