@@ -449,6 +449,7 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .private-label-brand-hero .brand-hero-logo { display: none; }
   .mobile-products-first { display: flex; flex-direction: column; }
   .mobile-products-first > .priority-products { order: -1; min-width: 0; }
   .mobile-products-first > .supporting-content { min-width: 0; }
@@ -12044,7 +12045,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
 {TOPBAR_HTML}
 <div class="wrap wrap-wide">
   <p class="breadcrumb"><a href="/">Hjem</a> › {escape(subbrand)}</p>
-  <div class="brand-hero">
+  <div class="brand-hero private-label-brand-hero">
     <div class="brand-hero-content">
       <div class="brand-hero-row">
         {brand_logo_block}
@@ -12068,12 +12069,16 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
     <div class="brand-hero-stats">{brand_hero_stats_html}</div>
   </div>
 
+  <div class="mobile-products-first">
+  <div class="supporting-content">
   <div class="private-label-explainer">
     <p><strong>Hva er {escape(subbrand)}?</strong> {escape(subbrand)} er et eget varenavn for kontaktlinser, i stedet for produsentens opprinnelige navn. Det er ikke en egen linseprodusent – hver {escape(subbrand)}-linse er identisk med en kjent linse fra en av de store produsentene, bare med egen emballasje og navn. Prisene under er hentet fra det ekte produktet, siden det er nøyaktig samme fysiske vare. Se <a href="/private-label/">oversikten over optikerkjedenes egne merker</a> for hvilken kjede som står bak.</p>
   </div>
 
   {brand_insight_row_html}
 
+  </div>
+  <div class="priority-products">
   <h2 id="produkter">Alle {escape(subbrand)}-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
@@ -12089,6 +12094,9 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
   {'<p style="margin:10px 0 0;font-size:0.78rem;color:var(--muted);">Noen varianter over vises med en egen illustrasjon i stedet for et ekte produktbilde. <a href="/om-produktillustrasjoner/" style="color:var(--muted);text-decoration:underline;">Les hvorfor →</a></p>' if any_pli_illustration else ''}
+
+  </div>
+  </div>
 
   {sortiment_html}
   {brand_materials_html}
