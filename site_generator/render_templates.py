@@ -406,7 +406,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -433,26 +433,30 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
 /* Mobile product lists: reference 003, two cards per row. Keep full names
    and native links; no line clamping or JavaScript-dependent content. */
 @media (max-width: 600px) {
   .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
-  .product-tile-image { height: 118px; margin: 8px 8px 0; border-radius: 6px; background: white; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
   .product-tile-image.has-photo { background: white; }
-  .product-tile-image img { width: 100%; max-height: 110px; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
   .product-tile-body { padding: 10px 10px 0; min-width: 0; }
   .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
   .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
-  .product-tile-divider { margin: 10px 0; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
   .product-tile-price-label { font-size: .7rem; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
-  .product-tile-store-count { display: block; }
-  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 10px; padding: 8px 4px; font-size: .75rem; line-height: 1.3; border-radius: 6px; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
 }
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
@@ -2757,7 +2761,8 @@ def _fmt_kr(n: float) -> str:
 def _render_product_tile(*, href: str, name: str, image_url: str | None, fallback_initials: str,
                           category_label: str | None, secondary_line_html: str,
                           lowest: dict | None, other_count: int, data_attr: str = "",
-                          illustration_html: str | None = None, specs_row_html: str = "") -> str:
+                          illustration_html: str | None = None, specs_row_html: str = "",
+                          comparison_offers: list[dict] | None = None) -> str:
     """Delt kortmarkup for merke-/kategori-/tilbehør-/private label-rutenett
     (render_brand_page, render_category_page, render_solution_category_page,
     render_private_label_brand_page) -- én mal, page-spesifikt innhold
@@ -2777,11 +2782,34 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
         image_cls = "product-tile-image"
     category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
 
+    savings_html = ""
+    store_count = max(0, other_count + 1)
+    if comparison_offers is not None:
+        # Same product/pack only. One fresh, in-stock positive price per store.
+        by_store = {}
+        for offer in comparison_offers:
+            price = offer.get("price_nok", 0)
+            if not offer.get("in_stock") or offer.get("is_stale", True) or not math.isfinite(price) or price <= 0:
+                continue
+            key = offer["retailer"].strip().casefold()
+            if key not in by_store or price < by_store[key]["price_nok"]:
+                by_store[key] = offer
+        valid = list(by_store.values())
+        store_count = len(valid)
+        lowest = min(valid, key=lambda o: (o["price_nok"], o["total"]), default=None)
+        if len(valid) >= 2 and not illustration_html:
+            high = max(o["price_nok"] for o in valid)
+            # Floor rather than overstate savings; omit sub-1% differences.
+            percent = math.floor((high - lowest["price_nok"]) / high * 100)
+            if percent >= 1:
+                explanation = f"{percent} % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt."
+                savings_html = (f'<span class="product-tile-savings" tabindex="0" '
+                                f'aria-label="{escape(explanation)}" data-explanation="{escape(explanation)}">'
+                                f'Spar {percent} %</span>')
+
     if lowest:
         num = f'{lowest["price_nok"]:,.0f}'.replace(",", " ")
-        store_html = f'Lavest hos <span class="product-tile-store-name">{escape(lowest["retailer"])}</span>'
-        if other_count > 0:
-            store_html += f' <span class="product-tile-store-count">+ {other_count} butikker</span>'
+        store_html = f' hos {store_count} {"butikk" if store_count == 1 else "butikker"}'
         price_block = (
             f'<div class="product-tile-price-label">Fra (ekskl. frakt)</div>'
             f'<div class="product-tile-price"><span class="product-tile-price-number">{num}</span>'
@@ -2792,6 +2820,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
         price_block = '<div class="product-tile-store-line">Ingen tilbud tilgjengelig</div>'
 
     return f"""<div class="product-tile"{data_attr}>
+  {savings_html}
   <a class="product-tile-image-link" href="{href_esc}"><div class="{image_cls}">{image_block}</div></a>
   <div class="product-tile-body">
     {category_badge}
@@ -2801,7 +2830,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     <div class="product-tile-divider"></div>
     <a class="product-tile-price-link" href="{href_esc}">{price_block}</a>
   </div>
-  <a class="product-tile-cta" href="{href_esc}">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="{href_esc}">Sammenlign priser</a>
 </div>"""
 
 
@@ -6303,6 +6332,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
             secondary_line_html=manufacturer_card_line,
             lowest=lowest,
             other_count=len(p["offers"]) - 1,
+            comparison_offers=reconcile_product(p["offers"], now),
             data_attr=f' data-category="{escape(p["category_slug"])}"',
         )
 
@@ -10611,6 +10641,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
             secondary_line_html=brand_link,
             lowest=lowest,
             other_count=len(p["offers"]) - 1,
+            comparison_offers=reconcile_product(p["offers"], now),
             data_attr=f' data-brand="{escape(p["brand_slug"])}"{fit_attrs}',
             specs_row_html=spec_row_html_for(p),
         )
@@ -11494,6 +11525,7 @@ def render_solution_category_page(solution_category: str, products: list[dict], 
             secondary_line_html=brand_link,
             lowest=lowest,
             other_count=len(p["offers"]) - 1,
+            comparison_offers=reconcile_product(p["offers"], now),
         )
 
     cat = SOLUTION_CATEGORIES[solution_category]
@@ -11644,6 +11676,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
             secondary_line_html=real_product_link,
             lowest=lowest,
             other_count=len(real_product["offers"]) - 1,
+            comparison_offers=reconcile_product(real_product["offers"], now),
             data_attr=f' data-category="{escape(category_slug)}"',
             illustration_html=render_private_label_illustration(chain, label["slug"]),
         )
@@ -12555,6 +12588,7 @@ def render_family_page(
             fallback_initials=r["product"]["brand_label"][:2].upper(),
             category_label=r["category_label"], secondary_line_html="",
             lowest=r["best"], other_count=max(0, r["n_offers"] - 1),
+            comparison_offers=reconcile_product(r["product"]["offers"], now),
         )
     all_products_html = f'''<h2>Alle produkter i {escape(family_name)}-serien</h2>
   <div class="product-tile-grid">
