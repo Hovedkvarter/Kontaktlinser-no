@@ -468,6 +468,7 @@ a { color: inherit; }
 }
 /* Desktop: savings and highest-price line only. */
 @media (min-width: 601px) {
+  .product-tile-price-from { display: inline; font-size: 1rem; font-weight: 500; }
   .product-tile-price-label-default { display: none; }
   .product-tile-high-price { display: inline; }
   .product-tile-price-label { min-height: 1.2em; }
