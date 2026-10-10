@@ -1,0 +1,254 @@
+[
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 320,
+    "columns": 1,
+    "cardWidth": 280,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 375,
+    "columns": 1,
+    "cardWidth": 335,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 390,
+    "columns": 1,
+    "cardWidth": 350,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 600,
+    "columns": 2,
+    "cardWidth": 271,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 768,
+    "columns": 2,
+    "cardWidth": 351,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 1024,
+    "columns": 4,
+    "cardWidth": 232.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 1440,
+    "columns": 5,
+    "cardWidth": 233.59375,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 320,
+    "columns": 1,
+    "cardWidth": 280,
+    "pageOverflow": true,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 375,
+    "columns": 1,
+    "cardWidth": 335,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 390,
+    "columns": 1,
+    "cardWidth": 350,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 600,
+    "columns": 2,
+    "cardWidth": 271,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 768,
+    "columns": 2,
+    "cardWidth": 351,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 1024,
+    "columns": 4,
+    "cardWidth": 232.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8012,
+    "path": "/merke/acuvue/",
+    "width": 1440,
+    "columns": 5,
+    "cardWidth": 233.59375,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 320,
+    "columns": 2,
+    "cardWidth": 135,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 375,
+    "columns": 2,
+    "cardWidth": 162.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 390,
+    "columns": 2,
+    "cardWidth": 170,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 600,
+    "columns": 2,
+    "cardWidth": 275,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 768,
+    "columns": 2,
+    "cardWidth": 351,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 1024,
+    "columns": 4,
+    "cardWidth": 232.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/kontaktlinser/dagslinser/",
+    "width": 1440,
+    "columns": 5,
+    "cardWidth": 233.59375,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 320,
+    "columns": 2,
+    "cardWidth": 135,
+    "pageOverflow": true,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 375,
+    "columns": 2,
+    "cardWidth": 162.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 390,
+    "columns": 2,
+    "cardWidth": 170,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 600,
+    "columns": 2,
+    "cardWidth": 275,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 768,
+    "columns": 2,
+    "cardWidth": 351,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 1024,
+    "columns": 4,
+    "cardWidth": 232.5,
+    "pageOverflow": false,
+    "overflow": 0
+  },
+  {
+    "port": 8011,
+    "path": "/merke/acuvue/",
+    "width": 1440,
+    "columns": 5,
+    "cardWidth": 233.59375,
+    "pageOverflow": false,
+    "overflow": 0
+  }
+]
