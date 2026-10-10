@@ -11751,11 +11751,10 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         brand_type_txt = type_labels_lower[0] if type_labels_lower else ""
     else:
         brand_type_txt = ", ".join(type_labels_lower[:-1]) + " og " + type_labels_lower[-1]
-    brand_subtitle_html = f'<p class="brand-hero-subtitle">Eget merkenavn hos {escape(chain)}</p>'
+    brand_subtitle_html = f'<p class="brand-hero-subtitle">Kontaktlinser hos {escape(chain)}</p>'
     brand_intro_sentence = (
-        f'{escape(subbrand)} er {escape(chain)} sitt eget merkenavn for kontaktlinser'
-        + (f', med {escape(brand_type_txt)}' if brand_type_txt else '')
-        + f'. Vi følger prisen på {len(rows)} {"variant" if len(rows) == 1 else "varianter"}, sortert etter lavest pris.'
+        (f'Sortimentet omfatter {escape(brand_type_txt)}. ' if brand_type_txt else '')
+        + f'Vi følger prisen på {len(rows)} {"variant" if len(rows) == 1 else "varianter"}, sortert etter lavest pris.'
     )
 
     store_icon = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M4 9h16M9.5 20v-5.5h5V20"/></svg>'
@@ -12050,7 +12049,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
       <div class="brand-hero-row">
         {brand_logo_block}
         <div class="hero-copy">
-          <div class="kicker">Eget merkenavn</div>
+          <div class="kicker">Merke</div>
           <h1>{escape(subbrand)} kontaktlinser</h1>
           {brand_subtitle_html}
           <p>{brand_intro_sentence}</p>
