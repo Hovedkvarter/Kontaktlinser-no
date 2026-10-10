@@ -1,7 +1,7 @@
 # Mobilkort – referanse 003
 
-Dato: 10. oktober 2026. Status: revidert forhåndsvisning, ikke publisert.
-Grunnlag: main cdb1da843c3afbd6fddf384ee045f4b1d14f6f09. PR #6 er utkast.
+Dato: 10. oktober 2026. Status: publisert etter brukerens godkjenning.
+Grunnlag: main cdb1da843c3afbd6fddf384ee045f4b1d14f6f09. PR #6 er merget.
 
 ## Brukerens korrigering
 
@@ -29,6 +29,17 @@ To kort per rad på mobil. Knappen skal ligne bilde 003: jevn blåfarge, lettere
 
 ## Gjenstår
 
-Brukerens visuelle vurdering før publisering. Bedre partnerbilder og egen bildehosting er fortsatt åpent; gjenbruk/egen hosting avklares per kilde, kilde og rettighet beholdes internt.
+Bedre partnerbilder og egen bildehosting er fortsatt åpent; gjenbruk/egen hosting avklares per kilde, kilde og rettighet beholdes internt.
 
-Ingen merge, deploy eller produksjonsendring. Main-merge utløser publisering og krever uttrykkelig godkjenning.
+## Publisering og etterkontroll
+
+Brukeren godkjente publisering 10. oktober 2026 kl. 22:08 (Europe/Oslo). PR #6 merget som 4ac882c1934ae57816f0b5dae492e402196a4679 fra kontrollert head db16915cad2b497e05b0c1e17c099001fd71f199. Repo-treet var identisk med den kontrollerte lokale versjonen.
+
+- PR-bygg 38081239368: success.
+- Produksjonsbygg 38082622201: success, inkludert validering og publisering.
+- GitHub Pages build and deployment 38082689746: success.
+- Nettleserkontroll på /merke/acuvue/: ny prislinje «hos 7 butikker», knapp uten pil, mobilregel og «Spar 23 %» i DOM bekreftet.
+- /kontaktlinser/dagslinser/ viste fortsatt gammel cache. Fersk URL /kontaktlinser/dagslinser/?v=4ac882c bekreftet «hos 6 butikker», knapp uten pil, mobilregel og «Spar 35 %» i DOM. Ingen cacheinnstillinger er endret.
+- Mobiloppsettet er visuelt kontrollert lokalt ved 375 px før publisering; etterkontrollen på produksjon er DOM-kontroll i nettleser på desktopbredde.
+
+Desktop kan senere få et eget designforslag inspirert av referansen. Ingen ytterligere desktopendring er gjennomført.
