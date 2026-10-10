@@ -449,6 +449,9 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .mobile-products-first { display: flex; flex-direction: column; }
+  .mobile-products-first > .priority-products { order: -1; min-width: 0; }
+  .mobile-products-first > .supporting-content { min-width: 0; }
   .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
   .product-tile-price-label-default { display: none; }
   .product-tile-high-price { display: inline; }
@@ -6942,9 +6945,12 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     <div class="brand-hero-stats">{brand_hero_stats_html}</div>
   </div>
 
+  <div class="mobile-products-first">
+  <div class="supporting-content">
   {series_nav_html}
   {brand_insight_row_html}
-
+  </div>
+  <div class="priority-products">
   <h2 id="produkter">Alle {escape(brand_label)}-produkter</h2>
   <div class="filter-row" id="filter-row" role="group" aria-label="Filtrer etter kategori">
     <button class="chip active" data-category="all">Alle kategorier</button>
@@ -6959,6 +6965,9 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     {product_rows_html}
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
+
+  </div>
+  </div>
 
   {sortiment_html}
   {brand_compare_row_html}
@@ -13243,12 +13252,17 @@ def render_family_page(
     </div>
     <div class="serie-stat-pills">{stat_pills_html}</div>
   </div>
+  <div class="mobile-products-first">
+  <div class="supporting-content">
   {chain_html}
   {variant_finder_html}
   {insight_row_html}
   {ai_summary_html}
-
+  </div>
+  <div class="priority-products">
   {all_products_html}
+  </div>
+  </div>
 
   <h2>Sammenlign variantene</h2>
   <div class="spec-table-card">
