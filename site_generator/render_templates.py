@@ -6219,7 +6219,7 @@ BRAND_PAGE_STYLE = """
    grid-cellen rundt den ikke får lov til å krympe i utgangspunktet. */
 .brand-compare-row { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 32px; }
 .brand-compare-row .brand-compare-card { margin-bottom: 0; min-width: 0; }
-@media (min-width: 1024px) { .brand-compare-row { grid-template-columns: 1.2fr 1fr; align-items: start; } .brand-materials-grid { grid-template-columns: 1fr !important; } }
+@media (min-width: 860px) { .brand-materials-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 640px) and (max-width: 1023px) { .brand-materials-grid { grid-template-columns: repeat(2, 1fr); } }
 .brand-material-card { display: flex; gap: 12px; align-items: flex-start; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--card-shadow); }
 .brand-material-card-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
@@ -6240,6 +6240,27 @@ BRAND_PAGE_STYLE = """
 .brand-trust-item p { margin: 0; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
 .brand-trust-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 18px 0 0; }
 .brand-trust-links a { font-size: 0.8rem; font-weight: 600; color: var(--blue); text-decoration: none; }
+
+/* Full-width series comparison; compact materials below. */
+.brand-compare-card .spec-table { table-layout: fixed; }
+.brand-compare-card .spec-table th, .brand-compare-card .spec-table td { padding: 16px 14px; vertical-align: top; overflow-wrap: anywhere; line-height: 1.5; }
+.brand-compare-card .spec-table thead th { font-size: .7rem; letter-spacing: .02em; }
+.brand-compare-card .spec-table th:first-child { width: 20%; }
+.brand-compare-card .spec-table th:nth-child(2) { width: 10%; }
+.brand-compare-card .spec-table td:last-child { font-weight: 700; white-space: nowrap; }
+.brand-compare-card .spec-table tbody tr:last-child th { border-bottom: 0; }
+.brand-material-card { padding: 12px; box-shadow: none; gap: 9px; }
+.brand-material-card-icon { width: 26px; height: 26px; }
+.brand-material-card-name { font-size: .8rem; line-height: 1.4; }
+@media (max-width: 859px) {
+  .brand-compare-card { background: transparent; border: 0; box-shadow: none; overflow: visible; }
+  .brand-compare-card .spec-table, .brand-compare-card .spec-table tbody { display: block; }
+  .brand-compare-card .spec-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .brand-compare-card .spec-table tbody tr { display: block; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
+  .brand-compare-card .spec-table th:first-child { display: block; width: auto; padding: 0 0 12px; font-size: 1rem; }
+  .brand-compare-card .spec-table td { display: grid; grid-template-columns: 105px minmax(0,1fr); gap: 12px; padding: 8px 0; font-size: .8rem; border: 0; }
+  .brand-compare-card .spec-table td::before { content: attr(data-label); color: var(--muted); font-weight: 400; white-space: normal; }
+}
 """
 
 
@@ -6586,20 +6607,20 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         show_wc_col = any(s["wc"] for s in family_summaries)
 
         def compare_row(s: dict) -> str:
-            cells = f'<td class="spec-value">{escape(" · ".join(s["type_labels"]))}</td>' if s["type_labels"] else '<td class="spec-value">–</td>'
+            cells = f'<td class="spec-value" data-label="Bruk">{escape(" · ".join(s["type_labels"]))}</td>' if s["type_labels"] else '<td class="spec-value" data-label="Bruk">–</td>'
             if show_material_col:
-                cells += f'<td class="spec-value">{escape(s["material"]) if s["material"] else "–"}</td>'
+                cells += f'<td class="spec-value" data-label="Materiale">{escape(s["material"]) if s["material"] else "–"}</td>'
             if show_wc_col:
                 wc_txt = " / ".join(v.replace(".", ",") + " %" for v in s["wc"]) if s["wc"] else "–"
-                cells += f'<td class="spec-value">{wc_txt}</td>'
+                cells += f'<td class="spec-value" data-label="Vanninnhold">{wc_txt}</td>'
             packs_txt = "/".join(str(n) for n in s["packs"]) if s["packs"] else "–"
             price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
             return f'''<tr>
       <th scope="row" class="spec-label"><a href="{escape(s["href"])}">{escape(s["name"])}</a></th>
-      <td class="spec-value">{s["n_products"]}</td>
+      <td class="spec-value" data-label="Produkter">{s["n_products"]}</td>
       {cells}
-      <td class="spec-value">{escape(packs_txt)}</td>
-      <td class="spec-value">{price_txt}</td>
+      <td class="spec-value" data-label="Pakninger">{escape(packs_txt)}</td>
+      <td class="spec-value" data-label="Fra pris (uten frakt)">{price_txt}</td>
     </tr>'''
 
         header_extra = "<th>Bruk</th>"
@@ -6617,7 +6638,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
         # eksisterer.
         covered_products = sum(s["n_products"] for s in family_summaries)
         standalone_n = len(products) - covered_products
-        standalone_txt = f' Ytterligere {standalone_n} {"produkt" if standalone_n == 1 else "produkter"} står utenfor disse seriene, se hele listen nederst.' if standalone_n > 0 else ""
+        standalone_txt = f' Ytterligere {standalone_n} {"produkt" if standalone_n == 1 else "produkter"} står utenfor disse seriene, se <a href="#produkter">hele produktlisten</a>.' if standalone_n > 0 else ""
         compare_table_html = f'''<h2 id="sammenlign" style="scroll-margin-top:20px;">Slik skiller {escape(brand_label)}-seriene seg</h2>
   <p class="brand-section-lead">{len(family_summaries)} {"serie" if len(family_summaries) == 1 else "serier"}, til sammen {covered_products} av {len(products)} {escape(brand_label)}-produkter.{standalone_txt}</p>
   <div class="brand-compare-card">
