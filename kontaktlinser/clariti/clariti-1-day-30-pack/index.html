@@ -397,7 +397,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -424,6 +424,31 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
@@ -1634,7 +1659,7 @@ a { color: inherit; }
       <div class="label" id="winner-label">Laveste pris</div>
       <div class="winner-sub" id="winner-sub">for 1 eske</div>
     </div>
-    <div class="winner-savings" id="winner-savings"><span class="winner-savings-label">Spar</span><span class="winner-savings-pct">14 %</span></div>
+    <div class="winner-savings" id="winner-savings" hidden><span class="winner-savings-label">Spar</span><span class="winner-savings-pct">0 %</span></div>
   </div>
   <div class="retailer" id="winner-retailer"><img class="retailer-logo" src="/static/logos/lensway.svg" alt="Lensway" loading="lazy"><span style="position:absolute;left:-9999px;">Lensway</span></div>
   <div class="winner-price-line" id="winner-price-line">254 kr/eske + 50 kr frakt</div>
@@ -1651,7 +1676,7 @@ a { color: inherit; }
     
     
   </div>
-  <script type="application/json" id="qty-offers-data" data-product-name="Clariti 1 day 30-pack" data-unit-singular="eske" data-unit-plural="esker">[{"retailer": "Lensway", "price_nok": 254.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-3492)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fclariti-1-day-lens-3492)", "rel": "sponsored noopener", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 263.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-3492)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fclariti-1-day-lens-3492)", "rel": "sponsored noopener", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Brilleland", "price_nok": 271.0, "shipping_policy": {"free_over": 1000, "fee_nok": 59}, "url": "https://www.brilleland.no/kontaktlinser/clariti/clariti/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning", "rel": "nofollow noopener", "logo_file": "brilleland.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Synsam", "price_nok": 297.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/clariti-1-day-30-stk-pk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning", "rel": "nofollow noopener", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": false}]</script>
+  <script type="application/json" id="qty-offers-data" data-product-name="Clariti 1 day 30-pack" data-unit-singular="eske" data-unit-plural="esker">[{"retailer": "Lensway", "price_nok": 254.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-3492)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fclariti-1-day-lens-3492)", "rel": "sponsored noopener", "logo_file": "lensway.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Lenson", "price_nok": 263.0, "shipping_policy": {"free_over": 1199, "fee_nok": 50}, "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-3492)ttid(19)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fclariti-1-day-lens-3492)", "rel": "sponsored noopener", "logo_file": "lenson.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Brilleland", "price_nok": 271.0, "shipping_policy": {"free_over": 1000, "fee_nok": 59}, "url": "https://www.brilleland.no/kontaktlinser/clariti/clariti/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning", "rel": "nofollow noopener", "logo_file": "brilleland.svg", "logo_dark": false, "in_stock": true, "is_stale": false}, {"retailer": "Synsam", "price_nok": 297.0, "shipping_policy": {"free_over": null, "fee_nok": 39}, "url": "https://www.synsam.no/clariti-1-day-30-stk-pk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning", "rel": "nofollow noopener", "logo_file": "synsam.svg", "logo_dark": false, "in_stock": true, "is_stale": true}]</script>
   <script>
 (function () {
   var dataEl = document.getElementById('qty-offers-data');
@@ -1905,7 +1930,7 @@ a { color: inherit; }
 <a class="offer-card" href="https://www.synsam.no/clariti-1-day-30-stk-pk?utm_source=kontaktlinserno&amp;utm_medium=referral&amp;utm_campaign=prissammenligning" target="_blank" rel="nofollow noopener" aria-label="Gå til Synsam for Clariti 1 day 30-pack, 297 kr" data-retailer="Synsam" data-affiliate="0">
   <div class="offer-main">
     <div class="offer-retailer"><img class="retailer-logo" src="/static/logos/synsam.svg" alt="Synsam" loading="lazy"><span style="position:absolute;left:-9999px;">Synsam</span></div>
-    <div class="offer-meta">Sist oppdatert: <time datetime="2026-10-08">08.10.2026</time></div>
+    <div class="offer-meta" style="font-weight:600;">Pris ikke nylig bekreftet (sist <time datetime="2026-10-08">08.10.2026</time>)</div>
   </div>
   <div class="offer-price-col">
     <div class="offer-shipping"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg><span class="offer-shipping-text">39 kr frakt</span></div>
@@ -2276,9 +2301,9 @@ a { color: inherit; }
   <div class="price-intel-cards"><div class="price-intel-card">
     <div class="price-intel-card-head"><h3 class="price-intel-card-h-spread"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Prisforskjell mellom butikkene</h3></div>
     <div class="price-intel-card-row"><span>Laveste butikkpris</span><strong>254 kr</strong></div>
-    <div class="price-intel-card-row"><span>Medianpris</span><strong>267 kr</strong></div>
-    <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>297 kr</strong></div>
-    <div class="price-intel-spread-callout"><strong>14 %</strong><span>Forskjell mellom laveste og høyeste butikkpris</span></div>
+    <div class="price-intel-card-row"><span>Medianpris</span><strong>263 kr</strong></div>
+    <div class="price-intel-card-row"><span>Høyeste butikkpris</span><strong>271 kr</strong></div>
+    <div class="price-intel-spread-callout"><strong>6 %</strong><span>Forskjell mellom laveste og høyeste butikkpris</span></div>
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 eske.</p>
   </div><div class="price-intel-card price-intel-winners-panel active" data-period="30d">
       <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">30 dager</span></div>
@@ -2292,10 +2317,10 @@ a { color: inherit; }
       <p class="price-intel-card-note">Lensit og Lenson har begge hatt lavest registrert produktpris i 23 av 58 observerte dager i perioden. Prisvinneren har endret seg 5 ganger i perioden.</p>
     </div></div>
   <div class="price-intel-conclusion active" data-period="30d">
-    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste produktpris for Clariti 1 day 30-pack har ligget mellom 247 kr og 263 kr de siste 30 dagene. Det er 14 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
+    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste produktpris for Clariti 1 day 30-pack har ligget mellom 247 kr og 263 kr de siste 30 dagene. Det er 6 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
     <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>5 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>2 ganger</strong><span>har prisvinneren skiftet siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>6,5 %</strong><span>prisspenn siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>247 kr</strong><span>laveste pris i perioden</span></div></div></div>
   </div><div class="price-intel-conclusion" data-period="all">
-    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste produktpris for Clariti 1 day 30-pack har ligget mellom 247 kr og 263 kr de siste 58 dagene. Det er 14 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
+    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste produktpris for Clariti 1 day 30-pack har ligget mellom 247 kr og 263 kr de siste 58 dagene. Det er 6 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
     <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>5 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>5 ganger</strong><span>har prisvinneren skiftet i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>6,5 %</strong><span>prisspenn i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>247 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
   </div>
   <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">

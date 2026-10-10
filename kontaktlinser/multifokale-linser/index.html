@@ -326,7 +326,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -353,6 +353,31 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
@@ -1286,6 +1311,7 @@ a { color: inherit; }
        CSS/JS-forbedring. -->
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="22 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="22 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 22 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg" alt="1-Day Acuvue Moist Multifocal 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1293,11 +1319,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>58 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">280</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">280</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biotrue-oneday-presbyopia-30pk.webp" type="image/webp"><img src="/static/products/biotrue-oneday-presbyopia-30pk.jpg" alt="Biotrue ONEday for Presbyopia 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1305,11 +1332,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biotrue/">Biotrue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>78 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">322</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">322</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="23 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="23 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 23 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-1day-multifocal-30pk.webp" type="image/webp"><img src="/static/products/proclear-1day-multifocal-30pk.jpg" alt="Proclear 1 Day Multifocal 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1317,11 +1345,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">326</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">326</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="dailies" data-wc="69" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="22 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="22 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 22 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg" alt="Dailies AquaComfort Plus Multifocal 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1329,11 +1358,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/dailies/">Dailies</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>69 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">369</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">369</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
+  <span class="product-tile-savings" tabindex="0" aria-label="2 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="2 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 2 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 30-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1341,11 +1371,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/clariti/">Clariti</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>56 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,1 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">388</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">388</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="clariti" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="2 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="2 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 2 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/1/9/2/8/clariti-1day-multifocal-3-add-image-original.jpg" alt="Clariti 1 day Multifocal 3 Add 30-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1353,11 +1384,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/clariti/">Clariti</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="miru" data-wc="" data-bc="" data-dia="">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1365,11 +1397,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/miru/">MIRU</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">405</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">405</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 29 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-multifocal-6pk.webp" type="image/webp"><img src="/static/products/proclear-multifocal-6pk.jpg" alt="Proclear Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1377,11 +1410,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="myday" data-wc="54" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/myday-multifocal.webp" type="image/webp"><img src="/static/products/myday-multifocal.jpg" alt="MyDay Multifocal 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1389,11 +1423,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/myday/">MyDay</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>54 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/myday/myday-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">421</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/myday/myday-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">421</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/myday/myday-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/myday/myday-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="34 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="34 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 34 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg" alt="Dailies Total1 Multifocal 30-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1401,11 +1436,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/dailies/">Dailies</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>33 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">422</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Brilleland</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">422</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.4" data-dia="14.3">
+  <span class="product-tile-savings" tabindex="0" aria-label="27 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="27 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 27 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-multifocal.jpg" alt="Acuvue Oasys Multifocal 6-pack" width="900" height="900" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1413,11 +1449,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,3 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">423</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">423</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 26 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal-astigmatism.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal-astigmatism.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack" width="900" height="900" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1425,11 +1462,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">439</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">439</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-for-astigmatism-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="12 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="12 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 12 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal 30-pack" width="900" height="900" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1437,11 +1475,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">463</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">463</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="miru" data-wc="" data-bc="" data-dia="">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1449,11 +1488,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/miru/">MIRU</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">493</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">493</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="soflens" data-wc="59" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 8 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-multifocal-6pk.webp" type="image/webp"><img src="/static/products/soflens-multifocal-6pk.jpg" alt="SofLens Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1461,11 +1501,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/soflens/">SofLens</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>59 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">509</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">509</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="purevision" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision-multifocal-6pk.webp" type="image/webp"><img src="/static/products/purevision-multifocal-6pk.jpg" alt="PureVision Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1473,11 +1514,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">545</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">545</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="purevision" data-wc="36" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision2-presbyopia-6pk.webp" type="image/webp"><img src="/static/products/purevision2-presbyopia-6pk.jpg" alt="PureVision2 for Presbyopia 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1485,11 +1527,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>36 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">596</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">596</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="ultra" data-wc="46" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="40 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="40 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 40 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/0/9/7/3/ultra-for-presbyopia-1362x795.jpg" alt="ULTRA for Presbyopia 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1497,11 +1540,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/ultra/">ULTRA</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>46 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">598</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">598</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-for-presbyopia-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="air-optix" data-wc="33" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_hydraglyde_multifocal_6.jpg" alt="Air Optix plus HydraGlyde Multifocal 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1509,11 +1553,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/air-optix/">Air Optix</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>33 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">626</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">626</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.6" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 25 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-multifocal-6pk.webp" type="image/webp"><img src="/static/products/biofinity-multifocal-6pk.jpg" alt="Biofinity Multifocal 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1521,11 +1566,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg" alt="Proclear Multifocal XR 3-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1533,11 +1579,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">695</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">695</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-xr-3-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="total30" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="44 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="44 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 44 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/total30/total30-multifocal-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/1/1/2/total30-multifocal-image-original.jpg" alt="TOTAL30 Multifocal 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1545,11 +1592,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/total30/">TOTAL30</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/total30/total30-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">699</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/total30/total30-multifocal-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">699</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/total30/total30-multifocal-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/total30/total30-multifocal-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="58" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="27 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="27 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 27 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg" alt="1-Day Acuvue Moist Multifocal 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1557,11 +1605,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>58 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">727</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">727</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biotrue" data-wc="78" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="30 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="30 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 30 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1569,11 +1618,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biotrue/">Biotrue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>78 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">780</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">780</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biotrue/biotrue-oneday-for-presbyopia-90-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="clariti" data-wc="56" data-bc="8.6" data-dia="14.1">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 90-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1581,11 +1631,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/clariti/">Clariti</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>56 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,1 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">899</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">899</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="dailies" data-wc="69" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 16 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/dailies-aquacomfort-plus-multifocal-90pk.webp" type="image/webp"><img src="/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg" alt="Dailies AquaComfort Plus Multifocal 90-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1593,11 +1644,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/dailies/">Dailies</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>69 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">959</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">959</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-90-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="" data-dia="">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg" alt="Biofinity Multifocal Toric 3-pack" width="800" height="400" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1605,11 +1657,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">995</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">995</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-multifocal-toric-3-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="proclear" data-wc="60" data-bc="" data-dia="">
+  
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg" alt="Proclear Multifocal Toric 3-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1617,11 +1670,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">995</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">995</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-multifocal-toric-3-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="dailies" data-wc="33 100" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg" alt="Dailies Total1 Multifocal 90-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1629,11 +1683,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/dailies/">Dailies</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>33 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 266</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Brilleland</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 266</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/dailies/dailies-total1-multifocal-90-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="11 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="11 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 11 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-max-multifocal.webp" type="image/webp"><img src="/static/products/acuvue-oasys-max-multifocal.jpg" alt="Acuvue Oasys MAX 1-Day Multifocal 90-pack" width="900" height="900" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
@@ -1641,9 +1696,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 279</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">1 279</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal-90-pack/">Sammenlign priser</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>

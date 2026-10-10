@@ -362,7 +362,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -389,6 +389,31 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
@@ -1890,6 +1915,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-one-day-classic/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
   <div class="pli-eyeq-copy">
@@ -1908,11 +1934,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/">= Biomedics 1Day Extra 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-classic/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-classic/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-one-day-classic/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-classic/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-one-day-premium/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q3" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q3</div></div>
   <div class="pli-eyeq-copy">
@@ -1931,11 +1958,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-1-day-30-pack/">= Proclear 1 Day 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">191</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">191</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-24-xr/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q4</div></div>
   <div class="pli-eyeq-copy">
@@ -1954,11 +1982,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/">= Biofinity XR 3-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-24-xr/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-24-xr/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-24-xr/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-24-xr/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-premium/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
   <div class="pli-eyeq-copy">
@@ -1977,11 +2006,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-sphere-6-pack/">= Proclear Sphere 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-premium/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-premium/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-premium/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-premium/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-precision1/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-precision" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">P1</div></div>
   <div class="pli-eyeq-copy">
@@ -2000,11 +2030,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/precision1/precision1-30-pack/">= Precision1 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-precision1/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">277</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-precision1/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">277</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-precision1/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-precision1/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-one-day-classic-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
   <div class="pli-eyeq-copy">
@@ -2023,11 +2054,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/">= Biomedics 1Day Extra Toric 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-classic-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-classic-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-one-day-classic-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-classic-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q3" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q3</div></div>
   <div class="pli-eyeq-copy">
@@ -2046,11 +2078,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-1-day-multifocal-30-pack/">= Proclear 1 Day Multifocal 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">326</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-one-day-premium-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">326</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium-progressive/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-one-day-premium-progressive/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-precision1-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-precision" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">P1</div></div>
   <div class="pli-eyeq-copy">
@@ -2069,11 +2102,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/precision1/precision1-for-astigmatism-30-pack/">= Precision1 for Astigmatism 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-precision1-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">329</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-precision1-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">329</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-precision1-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-precision1-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-24/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q4</div></div>
   <div class="pli-eyeq-copy">
@@ -2092,11 +2126,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-6-pack/">= Biofinity 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-24/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 8 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-24/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-24/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-24/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-hydro/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q3" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q3</div></div>
   <div class="pli-eyeq-copy">
@@ -2115,11 +2150,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/">= Air Optix plus HydraGlyde 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-hydro/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-hydro/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-hydro/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-hydro/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-digital-focus/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q5" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q5</div></div>
   <div class="pli-eyeq-copy">
@@ -2138,11 +2174,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/">= Biofinity Energys 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-digital-focus/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-digital-focus/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-digital-focus/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-digital-focus/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-premium-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
   <div class="pli-eyeq-copy">
@@ -2161,11 +2198,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-toric-6-pack/">= Proclear Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-premium-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">389</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-premium-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">389</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-premium-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-premium-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-toric-classic/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q1" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q1</div></div>
   <div class="pli-eyeq-copy">
@@ -2184,11 +2222,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">= Biomedics Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-toric-classic/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-toric-classic/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-toric-classic/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-toric-classic/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-premium-progressive/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q2" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q2</div></div>
   <div class="pli-eyeq-copy">
@@ -2207,11 +2246,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-multifocal-6-pack/">= Proclear Multifocal 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-premium-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-premium-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">418</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-premium-progressive/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-premium-progressive/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-24-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q4</div></div>
   <div class="pli-eyeq-copy">
@@ -2230,11 +2270,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">= Biofinity Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-24-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">454</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 8 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-24-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">454</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-24-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-24-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-hydro-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q3" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q3</div></div>
   <div class="pli-eyeq-copy">
@@ -2253,11 +2294,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/air-optix/air-optix-hydraglyde-for-astigmatism-6-pack/">= Air Optix HydraGlyde for Astigmatism 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-hydro-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-hydro-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-hydro-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-hydro-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-total30/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-total30" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">T30</div></div>
   <div class="pli-eyeq-copy">
@@ -2276,11 +2318,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/total30/total30-6-pack/">= TOTAL30 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-total30/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-total30/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-total30/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-total30/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-total30-for-astigmatism/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-total30" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">T30</div></div>
   <div class="pli-eyeq-copy">
@@ -2299,11 +2342,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/total30/total30-for-astigmatism-6-pack/">= TOTAL30 for Astigmatism 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-total30-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-total30-for-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">599</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-total30-for-astigmatism/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-total30-for-astigmatism/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-hydro-progressive/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q3" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q3</div></div>
   <div class="pli-eyeq-copy">
@@ -2322,11 +2366,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-multifocal-6-pack/">= Air Optix plus HydraGlyde Multifocal 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-hydro-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">626</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-hydro-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">626</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-hydro-progressive/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-hydro-progressive/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="multifokale-linser">
+  
   <a class="product-tile-image-link" href="/private-label/eyeq-24-progressive/"><div class="product-tile-image has-photo"><div class="pli-tile-wrap"><div class="pli-eyeq-box pli-eyeq-qbox pli-eyeq-q4" role="img" aria-label="Illustrasjon, ikke et ekte produktbilde">
   <div class="pli-eyeq-qvisual"><div class="pli-eyeq-qmark">Q4</div></div>
   <div class="pli-eyeq-copy">
@@ -2345,9 +2390,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">= Biofinity Multifocal 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/eyeq-24-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/private-label/eyeq-24-progressive/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/private-label/eyeq-24-progressive/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/private-label/eyeq-24-progressive/">Sammenlign priser</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>

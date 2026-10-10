@@ -318,7 +318,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -345,6 +345,31 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
@@ -1278,6 +1303,7 @@ a { color: inherit; }
        CSS/JS-forbedring. -->
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-brand="soflens" data-wc="59" data-bc="8.6" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 16 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-59-6pk.webp" type="image/webp"><img src="/static/products/soflens-59-6pk.jpg" alt="SofLens 59 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1285,11 +1311,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/soflens/">SofLens</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>59 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-59-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-59-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-59-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.7" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 16 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/7/5/5/everclear-plus-1362x795.jpg" alt="everclear PLUS 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1297,11 +1324,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/everclear/">everclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-plus-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-plus-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-plus-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biomedics" data-wc="55" data-bc="8.6 8.8 8.9" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 25 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-55-evolution-6pk.webp" type="image/webp"><img src="/static/products/biomedics-55-evolution-6pk.jpg" alt="Biomedics 55 Evolution 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1309,11 +1337,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biomedics/">Biomedics</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="clearlii" data-wc="38" data-bc="8.6" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/"><div class="product-tile-image"><span class="product-tile-fallback">CL</span></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1321,11 +1350,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/clearlii/">Clearlii</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">219</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Apotek For Deg</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">219</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/clearlii/clearlii-hydrogel-manedslinser-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.7" data-dia="14.5">
+  <span class="product-tile-savings" tabindex="0" aria-label="32 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="32 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 32 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biofinity-xr-3pk.webp" type="image/webp"><img src="/static/products/biofinity-xr-3pk.jpg" alt="Biofinity XR 3-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1333,11 +1363,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,5 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="avaira" data-wc="46" data-bc="8.4 8.5" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="53 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="53 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 53 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg" alt="Avaira Vitality 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1345,11 +1376,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/avaira/">Avaira</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>46 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/avaira/avaira-vitality-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/avaira/avaira-vitality-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="proclear" data-wc="60" data-bc="8.7" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/proclear-sphere-6pk.webp" type="image/webp"><img src="/static/products/proclear-sphere-6pk.jpg" alt="Proclear Sphere 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1357,11 +1389,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/proclear/">Proclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>60 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/proclear/proclear-sphere-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-sphere-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/proclear/proclear-sphere-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="everclear" data-wc="" data-bc="8.7" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 17 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/7/9/5/7/everclear-air-1362x795.jpg" alt="everclear AIR 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1369,11 +1402,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/everclear/">everclear</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">249</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/everclear/everclear-air-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">249</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-air-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/everclear/everclear-air-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="38" data-bc="8.4 8.8" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/acuvue-oasys-6pk.webp" type="image/webp"><img src="/static/products/acuvue-oasys-6pk.jpg" alt="Acuvue Oasys 6-pack" width="900" height="714" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1381,11 +1415,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">262</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">262</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="soflens" data-wc="38" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 29 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/soflens-38-6pk.webp" type="image/webp"><img src="/static/products/soflens-38-6pk.jpg" alt="SofLens 38 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1393,11 +1428,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/soflens/">SofLens</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>38 %</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">276</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 3 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/soflens/soflens-38-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">276</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-38-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/soflens/soflens-38-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.6" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="36 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="36 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 36 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg" alt="Biofinity 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1405,11 +1441,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 8 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="acuvue" data-wc="41" data-bc="8.4 8.8" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/5/7/6/6/acuvue-vita-1362x795.jpg" alt="Acuvue Vita 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1417,11 +1454,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/acuvue/">Acuvue</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>41 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Shopping4net</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/acuvue/acuvue-vita-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="air-optix" data-wc="33" data-bc="8.6" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="24 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 24 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix.jpg" alt="Air Optix plus HydraGlyde 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1429,11 +1467,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/air-optix/">Air Optix</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>33 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">339</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-plus-hydraglyde-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="purevision" data-wc="36" data-bc="8.6" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 31 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision2-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision2-6pk.webp" type="image/webp"><img src="/static/products/purevision2-6pk.jpg" alt="PureVision2 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1441,11 +1480,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>36 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">357</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">357</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="purevision" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="19 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="19 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 19 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/purevision/purevision-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/purevision-6pk.webp" type="image/webp"><img src="/static/products/purevision-6pk.jpg" alt="PureVision 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1453,11 +1493,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/purevision/">PureVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">366</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">366</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="ultra" data-wc="46" data-bc="8.5" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="38 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="38 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 38 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/ultra/ultra-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/5/1/9/ultra-1362x795.jpg" alt="ULTRA 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1465,11 +1506,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/ultra/">ULTRA</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>46 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,5 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/ultra/ultra-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">369</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Synsam</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/ultra/ultra-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">369</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/ultra/ultra-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.6" data-dia="14.0">
+  <span class="product-tile-savings" tabindex="0" aria-label="48 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="48 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 48 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg" alt="Biofinity Energys 6-pack" width="170" height="99" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1477,11 +1519,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,6 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,0 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lensway</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="precision7" data-wc="55" data-bc="8.4" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="36 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="36 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 36 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/precision7-12pk.webp" type="image/webp"><img src="/static/products/precision7-12pk.jpg" alt="Precision7 12-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1489,11 +1532,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/precision7/">Precision7</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-12-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-12-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-12-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="total30" data-wc="" data-bc="" data-dia="">
+  <span class="product-tile-savings" tabindex="0" aria-label="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 26 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/total30/total30-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total30_6pk1.jpg" alt="TOTAL30 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1501,11 +1545,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/total30/">TOTAL30</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/total30/total30-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/total30/total30-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">527</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/total30/total30-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/total30/total30-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="biofinity" data-wc="48" data-bc="8.7" data-dia="14.5">
+  <span class="product-tile-savings" tabindex="0" aria-label="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 8 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg" alt="Biofinity XR 6-pack" width="2200" height="1500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1513,11 +1558,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/biofinity/">Biofinity</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>48 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,7 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,5 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">595</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Extra Optical</span> <span class="product-tile-store-count">+ 1 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">595</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="air-optix" data-wc="24" data-bc="8.4 8.6" data-dia="13.8">
+  <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-image has-photo"><img src="https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_night_day_aqua.jpg" alt="Air Optix Night &amp; Day Aqua 6-pack" width="1760" height="1200" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1525,11 +1571,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/air-optix/">Air Optix</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>24 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>13,8 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">639</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">639</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/air-optix/air-optix-night-day-aqua-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-brand="precision7" data-wc="55" data-bc="8.4" data-dia="14.2">
+  <span class="product-tile-savings" tabindex="0" aria-label="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 18 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/precision7-27pk.webp" type="image/webp"><img src="/static/products/precision7-27pk.jpg" alt="Precision7 27-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1537,9 +1584,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/merke/precision7/">Precision7</a>
     <div class="product-tile-specs-row"><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 2.5c3 4 6 8.2 6 11.8a6 6 0 1 1-12 0c0-3.6 3-7.8 6-11.8z" fill="currentColor"/></svg>55 %</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 18c0-7 4-13 8-13s8 6 8 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>8,4 mm</span><span class="product-tile-spec"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 12h16" stroke="currentColor" stroke-width="1.6" stroke-dasharray="1.6 2.2"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg>14,2 mm</span></div>
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">879</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 2 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/precision7/precision7-27-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">879</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-27-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/precision7/precision7-27-pack/">Sammenlign priser</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>

@@ -347,7 +347,7 @@ a { color: inherit; }
   .topbar, .footer-inner, .footer-disclosure, .footer-bottom { max-width: 1280px; }
 }
 .product-tile-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; margin-bottom: 8px; }
-.product-tile { display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+.product-tile { position: relative; display: flex; flex-direction: column; background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(11, 37, 69, 0.06); transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
 .product-tile:hover { transform: translateY(-3px); border-color: #B9C9DD; box-shadow: 0 10px 28px rgba(11, 37, 69, 0.11); }
 .product-tile-image-link { display: block; text-decoration: none; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -374,6 +374,31 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+.product-tile-savings { display: none; }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 126px; margin: 34px 5px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 126px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { height: 0; margin: 12px 0 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings { display: inline-block; position: absolute; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
@@ -1769,6 +1794,7 @@ a { color: inherit; }
 
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile" data-category="dagslinser">
+  <span class="product-tile-savings" tabindex="0" aria-label="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 35 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-30pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-30pk.jpg" alt="Biomedics 1Day Extra 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1776,11 +1802,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="manedslinser">
+  <span class="product-tile-savings" tabindex="0" aria-label="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 25 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-55-evolution-6pk.webp" type="image/webp"><img src="/static/products/biomedics-55-evolution-6pk.jpg" alt="Biomedics 55 Evolution 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
@@ -1788,11 +1815,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 5 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  <span class="product-tile-savings" tabindex="0" aria-label="19 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="19 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 19 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-toric-30pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-toric-30pk.jpg" alt="Biomedics 1Day Extra Toric 30-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
@@ -1800,11 +1828,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 6 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="toriske-linser">
+  <span class="product-tile-savings" tabindex="0" aria-label="38 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="38 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 38 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-toric-6pk.webp" type="image/webp"><img src="/static/products/biomedics-toric-6pk.jpg" alt="Biomedics Toric 6-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
@@ -1812,11 +1841,12 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Lenson</span> <span class="product-tile-store-count">+ 7 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">Sammenlign priser</a>
 </div>
 <div class="product-tile" data-category="dagslinser">
+  <span class="product-tile-savings" tabindex="0" aria-label="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 26 %</span>
   <a class="product-tile-image-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/"><div class="product-tile-image has-photo"><picture><source srcset="/static/products/biomedics-1day-xtra-90pk.webp" type="image/webp"><img src="/static/products/biomedics-1day-xtra-90pk.jpg" alt="Biomedics 1Day Extra 90-pack" width="900" height="525" loading="lazy"></picture></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
@@ -1824,9 +1854,9 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/coopervision/">CooperVision</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">414</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line">Lavest hos <span class="product-tile-store-name">Interoptik</span> <span class="product-tile-store-count">+ 4 butikker</span></div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">414</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
-  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/">Sammenlign priser →</a>
+  <a class="product-tile-cta" href="/kontaktlinser/biomedics/biomedics-1day-extra-90-pack/">Sammenlign priser</a>
 </div>
   </div>
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
