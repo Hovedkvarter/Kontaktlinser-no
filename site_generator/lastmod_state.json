@@ -697,7 +697,7 @@
  },
  "/merke/acuvue/": {
   "lastmod": "2026-10-10",
-  "sig": "49e4840e4453c10f7dd8c9a3be7be9ac340e8281"
+  "sig": "a097f63d412e4d675d8ff47ac68be638be900b8c"
  },
  "/merke/adore/": {
   "lastmod": "2026-10-10",
@@ -705,7 +705,7 @@
  },
  "/merke/air-optix/": {
   "lastmod": "2026-10-10",
-  "sig": "396014579313f2a4f45f2b6ddc06f3ae34ae8b8f"
+  "sig": "1b6fe91572b9dfb39953c3d1d5bbdfaadb218276"
  },
  "/merke/ascend/": {
   "lastmod": "2026-10-10",
@@ -713,23 +713,23 @@
  },
  "/merke/avaira/": {
   "lastmod": "2026-10-10",
-  "sig": "91466563fd5269542c440ef41867b837d56e8c51"
+  "sig": "0741fb5f529b04f504a2280e6012b7922724d948"
  },
  "/merke/biofinity/": {
   "lastmod": "2026-10-10",
-  "sig": "df03545710ef0b7ea952b94480ed37729e546e5a"
+  "sig": "12f702e65c17ef12f46a84773fb89a98eff874f2"
  },
  "/merke/biomedics/": {
   "lastmod": "2026-10-10",
-  "sig": "d38162933d4d64b54ef8451faf450ca756a259dd"
+  "sig": "fb668580c6a7a48b75d6b3c25626a9cd92db194c"
  },
  "/merke/biotrue/": {
   "lastmod": "2026-10-10",
-  "sig": "daeab23f997a51ab9d0d973ab7ad5214b458cf5c"
+  "sig": "e4ac5320884dd71b62f151aecc493c69f8eebaa0"
  },
  "/merke/clariti/": {
   "lastmod": "2026-10-10",
-  "sig": "938ca1221adc43b7aef1349a909d021fa530649f"
+  "sig": "a21711b73fdfd06ffc03285e130d39df839f404f"
  },
  "/merke/clearlab/": {
   "lastmod": "2026-10-10",
@@ -741,7 +741,7 @@
  },
  "/merke/dailies/": {
   "lastmod": "2026-10-10",
-  "sig": "fcc42819e6b305b25035e6379308a9b2a8bea63b"
+  "sig": "32b3f21d4d00fec2eb25e5d2191c764384a03451"
  },
  "/merke/daysoft/": {
   "lastmod": "2026-10-10",
@@ -773,27 +773,27 @@
  },
  "/merke/miru/": {
   "lastmod": "2026-10-10",
-  "sig": "9c05e0c20955d53ab7682f24ef3188112b0b62d7"
+  "sig": "603274e6745893f649bad1cc9080e1d641b56aee"
  },
  "/merke/myday/": {
   "lastmod": "2026-10-10",
-  "sig": "8e8b0bfca639518fda439fe99c60fab8b1de4c63"
+  "sig": "e55f39ba060793a636efea8cb14e1c2870921a80"
  },
  "/merke/precision1/": {
   "lastmod": "2026-10-10",
-  "sig": "8c967d96338a1c261364b994537c99e44cd79fd8"
+  "sig": "2bef9923cf959f8727b5101255bb573c52251b4b"
  },
  "/merke/precision7/": {
   "lastmod": "2026-10-10",
-  "sig": "1dd1f8a60e9bd873a9223839babdb52632a75924"
+  "sig": "2cc9cad2940ceef3f2cd5ba3c98e61cf51e4dc99"
  },
  "/merke/proclear/": {
   "lastmod": "2026-10-10",
-  "sig": "e59fbc75e6ce5900f42d06cb4925c05f1326c61d"
+  "sig": "d0b6b5487ed56bd91a7994c145377fcaa2c80b02"
  },
  "/merke/purevision/": {
   "lastmod": "2026-10-10",
-  "sig": "c67e2fd3888c7dd43fa9fe2f5d6c97c63e6ae8b7"
+  "sig": "7204407b48f0e0143d8dd46f4165144c5882f5d6"
  },
  "/merke/queens-trilogy/": {
   "lastmod": "2026-10-10",
@@ -801,7 +801,7 @@
  },
  "/merke/soflens/": {
   "lastmod": "2026-10-10",
-  "sig": "f85370222f4dc36199989dcd5e03965be62e3ccb"
+  "sig": "6524f188e5462a0a3113ae941cf6181a03ce38c3"
  },
  "/merke/swati/": {
   "lastmod": "2026-10-10",
@@ -809,7 +809,7 @@
  },
  "/merke/total30/": {
   "lastmod": "2026-10-10",
-  "sig": "9f87970a1dcde712d1679368248c09f4be9d3aa5"
+  "sig": "958a6fabaf71d2b456797f47e3ce3ffd13a7f194"
  },
  "/merke/truelens/": {
   "lastmod": "2026-10-10",
@@ -817,7 +817,7 @@
  },
  "/merke/ultra/": {
   "lastmod": "2026-10-10",
-  "sig": "7e43dbd828d78b22661d51b7a2195c4c8066de71"
+  "sig": "c65cece3ceb1cf28177037285754d38b2841330a"
  },
  "/om-oss/": {
   "lastmod": "2026-10-10",
@@ -1277,31 +1277,31 @@
  },
  "/produsent/alcon/": {
   "lastmod": "2026-10-10",
-  "sig": "9876d51a558a15a5022e86c85bdba9b7bfaa3d64"
+  "sig": "31259f3dcf8dc88e0b52282bab5e0c80881303af"
  },
  "/produsent/bausch-lomb/": {
   "lastmod": "2026-10-10",
-  "sig": "4b40399eba333b378a92bd54dbc84b9a5bdee593"
+  "sig": "255b1ed49d5b97e7545411b42316dac844411b35"
  },
  "/produsent/coopervision/": {
   "lastmod": "2026-10-10",
-  "sig": "79314a2d7b7542f6459781922b6579261fabb141"
+  "sig": "7ec0e9743d8519dd4440f91aa99f7387bde6a2b3"
  },
  "/produsent/eyemed-technologies/": {
   "lastmod": "2026-10-10",
-  "sig": "12c6e45065063480fa0fac5dbe76e0dd33bc7277"
+  "sig": "705068e93f5402e55b33c056a39e0e39015c09bf"
  },
  "/produsent/jnj-vision/": {
   "lastmod": "2026-10-10",
-  "sig": "bf8e34ca9ba98bbd38b1ea355d6ccfd27fd676bf"
+  "sig": "76815978aac147b0e8ede3a1df3062d6129845dc"
  },
  "/produsent/menicon/": {
   "lastmod": "2026-10-10",
-  "sig": "122209456108e212840436261d58161caaffb590"
+  "sig": "b95790abdac6d88a1d743cf3ca2ffc5600e0c3f5"
  },
  "/produsent/pegavision/": {
   "lastmod": "2026-10-10",
-  "sig": "02f0c524296e85d68c83ca37bf3e238a69e5fb88"
+  "sig": "9724d1dc5077b1e279e079b49a5941ab3e6aa16e"
  },
  "/redaksjonelle-prinsipper/": {
   "lastmod": "2026-10-10",
