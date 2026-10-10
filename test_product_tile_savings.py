@@ -10,10 +10,10 @@ def offer(store, price, **extra):
     return dict(retailer=store, price_nok=price, total=price, in_stock=True, is_stale=False, **extra)
 
 
-def tile(offers):
+def tile(offers, illustration_html=None):
     return _render_product_tile(href='/product/', name='Example 30-pack', image_url=None,
         fallback_initials='EX', category_label='Dagslinser', secondary_line_html='',
-        lowest=None, other_count=99, comparison_offers=offers)
+        lowest=None, other_count=99, comparison_offers=offers, illustration_html=illustration_html)
 
 
 class ProductTileSavingsTests(unittest.TestCase):
@@ -37,6 +37,11 @@ class ProductTileSavingsTests(unittest.TestCase):
         html=tile([stale,offer('Zero',0),offer('Invalid',float('nan'))])
         self.assertIn('Ingen tilbud tilgjengelig', html)
         self.assertNotIn('class="product-tile-savings"', html)
+
+    def test_illustrated_cards_keep_comparison_prices(self):
+        html = tile([offer("A", 100), offer("B", 200)], "<svg></svg>")
+        self.assertIn("Spar 50 %", html)
+        self.assertIn('<s class="product-tile-high-price">200 kr</s>', html)
 
     def test_percentage_never_rounds_up(self):
         self.assertIn('Spar 33 %', tile([offer('A',100),offer('B',150)]))
