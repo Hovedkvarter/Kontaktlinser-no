@@ -433,6 +433,27 @@ a { color: inherit; }
 .product-tile-store-count { color: var(--blue); font-weight: 700; }
 .product-tile-cta { display: block; margin: 16px 18px 18px; padding: 12px 16px; background: var(--blue); color: white; text-decoration: none; text-align: center; font-size: 0.9rem; font-weight: 700; border-radius: 9px; transition: background 0.15s; }
 .product-tile:hover .product-tile-cta { background: var(--blue-dark); }
+/* Mobile product lists: reference 003, two cards per row. Keep full names
+   and native links; no line clamping or JavaScript-dependent content. */
+@media (max-width: 600px) {
+  .product-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .product-tile { min-width: 0; border-radius: 10px; box-shadow: none; }
+  .product-tile-image { height: 118px; margin: 8px 8px 0; border-radius: 6px; background: white; }
+  .product-tile-image.has-photo { background: white; }
+  .product-tile-image img { width: 100%; max-height: 110px; }
+  .product-tile-body { padding: 10px 10px 0; min-width: 0; }
+  .product-tile-name-link { order: -2; overflow-wrap: anywhere; }
+  .product-tile-name-link .product-name { font-size: .875rem; line-height: 1.3; min-height: 0; }
+  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
+  .product-tile-divider { margin: 10px 0; }
+  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-number { font-size: 1.45rem; }
+  .product-tile-price-currency { font-size: .8rem; }
+  .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
+  .product-tile-store-count { display: block; }
+  .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 10px; padding: 8px 4px; font-size: .75rem; line-height: 1.3; border-radius: 6px; }
+}
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
