@@ -6242,6 +6242,66 @@ BRAND_PAGE_STYLE = """
 """
 
 
+def brand_series_variant_pills(type_labels: list[str]) -> tuple[str | None, list[str]]:
+    primary = next((t for t in type_labels if t not in ("Toriske linser", "Multifokale linser")), None)
+    pills = ["Standard"] if primary else []
+    if "Toriske linser" in type_labels:
+        pills.append("Torisk")
+    if "Multifokale linser" in type_labels:
+        pills.append("Multifokal")
+    return primary, pills
+
+# Ren, subtil bakgrunnstoning per kort -- KUN visuell differensiering
+# (samme fargesett som resten av designsystemet), ikke koblet til noe
+# faktisk merkevare-/produktdata. Roterer deterministisk per indeks.
+SERIES_CARD_TINTS = ["mint", "sky", "lavender", "amber", "coral", "blue"]
+# Eyebrow-fargen derimot ER koblet til faktisk data -- samme
+# kategori->farge-kobling som "Sortimentet forklart"-kortene lenger ned
+# på siden bruker (category_icon_map), så "Dagslinser" alltid betyr det
+# samme visuelt på tvers av hele siden.
+SERIES_TYPE_COLORS = {"Dagslinser": "amber", "Månedslinser": "sky", "Fargede linser": "mint", "Toriske linser": "coral", "Multifokale linser": "lavender"}
+
+def brand_series_description(primary_label: str | None, material: str | None, pills: list[str]) -> str | None:
+    # Kai, punkt 8: "Hvis vi ikke har gode nok fakta til en nyttig
+    # beskrivelse -> ikke vis beskrivelsen." Krever BÅDE kjent
+    # hovedtype OG ett entydig materiale på tvers av hele serien
+    # (samme _brand_family_summary-felt som "Materialer"-seksjonen
+    # bruker -- `material` er allerede None hvis serien har >1
+    # materiale, se _brand_family_summary()).
+    if not primary_label or not material or not pills:
+        return None
+    words = [p.lower() for p in pills]
+    if len(words) == 1:
+        variant_txt = f"{words[0]} variant"
+    else:
+        variant_txt = ", ".join(words[:-1]) + f" og {words[-1]} variant"
+    return f"Serie med {primary_label.lower()} i {escape(material)}, tilgjengelig som {variant_txt}."
+
+def brand_series_card(s: dict, index: int) -> str:
+    img_html = f'<img src="{escape(s["image"])}" alt=""{_dim_attrs(s["image"])} loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
+    primary_label, pills = brand_series_variant_pills(s["type_labels"])
+    pills_html = "".join(f'<span class="brand-serie-card-pill">{escape(p)}</span>' for p in pills)
+    price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
+    desc = brand_series_description(primary_label, s["material"], pills)
+    tint = SERIES_CARD_TINTS[index % len(SERIES_CARD_TINTS)]
+    eyebrow_color = SERIES_TYPE_COLORS.get(primary_label, "blue")
+    eyebrow_html = f'<span class="brand-serie-card-eyebrow" style="background:var(--{eyebrow_color}-tint);color:var(--{eyebrow_color});">{escape(primary_label.upper())}</span>' if primary_label else ''
+    return f'''<a class="brand-serie-card" href="{escape(s["href"])}" style="--serie-tint:var(--{tint}-tint);">
+<div class="brand-serie-card-top">
+  {eyebrow_html}
+  <div class="brand-serie-card-image">{img_html}</div>
+</div>
+<div class="brand-serie-card-body">
+  <div class="brand-serie-card-name">{escape(s["name"])}</div>
+  {f'<p class="brand-serie-card-desc">{desc}</p>' if desc else ''}
+  {f'<div class="brand-serie-card-pills">{pills_html}</div>' if pills_html else ''}
+  <div class="brand-serie-card-spacer"></div>
+  <div class="brand-serie-card-foot"><span>{s["n_products"]} produkter</span><strong>Fra {price_txt}</strong></div>
+  <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
+</div>
+</a>'''
+
+
 def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], categories: dict, product_families: list[dict], now: datetime | None = None, price_history: dict | None = None) -> str:
     """Merke-side (/merke/{slug}/) -- fikk 2026-09-27 samme type løft som
     serie-siden fikk tidligere samme dag, etter Kai sitt ønske ("ikke bare
@@ -6442,65 +6502,6 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
     # `.brand-serie-grid` (minmax med fast maks, ikke 1fr) lenger ned.
     # "Standard/Torisk/Multifokal"-pillene er utledet fra samme
     # type_labels som resten av siden allerede bruker.
-    def brand_series_variant_pills(type_labels: list[str]) -> tuple[str | None, list[str]]:
-        primary = next((t for t in type_labels if t not in ("Toriske linser", "Multifokale linser")), None)
-        pills = ["Standard"] if primary else []
-        if "Toriske linser" in type_labels:
-            pills.append("Torisk")
-        if "Multifokale linser" in type_labels:
-            pills.append("Multifokal")
-        return primary, pills
-
-    # Ren, subtil bakgrunnstoning per kort -- KUN visuell differensiering
-    # (samme fargesett som resten av designsystemet), ikke koblet til noe
-    # faktisk merkevare-/produktdata. Roterer deterministisk per indeks.
-    SERIES_CARD_TINTS = ["mint", "sky", "lavender", "amber", "coral", "blue"]
-    # Eyebrow-fargen derimot ER koblet til faktisk data -- samme
-    # kategori->farge-kobling som "Sortimentet forklart"-kortene lenger ned
-    # på siden bruker (category_icon_map), så "Dagslinser" alltid betyr det
-    # samme visuelt på tvers av hele siden.
-    SERIES_TYPE_COLORS = {"Dagslinser": "amber", "Månedslinser": "sky", "Fargede linser": "mint", "Toriske linser": "coral", "Multifokale linser": "lavender"}
-
-    def brand_series_description(primary_label: str | None, material: str | None, pills: list[str]) -> str | None:
-        # Kai, punkt 8: "Hvis vi ikke har gode nok fakta til en nyttig
-        # beskrivelse -> ikke vis beskrivelsen." Krever BÅDE kjent
-        # hovedtype OG ett entydig materiale på tvers av hele serien
-        # (samme _brand_family_summary-felt som "Materialer"-seksjonen
-        # bruker -- `material` er allerede None hvis serien har >1
-        # materiale, se _brand_family_summary()).
-        if not primary_label or not material or not pills:
-            return None
-        words = [p.lower() for p in pills]
-        if len(words) == 1:
-            variant_txt = f"{words[0]} variant"
-        else:
-            variant_txt = ", ".join(words[:-1]) + f" og {words[-1]} variant"
-        return f"Serie med {primary_label.lower()} i {escape(material)}, tilgjengelig som {variant_txt}."
-
-    def brand_series_card(s: dict, index: int) -> str:
-        img_html = f'<img src="{escape(s["image"])}" alt=""{_dim_attrs(s["image"])} loading="lazy" decoding="async">' if s["image"] else '<div class="brand-serie-card-fallback">' + escape(s["name"][:2].upper()) + '</div>'
-        primary_label, pills = brand_series_variant_pills(s["type_labels"])
-        pills_html = "".join(f'<span class="brand-serie-card-pill">{escape(p)}</span>' for p in pills)
-        price_txt = _fmt_kr(s["min_price"]) if s["min_price"] else "Ingen pris"
-        desc = brand_series_description(primary_label, s["material"], pills)
-        tint = SERIES_CARD_TINTS[index % len(SERIES_CARD_TINTS)]
-        eyebrow_color = SERIES_TYPE_COLORS.get(primary_label, "blue")
-        eyebrow_html = f'<span class="brand-serie-card-eyebrow" style="background:var(--{eyebrow_color}-tint);color:var(--{eyebrow_color});">{escape(primary_label.upper())}</span>' if primary_label else ''
-        return f'''<a class="brand-serie-card" href="{escape(s["href"])}" style="--serie-tint:var(--{tint}-tint);">
-    <div class="brand-serie-card-top">
-      {eyebrow_html}
-      <div class="brand-serie-card-image">{img_html}</div>
-    </div>
-    <div class="brand-serie-card-body">
-      <div class="brand-serie-card-name">{escape(s["name"])}</div>
-      {f'<p class="brand-serie-card-desc">{desc}</p>' if desc else ''}
-      {f'<div class="brand-serie-card-pills">{pills_html}</div>' if pills_html else ''}
-      <div class="brand-serie-card-spacer"></div>
-      <div class="brand-serie-card-foot"><span>{s["n_products"]} produkter</span><strong>Fra {price_txt}</strong></div>
-      <div class="brand-serie-card-cta">Utforsk serien <span aria-hidden="true">→</span></div>
-    </div>
-  </a>'''
-
     series_nav_html = ""
     if family_summaries:
         # "Sammenlign seriene ->" -- lenke til den ekte sammenligningstabellen
@@ -7044,7 +7045,7 @@ def render_brand_page(brand_slug: str, brand_label: str, products: list[dict], c
 </html>"""
 
 
-def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int], brand_labels: dict[str, str]) -> str:
+def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int], brand_labels: dict[str, str], products: list[dict], categories: dict, product_families: list[dict], now: datetime) -> str:
     """Egen side per produsent (/produsent/{slug}/) -- IKKE det samme som en
     merke-side (/merke/{slug}/): et merke er ett produktnavn (Biofinity), en
     produsent kan stå bak flere merker (CooperVision -> Biofinity, Proclear,
@@ -7072,6 +7073,35 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
     <div class="brand-card-count">{count} {n_label}</div>
   </div>
 </a>"""
+
+    products = [p for p in products if p["brand_slug"] in own_brand_slugs]
+    by_id = {p["id"]: p for p in products}
+    summaries = []
+    for family in product_families:
+        members = [by_id[mid] for mid in family["member_ids"] if mid in by_id]
+        if len(members) >= 2:
+            summary = _brand_family_summary(family, members, categories, now)
+            if summary:
+                summaries.append(summary)
+    summaries.sort(key=lambda x: x["min_price"] or float("inf"))
+    cards = []
+    for product in products:
+        offers = reconcile_product(product["offers"], now)
+        valid = [o for o in offers if o["in_stock"] and not o["is_stale"]]
+        lowest = min(valid, key=lambda o: (o["price_nok"], o["total"]), default=None)
+        card = _render_product_tile(
+            href=f'/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/',
+            name=product["name"], image_url=_product_image(product),
+            fallback_initials=product["brand_label"][:2].upper(),
+            category_label=categories[product["category_slug"]]["label"],
+            secondary_line_html=f'<a class="product-tile-manufacturer" href="/merke/{escape(product["brand_slug"])}/">{escape(product["brand_label"])}</a>',
+            lowest=lowest, other_count=len(offers)-1, comparison_offers=offers,
+        )
+        cards.append((lowest["price_nok"] if lowest else float("inf"), card))
+    product_cards_html = "\n".join(card for _, card in sorted(cards, key=lambda x: x[0]))
+    series_html = ('<section class="manufacturer-series"><h2>Produktserier</h2><div class="brand-serie-grid">'
+                   + "".join(brand_series_card(summary, i) for i, summary in enumerate(summaries))
+                   + '</div></section>') if summaries else ""
 
     brand_cards_html = "\n".join(render_brand_card(s) for s in own_brand_slugs)
     total_products = sum(brand_counts[s] for s in own_brand_slugs)
@@ -7104,6 +7134,8 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
+{BRAND_PAGE_STYLE}
+.manufacturer-series {{ margin: 36px 0; }}
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
 .brand-card:hover {{ border-color: var(--blue); }}
@@ -7124,6 +7156,13 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
       <h1>{escape(name)}</h1>
     </div>
   </div>
+
+  <section class="manufacturer-products">
+    <h2>Alle produkter fra {escape(name)} ({len(products)})</h2>
+    <div class="product-tile-grid">{product_cards_html}</div>
+  </section>
+
+  {series_html}
 
   <div style="max-width:720px;font-size:1rem;line-height:1.7;">
     {data["description_html"]}

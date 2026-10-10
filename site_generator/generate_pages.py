@@ -306,7 +306,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
 
     brand_counts = {slug: len([p for p in lens_products if p["brand_slug"] == slug]) for slug in brand_labels}
     for manufacturer_slug in MANUFACTURERS:
-        html = render_manufacturer_page(manufacturer_slug, brand_counts, brand_labels)
+        html = render_manufacturer_page(manufacturer_slug, brand_counts, brand_labels, lens_products, catalog["categories"], product_families, now)
         out_path = BUILD_DIR / "produsent" / manufacturer_slug / "index.html"
         write_file(out_path, html)
         print(f"  produsent -> /produsent/{manufacturer_slug}/")
