@@ -466,25 +466,14 @@ a { color: inherit; }
   .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 120px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
   .product-tile-cta { display: flex; align-items: center; justify-content: center; min-height: 44px; box-sizing: border-box; margin: 8px; padding: 8px 4px; font-size: .75rem; font-weight: 500; line-height: 1.3; border-radius: 7px; background: #0866d9; }
 }
-/* Desktop draft: same price hierarchy and clean cards as mobile. */
+/* Desktop: savings and highest-price line only. */
 @media (min-width: 601px) {
-  .product-tile { border-radius: 12px; box-shadow: none; }
-  .product-tile-image, .product-tile-image.has-photo { height: 205px; margin: 42px 10px 0; background: white; }
-  .product-tile-image img { width: 100%; max-height: 195px; }
-  .product-tile-body { padding: 16px 18px 0; }
-  .product-tile-name-link { order: -2; }
-  .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 6px 0 0; font-size: .85rem; line-height: 1.4; text-transform: none; letter-spacing: 0; }
-  .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
-  .product-tile-divider { height: 0; margin: 20px 0 0; }
-  .product-tile-price-label { min-height: 1.15rem; }
   .product-tile-price-label-default { display: none; }
   .product-tile-high-price { display: inline; }
-  .product-tile-price-from { display: inline; font-size: 1rem; font-weight: 500; }
-  .product-tile-savings { display: inline-block; position: absolute; top: 14px; left: 14px; padding: 5px 10px; border-radius: 999px; background: #d0443b; color: white; font-size: .8rem; font-weight: 700; line-height: 1.1; cursor: help; }
+  .product-tile-price-label { min-height: 1.2em; }
+  .product-tile-savings { display: inline-block; position: absolute; z-index: 2; top: 10px; left: 10px; padding: 4px 8px; border-radius: 999px; background: #d0443b; color: #fff; font-size: .7rem; font-weight: 700; line-height: 1.1; cursor: help; }
   .product-tile-savings:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 200px; box-sizing: border-box; padding: 10px; border-radius: 6px; background: var(--ink); color: white; font-size: .75rem; font-weight: 400; line-height: 1.4; }
-  .product-tile-cta { margin: 16px; min-height: 44px; box-sizing: border-box; padding: 12px 8px; border-radius: 8px; font-weight: 500; background: #0866d9; }
-  .product-tile:hover .product-tile-cta { background: #0759bf; }
+  .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 180px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
 }
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
 .faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
