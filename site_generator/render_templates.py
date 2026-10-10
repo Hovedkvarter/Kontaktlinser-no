@@ -2817,7 +2817,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
         valid = list(by_store.values())
         store_count = len(valid)
         lowest = min(valid, key=lambda o: (o["price_nok"], o["total"]), default=None)
-        if len(valid) >= 2 and not illustration_html:
+        if len(valid) >= 2:
             high = max(o["price_nok"] for o in valid)
             if high > lowest["price_nok"]:
                 highest_price = high
