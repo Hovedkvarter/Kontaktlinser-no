@@ -424,6 +424,7 @@ a { color: inherit; }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
 .product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
@@ -448,7 +449,10 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
-  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
+  .product-tile-price-label-default { display: none; }
+  .product-tile-high-price { display: inline; }
+  .product-tile-price-from { display: inline; font-size: .8rem; font-weight: 500; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
@@ -2783,6 +2787,7 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     category_badge = f'<div class="product-tile-category">{escape(category_label)}</div>' if category_label else ""
 
     savings_html = ""
+    highest_price = None
     store_count = max(0, other_count + 1)
     if comparison_offers is not None:
         # Same product/pack only. One fresh, in-stock positive price per store.
@@ -2799,6 +2804,8 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
         lowest = min(valid, key=lambda o: (o["price_nok"], o["total"]), default=None)
         if len(valid) >= 2 and not illustration_html:
             high = max(o["price_nok"] for o in valid)
+            if high > lowest["price_nok"]:
+                highest_price = high
             # Floor rather than overstate savings; omit sub-1% differences.
             percent = math.floor((high - lowest["price_nok"]) / high * 100)
             if percent >= 1:
@@ -2810,9 +2817,10 @@ def _render_product_tile(*, href: str, name: str, image_url: str | None, fallbac
     if lowest:
         num = f'{lowest["price_nok"]:,.0f}'.replace(",", " ")
         store_html = f' hos {store_count} {"butikk" if store_count == 1 else "butikker"}'
+        high_html = f'<s class="product-tile-high-price">{_fmt_kr(highest_price)}</s>' if highest_price is not None else ""
         price_block = (
-            f'<div class="product-tile-price-label">Fra (ekskl. frakt)</div>'
-            f'<div class="product-tile-price"><span class="product-tile-price-number">{num}</span>'
+            f'<div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span>{high_html}</div>'
+            f'<div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">{num}</span>'
             f'<span class="product-tile-price-currency">kr</span></div>'
             f'<div class="product-tile-store-line">{store_html}</div>'
         )
