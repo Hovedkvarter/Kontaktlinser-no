@@ -349,6 +349,7 @@ a { color: inherit; }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
 .product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
@@ -373,7 +374,10 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
-  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
+  .product-tile-price-label-default { display: none; }
+  .product-tile-high-price { display: inline; }
+  .product-tile-price-from { display: inline; font-size: .8rem; font-weight: 500; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
@@ -1168,7 +1172,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Artelac</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/artelac/artelac-oyedraper-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">50</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/artelac/artelac-oyedraper-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">50</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/artelac/artelac-oyedraper-10-ml/">Sammenlign priser</a>
 </div>
@@ -1181,7 +1185,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Drop-it</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">52</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">52</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/">Sammenlign priser</a>
 </div>
@@ -1194,7 +1198,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Viscotears</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/viscotears/viscotears-oyegel-10-g/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">83</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/viscotears/viscotears-oyegel-10-g/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">83</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/viscotears/viscotears-oyegel-10-g/">Sammenlign priser</a>
 </div>
@@ -1207,7 +1211,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">OXYAL</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-care-gel-10-g/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">99</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-care-gel-10-g/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">119 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">99</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/oxyal/oxyal-care-gel-10-g/">Sammenlign priser</a>
 </div>
@@ -1220,7 +1224,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EYZ</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-clean-20-stk/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">111</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-clean-20-stk/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">129 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">111</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/eyz/eyz-clean-20-stk/">Sammenlign priser</a>
 </div>
@@ -1233,7 +1237,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">OXYAL</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">118</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">129 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">118</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/">Sammenlign priser</a>
 </div>
@@ -1246,7 +1250,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EYZ</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-night-5-g/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">118</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-night-5-g/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">149 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">118</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/eyz/eyz-night-5-g/">Sammenlign priser</a>
 </div>
@@ -1259,7 +1263,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Tearsagain</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">127</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">129 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">127</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/tearsagain/tearsagain-10-ml/">Sammenlign priser</a>
 </div>
@@ -1272,7 +1276,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-night-5-g/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">127</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-night-5-g/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">159 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">127</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-night-5-g/">Sammenlign priser</a>
 </div>
@@ -1285,7 +1289,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Systane</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/systane/systane-ultra-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">129</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/systane/systane-ultra-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">198 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">129</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/systane/systane-ultra-10-ml/">Sammenlign priser</a>
 </div>
@@ -1298,7 +1302,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EYZ</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-plus-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">135</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-plus-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">179 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">135</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/eyz/eyz-plus-10-ml/">Sammenlign priser</a>
 </div>
@@ -1311,7 +1315,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-fresh-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">140</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-fresh-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">159 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">140</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-fresh-10-ml/">Sammenlign priser</a>
 </div>
@@ -1324,7 +1328,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Bevita</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">141</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">141</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/">Sammenlign priser</a>
 </div>
@@ -1337,7 +1341,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Systane</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/systane/systane-hydration-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">143</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/systane/systane-hydration-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">212 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">143</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/systane/systane-hydration-10-ml/">Sammenlign priser</a>
 </div>
@@ -1350,7 +1354,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">OXYAL</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">146</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">209 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">146</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/">Sammenlign priser</a>
 </div>
@@ -1363,7 +1367,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Thealoz</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/thealoz/thealoz-duo-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">148</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/thealoz/thealoz-duo-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">179 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">148</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/thealoz/thealoz-duo-10-ml/">Sammenlign priser</a>
 </div>
@@ -1376,7 +1380,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Thealoz</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">155</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">160 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">155</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/">Sammenlign priser</a>
 </div>
@@ -1389,7 +1393,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hyprosan</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">157</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">157</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/">Sammenlign priser</a>
 </div>
@@ -1402,7 +1406,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">POSIFORLID</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">157</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">157</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/">Sammenlign priser</a>
 </div>
@@ -1415,7 +1419,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Cleye</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/cleye/cleye-oyedraper-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">164</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/cleye/cleye-oyedraper-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">164</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/cleye/cleye-oyedraper-10-ml/">Sammenlign priser</a>
 </div>
@@ -1428,7 +1432,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Tearsagain</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">167</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">179 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">167</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/">Sammenlign priser</a>
 </div>
@@ -1441,7 +1445,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Euphrasia Pollendråper</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/euphrasia-pollendraper/euphrasia-pollendraper-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">167</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/euphrasia-pollendraper/euphrasia-pollendraper-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">167</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/euphrasia-pollendraper/euphrasia-pollendraper-10-ml/">Sammenlign priser</a>
 </div>
@@ -1454,7 +1458,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-comod-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">169</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-comod-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">209 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">169</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-comod-10-ml/">Sammenlign priser</a>
 </div>
@@ -1467,7 +1471,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Systane</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/systane/systane-complete-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">175</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/systane/systane-complete-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">220 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">175</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/systane/systane-complete-10-ml/">Sammenlign priser</a>
 </div>
@@ -1480,7 +1484,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Tearsagain</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">175</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">189 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">175</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/">Sammenlign priser</a>
 </div>
@@ -1493,7 +1497,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">OXYAL</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">219 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">179</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/">Sammenlign priser</a>
 </div>
@@ -1506,7 +1510,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Add1</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/add1/add1-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/add1/add1-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">189 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">183</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/add1/add1-10-ml/">Sammenlign priser</a>
 </div>
@@ -1519,7 +1523,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-gel-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">184</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-gel-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">209 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">184</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-gel-10-ml/">Sammenlign priser</a>
 </div>
@@ -1532,7 +1536,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-dual-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">188</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-dual-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">229 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">188</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-dual-10-ml/">Sammenlign priser</a>
 </div>
@@ -1545,7 +1549,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-dual-intense-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">190</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-dual-intense-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">259 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">190</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-dual-intense-10-ml/">Sammenlign priser</a>
 </div>
@@ -1558,7 +1562,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EYZ</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-protect-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">201</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/eyz/eyz-protect-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">219 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">201</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/eyz/eyz-protect-10-ml/">Sammenlign priser</a>
 </div>
@@ -1571,7 +1575,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Hylo</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-care-10-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">207</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/hylo/hylo-care-10-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">229 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">207</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/hylo/hylo-care-10-ml/">Sammenlign priser</a>
 </div>
@@ -1584,7 +1588,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EvoTears</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/evotears/evotears-3-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">209</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/evotears/evotears-3-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">261 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">209</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/evotears/evotears-3-ml/">Sammenlign priser</a>
 </div>
@@ -1597,7 +1601,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Desodrop</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/">Sammenlign priser</a>
 </div>
@@ -1610,7 +1614,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">OXYAL</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">232</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">249 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">232</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/">Sammenlign priser</a>
 </div>

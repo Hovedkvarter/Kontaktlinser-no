@@ -337,6 +337,7 @@ a { color: inherit; }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
 .product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
@@ -361,7 +362,10 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
-  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
+  .product-tile-price-label-default { display: none; }
+  .product-tile-high-price { display: inline; }
+  .product-tile-price-from { display: inline; font-size: .8rem; font-weight: 500; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
@@ -1156,7 +1160,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-60-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-60-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">47 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-60-ml/">Sammenlign priser</a>
 </div>
@@ -1169,7 +1173,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">everclear</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/everclear/everclear-refresh-250-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/everclear/everclear-refresh-250-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">47 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/everclear/everclear-refresh-250-ml/">Sammenlign priser</a>
 </div>
@@ -1182,7 +1186,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Extend</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/extend/extend-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/extend/extend-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">43 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">39</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/extend/extend-100-ml/">Sammenlign priser</a>
 </div>
@@ -1195,7 +1199,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Acuvue RevitaLens</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">45</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">55 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">45</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-100-ml/">Sammenlign priser</a>
 </div>
@@ -1208,7 +1212,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-flight-pack-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">55</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-flight-pack-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">59 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">55</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/renu/renu-flight-pack-100-ml/">Sammenlign priser</a>
 </div>
@@ -1221,7 +1225,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EasySept</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-120-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">59</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-120-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">85 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">59</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/easysept/easysept-120-ml/">Sammenlign priser</a>
 </div>
@@ -1234,7 +1238,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-express-120-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">65</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-express-120-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">65</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/opti-free/opti-free-express-120-ml/">Sammenlign priser</a>
 </div>
@@ -1247,7 +1251,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Acuvue RevitaLens</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-300-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">69</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-300-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">71 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">69</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/acuvue-revitalens/acuvue-revitalens-300-ml/">Sammenlign priser</a>
 </div>
@@ -1260,7 +1264,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Extend</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/extend/extend-355-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">69</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/extend/extend-355-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">71 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">69</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/extend/extend-355-ml/">Sammenlign priser</a>
 </div>
@@ -1273,7 +1277,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Biotrue</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/biotrue-solution/biotrue-flight-pack-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">71</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/biotrue-solution/biotrue-flight-pack-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">79 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">71</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/biotrue-solution/biotrue-flight-pack-100-ml/">Sammenlign priser</a>
 </div>
@@ -1286,7 +1290,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-puremoist-90-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">75</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-puremoist-90-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">79 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">75</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/opti-free/opti-free-puremoist-90-ml/">Sammenlign priser</a>
 </div>
@@ -1299,7 +1303,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-240-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">79</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-240-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">79</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-240-ml/">Sammenlign priser</a>
 </div>
@@ -1312,7 +1316,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">everclear</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/everclear/everclear-refresh-3-pack-750-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">79</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/everclear/everclear-refresh-3-pack-750-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">87 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">79</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/everclear/everclear-refresh-3-pack-750-ml/">Sammenlign priser</a>
 </div>
@@ -1325,7 +1329,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Clearlii</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/clearlii/clearlii-multi-purpose-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">80</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/clearlii/clearlii-multi-purpose-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">80</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/clearlii/clearlii-multi-purpose-100-ml/">Sammenlign priser</a>
 </div>
@@ -1338,7 +1342,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">ReNu</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-360-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">87</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/renu/renu-multi-purpose-360-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">99 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">87</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/renu/renu-multi-purpose-360-ml/">Sammenlign priser</a>
 </div>
@@ -1351,7 +1355,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Oxysept</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">95</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">95</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/oxysept/oxysept-1-step-300-ml/">Sammenlign priser</a>
 </div>
@@ -1364,7 +1368,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-express-355-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">99</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-express-355-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">125 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">99</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/opti-free/opti-free-express-355-ml/">Sammenlign priser</a>
 </div>
@@ -1377,7 +1381,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">SoloCare</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/solocare/solocare-aqua-360-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">103</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/solocare/solocare-aqua-360-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">103</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 1 butikk</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/solocare/solocare-aqua-360-ml/">Sammenlign priser</a>
 </div>
@@ -1390,7 +1394,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Biotrue</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/biotrue-solution/biotrue-300-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">119</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/biotrue-solution/biotrue-300-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">129 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">119</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/biotrue-solution/biotrue-300-ml/">Sammenlign priser</a>
 </div>
@@ -1403,7 +1407,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">EasySept</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-360-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">129</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/easysept/easysept-360-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">149 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">129</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/easysept/easysept-360-ml/">Sammenlign priser</a>
 </div>
@@ -1416,7 +1420,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">Opti-Free</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-puremoist-300-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">135</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/opti-free/opti-free-puremoist-300-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">163 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">135</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/opti-free/opti-free-puremoist-300-ml/">Sammenlign priser</a>
 </div>
@@ -1429,7 +1433,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">SWATI</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/swati/swati-lens-solution-100-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/swati/swati-lens-solution-100-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">143 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/swati/swati-lens-solution-100-ml/">Sammenlign priser</a>
 </div>
@@ -1442,7 +1446,7 @@ a { color: inherit; }
     <div class="product-tile-manufacturer" style="cursor:default;">AOSept</div>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/linsevaeske/aosept/aosept-plus-360-ml/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">143</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/linsevaeske/aosept/aosept-plus-360-ml/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">175 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">143</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/linsevaeske/aosept/aosept-plus-360-ml/">Sammenlign priser</a>
 </div>

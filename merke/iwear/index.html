@@ -375,6 +375,7 @@ a { color: inherit; }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
 .product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
@@ -399,7 +400,10 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
-  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
+  .product-tile-price-label-default { display: none; }
+  .product-tile-high-price { display: inline; }
+  .product-tile-price-from { display: inline; font-size: .8rem; font-weight: 500; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
@@ -1927,7 +1931,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-1day-extra-30-pack/">= Biomedics 1Day Extra 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-fit/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-fit/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">139</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-fit/">Sammenlign priser</a>
 </div>
@@ -1949,7 +1953,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/proclear/proclear-1-day-30-pack/">= Proclear 1 Day 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-fresh/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">191</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-fresh/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">191</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-fresh/">Sammenlign priser</a>
 </div>
@@ -1971,7 +1975,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-xr-3-pack/">= Biofinity XR 3-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-xr/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-xr/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">222</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-xr/">Sammenlign priser</a>
 </div>
@@ -1993,7 +1997,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/avaira/avaira-vitality-6-pack/">= Avaira Vitality 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-balance-plus/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-balance-plus/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">223</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-balance-plus/">Sammenlign priser</a>
 </div>
@@ -2015,7 +2019,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/clariti/clariti-1-day-30-pack/">= Clariti 1 day 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-activ/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">254</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-activ/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">254</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-activ/">Sammenlign priser</a>
 </div>
@@ -2037,7 +2041,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/myday/myday-30-pack/">= MyDay 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-harmony/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">283</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-harmony/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">283</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-harmony/">Sammenlign priser</a>
 </div>
@@ -2059,7 +2063,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-1day-extra-toric-30-pack/">= Biomedics 1Day Extra Toric 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-fit-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-fit-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">295</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-fit-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2081,7 +2085,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/">= Clariti 1 day Toric 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-activ-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">328</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-activ-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">328</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-activ-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2103,7 +2107,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-6-pack/">= Biofinity 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-oxygen/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-oxygen/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">331</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-oxygen/">Sammenlign priser</a>
 </div>
@@ -2125,7 +2129,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/avaira/avaira-vitality-toric-6-pack/">= Avaira Vitality Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-balance-plus-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">349</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-balance-plus-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">349</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-balance-plus-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2147,7 +2151,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/myday/myday-toric-30-pack/">= MyDay Toric 30-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-harmony-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">385</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-harmony-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">385</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 6 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-harmony-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2169,7 +2173,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/">= Biofinity Energys 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-relax/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-relax/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">387</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-relax/">Sammenlign priser</a>
 </div>
@@ -2191,7 +2195,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biomedics/biomedics-toric-6-pack/">= Biomedics Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-go-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-go-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">399</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 7 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-go-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2213,7 +2217,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">= Biofinity Toric 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-astigmatism/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">454</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-astigmatism/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">454</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 8 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-astigmatism/">Sammenlign priser</a>
 </div>
@@ -2235,7 +2239,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">= Biofinity Multifocal 6-pack</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-presbyopia/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/iwear-oxygen-presbyopia/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">659</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/iwear-oxygen-presbyopia/">Sammenlign priser</a>
 </div>

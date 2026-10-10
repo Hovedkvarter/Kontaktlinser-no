@@ -369,6 +369,7 @@ a { color: inherit; }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
+.product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
 .product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
@@ -393,7 +394,10 @@ a { color: inherit; }
   .product-tile-category { order: -1; background: none; color: var(--muted); padding: 0; margin: 5px 0 0; font-size: .75rem; line-height: 1.35; text-transform: none; letter-spacing: 0; }
   .product-tile-manufacturer[href^="/produsent/"], .product-tile-manufacturer[href^="/merke/"], .product-tile-specs-row { display: none; }
   .product-tile-divider { height: 0; margin: 12px 0 0; }
-  .product-tile-price-label { font-size: .7rem; }
+  .product-tile-price-label { font-size: .7rem; min-height: 1.05rem; }
+  .product-tile-price-label-default { display: none; }
+  .product-tile-high-price { display: inline; }
+  .product-tile-price-from { display: inline; font-size: .8rem; font-weight: 500; }
   .product-tile-price-number { font-size: 1.45rem; }
   .product-tile-price-currency { font-size: .8rem; }
   .product-tile-store-line { font-size: .72rem; line-height: 1.4; margin-top: 5px; overflow-wrap: anywhere; }
@@ -1499,7 +1503,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/easyvision-umere/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">254</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/easyvision-umere/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">271 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">254</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 3 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/easyvision-umere/">Sammenlign priser</a>
 </div><div class="product-tile">
@@ -1511,7 +1515,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/easyvision-umere-toric/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">328</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/easyvision-umere-toric/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">399 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">328</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/easyvision-umere-toric/">Sammenlign priser</a>
 </div><div class="product-tile">
@@ -1523,7 +1527,7 @@ a { color: inherit; }
     
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/private-label/easyvision-umere-multifocal/"><div class="product-tile-price-label">Fra (ekskl. frakt)</div><div class="product-tile-price"><span class="product-tile-price-number">388</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
+    <a class="product-tile-price-link" href="/private-label/easyvision-umere-multifocal/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">399 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">388</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 2 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/private-label/easyvision-umere-multifocal/">Sammenlign priser</a>
 </div>
