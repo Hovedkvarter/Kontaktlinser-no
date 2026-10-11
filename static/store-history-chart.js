@@ -65,12 +65,14 @@
       let tip = box.querySelector('.store-chart-tooltip');
       if(!tip){tip=document.createElement('div');tip.className='store-chart-tooltip';tip.setAttribute('role','status');tip.hidden=true;box.append(tip);}
       tip.hidden=true;
+      box.querySelectorAll('.store-chart-endpoints').forEach(el=>el.remove());
       panel.querySelectorAll('svg.price-history-chart').forEach(svg => {
         const width = svg.getBoundingClientRect().width;
         if(!width) return;
-        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : width*224/680;
+        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : Math.max(width*224/680,selected.size*58+62);
+        const railWidth=mobile?0:Math.max(180,Math.min(220,width*.18));
         svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
-        const left=mobile?48:64,right=12,top=22,bottom=28, plotH=height-top-bottom;
+        const left=mobile?48:64,right=mobile?12:railWidth+28,top=22,bottom=28, plotH=height-top-bottom;
         const start=day(d.lowest[0].date),end=day(d.lowest[d.lowest.length-1].date),span=Math.max(DAY,end-start);
         const lowest={name:'Laveste pris',color:'#f97308',rows:d.lowest};
         const series=[lowest,...[...selected].map(name=>({name,color:color(name),rows:displayRows(name,d.stores[name] || [])}))];
@@ -97,8 +99,28 @@
             svg.append(node('path',{d:line,fill:'none',stroke:s.color,'stroke-width':1.3,'vector-effect':'non-scaling-stroke'}));
           });
         });
-        const last=d.lowest[d.lowest.length-1];
-        if(!selected.size)svg.append(node('text',{x:x(end),y:Math.max(top+12,y(last.price)-10),'text-anchor':'end',fill:lowest.color,'font-size':13,'font-weight':600},money(last.price)));
+        const endpoints=(selected.size?series.slice(1):[lowest]).map(s=>({s,r:[...s.rows].reverse().find(r=>Number.isFinite(r.price)&&!r.estimated)})).filter(e=>e.r).sort((a,b)=>b.r.price-a.r.price);
+        const rail=document.createElement('div');rail.className='store-chart-endpoints'+(mobile?' is-mobile':'');
+        const heading=document.createElement('div');heading.className='store-chart-endpoints-heading';heading.textContent='Sist registrert';rail.append(heading);
+        if(!mobile){rail.style.width=(railWidth-8)+'px';svg.append(node('line',{x1:width-right+15,x2:width-right+15,y1:top,y2:height-bottom,stroke:'#e2e8f0','stroke-width':1}));}
+        const cardHeight=selected.size?50:116,gap=8,minTop=48,maxBottom=height-bottom;
+        endpoints.forEach((e,i)=>{e.cardTop=Math.max(minTop,y(e.r.price)-cardHeight/2,i?endpoints[i-1].cardTop+cardHeight+gap:minTop);});
+        if(endpoints.length){const overflow=endpoints.at(-1).cardTop+cardHeight-maxBottom;if(overflow>0){endpoints.at(-1).cardTop-=overflow;for(let i=endpoints.length-2;i>=0;i--)endpoints[i].cardTop=Math.min(endpoints[i].cardTop,endpoints[i+1].cardTop-cardHeight-gap);}}
+        endpoints.forEach(e=>{
+          const card=document.createElement('div');card.className='store-chart-endpoint'+(selected.size?'':' is-winner');card.style.setProperty('--store-color',e.s.color);
+          const name=document.createElement('span'),price=document.createElement('strong'),when=document.createElement('time');
+          name.className='store-chart-endpoint-name';name.textContent=e.s.name;name.title=e.s.name;price.textContent=money(e.r.price);when.dateTime=e.r.date;when.textContent=date(day(e.r.date));
+          card.append(name,price);
+          if(!selected.size&&e.r.store){const winner=document.createElement('span');winner.className='store-chart-endpoint-winner';winner.textContent=e.r.store;card.append(winner);}
+          card.append(when);rail.append(card);
+          if(!mobile){
+            card.style.top=e.cardTop+'px';
+            const cardX=width-railWidth,cy=e.cardTop+cardHeight/2,cx=x(day(e.r.date)),py=y(e.r.price),edge=width-right;
+            // A pale leader identifies an endpoint; its dated card never claims a new observation.
+            svg.append(node('path',{d:`M${cx},${py} L${edge+6},${py} L${cardX-10},${cy} L${cardX},${cy}`,fill:'none',stroke:e.s.color,'stroke-width':1,opacity:.55,'pointer-events':'none'}));
+          }
+        });
+        box.append(rail);
         const guide=node('g');svg.append(guide);
         const hit=node('rect',{x:left,y:top,width:Math.max(1,width-left-right),height:plotH,fill:'transparent','pointer-events':'all'});svg.append(hit);
         function hide(){guide.replaceChildren();tip.hidden=true;}
