@@ -6194,8 +6194,8 @@
       "slug": "miru-1day-upside-30-pack",
       "name": "Miru 1day UpSide 30-pack",
       "manual_image": "/static/products/miru-1day-upside-30pk.jpg",
-      "description": "Dagslinse fra Menicon.",
-      "long_description": "Miru 1day UpSide er en dagslinse fra den japanske produsenten Menicon, ny i vår katalog.",
+      "description": "Sfærisk dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day UpSide 30-pack er en sfærisk dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "dagslinser",
@@ -6207,6 +6207,22 @@
         [
           "Linsetype",
           "Sfærisk"
+        ],
+        [
+          "Materiale",
+          "midafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basekurve",
+          "8,4"
+        ],
+        [
+          "Diameter",
+          "14,2"
         ]
       ],
       "scrape_targets": [
@@ -6220,8 +6236,8 @@
       "id": "miru-1day-upside-astigmatism-30pk",
       "slug": "miru-1day-upside-astigmatism-30-pack",
       "name": "Miru 1day UpSide Astigmatism 30-pack",
-      "description": "Torisk dagslinse fra Menicon.",
-      "long_description": "Miru 1day UpSide Astigmatism er den toriske varianten av Miru 1day UpSide, fra den japanske produsenten Menicon.",
+      "description": "Torisk dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day UpSide Astigmatism 30-pack er en torisk dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex Astigmatism.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "toriske-linser",
@@ -6233,6 +6249,22 @@
         [
           "Linsetype",
           "Torisk"
+        ],
+        [
+          "Materiale",
+          "midafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basekurve",
+          "8,4"
+        ],
+        [
+          "Diameter",
+          "14,2"
         ]
       ],
       "scrape_targets": [
@@ -6246,8 +6278,8 @@
       "id": "miru-1day-upside-multifocal-30pk",
       "slug": "miru-1day-upside-multifocal-30-pack",
       "name": "Miru 1day UpSide Multifocal 30-pack",
-      "description": "Multifokal dagslinse fra Menicon.",
-      "long_description": "Miru 1day UpSide Multifocal er den multifokale varianten av Miru 1day UpSide, fra den japanske produsenten Menicon.",
+      "description": "Multifokal dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day UpSide Multifocal 30-pack er en multifokal dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex Multifocal.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "multifokale-linser",
@@ -6259,6 +6291,22 @@
         [
           "Linsetype",
           "Multifokal"
+        ],
+        [
+          "Materiale",
+          "midafilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basekurve",
+          "8,4"
+        ],
+        [
+          "Diameter",
+          "14,2"
         ]
       ],
       "scrape_targets": [
@@ -6272,8 +6320,8 @@
       "id": "miru-1day-flatpack-astigmatism-30pk",
       "slug": "miru-1day-flatpack-astigmatism-30-pack",
       "name": "Miru 1day Flatpack Astigmatism 30-pack",
-      "description": "Torisk dagslinse fra Menicon.",
-      "long_description": "Miru 1day Flatpack Astigmatism er en torisk dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).",
+      "description": "Torisk dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day Flatpack Astigmatism 30-pack er en torisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Astigmatism.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "toriske-linser",
@@ -6285,6 +6333,22 @@
         [
           "Linsetype",
           "Torisk"
+        ],
+        [
+          "Materiale",
+          "hioxifilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "57 %"
+        ],
+        [
+          "Basekurve",
+          "8,6"
+        ],
+        [
+          "Diameter",
+          "14,5"
         ]
       ],
       "scrape_targets": [
@@ -6298,8 +6362,8 @@
       "id": "miru-1day-flatpack-multifocal-30pk",
       "slug": "miru-1day-flatpack-multifocal-30-pack",
       "name": "Miru 1day Flatpack Multifocal 30-pack",
-      "description": "Multifokal dagslinse fra Menicon.",
-      "long_description": "Miru 1day Flatpack Multifocal er en multifokal dagslinse fra den japanske produsenten Menicon, i Menicons flate emballasje (Flatpack).",
+      "description": "Multifokal dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day Flatpack Multifocal 30-pack er en multifokal dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Multifocal.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "multifokale-linser",
@@ -6311,6 +6375,22 @@
         [
           "Linsetype",
           "Multifokal"
+        ],
+        [
+          "Materiale",
+          "hioxifilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "57 %"
+        ],
+        [
+          "Basekurve",
+          "8,4"
+        ],
+        [
+          "Diameter",
+          "14,4"
         ]
       ],
       "scrape_targets": [
@@ -7445,6 +7525,154 @@
         ]
       ],
       "scrape_targets": []
+    },
+    {
+      "id": "miru-1month-6pk",
+      "slug": "miru-1month-6-pack",
+      "name": "Miru 1month 6-pack",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "manedslinser",
+      "scrape_targets": [],
+      "description": "Sfærisk månedslinse fra Menicon. Pakning med 6 linser.",
+      "long_description": "Miru 1month 6-pack er en sfærisk månedslinse fra Menicon, laget av asmofilcon A med 40 % vanninnhold. Pakningen inneholder 6 linser. Brilleland selger denne varianten under navnet iWear Connect.",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materiale",
+          "asmofilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "40 %"
+        ],
+        [
+          "Basekurve",
+          "8,3 / 8,6"
+        ],
+        [
+          "Diameter",
+          "14,0"
+        ]
+      ]
+    },
+    {
+      "id": "miru-1month-toric-6pk",
+      "slug": "miru-1month-toric-6-pack",
+      "name": "Miru 1month Toric 6-pack",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "toriske-linser",
+      "scrape_targets": [],
+      "description": "Torisk månedslinse fra Menicon. Pakning med 6 linser.",
+      "long_description": "Miru 1month Toric 6-pack er en torisk månedslinse fra Menicon, laget av asmofilcon A med 40 % vanninnhold. Pakningen inneholder 6 linser. Brilleland selger denne varianten under navnet iWear Connect Astigmatism.",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materiale",
+          "asmofilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "40 %"
+        ],
+        [
+          "Basekurve",
+          "8,6"
+        ],
+        [
+          "Diameter",
+          "14,0"
+        ]
+      ]
+    },
+    {
+      "id": "miru-1month-multifocal-6pk",
+      "slug": "miru-1month-multifocal-6-pack",
+      "name": "Miru 1month Multifocal 6-pack",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "multifokale-linser",
+      "scrape_targets": [],
+      "description": "Multifokal månedslinse fra Menicon. Pakning med 6 linser.",
+      "long_description": "Miru 1month Multifocal 6-pack er en multifokal månedslinse fra Menicon, laget av asmofilcon A med 40 % vanninnhold. Pakningen inneholder 6 linser. Brilleland selger denne varianten under navnet iWear Connect Multifocal.",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ],
+        [
+          "Materiale",
+          "asmofilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "40 %"
+        ],
+        [
+          "Basekurve",
+          "8,6"
+        ],
+        [
+          "Diameter",
+          "14,2"
+        ]
+      ]
+    },
+    {
+      "id": "miru-1day-flatpack-30pk",
+      "slug": "miru-1day-flatpack-30-pack",
+      "name": "Miru 1day Flatpack 30-pack",
+      "brand_slug": "miru",
+      "brand_label": "MIRU",
+      "category_slug": "dagslinser",
+      "scrape_targets": [],
+      "description": "Sfærisk dagslinse fra Menicon. Pakning med 30 linser.",
+      "long_description": "Miru 1day Flatpack 30-pack er en sfærisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim.",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materiale",
+          "hioxifilcon A"
+        ],
+        [
+          "Vanninnhold",
+          "57 %"
+        ],
+        [
+          "Basekurve",
+          "8,6"
+        ],
+        [
+          "Diameter",
+          "14,2"
+        ]
+      ]
     }
   ]
 }

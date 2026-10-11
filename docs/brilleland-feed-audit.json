@@ -189,29 +189,32 @@
     {
       "sku": "40000699",
       "title": "iWear Connect",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1month-6pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/",
+      "identity_source": "https://iwearlens.com/products/connect"
     },
     {
       "sku": "40000700",
       "title": "iWear Connect Astigmatism",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1month-toric-6pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/",
+      "identity_source": "https://iwearlens.com/products/connect"
     },
     {
       "sku": "40000733",
       "title": "iWear Connect Multifocal",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1month-multifocal-6pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/",
+      "identity_source": "https://iwearlens.com/products/connect"
     },
     {
       "sku": "40000286",
@@ -236,29 +239,32 @@
     {
       "sku": "40000690",
       "title": "iWear Flex",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-upside-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/",
+      "identity_source": "https://iwearlens.com/products/flex"
     },
     {
       "sku": "40000692",
       "title": "iWear Flex Astigmatism",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-upside-astigmatism-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/",
+      "identity_source": "https://iwearlens.com/products/flex"
     },
     {
       "sku": "40000694",
       "title": "iWear Flex Multifocal",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-upside-multifocal-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/",
+      "identity_source": "https://iwearlens.com/products/flex"
     },
     {
       "sku": "40000288",
@@ -423,29 +429,32 @@
     {
       "sku": "40000672",
       "title": "iWear Slim",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-flatpack-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/",
+      "identity_source": "https://iwearlens.com/products/slim"
     },
     {
       "sku": "40000674",
       "title": "iWear Slim Astigmatism",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-flatpack-astigmatism-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/",
+      "identity_source": "https://iwearlens.com/products/slim"
     },
     {
       "sku": "40000676",
       "title": "iWear Slim Multifocal",
-      "status": "pending_identity",
-      "product_ids": [],
-      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "status": "mapped",
+      "product_ids": "miru-1day-flatpack-multifocal-30pk",
+      "reason": "Variant kontrollert mot Brilleland, iWear og Menicon. Se docs/iwear-identitetsgjennomgang-2026-10-11.md.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/",
-      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/"
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/",
+      "identity_source": "https://iwearlens.com/products/slim"
     },
     {
       "sku": "40000405",

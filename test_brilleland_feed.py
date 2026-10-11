@@ -28,7 +28,7 @@ class BrillelandFeedTests(unittest.TestCase):
         expected = {p['id'] for p in meta['products'] if any(t['retailer'] == 'brilleland' for t in p.get('scrape_targets', []))}
         self.assertTrue(expected <= set(self.by_id))
         self.assertEqual(len(self.offers), len(self.by_id))
-        self.assertEqual(len(self.offers), 68)
+        self.assertEqual(len(self.offers), 77)
         self.assertEqual(len(expected), 31)
 
     def test_destination_correction_preserves_tracking_and_future_feed_updates(self):
@@ -47,6 +47,38 @@ class BrillelandFeedTests(unittest.TestCase):
         row['link'] = original.replace(correction['old_url'], quote(correction['old_url'], safe=''))
         corrected = map_brilleland_row(row, self.match, self.config['brilleland'])[0].url
         self.assertEqual(parse_qs(urlparse(corrected).query)['url'], [correction['new_url']])
+
+    def test_iwear_miru_variants_and_pack_sizes(self):
+        expected = {
+            '40000699': ('miru-1month-6pk', 395),
+            '40000700': ('miru-1month-toric-6pk', 510),
+            '40000733': ('miru-1month-multifocal-6pk', 610),
+            '40000690': ('miru-1day-upside-30pk', 299),
+            '40000692': ('miru-1day-upside-astigmatism-30pk', 395),
+            '40000694': ('miru-1day-upside-multifocal-30pk', 460),
+            '40000672': ('miru-1day-flatpack-30pk', 252),
+            '40000674': ('miru-1day-flatpack-astigmatism-30pk', 297),
+            '40000676': ('miru-1day-flatpack-multifocal-30pk', 330),
+        }
+        for sku, (pid, price) in expected.items():
+            self.assertEqual(self.match[sku], pid)
+            self.assertEqual(self.by_id[pid].price_nok, price)
+            self.assertEqual(parse_qs(urlparse(self.by_id[pid].url).query)['cupa_sku'], [sku])
+        meta = {p['id']: p for p in json.loads((ROOT / 'products_meta.json').read_text())['products']}
+        self.assertEqual(dict(meta['miru-1day-flatpack-astigmatism-30pk']['specs'])['Diameter'], '14,5')
+        self.assertEqual(dict(meta['miru-1day-flatpack-multifocal-30pk']['specs'])['Basekurve'], '8,4')
+        self.assertEqual(dict(meta['miru-1month-6pk']['specs'])['Brukstid'], 'Månedslinse')
+
+    def test_iwear_aliases_and_families_cover_each_variant(self):
+        aliases = json.loads((ROOT / 'private_labels.json').read_text())['labels']
+        by_slug = {a['slug']: a['real_product_id'] for a in aliases}
+        self.assertEqual(len(by_slug), len(aliases))
+        self.assertEqual(by_slug['iwear-oxygen-xr'], 'biofinity-xr-6pk')
+        families = {f['slug']: set(f['member_ids']) for f in json.loads((ROOT / 'product_families.json').read_text())['families']}
+        for alias, family in [('connect', 'miru-1month'), ('flex', 'miru-1day-upside'), ('slim', 'miru-1day-flatpack')]:
+            targets = {by_slug['iwear-' + alias + suffix] for suffix in ['', '-astigmatism', '-multifocal']}
+            self.assertEqual(targets, families[family])
+        self.assertTrue(families['miru-1day-upside'].isdisjoint(families['miru-1day-flatpack']))
 
     def test_three_packs_never_become_six_packs(self):
         self.assertEqual(self.match['40000281'], 'biofinity-multifocal-3pk')
