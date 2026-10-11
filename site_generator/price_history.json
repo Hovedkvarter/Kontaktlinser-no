@@ -6529,8 +6529,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 223.0,
-      "store": "Lensway"
+      "price": 175.0,
+      "store": "Brilleland"
     }
   ],
   "proclear-toric-6pk": [
@@ -9499,8 +9499,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 226.0,
-      "store": "Interoptik"
+      "price": 219.0,
+      "store": "Brilleland"
     }
   ],
   "total30-6pk": [
@@ -15736,8 +15736,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 139.0,
-      "store": "Interoptik"
+      "price": 105.0,
+      "store": "Brilleland"
     }
   ],
   "biomedics-1day-xtra-toric-30pk": [
@@ -16033,8 +16033,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 295.0,
-      "store": "Lenson"
+      "price": 240.0,
+      "store": "Brilleland"
     }
   ],
   "biomedics-toric-6pk": [
@@ -27343,8 +27343,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 191.0,
-      "store": "Lenson"
+      "price": 175.0,
+      "store": "Brilleland"
     }
   ],
   "proclear-1day-90pk": [
@@ -27937,8 +27937,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 326.0,
-      "store": "Lensway"
+      "price": 283.0,
+      "store": "Brilleland"
     }
   ],
   "proclear-multifocal-6pk": [
@@ -51728,8 +51728,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 388.0,
-      "store": "Lensway"
+      "price": 334.0,
+      "store": "Brilleland"
     }
   ],
   "clariti-1day-multifocal-90pk": [
@@ -53600,8 +53600,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 399.0,
-      "store": "Lenson"
+      "price": 334.0,
+      "store": "Brilleland"
     }
   ],
   "swati-lens-case-tweezers": [
@@ -53848,6 +53848,48 @@
       "date": "2026-10-11",
       "price": 52.0,
       "store": "Apotekhjem"
+    }
+  ],
+  "proclear-toric-3pk": [
+    {
+      "date": "2026-10-11",
+      "price": 241.0,
+      "store": "Brilleland"
+    }
+  ],
+  "proclear-multifocal-3pk": [
+    {
+      "date": "2026-10-11",
+      "price": 393.0,
+      "store": "Brilleland"
+    }
+  ],
+  "biofinity-toric-3pk": [
+    {
+      "date": "2026-10-11",
+      "price": 333.0,
+      "store": "Brilleland"
+    }
+  ],
+  "biofinity-multifocal-3pk": [
+    {
+      "date": "2026-10-11",
+      "price": 431.0,
+      "store": "Brilleland"
+    }
+  ],
+  "biofinity-xr-toric-6pk": [
+    {
+      "date": "2026-10-11",
+      "price": 1418.0,
+      "store": "Brilleland"
+    }
+  ],
+  "misight-1day-30pk": [
+    {
+      "date": "2026-10-11",
+      "price": 349.0,
+      "store": "Brilleland"
     }
   ]
 }
