@@ -21,7 +21,9 @@
         "biofinity-6pk",
         "biofinity-toric-6pk",
         "biofinity-multifocal-6pk",
-        "biofinity-multifocal-toric-3pk"
+        "biofinity-multifocal-toric-3pk",
+        "biofinity-toric-3pk",
+        "biofinity-multifocal-3pk"
       ]
     },
     {
@@ -30,7 +32,8 @@
       "member_ids": [
         "biofinity-xr-6pk",
         "biofinity-xr-3pk",
-        "biofinity-xr-toric-3pk"
+        "biofinity-xr-toric-3pk",
+        "biofinity-xr-toric-6pk"
       ]
     },
     {
@@ -98,7 +101,9 @@
       "member_ids": [
         "proclear-sphere-6pk",
         "proclear-toric-6pk",
-        "proclear-multifocal-6pk"
+        "proclear-multifocal-6pk",
+        "proclear-toric-3pk",
+        "proclear-multifocal-3pk"
       ]
     },
     {
