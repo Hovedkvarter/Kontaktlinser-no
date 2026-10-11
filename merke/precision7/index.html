@@ -685,10 +685,35 @@ a { color: inherit; }
 .price-intel-metric-desc{display:none}
 .price-intel-status-pill{border:0;box-shadow:none}
 .price-intel-period-tabs{margin:18px 0 20px}
-.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0;max-width:none;width:100%}
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
+
+.price-intel .price-history-line{stroke-width:1.3;vector-effect:non-scaling-stroke}
+.price-intel .store-chart-controls{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:18px 0 8px}
+.price-intel .store-chart-periods{margin-left:auto;text-align:right}
+.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
+.price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
+.price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
+.price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
+.price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
+.price-intel .store-chart-options input{accent-color:var(--blue);width:17px;height:17px}
+.price-intel .store-chart-selected{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.price-intel .store-chart-selected[hidden],.price-intel .store-chart-picker[hidden]{display:none}
+.price-intel .store-chart-chip{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;background:var(--mist);color:var(--ink);padding:7px 10px;font:inherit;font-size:.76rem;cursor:pointer}
+.price-intel .store-chart-swatch{width:8px;height:8px;border-radius:50%;display:inline-block}
+.price-intel .price-intel-chart-wrap{position:relative}
+.price-intel .store-chart-tooltip{position:absolute;z-index:4;pointer-events:none;background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 18px #0b25451a;padding:12px 15px;color:var(--ink);font-size:.8rem;max-width:230px}
+.price-intel .store-chart-tooltip strong{display:block;font-size:1rem;margin:5px 0}
+.price-intel .store-chart-tooltip span{display:block}
+.price-intel .store-chart-tooltip[hidden]{display:none}
+.price-intel .store-chart-keyboard{width:100%;margin:8px 0;accent-color:var(--orange-dark)}
+.price-intel .store-chart-keyboard:not(:focus){position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+@media(max-width:600px){.price-intel .store-chart-controls{flex-direction:column;gap:12px}.price-intel .store-chart-periods{width:100%;text-align:left}.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-start}.price-intel .store-chart-picker{width:100%}.price-intel .store-chart-options{width:100%}.price-intel .store-chart-chip{min-height:40px}}
 .price-intel-chart-mobile{display:none}
 .price-intel-chart-desktop{display:block}
 .price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -749,7 +774,7 @@ a { color: inherit; }
   .price-intel-value-lg{font-size:3.2rem}
   .price-intel-value{font-size:1.55rem}
   .price-intel-status-pill{width:260px;padding:14px 16px}
-  .price-intel-chart-shell{max-width:980px}
+  .price-intel-chart-shell{max-width:none}
   .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
   .price-intel-history-details>summary{display:none}

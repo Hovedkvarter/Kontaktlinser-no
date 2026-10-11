@@ -703,10 +703,35 @@ a { color: inherit; }
 .price-intel-metric-desc{display:none}
 .price-intel-status-pill{border:0;box-shadow:none}
 .price-intel-period-tabs{margin:18px 0 20px}
-.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0;max-width:none;width:100%}
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
+
+.price-intel .price-history-line{stroke-width:1.3;vector-effect:non-scaling-stroke}
+.price-intel .store-chart-controls{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:18px 0 8px}
+.price-intel .store-chart-periods{margin-left:auto;text-align:right}
+.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
+.price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
+.price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
+.price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
+.price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
+.price-intel .store-chart-options input{accent-color:var(--blue);width:17px;height:17px}
+.price-intel .store-chart-selected{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.price-intel .store-chart-selected[hidden],.price-intel .store-chart-picker[hidden]{display:none}
+.price-intel .store-chart-chip{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;background:var(--mist);color:var(--ink);padding:7px 10px;font:inherit;font-size:.76rem;cursor:pointer}
+.price-intel .store-chart-swatch{width:8px;height:8px;border-radius:50%;display:inline-block}
+.price-intel .price-intel-chart-wrap{position:relative}
+.price-intel .store-chart-tooltip{position:absolute;z-index:4;pointer-events:none;background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 18px #0b25451a;padding:12px 15px;color:var(--ink);font-size:.8rem;max-width:230px}
+.price-intel .store-chart-tooltip strong{display:block;font-size:1rem;margin:5px 0}
+.price-intel .store-chart-tooltip span{display:block}
+.price-intel .store-chart-tooltip[hidden]{display:none}
+.price-intel .store-chart-keyboard{width:100%;margin:8px 0;accent-color:var(--orange-dark)}
+.price-intel .store-chart-keyboard:not(:focus){position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+@media(max-width:600px){.price-intel .store-chart-controls{flex-direction:column;gap:12px}.price-intel .store-chart-periods{width:100%;text-align:left}.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-start}.price-intel .store-chart-picker{width:100%}.price-intel .store-chart-options{width:100%}.price-intel .store-chart-chip{min-height:40px}}
 .price-intel-chart-mobile{display:none}
 .price-intel-chart-desktop{display:block}
 .price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -767,7 +792,7 @@ a { color: inherit; }
   .price-intel-value-lg{font-size:3.2rem}
   .price-intel-value{font-size:1.55rem}
   .price-intel-status-pill{width:260px;padding:14px 16px}
-  .price-intel-chart-shell{max-width:980px}
+  .price-intel-chart-shell{max-width:none}
   .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
   .price-intel-history-details>summary{display:none}
@@ -1830,68 +1855,69 @@ a { color: inherit; }
     </div>
     <div class="price-intel-status-pill price-intel-status-stable"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h16"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har endret seg lite de siste 59 dagene.</span></div>
   </div>
-  <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button></div>
+  <div class="store-chart-controls">
+    <details class="store-chart-picker" hidden><summary>Velg butikk</summary><div class="store-chart-options"></div></details>
+    <div class="store-chart-periods"><div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab active" data-period="30d">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab" data-period="all">All historikk</button></div><p class="store-chart-caption">Laveste registrerte produktpris per dag</p></div>
+  </div>
+  <div class="store-chart-selected" hidden></div>
   <div class="price-intel-chart-panel active" data-period="30d">
     <div class="price-intel-chart-shell">
-      <div class="price-intel-chart-toolbar">
-        <span>Laveste registrerte produktpris per dag</span>
-        <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
-      </div>
-      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 35 kr til 50 kr">
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-12", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 39.0, "store": "Lensway"}], "stores": {"Lenson": [{"date": "2026-09-12", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-15", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-16", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 47.0, "store": "Lenson"}], "Lensway": [{"date": "2026-09-12", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-13", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-14", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 50.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 39.0, "store": "Lensway"}]}}</script>
+      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 280" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 35 kr til 50 kr">
       <defs>
-        <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+        <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="260" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="112.6" x2="672" y2="112.6" class="price-history-gridline" />
-      <text x="40" y="115.6" text-anchor="end" class="price-history-axis-label">30 kr</text>
-      <line x1="46" y1="75.3" x2="672" y2="75.3" class="price-history-gridline" />
-      <text x="40" y="78.3" text-anchor="end" class="price-history-axis-label">40 kr</text>
-      <line x1="46" y1="38.1" x2="672" y2="38.1" class="price-history-gridline" />
-      <text x="40" y="41.1" text-anchor="end" class="price-history-axis-label">50 kr</text>
-      <path d="M46.0,120.0 L46.0,38.1 L67.6,38.1 L89.2,93.9 L110.8,93.9 L132.3,93.9 L153.9,93.9 L175.5,93.9 L197.1,93.9 L218.7,93.9 L240.3,93.9 L261.9,93.9 L283.4,93.9 L305.0,93.9 L326.6,93.9 L348.2,93.9 L369.8,93.9 L391.4,93.9 L413.0,79.0 L434.6,79.0 L456.1,79.0 L477.7,79.0 L499.3,79.0 L520.9,79.0 L542.5,49.2 L564.1,79.0 L585.7,79.0 L607.2,79.0 L628.8,79.0 L650.4,79.0 L672.0,79.0 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,38.1 67.6,38.1 89.2,93.9 110.8,93.9 132.3,93.9 153.9,93.9 175.5,93.9 197.1,93.9 218.7,93.9 240.3,93.9 261.9,93.9 283.4,93.9 305.0,93.9 326.6,93.9 348.2,93.9 369.8,93.9 391.4,93.9 413.0,79.0 434.6,79.0 456.1,79.0 477.7,79.0 499.3,79.0 520.9,79.0 542.5,49.2 564.1,79.0 585.7,79.0 607.2,79.0 628.8,79.0 650.4,79.0 672.0,79.0" class="price-history-line" />
-      <circle cx="672.0" cy="79.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="38.1" r="9" class="price-intel-hit"><title>12. september: 50 kr hos Lenson</title></circle>
-      <circle cx="67.6" cy="38.1" r="9" class="price-intel-hit"><title>13. september: 50 kr hos Lenson</title></circle>
-      <circle cx="89.2" cy="93.9" r="9" class="price-intel-hit"><title>14. september: 35 kr hos Lensway</title></circle>
-      <circle cx="110.8" cy="93.9" r="9" class="price-intel-hit"><title>15. september: 35 kr hos Lensway</title></circle>
-      <circle cx="132.3" cy="93.9" r="9" class="price-intel-hit"><title>16. september: 35 kr hos Lensway</title></circle>
-      <circle cx="153.9" cy="93.9" r="9" class="price-intel-hit"><title>17. september: 35 kr hos Lensway</title></circle>
-      <circle cx="175.5" cy="93.9" r="9" class="price-intel-hit"><title>18. september: 35 kr hos Lensway</title></circle>
-      <circle cx="197.1" cy="93.9" r="9" class="price-intel-hit"><title>19. september: 35 kr hos Lensway</title></circle>
-      <circle cx="218.7" cy="93.9" r="9" class="price-intel-hit"><title>20. september: 35 kr hos Lensway</title></circle>
-      <circle cx="240.3" cy="93.9" r="9" class="price-intel-hit"><title>21. september: 35 kr hos Lensway</title></circle>
-      <circle cx="261.9" cy="93.9" r="9" class="price-intel-hit"><title>22. september: 35 kr hos Lensway</title></circle>
-      <circle cx="283.4" cy="93.9" r="9" class="price-intel-hit"><title>23. september: 35 kr hos Lensway</title></circle>
-      <circle cx="305.0" cy="93.9" r="9" class="price-intel-hit"><title>24. september: 35 kr hos Lensway</title></circle>
-      <circle cx="326.6" cy="93.9" r="9" class="price-intel-hit"><title>25. september: 35 kr hos Lensway</title></circle>
-      <circle cx="348.2" cy="93.9" r="9" class="price-intel-hit"><title>26. september: 35 kr hos Lensway</title></circle>
-      <circle cx="369.8" cy="93.9" r="9" class="price-intel-hit"><title>27. september: 35 kr hos Lensway</title></circle>
-      <circle cx="391.4" cy="93.9" r="9" class="price-intel-hit"><title>28. september: 35 kr hos Lensway</title></circle>
-      <circle cx="413.0" cy="79.0" r="9" class="price-intel-hit"><title>29. september: 39 kr hos Lenson</title></circle>
-      <circle cx="434.6" cy="79.0" r="9" class="price-intel-hit"><title>30. september: 39 kr hos Lenson</title></circle>
-      <circle cx="456.1" cy="79.0" r="9" class="price-intel-hit"><title>1. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="477.7" cy="79.0" r="9" class="price-intel-hit"><title>2. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="499.3" cy="79.0" r="9" class="price-intel-hit"><title>3. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="520.9" cy="79.0" r="9" class="price-intel-hit"><title>4. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="542.5" cy="49.2" r="9" class="price-intel-hit"><title>5. oktober: 47 kr hos Lenson</title></circle>
-      <circle cx="564.1" cy="79.0" r="9" class="price-intel-hit"><title>6. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="585.7" cy="79.0" r="9" class="price-intel-hit"><title>7. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="607.2" cy="79.0" r="9" class="price-intel-hit"><title>8. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="628.8" cy="79.0" r="9" class="price-intel-hit"><title>9. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="650.4" cy="79.0" r="9" class="price-intel-hit"><title>10. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="672.0" cy="79.0" r="9" class="price-intel-hit"><title>11. oktober: 39 kr hos Lensway</title></circle>
-      <text x="672.0" y="71.0" text-anchor="end" class="price-history-current-label">39 kr</text>
-      <text x="46.0" y="135" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
-      <text x="132.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
-      <text x="218.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
-      <text x="305.0" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">24.09</text>
-      <text x="391.4" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
-      <text x="477.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
-      <text x="564.1" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
-      <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
+      <line x1="46" y1="242.9" x2="672" y2="242.9" class="price-history-gridline" />
+      <text x="40" y="245.9" text-anchor="end" class="price-history-axis-label">30 kr</text>
+      <line x1="46" y1="157.4" x2="672" y2="157.4" class="price-history-gridline" />
+      <text x="40" y="160.4" text-anchor="end" class="price-history-axis-label">40 kr</text>
+      <line x1="46" y1="71.9" x2="672" y2="71.9" class="price-history-gridline" />
+      <text x="40" y="74.9" text-anchor="end" class="price-history-axis-label">50 kr</text>
+      <path d="M46.0,260.0 L46.0,71.9 L67.6,71.9 L89.2,200.1 L110.8,200.1 L132.3,200.1 L153.9,200.1 L175.5,200.1 L197.1,200.1 L218.7,200.1 L240.3,200.1 L261.9,200.1 L283.4,200.1 L305.0,200.1 L326.6,200.1 L348.2,200.1 L369.8,200.1 L391.4,200.1 L413.0,165.9 L434.6,165.9 L456.1,165.9 L477.7,165.9 L499.3,165.9 L520.9,165.9 L542.5,97.5 L564.1,165.9 L585.7,165.9 L607.2,165.9 L628.8,165.9 L650.4,165.9 L672.0,165.9 L672.0,260.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,71.9 67.6,71.9 89.2,200.1 110.8,200.1 132.3,200.1 153.9,200.1 175.5,200.1 197.1,200.1 218.7,200.1 240.3,200.1 261.9,200.1 283.4,200.1 305.0,200.1 326.6,200.1 348.2,200.1 369.8,200.1 391.4,200.1 413.0,165.9 434.6,165.9 456.1,165.9 477.7,165.9 499.3,165.9 520.9,165.9 542.5,97.5 564.1,165.9 585.7,165.9 607.2,165.9 628.8,165.9 650.4,165.9 672.0,165.9" class="price-history-line" />
+      <circle cx="672.0" cy="165.9" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="71.9" r="9" class="price-intel-hit"><title>12. september: 50 kr hos Lenson</title></circle>
+      <circle cx="67.6" cy="71.9" r="9" class="price-intel-hit"><title>13. september: 50 kr hos Lenson</title></circle>
+      <circle cx="89.2" cy="200.1" r="9" class="price-intel-hit"><title>14. september: 35 kr hos Lensway</title></circle>
+      <circle cx="110.8" cy="200.1" r="9" class="price-intel-hit"><title>15. september: 35 kr hos Lensway</title></circle>
+      <circle cx="132.3" cy="200.1" r="9" class="price-intel-hit"><title>16. september: 35 kr hos Lensway</title></circle>
+      <circle cx="153.9" cy="200.1" r="9" class="price-intel-hit"><title>17. september: 35 kr hos Lensway</title></circle>
+      <circle cx="175.5" cy="200.1" r="9" class="price-intel-hit"><title>18. september: 35 kr hos Lensway</title></circle>
+      <circle cx="197.1" cy="200.1" r="9" class="price-intel-hit"><title>19. september: 35 kr hos Lensway</title></circle>
+      <circle cx="218.7" cy="200.1" r="9" class="price-intel-hit"><title>20. september: 35 kr hos Lensway</title></circle>
+      <circle cx="240.3" cy="200.1" r="9" class="price-intel-hit"><title>21. september: 35 kr hos Lensway</title></circle>
+      <circle cx="261.9" cy="200.1" r="9" class="price-intel-hit"><title>22. september: 35 kr hos Lensway</title></circle>
+      <circle cx="283.4" cy="200.1" r="9" class="price-intel-hit"><title>23. september: 35 kr hos Lensway</title></circle>
+      <circle cx="305.0" cy="200.1" r="9" class="price-intel-hit"><title>24. september: 35 kr hos Lensway</title></circle>
+      <circle cx="326.6" cy="200.1" r="9" class="price-intel-hit"><title>25. september: 35 kr hos Lensway</title></circle>
+      <circle cx="348.2" cy="200.1" r="9" class="price-intel-hit"><title>26. september: 35 kr hos Lensway</title></circle>
+      <circle cx="369.8" cy="200.1" r="9" class="price-intel-hit"><title>27. september: 35 kr hos Lensway</title></circle>
+      <circle cx="391.4" cy="200.1" r="9" class="price-intel-hit"><title>28. september: 35 kr hos Lensway</title></circle>
+      <circle cx="413.0" cy="165.9" r="9" class="price-intel-hit"><title>29. september: 39 kr hos Lenson</title></circle>
+      <circle cx="434.6" cy="165.9" r="9" class="price-intel-hit"><title>30. september: 39 kr hos Lenson</title></circle>
+      <circle cx="456.1" cy="165.9" r="9" class="price-intel-hit"><title>1. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="477.7" cy="165.9" r="9" class="price-intel-hit"><title>2. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="499.3" cy="165.9" r="9" class="price-intel-hit"><title>3. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="520.9" cy="165.9" r="9" class="price-intel-hit"><title>4. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="542.5" cy="97.5" r="9" class="price-intel-hit"><title>5. oktober: 47 kr hos Lenson</title></circle>
+      <circle cx="564.1" cy="165.9" r="9" class="price-intel-hit"><title>6. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="585.7" cy="165.9" r="9" class="price-intel-hit"><title>7. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="607.2" cy="165.9" r="9" class="price-intel-hit"><title>8. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="628.8" cy="165.9" r="9" class="price-intel-hit"><title>9. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="650.4" cy="165.9" r="9" class="price-intel-hit"><title>10. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="672.0" cy="165.9" r="9" class="price-intel-hit"><title>11. oktober: 39 kr hos Lensway</title></circle>
+      <text x="672.0" y="157.9" text-anchor="end" class="price-history-current-label">39 kr</text>
+      <text x="46.0" y="275" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
+      <text x="132.3" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
+      <text x="218.7" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
+      <text x="305.0" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">24.09</text>
+      <text x="391.4" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
+      <text x="477.7" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
+      <text x="564.1" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
+      <text x="672.0" y="275" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 35 kr til 50 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-30d" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -1946,94 +1972,91 @@ a { color: inherit; }
     </div>
   </div><div class="price-intel-chart-panel" data-period="all">
     <div class="price-intel-chart-shell">
-      <div class="price-intel-chart-toolbar">
-        <span>Laveste registrerte produktpris per dag</span>
-        <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
-      </div>
-      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 35 kr til 89 kr">
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-08-14", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-16", "price": 89.0, "store": "Lenson"}, {"date": "2026-08-17", "price": 89.0, "store": "Lenson"}, {"date": "2026-08-18", "price": 89.0, "store": "Lenson"}, {"date": "2026-08-19", "price": 89.0, "store": "Lenson"}, {"date": "2026-08-20", "price": 89.0, "store": "Lenson"}, {"date": "2026-08-21", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-22", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-23", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-24", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-25", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-26", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-27", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-28", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-29", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-30", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-31", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-01", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-02", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-03", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-04", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-06", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-07", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-08", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-09", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-10", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-11", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-12", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 39.0, "store": "Lensway"}], "stores": {"Lenson": [{"date": "2026-08-14", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-16", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-17", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-18", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-19", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-20", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-21", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-22", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-23", "price": 39.0, "store": "Lenson"}, {"date": "2026-08-24", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-25", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-26", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-27", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-28", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-29", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-30", "price": 47.0, "store": "Lenson"}, {"date": "2026-08-31", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-01", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-02", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-03", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-04", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-06", "price": 47.0, "store": "Lenson"}, {"date": "2026-09-07", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-08", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-09", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-10", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-11", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-12", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 50.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-15", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-16", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 44.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 39.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 39.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 47.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 47.0, "store": "Lenson"}], "Lensway": [{"date": "2026-08-14", "price": 39.0, "store": "Lensway"}, {"date": "2026-08-15", "price": 39.0, "store": "Lensway"}, {"date": "2026-08-16", "price": 39.0, "store": "Lensway"}, {"date": "2026-08-17", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-18", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-19", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-20", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-21", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-22", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-23", "price": 50.0, "store": "Lensway"}, {"date": "2026-08-24", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-25", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-26", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-27", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-28", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-29", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-30", "price": 44.0, "store": "Lensway"}, {"date": "2026-08-31", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-01", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-02", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-03", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-04", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-05", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-06", "price": 47.0, "store": "Lensway"}, {"date": "2026-09-07", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-08", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-09", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-10", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-11", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-12", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-13", "price": 59.0, "store": "Lensway"}, {"date": "2026-09-14", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 35.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 50.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 50.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 39.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 39.0, "store": "Lensway"}]}}</script>
+      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 280" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 35 kr til 89 kr">
       <defs>
-        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="260" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="103.9" x2="672" y2="103.9" class="price-history-gridline" />
-      <text x="40" y="106.9" text-anchor="end" class="price-history-axis-label">40 kr</text>
-      <line x1="46" y1="69.4" x2="672" y2="69.4" class="price-history-gridline" />
-      <text x="40" y="72.4" text-anchor="end" class="price-history-axis-label">60 kr</text>
-      <line x1="46" y1="35.0" x2="672" y2="35.0" class="price-history-gridline" />
-      <text x="40" y="38.0" text-anchor="end" class="price-history-axis-label">80 kr</text>
-      <path d="M46.0,120.0 L46.0,105.7 L56.8,105.7 L67.6,19.4 L78.4,19.4 L89.2,19.4 L100.0,19.4 L110.8,19.4 L121.6,105.7 L132.3,105.7 L143.1,105.7 L153.9,97.0 L164.7,97.0 L175.5,97.0 L186.3,97.0 L197.1,97.0 L207.9,97.0 L218.7,97.0 L229.5,91.9 L240.3,91.9 L251.1,91.9 L261.9,91.9 L272.7,91.9 L283.4,91.9 L294.2,91.9 L305.0,86.7 L315.8,86.7 L326.6,86.7 L337.4,86.7 L348.2,86.7 L359.0,86.7 L369.8,86.7 L380.6,112.6 L391.4,112.6 L402.2,112.6 L413.0,112.6 L423.8,112.6 L434.6,112.6 L445.3,112.6 L456.1,112.6 L466.9,112.6 L477.7,112.6 L488.5,112.6 L499.3,112.6 L510.1,112.6 L520.9,112.6 L531.7,112.6 L542.5,105.7 L553.3,105.7 L564.1,105.7 L574.9,105.7 L585.7,105.7 L596.4,105.7 L607.2,91.9 L618.0,105.7 L628.8,105.7 L639.6,105.7 L650.4,105.7 L661.2,105.7 L672.0,105.7 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,105.7 56.8,105.7 67.6,19.4 78.4,19.4 89.2,19.4 100.0,19.4 110.8,19.4 121.6,105.7 132.3,105.7 143.1,105.7 153.9,97.0 164.7,97.0 175.5,97.0 186.3,97.0 197.1,97.0 207.9,97.0 218.7,97.0 229.5,91.9 240.3,91.9 251.1,91.9 261.9,91.9 272.7,91.9 283.4,91.9 294.2,91.9 305.0,86.7 315.8,86.7 326.6,86.7 337.4,86.7 348.2,86.7 359.0,86.7 369.8,86.7 380.6,112.6 391.4,112.6 402.2,112.6 413.0,112.6 423.8,112.6 434.6,112.6 445.3,112.6 456.1,112.6 466.9,112.6 477.7,112.6 488.5,112.6 499.3,112.6 510.1,112.6 520.9,112.6 531.7,112.6 542.5,105.7 553.3,105.7 564.1,105.7 574.9,105.7 585.7,105.7 596.4,105.7 607.2,91.9 618.0,105.7 628.8,105.7 639.6,105.7 650.4,105.7 661.2,105.7 672.0,105.7" class="price-history-line" />
-      <circle cx="672.0" cy="105.7" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="105.7" r="9" class="price-intel-hit"><title>14. august: 39 kr hos Lenson</title></circle>
-      <circle cx="56.8" cy="105.7" r="9" class="price-intel-hit"><title>15. august: 39 kr hos Lenson</title></circle>
-      <circle cx="67.6" cy="19.4" r="9" class="price-intel-hit"><title>16. august: 89 kr hos Lenson</title></circle>
-      <circle cx="78.4" cy="19.4" r="9" class="price-intel-hit"><title>17. august: 89 kr hos Lenson</title></circle>
-      <circle cx="89.2" cy="19.4" r="9" class="price-intel-hit"><title>18. august: 89 kr hos Lenson</title></circle>
-      <circle cx="100.0" cy="19.4" r="9" class="price-intel-hit"><title>19. august: 89 kr hos Lenson</title></circle>
-      <circle cx="110.8" cy="19.4" r="9" class="price-intel-hit"><title>20. august: 89 kr hos Lenson</title></circle>
-      <circle cx="121.6" cy="105.7" r="9" class="price-intel-hit"><title>21. august: 39 kr hos Lenson</title></circle>
-      <circle cx="132.3" cy="105.7" r="9" class="price-intel-hit"><title>22. august: 39 kr hos Lenson</title></circle>
-      <circle cx="143.1" cy="105.7" r="9" class="price-intel-hit"><title>23. august: 39 kr hos Lenson</title></circle>
-      <circle cx="153.9" cy="97.0" r="9" class="price-intel-hit"><title>24. august: 44 kr hos Lensway</title></circle>
-      <circle cx="164.7" cy="97.0" r="9" class="price-intel-hit"><title>25. august: 44 kr hos Lensway</title></circle>
-      <circle cx="175.5" cy="97.0" r="9" class="price-intel-hit"><title>26. august: 44 kr hos Lensway</title></circle>
-      <circle cx="186.3" cy="97.0" r="9" class="price-intel-hit"><title>27. august: 44 kr hos Lensway</title></circle>
-      <circle cx="197.1" cy="97.0" r="9" class="price-intel-hit"><title>28. august: 44 kr hos Lensway</title></circle>
-      <circle cx="207.9" cy="97.0" r="9" class="price-intel-hit"><title>29. august: 44 kr hos Lensway</title></circle>
-      <circle cx="218.7" cy="97.0" r="9" class="price-intel-hit"><title>30. august: 44 kr hos Lensway</title></circle>
-      <circle cx="229.5" cy="91.9" r="9" class="price-intel-hit"><title>31. august: 47 kr hos Lenson</title></circle>
-      <circle cx="240.3" cy="91.9" r="9" class="price-intel-hit"><title>1. september: 47 kr hos Lenson</title></circle>
-      <circle cx="251.1" cy="91.9" r="9" class="price-intel-hit"><title>2. september: 47 kr hos Lenson</title></circle>
-      <circle cx="261.9" cy="91.9" r="9" class="price-intel-hit"><title>3. september: 47 kr hos Lenson</title></circle>
-      <circle cx="272.7" cy="91.9" r="9" class="price-intel-hit"><title>4. september: 47 kr hos Lenson</title></circle>
-      <circle cx="283.4" cy="91.9" r="9" class="price-intel-hit"><title>5. september: 47 kr hos Lenson</title></circle>
-      <circle cx="294.2" cy="91.9" r="9" class="price-intel-hit"><title>6. september: 47 kr hos Lenson</title></circle>
-      <circle cx="305.0" cy="86.7" r="9" class="price-intel-hit"><title>7. september: 50 kr hos Lenson</title></circle>
-      <circle cx="315.8" cy="86.7" r="9" class="price-intel-hit"><title>8. september: 50 kr hos Lenson</title></circle>
-      <circle cx="326.6" cy="86.7" r="9" class="price-intel-hit"><title>9. september: 50 kr hos Lenson</title></circle>
-      <circle cx="337.4" cy="86.7" r="9" class="price-intel-hit"><title>10. september: 50 kr hos Lenson</title></circle>
-      <circle cx="348.2" cy="86.7" r="9" class="price-intel-hit"><title>11. september: 50 kr hos Lenson</title></circle>
-      <circle cx="359.0" cy="86.7" r="9" class="price-intel-hit"><title>12. september: 50 kr hos Lenson</title></circle>
-      <circle cx="369.8" cy="86.7" r="9" class="price-intel-hit"><title>13. september: 50 kr hos Lenson</title></circle>
-      <circle cx="380.6" cy="112.6" r="9" class="price-intel-hit"><title>14. september: 35 kr hos Lensway</title></circle>
-      <circle cx="391.4" cy="112.6" r="9" class="price-intel-hit"><title>15. september: 35 kr hos Lensway</title></circle>
-      <circle cx="402.2" cy="112.6" r="9" class="price-intel-hit"><title>16. september: 35 kr hos Lensway</title></circle>
-      <circle cx="413.0" cy="112.6" r="9" class="price-intel-hit"><title>17. september: 35 kr hos Lensway</title></circle>
-      <circle cx="423.8" cy="112.6" r="9" class="price-intel-hit"><title>18. september: 35 kr hos Lensway</title></circle>
-      <circle cx="434.6" cy="112.6" r="9" class="price-intel-hit"><title>19. september: 35 kr hos Lensway</title></circle>
-      <circle cx="445.3" cy="112.6" r="9" class="price-intel-hit"><title>20. september: 35 kr hos Lensway</title></circle>
-      <circle cx="456.1" cy="112.6" r="9" class="price-intel-hit"><title>21. september: 35 kr hos Lensway</title></circle>
-      <circle cx="466.9" cy="112.6" r="9" class="price-intel-hit"><title>22. september: 35 kr hos Lensway</title></circle>
-      <circle cx="477.7" cy="112.6" r="9" class="price-intel-hit"><title>23. september: 35 kr hos Lensway</title></circle>
-      <circle cx="488.5" cy="112.6" r="9" class="price-intel-hit"><title>24. september: 35 kr hos Lensway</title></circle>
-      <circle cx="499.3" cy="112.6" r="9" class="price-intel-hit"><title>25. september: 35 kr hos Lensway</title></circle>
-      <circle cx="510.1" cy="112.6" r="9" class="price-intel-hit"><title>26. september: 35 kr hos Lensway</title></circle>
-      <circle cx="520.9" cy="112.6" r="9" class="price-intel-hit"><title>27. september: 35 kr hos Lensway</title></circle>
-      <circle cx="531.7" cy="112.6" r="9" class="price-intel-hit"><title>28. september: 35 kr hos Lensway</title></circle>
-      <circle cx="542.5" cy="105.7" r="9" class="price-intel-hit"><title>29. september: 39 kr hos Lenson</title></circle>
-      <circle cx="553.3" cy="105.7" r="9" class="price-intel-hit"><title>30. september: 39 kr hos Lenson</title></circle>
-      <circle cx="564.1" cy="105.7" r="9" class="price-intel-hit"><title>1. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="574.9" cy="105.7" r="9" class="price-intel-hit"><title>2. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="585.7" cy="105.7" r="9" class="price-intel-hit"><title>3. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="596.4" cy="105.7" r="9" class="price-intel-hit"><title>4. oktober: 39 kr hos Lenson</title></circle>
-      <circle cx="607.2" cy="91.9" r="9" class="price-intel-hit"><title>5. oktober: 47 kr hos Lenson</title></circle>
-      <circle cx="618.0" cy="105.7" r="9" class="price-intel-hit"><title>6. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="628.8" cy="105.7" r="9" class="price-intel-hit"><title>7. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="639.6" cy="105.7" r="9" class="price-intel-hit"><title>8. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="650.4" cy="105.7" r="9" class="price-intel-hit"><title>9. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="661.2" cy="105.7" r="9" class="price-intel-hit"><title>10. oktober: 39 kr hos Lensway</title></circle>
-      <circle cx="672.0" cy="105.7" r="9" class="price-intel-hit"><title>11. oktober: 39 kr hos Lensway</title></circle>
-      <text x="672.0" y="97.7" text-anchor="end" class="price-history-current-label">39 kr</text>
-      <text x="46.0" y="135" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
-      <text x="132.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">22.08</text>
-      <text x="218.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.08</text>
-      <text x="305.0" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">07.09</text>
-      <text x="391.4" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">15.09</text>
-      <text x="477.7" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.09</text>
-      <text x="564.1" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.10</text>
-      <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
+      <line x1="46" y1="223.1" x2="672" y2="223.1" class="price-history-gridline" />
+      <text x="40" y="226.1" text-anchor="end" class="price-history-axis-label">40 kr</text>
+      <line x1="46" y1="143.9" x2="672" y2="143.9" class="price-history-gridline" />
+      <text x="40" y="146.9" text-anchor="end" class="price-history-axis-label">60 kr</text>
+      <line x1="46" y1="64.7" x2="672" y2="64.7" class="price-history-gridline" />
+      <text x="40" y="67.7" text-anchor="end" class="price-history-axis-label">80 kr</text>
+      <path d="M46.0,260.0 L46.0,227.1 L56.8,227.1 L67.6,29.1 L78.4,29.1 L89.2,29.1 L100.0,29.1 L110.8,29.1 L121.6,227.1 L132.3,227.1 L143.1,227.1 L153.9,207.3 L164.7,207.3 L175.5,207.3 L186.3,207.3 L197.1,207.3 L207.9,207.3 L218.7,207.3 L229.5,195.4 L240.3,195.4 L251.1,195.4 L261.9,195.4 L272.7,195.4 L283.4,195.4 L294.2,195.4 L305.0,183.5 L315.8,183.5 L326.6,183.5 L337.4,183.5 L348.2,183.5 L359.0,183.5 L369.8,183.5 L380.6,242.9 L391.4,242.9 L402.2,242.9 L413.0,242.9 L423.8,242.9 L434.6,242.9 L445.3,242.9 L456.1,242.9 L466.9,242.9 L477.7,242.9 L488.5,242.9 L499.3,242.9 L510.1,242.9 L520.9,242.9 L531.7,242.9 L542.5,227.1 L553.3,227.1 L564.1,227.1 L574.9,227.1 L585.7,227.1 L596.4,227.1 L607.2,195.4 L618.0,227.1 L628.8,227.1 L639.6,227.1 L650.4,227.1 L661.2,227.1 L672.0,227.1 L672.0,260.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,227.1 56.8,227.1 67.6,29.1 78.4,29.1 89.2,29.1 100.0,29.1 110.8,29.1 121.6,227.1 132.3,227.1 143.1,227.1 153.9,207.3 164.7,207.3 175.5,207.3 186.3,207.3 197.1,207.3 207.9,207.3 218.7,207.3 229.5,195.4 240.3,195.4 251.1,195.4 261.9,195.4 272.7,195.4 283.4,195.4 294.2,195.4 305.0,183.5 315.8,183.5 326.6,183.5 337.4,183.5 348.2,183.5 359.0,183.5 369.8,183.5 380.6,242.9 391.4,242.9 402.2,242.9 413.0,242.9 423.8,242.9 434.6,242.9 445.3,242.9 456.1,242.9 466.9,242.9 477.7,242.9 488.5,242.9 499.3,242.9 510.1,242.9 520.9,242.9 531.7,242.9 542.5,227.1 553.3,227.1 564.1,227.1 574.9,227.1 585.7,227.1 596.4,227.1 607.2,195.4 618.0,227.1 628.8,227.1 639.6,227.1 650.4,227.1 661.2,227.1 672.0,227.1" class="price-history-line" />
+      <circle cx="672.0" cy="227.1" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="227.1" r="9" class="price-intel-hit"><title>14. august: 39 kr hos Lenson</title></circle>
+      <circle cx="56.8" cy="227.1" r="9" class="price-intel-hit"><title>15. august: 39 kr hos Lenson</title></circle>
+      <circle cx="67.6" cy="29.1" r="9" class="price-intel-hit"><title>16. august: 89 kr hos Lenson</title></circle>
+      <circle cx="78.4" cy="29.1" r="9" class="price-intel-hit"><title>17. august: 89 kr hos Lenson</title></circle>
+      <circle cx="89.2" cy="29.1" r="9" class="price-intel-hit"><title>18. august: 89 kr hos Lenson</title></circle>
+      <circle cx="100.0" cy="29.1" r="9" class="price-intel-hit"><title>19. august: 89 kr hos Lenson</title></circle>
+      <circle cx="110.8" cy="29.1" r="9" class="price-intel-hit"><title>20. august: 89 kr hos Lenson</title></circle>
+      <circle cx="121.6" cy="227.1" r="9" class="price-intel-hit"><title>21. august: 39 kr hos Lenson</title></circle>
+      <circle cx="132.3" cy="227.1" r="9" class="price-intel-hit"><title>22. august: 39 kr hos Lenson</title></circle>
+      <circle cx="143.1" cy="227.1" r="9" class="price-intel-hit"><title>23. august: 39 kr hos Lenson</title></circle>
+      <circle cx="153.9" cy="207.3" r="9" class="price-intel-hit"><title>24. august: 44 kr hos Lensway</title></circle>
+      <circle cx="164.7" cy="207.3" r="9" class="price-intel-hit"><title>25. august: 44 kr hos Lensway</title></circle>
+      <circle cx="175.5" cy="207.3" r="9" class="price-intel-hit"><title>26. august: 44 kr hos Lensway</title></circle>
+      <circle cx="186.3" cy="207.3" r="9" class="price-intel-hit"><title>27. august: 44 kr hos Lensway</title></circle>
+      <circle cx="197.1" cy="207.3" r="9" class="price-intel-hit"><title>28. august: 44 kr hos Lensway</title></circle>
+      <circle cx="207.9" cy="207.3" r="9" class="price-intel-hit"><title>29. august: 44 kr hos Lensway</title></circle>
+      <circle cx="218.7" cy="207.3" r="9" class="price-intel-hit"><title>30. august: 44 kr hos Lensway</title></circle>
+      <circle cx="229.5" cy="195.4" r="9" class="price-intel-hit"><title>31. august: 47 kr hos Lenson</title></circle>
+      <circle cx="240.3" cy="195.4" r="9" class="price-intel-hit"><title>1. september: 47 kr hos Lenson</title></circle>
+      <circle cx="251.1" cy="195.4" r="9" class="price-intel-hit"><title>2. september: 47 kr hos Lenson</title></circle>
+      <circle cx="261.9" cy="195.4" r="9" class="price-intel-hit"><title>3. september: 47 kr hos Lenson</title></circle>
+      <circle cx="272.7" cy="195.4" r="9" class="price-intel-hit"><title>4. september: 47 kr hos Lenson</title></circle>
+      <circle cx="283.4" cy="195.4" r="9" class="price-intel-hit"><title>5. september: 47 kr hos Lenson</title></circle>
+      <circle cx="294.2" cy="195.4" r="9" class="price-intel-hit"><title>6. september: 47 kr hos Lenson</title></circle>
+      <circle cx="305.0" cy="183.5" r="9" class="price-intel-hit"><title>7. september: 50 kr hos Lenson</title></circle>
+      <circle cx="315.8" cy="183.5" r="9" class="price-intel-hit"><title>8. september: 50 kr hos Lenson</title></circle>
+      <circle cx="326.6" cy="183.5" r="9" class="price-intel-hit"><title>9. september: 50 kr hos Lenson</title></circle>
+      <circle cx="337.4" cy="183.5" r="9" class="price-intel-hit"><title>10. september: 50 kr hos Lenson</title></circle>
+      <circle cx="348.2" cy="183.5" r="9" class="price-intel-hit"><title>11. september: 50 kr hos Lenson</title></circle>
+      <circle cx="359.0" cy="183.5" r="9" class="price-intel-hit"><title>12. september: 50 kr hos Lenson</title></circle>
+      <circle cx="369.8" cy="183.5" r="9" class="price-intel-hit"><title>13. september: 50 kr hos Lenson</title></circle>
+      <circle cx="380.6" cy="242.9" r="9" class="price-intel-hit"><title>14. september: 35 kr hos Lensway</title></circle>
+      <circle cx="391.4" cy="242.9" r="9" class="price-intel-hit"><title>15. september: 35 kr hos Lensway</title></circle>
+      <circle cx="402.2" cy="242.9" r="9" class="price-intel-hit"><title>16. september: 35 kr hos Lensway</title></circle>
+      <circle cx="413.0" cy="242.9" r="9" class="price-intel-hit"><title>17. september: 35 kr hos Lensway</title></circle>
+      <circle cx="423.8" cy="242.9" r="9" class="price-intel-hit"><title>18. september: 35 kr hos Lensway</title></circle>
+      <circle cx="434.6" cy="242.9" r="9" class="price-intel-hit"><title>19. september: 35 kr hos Lensway</title></circle>
+      <circle cx="445.3" cy="242.9" r="9" class="price-intel-hit"><title>20. september: 35 kr hos Lensway</title></circle>
+      <circle cx="456.1" cy="242.9" r="9" class="price-intel-hit"><title>21. september: 35 kr hos Lensway</title></circle>
+      <circle cx="466.9" cy="242.9" r="9" class="price-intel-hit"><title>22. september: 35 kr hos Lensway</title></circle>
+      <circle cx="477.7" cy="242.9" r="9" class="price-intel-hit"><title>23. september: 35 kr hos Lensway</title></circle>
+      <circle cx="488.5" cy="242.9" r="9" class="price-intel-hit"><title>24. september: 35 kr hos Lensway</title></circle>
+      <circle cx="499.3" cy="242.9" r="9" class="price-intel-hit"><title>25. september: 35 kr hos Lensway</title></circle>
+      <circle cx="510.1" cy="242.9" r="9" class="price-intel-hit"><title>26. september: 35 kr hos Lensway</title></circle>
+      <circle cx="520.9" cy="242.9" r="9" class="price-intel-hit"><title>27. september: 35 kr hos Lensway</title></circle>
+      <circle cx="531.7" cy="242.9" r="9" class="price-intel-hit"><title>28. september: 35 kr hos Lensway</title></circle>
+      <circle cx="542.5" cy="227.1" r="9" class="price-intel-hit"><title>29. september: 39 kr hos Lenson</title></circle>
+      <circle cx="553.3" cy="227.1" r="9" class="price-intel-hit"><title>30. september: 39 kr hos Lenson</title></circle>
+      <circle cx="564.1" cy="227.1" r="9" class="price-intel-hit"><title>1. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="574.9" cy="227.1" r="9" class="price-intel-hit"><title>2. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="585.7" cy="227.1" r="9" class="price-intel-hit"><title>3. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="596.4" cy="227.1" r="9" class="price-intel-hit"><title>4. oktober: 39 kr hos Lenson</title></circle>
+      <circle cx="607.2" cy="195.4" r="9" class="price-intel-hit"><title>5. oktober: 47 kr hos Lenson</title></circle>
+      <circle cx="618.0" cy="227.1" r="9" class="price-intel-hit"><title>6. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="628.8" cy="227.1" r="9" class="price-intel-hit"><title>7. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="639.6" cy="227.1" r="9" class="price-intel-hit"><title>8. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="650.4" cy="227.1" r="9" class="price-intel-hit"><title>9. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="661.2" cy="227.1" r="9" class="price-intel-hit"><title>10. oktober: 39 kr hos Lensway</title></circle>
+      <circle cx="672.0" cy="227.1" r="9" class="price-intel-hit"><title>11. oktober: 39 kr hos Lensway</title></circle>
+      <text x="672.0" y="219.1" text-anchor="end" class="price-history-current-label">39 kr</text>
+      <text x="46.0" y="275" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
+      <text x="132.3" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">22.08</text>
+      <text x="218.7" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.08</text>
+      <text x="305.0" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">07.09</text>
+      <text x="391.4" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">15.09</text>
+      <text x="477.7" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.09</text>
+      <text x="564.1" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.10</text>
+      <text x="672.0" y="275" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 35 kr til 89 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-all" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -2181,6 +2204,7 @@ a { color: inherit; }
   });
 })();
 </script>
+  <script src="/static/store-history-chart.js" defer></script>
 </div>
   <details class="qty-multi">
     <summary>

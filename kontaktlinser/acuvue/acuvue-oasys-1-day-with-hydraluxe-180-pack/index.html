@@ -717,10 +717,35 @@ a { color: inherit; }
 .price-intel-metric-desc{display:none}
 .price-intel-status-pill{border:0;box-shadow:none}
 .price-intel-period-tabs{margin:18px 0 20px}
-.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0;max-width:none;width:100%}
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
+
+.price-intel .price-history-line{stroke-width:1.3;vector-effect:non-scaling-stroke}
+.price-intel .store-chart-controls{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:18px 0 8px}
+.price-intel .store-chart-periods{margin-left:auto;text-align:right}
+.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
+.price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
+.price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
+.price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
+.price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
+.price-intel .store-chart-options input{accent-color:var(--blue);width:17px;height:17px}
+.price-intel .store-chart-selected{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.price-intel .store-chart-selected[hidden],.price-intel .store-chart-picker[hidden]{display:none}
+.price-intel .store-chart-chip{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;background:var(--mist);color:var(--ink);padding:7px 10px;font:inherit;font-size:.76rem;cursor:pointer}
+.price-intel .store-chart-swatch{width:8px;height:8px;border-radius:50%;display:inline-block}
+.price-intel .price-intel-chart-wrap{position:relative}
+.price-intel .store-chart-tooltip{position:absolute;z-index:4;pointer-events:none;background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 18px #0b25451a;padding:12px 15px;color:var(--ink);font-size:.8rem;max-width:230px}
+.price-intel .store-chart-tooltip strong{display:block;font-size:1rem;margin:5px 0}
+.price-intel .store-chart-tooltip span{display:block}
+.price-intel .store-chart-tooltip[hidden]{display:none}
+.price-intel .store-chart-keyboard{width:100%;margin:8px 0;accent-color:var(--orange-dark)}
+.price-intel .store-chart-keyboard:not(:focus){position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+@media(max-width:600px){.price-intel .store-chart-controls{flex-direction:column;gap:12px}.price-intel .store-chart-periods{width:100%;text-align:left}.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-start}.price-intel .store-chart-picker{width:100%}.price-intel .store-chart-options{width:100%}.price-intel .store-chart-chip{min-height:40px}}
 .price-intel-chart-mobile{display:none}
 .price-intel-chart-desktop{display:block}
 .price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -781,7 +806,7 @@ a { color: inherit; }
   .price-intel-value-lg{font-size:3.2rem}
   .price-intel-value{font-size:1.55rem}
   .price-intel-status-pill{width:260px;padding:14px 16px}
-  .price-intel-chart-shell{max-width:980px}
+  .price-intel-chart-shell{max-width:none}
   .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
   .price-intel-history-details>summary{display:none}
@@ -1949,55 +1974,56 @@ a { color: inherit; }
     </div>
     <div class="price-intel-status-pill price-intel-status-flat"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har vært 1 535 kr i 7 dager.</span></div>
   </div>
-  <div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab active" data-period="all">All historikk</button></div>
+  <div class="store-chart-controls">
+    <details class="store-chart-picker" hidden><summary>Velg butikk</summary><div class="store-chart-options"></div></details>
+    <div class="store-chart-periods"><div class="price-intel-period-tabs" role="tablist"><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">30 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">90 dager</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">6 måneder</button><button type="button" class="price-intel-period-tab" disabled title="Ikke nok historikk ennå">1 år</button><button type="button" class="price-intel-period-tab active" data-period="all">All historikk</button></div><p class="store-chart-caption">Laveste registrerte produktpris per dag</p></div>
+  </div>
+  <div class="store-chart-selected" hidden></div>
   <div class="price-intel-chart-panel active" data-period="all">
     <div class="price-intel-chart-shell">
-      <div class="price-intel-chart-toolbar">
-        <span>Laveste registrerte produktpris per dag</span>
-        <span class="price-intel-chart-toolbar-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 21V10M12 21V4M19 21v-7"/></svg>Viser laveste registrerte pris per dag</span>
-      </div>
-      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 140" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 1 439 kr til 1 579 kr">
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-26", "price": 1439.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 1579.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 1579.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 1579.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 1535.0, "store": "Lenson"}], "stores": {"Lenson": [{"date": "2026-09-26", "price": 1439.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 1439.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 1579.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 1579.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 1579.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 1535.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 1535.0, "store": "Lenson"}], "Lensway": [{"date": "2026-09-26", "price": 1579.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 1579.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 1579.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 1631.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 1631.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 1579.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 1579.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 1579.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 1579.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 1579.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 1579.0, "store": "Lensway"}]}}</script>
+      <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 280" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 1 439 kr til 1 579 kr">
       <defs>
-        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="120" gradientUnits="userSpaceOnUse">
+        <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="260" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.32" />
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="105.2" x2="672" y2="105.2" class="price-history-gridline" />
-      <text x="40" y="108.2" text-anchor="end" class="price-history-axis-label">1 450 kr</text>
-      <line x1="46" y1="72.0" x2="672" y2="72.0" class="price-history-gridline" />
-      <text x="40" y="75.0" text-anchor="end" class="price-history-axis-label">1 500 kr</text>
-      <line x1="46" y1="38.8" x2="672" y2="38.8" class="price-history-gridline" />
-      <text x="40" y="41.8" text-anchor="end" class="price-history-axis-label">1 550 kr</text>
-      <path d="M46.0,120.0 L46.0,112.5 L87.7,19.5 L129.5,19.5 L171.2,19.5 L212.9,19.5 L254.7,19.5 L296.4,19.5 L338.1,19.5 L379.9,19.5 L421.6,48.7 L463.3,48.7 L505.1,48.7 L546.8,48.7 L588.5,48.7 L630.3,48.7 L672.0,48.7 L672.0,120.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,112.5 87.7,19.5 129.5,19.5 171.2,19.5 212.9,19.5 254.7,19.5 296.4,19.5 338.1,19.5 379.9,19.5 421.6,48.7 463.3,48.7 505.1,48.7 546.8,48.7 588.5,48.7 630.3,48.7 672.0,48.7" class="price-history-line" />
-      <circle cx="672.0" cy="48.7" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="112.5" r="9" class="price-intel-hit"><title>26. september: 1 439 kr hos Lenson</title></circle>
-      <circle cx="87.7" cy="19.5" r="9" class="price-intel-hit"><title>27. september: 1 579 kr hos Lenson</title></circle>
-      <circle cx="129.5" cy="19.5" r="9" class="price-intel-hit"><title>28. september: 1 579 kr hos Lenson</title></circle>
-      <circle cx="171.2" cy="19.5" r="9" class="price-intel-hit"><title>29. september: 1 579 kr hos Lenson</title></circle>
-      <circle cx="212.9" cy="19.5" r="9" class="price-intel-hit"><title>30. september: 1 579 kr hos Lenson</title></circle>
-      <circle cx="254.7" cy="19.5" r="9" class="price-intel-hit"><title>1. oktober: 1 579 kr hos Lenson</title></circle>
-      <circle cx="296.4" cy="19.5" r="9" class="price-intel-hit"><title>2. oktober: 1 579 kr hos Lenson</title></circle>
-      <circle cx="338.1" cy="19.5" r="9" class="price-intel-hit"><title>3. oktober: 1 579 kr hos Lenson</title></circle>
-      <circle cx="379.9" cy="19.5" r="9" class="price-intel-hit"><title>4. oktober: 1 579 kr hos Lenson</title></circle>
-      <circle cx="421.6" cy="48.7" r="9" class="price-intel-hit"><title>5. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="463.3" cy="48.7" r="9" class="price-intel-hit"><title>6. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="505.1" cy="48.7" r="9" class="price-intel-hit"><title>7. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="546.8" cy="48.7" r="9" class="price-intel-hit"><title>8. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="588.5" cy="48.7" r="9" class="price-intel-hit"><title>9. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="630.3" cy="48.7" r="9" class="price-intel-hit"><title>10. oktober: 1 535 kr hos Lenson</title></circle>
-      <circle cx="672.0" cy="48.7" r="9" class="price-intel-hit"><title>11. oktober: 1 535 kr hos Lenson</title></circle>
-      <text x="672.0" y="40.7" text-anchor="end" class="price-history-current-label">1 535 kr</text>
-      <text x="46.0" y="135" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">26.09</text>
-      <text x="129.5" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
-      <text x="212.9" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.09</text>
-      <text x="296.4" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
-      <text x="379.9" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.10</text>
-      <text x="463.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
-      <text x="546.8" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">08.10</text>
-      <text x="630.3" y="135" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.10</text>
-      <text x="672.0" y="135" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
+      <line x1="46" y1="226.0" x2="672" y2="226.0" class="price-history-gridline" />
+      <text x="40" y="229.0" text-anchor="end" class="price-history-axis-label">1 450 kr</text>
+      <line x1="46" y1="149.7" x2="672" y2="149.7" class="price-history-gridline" />
+      <text x="40" y="152.7" text-anchor="end" class="price-history-axis-label">1 500 kr</text>
+      <line x1="46" y1="73.4" x2="672" y2="73.4" class="price-history-gridline" />
+      <text x="40" y="76.4" text-anchor="end" class="price-history-axis-label">1 550 kr</text>
+      <path d="M46.0,260.0 L46.0,242.8 L87.7,29.2 L129.5,29.2 L171.2,29.2 L212.9,29.2 L254.7,29.2 L296.4,29.2 L338.1,29.2 L379.9,29.2 L421.6,96.3 L463.3,96.3 L505.1,96.3 L546.8,96.3 L588.5,96.3 L630.3,96.3 L672.0,96.3 L672.0,260.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,242.8 87.7,29.2 129.5,29.2 171.2,29.2 212.9,29.2 254.7,29.2 296.4,29.2 338.1,29.2 379.9,29.2 421.6,96.3 463.3,96.3 505.1,96.3 546.8,96.3 588.5,96.3 630.3,96.3 672.0,96.3" class="price-history-line" />
+      <circle cx="672.0" cy="96.3" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="242.8" r="9" class="price-intel-hit"><title>26. september: 1 439 kr hos Lenson</title></circle>
+      <circle cx="87.7" cy="29.2" r="9" class="price-intel-hit"><title>27. september: 1 579 kr hos Lenson</title></circle>
+      <circle cx="129.5" cy="29.2" r="9" class="price-intel-hit"><title>28. september: 1 579 kr hos Lenson</title></circle>
+      <circle cx="171.2" cy="29.2" r="9" class="price-intel-hit"><title>29. september: 1 579 kr hos Lenson</title></circle>
+      <circle cx="212.9" cy="29.2" r="9" class="price-intel-hit"><title>30. september: 1 579 kr hos Lenson</title></circle>
+      <circle cx="254.7" cy="29.2" r="9" class="price-intel-hit"><title>1. oktober: 1 579 kr hos Lenson</title></circle>
+      <circle cx="296.4" cy="29.2" r="9" class="price-intel-hit"><title>2. oktober: 1 579 kr hos Lenson</title></circle>
+      <circle cx="338.1" cy="29.2" r="9" class="price-intel-hit"><title>3. oktober: 1 579 kr hos Lenson</title></circle>
+      <circle cx="379.9" cy="29.2" r="9" class="price-intel-hit"><title>4. oktober: 1 579 kr hos Lenson</title></circle>
+      <circle cx="421.6" cy="96.3" r="9" class="price-intel-hit"><title>5. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="463.3" cy="96.3" r="9" class="price-intel-hit"><title>6. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="505.1" cy="96.3" r="9" class="price-intel-hit"><title>7. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="546.8" cy="96.3" r="9" class="price-intel-hit"><title>8. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="588.5" cy="96.3" r="9" class="price-intel-hit"><title>9. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="630.3" cy="96.3" r="9" class="price-intel-hit"><title>10. oktober: 1 535 kr hos Lenson</title></circle>
+      <circle cx="672.0" cy="96.3" r="9" class="price-intel-hit"><title>11. oktober: 1 535 kr hos Lenson</title></circle>
+      <text x="672.0" y="88.3" text-anchor="end" class="price-history-current-label">1 535 kr</text>
+      <text x="46.0" y="275" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">26.09</text>
+      <text x="129.5" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
+      <text x="212.9" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.09</text>
+      <text x="296.4" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
+      <text x="379.9" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.10</text>
+      <text x="463.3" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
+      <text x="546.8" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">08.10</text>
+      <text x="630.3" y="275" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.10</text>
+      <text x="672.0" y="275" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 1 439 kr til 1 579 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-all" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -2094,6 +2120,7 @@ a { color: inherit; }
   });
 })();
 </script>
+  <script src="/static/store-history-chart.js" defer></script>
 </div>
   <details class="qty-multi">
     <summary>
