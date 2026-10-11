@@ -10,8 +10,7 @@ JavaScript. Er ikke prisen der i rå-HTML, finnes den ikke for dem. JS her
 brukes kun til forbedringer ovenpå innhold som allerede er synlig uten den
 (filter/sortering på kategorisiden) - se <noscript>-fallback i category-malen.
 
-Bruker samme CSS-tokens som prototypene: ink/mist/blue/mint, Space Grotesk /
-Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
+Bruker samme CSS-tokens som prototypene: ink/mist/blue/mint og Mulish. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
 import hashlib
@@ -156,12 +155,8 @@ def _og_meta(title: str, description: str, url: str, image: str | None = None) -
 <meta name="twitter:card" content="summary_large_image">"""
 
 SHARED_STYLE = """
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/static/fonts/inter-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/inter-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/space-grotesk-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/space-grotesk-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 600; font-display: swap; src: url('/static/fonts/ibm-plex-mono-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 700; font-display: swap; src: url('/static/fonts/ibm-plex-mono-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Mulish'; font-style: normal; font-weight: 200 1000; font-display: swap; src: url('/static/fonts/mulish-latin-variable.woff2') format('woff2'); }
+button, input, select, textarea { font-family: 'Mulish', sans-serif; }
 :root {
   --ink: #0B2545; --mist: #F5F9FA; --blue: #2563EB; --blue-tint: #E8EFFE; --blue-dark: #1D4ED8;
   --mint: #0BA36F; --mint-tint: #E4F6EE; --muted: #64748B; --muted-bg: #ECEFF3;
@@ -174,7 +169,7 @@ SHARED_STYLE = """
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.5; }
+body { margin: 0; background: var(--mist); color: var(--ink); font-family: 'Mulish', sans-serif; line-height: 1.5; }
 a { color: inherit; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 64px; }
 /* Tekstsider (guider, om oss osv.) holder seg smale for lesbarhet selv på
@@ -243,7 +238,7 @@ a { color: inherit; }
 }
 .mega-rich-col { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mega-panel-kicker { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue); }
-.mega-panel-heading { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--ink); margin: 4px 0 0; }
+.mega-panel-heading { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; color: var(--ink); margin: 4px 0 0; }
 .mega-panel-text { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
 /* "Alle merker A-Å" (2026-09-29) -- CSS-multikolonne (samme teknikk som
    .footer-brand-list) i stedet for et grid, siden listen har et variabelt
@@ -311,7 +306,7 @@ a { color: inherit; }
 .hero { position: relative; padding: 8px 0 22px; }
 .hero-copy { position: relative; z-index: 1; max-width: 520px; }
 .hero-copy .kicker { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
-.hero-copy h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
+.hero-copy h1 { font-family: 'Mulish', sans-serif; font-size: 1.9rem; line-height: 1.15; margin: 4px 0 8px; }
 .hero-copy p { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.55; }
 .offer-card, .product-card { display: flex; align-items: center; justify-content: space-between; gap: 14px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 10px; box-shadow: var(--card-shadow); text-decoration: none; color: var(--ink); }
 .offer-card.is-lowest { border-color: var(--mint); background: var(--mint-tint); }
@@ -335,12 +330,12 @@ a { color: inherit; }
 .brand-hero-logo.has-logo { background: white; }
 .brand-hero-logo.has-logo-dark { background: var(--ink); }
 .product-price-col { text-align: right; flex-shrink: 0; }
-.price-value { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.05rem; }
+.price-value { font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 1.05rem; }
 .price-label { font-size: 0.68rem; font-weight: 600; color: var(--mint); text-transform: uppercase; letter-spacing: 0.03em; }
 .offer-price-col { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .offer-shipping { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 .offer-shipping svg { width: 15px; height: 15px; color: var(--mint); flex-shrink: 0; }
-.price-pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 1.15rem; color: white; background: var(--blue); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
+.price-pill { display: inline-block; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.15rem; color: white; background: var(--blue); padding: 10px 22px; border-radius: 999px; text-decoration: none; white-space: nowrap; }
 .price-pill:hover { opacity: 0.88; }
 .offer-card.is-lowest .price-pill { background: var(--mint); }
 /* .offer-card hadde ingen mobil-spesifikk layout i det hele tatt -- på
@@ -357,15 +352,15 @@ a { color: inherit; }
   .offer-price-col { flex-basis: 100%; justify-content: space-between; align-items: center; }
   .offer-shipping { white-space: normal; flex: 1; min-width: 0; align-items: flex-start; }
 }
-.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
+.product-thumb { width: 52px; height: 52px; border-radius: 50%; background: var(--blue-tint); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--blue); flex-shrink: 0; overflow: hidden; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .chip { font-size: 0.82rem; font-weight: 600; padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border); background: white; cursor: pointer; color: var(--ink); }
 .chip.active { background: var(--blue); border-color: var(--blue); color: white; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0 24px; }
 .list-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
-.list-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }
+.list-header h2 { font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 0; }
 .related, .guides { margin-top: 32px; }
-.related h2, .guides h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin: 0 0 10px; }
+.related h2, .guides h2 { font-family: 'Mulish', sans-serif; font-size: 1rem; margin: 0 0 10px; }
 .related ul, .guides ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
 .related a, .guides a { display: block; font-size: 0.88rem; text-decoration: none; padding: 10px 14px; background: white; border: 1px solid var(--border); border-radius: 10px; }
 .related a:hover, .guides a:hover { border-color: var(--blue); }
@@ -374,7 +369,7 @@ a { color: inherit; }
 .site-footer { margin-top: 48px; background: var(--ink); color: white; }
 .footer-inner { max-width: 760px; margin: 0 auto; padding: 40px 20px 8px; display: flex; flex-wrap: wrap; gap: 32px 24px; }
 .footer-col { flex: 1 1 140px; min-width: 140px; }
-.footer-col h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); margin: 0 0 12px; }
+.footer-col h3 { font-family: 'Mulish', sans-serif; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--blue); margin: 0 0 12px; }
 .footer-col a { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.78); text-decoration: none; padding: 3px 0; }
 .footer-col a:hover { color: white; text-decoration: underline; }
 .footer-brand-list { columns: 2; column-gap: 16px; }
@@ -385,11 +380,11 @@ a { color: inherit; }
 .consent-overlay { position: fixed; inset: 0; z-index: 200; background: rgba(11, 37, 69, 0.45); display: flex; align-items: center; justify-content: center; padding: 20px; }
 .consent-overlay[hidden] { display: none; }
 .consent-modal { background: white; border-radius: 16px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 28px; box-shadow: 0 20px 60px rgba(11, 37, 69, 0.28); }
-.consent-modal h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; margin: 0 0 14px; }
+.consent-modal h2 { font-family: 'Mulish', sans-serif; font-size: 1.15rem; margin: 0 0 14px; }
 .consent-text { font-size: 0.88rem; line-height: 1.6; color: var(--ink); margin: 0 0 20px; }
 .consent-text a { color: var(--blue); }
 .consent-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.consent-btn { font-family: 'Inter', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 10px 18px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
+.consent-btn { font-family: 'Mulish', sans-serif; font-size: 0.84rem; font-weight: 600; padding: 10px 18px; border-radius: 20px; cursor: pointer; border: 1px solid transparent; }
 .consent-btn-primary { background: var(--ink); color: white; }
 .consent-btn-primary:hover { background: var(--blue); }
 .consent-btn-secondary { background: white; color: var(--ink); border-color: var(--border); }
@@ -417,7 +412,7 @@ a { color: inherit; }
 .product-tile-image { height: 190px; margin: 14px 14px 0; border-radius: 12px; background: var(--mist); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .product-tile-image.has-photo { background: var(--mist); }
 .product-tile-image img { display: block; width: 86%; height: auto; max-height: 150px; object-fit: contain; mix-blend-mode: multiply; }
-.product-tile-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
+.product-tile-fallback { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.8rem; color: var(--blue); }
 .product-tile-body { padding: 16px 18px 0; flex-grow: 1; display: flex; flex-direction: column; }
 .product-tile-category { display: inline-block; align-self: flex-start; margin-bottom: 10px; padding: 5px 8px; border-radius: 999px; background: var(--blue-tint); color: var(--blue); font-size: 0.75rem; line-height: 1; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; }
 .product-tile-name-link { text-decoration: none; color: var(--ink); }
@@ -425,13 +420,13 @@ a { color: inherit; }
 .product-tile-manufacturer { display: block; margin-top: 6px; font-size: 0.85rem; color: var(--muted); text-decoration: none; }
 .product-tile-manufacturer:hover { text-decoration: underline; }
 .product-tile-specs-row { display: flex; gap: 14px; margin-top: 12px; flex-wrap: wrap; }
-.product-tile-spec { display: flex; align-items: center; gap: 5px; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: var(--muted); }
+.product-tile-spec { display: flex; align-items: center; gap: 5px; font-family: 'Mulish', sans-serif; font-size: 0.78rem; color: var(--muted); }
 .product-tile-spec svg { width: 14px; height: 14px; color: var(--blue); flex-shrink: 0; }
 .product-tile-divider { height: 1px; margin: 16px 0 14px; background: var(--border); }
 .product-tile-price-link { display: block; text-decoration: none; color: var(--ink); margin-top: auto; }
 .product-tile-high-price, .product-tile-price-from { display: none; }
 .product-tile-price-label { font-size: 0.8rem; color: #5B6B80; margin-bottom: 3px; }
-.product-tile-price { font-family: 'Space Grotesk', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
+.product-tile-price { font-family: 'Mulish', sans-serif; display: flex; align-items: baseline; gap: 4px; color: var(--ink); }
 .product-tile-price-number { font-size: 1.9rem; line-height: 1; font-weight: 700; letter-spacing: -0.02em; }
 .product-tile-price-currency { font-size: 0.9rem; font-weight: 700; }
 .product-tile-store-line { margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
@@ -483,12 +478,12 @@ a { color: inherit; }
   .product-tile-savings:hover::after, .product-tile-savings:focus::after { content: attr(data-explanation); position: absolute; z-index: 3; top: calc(100% + 6px); left: 0; width: 180px; box-sizing: border-box; padding: 8px; border-radius: 6px; background: var(--ink); color: white; font-size: .7rem; font-weight: 400; line-height: 1.4; }
 }
 .faq-section { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
-.faq-section h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
+.faq-section h2 { font-family: 'Mulish', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .faq-item { margin-bottom: 18px; }
 .faq-item h3 { font-size: 0.94rem; margin: 0 0 6px; }
 .faq-item p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; margin: 0; }
 .methodology { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
-.methodology h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
+.methodology h2 { font-family: 'Mulish', sans-serif; font-size: 1.1rem; margin: 0 0 16px; }
 .methodology dl { margin: 0; }
 .methodology-row { display: flex; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
 .methodology-row:last-child { border-bottom: none; }
@@ -498,7 +493,7 @@ a { color: inherit; }
    av BÅDE produktsiden og serie-siden sitt nye prisinnsikt-panel (se
    render_family_price_insight()), én kilde i stedet for to kopier. */
 .price-history { margin-top: 28px; }
-.price-history h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
+.price-history h2 { font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 0 0 6px; }
 .price-history-summary { font-size: 0.85rem; color: var(--muted); margin: 0 0 12px; }
 .price-history-chart { width: 100%; height: auto; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 4px 0; }
 /* fill settes INLINE per <path> (se _render_price_history_chart), ikke her --
@@ -511,8 +506,8 @@ a { color: inherit; }
 .price-history-dot { fill: white; stroke: var(--orange-dark); stroke-width: 1.5; }
 .price-history-dot-last { fill: var(--orange-dark); stroke: white; stroke-width: 1.5; }
 .price-history-gridline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 3 3; }
-.price-history-axis-label { font-family: 'Inter', sans-serif; font-size: 9.5px; fill: var(--muted); }
-.price-history-current-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
+.price-history-axis-label { font-family: 'Mulish', sans-serif; font-size: 9.5px; fill: var(--muted); }
+.price-history-current-label { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 11px; fill: var(--orange-dark); }
 /* Price Intelligence (Product Gold Standard v1, 2026-09-27, flyttet hit
    2026-09-28 for gjenbruk på ALLE produkttyper -- Kai: "gjelder alle
    produkter på domenet kontaktlinser.no ... alle kontaktlinser, egne
@@ -527,7 +522,7 @@ a { color: inherit; }
    analytics-dashboard. */
 .price-intel { margin-top: 28px; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 18px; }
 .price-intel-head { margin-bottom: 14px; }
-.price-intel-head-text h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0; }
+.price-intel-head-text h2 { font-family: 'Mulish', sans-serif; font-size: 1.1rem; margin: 0; }
 .price-intel-head-text p { font-size: 0.84rem; color: var(--muted); margin: 3px 0 0; line-height: 1.5; }
 .price-intel-coverage { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.76rem; color: var(--muted); background: white; border: 1px solid var(--border); border-radius: 10px; padding: 7px 11px; }
 .price-intel-coverage svg { width: 15px; height: 15px; color: var(--blue); flex-shrink: 0; }
@@ -554,8 +549,8 @@ a { color: inherit; }
 .price-intel-metrics-row { display: flex; flex-wrap: wrap; gap: 14px 0; }
 .price-intel-metric-col { flex: 1 1 46%; box-sizing: border-box; padding-right: 10px; }
 .price-intel-metric-current { flex: 1 1 100%; margin-bottom: 2px; }
-.price-intel-value { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.15rem; color: var(--ink); line-height: 1.1; }
-.price-intel-value-lg { display: block; font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
+.price-intel-value { display: block; font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 1.15rem; color: var(--ink); line-height: 1.1; }
+.price-intel-value-lg { display: block; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 2.1rem; color: var(--ink); line-height: 1.05; }
 .price-intel-metric-label { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 4px; line-height: 1.35; }
 .price-intel-metric-info { display: inline-block; opacity: 0.7; margin-left: 2px; }
 .price-intel-metric-desc { display: block; font-size: 0.66rem; color: var(--muted); opacity: 0.85; margin-top: 5px; line-height: 1.4; max-width: 190px; }
@@ -607,7 +602,7 @@ a { color: inherit; }
    overskuddsplassen bli synlig luft på sidene av raden. */
 .price-intel-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 14px; }
 .price-intel-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; flex: 1 1 260px; }
-.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Space Grotesk', sans-serif; font-size: 0.88rem; margin: 0; color: var(--ink); }
+.price-intel-card h3 { display: flex; align-items: center; gap: 7px; font-family: 'Mulish', sans-serif; font-size: 0.88rem; margin: 0; color: var(--ink); }
 .price-intel-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
 .price-intel-card-head-note { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
 .price-intel-card h3 svg { width: 16px; height: 16px; flex-shrink: 0; }
@@ -615,19 +610,19 @@ a { color: inherit; }
 .price-intel-card-h-winner svg { color: var(--amber); }
 .price-intel-card-row { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 0.84rem; color: var(--ink); }
 .price-intel-card-row span { color: var(--muted); }
-.price-intel-card-row strong { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.price-intel-card-row strong { font-family: 'Mulish', sans-serif; font-weight: 600; }
 /* "31 %"-utropet -- egen, fremtredende callout (regel 12: "make the
    proprietary spread metric prominent"), erstatter den tidligere
    ren-tekst-raden med samme tall. */
 .price-intel-spread-callout { margin-top: 9px; padding: 11px 12px; background: var(--mint-tint); border-radius: 10px; }
-.price-intel-spread-callout strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
+.price-intel-spread-callout strong { display: block; font-family: 'Mulish', sans-serif; font-size: 1.3rem; color: var(--mint); line-height: 1.1; }
 .price-intel-spread-callout span { display: block; font-size: 0.74rem; color: var(--muted); margin-top: 2px; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
 .price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
 .price-intel-frequency-panel { display: none; }
 .price-intel-frequency-panel.active { display: block; }
-.price-intel-frequency-number { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.55rem; color: var(--ink); }
+.price-intel-frequency-number { font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 1.55rem; color: var(--ink); }
 .price-intel-frequency-description { font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
 .price-intel-frequency-bar { display: flex; gap: 2px; height: 10px; border-radius: 999px; overflow: hidden; background: var(--mist); }
 .price-intel-frequency-lower { background: #94A3B8; }
@@ -653,7 +648,7 @@ a { color: inherit; }
 .price-intel-qty-table td { padding: 5px 4px 5px 0; border-bottom: 1px solid var(--border); color: var(--ink); }
 .price-intel-qty-table tr:last-child td { border-bottom: none; }
 .price-intel-qty-table td:first-child { font-weight: 600; }
-.price-intel-qty-table td:nth-child(2) { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+.price-intel-qty-table td:nth-child(2) { font-family: 'Mulish', sans-serif; font-weight: 600; }
 /* "Kort fortalt" -- diskre konklusjon, ikke en stor blå dashboard-boks
    (regel 17: "Do not make it look like an AI response"). */
 .price-intel-conclusion { display: none; margin-top: 16px; border-radius: 12px; overflow: hidden; background: var(--blue-tint); }
@@ -667,7 +662,7 @@ a { color: inherit; }
 .price-intel-stat-strip { display: flex; flex-wrap: wrap; gap: 12px 0; padding: 14px 16px; background: white; border-top: 1px solid var(--border); }
 .price-intel-stat { flex: 1 1 46%; display: flex; align-items: flex-start; gap: 8px; box-sizing: border-box; padding-right: 10px; }
 .price-intel-stat svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; margin-top: 2px; }
-.price-intel-stat strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.92rem; color: var(--ink); }
+.price-intel-stat strong { display: block; font-family: 'Mulish', sans-serif; font-size: 0.92rem; color: var(--ink); }
 .price-intel-stat span { display: block; font-size: 0.68rem; color: var(--muted); line-height: 1.3; margin-top: 1px; }
 /* Footer -- metodikklenke + en ÆRLIG oppdateringsdato. Bevisst INGEN
    klokkeslett ("kl. HH:MM") slik mockupen viste -- samme lærdom som
@@ -839,7 +834,7 @@ a { color: inherit; }
 .price-intel-stat span{font-size:.69rem}
 .price-intel-history-data{margin-top:30px;padding-top:26px;border-top:1px solid var(--border)}
 .price-intel-section-kicker{margin:0 0 4px;font-size:.67rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
-.price-intel-section-head h3{margin:0;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;color:var(--ink)}
+.price-intel-section-head h3{margin:0;font-family:'Mulish',sans-serif;font-size:1.05rem;color:var(--ink)}
 .price-intel-section-head p{margin:5px 0 0;max-width:680px;font-size:.76rem;line-height:1.5;color:var(--muted)}
 .price-intel-history-table-wrap{margin-top:14px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .price-intel-history-table{width:100%;border-collapse:collapse;min-width:760px;font-size:.76rem}
@@ -847,7 +842,7 @@ a { color: inherit; }
 .price-intel-history-table thead th{font-size:.64rem;text-transform:uppercase;letter-spacing:.045em;color:var(--muted);font-weight:600}
 .price-intel-history-table th:first-child,.price-intel-history-table td:first-child{text-align:left}
 .price-intel-history-table tbody th{font-weight:650;color:var(--ink)}
-.price-intel-history-table tbody td{font-family:'IBM Plex Mono',monospace;color:var(--ink)}
+.price-intel-history-table tbody td{font-family:'Mulish',sans-serif;color:var(--ink)}
 /* Smal desktop (modulens innhold <= 800px, dvs. ca. 860-1010px viewport): den
    8-kolonners tabellen har min-width 760px og ville scrollet sidelengs. Her
    komprimeres den i stedet: ingen min-width, tettere padding, mindre
@@ -919,15 +914,15 @@ a { color: inherit; }
   .price-intel-history-table tbody{display:block}
   .price-intel-history-table tr{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;padding:14px 0;border-bottom:1px solid var(--border)}
   .price-intel-history-table th,.price-intel-history-table td{display:block;padding:0;border:0;text-align:left!important;white-space:normal}
-  .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Space Grotesk',sans-serif;font-size:.88rem}
+  .price-intel-history-table tbody th{grid-column:1/-1;font-family:'Mulish',sans-serif;font-size:.88rem}
   .price-intel-history-table td{font-size:.78rem}
-  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
-  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Inter,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(2)::before{content:"Laveste";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(3)::before{content:"Høyeste";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(4)::before{content:"Median";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(5)::before{content:"Prisspenn";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(6)::before{content:"Prisendringer";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(7)::before{content:"Vinnerbytter";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
+  .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
 }
 
 """
@@ -943,7 +938,7 @@ a { color: inherit; }
 # Kun "latin"-delmengden (U+0000-00FF m.fl.) er lastet ned -- dekker æøå
 # (innenfor U+0000-00FF) og all norsk tekst på siden, samme reelle
 # tegndekning siten allerede hadde via Google Fonts sin "latin"-delmengde.
-FONT_LINKS = """<link rel="preload" href="/static/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+FONT_LINKS = """<link rel="preload" href="/static/fonts/mulish-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="/static/favicon-o.png">
 <link rel="apple-touch-icon" href="/static/favicon-o.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Kontaktlinser.no", "url": "https://kontaktlinser.no", "description": "Uavhengig prissammenligningstjeneste for kontaktlinser, linsevæske og øyedråper fra norske nettbutikker.", "inLanguage": "nb", "publisher": {"@type": "Organization", "name": "Kontaktlinser.no", "url": "https://kontaktlinser.no", "logo": {"@type": "ImageObject", "url": "https://kontaktlinser.no/static/logo.png"}, "sameAs": ["https://www.facebook.com/kontaktlinser.no/"]}}</script>"""
@@ -2549,12 +2544,12 @@ BRAND_TO_MANUFACTURER: dict[str, str] = {
 # fortsatt hovedfunksjonen, samme prinsipp som private label-sidene.
 BRAND_CONTENT: dict[str, str] = {
     "soflens": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om SofLens</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om SofLens</h2>
 <p>SofLens er en linseserie fra Bausch + Lomb, et av bransjens eldste kontaktlinseselskaper
 (grunnlagt i 1853). Serien dekker de fleste behov: dagslinser, månedslinser, toriske linser
 for astigmatisme og multifokale linser for alderssyn (presbyopi).</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i SofLens-familien</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i SofLens-familien</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>SofLens Daily Disposable</strong> – hilafilcon B, 59 % vanninnhold. Kastes etter én
   dags bruk.</li>
@@ -2568,12 +2563,12 @@ for astigmatisme og multifokale linser for alderssyn (presbyopi).</p>
 </ul>
 """,
     "acuvue": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Acuvue</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Acuvue</h2>
 <p>Acuvue er Johnson & Johnson Visions kontaktlinsemerke, og regnes som verdens ledende
 produsent av engangslinser. Familien spenner fra dagslinser til linser for to ukers bruk,
 i sfæriske, toriske og multifokale varianter.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Acuvue-familien</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Acuvue-familien</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>1-Day Acuvue Moist</strong> – etafilcon A, 58 % vanninnhold. Bruker LACREON-
   teknologi, som binder et fuktighetsbevarende stoff direkte inn i linsematerialet.</li>
@@ -2586,12 +2581,12 @@ i sfæriske, toriske og multifokale varianter.</p>
 </ul>
 """,
     "dailies": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Dailies</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Dailies</h2>
 <p>Dailies er Alcons familie av dagslinser, og spenner over flere atskilte produktlinjer med
 ulike materialer og teknologier – fra den opprinnelige Focus Dailies-serien til de nyere
 AquaComfort Plus- og Total1-linjene.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Dailies-familien</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Dailies-familien</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Dailies AquaComfort Plus</strong> – nelfilcon A, 69 % vanninnhold. Et
   fuktighetssystem tilsatt linsen (HPMC, PEG og PVA) skal gi jevn komfort gjennom dagen.</li>
@@ -2604,148 +2599,148 @@ AquaComfort Plus- og Total1-linjene.</p>
 </ul>
 """,
     "biofinity": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biofinity</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biofinity</h2>
 <p>Biofinity er CooperVisions flaggskip blant månedslinser, og finnes i sfærisk, torisk,
 multifokal og utvidet bruk-variant (XR). Serien er bygget rundt selskapets egen
 Aquaform Comfort Science-teknologi.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Biofinity er laget av comfilcon A, med 48 % vanninnhold. Aquaform Comfort
 Science-teknologien binder vann tilsvarende det dobbelte av materialets egen vekt, og skaper
 naturlig fuktbarhet uten behov for en egen overflatebehandling – i motsetning til enkelte
 andre linser som er avhengige av en tilsatt fuktighetsbelegg.</p>
 """,
     "purevision": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om PureVision</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om PureVision</h2>
 <p>PureVision er en av Bausch + Lombs eldre og mest etablerte månedslinser, bygget rundt
 selskapets AerGel-teknologi.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">PureVision er laget av balafilcon A, en silikonhydrogel med 36 % vanninnhold.
 AerGel-teknologien slipper gjennom naturlige nivåer med oksygen og er motstandsdyktig mot
 proteinavleiringer, mens den nyere PureVision2 i tillegg har ComfortMoist-teknologi som
 tilfører ekstra fuktighet på linseoverflaten.</p>
 """,
     "biotrue": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biotrue</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biotrue</h2>
 <p>Biotrue ONEday er Bausch + Lombs dagslinse, utviklet med utgangspunkt i egenskapene til
 hornhinnen og tårefilmen.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Biotrue er laget av nesofilcon A (markedsført som "HyperGel"), med 78 %
 vanninnhold – tilsvarende hornhinnens eget naturlige vanninnhold. Surface Active Technology
 skal bevare 98 % av fuktigheten i opptil 16 timer, mens en egen Peri-Ballast-utforming holder
 de toriske variantene stabile gjennom vanlige blunkebevegelser.</p>
 """,
     "ultra": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ULTRA</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ULTRA</h2>
 <p>ULTRA er Bausch + Lombs nyere månedslinse, bygget rundt MoistureSeal-teknologien.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">ULTRA er laget av samfilcon A, en silikonhydrogel med 46 % vanninnhold.
 MoistureSeal-teknologien er utviklet gjennom en to-trinns produksjonsprosess og skal bevare
 95 % av linsens fuktighet i opptil 16 timer.</p>
 """,
     "air-optix": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Air Optix</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Air Optix</h2>
 <p>Air Optix er Alcons etablerte månedslinse-serie, med varianter for sfærisk korreksjon,
 astigmatisme, alderssyn og fargede linser.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Air Optix plus HydraGlyde er laget av lotrafilcon B, en silikonhydrogel med
 33 % vanninnhold. HydraGlyde-teknologien er en overflatebehandling som kontinuerlig tilfører
 fuktighet til linseoverflaten, mens SmartShield-teknologien skal gjøre linsen mer
 motstandsdyktig mot avleiringer.</p>
 """,
     "precision1": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision1</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision1</h2>
 <p>Precision1 er Alcons daglinse, ofte et førstevalg for nye linsebrukere.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Precision1 er laget av verofilcon A, en silikonhydrogel med 51 % vanninnhold
 i kjernen. SmartSurface-teknologien tilfører et tynt, permanent fuktighetslag med over 80 %
 vanninnhold på selve overflaten, slik at linsen kombinerer stabil oksygengjennomtrengelighet
 fra kjernen med fuktighet på overflaten.</p>
 """,
     "precision7": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision7</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Precision7</h2>
 <p>Precision7 er Alcons ukelinse (7 dagers brukstid) – en mellomting mellom en dagslinse og
 en månedslinse i bytterutine.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Precision7 er laget av serafilcon A, med 55 % vanninnhold. Activ-Flo-
 teknologien er ment å etterfylle fuktighet gjennom hele den syv dager lange brukstiden.</p>
 """,
     "total30": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om TOTAL30</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om TOTAL30</h2>
 <p>TOTAL30 er Alcons premium månedslinse, bygget på samme vanngradient-prinsipp som
 Dailies Total1, bare i en versjon beregnet for en hel måneds bruk.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">TOTAL30 er laget av lehfilcon A, med 55 % vanninnhold i kjernen som stiger
 gradvis til nær 100 % ved selve overflaten (vanngradient-teknologi). Celligent-teknologien
 skal bidra til å holde linseoverflaten motstandsdyktig mot bakterier og fettavleiringer
 gjennom hele den 30 dager lange brukstiden.</p>
 """,
     "freshlook": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om FreshLook</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om FreshLook</h2>
 <p>FreshLook er Alcons serie med fargede kontaktlinser, bygget på selskapets 3-i-1-
 fargeteknologi som blander tre nyanser i én linse for et naturlig utseende.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Godt å vite</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Godt å vite</h2>
 <p style="font-size:1rem;line-height:1.7;">Fargede linser krever samme resept og tilpasning hos optiker som andre
 kontaktlinser, selv uten styrke – se vår <a href="/guide/kosmetiske-kontaktlinser/">guide om
 kosmetiske og fargede kontaktlinser</a>.</p>
 """,
     "avaira": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Avaira</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Avaira</h2>
 <p>Avaira Vitality er CooperVisions to-ukerslinse, med sfærisk og torisk variant.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Avaira Vitality er laget av fanfilcon A, med 55 % vanninnhold. Linsen har
 klasse I UV-blokkering, den høyeste klassifiseringen, som blokkerer over 90 % av UVA- og
 over 99 % av UVB-strålene.</p>
 """,
     "biomedics": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biomedics</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Biomedics</h2>
 <p>Biomedics er en eldre og godt etablert linseserie fra CooperVision, med varianter for
 både dags- og to-ukersbruk.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Biomedics er laget av ocufilcon D, en hydrogel med 55 % vanninnhold, som
 er myk og fleksibel og bidrar til fuktighet gjennom brukstiden.</p>
 """,
     "clariti": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clariti</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clariti</h2>
 <p>Clariti 1 day er CooperVisions rimeligere daglinse-serie i silikonhydrogel, med sfærisk,
 torisk og multifokal variant.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Clariti er laget av somofilcon A, med 56 % vanninnhold og innebygget
 UV-beskyttelse. WetLoc-teknologien skal fordele fuktighet jevnt over hele linseoverflaten.</p>
 """,
     "myday": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om MyDay</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om MyDay</h2>
 <p>MyDay er CooperVisions premium daglinse, med sfærisk, torisk og multifokal variant –
 samt MyDay MiSight, en egen daglinse godkjent for myopikontroll hos barn.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">MyDay er laget av stenfilcon A, med 54 % vanninnhold. Linsen bruker samme
 Aquaform-teknologi som Biofinity, som binder vann naturlig i materialet uten behov for en
 egen overflatebehandling.</p>
 """,
     "proclear": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Proclear</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Proclear</h2>
 <p>Proclear er CooperVisions linseserie rettet spesielt mot brukere som opplever tørre øyne,
 i dags-, to-ukers- og multifokal variant.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Proclear er laget av omafilcon A, tilført CooperVisions PC-teknologi. Denne
 bygger inn fosforylkolin (PC) – et stoff som naturlig finnes i cellene i kroppen – som binder
 vann til og gjennom linsen for å redusere rask uttørking.</p>
 """,
     "adore": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ADORE</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om ADORE</h2>
 <p>ADORE er en linseserie for kosmetiske og fargede kontaktlinser fra den italienske
 produsenten Eyemed Technologies, med flere fargekolleksjoner (blant annet Bi-tone og Dare).
 Selv uten styrke regnes fargede linser som medisinsk utstyr og krever samme resept og
@@ -2753,35 +2748,35 @@ tilpasning hos optiker som andre kontaktlinser – se vår
 <a href="/guide/kosmetiske-kontaktlinser/">guide om kosmetiske og fargede kontaktlinser</a>.</p>
 """,
     "miru": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Miru</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Miru</h2>
 <p>Miru er den japanske produsenten Menicons daglinse-serie, med varianter for sfærisk
 korreksjon, astigmatisme og alderssyn.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Miru 1day UpSide er laget av midafilcon A, en silikonhydrogel med 56 %
 vanninnhold. Menicon kombinerer MeniSilk Air-teknologi (fuktighet) med NanoGloss Pro
 (en glatt, lav-friksjons overflate) for å gi linsen komforten til en tradisjonell hydrogel-
 linse med håndteringsegenskapene til en silikonhydrogel.</p>
 """,
     "live": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Live</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Live</h2>
 <p>Live er CooperVisions rimeligere daglinse, posisjonert mot unge og førstegangsbrukere.
 Linsen selges også under andre navn hos enkelte utenlandske forhandlere/optikerkjeder, som
 en del av samme CooperVision-plattform.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">Live er laget av somofilcon A, en silikonhydrogel med 56 % vanninnhold –
 samme materiale som brukes i CooperVisions Clariti 1 day. AquaGen-teknologien skal binde
 fuktighet naturlig til og gjennom linsen.</p>
 """,
     "clearlii": """
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clearlii</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Clearlii</h2>
 <p>Clearlii er et apotek-eksklusivt linsemerke, opprinnelig lansert i Stockholm i 2011 under
 navnet Apotekslinsen. Merket ble til Clearlii og fikk egenproduserte linser i 2018, og selges i
 dag hos 800–900 apotek og 150+ optikere i fem nordiske land. Linsene produseres av den
 taiwanske produsenten Pegavision.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Clearlii-familien</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materialer og teknologi i Clearlii-familien</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Clearlii Daily</strong> – etafilcon A, 58 % vanninnhold. Tilsatt hyaluronsyre for
   linsebrukere med tørre øyne.</li>
@@ -3532,7 +3527,7 @@ WINNER_WIDGET_STYLE = """
    ble innført som en ustylet wrapper-div rundt .hero-card + qty_html
    allerede på mobil, se Desktop Gold Standard v1-runden samme dag). */
 .product-stage .qty-pills { grid-template-columns: repeat(6, 1fr); }
-.qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'IBM Plex Mono', monospace; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
+.qty-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; font-family: 'Mulish', sans-serif; background: linear-gradient(180deg, #FFFFFF 0%, var(--mist) 100%); border: 1px solid var(--border); border-radius: 10px; padding: 10px 6px; font-size: 0.9rem; font-weight: 600; text-align: center; cursor: pointer; color: var(--ink); line-height: 1.3; box-shadow: 0 3px 0 #C4D2D9, 0 4px 6px rgba(11,37,69,0.12); transition: transform 0.08s ease, box-shadow 0.08s ease; }
 .qty-pill:active { transform: translateY(2px); box-shadow: 0 1px 0 #C4D2D9, 0 2px 3px rgba(11,37,69,0.1); }
 .qty-pill svg { width: 20px; height: 20px; color: var(--blue); }
 .qty-pill span { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
@@ -3565,7 +3560,7 @@ WINNER_WIDGET_STYLE = """
 #qty-pill-custom { display: none; }
 @media (min-width: 640px) { #qty-pill-custom { display: block; } }
 .qty-custom-row { margin-top: 10px; }
-#qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+#qty-custom-input { width: 140px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px; font-family: 'Mulish', sans-serif; font-size: 0.9rem; }
 /* Erstatter den tidligere "💡 Tips"-linja OG en usynlig (CSS-utenfor-skjerm)
    fallback-tekst -- Kai sin korreksjon 2026-09-27, etter å ha sjekket Googles
    egne spam-retningslinjer: CSS som plasserer tekst utenfor skjermen står
@@ -3582,7 +3577,7 @@ WINNER_WIDGET_STYLE = """
 .qty-multi summary { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; cursor: pointer; list-style: none; font-size: 0.85rem; color: var(--ink); }
 .qty-multi summary::-webkit-details-marker { display: none; }
 .qty-multi-label { font-weight: 600; flex-shrink: 0; }
-.qty-multi-preview { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
+.qty-multi-preview { display: flex; flex-wrap: wrap; gap: 6px 14px; color: var(--muted); font-family: 'Mulish', sans-serif; font-size: 0.82rem; }
 .qty-multi-preview strong { color: var(--ink); font-weight: 600; }
 .qty-multi-chevron { margin-left: auto; flex-shrink: 0; width: 16px; height: 16px; color: var(--muted); transition: transform 0.15s; }
 .qty-multi[open] .qty-multi-chevron { transform: rotate(180deg); }
@@ -3854,13 +3849,13 @@ PRICE_LIST_STYLE = """
    re-append'er HELE listen uansett skjerm-bredde, kollapsen var alltid
    bare et rent CSS-lag oppå den samme, allerede fullstendige listen. */
 .offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: none; }
-.offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
+.offers-show-more { display: block; width: 100%; margin-top: 10px; padding: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--blue); cursor: pointer; text-align: center; }
 .offers-show-more:hover { border-color: var(--blue); }
 @media (min-width: 860px) {
   .offers.is-collapsed .offers-list .offer-card:nth-child(n+11) { display: flex; }
   .offers-show-more { display: none; }
 }
-.ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
+.ship-chip { display: inline-flex; align-items: center; gap: 9px; background: white; border: 1.5px solid var(--border); border-radius: 999px; padding: 9px 16px 9px 12px; font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 0.88rem; color: var(--ink); cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
 .ship-chip:hover { border-color: var(--blue); }
 .ship-chip:focus-visible { outline: 3px solid var(--blue-tint); outline-offset: 1px; border-color: var(--blue); }
 .ship-chip-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #B8C6CF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; background: white; transition: background-color 0.15s, border-color 0.15s; }
@@ -5914,9 +5909,9 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .kz-break {{ display: flex; align-items: center; gap: 12px; margin: 36px 0 20px; color: var(--muted); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }}
 .kz-break::before, .kz-break::after {{ content: ""; flex: 1; height: 1px; background: var(--border); }}
 .kz {{ display: flex; flex-direction: column; gap: 4px; }}
-.kz > h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }}
+.kz > h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.1rem; margin: 0 0 4px; }}
 .kz-accordion {{ background: white; border: 1px solid var(--border); border-radius: 14px; padding: 4px 18px; margin: 10px 0; }}
-.kz-accordion summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 16px 0; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }}
+.kz-accordion summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 16px 0; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }}
 .kz-accordion summary::-webkit-details-marker {{ display: none; }}
 .kz-accordion-chevron {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--muted); transition: transform 0.15s; }}
 .kz-accordion[open] .kz-accordion-chevron {{ transform: rotate(180deg); }}
@@ -5944,13 +5939,13 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 .aliases-note a {{ color: var(--blue); text-decoration: none; font-weight: 600; }}
 .aliases-note a:hover {{ text-decoration: underline; }}
 .specs {{ margin-top: 32px; }}
-.specs h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
+.specs h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 0 0 12px; }}
 .specs-table {{ width: 100%; background: white; border: 1px solid var(--border); border-radius: 12px; border-collapse: collapse; overflow: hidden; font-size: 0.88rem; }}
 .specs-table tr {{ border-bottom: 1px solid var(--border); }}
 .specs-table tr:last-child {{ border-bottom: none; }}
 .specs-table th, .specs-table td {{ padding: 10px 16px; }}
 .spec-label {{ text-align: left; font-weight: 400; color: var(--muted); }}
-.spec-value {{ text-align: right; font-family: 'IBM Plex Mono', monospace; }}
+.spec-value {{ text-align: right; font-family: 'Mulish', sans-serif; }}
 .specs-note {{ font-size: 0.76rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }}
 .pack-size-callout {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 16px 0; text-decoration: none; color: inherit; font-size: 0.85rem; }}
 .pack-size-callout:hover {{ border-color: var(--blue); }}
@@ -5964,7 +5959,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
    egen 4:3-aspect-ratio (se der) -- bildet spenner IKKE lenger to
    grid-rader (den midtre tekstkolonnen som tidligere ga bildet en tekst-
    høyde å matche, er fjernet, se punkt 4 i spec-en). */
-.hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }}
+.hero-product-image {{ width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }}
 .hero-product-image img {{ width: 100%; height: 100%; object-fit: contain; }}
 @media (min-width: 640px) {{ .hero-product-image {{ border-radius: 20px; font-size: 2.6rem; }} }}
 @media (min-width: 1280px) {{ .hero-product-image {{ width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; }} }}
@@ -6120,9 +6115,9 @@ BRAND_PAGE_STYLE = """
 .brand-serie-card-image { height: 148px; margin-top: 8px; display: flex; align-items: center; justify-content: center; }
 .brand-serie-card-image img { max-width: 76%; max-height: 100%; height: auto; object-fit: contain; transition: transform 0.18s ease; }
 .brand-serie-card:hover .brand-serie-card-image img, .brand-serie-card:focus-visible .brand-serie-card-image img { transform: scale(1.02); }
-.brand-serie-card-fallback { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
+.brand-serie-card-fallback { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.6rem; color: var(--blue); }
 .brand-serie-card-body { flex: 1; display: flex; flex-direction: column; padding: 14px 16px 16px; }
-.brand-serie-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }
+.brand-serie-card-name { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.3; }
 .brand-serie-card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin: 6px 0 0; font-size: 0.82rem; line-height: 1.45; color: var(--muted); }
 .brand-serie-card-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .brand-serie-card-pill { border: 1px solid var(--border); border-radius: 999px; padding: 2px 8px; font-size: 0.64rem; font-weight: 500; color: var(--muted); }
@@ -6134,7 +6129,7 @@ BRAND_PAGE_STYLE = """
 .brand-serie-card:hover .brand-serie-card-cta, .brand-serie-card:focus-visible .brand-serie-card-cta { border-color: var(--blue); color: var(--blue); }
 .brand-serie-card:hover .brand-serie-card-cta span, .brand-serie-card:focus-visible .brand-serie-card-cta span { transform: translateX(3px); }
 .brand-facts { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
-.brand-facts h2 { margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.brand-facts h2 { margin: 0 0 14px; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }
 /* Prisintelligens ved siden av "i korte trekk" (Kai 2026-09-27: "kan være
    ved siden av gjen.snitt priser som på serier ... slik at vi har det
    samme her som på serie") -- samme to-kolonners stretch-mønster som
@@ -6142,13 +6137,13 @@ BRAND_PAGE_STYLE = """
 .brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
 @media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1fr 1fr; align-items: stretch; } }
 .brand-i-tall { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
-.brand-i-tall h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.brand-i-tall h2 { margin: 0; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }
 .brand-i-tall-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 14px; }
 @media (min-width: 480px) and (max-width: 899px) { .brand-i-tall-grid { grid-template-columns: repeat(3, 1fr); } }
 .brand-i-tall-tile { background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 12px; }
 .brand-i-tall-icon { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .brand-i-tall-icon svg { width: 15px; height: 15px; }
-.brand-i-tall-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }
+.brand-i-tall-value { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); line-height: 1.2; }
 .brand-i-tall-label { font-size: 0.76rem; font-weight: 600; color: var(--ink); margin-top: 4px; line-height: 1.3; }
 .brand-i-tall-sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; line-height: 1.35; }
 .brand-facts-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
@@ -6160,13 +6155,13 @@ BRAND_PAGE_STYLE = """
    (samme begrunnelse som ellers: ikke kryss-avhengighet mellom sidetyper). */
 .price-insight { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
 .price-insight-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
-.price-insight-head h2 { margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }
+.price-insight-head h2 { margin: 0; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }
 .insight-tabs { display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }
 .insight-tab { border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }
 .insight-tab.active { background: white; color: var(--ink); box-shadow: var(--card-shadow); }
 .price-insight-panel { display: none; }
 .price-insight-panel.active { display: grid; grid-template-columns: 1fr; gap: 18px; }
-.price-insight-current { font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }
+.price-insight-current { font-family: 'Mulish', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }
 .price-insight-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
 .price-insight-trend { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }
 .price-insight-trend-note { font-weight: 400; color: var(--muted); font-size: 0.8rem; }
@@ -6175,14 +6170,14 @@ BRAND_PAGE_STYLE = """
 .insight-flat { color: var(--muted); }
 .price-insight-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }
 .price-insight-tile { background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }
-.price-insight-tile strong { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }
+.price-insight-tile strong { display: block; font-family: 'Mulish', sans-serif; font-size: 0.9rem; }
 .price-insight-tile span { display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }
 .price-insight-chart .price-history { margin-top: 0; }
 @media (min-width: 860px) { .price-insight-panel.active { grid-template-columns: 1fr 1.3fr; align-items: center; } }
 .brand-compare-card { background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); margin-bottom: 32px; }
 .spec-table { width: 100%; border-collapse: collapse; }
 .spec-table th, .spec-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
-.spec-table thead th { font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }
+.spec-table thead th { font-family: 'Mulish', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }
 .spec-table tbody tr:last-child td { border-bottom: none; }
 .spec-table tbody tr:hover { background: var(--mist); }
 .spec-table a { color: var(--blue); text-decoration: none; font-weight: 600; }
@@ -6191,7 +6186,7 @@ BRAND_PAGE_STYLE = """
    som .guide-photo-card sin kommentar i GUIDE_TILE_STYLE). */
 .faq-category { margin-top: 22px; }
 .faq-category:first-child { margin-top: 0; }
-.faq-category-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }
+.faq-category-label { font-family: 'Mulish', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }
 .faq-accordion-item { border-top: 1px solid var(--border); }
 .faq-accordion-item:last-child { border-bottom: 1px solid var(--border); }
 .faq-accordion-item summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }
@@ -6246,7 +6241,7 @@ BRAND_PAGE_STYLE = """
 .brand-hero-stat { display: flex; align-items: center; gap: 7px; }
 .brand-hero-stat-icon { display: flex; }
 .brand-hero-stat-icon svg { width: 14px; height: 14px; display: block; }
-.brand-hero-stat-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
+.brand-hero-stat-value { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
 .brand-hero-stat-label { font-size: 0.82rem; color: var(--muted); }
 .brand-sortiment-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
 @media (min-width: 560px) { .brand-sortiment-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -6255,7 +6250,7 @@ BRAND_PAGE_STYLE = """
 .brand-sortiment-card:hover, .brand-sortiment-card:focus-visible { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(11, 37, 69, 0.1); border-color: #B9C4CE; }
 .brand-sortiment-card-icon { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
 .brand-sortiment-card-icon svg { width: 17px; height: 17px; }
-.brand-sortiment-card-label { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.brand-sortiment-card-label { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
 .brand-sortiment-card-count { font-weight: 600; font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
 .brand-sortiment-card-series { font-size: 0.76rem; color: var(--muted); margin-top: 6px; line-height: 1.4; }
 .brand-sortiment-card-link { font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 10px; }
@@ -6265,7 +6260,7 @@ BRAND_PAGE_STYLE = """
 .brand-3090-tile { background: var(--mist); border-radius: 10px; padding: 12px 8px; text-align: center; }
 .brand-3090-tile-icon { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
 .brand-3090-tile-icon svg { width: 13px; height: 13px; }
-.brand-3090-tile strong { display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; color: var(--ink); }
+.brand-3090-tile strong { display: block; font-family: 'Mulish', sans-serif; font-size: 1.05rem; color: var(--ink); }
 .brand-3090-tile span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
 .brand-3090-note { margin: 14px 0 0 !important; font-size: 0.78rem !important; color: var(--muted) !important; }
 .brand-materials-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
@@ -6285,11 +6280,11 @@ BRAND_PAGE_STYLE = """
 .brand-material-card-icon { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .brand-material-card-icon svg { width: 16px; height: 16px; }
 .brand-material-card-body { min-width: 0; }
-.brand-material-card-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; }
+.brand-material-card-name { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.88rem; }
 .brand-material-card-series { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
 .brand-manufacturer-card { background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; box-shadow: var(--card-shadow); margin-bottom: 32px; }
 .brand-manufacturer-kicker { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
-.brand-manufacturer-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }
+.brand-manufacturer-name { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.05rem; margin-top: 3px; }
 .brand-manufacturer-link { display: inline-block; font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-top: 8px; text-decoration: none; }
 .brand-trust { margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--border); }
 .brand-trust h2 { font-size: 1rem; margin: 0 0 14px; }
@@ -7221,7 +7216,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
 .brand-card:hover {{ border-color: var(--blue); }}
-.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
@@ -7256,7 +7251,7 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
     </a>
   </p>
 
-  <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;margin:0 0 16px;">
+  <h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 16px;">
     {escape(name)}s merker hos oss ({total_products} produkter totalt)
   </h2>
   <div class="brand-grid">
@@ -7283,11 +7278,11 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 LENS_SEARCH_STYLE = """
 .search-row { position: relative; }
 .search-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--muted); pointer-events: none; }
-.search-input { width: 100%; font-family: 'Inter', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }
+.search-input { width: 100%; font-family: 'Mulish', sans-serif; font-size: 1.05rem; padding: 16px 100px 16px 48px; border: 1px solid var(--blue); border-radius: 14px; background: white; box-shadow: var(--card-shadow); transition: box-shadow 0.15s, border-color 0.15s; }
 .search-input:hover { border-color: var(--blue-dark); }
 .search-input:focus { outline: none; border-color: var(--blue-dark); box-shadow: 0 0 0 4px var(--blue-tint); }
 .search-row:focus-within .search-icon { color: var(--blue); }
-.search-btn { position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }
+.search-btn { position: absolute; right: 6px; top: 6px; bottom: 6px; padding: 0 20px; border: none; border-radius: 10px; background: var(--blue); color: white; font-family: 'Mulish', sans-serif; font-weight: 600; font-size: 0.92rem; cursor: pointer; transition: background-color 0.15s; }
 .search-btn:hover { background: var(--blue-dark); }
 .search-suggestions { display: none; position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 12px 28px rgba(11, 37, 69, 0.14); max-height: 380px; overflow-y: auto; z-index: 20; }
 .search-suggestion { display: flex; align-items: center; gap: 10px; padding: 10px 14px; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); }
@@ -7299,7 +7294,7 @@ LENS_SEARCH_STYLE = """
 .search-no-match { padding: 14px; font-size: 0.84rem; color: var(--muted); }
 .guide-cta { background: var(--blue-tint); border: 1px solid var(--border); border-radius: 16px; padding: 18px 18px 16px; margin: 22px 0; }
 .guide-cta-compact { padding: 14px 16px; }
-.guide-cta-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0 0 4px; }
+.guide-cta-title { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); margin: 0 0 4px; }
 .guide-cta-compact .guide-cta-title { margin-bottom: 10px; }
 .guide-cta-text { font-size: 0.88rem; line-height: 1.5; color: var(--muted); margin: 0 0 12px; }
 .guide-cta .search-input { font-size: 1rem; padding: 14px 92px 14px 46px; }
@@ -7779,17 +7774,17 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .trust-card {{ display: flex; gap: 14px; align-items: flex-start; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }}
 .trust-card-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; color: var(--blue); box-shadow: var(--card-shadow); }}
 .trust-card-icon svg {{ width: 20px; height: 20px; }}
-.trust-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; margin: 0 0 4px; }}
+.trust-card-title {{ font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.95rem; margin: 0 0 4px; }}
 .trust-card-text {{ font-size: 0.84rem; color: var(--muted); line-height: 1.5; margin: 0; }}
 .trust-strip {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 16px; margin: 40px 0 0; box-shadow: var(--card-shadow); }}
 .trust-item {{ display: flex; align-items: center; gap: 10px; }}
 .trust-item-icon {{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; }}
 .trust-item-icon svg {{ width: 17px; height: 17px; }}
-.trust-item strong {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--ink); }}
+.trust-item strong {{ display: block; font-family: 'Mulish', sans-serif; font-size: 1rem; color: var(--ink); }}
 .trust-item span {{ font-size: 0.75rem; color: var(--muted); }}
 .section-header {{ display: flex; align-items: baseline; justify-content: space-between; margin: 32px 0 12px; scroll-margin-top: 20px; }}
 .section-header:first-of-type {{ margin-top: 0; }}
-.section-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+.section-header h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 0; }}
 .category-rows {{ display: flex; flex-direction: column; gap: 10px; }}
 .category-row {{ --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: var(--blue); position: relative; overflow: hidden; isolation: isolate; display: flex; align-items: center; gap: 12px; min-height: 76px; text-decoration: none; color: var(--ink); background: var(--cat-bg); border: 1px solid var(--cat-border); border-radius: 16px; padding: 12px 14px; box-shadow: var(--card-shadow); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; }}
 .category-row.cat-blue {{ --cat-bg: #EFF6FF; --cat-border: #D6E4FB; --cat-accent: #2563EB; }}
@@ -7803,7 +7798,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .category-row-icon {{ flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(11, 37, 69, 0.08); }}
 .category-row-icon svg {{ width: 20px; height: 20px; }}
 .category-row-text {{ flex: 1; min-width: 0; max-width: 58%; }}
-.category-row-label {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.95rem; }}
+.category-row-label {{ font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.95rem; }}
 .category-row-desc {{ font-size: 0.8rem; font-weight: 500; color: #475569; margin-top: 2px; line-height: 1.35; }}
 /* Pil: alltid synlig (liten) på mobil/touch, vises ved hover på desktop */
 .category-row-arrow {{ position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.85); color: var(--cat-accent); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(11, 37, 69, 0.12); }}
@@ -7811,7 +7806,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 .brand-grid {{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }}
 .brand-card {{ display: flex; align-items: center; gap: 10px; min-width: 0; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; box-shadow: var(--card-shadow); }}
 .brand-card:hover {{ border-color: var(--blue); }}
-.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem; }}
+.brand-card-badge {{ flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.8rem; }}
 .brand-card-info {{ min-width: 0; }}
 .brand-card-name {{ font-weight: 600; font-size: 0.88rem; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
 .brand-card-count {{ font-size: 0.75rem; color: var(--muted); }}
@@ -8041,7 +8036,7 @@ GUIDE_CONTENT = {
 dagslinser oftest billigst ut totalt sett, selv om prisen per linse er høyere. Bruker du
 linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Dagslinser</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Dagslinser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske</li>
   <li>Praktisk til sport, reise eller sjelden bruk</li>
@@ -8052,7 +8047,7 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
 <a href="/kontaktlinser/soflens/soflens-daily-disposable-30-pack/">SofLens Daily Disposable</a>
 – sammenlign priser og se hvor mange forhandlere som fører den akkurat nå.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Månedslinser</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Månedslinser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Samme par brukes i opptil 30 dager (følg optikerens anbefaling)</li>
   <li>Lavere kostnad per bruksdag ved daglig bruk</li>
@@ -8091,7 +8086,7 @@ akkurat din linse og resept – det er ikke bare et prisspørsmål, men avgjøre
 alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og linsetype
 øynene dine tåler godt.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Det resepten din vanligvis avgjør</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Det resepten din vanligvis avgjør</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Astigmatisme</strong> (skjev hornhinne) → toriske linser, formet for å ligge
   stabilt i en bestemt retning</li>
@@ -8102,7 +8097,7 @@ alltid en synsundersøkelse hos optiker, som fastsetter styrke, krumning og lins
   <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue Moist</a></li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Andre ting som spiller inn</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Hvor ofte du bruker linser, se vår <a href="/guide/manedslinser-vs-dagslinser/">sammenligning
   av månedslinser og dagslinser</a></li>
@@ -8139,14 +8134,14 @@ spesifikke linsen du bestiller.</p>
 sette inn/ta ut linsen riktig, ikke sove med linsen inne) – fremfor et bestemt årstall.
 Mange barn ned i 8–10-årsalderen fungerer fint med linser, mens andre bør vente.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor dagslinser ofte anbefales til barn</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor dagslinser ofte anbefales til barn</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Nytt, rent par hver dag – ingen rengjøring eller oppbevaringsvæske å huske på</li>
   <li>Lavere konsekvens hvis en linse mistes eller glemmes en dag</li>
   <li>Lavere infeksjonsrisiko enn linser som gjenbrukes over tid</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myopikontroll</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myopikontroll</h2>
 <p style="font-size:1rem;line-height:1.7;">Enkelte dagslinser er i dag også godkjent spesifikt for å bremse utvikling av
 nærsynthet (myopikontroll) hos barn og unge – f.eks.
 <a href="/kontaktlinser/myday/myday-misight-1-day-30-pack/">MyDay MiSight</a>, spesifikt
@@ -8185,14 +8180,14 @@ på Kontaktlinser.no – er <strong>myke linser</strong> (hydrogel eller silikon
 (gassgjennomtrengelige/RGP) linser finnes fortsatt, men brukes i dag først og fremst til
 spesielle synsforhold.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myke linser</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Myke linser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Komfortable fra første stund, kort tilvenningstid</li>
   <li>Ligger tett mot øyet – mindre risiko for at rusk kommer under linsen</li>
   <li>Bredt utvalg av dags-, ukes- og månedslinser</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Harde linser</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Harde linser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Kan gi skarpere syn ved uregelmessig hornhinne (f.eks. keratokonus) eller svært
   høy astigmatisme</li>
@@ -8222,7 +8217,7 @@ alene – dette er noe optikeren vurderer ved synsundersøkelsen.</p>
 <p>God hygiene er viktigere enn selve teknikken. Vask og tørk hendene grundig før du
 tar i linsene, hver eneste gang.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Sette inn linsen</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Sette inn linsen</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Sjekk at linsen ikke er vrengt (skal danne en jevn skål, ikke ha kant som vipper ut)</li>
   <li>Trekk nedre øyelokk forsiktig ned, og hold gjerne øvre øyelokk oppe med den andre
@@ -8231,7 +8226,7 @@ tar i linsene, hver eneste gang.</p>
   <li>Se ned/blunk rolig – linsen finner selv rett posisjon på hornhinnen</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ta ut linsen</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ta ut linsen</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Se oppover, trekk nedre øyelokk ned</li>
   <li>Klyp linsen forsiktig med tommel og pekefinger, eller skyv den nedover mot det
@@ -8261,7 +8256,7 @@ tilpasset linsene dine viser deg gjerne teknikken på nytt.</p>
 <p>Kontaktlinser og briller løser samme grunnleggende behov – korrigert syn – men passer
 ulikt avhengig av livsstil og situasjon. Mange kombinerer begge deler.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med kontaktlinser</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med kontaktlinser</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Fullt, uforstyrret synsfelt – ingen brillestang eller kant i synsranden</li>
   <li>Dugger ikke ved temperaturskifte, regn eller bruk av munnbind/hjelm</li>
@@ -8269,7 +8264,7 @@ ulikt avhengig av livsstil og situasjon. Mange kombinerer begge deler.</p>
   <li>Kan kombineres med vanlige solbriller uten styrke</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som taler for briller</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som taler for briller</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ingen daglig hygienerutine eller berøring av øyet</li>
   <li>Kan være bedre egnet ved svært tørre øyne eller enkelte øyetilstander</li>
@@ -8294,7 +8289,7 @@ resten av tiden.</p>
 månedslinser, er riktig vedlikehold avgjørende for øyehelsen – ikke bare for at linsen
 skal vare lenge.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Grunnregler</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Grunnregler</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Bruk alltid <strong>fersk</strong> linsevæske, som
   <a href="/linsevaeske/renu/renu-multi-purpose-360-ml/">ReNu Multi-Purpose</a> – fyll
@@ -8336,7 +8331,7 @@ skal vare lenge.</p>
         "body_html": """
 <p>Kontaktlinser er praktiske på reise, men noen få forberedelser gjør det enklere.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Før avreise</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Før avreise</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Pakk nok linser og eventuell linsevæske til hele reisen – ikke alle merker er
   tilgjengelige overalt</li>
@@ -8344,7 +8339,7 @@ skal vare lenge.</p>
   <li>Linsevæske i håndbagasje må følge vanlige væskeregler (beholdere under 100 ml)</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Underveis</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Underveis</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
   flyvninger – ha øyedråper eller briller tilgjengelig</li>
@@ -8373,7 +8368,7 @@ skal vare lenge.</p>
 også de <strong>uten styrke</strong> som kun endrer øyefargen. De regnes som medisinsk
 utstyr og krever samme tilpasning og hygiene som synskorrigerende linser.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kjøp alltid fra seriøse forhandlere</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kjøp alltid fra seriøse forhandlere</h2>
 <p style="font-size:1rem;line-height:1.7;">Ukvalifiserte "festivallinser" eller kostymelinser kjøpt uten tilpasning (f.eks. fra
 useriøse utenlandske nettbutikker) har vesentlig høyere risiko for feil passform og
 øyeinfeksjon enn linser fra forhandlere som følger norske krav til medisinsk utstyr –
@@ -8403,13 +8398,13 @@ først, og samme hygienerutiner ved bruk.</p>
 gjennom til hornhinnen – noe hornhinnen er avhengig av siden den ikke har egne
 blodårer.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Silikonhydrogel</h2>
 <p style="font-size:1rem;line-height:1.7;">Det vanligste materialet i moderne linser (inkludert de fleste vi følger prisene på
 her, som <a href="/kontaktlinser/acuvue/acuvue-oasys-6-pack/">Acuvue Oasys</a>). Slipper gjennom
 vesentlig mer oksygen enn eldre hydrogel-materialer, noe som kan gi bedre komfort ved
 lange dager med linser i.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlig hydrogel</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlig hydrogel</h2>
 <p style="font-size:1rem;line-height:1.7;">Eldre, men fortsatt i bruk i enkelte linser. Har typisk høyere vanninnhold, som for
 noen kan oppleves annerledes komfortabelt enn silikonhydrogel, spesielt tidlig i
 brukstiden.</p>
@@ -8432,13 +8427,13 @@ på Kontaktlinser.no.</p>
 <p>Enkel nærsynthet eller langsynthet korrigeres med sfæriske linser. To vanlige
 synsforhold krever egne, mer avanserte linsetyper.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Toriske linser (astigmatisme)</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Toriske linser (astigmatisme)</h2>
 <p style="font-size:1rem;line-height:1.7;">Ved astigmatisme (skjev hornhinne) må linsen ha ulik styrke i ulike retninger, og
 ligge stabilt uten å rotere i øyet. Toriske linser er formet spesielt for dette, og
 krever en mer nøyaktig tilpasning enn vanlige sfæriske linser – f.eks.
 <a href="/kontaktlinser/biofinity/biofinity-toric-6-pack/">Biofinity Toric</a>.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Multifokale/progressive linser (alderssyn)</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Multifokale/progressive linser (alderssyn)</h2>
 <p style="font-size:1rem;line-height:1.7;">Fra rundt 40–45-årsalderen svekkes øyets evne til å stille skarpt på nært hold.
 Multifokale linser har flere styrkesoner i samme linse (typisk for nært, mellomdistanse
 og langt hold, som <a href="/kontaktlinser/biofinity/biofinity-multifocal-6-pack/">Biofinity
@@ -8468,7 +8463,7 @@ tilnærme seg med en vanlig sfærisk styrke.</p>
 linsemateriale sprøytes inn i presise plastformer som gir linsen riktig krumning,
 diameter og styrke, før den herdes og bearbeides ferdig i sterile lokaler.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kvalitetskontroll og regulering</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kvalitetskontroll og regulering</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Hver linse kontrolleres for riktig form og styrke før pakking</li>
   <li>Linsene pakkes i steril saltvannsløsning i forseglet emballasje</li>
@@ -8493,14 +8488,14 @@ seg å kjøpe linser fra forhandlere som følger regelverket, ikke uregulerte ki
 <p>Ideen om en linse som ligger direkte på øyet er overraskende gammel, men det tok
 århundrer før teknologien fantes for å faktisk lage den.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fra idé til glasslinse</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fra idé til glasslinse</h2>
 <p style="font-size:1rem;line-height:1.7;">Leonardo da Vinci skisserte konsepter som kan minne om kontaktlinser allerede rundt
 1508, men dette var teoretiske tegninger, ikke noe som kunne brukes. De første reelle
 kontaktlinsene – tunge glasslinser som dekket hele det synlige øyet (skleralinser) –
 kom først på slutten av 1800-tallet, og var langt fra komfortable ved dagens
 standard.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Plast og den moderne myke linsen</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Plast og den moderne myke linsen</h2>
 <p style="font-size:1rem;line-height:1.7;">Lettere plastlinser kom på 1930–40-tallet. Det virkelig store gjennombruddet kom i
 1961, da den tsjekkiske kjemikeren Otto Wichterle utviklet den første myke
 hydrogel-kontaktlinsen – materialet som fortsatt ligger til grunn for de fleste linser
@@ -8523,7 +8518,7 @@ er i dag et av de mest brukte alternativene.</p>
 kontaktlinser: de brukes ikke primært for å korrigere synet, men for å beskytte eller
 behandle selve øyet.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige bruksområder</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige bruksområder</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Beskytte hornhinnens overflate mens den gror etter skade, betennelse eller kirurgi</li>
   <li>Lindre smerte ved enkelte hornhinnetilstander</li>
@@ -8554,7 +8549,7 @@ oppfølgingen er individuelt tilpasset den medisinske tilstanden.</p>
 stedet for å være jevnt rund. Det gjør at syn kan bli uskarpt eller forvrengt på både
 nært og langt hold – ikke bare det ene, som ved vanlig nær- eller langsynthet.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva er toriske linser?</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva er toriske linser?</h2>
 <p style="font-size:1rem;line-height:1.7;">Toriske linser er kontaktlinser spesialformet for å korrigere astigmatisme. I motsetning
 til en vanlig sfærisk linse (som har lik styrke i alle retninger og kan rotere fritt uten
 at det merkes) må en torisk linse ha ulik styrke i ulike retninger, og den må ligge stabilt
@@ -8563,7 +8558,7 @@ tynnsoner som gjør at de "retter seg selv opp" på øyet – f.eks.
 <a href="/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism-6-pack/">Acuvue Oasys for
 Astigmatism</a>.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvorfor tilpasningen er litt mer krevende</h2>
 <p style="font-size:1rem;line-height:1.7;">Fordi linsen må stå riktig vei, trenger optikeren mer presis informasjon fra
 synsundersøkelsen (styrke, sylinderkorreksjon og aksen den skal ligge i) enn ved en vanlig
 sfærisk linse. Noen få prøver seg frem til beste passform, spesielt ved høyere grad av
@@ -8592,14 +8587,14 @@ for å sammenligne priser på tvers av merker.</p>
 stille skarpt på nært hold, som de fleste merker fra rundt 40–45-årsalderen.
 Multifokale kontaktlinser er laget for å korrigere dette.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvordan fungerer de?</h2>
 <p style="font-size:1rem;line-height:1.7;">I stedet for å bytte mellom soner slik man gjør med progressive brilleglass, har
 multifokale linser flere styrkesoner tilgjengelig samtidig (for nært, mellomdistanse og
 langt hold, som i <a href="/kontaktlinser/acuvue/acuvue-oasys-multifocal-6-pack/">Acuvue Oasys
 Multifocal</a>). Hjernen lærer gradvis å prioritere riktig sone avhengig av hva du ser på
 – dette kalles simultanvisjon.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tilvenning</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tilvenning</h2>
 <p style="font-size:1rem;line-height:1.7;">De fleste bruker 1–2 uker på å venne seg til multifokale linser. Ulike design (f.eks.
 med skarpeste sone sentrert for nær- eller langsyn) passer ulikt fra person til person –
 dette er noe optikeren hjelper deg å finne fram til.</p>
@@ -8628,13 +8623,13 @@ linsene i. Et lukket øyelokk reduserer i seg selv oksygentilførselen til hornh
 linse oppå gjør dette enda mindre. Å sove med linser er også forbundet med vesentlig
 høyere risiko for øyeinfeksjon.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Finnes det unntak?</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Finnes det unntak?</h2>
 <p style="font-size:1rem;line-height:1.7;">Enkelte linsetyper er spesielt godkjent for kontinuerlig bruk (såkalt "extended wear"),
 der man kan sove med linsene i over flere døgn. Dette gjelder kun spesifikke,
 godkjente linser, og kun etter at en øyelege eller optiker har vurdert og godkjent
 akkurat det for deg – ikke noe man velger selv som standard.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis det skjer ved et uhell</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis det skjer ved et uhell</h2>
 <p style="font-size:1rem;line-height:1.7;">Har du sovnet med vanlige linser i, ta dem ut så snart du våkner og gi øynene en pause.
 Ta kontakt med optiker eller øyelege hvis du merker rødhet, smerte eller uklart syn
 etterpå.</p>
@@ -8667,7 +8662,7 @@ dusjvann, bassengvann eller vann fra sjø/innsjø. Vann kan inneholde mikroorgan
 (blant annet Acanthamoeba) som kan sette seg fast under linsen og forårsake alvorlige,
 vanskelig behandlebare øyeinfeksjoner.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis linsene blir våte</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis linsene blir våte</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Dagslinser:</strong> kast dem og sett inn et nytt, rent par</li>
   <li><strong>Gjenbrukbare linser:</strong> rengjør og desinfiser dem grundig med linsevæske
@@ -8704,7 +8699,7 @@ alternativ enn å beholde kontaktlinsene i.</p>
 hvordan tårefilmen fordeler seg over øyet, og lange dager foran skjerm (der man blunker
 sjeldnere) forsterker ofte problemet.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva kan hjelpe</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva kan hjelpe</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Moderne silikonhydrogel-linser er ofte mer komfortable ved tørre øyne enn eldre
   materialer – se vår <a href="/guide/kontaktlinsens-materiale/">guide om linsematerialer</a></li>
@@ -8743,7 +8738,7 @@ et eksempel – trykk på en verdi for å få den forklart:</p>
 .rx-cell { display: block; text-decoration: none; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 10px; padding: 14px 8px; text-align: center; }
 .rx-cell:hover { border-color: var(--blue); }
 .rx-cell-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em; color: var(--muted); }
-.rx-cell-value { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); margin-top: 2px; }
+.rx-cell-value { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1.15rem; color: var(--ink); margin-top: 2px; }
 @media (max-width: 480px) { .rx-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 <div class="rx-grid">
@@ -8758,7 +8753,7 @@ et eksempel – trykk på en verdi for å få den forklart:</p>
 verdiene: CYL og AXIS gjelder kun toriske linser (astigmatisme), ADD gjelder kun
 multifokale linser (alderssyn).</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kort om hver verdi</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kort om hver verdi</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.9;">
   <li><strong>PWR/SPH</strong> – grunnstyrken, korrigerer nær- eller langsynthet</li>
   <li><strong>BC</strong> – base-kurve, hvor krum linsen er (må passe hornhinnen din)</li>
@@ -8967,7 +8962,7 @@ multifokal linse som
 den nøyaktige grensen avhenger av linsetype, materiale og hva optikeren din har godkjent
 for akkurat dine linser – følg alltid den anbefalingen fremfor et generelt tall.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tegn på at du bør ta ut linsene tidligere</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Tegn på at du bør ta ut linsene tidligere</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Tørrhet eller irritasjon</li>
   <li>Rødhet</li>
@@ -9003,7 +8998,7 @@ mens kontaktlinser ligger rett på hornhinnen. Denne avstanden (kalt vertexavsta
 påvirker hvor sterk korreksjonen faktisk oppleves, spesielt ved høyere styrker (grovt sett
 fra rundt ±4,00 dioptrier og oppover blir forskjellen merkbar).</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kontaktlinseresept er mer enn bare styrke</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Kontaktlinseresept er mer enn bare styrke</h2>
 <p style="font-size:1rem;line-height:1.7;">En kontaktlinseresept inkluderer også BC og DIA (se vår
 <a href="/guide/forsta-kontaktlinseresepten/">oversikt over hele kontaktlinseresepten</a>)
 – mål som en brilleresept ikke har. Dette krever en egen synsundersøkelse/linsetilpasning,
@@ -9038,7 +9033,7 @@ brillestyrken din.</p>
 linsetype, merke, pakningsstørrelse og hvilken forhandler du velger. To ulike
 kontaktlinser kan koste svært forskjellig selv om de dekker samme synsbehov.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som påvirker prisen</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva som påvirker prisen</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Merke og teknologi</strong> – nyere materialer (f.eks. silikonhydrogel) koster
   ofte mer enn eldre</li>
@@ -9075,7 +9070,7 @@ oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
 forhandlere gir en viss mengderabatt – men <strong>ikke alltid</strong>. Det lønner seg å
 faktisk sjekke pris per linse for pakningsstørrelsene du vurderer, i stedet for å anta.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ting å vurdere utover prisen</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Ting å vurdere utover prisen</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>En stor pakning krever høyere engangsutlegg</li>
   <li>Hvis styrken din endrer seg, kan du sitte igjen med ubrukte linser</li>
@@ -9108,14 +9103,14 @@ eksempel på et produkt som finnes i begge størrelser er
 eller produkter – gir pakningsprisen alene et misvisende bilde. Del alltid totalprisen på
 antall linser i pakningen for en reell sammenligning.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>30-pakning til 300 kr = 10 kr per linse</li>
   <li>90-pakning til 750 kr = 8,33 kr per linse</li>
 </ul>
 <p style="font-size:1rem;line-height:1.7;">Selv om 90-pakningen koster mer totalt, er den billigst per linse i dette eksempelet.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Omtrentlig månedskostnad</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Omtrentlig månedskostnad</h2>
 <p style="font-size:1rem;line-height:1.7;">Gang pris per linse med hvor mange du faktisk bruker per måned. Dette varierer mye
 mellom dagslinser (én linse per brukt dag) og månedslinser (typisk to linser per måned,
 én per øye) – se vår <a href="/guide/manedslinser-vs-dagslinser/">guide om månedslinser
@@ -9175,7 +9170,7 @@ andre prissammenlignere. Slår du på <strong>«Pris inkludert frakt»</strong> 
 viser og sorterer vi i stedet etter <strong>totalpris</strong> – produktpris pluss frakt – for
 antallet du har valgt. Det kan endre hvilken butikk som er billigst.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Eksempel (kun illustrativt, ikke reelle priser)</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Butikk A: produktpris 250 kr + frakt 79 kr = <strong>329 kr</strong> totalt</li>
   <li>Butikk B: produktpris 265 kr + gratis frakt = <strong>265 kr</strong> totalt</li>
@@ -9208,13 +9203,13 @@ produktside for å se totalpris-regnestykket i praksis.</p>
 <p>Flere forhandlere tilbyr abonnement/fast levering av kontaktlinser, noen ganger med
 rabatt. Om det lønner seg avhenger av hva du prioriterer.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med abonnement</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Fordeler med abonnement</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Slipper å huske å bestille på nytt</li>
   <li>Kan gi en fast rabatt hos enkelte forhandlere</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør vite</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør vite</h2>
 <p style="font-size:1rem;line-height:1.7;">Et abonnement binder deg til én forhandlers pris, mens priser generelt varierer
 mellom butikker og over tid. Abonnementsprisen er derfor ikke nødvendigvis den laveste
 tilgjengelige til enhver tid. Sjekk gjerne jevnlig om abonnementsprisen din for f.eks.
@@ -9299,7 +9294,7 @@ om styrken (PWR/SPH) er den samme. Ulike merker kan ha ulik BC, DIA, materiale o
 linsedesign – alt dette påvirker hvordan linsen faktisk sitter og føles, ikke bare
 styrken.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Unntaket: private label</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Unntaket: private label</h2>
 <p style="font-size:1rem;line-height:1.7;">Hvis det er snakk om nøyaktig samme fysiske linse solgt under et annet navn (f.eks. en
 optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – se vår
 <a href="/private-label/">oversikt over optikerkjedenes egne merker</a>.</p>
@@ -9326,14 +9321,14 @@ optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – s
 til et annet sted i øyet enn du er vant til å finne den. Det er ikke farlig i seg selv, men
 det finnes en riktig og en gal måte å håndtere det på.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn de anbefalte ca. 8 timene mange eksperter fraråder å overskride, eller fordi øyet er tørt</li>
   <li>Linsen har gled opp under det øvre øyelokket</li>
   <li>Du blunker mye og stresser, som gjør det vanskeligere å kjenne hvor linsen faktisk er</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Slik gjør du det trygt</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Slik gjør du det trygt</h2>
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Vask hendene grundig først</li>
   <li>Fukt øyet med linsevæske eller øyedråper laget for bruk med kontaktlinser</li>
@@ -9376,7 +9371,7 @@ en lampe – det er ikke noe å kvie seg for å spørre om.</p>
 <p>Plutselig uklart syn med linsene i er sjelden alvorlig, og skyldes som regel noe enkelt
 og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på alvor.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, ufarlige årsaker</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, ufarlige årsaker</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Skitten linse, eller avleiringer (protein/fett fra tårevæsken) på overflaten</li>
   <li>Linsen ligger vrengt (inni ut)</li>
@@ -9385,7 +9380,7 @@ og ufarlig. Det finnes likevel noen kombinasjoner av symptomer du bør ta på al
   <li>Styrken stemmer ikke lenger – synet endrer seg gradvis over tid for de fleste</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Enkle ting å sjekke først</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Enkle ting å sjekke først</h2>
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Blunk noen ganger, og bruk fukterdråper beregnet for kontaktlinser</li>
   <li>Ta ut linsen, sjekk at den ikke er vrengt, rengjør og sett den inn på nytt</li>
@@ -9432,7 +9427,7 @@ tegn på at det er på tide med en ny synsundersøkelse.</p>
 <p>Lett rødhet og svie er ganske vanlig blant kontaktlinsebrukere og som regel ufarlig. Som
 linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør handle raskt.</p>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, mildere årsaker</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige, mildere årsaker</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>For lang brukstid i løpet av dagen – eksperter fraråder generelt mer enn ca. 8 timer sammenhengende bruk</li>
   <li>Tørt inneklima eller lange skjermøkter</li>
@@ -9440,7 +9435,7 @@ linsebruker er det likevel lurt å kjenne igjen når symptomene betyr at du bør
   <li>Allergi (pollen, støv) som forsterkes av linsebruk</li>
 </ul>
 
-<h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør gjøre</h2>
+<h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hva du bør gjøre</h2>
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Ta av linsen med en gang du kjenner ubehag</li>
   <li>Gi øyet en pause – ikke sett inn en ny linse samme dag hvis irritasjonen ikke er helt borte</li>
@@ -9957,7 +9952,7 @@ GUIDE_TILE_STYLE = """
 .guide-tile:hover { border-color: var(--blue); }
 .guide-tile-icon { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; }
 .guide-tile-icon svg { width: 28px; height: 28px; }
-.guide-tile-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+.guide-tile-title { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
 .guide-tile-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; }
 .guide-tile-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
 @media (min-width: 640px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -9967,7 +9962,7 @@ GUIDE_TILE_STYLE = """
 .guide-photo-card-image { aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }
 .guide-photo-card-image img { width: 100%; height: 100%; object-fit: cover; }
 .guide-photo-card-body { padding: 14px 16px 16px; }
-.guide-photo-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.35; }
+.guide-photo-card-title { font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 1rem; line-height: 1.35; }
 .guide-photo-card-desc { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin-top: 6px; }
 .guide-photo-card-link { font-size: 0.86rem; font-weight: 600; color: var(--blue); margin-top: 12px; }
 """
@@ -10077,7 +10072,7 @@ def render_about_page() -> str:
 {_og_meta('Om oss – Kontaktlinser.no', 'Om Kontaktlinser.no: hva vi gjør, hvordan vi sammenligner priser, og hvordan vi tjener penger.', BASE_URL + '/om-oss/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
-.about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.about-body h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
 .about-body p {{ font-size: 0.92rem; line-height: 1.65; color: var(--ink); }}
 </style>
 </head>
@@ -10164,7 +10159,7 @@ def _trust_page(slug: str, title: str, kicker: str, lead: str, body_html: str) -
 {_og_meta(full_title, lead, f'{BASE_URL}/{slug}/')}
 {FONT_LINKS}
 <style>{SHARED_STYLE}
-.about-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.about-body h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
 .about-body p {{ font-size: 0.92rem; line-height: 1.65; color: var(--ink); }}
 .about-body li {{ font-size: 0.92rem; line-height: 1.7; color: var(--ink); }}
 </style>
@@ -10413,7 +10408,7 @@ def render_404_page() -> str:
 <style>{SHARED_STYLE}
 .not-found-hero {{ padding: 40px 0 16px; text-align: center; }}
 .not-found-hero .kicker {{ font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }}
-.not-found-hero h1 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; margin: 8px 0 10px; }}
+.not-found-hero h1 {{ font-family: 'Mulish', sans-serif; font-size: 1.7rem; margin: 8px 0 10px; }}
 .not-found-hero p {{ color: var(--muted); font-size: 0.94rem; max-width: 440px; margin: 0 auto; }}
 .not-found-links {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 440px; margin: 28px auto 0; }}
 .not-found-link {{ display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; font-weight: 600; font-size: 0.9rem; box-shadow: var(--card-shadow); }}
@@ -10476,9 +10471,9 @@ def render_privacy_page() -> str:
 <style>{SHARED_STYLE}
 .cookie-table {{ width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.86rem; margin: 16px 0; }}
 .cookie-table th, .cookie-table td {{ text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }}
-.cookie-table th {{ background: var(--mist); font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }}
+.cookie-table th {{ background: var(--mist); font-family: 'Mulish', sans-serif; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }}
 .cookie-table tr:last-child td {{ border-bottom: none; }}
-.privacy-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.privacy-body h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
 .privacy-body p {{ font-size: 0.92rem; line-height: 1.6; color: var(--ink); }}
 .privacy-body p.updated {{ color: var(--muted); font-size: 0.78rem; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 16px; }}
 </style>
@@ -10587,7 +10582,7 @@ def render_terms_page() -> str:
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
-.privacy-body h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
+.privacy-body h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 28px 0 10px; }}
 .privacy-body p {{ font-size: 0.92rem; line-height: 1.6; color: var(--ink); }}
 .privacy-body p.updated {{ color: var(--muted); font-size: 0.78rem; margin-top: 32px; border-top: 1px solid var(--border); padding-top: 16px; }}
 </style>
@@ -10950,19 +10945,19 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
 .hero {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }}
 .hero-copy {{ flex: 1 1 320px; max-width: 680px; }}
 .category-stats {{ display: flex; flex-wrap: wrap; margin-top: 18px; background: var(--blue-tint); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }}
-.category-stat {{ display: flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; padding: 8px 14px; border-right: 1px solid var(--border); font-size: 0.8rem; color: var(--ink); font-family: 'Inter', sans-serif; white-space: nowrap; }}
+.category-stat {{ display: flex; align-items: center; justify-content: center; gap: 7px; flex: 1 1 auto; padding: 8px 14px; border-right: 1px solid var(--border); font-size: 0.8rem; color: var(--ink); font-family: 'Mulish', sans-serif; white-space: nowrap; }}
 .category-stat:last-child {{ border-right: none; }}
 .category-stat svg {{ width: 16px; height: 16px; color: var(--blue); flex-shrink: 0; }}
 .category-explainer {{ flex: 0 1 300px; display: flex; flex-direction: column; gap: 10px; background: var(--blue-tint); border-radius: 14px; padding: 18px 20px; }}
 .category-explainer-illustration {{ align-self: flex-start; }}
 .category-explainer-illustration svg {{ width: 110px; height: 72px; display: block; }}
-.category-explainer h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; margin: 0; }}
+.category-explainer h2 {{ font-family: 'Mulish', sans-serif; font-size: 0.95rem; margin: 0; }}
 .category-explainer p {{ margin: 0 0 4px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }}
 .category-explainer a {{ font-size: 0.84rem; font-weight: 700; color: var(--blue); text-decoration: none; }}
 .category-explainer a:hover {{ text-decoration: underline; }}
 .category-filters-bar {{ margin: 26px 0 20px; }}
 .category-brand-row {{ margin-top: 18px; }}
-.category-filters-label {{ display: block; font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }}
+.category-filters-label {{ display: block; font-family: 'Mulish', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; }}
 .brand-chip-row {{ display: flex; gap: 8px; flex-wrap: wrap; }}
 .brand-chip-row[hidden] {{ display: none; }}
 .brand-more-wrap {{ margin-top: 8px; }}
@@ -11002,7 +10997,7 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
   .category-filters.is-open {{ transform: translateY(0); }}
   .filter-dd {{ width: 100%; }}
   .filter-sheet-header {{ display: flex; align-items: center; justify-content: space-between; }}
-  .filter-sheet-header h2 {{ font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; margin: 0; }}
+  .filter-sheet-header h2 {{ font-family: 'Mulish', sans-serif; font-size: 1.05rem; margin: 0; }}
   .filter-sheet-close {{ background: none; border: none; cursor: pointer; color: var(--muted); padding: 4px; }}
   .filter-sheet-close svg {{ width: 20px; height: 20px; }}
   .filter-sheet-footer {{ display: flex; flex-direction: column; gap: 10px; margin-top: 6px; position: sticky; bottom: 0; background: white; padding-top: 10px; }}
@@ -11382,7 +11377,7 @@ HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--bo
   .product-stage .winner-price-note { margin-top: 7px; line-height: 1; }
   .product-stage .winner-cta { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; background: var(--mint); color: white; font-weight: 700; font-size: 0.85rem; padding: 11px 22px; border-radius: 999px; }
 }
-.hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
+.hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
 @media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
@@ -11852,7 +11847,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         brand_logo_content = f'<img class="brand-logo-img" src="/static/logos/{subbrand_logo}" alt="" loading="lazy">'
     elif subbrand == "iWear":
         brand_logo_cls = "has-logo"
-        brand_logo_content = ('<span style="font-family:\'Space Grotesk\',sans-serif;font-weight:700;'
+        brand_logo_content = ('<span style="font-family:\'Mulish\',sans-serif;font-weight:700;'
                                'font-size:1.9rem;letter-spacing:-.03em;color:var(--ink);">'
                                '<span style="color:#078e91;">i</span>Wear</span>')
     else:
@@ -12502,7 +12497,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 .hero-card-solution .hero-product-image.pli-hero {{ padding: 8px; }}
 .hero-card-solution .pli-hero .pli-tile-wrap {{ width: 100%; }}
 .hero-card-solution .hero-product-image.pli-hero {{ flex-direction: column; gap: 10px; }}
-.illustration-note {{ margin: 0; padding: 0 8px; font-size: 0.68rem; line-height: 1.4; color: var(--muted); text-align: center; font-family: 'Inter', sans-serif; font-weight: 400; }}
+.illustration-note {{ margin: 0; padding: 0 8px; font-size: 0.68rem; line-height: 1.4; color: var(--muted); text-align: center; font-family: 'Mulish', sans-serif; font-weight: 400; }}
 .illustration-note a {{ color: var(--blue); }}
 .private-label-explainer {{ background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin: 20px 0; font-size: 0.92rem; line-height: 1.6; }}
 .private-label-explainer strong {{ color: var(--ink); }}
@@ -13260,7 +13255,7 @@ def render_family_page(
 .variant-card-bg {{ width: 100%; height: 100%; object-fit: cover; }}
 .variant-card-text {{ flex: 1; min-width: 0; }}
 .variant-card-need {{ font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--blue); }}
-.variant-card-name {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.9rem; margin-top: 1px; }}
+.variant-card-name {{ font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.9rem; margin-top: 1px; }}
 .variant-card-packs {{ font-size: 0.76rem; color: var(--muted); margin-top: 1px; }}
 .variant-card-arrow {{ flex-shrink: 0; color: var(--blue); }}
 .variant-finder-note {{ display: flex; gap: 9px; align-items: flex-start; background: var(--blue-tint); border-radius: 12px; padding: 10px 13px; font-size: 0.8rem; color: var(--ink); margin: 0 0 18px; }}
@@ -13275,7 +13270,7 @@ def render_family_page(
   .serie-insight-row {{ grid-template-columns: 1.5fr 1fr; align-items: stretch; }}
 }}
 .serie-facts {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); }}
-.serie-facts h2 {{ margin: 0 0 12px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.serie-facts h2 {{ margin: 0 0 12px; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }}
 .serie-facts-list {{ list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }}
 .serie-facts-list li {{ display: flex; align-items: flex-start; gap: 10px; font-size: 0.86rem; }}
 .serie-facts-list svg {{ flex-shrink: 0; width: 18px; height: 18px; color: var(--blue); margin-top: 1px; }}
@@ -13283,13 +13278,13 @@ def render_family_page(
 .serie-facts-list span {{ display: block; font-size: 0.78rem; color: var(--muted); margin-top: 1px; }}
 .price-insight {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 8px 0 24px; box-shadow: var(--card-shadow); }}
 .price-insight-head {{ display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }}
-.price-insight-head h2 {{ margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.price-insight-head h2 {{ margin: 0; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }}
 .insight-tabs {{ display: flex; gap: 4px; background: var(--mist); border-radius: 10px; padding: 3px; }}
 .insight-tab {{ border: none; background: none; padding: 6px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; }}
 .insight-tab.active {{ background: white; color: var(--ink); box-shadow: var(--card-shadow); }}
 .price-insight-panel {{ display: none; }}
 .price-insight-panel.active {{ display: grid; grid-template-columns: 1fr; gap: 18px; }}
-.price-insight-current {{ font-family: 'Space Grotesk', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }}
+.price-insight-current {{ font-family: 'Mulish', sans-serif; font-size: 2.1rem; font-weight: 700; color: var(--ink); }}
 .price-insight-label {{ font-size: 0.82rem; color: var(--muted); margin-top: 2px; }}
 .price-insight-trend {{ display: flex; align-items: center; gap: 6px; margin-top: 8px; font-weight: 700; font-size: 0.92rem; }}
 .price-insight-trend-note {{ font-weight: 400; color: var(--muted); font-size: 0.8rem; }}
@@ -13298,7 +13293,7 @@ def render_family_page(
 .insight-flat {{ color: var(--muted); }}
 .price-insight-tiles {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 16px; }}
 .price-insight-tile {{ background: var(--mist); border-radius: 10px; padding: 8px 6px; text-align: center; }}
-.price-insight-tile strong {{ display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; }}
+.price-insight-tile strong {{ display: block; font-family: 'Mulish', sans-serif; font-size: 0.9rem; }}
 .price-insight-tile span {{ display: block; font-size: 0.66rem; color: var(--muted); margin-top: 2px; line-height: 1.3; }}
 .price-insight-chart .price-history {{ margin-top: 0; }}
 @media (min-width: 860px) {{
@@ -13307,7 +13302,7 @@ def render_family_page(
 .spec-table-card {{ background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: var(--card-shadow); }}
 .spec-table {{ width: 100%; border-collapse: collapse; }}
 .spec-table th, .spec-table td {{ padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.88rem; }}
-.spec-table thead th {{ font-family: 'Space Grotesk', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }}
+.spec-table thead th {{ font-family: 'Mulish', sans-serif; color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; background: var(--mist); }}
 .spec-table tbody tr:last-child td {{ border-bottom: none; }}
 .spec-table tbody tr:hover {{ background: var(--mist); }}
 .spec-table a {{ color: var(--blue); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 10px; }}
@@ -13331,12 +13326,12 @@ def render_family_page(
    sentreres vertikalt i den ledige plassen (margin-top/bottom:auto)
    i stedet for å henge øverst med et stort tomrom under. */
 .serie-facts-tiles {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; display: flex; flex-direction: column; }}
-.serie-facts-tiles h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.serie-facts-tiles h2 {{ margin: 0 0 14px; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }}
 .serie-facts-tiles-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 10px; margin-top: auto; margin-bottom: auto; }}
 .serie-fact-tile {{ text-align: center; background: var(--mist); border: 1px solid var(--border); border-radius: 12px; padding: 14px 8px; }}
 .serie-fact-tile-icon {{ width: 36px; height: 36px; border-radius: 50%; background: white; color: var(--blue); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; box-shadow: var(--card-shadow); }}
 .serie-fact-tile-icon svg {{ width: 18px; height: 18px; }}
-.serie-fact-tile-value {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--ink); line-height: 1.25; }}
+.serie-fact-tile-value {{ font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--ink); line-height: 1.25; }}
 .serie-fact-tile-label {{ font-size: 0.72rem; color: var(--muted); margin-top: 2px; }}
 .serie-fact-note {{ display: flex; gap: 8px; align-items: flex-start; margin-top: 14px; font-size: 0.78rem; color: var(--muted); line-height: 1.5; }}
 .serie-fact-note svg {{ flex-shrink: 0; width: 15px; height: 15px; margin-top: 1px; }}
@@ -13346,7 +13341,7 @@ def render_family_page(
    mismatchet den synlig mot "Felles for hele serien" sin hvite boks.
    Samme kort-stil nå (se kommentaren over .serie-facts-tiles). */
 .serie-guides {{ background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }}
-.serie-guides h2 {{ margin: 0 0 14px; font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; }}
+.serie-guides h2 {{ margin: 0 0 14px; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }}
 .guide-photo-grid {{ display: grid; grid-template-columns: 1fr; gap: 12px; }}
 @media (min-width: 640px) {{ .guide-photo-grid {{ grid-template-columns: repeat(3, 1fr); }} }}
 .guide-photo-card {{ display: block; background: white; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); box-shadow: var(--card-shadow); transition: transform 0.15s, box-shadow 0.15s; }}
@@ -13354,7 +13349,7 @@ def render_family_page(
 .guide-photo-card-image {{ aspect-ratio: 16 / 9; background: var(--mist); overflow: hidden; }}
 .guide-photo-card-image img {{ width: 100%; height: 100%; object-fit: cover; }}
 .guide-photo-card-body {{ padding: 12px 14px 14px; }}
-.guide-photo-card-title {{ font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }}
+.guide-photo-card-title {{ font-family: 'Mulish', sans-serif; font-weight: 700; font-size: 0.88rem; line-height: 1.35; }}
 .guide-photo-card-link {{ font-size: 0.8rem; font-weight: 600; color: var(--blue); margin-top: 8px; }}
 /* FAQ-regelmotor (2026-09-27) -- gruppert accordion, se
    _render_family_faq_accordion(). Egne klassenavn (faq-category*/
@@ -13362,7 +13357,7 @@ def render_family_page(
    varianten brukes fortsatt på produkt-/forside-FAQ-er). */
 .faq-category {{ margin-top: 22px; }}
 .faq-category:first-child {{ margin-top: 0; }}
-.faq-category-label {{ font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }}
+.faq-category-label {{ font-family: 'Mulish', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin: 0 0 4px; }}
 .faq-accordion-item {{ border-top: 1px solid var(--border); }}
 .faq-accordion-item:last-child {{ border-bottom: 1px solid var(--border); }}
 .faq-accordion-item summary {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; list-style: none; padding: 13px 0; font-weight: 600; font-size: 0.92rem; color: var(--ink); }}
@@ -13512,7 +13507,7 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
 <style>{SHARED_STYLE}
 .pl-table {{ width: 100%; min-width: 560px; border-collapse: collapse; background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; font-size: 0.88rem; margin: 12px 0 28px; }}
 .pl-table th, .pl-table td {{ text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; white-space: nowrap; }}
-.pl-table th {{ background: var(--mist); font-family: 'Space Grotesk', sans-serif; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }}
+.pl-table th {{ background: var(--mist); font-family: 'Mulish', sans-serif; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }}
 .pl-table tr:last-child td {{ border-bottom: none; }}
 .pl-table tr:hover td {{ background: var(--mist); }}
 </style>

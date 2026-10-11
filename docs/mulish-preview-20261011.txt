@@ -1,0 +1,14 @@
+Mulish – kontroll 11. oktober 2026
+
+Status: lokal, isolert forhåndsvisning. Ikke pushet, merget eller publisert.
+Branch: chatgpt/mulish-preview-20261011. Basert på main 1bb5972.
+
+Endring: Mulish erstatter Inter, Space Grotesk og IBM Plex Mono i tekst, titler og priser. Filterknapper/input/select/textarea får eksplisitt Mulish. Eksisterende størrelser, vekter, linjehøyder, farger, marger, layout og prislogikk er beholdt. Fonten selvhostes; lisens følger med.
+
+Kontroll: 6 representative sidetyper (forside, produkt, merke, serie, guide og kategori), 4 bredder (375/768/1024/1440), JavaScript av/på: 48 visninger. Ingen horisontal side-overflyt, registrerte JavaScript-feil eller målte breddeproblemer i kontrollerte knapper/overskrifter. Synlig sidetekst bruker Mulish. Fontenes ulike metrikk kan endre linjebryting og sidehøyde.
+Byggvalidering: bestått, 201/201 produkter med priser.
+Produktfunksjon: 48 kombinasjoner av antall og frakt, korrekte prisberegninger og vinnere. Periodebytte og tre innsiktsbokser kontrollert ved alle fire bredder. Statisk visning kontrollert uten JavaScript.
+Kildekontroll: malendringene er begrenset til fontfamilier, fontdeklarasjon/preload og forklarende kommentar; ingen endringer i beregningslogikk.
+
+Skjermbildene viser full side ved 375 og 1440 px. Eksterne produktbilder er hentet fra de eksisterende bildekildene til midlertidig testcache; kildekoden for bildene er uendret. Prisdata er et øyeblikksbilde, ikke en live-prisgaranti.
+Avgrensning: Chromium på dette testmiljøet. Ikke testet fysisk i Safari/iOS eller på alle individuelle produkt- og innholdssider.
