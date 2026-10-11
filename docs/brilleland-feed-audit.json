@@ -1,0 +1,733 @@
+{
+  "date": "2026-10-11",
+  "total_feed_rows": 922,
+  "contact_lens_rows": 77,
+  "rows": [
+    {
+      "sku": "40000584",
+      "title": "Dailies All Day Comfort 30 Pack",
+      "status": "mapped",
+      "product_ids": [
+        "focus-dailies-30pk",
+        "dailies-all-day-comfort-30pk"
+      ],
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/"
+    },
+    {
+      "sku": "40000585",
+      "title": "Dailies All Day Comfort 90 Pack",
+      "status": "mapped",
+      "product_ids": [
+        "focus-dailies-90pk",
+        "dailies-all-day-comfort-90pk"
+      ],
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/"
+    },
+    {
+      "sku": "40000267",
+      "title": "Dailies AquaComfort Plus 30 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-aquacomfort-plus-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack-0644cb1b/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack-0644cb1b/"
+    },
+    {
+      "sku": "40000586",
+      "title": "Dailies Aquacomfort Plus 90 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-aquacomfort-plus-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/"
+    },
+    {
+      "sku": "40000310",
+      "title": "Dailies AquaComfort Plus Multifocal",
+      "status": "mapped",
+      "product_ids": "dailies-aquacomfort-plus-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d3c98d2d/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/"
+    },
+    {
+      "sku": "40000312",
+      "title": "Dailies AquaComfort Plus Toric 30 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-aquacomfort-plus-toric-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack2/"
+    },
+    {
+      "sku": "40000412",
+      "title": "Dailies AquaComfort Plus Toric 90 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-aquacomfort-plus-toric-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack2/"
+    },
+    {
+      "sku": "40000316",
+      "title": "Dailies Total 1 30 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-30-pack2/"
+    },
+    {
+      "sku": "40000409",
+      "title": "Dailies Total 1 90 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-90-pack2/"
+    },
+    {
+      "sku": "40000368",
+      "title": "Dailies Total 1 Multifocal 30 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/"
+    },
+    {
+      "sku": "40000371",
+      "title": "Dailies Total 1 Multifocal 90 Pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-multifocal-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/"
+    },
+    {
+      "sku": "40000688",
+      "title": "Dailies Total1 for astigmatism 30 pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/"
+    },
+    {
+      "sku": "40000702",
+      "title": "Dailies Total1 for astigmatism 90 pack",
+      "status": "mapped",
+      "product_ids": "dailies-total1-astigmatism-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/"
+    },
+    {
+      "sku": "40000375",
+      "title": "iWear Activ",
+      "status": "mapped",
+      "product_ids": "clariti-1day-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000377",
+      "title": "iWear Activ Astigmatism",
+      "status": "mapped",
+      "product_ids": "clariti-1day-toric-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-astigmatism/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000381",
+      "title": "iWear Activ Presbyopia",
+      "status": "mapped",
+      "product_ids": "clariti-1day-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000752",
+      "title": "iWear Activ Presbyopia (3 add) 30 pack",
+      "status": "mapped",
+      "product_ids": "clariti-1day-multifocal-3add-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia-3-add-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia-3-add-30-pack/",
+      "identity_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia-3-add-30-pack/"
+    },
+    {
+      "sku": "40000407",
+      "title": "iWear Balance Plus",
+      "status": "mapped",
+      "product_ids": "avaira-vitality-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000417",
+      "title": "iWear Balance Plus Astigmatism",
+      "status": "mapped",
+      "product_ids": "avaira-vitality-toric-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus-astigmatism/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000699",
+      "title": "iWear Connect",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/"
+    },
+    {
+      "sku": "40000700",
+      "title": "iWear Connect Astigmatism",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/"
+    },
+    {
+      "sku": "40000733",
+      "title": "iWear Connect Multifocal",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/"
+    },
+    {
+      "sku": "40000286",
+      "title": "iWear Fit",
+      "status": "mapped",
+      "product_ids": "biomedics-1day-xtra-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fit/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fit/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000391",
+      "title": "iWear Fit Astigmatism",
+      "status": "mapped",
+      "product_ids": "biomedics-1day-xtra-toric-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fit-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fit-astigmatism/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000690",
+      "title": "iWear Flex",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/"
+    },
+    {
+      "sku": "40000692",
+      "title": "iWear Flex Astigmatism",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/"
+    },
+    {
+      "sku": "40000694",
+      "title": "iWear Flex Multifocal",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/"
+    },
+    {
+      "sku": "40000288",
+      "title": "iWear Fresh",
+      "status": "mapped",
+      "product_ids": "proclear-1day-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000290",
+      "title": "iWear Fresh Presbyopia",
+      "status": "mapped",
+      "product_ids": "proclear-1day-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh-presbyopia/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh-presbyopia/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000292",
+      "title": "iWear Harmony",
+      "status": "mapped",
+      "product_ids": "myday-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000356",
+      "title": "iWear Harmony Astigmatism",
+      "status": "mapped",
+      "product_ids": "myday-toric-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-astigmatism/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000684",
+      "title": "iWear Harmony Presbyopia",
+      "status": "mapped",
+      "product_ids": "myday-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-presbyopia/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-presbyopia/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000296",
+      "title": "iWear Hydro Astigmatism",
+      "status": "mapped",
+      "product_ids": "proclear-toric-3pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-astigmatism/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000397",
+      "title": "iWear Hydro Presbyopia 3 pack",
+      "status": "mapped",
+      "product_ids": "proclear-multifocal-3pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-presbyopia-3-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-presbyopia-3-pack/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000358",
+      "title": "iWear Hydro Sphere",
+      "status": "mapped",
+      "product_ids": "proclear-sphere-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-sphere/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-sphere/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000074",
+      "title": "iWear Oxygen",
+      "status": "mapped",
+      "product_ids": "biofinity-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000179",
+      "title": "iWear Oxygen Astigmatism 3 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-toric-3pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-3-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-3-pack2/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000759",
+      "title": "iWear Oxygen Astigmatism 6 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-toric-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-6-pack/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000754",
+      "title": "iWear Oxygen Astigmatism XR 6 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-xr-toric-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-xr-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-xr-6-pack/",
+      "identity_source": "https://www.linsen.dk/shop11/iwear-oxygen-astigmatism-xr-synoptik-kontaktlinser"
+    },
+    {
+      "sku": "40000281",
+      "title": "iWear Oxygen Presbyopia 3 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-multifocal-3pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-3-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-3-pack2/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000758",
+      "title": "iWear Oxygen Presbyopia 6 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-multifocal-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-6-pack/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000360",
+      "title": "iWear Oxygen Relax",
+      "status": "mapped",
+      "product_ids": "biofinity-energys-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-relax/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-relax/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000320",
+      "title": "iWear Oxygen XR 6 pack",
+      "status": "mapped",
+      "product_ids": "biofinity-xr-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-xr-6-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-xr-6-pack2/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000672",
+      "title": "iWear Slim",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/"
+    },
+    {
+      "sku": "40000674",
+      "title": "iWear Slim Astigmatism",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/"
+    },
+    {
+      "sku": "40000676",
+      "title": "iWear Slim Multifocal",
+      "status": "pending_identity",
+      "product_ids": [],
+      "reason": "iWear Connect/Flex/Slim: pakningen er kjent, men sikker produsentekvivalens er ikke dokumentert i primærkildene som er gjennomgått. Ikke gjett kobling.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/"
+    },
+    {
+      "sku": "40000405",
+      "title": "iWear Vivid",
+      "status": "mapped",
+      "product_ids": "live-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-vivid/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/iwear/iwear-vivid/",
+      "identity_source": "https://www.lensway.no/optikerkjedenes-varemerker-editorial"
+    },
+    {
+      "sku": "40000013",
+      "title": "1-day Acuvue Moist 30 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/"
+    },
+    {
+      "sku": "40000411",
+      "title": "1-day Acuvue Moist 90 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/"
+    },
+    {
+      "sku": "40000245",
+      "title": "1-day Acuvue Moist for Astigmatism 30 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/"
+    },
+    {
+      "sku": "40000410",
+      "title": "1-day Acuvue Moist for Astigmatism 90 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-astigmatism-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/"
+    },
+    {
+      "sku": "40000318",
+      "title": "1-day Acuvue Moist Multifocal 30 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack2/"
+    },
+    {
+      "sku": "40000415",
+      "title": "1-day Acuvue Moist Multifocal 90 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-moist-multifocal-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack2/"
+    },
+    {
+      "sku": "40000363",
+      "title": "1-day Acuvue Oasys 30 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-1day-hydraluxe-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/"
+    },
+    {
+      "sku": "40000413",
+      "title": "1-day Acuvue Oasys 90 Pack",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-1day-hydraluxe-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-90-pack2/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-90-pack2/"
+    },
+    {
+      "sku": "40000365",
+      "title": "1-day Acuvue Oasys for Astigmatism",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-1day-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-for-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-for-astigmatism/"
+    },
+    {
+      "sku": "40000025",
+      "title": "Acuvue Oasys",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys/"
+    },
+    {
+      "sku": "40000174",
+      "title": "Acuvue Oasys for Astigmatism",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-astigmatism-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/"
+    },
+    {
+      "sku": "40000703",
+      "title": "ACUVUE® OASYS MAX 1-Day",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-max-1day-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/"
+    },
+    {
+      "sku": "40000727",
+      "title": "ACUVUE® OASYS MAX 1-Day for ASTIGMATISM",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-max-1day-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-for-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-for-astigmatism/"
+    },
+    {
+      "sku": "40000742",
+      "title": "ACUVUE® OASYS MAX 1-Day MF for ASTIGMATISM",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism/"
+    },
+    {
+      "sku": "40000705",
+      "title": "ACUVUE® OASYS MAX 1-Day MULTIFOCAL",
+      "status": "mapped",
+      "product_ids": "acuvue-oasys-max-1day-multifocal-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal/"
+    },
+    {
+      "sku": "40000579",
+      "title": "AO Hydraglyde",
+      "status": "mapped",
+      "product_ids": "air-optix-hydraglyde-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde/"
+    },
+    {
+      "sku": "40000580",
+      "title": "AO Hydraglyde Astigmatism",
+      "status": "mapped",
+      "product_ids": "air-optix-hydraglyde-astigmatism-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-astigmatism/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-astigmatism/"
+    },
+    {
+      "sku": "40000583",
+      "title": "AO Hydraglyde Multifocal",
+      "status": "mapped",
+      "product_ids": "air-optix-hydraglyde-multifocal-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-multifocal/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-multifocal/"
+    },
+    {
+      "sku": "40000634",
+      "title": "Precision1 30 pack",
+      "status": "mapped",
+      "product_ids": "precision1-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision1-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision1-30-pack/"
+    },
+    {
+      "sku": "40000635",
+      "title": "Precision1 90 pack",
+      "status": "mapped",
+      "product_ids": "precision1-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision1-90-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision1-90-pack/"
+    },
+    {
+      "sku": "40000636",
+      "title": "Precision1 for astigmatism 30 pack",
+      "status": "mapped",
+      "product_ids": "precision1-astigmatism-30pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-30-pack/"
+    },
+    {
+      "sku": "40000637",
+      "title": "Precision1 for astigmatism 90 pack",
+      "status": "mapped",
+      "product_ids": "precision1-astigmatism-90pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-90-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-90-pack/"
+    },
+    {
+      "sku": "40000735",
+      "title": "Precision7™ 12 PACK",
+      "status": "mapped",
+      "product_ids": "precision7-12pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/"
+    },
+    {
+      "sku": "40000737",
+      "title": "Precision7™ for Astigmatism 12 PACK",
+      "status": "mapped",
+      "product_ids": "precision7-astigmatism-12pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/"
+    },
+    {
+      "sku": "40000708",
+      "title": "Total30 6 pack",
+      "status": "mapped",
+      "product_ids": "total30-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/total30/total30-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/total30/total30-6-pack/"
+    },
+    {
+      "sku": "40000710",
+      "title": "Total30 for astigmastism 6 pack",
+      "status": "mapped",
+      "product_ids": "total30-astigmatism-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/total30/total30-for-astigmastism-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/total30/total30-for-astigmastism-6-pack/"
+    },
+    {
+      "sku": "40000718",
+      "title": "Total30 Multifocal 6 pack",
+      "status": "mapped",
+      "product_ids": "total30-multifocal-6pk",
+      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/"
+    },
+    {
+      "sku": "40000719",
+      "title": "Total30 Multifocal 6 pack",
+      "status": "duplicate_variant",
+      "product_ids": [],
+      "reason": "TOTAL30 Multifocal addisjonsvariant; samme produktside og pris som 40000718. Vises kun én gang.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+      "covered_by_sku": "40000718"
+    },
+    {
+      "sku": "40000720",
+      "title": "Total30 Multifocal 6 pack",
+      "status": "duplicate_variant",
+      "product_ids": [],
+      "reason": "TOTAL30 Multifocal addisjonsvariant; samme produktside og pris som 40000718. Vises kun én gang.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+      "covered_by_sku": "40000718"
+    },
+    {
+      "sku": "40000561",
+      "title": "MiSight® 1 day 30 pack",
+      "status": "mapped",
+      "product_ids": "misight-1day-30pk",
+      "reason": "Eget produkt: MiSight 1 day (60 % vann, BC 8,7), ikke MyDay MiSight. Ingen sammenslåing.",
+      "merchant_url": "https://www.brilleland.no/kontaktlinser/misight/misight-1-day-30-pack/",
+      "pack_source": "https://www.brilleland.no/kontaktlinser/misight/misight-1-day-30-pack/"
+    }
+  ]
+}
