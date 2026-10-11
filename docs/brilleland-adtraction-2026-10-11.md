@@ -80,3 +80,14 @@ oppdatert bare for Brilleland; ingen unødvendig full scraping.
 
 Neste steg etter publisering: avklar de ni iWear-identitetene og kontroller
 den avvikende AquaComfort-lenken sammen med eier.
+
+## Oppfølging: AquaComfort Multifocal
+
+Eier leverte fungerende URL 11. oktober 2026:
+https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d426565a/
+Direkte HTTP 200, sidetittel, 30 PACK, pris 357 kr og canonical ble kontrollert.
+Feed SKU 40000310 sender fortsatt den gamle d3c98d2d-adressen. En avgrenset
+rettelse endrer bare dette kjente url-parameteret hos to.brilleland.no og
+bevarer resten av sporingslenken. Fremtidige nye feed-destinasjoner overstyres ikke.
+Oppdatert dekning: 66 SKU-er / 68 produktsider; bare ni iWear-identiteter gjenstår.
+Elleve tester består, inkludert sporingsparametre, kodet destinasjon og fremtidig URL.
