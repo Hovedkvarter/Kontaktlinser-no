@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-11T22:10:28Z",
+  "generated_at": "2026-10-11T22:43:27Z",
   "currency": "NOK",
   "products": [
     {
@@ -7258,6 +7258,15 @@
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000699&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/",
           "checked_at": "2026-10-11T21:53:17.297727+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 459.0,
+          "shipping": 0.0,
+          "total_price": 459.0,
+          "availability": "in_stock",
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-sphere-6-pack/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-11T22:37:37.094826+00:00"
         }
       ]
     },
@@ -7279,6 +7288,15 @@
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000700&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/",
           "checked_at": "2026-10-11T21:53:17.297740+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 624.0,
+          "shipping": 0.0,
+          "total_price": 624.0,
+          "availability": "in_stock",
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-astigmatism-6-pack/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-11T22:37:48.980635+00:00"
         }
       ]
     },
@@ -7300,6 +7318,15 @@
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000733&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/",
           "checked_at": "2026-10-11T21:53:17.297753+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 790.0,
+          "shipping": 0.0,
+          "total_price": 790.0,
+          "availability": "in_stock",
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-multifocal-6-pack/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-11T22:38:00.551117+00:00"
         }
       ]
     },
@@ -7313,6 +7340,15 @@
         "manufacturer": "Menicon"
       },
       "offers": [
+        {
+          "merchant": "Interoptik",
+          "price": 298.0,
+          "shipping": 0.0,
+          "total_price": 298.0,
+          "availability": "in_stock",
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-11T22:38:13.728152+00:00"
+        },
         {
           "merchant": "Brilleland",
           "price": 252.0,
