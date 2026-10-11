@@ -929,7 +929,7 @@ a { color: inherit; }
 /* Product Mobile Gold Standard v1 (2026-09-27): produktbilde (~2/3) og
    Winner Card (~1/3) side ved side på mobil -- bildet skal klart være
    hovedpersonen visuelt, IKKE to like kolonner. .hero-media-row er en ren
-   mobil-gruppering; på >=860px blir den display:contents slik at bildet
+   mobil-gruppering; på >=1280px blir den display:contents slik at bildet
    og vinnerkortet igjen er DIREKTE grid-barn av .hero-main og treffes av
    akkurat samme grid-column/-row-regler som før (uendret desktop-layout,
    se Kai 2026-09-27: "du gjør først mobil produktsiden ferdig nå,
@@ -948,12 +948,12 @@ a { color: inherit; }
 @media (min-width: 640px) { .hero-media-row { gap: 16px; } }
 /* Vinnerkortet i den smale ~1/3-kolonnen: reduser padding/skrift/logo/
    spar-sirkel FØR vi vurderer stacking (Kai sin brief, punkt 25) --
-   scoped til (max-width:859px) slik at desktopkortet IKKE berøres (viktig:
-   .hero-media-row blir display:contents på >=860px, men selektoren under
+   scoped til (max-width:1279px) slik at desktopkortet IKKE berøres (viktig:
+   .hero-media-row blir display:contents på >=1280px, men selektoren under
    ville uansett fortsatt truffet desktop-kortet via DOM-etterkommerskap
    uten denne media-grensen, siden display:contents ikke fjerner elementet
    fra treet). */
-@media (max-width: 859px) {
+@media (max-width: 1279px) {
   /* Kai, etter første runde: "Laveste Pris mer firkantet" + "veldig mye
      plass rundt selve bilde". Begge kommer av samme rot-årsak -- den delte
      .hero-product-image-regelen (brukt over hele siden der et STORT,
@@ -969,7 +969,7 @@ a { color: inherit; }
      nærme seg Kais egen designspec sitt høyde-mål (140-160px) selv i en
      smalere ~1/3-kolonne enn spec-bildet opprinnelig viste. */
   .hero-media-row .hero-product-image { aspect-ratio: 4 / 3; }
-  .hero-media-row .winner-band-cta { padding: 10px 8px; gap: 6px; }
+  .product-stage .hero-media-row .winner-band-cta { padding: 10px 8px; gap: 6px; align-self: flex-start; }
   .hero-media-row .winner-top { align-items: center; }
   .hero-media-row .winner-band-cta .label-group { flex-direction: row; align-items: baseline; gap: 4px; flex-wrap: wrap; }
   .hero-media-row .winner-band-cta .label { font-size: 0.68rem; letter-spacing: 0.01em; }
@@ -991,10 +991,13 @@ a { color: inherit; }
    · Hilafilcon B · BC 8,6") -- Product Desktop Gold Standard v1,
    2026-09-27, punkt 3+8. Skjult som standard (mobil-Gold-Standard-en
    fjernet bevisst kickeren over H1 tidligere samme dag, se commit
-   9657bfb1d -- IKKE gjeninnfør den der), vises kun >=860px der Kai
+   9657bfb1d -- IKKE gjeninnfør den der), vises kun >=1280px der Kai
    bekreftet at det er plass ("Her kan også Soflens eller produsent
    vises, da det er plass til det"). */
 .hero-kicker, .hero-facts { display: none; }
+/* 2026-10-11: Behold det godkjente bilde/vinnerkort-oppsettet under
+   1280px. Tre minimumskolonner (1060px) + gap (64px) + padding/border
+   (74px) trenger 1198px inne i sidens wrapper for å unngå overflyt. */
 /* Product Stage: EKTE tre-kolonners CSS Grid på desktop -- bilde |
    produktidentitet+kontroller | Winner Card, ALLE i samme vertikale
    arbeidsflate. Revidert 2026-09-27, samme dag, etter at Kai konkret
@@ -1015,8 +1018,8 @@ a { color: inherit; }
    .product-stage -- sammen med .qty-box, som allerede var en direkte
    .product-stage-barn. display:contents er KUN satt inni denne
    media-queryen, så mobilens DOM-boksmodell er fullstendig upåvirket
-   under 860px. */
-@media (min-width: 860px) {
+   under 1280px. */
+@media (min-width: 1280px) {
   .product-stage {
     display: grid;
     grid-template-columns: minmax(360px, 0.95fr) minmax(420px, 1.10fr) minmax(280px, 0.72fr);
@@ -1119,7 +1122,7 @@ a { color: inherit; }
    aspect-ratio) -- tidligere var mobil låst til en fast 200x200px-boks som
    etterlot mye tomt rom i et bredere kort (fant og fikset 2026-08-30, se
    brukerens tilbakemelding om at bildene på mobil produktsider var for
-   små). På desktop (>=860px, Product Desktop Gold Standard v1,
+   små). På desktop (>=1280px, Product Desktop Gold Standard v1,
    2026-09-27) overstyrer `.hero-main .hero-product-image` denne med en
    egen 4:3-aspect-ratio (se der) -- bildet spenner IKKE lenger to
    grid-rader (den midtre tekstkolonnen som tidligere ga bildet en tekst-
@@ -1127,7 +1130,7 @@ a { color: inherit; }
 .hero-product-image { width: 100%; height: auto; aspect-ratio: 1 / 1; margin: 0 auto; border-radius: 18px; background: var(--mist); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; padding: 10px; box-sizing: border-box; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue); }
 .hero-product-image img { width: 100%; height: 100%; object-fit: contain; }
 @media (min-width: 640px) { .hero-product-image { border-radius: 20px; font-size: 2.6rem; } }
-@media (min-width: 860px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
+@media (min-width: 1280px) { .hero-product-image { width: 100%; height: 100%; aspect-ratio: auto; margin: 0; font-size: 3rem; } }
 /* Fade-masken (radial gradient som lot hvite produktbilder smelte inn i
    siden) er fjernet -- den var designet for å blande hvitt inn i en FARGET
    hero-bakgrunn, men heroen er nå selv hvit (se .hero-card), så masken
