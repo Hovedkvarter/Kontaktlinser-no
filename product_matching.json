@@ -564,5 +564,42 @@
     "10568": "eyz-clean-20pk",
     "9577": "swati-lens-case-tweezers",
     "10831": "clariti-1day-multifocal-3add-30pk"
+  },
+  "adtraction_brilleland": {
+    "40000013": "acuvue-moist-30pk",
+    "40000025": "acuvue-oasys-6pk",
+    "40000074": "biofinity-6pk",
+    "40000174": "acuvue-oasys-astigmatism-6pk",
+    "40000245": "acuvue-moist-astigmatism-30pk",
+    "40000267": "dailies-aquacomfort-plus-30pk",
+    "40000292": "myday-30pk",
+    "40000316": "dailies-total1-30pk",
+    "40000356": "myday-toric-30pk",
+    "40000360": "biofinity-energys-6pk",
+    "40000363": "acuvue-oasys-1day-hydraluxe-30pk",
+    "40000368": "dailies-total1-multifocal-30pk",
+    "40000371": "dailies-total1-multifocal-90pk",
+    "40000375": "clariti-1day-30pk",
+    "40000377": "clariti-1day-toric-30pk",
+    "40000407": "avaira-vitality-6pk",
+    "40000409": "dailies-total1-90pk",
+    "40000410": "acuvue-moist-astigmatism-90pk",
+    "40000411": "acuvue-moist-90pk",
+    "40000584": [
+      "focus-dailies-30pk",
+      "dailies-all-day-comfort-30pk"
+    ],
+    "40000585": [
+      "focus-dailies-90pk",
+      "dailies-all-day-comfort-90pk"
+    ],
+    "40000586": "dailies-aquacomfort-plus-90pk",
+    "40000688": "dailies-total1-astigmatism-30pk",
+    "40000702": "dailies-total1-astigmatism-90pk",
+    "40000703": "acuvue-oasys-max-1day-30pk",
+    "40000735": "precision7-12pk",
+    "40000737": "precision7-astigmatism-12pk",
+    "40000758": "biofinity-multifocal-6pk",
+    "40000759": "biofinity-toric-6pk"
   }
 }
