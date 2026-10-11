@@ -14,6 +14,7 @@ Bruker samme CSS-tokens som prototypene: ink/mist/blue/mint, Space Grotesk /
 Inter / IBM Plex Mono. Endres designsystemet, endres SHARED_STYLE - ett sted.
 """
 
+import hashlib
 import json
 import math
 import re
@@ -26,6 +27,9 @@ from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
 from store_history_chart import product_store_days
+
+# New content gets a new URL so browsers/CDNs cannot reuse an older chart.
+_STORE_CHART_VERSION = hashlib.sha256((Path(__file__).resolve().parents[1] / "static/store-history-chart.js").read_bytes()).hexdigest()[:12]
 
 
 def _json_str(s: str) -> str:
@@ -5292,7 +5296,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <span>Prisdata sist bekreftet: {_format_no_date(latest_date)}</span>
   </div>
   {script_html}
-  <script src="/static/store-history-chart.js" defer></script>
+  <script src="/static/store-history-chart.js?v={_STORE_CHART_VERSION}" defer></script>
 </div>'''
 
 
