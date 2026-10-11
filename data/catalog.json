@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-11T20:11:57Z",
+  "generated_at": "2026-10-11T20:27:38Z",
   "currency": "NOK",
   "products": [
     {
@@ -5194,6 +5194,15 @@
         "manufacturer": "Alcon"
       },
       "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 357.0,
+          "shipping": 59,
+          "total_price": 416.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000310&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d426565a/",
+          "checked_at": "2026-10-11T20:25:23.283722+00:00"
+        },
         {
           "merchant": "Lensway",
           "price": 369.0,
