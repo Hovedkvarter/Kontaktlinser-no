@@ -5,7 +5,10 @@
       "slug": "iwear-oxygen",
       "name": "iWear Oxygen",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-6pk"
+      "real_product_id": "biofinity-6pk",
+      "image_url": "/static/private-label/iwear-oxygen.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen/iwear-oxygen-6pk_front_3d.jpg"
     },
     {
       "slug": "eyeq-24",
@@ -23,7 +26,10 @@
       "slug": "iwear-oxygen-astigmatism",
       "name": "iWear Oxygen Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-toric-6pk"
+      "real_product_id": "biofinity-toric-6pk",
+      "image_url": "/static/private-label/iwear-oxygen-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-astigmatism-6-pack/40000759_10-iwear_oxygen_astigmatism_new25.jpg"
     },
     {
       "slug": "eyeq-24-for-astigmatism",
@@ -41,7 +47,10 @@
       "slug": "iwear-oxygen-presbyopia",
       "name": "iWear Oxygen Presbyopia",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-multifocal-6pk"
+      "real_product_id": "biofinity-multifocal-6pk",
+      "image_url": "/static/private-label/iwear-oxygen-presbyopia.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-presbyopia-6-pack/40000755_10-iwear_oxygen_presbyopia_new25.jpg"
     },
     {
       "slug": "eyeq-24-progressive",
@@ -59,7 +68,10 @@
       "slug": "iwear-oxygen-relax",
       "name": "iWear Oxygen Relax",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-energys-6pk"
+      "real_product_id": "biofinity-energys-6pk",
+      "image_url": "/static/private-label/iwear-oxygen-relax.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-relax/iwear-oxygen-relax-6pk_left_3d.jpg"
     },
     {
       "slug": "eyeq-digital-focus",
@@ -71,7 +83,10 @@
       "slug": "iwear-oxygen-xr",
       "name": "iWear Oxygen XR",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-xr-6pk"
+      "real_product_id": "biofinity-xr-6pk",
+      "image_url": "/static/private-label/iwear-oxygen-xr.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-xr-6-pack/iwear-oxygen-xr-6pk_left_3d.jpg"
     },
     {
       "slug": "eyeq-24-xr",
@@ -101,7 +116,10 @@
       "slug": "iwear-balance-plus-astigmatism",
       "name": "iWear Balance Plus Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "avaira-vitality-toric-6pk"
+      "real_product_id": "avaira-vitality-toric-6pk",
+      "image_url": "/static/private-label/iwear-balance-plus-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-balance-plus-astigmatism/iwear-balance-plus-astigmatism-6-pack"
     },
     {
       "slug": "easyvision-uvicia-plus-toric",
@@ -113,7 +131,10 @@
       "slug": "iwear-fit",
       "name": "iWear Fit",
       "chain": "Brilleland",
-      "real_product_id": "biomedics-1day-xtra-30pk"
+      "real_product_id": "biomedics-1day-xtra-30pk",
+      "image_url": "/static/private-label/iwear-fit.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-fit/iwear-fit-30pk_left_3d.jpg"
     },
     {
       "slug": "eyeq-one-day-classic",
@@ -125,7 +146,10 @@
       "slug": "iwear-fit-astigmatism",
       "name": "iWear Fit Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "biomedics-1day-xtra-toric-30pk"
+      "real_product_id": "biomedics-1day-xtra-toric-30pk",
+      "image_url": "/static/private-label/iwear-fit-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-fit-astigmatism/iwear-fit-astigmatism-1-day-30pk_front_3d.jpg"
     },
     {
       "slug": "eyeq-one-day-classic-for-astigmatism",
@@ -149,19 +173,28 @@
       "slug": "iwear-harmony",
       "name": "iWear Harmony",
       "chain": "Brilleland",
-      "real_product_id": "myday-30pk"
+      "real_product_id": "myday-30pk",
+      "image_url": "/static/private-label/iwear-harmony.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-harmony/iwear-harmony-30pk_front_3d.jpg"
     },
     {
       "slug": "iwear-harmony-astigmatism",
       "name": "iWear Harmony Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "myday-toric-30pk"
+      "real_product_id": "myday-toric-30pk",
+      "image_url": "/static/private-label/iwear-harmony-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-harmony-astigmatism/iwear-harmony-astigmatism-1-day-30pk_front_3d.jpg"
     },
     {
       "slug": "iwear-activ",
       "name": "iWear Activ",
       "chain": "Brilleland",
-      "real_product_id": "clariti-1day-30pk"
+      "real_product_id": "clariti-1day-30pk",
+      "image_url": "/static/private-label/iwear-activ.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ/iwear-activ-1-day-30pk_front_3d.jpg"
     },
     {
       "slug": "easyvision-umere",
@@ -173,7 +206,10 @@
       "slug": "iwear-activ-astigmatism",
       "name": "iWear Activ Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "clariti-1day-toric-30pk"
+      "real_product_id": "clariti-1day-toric-30pk",
+      "image_url": "/static/private-label/iwear-activ-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ-astigmatism/iwear-activ-astigmatism-1-day-30pk_left_3d.jpg"
     },
     {
       "slug": "easyvision-umere-toric",
@@ -185,7 +221,10 @@
       "slug": "iwear-fresh",
       "name": "iWear Fresh",
       "chain": "Brilleland",
-      "real_product_id": "proclear-1day-30pk"
+      "real_product_id": "proclear-1day-30pk",
+      "image_url": "/static/private-label/iwear-fresh.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-fresh/iwear-fresh-30pk_front_3d.jpg"
     },
     {
       "slug": "eyeq-one-day-premium",
@@ -449,109 +488,163 @@
       "slug": "iwear-activ-presbyopia",
       "name": "iWear Activ Presbyopia",
       "chain": "Brilleland",
-      "real_product_id": "clariti-1day-multifocal-30pk"
+      "real_product_id": "clariti-1day-multifocal-30pk",
+      "image_url": "/static/private-label/iwear-activ-presbyopia.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ-presbyopia/iwear-activ-presbyopia-1-day-30pk_front_3d.jpg"
     },
     {
       "slug": "iwear-activ-presbyopia-3-add-30-pack",
       "name": "iWear Activ Presbyopia (3 add) 30 pack",
       "chain": "Brilleland",
-      "real_product_id": "clariti-1day-multifocal-3add-30pk"
+      "real_product_id": "clariti-1day-multifocal-3add-30pk",
+      "image_url": "/static/private-label/iwear-activ-presbyopia-3-add-30-pack.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ-presbyopia-3-add-30-pack/40000752_10-iwear_activ_plus-presbyopia_front.jpg"
     },
     {
       "slug": "iwear-fresh-presbyopia",
       "name": "iWear Fresh Presbyopia",
       "chain": "Brilleland",
-      "real_product_id": "proclear-1day-multifocal-30pk"
+      "real_product_id": "proclear-1day-multifocal-30pk",
+      "image_url": "/static/private-label/iwear-fresh-presbyopia.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-fresh-presbyopia/iwear-fresh-presbyopia-1-day-30pk_front_3d.jpg"
     },
     {
       "slug": "iwear-harmony-presbyopia",
       "name": "iWear Harmony Presbyopia",
       "chain": "Brilleland",
-      "real_product_id": "myday-multifocal-30pk"
+      "real_product_id": "myday-multifocal-30pk",
+      "image_url": "/static/private-label/iwear-harmony-presbyopia.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-harmony-presbyopia/40000681_10-iwear_harmony_presbyopia_new25.jpg"
     },
     {
       "slug": "iwear-hydro-astigmatism",
       "name": "iWear Hydro Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "proclear-toric-3pk"
+      "real_product_id": "proclear-toric-3pk",
+      "image_url": "/static/private-label/iwear-hydro-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-hydro-astigmatism2/iwear-hydro-astigmatism-3pk_left_3d.jpg"
     },
     {
       "slug": "iwear-hydro-presbyopia-3-pack",
       "name": "iWear Hydro Presbyopia 3 pack",
       "chain": "Brilleland",
-      "real_product_id": "proclear-multifocal-3pk"
+      "real_product_id": "proclear-multifocal-3pk",
+      "image_url": "/static/private-label/iwear-hydro-presbyopia-3-pack.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-hydro-presbyopia-3-pack/40000396_10-iwear_hydro_presbyopia_new25.jpg"
     },
     {
       "slug": "iwear-hydro-sphere",
       "name": "iWear Hydro Sphere",
       "chain": "Brilleland",
-      "real_product_id": "proclear-sphere-6pk"
+      "real_product_id": "proclear-sphere-6pk",
+      "image_url": "/static/private-label/iwear-hydro-sphere.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-hydro-sphere2/iwear-hydro-6pk_left_3d.jpg"
     },
     {
       "slug": "iwear-oxygen-astigmatism-xr-6-pack",
       "name": "iWear Oxygen Astigmatism XR 6 pack",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-xr-toric-6pk"
+      "real_product_id": "biofinity-xr-toric-6pk",
+      "image_url": "/static/private-label/iwear-oxygen-astigmatism-xr-6-pack.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-astigmatism-xr-6-pack/40000754_10-iwear-oxygen-astigmatism-xr-6pk_front_3d.jpg"
     },
     {
       "slug": "iwear-vivid",
       "name": "iWear Vivid",
       "chain": "Brilleland",
-      "real_product_id": "live-30pk"
+      "real_product_id": "live-30pk",
+      "image_url": "/static/private-label/iwear-vivid.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-vivid/iwear-vivid-30pk_front_3d.jpg"
     },
     {
       "slug": "iwear-connect",
       "name": "iWear Connect",
       "chain": "Brilleland",
-      "real_product_id": "miru-1month-6pk"
+      "real_product_id": "miru-1month-6pk",
+      "image_url": "/static/private-label/iwear-connect.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-connect/40000699_10-iwear_connect_new25.jpg"
     },
     {
       "slug": "iwear-connect-astigmatism",
       "name": "iWear Connect Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "miru-1month-toric-6pk"
+      "real_product_id": "miru-1month-toric-6pk",
+      "image_url": "/static/private-label/iwear-connect-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-connect-astigmatism/40000700_10-iwear_connect_astigmatism_new25.jpg"
     },
     {
       "slug": "iwear-connect-multifocal",
       "name": "iWear Connect Multifocal",
       "chain": "Brilleland",
-      "real_product_id": "miru-1month-multifocal-6pk"
+      "real_product_id": "miru-1month-multifocal-6pk",
+      "image_url": "/static/private-label/iwear-connect-multifocal.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-connect-multifocal/40000733_10-iwear_connect_presbyopia_new25.jpg"
     },
     {
       "slug": "iwear-flex",
       "name": "iWear Flex",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-upside-30pk"
+      "real_product_id": "miru-1day-upside-30pk",
+      "image_url": "/static/private-label/iwear-flex.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-flex/40000690_10-iwear_flex_new25.jpg"
     },
     {
       "slug": "iwear-flex-astigmatism",
       "name": "iWear Flex Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-upside-astigmatism-30pk"
+      "real_product_id": "miru-1day-upside-astigmatism-30pk",
+      "image_url": "/static/private-label/iwear-flex-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-flex-astigmatism/40000694_10-iwear_flex_toric_new25.jpg"
     },
     {
       "slug": "iwear-flex-multifocal",
       "name": "iWear Flex Multifocal",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-upside-multifocal-30pk"
+      "real_product_id": "miru-1day-upside-multifocal-30pk",
+      "image_url": "/static/private-label/iwear-flex-multifocal.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-flex-multifocal/40000694_10-iwear_flex_presbyopi_low_new25.jpg"
     },
     {
       "slug": "iwear-slim",
       "name": "iWear Slim",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-flatpack-30pk"
+      "real_product_id": "miru-1day-flatpack-30pk",
+      "image_url": "/static/private-label/iwear-slim.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-slim/40000672_10-iwear_slim_new25.jpg"
     },
     {
       "slug": "iwear-slim-astigmatism",
       "name": "iWear Slim Astigmatism",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-flatpack-astigmatism-30pk"
+      "real_product_id": "miru-1day-flatpack-astigmatism-30pk",
+      "image_url": "/static/private-label/iwear-slim-astigmatism.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-slim-astigmatism/40000674_10-iwear_slim_astigmatism_new25.jpg"
     },
     {
       "slug": "iwear-slim-multifocal",
       "name": "iWear Slim Multifocal",
       "chain": "Brilleland",
-      "real_product_id": "miru-1day-flatpack-multifocal-30pk"
+      "real_product_id": "miru-1day-flatpack-multifocal-30pk",
+      "image_url": "/static/private-label/iwear-slim-multifocal.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.brilleland.no/globalassets/from-pim/iwear-slim-multifocal/40000676_10-iwear_slim_presbyopia_new25.jpg"
     }
   ]
 }

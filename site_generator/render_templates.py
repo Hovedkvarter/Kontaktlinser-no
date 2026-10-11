@@ -3145,6 +3145,13 @@ def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy
     return f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}">'
 
 
+def _private_label_image(label: dict) -> str | None:
+    """Only use reviewed, licensed images of this exact private-label package."""
+    if label.get("image_source") in LICENSED_IMAGE_SOURCES:
+        return label.get("image_url")
+    return None
+
+
 def _product_image(product: dict) -> str | None:
     """Et manuelt kuratert produsent-pressebilde (manual_image i
     products_meta.json, se PRODUCT_IMAGES) vinner alltid over et
@@ -3155,7 +3162,14 @@ def _product_image(product: dict) -> str | None:
     manual = product.get("manual_image")
     if manual:
         return manual
-    return pick_product_image(product["offers"])
+    # Private-label packaging belongs on its own alias page, never on the
+    # manufacturer product (e.g. an iWear box is not a MIRU product photo).
+    private_brands = tuple(name.lower() for name in PRIVATE_LABEL_SUBBRANDS.values())
+    return pick_product_image([
+        offer for offer in product["offers"]
+        if not any(brand in re.sub(r"[^a-z0-9]", "", (offer.get("image_url") or "").lower())
+                   for brand in private_brands)
+    ])
 
 
 TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
@@ -11815,7 +11829,7 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
         return _render_product_tile(
             href=f'/private-label/{escape(label["slug"])}/',
             name=label["name"],
-            image_url=None,
+            image_url=_private_label_image(label),
             fallback_initials=subbrand[:2].upper(),
             category_label=categories.get(category_slug, {}).get("label"),
             secondary_line_html=real_product_link,
@@ -11823,11 +11837,11 @@ def render_private_label_brand_page(chain: str, labels: list[dict], products_by_
             other_count=len(real_product["offers"]) - 1,
             comparison_offers=reconcile_product(real_product["offers"], now),
             data_attr=f' data-category="{escape(category_slug)}"',
-            illustration_html=render_private_label_illustration(chain, label["slug"]),
+            illustration_html=None if _private_label_image(label) else render_private_label_illustration(chain, label["slug"]),
         )
 
     product_rows_html = "\n".join(render_row(r) for r in rows)
-    any_pli_illustration = any(render_private_label_illustration(chain, r["label"]["slug"]) for r in rows)
+    any_pli_illustration = any(not _private_label_image(r["label"]) and render_private_label_illustration(chain, r["label"]["slug"]) for r in rows)
 
     category_slugs = sorted({r["real_product"]["category_slug"] for r in rows if "category_slug" in r["real_product"]})
     category_chips = "".join(
@@ -12463,8 +12477,11 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         (f'/merke/{real_product["brand_slug"]}/', f'Alle {real_brand}-kontaktlinser'),
         (f'/kontaktlinser/{real_product["category_slug"]}/', f'Alle {category_label.lower()}'),
     ]
-    illustration = render_private_label_illustration(chain, label["slug"])
-    if illustration:
+    image_url = _private_label_image(label)
+    illustration = None if image_url else render_private_label_illustration(chain, label["slug"])
+    if image_url:
+        hero_visual = _img_tag(image_url, private_name, loading="eager")
+    elif illustration:
         hero_visual = (f'<div class="pli-tile-wrap">{illustration}</div>'
                        '<p class="illustration-note">Egen illustrasjon, ikke et ekte produktbilde. <a href="/om-produktillustrasjoner/">Les mer</a></p>')
     else:
@@ -12488,7 +12505,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 <title>{escape(private_name)} » Sammenlign og få billigste pris</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/')}
+{_og_meta(f'{private_name} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/', image_url)}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
@@ -12530,7 +12547,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
         <p class="hero-subtitle">Sammenlign priser</p>
         </div>
         <div class="hero-media-row">
-          <div class="hero-product-image pli-hero">{hero_visual}</div>
+          <div class="hero-product-image{' has-photo' if image_url else ' pli-hero'}">{hero_visual}</div>
           {winner_html}
         </div>
       </div>
@@ -12609,6 +12626,7 @@ def render_family_page(
         pack = _pack_size_from_id(product["id"])
         specs = {label: value for label, value in product.get("specs", [])}
         rows.append({
+            "image_url": _private_label_image(m["label"]) if m.get("label") and chain == "Brilleland" else _product_image(product),
             "display_name": m["display_name"],
             "href": m["href"],
             "product": product,
@@ -12667,6 +12685,7 @@ def render_family_page(
             "name": re.sub(r"\s+\d+-pack$", "", rep["display_name"]),
             "href": rep["href"],
             "product": rep["product"],
+            "image_url": rep["image_url"],
             "need_label": _VARIANT_NEED_LABELS.get(cat_slug, rep["category_label"]),
             "material": rep["material"],
             "wc": rep["wc"],
@@ -12697,7 +12716,7 @@ def render_family_page(
             cells += f'\n    <td class="spec-value">{dia_txt}</td>'
         if show_power_dim:
             cells += f'\n    <td class="spec-value">{escape(g["power_dim"])}</td>'
-        row_img = _product_image(g["product"])
+        row_img = g["image_url"]
         thumb_html = f'<img class="spec-row-thumb" src="{escape(row_img)}" alt=""{_dim_attrs(row_img)} loading="lazy">' if row_img else ''
         return f'''<tr>
     <th scope="row" class="spec-label"><a href="{escape(g["href"])}">{thumb_html}{escape(g["name"])}</a></th>
@@ -12735,7 +12754,7 @@ def render_family_page(
     # vi bruker selv og har i dag", ikke mock-designet.
     def product_tile(r: dict) -> str:
         return _render_product_tile(
-            href=r["href"], name=r["display_name"], image_url=_product_image(r["product"]),
+            href=r["href"], name=r["display_name"], image_url=r["image_url"],
             fallback_initials=r["product"]["brand_label"][:2].upper(),
             category_label=r["category_label"], secondary_line_html="",
             lowest=r["best"], other_count=max(0, r["n_offers"] - 1),
