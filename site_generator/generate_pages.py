@@ -384,7 +384,7 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
                 # som navn/slug for selve serie-siden.
                 primary_label = min(matched_labels, key=lambda l: len(l["slug"]))
                 pl_members = [
-                    {"display_name": label["name"], "href": f'/private-label/{label["slug"]}/', "product": products_by_id[label["real_product_id"]]}
+                    {"display_name": label["name"], "href": f'/private-label/{label["slug"]}/', "product": products_by_id[label["real_product_id"]], "label": label}
                     for label in matched_labels
                 ]
                 pl_html = render_family_page(primary_label["name"], primary_label["slug"], pl_members, catalog["categories"], chain=chain, now=now, price_history=price_history)
