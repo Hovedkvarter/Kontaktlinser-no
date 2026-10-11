@@ -2750,7 +2750,7 @@ tilpasning hos optiker som andre kontaktlinser – se vår
 """,
     "miru": """
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:0 0 12px;">Om Miru</h2>
-<p>Miru er den japanske produsenten Menicons daglinse-serie, med varianter for sfærisk
+<p>Miru er den japanske produsenten Menicons linser for daglig og månedlig utskifting, med varianter for sfærisk
 korreksjon, astigmatisme og alderssyn.</p>
 
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
