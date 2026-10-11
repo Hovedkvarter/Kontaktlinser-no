@@ -277,6 +277,24 @@
         "proclear-multifocal-xr-3pk",
         "proclear-toric-xr-3pk"
       ]
+    },
+    {
+      "slug": "miru-1month",
+      "name": "Miru 1month",
+      "member_ids": [
+        "miru-1month-6pk",
+        "miru-1month-toric-6pk",
+        "miru-1month-multifocal-6pk"
+      ]
+    },
+    {
+      "slug": "miru-1day-flatpack",
+      "name": "Miru 1day Flatpack",
+      "member_ids": [
+        "miru-1day-flatpack-astigmatism-30pk",
+        "miru-1day-flatpack-multifocal-30pk",
+        "miru-1day-flatpack-30pk"
+      ]
     }
   ]
 }
