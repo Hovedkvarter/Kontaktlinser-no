@@ -1,7 +1,8 @@
 # Brilleland / Adtraction – full feedgjennomgang 11. oktober 2026
 
-Status: klar for publisering via PR #24. Eier godkjente publisering av
-dokumenterte koblinger 11. oktober 2026; uavklarte oppføringer holdes tilbake. Denne revisjonen erstatter første runde
+Status: publisert 11. oktober 2026 via PR #24 (squash dad8767).
+Eier godkjente publisering av dokumenterte koblinger; uavklarte oppføringer
+holdes tilbake. Produksjonsbygg 38171173867 og Pages 38171251687 er grønne. Denne revisjonen erstatter første runde
 som bare omfattet 31 eksisterende produktkoblinger.
 
 ## Resultat
@@ -65,6 +66,8 @@ oppdatert bare for Brilleland; ingen unødvendig full scraping.
   avgrensning, Clariti 3 Add-avgrensning, TOTAL30 uten duplikat, gyldige
   produkt-/alias-ID-er, affiliate-HTML, frakt og butikkhistorikk.
 - Statisk generering og validate_build består: 207/207 produkter har priser.
+- Alle seks nye produktsider er kontrollert live: HTTP 200 og Brilleland-lenker
+  med sponsored. AquaComfort Multifocal-siden har ingen Brilleland-lenke.
 - Visuell nettleserkontroll gjenstår; Chromium mangler og nedlasting feilet.
 - Sporingsstruktur og HTML er kontrollert. Endelig redirect og faktisk
   provisjonsattribusjon er ikke bekreftet.
