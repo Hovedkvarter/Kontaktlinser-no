@@ -740,8 +740,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -1916,48 +1916,50 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="192.0" x2="672" y2="192.0" class="price-history-gridline" />
-      <text x="40" y="195.0" text-anchor="end" class="price-history-axis-label">150 kr</text>
-      <line x1="46" y1="132.0" x2="672" y2="132.0" class="price-history-gridline" />
-      <text x="40" y="135.0" text-anchor="end" class="price-history-axis-label">160 kr</text>
-      <line x1="46" y1="72.0" x2="672" y2="72.0" class="price-history-gridline" />
-      <text x="40" y="75.0" text-anchor="end" class="price-history-axis-label">170 kr</text>
-      <line x1="46" y1="12.0" x2="672" y2="12.0" class="price-history-gridline" />
-      <text x="40" y="15.0" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <path d="M46.0,204.0 L46.0,90.0 L67.6,90.0 L89.2,90.0 L110.8,90.0 L132.3,90.0 L153.9,90.0 L175.5,90.0 L197.1,90.0 L218.7,90.0 L240.3,108.0 L261.9,108.0 L283.4,108.0 L305.0,108.0 L326.6,108.0 L348.2,108.0 L369.8,90.0 L391.4,90.0 L413.0,90.0 L434.6,90.0 L456.1,90.0 L477.7,90.0 L499.3,90.0 L520.9,90.0 L542.5,90.0 L564.1,90.0 L585.7,90.0 L607.2,90.0 L628.8,90.0 L650.4,90.0 L672.0,90.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,90.0 67.6,90.0 89.2,90.0 110.8,90.0 132.3,90.0 153.9,90.0 175.5,90.0 197.1,90.0 218.7,90.0 240.3,108.0 261.9,108.0 283.4,108.0 305.0,108.0 326.6,108.0 348.2,108.0 369.8,90.0 391.4,90.0 413.0,90.0 434.6,90.0 456.1,90.0 477.7,90.0 499.3,90.0 520.9,90.0 542.5,90.0 564.1,90.0 585.7,90.0 607.2,90.0 628.8,90.0 650.4,90.0 672.0,90.0" class="price-history-line" />
-      <circle cx="672.0" cy="90.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="90.0" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="67.6" cy="90.0" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="89.2" cy="90.0" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="110.8" cy="90.0" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="132.3" cy="90.0" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="153.9" cy="90.0" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="175.5" cy="90.0" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="197.1" cy="90.0" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="218.7" cy="90.0" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="240.3" cy="108.0" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
-      <circle cx="261.9" cy="108.0" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
-      <circle cx="283.4" cy="108.0" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
-      <circle cx="305.0" cy="108.0" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
-      <circle cx="326.6" cy="108.0" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
-      <circle cx="348.2" cy="108.0" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
-      <circle cx="369.8" cy="90.0" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="391.4" cy="90.0" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="413.0" cy="90.0" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="434.6" cy="90.0" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="456.1" cy="90.0" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="477.7" cy="90.0" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="499.3" cy="90.0" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="520.9" cy="90.0" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="542.5" cy="90.0" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="564.1" cy="90.0" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="585.7" cy="90.0" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="607.2" cy="90.0" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="628.8" cy="90.0" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="650.4" cy="90.0" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="672.0" cy="90.0" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
-      <text x="672.0" y="82.0" text-anchor="end" class="price-history-current-label">167 kr</text>
+      <line x1="46" y1="180.7" x2="672" y2="180.7" class="price-history-gridline" />
+      <text x="40" y="183.7" text-anchor="end" class="price-history-axis-label">120 kr</text>
+      <line x1="46" y1="144.8" x2="672" y2="144.8" class="price-history-gridline" />
+      <text x="40" y="147.8" text-anchor="end" class="price-history-axis-label">140 kr</text>
+      <line x1="46" y1="108.9" x2="672" y2="108.9" class="price-history-gridline" />
+      <text x="40" y="111.9" text-anchor="end" class="price-history-axis-label">160 kr</text>
+      <line x1="46" y1="73.0" x2="672" y2="73.0" class="price-history-gridline" />
+      <text x="40" y="76.0" text-anchor="end" class="price-history-axis-label">180 kr</text>
+      <line x1="46" y1="37.0" x2="672" y2="37.0" class="price-history-gridline" />
+      <text x="40" y="40.0" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <path d="M46.0,204.0 L46.0,96.3 L67.6,96.3 L89.2,96.3 L110.8,96.3 L132.3,96.3 L153.9,96.3 L175.5,96.3 L197.1,96.3 L218.7,96.3 L240.3,101.7 L261.9,101.7 L283.4,101.7 L305.0,101.7 L326.6,101.7 L348.2,101.7 L369.8,96.3 L391.4,96.3 L413.0,96.3 L434.6,96.3 L456.1,96.3 L477.7,96.3 L499.3,96.3 L520.9,96.3 L542.5,96.3 L564.1,96.3 L585.7,96.3 L607.2,96.3 L628.8,96.3 L650.4,96.3 L672.0,96.3 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,96.3 67.6,96.3 89.2,96.3 110.8,96.3 132.3,96.3 153.9,96.3 175.5,96.3 197.1,96.3 218.7,96.3 240.3,101.7 261.9,101.7 283.4,101.7 305.0,101.7 326.6,101.7 348.2,101.7 369.8,96.3 391.4,96.3 413.0,96.3 434.6,96.3 456.1,96.3 477.7,96.3 499.3,96.3 520.9,96.3 542.5,96.3 564.1,96.3 585.7,96.3 607.2,96.3 628.8,96.3 650.4,96.3 672.0,96.3" class="price-history-line" />
+      <circle cx="672.0" cy="96.3" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="96.3" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="67.6" cy="96.3" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="89.2" cy="96.3" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="110.8" cy="96.3" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="132.3" cy="96.3" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="153.9" cy="96.3" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="175.5" cy="96.3" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="197.1" cy="96.3" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="218.7" cy="96.3" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="240.3" cy="101.7" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
+      <circle cx="261.9" cy="101.7" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
+      <circle cx="283.4" cy="101.7" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
+      <circle cx="305.0" cy="101.7" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
+      <circle cx="326.6" cy="101.7" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
+      <circle cx="348.2" cy="101.7" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
+      <circle cx="369.8" cy="96.3" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="391.4" cy="96.3" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="413.0" cy="96.3" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="434.6" cy="96.3" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="456.1" cy="96.3" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="477.7" cy="96.3" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="499.3" cy="96.3" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="520.9" cy="96.3" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="542.5" cy="96.3" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="564.1" cy="96.3" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="585.7" cy="96.3" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="607.2" cy="96.3" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="628.8" cy="96.3" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="650.4" cy="96.3" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="672.0" cy="96.3" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
+      <text x="672.0" y="88.3" text-anchor="end" class="price-history-current-label">167 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
       <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
@@ -1973,48 +1975,50 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="170.4" x2="332" y2="170.4" class="price-history-gridline" />
-      <text x="36" y="173.4" text-anchor="end" class="price-history-axis-label">150 kr</text>
-      <line x1="42" y1="117.6" x2="332" y2="117.6" class="price-history-gridline" />
-      <text x="36" y="120.6" text-anchor="end" class="price-history-axis-label">160 kr</text>
-      <line x1="42" y1="64.8" x2="332" y2="64.8" class="price-history-gridline" />
-      <text x="36" y="67.8" text-anchor="end" class="price-history-axis-label">170 kr</text>
-      <line x1="42" y1="12.0" x2="332" y2="12.0" class="price-history-gridline" />
-      <text x="36" y="15.0" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <path d="M42.0,181.0 L42.0,80.7 L52.0,80.7 L62.0,80.7 L72.0,80.7 L82.0,80.7 L92.0,80.7 L102.0,80.7 L112.0,80.7 L122.0,80.7 L132.0,96.5 L142.0,96.5 L152.0,96.5 L162.0,96.5 L172.0,96.5 L182.0,96.5 L192.0,80.7 L202.0,80.7 L212.0,80.7 L222.0,80.7 L232.0,80.7 L242.0,80.7 L252.0,80.7 L262.0,80.7 L272.0,80.7 L282.0,80.7 L292.0,80.7 L302.0,80.7 L312.0,80.7 L322.0,80.7 L332.0,80.7 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
-      <polyline points="42.0,80.7 52.0,80.7 62.0,80.7 72.0,80.7 82.0,80.7 92.0,80.7 102.0,80.7 112.0,80.7 122.0,80.7 132.0,96.5 142.0,96.5 152.0,96.5 162.0,96.5 172.0,96.5 182.0,96.5 192.0,80.7 202.0,80.7 212.0,80.7 222.0,80.7 232.0,80.7 242.0,80.7 252.0,80.7 262.0,80.7 272.0,80.7 282.0,80.7 292.0,80.7 302.0,80.7 312.0,80.7 322.0,80.7 332.0,80.7" class="price-history-line" />
-      <circle cx="332.0" cy="80.7" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="80.7" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="52.0" cy="80.7" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="62.0" cy="80.7" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="72.0" cy="80.7" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="82.0" cy="80.7" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="92.0" cy="80.7" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="102.0" cy="80.7" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="112.0" cy="80.7" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="122.0" cy="80.7" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="132.0" cy="96.5" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
-      <circle cx="142.0" cy="96.5" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
-      <circle cx="152.0" cy="96.5" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
-      <circle cx="162.0" cy="96.5" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
-      <circle cx="172.0" cy="96.5" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
-      <circle cx="182.0" cy="96.5" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
-      <circle cx="192.0" cy="80.7" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="202.0" cy="80.7" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="212.0" cy="80.7" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="222.0" cy="80.7" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="232.0" cy="80.7" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="242.0" cy="80.7" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="252.0" cy="80.7" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="262.0" cy="80.7" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="272.0" cy="80.7" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="282.0" cy="80.7" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="292.0" cy="80.7" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="302.0" cy="80.7" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="312.0" cy="80.7" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="322.0" cy="80.7" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="332.0" cy="80.7" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
-      <text x="332.0" y="72.7" text-anchor="end" class="price-history-current-label">167 kr</text>
+      <line x1="42" y1="160.5" x2="332" y2="160.5" class="price-history-gridline" />
+      <text x="36" y="163.5" text-anchor="end" class="price-history-axis-label">120 kr</text>
+      <line x1="42" y1="128.9" x2="332" y2="128.9" class="price-history-gridline" />
+      <text x="36" y="131.9" text-anchor="end" class="price-history-axis-label">140 kr</text>
+      <line x1="42" y1="97.3" x2="332" y2="97.3" class="price-history-gridline" />
+      <text x="36" y="100.3" text-anchor="end" class="price-history-axis-label">160 kr</text>
+      <line x1="42" y1="65.7" x2="332" y2="65.7" class="price-history-gridline" />
+      <text x="36" y="68.7" text-anchor="end" class="price-history-axis-label">180 kr</text>
+      <line x1="42" y1="34.0" x2="332" y2="34.0" class="price-history-gridline" />
+      <text x="36" y="37.0" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <path d="M42.0,181.0 L42.0,86.2 L52.0,86.2 L62.0,86.2 L72.0,86.2 L82.0,86.2 L92.0,86.2 L102.0,86.2 L112.0,86.2 L122.0,86.2 L132.0,90.9 L142.0,90.9 L152.0,90.9 L162.0,90.9 L172.0,90.9 L182.0,90.9 L192.0,86.2 L202.0,86.2 L212.0,86.2 L222.0,86.2 L232.0,86.2 L242.0,86.2 L252.0,86.2 L262.0,86.2 L272.0,86.2 L282.0,86.2 L292.0,86.2 L302.0,86.2 L312.0,86.2 L322.0,86.2 L332.0,86.2 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
+      <polyline points="42.0,86.2 52.0,86.2 62.0,86.2 72.0,86.2 82.0,86.2 92.0,86.2 102.0,86.2 112.0,86.2 122.0,86.2 132.0,90.9 142.0,90.9 152.0,90.9 162.0,90.9 172.0,90.9 182.0,90.9 192.0,86.2 202.0,86.2 212.0,86.2 222.0,86.2 232.0,86.2 242.0,86.2 252.0,86.2 262.0,86.2 272.0,86.2 282.0,86.2 292.0,86.2 302.0,86.2 312.0,86.2 322.0,86.2 332.0,86.2" class="price-history-line" />
+      <circle cx="332.0" cy="86.2" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="86.2" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="52.0" cy="86.2" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="62.0" cy="86.2" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="72.0" cy="86.2" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="82.0" cy="86.2" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="92.0" cy="86.2" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="102.0" cy="86.2" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="112.0" cy="86.2" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="122.0" cy="86.2" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="132.0" cy="90.9" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
+      <circle cx="142.0" cy="90.9" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
+      <circle cx="152.0" cy="90.9" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
+      <circle cx="162.0" cy="90.9" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
+      <circle cx="172.0" cy="90.9" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
+      <circle cx="182.0" cy="90.9" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
+      <circle cx="192.0" cy="86.2" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="202.0" cy="86.2" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="212.0" cy="86.2" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="222.0" cy="86.2" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="232.0" cy="86.2" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="242.0" cy="86.2" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="252.0" cy="86.2" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="262.0" cy="86.2" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="272.0" cy="86.2" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="282.0" cy="86.2" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="292.0" cy="86.2" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="302.0" cy="86.2" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="312.0" cy="86.2" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="322.0" cy="86.2" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="332.0" cy="86.2" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
+      <text x="332.0" y="78.2" text-anchor="end" class="price-history-current-label">167 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">26.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
@@ -2030,76 +2034,76 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="183.2" x2="672" y2="183.2" class="price-history-gridline" />
-      <text x="40" y="186.2" text-anchor="end" class="price-history-axis-label">160 kr</text>
-      <line x1="46" y1="137.1" x2="672" y2="137.1" class="price-history-gridline" />
-      <text x="40" y="140.1" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <line x1="46" y1="90.9" x2="672" y2="90.9" class="price-history-gridline" />
-      <text x="40" y="93.9" text-anchor="end" class="price-history-axis-label">200 kr</text>
-      <line x1="46" y1="44.8" x2="672" y2="44.8" class="price-history-gridline" />
-      <text x="40" y="47.8" text-anchor="end" class="price-history-axis-label">220 kr</text>
-      <path d="M46.0,204.0 L46.0,139.4 L57.0,24.0 L68.0,24.0 L78.9,24.0 L89.9,24.0 L100.9,24.0 L111.9,139.4 L122.9,139.4 L133.9,139.4 L144.8,174.0 L155.8,174.0 L166.8,174.0 L177.8,174.0 L188.8,174.0 L199.8,174.0 L210.7,174.0 L221.7,167.1 L232.7,167.1 L243.7,167.1 L254.7,167.1 L265.6,167.1 L276.6,167.1 L287.6,167.1 L298.6,167.1 L309.6,167.1 L320.6,167.1 L331.5,167.1 L342.5,167.1 L353.5,167.1 L364.5,167.1 L375.5,167.1 L386.5,167.1 L397.4,167.1 L408.4,167.1 L419.4,167.1 L430.4,167.1 L441.4,167.1 L452.4,174.0 L463.3,174.0 L474.3,174.0 L485.3,174.0 L496.3,174.0 L507.3,174.0 L518.2,167.1 L529.2,167.1 L540.2,167.1 L551.2,167.1 L562.2,167.1 L573.2,167.1 L584.1,167.1 L595.1,167.1 L606.1,167.1 L617.1,167.1 L628.1,167.1 L639.1,167.1 L650.0,167.1 L661.0,167.1 L672.0,167.1 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,139.4 57.0,24.0 68.0,24.0 78.9,24.0 89.9,24.0 100.9,24.0 111.9,139.4 122.9,139.4 133.9,139.4 144.8,174.0 155.8,174.0 166.8,174.0 177.8,174.0 188.8,174.0 199.8,174.0 210.7,174.0 221.7,167.1 232.7,167.1 243.7,167.1 254.7,167.1 265.6,167.1 276.6,167.1 287.6,167.1 298.6,167.1 309.6,167.1 320.6,167.1 331.5,167.1 342.5,167.1 353.5,167.1 364.5,167.1 375.5,167.1 386.5,167.1 397.4,167.1 408.4,167.1 419.4,167.1 430.4,167.1 441.4,167.1 452.4,174.0 463.3,174.0 474.3,174.0 485.3,174.0 496.3,174.0 507.3,174.0 518.2,167.1 529.2,167.1 540.2,167.1 551.2,167.1 562.2,167.1 573.2,167.1 584.1,167.1 595.1,167.1 606.1,167.1 617.1,167.1 628.1,167.1 639.1,167.1 650.0,167.1 661.0,167.1 672.0,167.1" class="price-history-line" />
-      <circle cx="672.0" cy="167.1" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="139.4" r="9" class="price-intel-hit"><title>15. august: 179 kr hos Lenson</title></circle>
-      <circle cx="57.0" cy="24.0" r="9" class="price-intel-hit"><title>16. august: 229 kr hos Lenson</title></circle>
-      <circle cx="68.0" cy="24.0" r="9" class="price-intel-hit"><title>17. august: 229 kr hos Lenson</title></circle>
-      <circle cx="78.9" cy="24.0" r="9" class="price-intel-hit"><title>18. august: 229 kr hos Lenson</title></circle>
-      <circle cx="89.9" cy="24.0" r="9" class="price-intel-hit"><title>19. august: 229 kr hos Lenson</title></circle>
-      <circle cx="100.9" cy="24.0" r="9" class="price-intel-hit"><title>20. august: 229 kr hos Lenson</title></circle>
-      <circle cx="111.9" cy="139.4" r="9" class="price-intel-hit"><title>21. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="122.9" cy="139.4" r="9" class="price-intel-hit"><title>22. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="133.9" cy="139.4" r="9" class="price-intel-hit"><title>23. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="144.8" cy="174.0" r="9" class="price-intel-hit"><title>24. august: 164 kr hos Lensway</title></circle>
-      <circle cx="155.8" cy="174.0" r="9" class="price-intel-hit"><title>25. august: 164 kr hos Lensway</title></circle>
-      <circle cx="166.8" cy="174.0" r="9" class="price-intel-hit"><title>26. august: 164 kr hos Lensway</title></circle>
-      <circle cx="177.8" cy="174.0" r="9" class="price-intel-hit"><title>27. august: 164 kr hos Lensway</title></circle>
-      <circle cx="188.8" cy="174.0" r="9" class="price-intel-hit"><title>28. august: 164 kr hos Lensway</title></circle>
-      <circle cx="199.8" cy="174.0" r="9" class="price-intel-hit"><title>29. august: 164 kr hos Lensway</title></circle>
-      <circle cx="210.7" cy="174.0" r="9" class="price-intel-hit"><title>30. august: 164 kr hos Lensway</title></circle>
-      <circle cx="221.7" cy="167.1" r="9" class="price-intel-hit"><title>31. august: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="232.7" cy="167.1" r="9" class="price-intel-hit"><title>1. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="243.7" cy="167.1" r="9" class="price-intel-hit"><title>2. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="254.7" cy="167.1" r="9" class="price-intel-hit"><title>3. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="265.6" cy="167.1" r="9" class="price-intel-hit"><title>4. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="276.6" cy="167.1" r="9" class="price-intel-hit"><title>5. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="287.6" cy="167.1" r="9" class="price-intel-hit"><title>6. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="298.6" cy="167.1" r="9" class="price-intel-hit"><title>7. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="309.6" cy="167.1" r="9" class="price-intel-hit"><title>8. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="320.6" cy="167.1" r="9" class="price-intel-hit"><title>9. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="331.5" cy="167.1" r="9" class="price-intel-hit"><title>10. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="342.5" cy="167.1" r="9" class="price-intel-hit"><title>11. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="353.5" cy="167.1" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="364.5" cy="167.1" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="375.5" cy="167.1" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="386.5" cy="167.1" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="397.4" cy="167.1" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="408.4" cy="167.1" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="419.4" cy="167.1" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="430.4" cy="167.1" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="441.4" cy="167.1" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="452.4" cy="174.0" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
-      <circle cx="463.3" cy="174.0" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
-      <circle cx="474.3" cy="174.0" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
-      <circle cx="485.3" cy="174.0" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
-      <circle cx="496.3" cy="174.0" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
-      <circle cx="507.3" cy="174.0" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
-      <circle cx="518.2" cy="167.1" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="529.2" cy="167.1" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="540.2" cy="167.1" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="551.2" cy="167.1" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="562.2" cy="167.1" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="573.2" cy="167.1" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="584.1" cy="167.1" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="595.1" cy="167.1" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="606.1" cy="167.1" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="617.1" cy="167.1" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="628.1" cy="167.1" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="639.1" cy="167.1" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="650.0" cy="167.1" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="661.0" cy="167.1" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="672.0" cy="167.1" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
-      <text x="672.0" y="159.1" text-anchor="end" class="price-history-current-label">167 kr</text>
+      <line x1="46" y1="182.5" x2="672" y2="182.5" class="price-history-gridline" />
+      <text x="40" y="185.5" text-anchor="end" class="price-history-axis-label">150 kr</text>
+      <line x1="46" y1="137.6" x2="672" y2="137.6" class="price-history-gridline" />
+      <text x="40" y="140.6" text-anchor="end" class="price-history-axis-label">175 kr</text>
+      <line x1="46" y1="92.7" x2="672" y2="92.7" class="price-history-gridline" />
+      <text x="40" y="95.7" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="46" y1="47.8" x2="672" y2="47.8" class="price-history-gridline" />
+      <text x="40" y="50.8" text-anchor="end" class="price-history-axis-label">225 kr</text>
+      <path d="M46.0,204.0 L46.0,130.4 L57.0,40.6 L68.0,40.6 L78.9,40.6 L89.9,40.6 L100.9,40.6 L111.9,130.4 L122.9,130.4 L133.9,130.4 L144.8,157.4 L155.8,157.4 L166.8,157.4 L177.8,157.4 L188.8,157.4 L199.8,157.4 L210.7,157.4 L221.7,152.0 L232.7,152.0 L243.7,152.0 L254.7,152.0 L265.6,152.0 L276.6,152.0 L287.6,152.0 L298.6,152.0 L309.6,152.0 L320.6,152.0 L331.5,152.0 L342.5,152.0 L353.5,152.0 L364.5,152.0 L375.5,152.0 L386.5,152.0 L397.4,152.0 L408.4,152.0 L419.4,152.0 L430.4,152.0 L441.4,152.0 L452.4,157.4 L463.3,157.4 L474.3,157.4 L485.3,157.4 L496.3,157.4 L507.3,157.4 L518.2,152.0 L529.2,152.0 L540.2,152.0 L551.2,152.0 L562.2,152.0 L573.2,152.0 L584.1,152.0 L595.1,152.0 L606.1,152.0 L617.1,152.0 L628.1,152.0 L639.1,152.0 L650.0,152.0 L661.0,152.0 L672.0,152.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,130.4 57.0,40.6 68.0,40.6 78.9,40.6 89.9,40.6 100.9,40.6 111.9,130.4 122.9,130.4 133.9,130.4 144.8,157.4 155.8,157.4 166.8,157.4 177.8,157.4 188.8,157.4 199.8,157.4 210.7,157.4 221.7,152.0 232.7,152.0 243.7,152.0 254.7,152.0 265.6,152.0 276.6,152.0 287.6,152.0 298.6,152.0 309.6,152.0 320.6,152.0 331.5,152.0 342.5,152.0 353.5,152.0 364.5,152.0 375.5,152.0 386.5,152.0 397.4,152.0 408.4,152.0 419.4,152.0 430.4,152.0 441.4,152.0 452.4,157.4 463.3,157.4 474.3,157.4 485.3,157.4 496.3,157.4 507.3,157.4 518.2,152.0 529.2,152.0 540.2,152.0 551.2,152.0 562.2,152.0 573.2,152.0 584.1,152.0 595.1,152.0 606.1,152.0 617.1,152.0 628.1,152.0 639.1,152.0 650.0,152.0 661.0,152.0 672.0,152.0" class="price-history-line" />
+      <circle cx="672.0" cy="152.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="130.4" r="9" class="price-intel-hit"><title>15. august: 179 kr hos Lenson</title></circle>
+      <circle cx="57.0" cy="40.6" r="9" class="price-intel-hit"><title>16. august: 229 kr hos Lenson</title></circle>
+      <circle cx="68.0" cy="40.6" r="9" class="price-intel-hit"><title>17. august: 229 kr hos Lenson</title></circle>
+      <circle cx="78.9" cy="40.6" r="9" class="price-intel-hit"><title>18. august: 229 kr hos Lenson</title></circle>
+      <circle cx="89.9" cy="40.6" r="9" class="price-intel-hit"><title>19. august: 229 kr hos Lenson</title></circle>
+      <circle cx="100.9" cy="40.6" r="9" class="price-intel-hit"><title>20. august: 229 kr hos Lenson</title></circle>
+      <circle cx="111.9" cy="130.4" r="9" class="price-intel-hit"><title>21. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="122.9" cy="130.4" r="9" class="price-intel-hit"><title>22. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="133.9" cy="130.4" r="9" class="price-intel-hit"><title>23. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="144.8" cy="157.4" r="9" class="price-intel-hit"><title>24. august: 164 kr hos Lensway</title></circle>
+      <circle cx="155.8" cy="157.4" r="9" class="price-intel-hit"><title>25. august: 164 kr hos Lensway</title></circle>
+      <circle cx="166.8" cy="157.4" r="9" class="price-intel-hit"><title>26. august: 164 kr hos Lensway</title></circle>
+      <circle cx="177.8" cy="157.4" r="9" class="price-intel-hit"><title>27. august: 164 kr hos Lensway</title></circle>
+      <circle cx="188.8" cy="157.4" r="9" class="price-intel-hit"><title>28. august: 164 kr hos Lensway</title></circle>
+      <circle cx="199.8" cy="157.4" r="9" class="price-intel-hit"><title>29. august: 164 kr hos Lensway</title></circle>
+      <circle cx="210.7" cy="157.4" r="9" class="price-intel-hit"><title>30. august: 164 kr hos Lensway</title></circle>
+      <circle cx="221.7" cy="152.0" r="9" class="price-intel-hit"><title>31. august: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="232.7" cy="152.0" r="9" class="price-intel-hit"><title>1. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="243.7" cy="152.0" r="9" class="price-intel-hit"><title>2. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="254.7" cy="152.0" r="9" class="price-intel-hit"><title>3. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="265.6" cy="152.0" r="9" class="price-intel-hit"><title>4. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="276.6" cy="152.0" r="9" class="price-intel-hit"><title>5. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="287.6" cy="152.0" r="9" class="price-intel-hit"><title>6. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="298.6" cy="152.0" r="9" class="price-intel-hit"><title>7. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="309.6" cy="152.0" r="9" class="price-intel-hit"><title>8. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="320.6" cy="152.0" r="9" class="price-intel-hit"><title>9. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="331.5" cy="152.0" r="9" class="price-intel-hit"><title>10. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="342.5" cy="152.0" r="9" class="price-intel-hit"><title>11. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="353.5" cy="152.0" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="364.5" cy="152.0" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="375.5" cy="152.0" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="386.5" cy="152.0" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="397.4" cy="152.0" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="408.4" cy="152.0" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="419.4" cy="152.0" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="430.4" cy="152.0" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="441.4" cy="152.0" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="452.4" cy="157.4" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
+      <circle cx="463.3" cy="157.4" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
+      <circle cx="474.3" cy="157.4" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
+      <circle cx="485.3" cy="157.4" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
+      <circle cx="496.3" cy="157.4" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
+      <circle cx="507.3" cy="157.4" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
+      <circle cx="518.2" cy="152.0" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="529.2" cy="152.0" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="540.2" cy="152.0" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="551.2" cy="152.0" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="562.2" cy="152.0" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="573.2" cy="152.0" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="584.1" cy="152.0" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="595.1" cy="152.0" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="606.1" cy="152.0" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="617.1" cy="152.0" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="628.1" cy="152.0" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="639.1" cy="152.0" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="650.0" cy="152.0" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="661.0" cy="152.0" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="672.0" cy="152.0" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
+      <text x="672.0" y="144.0" text-anchor="end" class="price-history-current-label">167 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.08</text>
       <text x="133.9" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.08</text>
       <text x="221.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">31.08</text>
@@ -2115,76 +2119,76 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="162.7" x2="332" y2="162.7" class="price-history-gridline" />
-      <text x="36" y="165.7" text-anchor="end" class="price-history-axis-label">160 kr</text>
-      <line x1="42" y1="122.1" x2="332" y2="122.1" class="price-history-gridline" />
-      <text x="36" y="125.1" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <line x1="42" y1="81.5" x2="332" y2="81.5" class="price-history-gridline" />
-      <text x="36" y="84.5" text-anchor="end" class="price-history-axis-label">200 kr</text>
-      <line x1="42" y1="40.8" x2="332" y2="40.8" class="price-history-gridline" />
-      <text x="36" y="43.8" text-anchor="end" class="price-history-axis-label">220 kr</text>
-      <path d="M42.0,181.0 L42.0,124.1 L47.1,22.6 L52.2,22.6 L57.3,22.6 L62.4,22.6 L67.4,22.6 L72.5,124.1 L77.6,124.1 L82.7,124.1 L87.8,154.6 L92.9,154.6 L98.0,154.6 L103.1,154.6 L108.1,154.6 L113.2,154.6 L118.3,154.6 L123.4,148.5 L128.5,148.5 L133.6,148.5 L138.7,148.5 L143.8,148.5 L148.8,148.5 L153.9,148.5 L159.0,148.5 L164.1,148.5 L169.2,148.5 L174.3,148.5 L179.4,148.5 L184.5,148.5 L189.5,148.5 L194.6,148.5 L199.7,148.5 L204.8,148.5 L209.9,148.5 L215.0,148.5 L220.1,148.5 L225.2,148.5 L230.2,154.6 L235.3,154.6 L240.4,154.6 L245.5,154.6 L250.6,154.6 L255.7,154.6 L260.8,148.5 L265.9,148.5 L270.9,148.5 L276.0,148.5 L281.1,148.5 L286.2,148.5 L291.3,148.5 L296.4,148.5 L301.5,148.5 L306.6,148.5 L311.6,148.5 L316.7,148.5 L321.8,148.5 L326.9,148.5 L332.0,148.5 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,124.1 47.1,22.6 52.2,22.6 57.3,22.6 62.4,22.6 67.4,22.6 72.5,124.1 77.6,124.1 82.7,124.1 87.8,154.6 92.9,154.6 98.0,154.6 103.1,154.6 108.1,154.6 113.2,154.6 118.3,154.6 123.4,148.5 128.5,148.5 133.6,148.5 138.7,148.5 143.8,148.5 148.8,148.5 153.9,148.5 159.0,148.5 164.1,148.5 169.2,148.5 174.3,148.5 179.4,148.5 184.5,148.5 189.5,148.5 194.6,148.5 199.7,148.5 204.8,148.5 209.9,148.5 215.0,148.5 220.1,148.5 225.2,148.5 230.2,154.6 235.3,154.6 240.4,154.6 245.5,154.6 250.6,154.6 255.7,154.6 260.8,148.5 265.9,148.5 270.9,148.5 276.0,148.5 281.1,148.5 286.2,148.5 291.3,148.5 296.4,148.5 301.5,148.5 306.6,148.5 311.6,148.5 316.7,148.5 321.8,148.5 326.9,148.5 332.0,148.5" class="price-history-line" />
-      <circle cx="332.0" cy="148.5" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="124.1" r="9" class="price-intel-hit"><title>15. august: 179 kr hos Lenson</title></circle>
-      <circle cx="47.1" cy="22.6" r="9" class="price-intel-hit"><title>16. august: 229 kr hos Lenson</title></circle>
-      <circle cx="52.2" cy="22.6" r="9" class="price-intel-hit"><title>17. august: 229 kr hos Lenson</title></circle>
-      <circle cx="57.3" cy="22.6" r="9" class="price-intel-hit"><title>18. august: 229 kr hos Lenson</title></circle>
-      <circle cx="62.4" cy="22.6" r="9" class="price-intel-hit"><title>19. august: 229 kr hos Lenson</title></circle>
-      <circle cx="67.4" cy="22.6" r="9" class="price-intel-hit"><title>20. august: 229 kr hos Lenson</title></circle>
-      <circle cx="72.5" cy="124.1" r="9" class="price-intel-hit"><title>21. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="77.6" cy="124.1" r="9" class="price-intel-hit"><title>22. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="82.7" cy="124.1" r="9" class="price-intel-hit"><title>23. august: 179 kr hos Shopping4net</title></circle>
-      <circle cx="87.8" cy="154.6" r="9" class="price-intel-hit"><title>24. august: 164 kr hos Lensway</title></circle>
-      <circle cx="92.9" cy="154.6" r="9" class="price-intel-hit"><title>25. august: 164 kr hos Lensway</title></circle>
-      <circle cx="98.0" cy="154.6" r="9" class="price-intel-hit"><title>26. august: 164 kr hos Lensway</title></circle>
-      <circle cx="103.1" cy="154.6" r="9" class="price-intel-hit"><title>27. august: 164 kr hos Lensway</title></circle>
-      <circle cx="108.1" cy="154.6" r="9" class="price-intel-hit"><title>28. august: 164 kr hos Lensway</title></circle>
-      <circle cx="113.2" cy="154.6" r="9" class="price-intel-hit"><title>29. august: 164 kr hos Lensway</title></circle>
-      <circle cx="118.3" cy="154.6" r="9" class="price-intel-hit"><title>30. august: 164 kr hos Lensway</title></circle>
-      <circle cx="123.4" cy="148.5" r="9" class="price-intel-hit"><title>31. august: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="128.5" cy="148.5" r="9" class="price-intel-hit"><title>1. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="133.6" cy="148.5" r="9" class="price-intel-hit"><title>2. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="138.7" cy="148.5" r="9" class="price-intel-hit"><title>3. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="143.8" cy="148.5" r="9" class="price-intel-hit"><title>4. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="148.8" cy="148.5" r="9" class="price-intel-hit"><title>5. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="153.9" cy="148.5" r="9" class="price-intel-hit"><title>6. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="159.0" cy="148.5" r="9" class="price-intel-hit"><title>7. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="164.1" cy="148.5" r="9" class="price-intel-hit"><title>8. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="169.2" cy="148.5" r="9" class="price-intel-hit"><title>9. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="174.3" cy="148.5" r="9" class="price-intel-hit"><title>10. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="179.4" cy="148.5" r="9" class="price-intel-hit"><title>11. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="184.5" cy="148.5" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="189.5" cy="148.5" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="194.6" cy="148.5" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="199.7" cy="148.5" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="204.8" cy="148.5" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="209.9" cy="148.5" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="215.0" cy="148.5" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="220.1" cy="148.5" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="225.2" cy="148.5" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="230.2" cy="154.6" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
-      <circle cx="235.3" cy="154.6" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
-      <circle cx="240.4" cy="154.6" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
-      <circle cx="245.5" cy="154.6" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
-      <circle cx="250.6" cy="154.6" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
-      <circle cx="255.7" cy="154.6" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
-      <circle cx="260.8" cy="148.5" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="265.9" cy="148.5" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="270.9" cy="148.5" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="276.0" cy="148.5" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="281.1" cy="148.5" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="286.2" cy="148.5" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="291.3" cy="148.5" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="296.4" cy="148.5" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="301.5" cy="148.5" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="306.6" cy="148.5" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="311.6" cy="148.5" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="316.7" cy="148.5" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="321.8" cy="148.5" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="326.9" cy="148.5" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
-      <circle cx="332.0" cy="148.5" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
-      <text x="332.0" y="140.5" text-anchor="end" class="price-history-current-label">167 kr</text>
+      <line x1="42" y1="162.1" x2="332" y2="162.1" class="price-history-gridline" />
+      <text x="36" y="165.1" text-anchor="end" class="price-history-axis-label">150 kr</text>
+      <line x1="42" y1="122.6" x2="332" y2="122.6" class="price-history-gridline" />
+      <text x="36" y="125.6" text-anchor="end" class="price-history-axis-label">175 kr</text>
+      <line x1="42" y1="83.0" x2="332" y2="83.0" class="price-history-gridline" />
+      <text x="36" y="86.0" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="42" y1="43.5" x2="332" y2="43.5" class="price-history-gridline" />
+      <text x="36" y="46.5" text-anchor="end" class="price-history-axis-label">225 kr</text>
+      <path d="M42.0,181.0 L42.0,116.2 L47.1,37.2 L52.2,37.2 L57.3,37.2 L62.4,37.2 L67.4,37.2 L72.5,116.2 L77.6,116.2 L82.7,116.2 L87.8,140.0 L92.9,140.0 L98.0,140.0 L103.1,140.0 L108.1,140.0 L113.2,140.0 L118.3,140.0 L123.4,135.2 L128.5,135.2 L133.6,135.2 L138.7,135.2 L143.8,135.2 L148.8,135.2 L153.9,135.2 L159.0,135.2 L164.1,135.2 L169.2,135.2 L174.3,135.2 L179.4,135.2 L184.5,135.2 L189.5,135.2 L194.6,135.2 L199.7,135.2 L204.8,135.2 L209.9,135.2 L215.0,135.2 L220.1,135.2 L225.2,135.2 L230.2,140.0 L235.3,140.0 L240.4,140.0 L245.5,140.0 L250.6,140.0 L255.7,140.0 L260.8,135.2 L265.9,135.2 L270.9,135.2 L276.0,135.2 L281.1,135.2 L286.2,135.2 L291.3,135.2 L296.4,135.2 L301.5,135.2 L306.6,135.2 L311.6,135.2 L316.7,135.2 L321.8,135.2 L326.9,135.2 L332.0,135.2 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,116.2 47.1,37.2 52.2,37.2 57.3,37.2 62.4,37.2 67.4,37.2 72.5,116.2 77.6,116.2 82.7,116.2 87.8,140.0 92.9,140.0 98.0,140.0 103.1,140.0 108.1,140.0 113.2,140.0 118.3,140.0 123.4,135.2 128.5,135.2 133.6,135.2 138.7,135.2 143.8,135.2 148.8,135.2 153.9,135.2 159.0,135.2 164.1,135.2 169.2,135.2 174.3,135.2 179.4,135.2 184.5,135.2 189.5,135.2 194.6,135.2 199.7,135.2 204.8,135.2 209.9,135.2 215.0,135.2 220.1,135.2 225.2,135.2 230.2,140.0 235.3,140.0 240.4,140.0 245.5,140.0 250.6,140.0 255.7,140.0 260.8,135.2 265.9,135.2 270.9,135.2 276.0,135.2 281.1,135.2 286.2,135.2 291.3,135.2 296.4,135.2 301.5,135.2 306.6,135.2 311.6,135.2 316.7,135.2 321.8,135.2 326.9,135.2 332.0,135.2" class="price-history-line" />
+      <circle cx="332.0" cy="135.2" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="116.2" r="9" class="price-intel-hit"><title>15. august: 179 kr hos Lenson</title></circle>
+      <circle cx="47.1" cy="37.2" r="9" class="price-intel-hit"><title>16. august: 229 kr hos Lenson</title></circle>
+      <circle cx="52.2" cy="37.2" r="9" class="price-intel-hit"><title>17. august: 229 kr hos Lenson</title></circle>
+      <circle cx="57.3" cy="37.2" r="9" class="price-intel-hit"><title>18. august: 229 kr hos Lenson</title></circle>
+      <circle cx="62.4" cy="37.2" r="9" class="price-intel-hit"><title>19. august: 229 kr hos Lenson</title></circle>
+      <circle cx="67.4" cy="37.2" r="9" class="price-intel-hit"><title>20. august: 229 kr hos Lenson</title></circle>
+      <circle cx="72.5" cy="116.2" r="9" class="price-intel-hit"><title>21. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="77.6" cy="116.2" r="9" class="price-intel-hit"><title>22. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="82.7" cy="116.2" r="9" class="price-intel-hit"><title>23. august: 179 kr hos Shopping4net</title></circle>
+      <circle cx="87.8" cy="140.0" r="9" class="price-intel-hit"><title>24. august: 164 kr hos Lensway</title></circle>
+      <circle cx="92.9" cy="140.0" r="9" class="price-intel-hit"><title>25. august: 164 kr hos Lensway</title></circle>
+      <circle cx="98.0" cy="140.0" r="9" class="price-intel-hit"><title>26. august: 164 kr hos Lensway</title></circle>
+      <circle cx="103.1" cy="140.0" r="9" class="price-intel-hit"><title>27. august: 164 kr hos Lensway</title></circle>
+      <circle cx="108.1" cy="140.0" r="9" class="price-intel-hit"><title>28. august: 164 kr hos Lensway</title></circle>
+      <circle cx="113.2" cy="140.0" r="9" class="price-intel-hit"><title>29. august: 164 kr hos Lensway</title></circle>
+      <circle cx="118.3" cy="140.0" r="9" class="price-intel-hit"><title>30. august: 164 kr hos Lensway</title></circle>
+      <circle cx="123.4" cy="135.2" r="9" class="price-intel-hit"><title>31. august: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="128.5" cy="135.2" r="9" class="price-intel-hit"><title>1. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="133.6" cy="135.2" r="9" class="price-intel-hit"><title>2. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="138.7" cy="135.2" r="9" class="price-intel-hit"><title>3. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="143.8" cy="135.2" r="9" class="price-intel-hit"><title>4. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="148.8" cy="135.2" r="9" class="price-intel-hit"><title>5. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="153.9" cy="135.2" r="9" class="price-intel-hit"><title>6. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="159.0" cy="135.2" r="9" class="price-intel-hit"><title>7. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="164.1" cy="135.2" r="9" class="price-intel-hit"><title>8. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="169.2" cy="135.2" r="9" class="price-intel-hit"><title>9. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="174.3" cy="135.2" r="9" class="price-intel-hit"><title>10. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="179.4" cy="135.2" r="9" class="price-intel-hit"><title>11. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="184.5" cy="135.2" r="9" class="price-intel-hit"><title>12. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="189.5" cy="135.2" r="9" class="price-intel-hit"><title>13. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="194.6" cy="135.2" r="9" class="price-intel-hit"><title>14. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="199.7" cy="135.2" r="9" class="price-intel-hit"><title>15. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="204.8" cy="135.2" r="9" class="price-intel-hit"><title>16. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="209.9" cy="135.2" r="9" class="price-intel-hit"><title>17. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="215.0" cy="135.2" r="9" class="price-intel-hit"><title>18. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="220.1" cy="135.2" r="9" class="price-intel-hit"><title>19. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="225.2" cy="135.2" r="9" class="price-intel-hit"><title>20. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="230.2" cy="140.0" r="9" class="price-intel-hit"><title>21. september: 164 kr hos Lenson</title></circle>
+      <circle cx="235.3" cy="140.0" r="9" class="price-intel-hit"><title>22. september: 164 kr hos Lenson</title></circle>
+      <circle cx="240.4" cy="140.0" r="9" class="price-intel-hit"><title>23. september: 164 kr hos Lenson</title></circle>
+      <circle cx="245.5" cy="140.0" r="9" class="price-intel-hit"><title>24. september: 164 kr hos Lenson</title></circle>
+      <circle cx="250.6" cy="140.0" r="9" class="price-intel-hit"><title>25. september: 164 kr hos Lenson</title></circle>
+      <circle cx="255.7" cy="140.0" r="9" class="price-intel-hit"><title>26. september: 164 kr hos Lenson</title></circle>
+      <circle cx="260.8" cy="135.2" r="9" class="price-intel-hit"><title>27. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="265.9" cy="135.2" r="9" class="price-intel-hit"><title>28. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="270.9" cy="135.2" r="9" class="price-intel-hit"><title>29. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="276.0" cy="135.2" r="9" class="price-intel-hit"><title>30. september: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="281.1" cy="135.2" r="9" class="price-intel-hit"><title>1. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="286.2" cy="135.2" r="9" class="price-intel-hit"><title>2. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="291.3" cy="135.2" r="9" class="price-intel-hit"><title>3. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="296.4" cy="135.2" r="9" class="price-intel-hit"><title>4. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="301.5" cy="135.2" r="9" class="price-intel-hit"><title>5. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="306.6" cy="135.2" r="9" class="price-intel-hit"><title>6. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="311.6" cy="135.2" r="9" class="price-intel-hit"><title>7. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="316.7" cy="135.2" r="9" class="price-intel-hit"><title>8. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="321.8" cy="135.2" r="9" class="price-intel-hit"><title>9. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="326.9" cy="135.2" r="9" class="price-intel-hit"><title>10. oktober: 167 kr hos Apotekhjem</title></circle>
+      <circle cx="332.0" cy="135.2" r="9" class="price-intel-hit"><title>11. oktober: 167 kr hos Apotekhjem</title></circle>
+      <text x="332.0" y="127.2" text-anchor="end" class="price-history-current-label">167 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.08</text>
       <text x="184.5" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">12.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>

@@ -761,8 +761,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -2076,16 +2076,16 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="195.6" x2="672" y2="195.6" class="price-history-gridline" />
-      <text x="40" y="198.6" text-anchor="end" class="price-history-axis-label">390 kr</text>
-      <line x1="46" y1="155.4" x2="672" y2="155.4" class="price-history-gridline" />
-      <text x="40" y="158.4" text-anchor="end" class="price-history-axis-label">400 kr</text>
-      <line x1="46" y1="115.1" x2="672" y2="115.1" class="price-history-gridline" />
-      <text x="40" y="118.1" text-anchor="end" class="price-history-axis-label">410 kr</text>
-      <line x1="46" y1="74.8" x2="672" y2="74.8" class="price-history-gridline" />
-      <text x="40" y="77.8" text-anchor="end" class="price-history-axis-label">420 kr</text>
-      <line x1="46" y1="34.6" x2="672" y2="34.6" class="price-history-gridline" />
-      <text x="40" y="37.6" text-anchor="end" class="price-history-axis-label">430 kr</text>
+      <line x1="46" y1="181.6" x2="672" y2="181.6" class="price-history-gridline" />
+      <text x="40" y="184.6" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="46" y1="145.4" x2="672" y2="145.4" class="price-history-gridline" />
+      <text x="40" y="148.4" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="46" y1="109.1" x2="672" y2="109.1" class="price-history-gridline" />
+      <text x="40" y="112.1" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="46" y1="72.9" x2="672" y2="72.9" class="price-history-gridline" />
+      <text x="40" y="75.9" text-anchor="end" class="price-history-axis-label">450 kr</text>
+      <line x1="46" y1="36.7" x2="672" y2="36.7" class="price-history-gridline" />
+      <text x="40" y="39.7" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <path d="M46.0,204.0 L46.0,99.0 L67.6,99.0 L89.2,99.0 L110.8,99.0 L132.3,99.0 L153.9,99.0 L175.5,99.0 L197.1,99.0 L218.7,99.0 L240.3,99.0 L261.9,99.0 L283.4,99.0 L305.0,99.0 L326.6,99.0 L348.2,99.0 L369.8,99.0 L391.4,99.0 L413.0,99.0 L434.6,99.0 L456.1,99.0 L477.7,99.0 L499.3,99.0 L520.9,99.0 L542.5,99.0 L564.1,99.0 L585.7,99.0 L607.2,99.0 L628.8,99.0 L650.4,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
       <polyline points="46.0,99.0 67.6,99.0 89.2,99.0 110.8,99.0 132.3,99.0 153.9,99.0 175.5,99.0 197.1,99.0 218.7,99.0 240.3,99.0 261.9,99.0 283.4,99.0 305.0,99.0 326.6,99.0 348.2,99.0 369.8,99.0 391.4,99.0 413.0,99.0 434.6,99.0 456.1,99.0 477.7,99.0 499.3,99.0 520.9,99.0 542.5,99.0 564.1,99.0 585.7,99.0 607.2,99.0 628.8,99.0 650.4,99.0 672.0,99.0" class="price-history-line" />
       <circle cx="672.0" cy="99.0" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -2135,16 +2135,16 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="173.6" x2="332" y2="173.6" class="price-history-gridline" />
-      <text x="36" y="176.6" text-anchor="end" class="price-history-axis-label">390 kr</text>
-      <line x1="42" y1="138.2" x2="332" y2="138.2" class="price-history-gridline" />
-      <text x="36" y="141.2" text-anchor="end" class="price-history-axis-label">400 kr</text>
-      <line x1="42" y1="102.8" x2="332" y2="102.8" class="price-history-gridline" />
-      <text x="36" y="105.8" text-anchor="end" class="price-history-axis-label">410 kr</text>
-      <line x1="42" y1="67.3" x2="332" y2="67.3" class="price-history-gridline" />
-      <text x="36" y="70.3" text-anchor="end" class="price-history-axis-label">420 kr</text>
-      <line x1="42" y1="31.9" x2="332" y2="31.9" class="price-history-gridline" />
-      <text x="36" y="34.9" text-anchor="end" class="price-history-axis-label">430 kr</text>
+      <line x1="42" y1="161.3" x2="332" y2="161.3" class="price-history-gridline" />
+      <text x="36" y="164.3" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="42" y1="129.4" x2="332" y2="129.4" class="price-history-gridline" />
+      <text x="36" y="132.4" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="42" y1="97.5" x2="332" y2="97.5" class="price-history-gridline" />
+      <text x="36" y="100.5" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="42" y1="65.6" x2="332" y2="65.6" class="price-history-gridline" />
+      <text x="36" y="68.6" text-anchor="end" class="price-history-axis-label">450 kr</text>
+      <line x1="42" y1="33.7" x2="332" y2="33.7" class="price-history-gridline" />
+      <text x="36" y="36.7" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <path d="M42.0,181.0 L42.0,88.6 L52.0,88.6 L62.0,88.6 L72.0,88.6 L82.0,88.6 L92.0,88.6 L102.0,88.6 L112.0,88.6 L122.0,88.6 L132.0,88.6 L142.0,88.6 L152.0,88.6 L162.0,88.6 L172.0,88.6 L182.0,88.6 L192.0,88.6 L202.0,88.6 L212.0,88.6 L222.0,88.6 L232.0,88.6 L242.0,88.6 L252.0,88.6 L262.0,88.6 L272.0,88.6 L282.0,88.6 L292.0,88.6 L302.0,88.6 L312.0,88.6 L322.0,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
       <polyline points="42.0,88.6 52.0,88.6 62.0,88.6 72.0,88.6 82.0,88.6 92.0,88.6 102.0,88.6 112.0,88.6 122.0,88.6 132.0,88.6 142.0,88.6 152.0,88.6 162.0,88.6 172.0,88.6 182.0,88.6 192.0,88.6 202.0,88.6 212.0,88.6 222.0,88.6 232.0,88.6 242.0,88.6 252.0,88.6 262.0,88.6 272.0,88.6 282.0,88.6 292.0,88.6 302.0,88.6 312.0,88.6 322.0,88.6 332.0,88.6" class="price-history-line" />
       <circle cx="332.0" cy="88.6" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -2194,16 +2194,16 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="195.6" x2="672" y2="195.6" class="price-history-gridline" />
-      <text x="40" y="198.6" text-anchor="end" class="price-history-axis-label">390 kr</text>
-      <line x1="46" y1="155.4" x2="672" y2="155.4" class="price-history-gridline" />
-      <text x="40" y="158.4" text-anchor="end" class="price-history-axis-label">400 kr</text>
-      <line x1="46" y1="115.1" x2="672" y2="115.1" class="price-history-gridline" />
-      <text x="40" y="118.1" text-anchor="end" class="price-history-axis-label">410 kr</text>
-      <line x1="46" y1="74.8" x2="672" y2="74.8" class="price-history-gridline" />
-      <text x="40" y="77.8" text-anchor="end" class="price-history-axis-label">420 kr</text>
-      <line x1="46" y1="34.6" x2="672" y2="34.6" class="price-history-gridline" />
-      <text x="40" y="37.6" text-anchor="end" class="price-history-axis-label">430 kr</text>
+      <line x1="46" y1="181.6" x2="672" y2="181.6" class="price-history-gridline" />
+      <text x="40" y="184.6" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="46" y1="145.4" x2="672" y2="145.4" class="price-history-gridline" />
+      <text x="40" y="148.4" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="46" y1="109.1" x2="672" y2="109.1" class="price-history-gridline" />
+      <text x="40" y="112.1" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="46" y1="72.9" x2="672" y2="72.9" class="price-history-gridline" />
+      <text x="40" y="75.9" text-anchor="end" class="price-history-axis-label">450 kr</text>
+      <line x1="46" y1="36.7" x2="672" y2="36.7" class="price-history-gridline" />
+      <text x="40" y="39.7" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <path d="M46.0,204.0 L46.0,99.0 L56.8,99.0 L67.6,99.0 L78.4,99.0 L89.2,99.0 L100.0,99.0 L110.8,99.0 L121.6,99.0 L132.3,99.0 L143.1,99.0 L153.9,99.0 L164.7,99.0 L175.5,99.0 L186.3,99.0 L197.1,99.0 L207.9,99.0 L218.7,99.0 L229.5,99.0 L240.3,99.0 L251.1,99.0 L261.9,99.0 L272.7,99.0 L283.4,99.0 L294.2,99.0 L305.0,99.0 L315.8,99.0 L326.6,99.0 L337.4,99.0 L348.2,99.0 L359.0,99.0 L369.8,99.0 L380.6,99.0 L391.4,99.0 L402.2,99.0 L413.0,99.0 L423.8,99.0 L434.6,99.0 L445.3,99.0 L456.1,99.0 L466.9,99.0 L477.7,99.0 L488.5,99.0 L499.3,99.0 L510.1,99.0 L520.9,99.0 L531.7,99.0 L542.5,99.0 L553.3,99.0 L564.1,99.0 L574.9,99.0 L585.7,99.0 L596.4,99.0 L607.2,99.0 L618.0,99.0 L628.8,99.0 L639.6,99.0 L650.4,99.0 L661.2,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
       <polyline points="46.0,99.0 56.8,99.0 67.6,99.0 78.4,99.0 89.2,99.0 100.0,99.0 110.8,99.0 121.6,99.0 132.3,99.0 143.1,99.0 153.9,99.0 164.7,99.0 175.5,99.0 186.3,99.0 197.1,99.0 207.9,99.0 218.7,99.0 229.5,99.0 240.3,99.0 251.1,99.0 261.9,99.0 272.7,99.0 283.4,99.0 294.2,99.0 305.0,99.0 315.8,99.0 326.6,99.0 337.4,99.0 348.2,99.0 359.0,99.0 369.8,99.0 380.6,99.0 391.4,99.0 402.2,99.0 413.0,99.0 423.8,99.0 434.6,99.0 445.3,99.0 456.1,99.0 466.9,99.0 477.7,99.0 488.5,99.0 499.3,99.0 510.1,99.0 520.9,99.0 531.7,99.0 542.5,99.0 553.3,99.0 564.1,99.0 574.9,99.0 585.7,99.0 596.4,99.0 607.2,99.0 618.0,99.0 628.8,99.0 639.6,99.0 650.4,99.0 661.2,99.0 672.0,99.0" class="price-history-line" />
       <circle cx="672.0" cy="99.0" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -2282,16 +2282,16 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="173.6" x2="332" y2="173.6" class="price-history-gridline" />
-      <text x="36" y="176.6" text-anchor="end" class="price-history-axis-label">390 kr</text>
-      <line x1="42" y1="138.2" x2="332" y2="138.2" class="price-history-gridline" />
-      <text x="36" y="141.2" text-anchor="end" class="price-history-axis-label">400 kr</text>
-      <line x1="42" y1="102.8" x2="332" y2="102.8" class="price-history-gridline" />
-      <text x="36" y="105.8" text-anchor="end" class="price-history-axis-label">410 kr</text>
-      <line x1="42" y1="67.3" x2="332" y2="67.3" class="price-history-gridline" />
-      <text x="36" y="70.3" text-anchor="end" class="price-history-axis-label">420 kr</text>
-      <line x1="42" y1="31.9" x2="332" y2="31.9" class="price-history-gridline" />
-      <text x="36" y="34.9" text-anchor="end" class="price-history-axis-label">430 kr</text>
+      <line x1="42" y1="161.3" x2="332" y2="161.3" class="price-history-gridline" />
+      <text x="36" y="164.3" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="42" y1="129.4" x2="332" y2="129.4" class="price-history-gridline" />
+      <text x="36" y="132.4" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="42" y1="97.5" x2="332" y2="97.5" class="price-history-gridline" />
+      <text x="36" y="100.5" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="42" y1="65.6" x2="332" y2="65.6" class="price-history-gridline" />
+      <text x="36" y="68.6" text-anchor="end" class="price-history-axis-label">450 kr</text>
+      <line x1="42" y1="33.7" x2="332" y2="33.7" class="price-history-gridline" />
+      <text x="36" y="36.7" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <path d="M42.0,181.0 L42.0,88.6 L47.0,88.6 L52.0,88.6 L57.0,88.6 L62.0,88.6 L67.0,88.6 L72.0,88.6 L77.0,88.6 L82.0,88.6 L87.0,88.6 L92.0,88.6 L97.0,88.6 L102.0,88.6 L107.0,88.6 L112.0,88.6 L117.0,88.6 L122.0,88.6 L127.0,88.6 L132.0,88.6 L137.0,88.6 L142.0,88.6 L147.0,88.6 L152.0,88.6 L157.0,88.6 L162.0,88.6 L167.0,88.6 L172.0,88.6 L177.0,88.6 L182.0,88.6 L187.0,88.6 L192.0,88.6 L197.0,88.6 L202.0,88.6 L207.0,88.6 L212.0,88.6 L217.0,88.6 L222.0,88.6 L227.0,88.6 L232.0,88.6 L237.0,88.6 L242.0,88.6 L247.0,88.6 L252.0,88.6 L257.0,88.6 L262.0,88.6 L267.0,88.6 L272.0,88.6 L277.0,88.6 L282.0,88.6 L287.0,88.6 L292.0,88.6 L297.0,88.6 L302.0,88.6 L307.0,88.6 L312.0,88.6 L317.0,88.6 L322.0,88.6 L327.0,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
       <polyline points="42.0,88.6 47.0,88.6 52.0,88.6 57.0,88.6 62.0,88.6 67.0,88.6 72.0,88.6 77.0,88.6 82.0,88.6 87.0,88.6 92.0,88.6 97.0,88.6 102.0,88.6 107.0,88.6 112.0,88.6 117.0,88.6 122.0,88.6 127.0,88.6 132.0,88.6 137.0,88.6 142.0,88.6 147.0,88.6 152.0,88.6 157.0,88.6 162.0,88.6 167.0,88.6 172.0,88.6 177.0,88.6 182.0,88.6 187.0,88.6 192.0,88.6 197.0,88.6 202.0,88.6 207.0,88.6 212.0,88.6 217.0,88.6 222.0,88.6 227.0,88.6 232.0,88.6 237.0,88.6 242.0,88.6 247.0,88.6 252.0,88.6 257.0,88.6 262.0,88.6 267.0,88.6 272.0,88.6 277.0,88.6 282.0,88.6 287.0,88.6 292.0,88.6 297.0,88.6 302.0,88.6 307.0,88.6 312.0,88.6 317.0,88.6 322.0,88.6 327.0,88.6 332.0,88.6" class="price-history-line" />
       <circle cx="332.0" cy="88.6" r="3.2" class="price-history-dot price-history-dot-last" />

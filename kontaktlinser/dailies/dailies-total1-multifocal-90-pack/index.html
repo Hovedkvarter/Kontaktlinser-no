@@ -777,8 +777,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -2102,46 +2102,48 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="161.4" x2="672" y2="161.4" class="price-history-gridline" />
-      <text x="40" y="164.4" text-anchor="end" class="price-history-axis-label">1 150 kr</text>
-      <line x1="46" y1="102.2" x2="672" y2="102.2" class="price-history-gridline" />
-      <text x="40" y="105.2" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
-      <line x1="46" y1="43.0" x2="672" y2="43.0" class="price-history-gridline" />
-      <text x="40" y="46.0" text-anchor="end" class="price-history-axis-label">1 250 kr</text>
-      <path d="M46.0,204.0 L46.0,174.0 L67.6,24.0 L89.2,24.0 L110.8,24.0 L132.3,24.0 L153.9,24.0 L175.5,24.0 L197.1,24.0 L218.7,24.0 L240.3,24.0 L261.9,24.0 L283.4,24.0 L305.0,24.0 L326.6,24.0 L348.2,24.0 L369.8,24.0 L391.4,24.0 L413.0,24.0 L434.6,24.0 L456.1,24.0 L477.7,24.0 L499.3,24.0 L520.9,24.0 L542.5,24.0 L564.1,24.0 L585.7,24.0 L607.2,24.0 L628.8,24.0 L650.4,24.0 L672.0,24.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,174.0 67.6,24.0 89.2,24.0 110.8,24.0 132.3,24.0 153.9,24.0 175.5,24.0 197.1,24.0 218.7,24.0 240.3,24.0 261.9,24.0 283.4,24.0 305.0,24.0 326.6,24.0 348.2,24.0 369.8,24.0 391.4,24.0 413.0,24.0 434.6,24.0 456.1,24.0 477.7,24.0 499.3,24.0 520.9,24.0 542.5,24.0 564.1,24.0 585.7,24.0 607.2,24.0 628.8,24.0 650.4,24.0 672.0,24.0" class="price-history-line" />
-      <circle cx="672.0" cy="24.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="174.0" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="67.6" cy="24.0" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="89.2" cy="24.0" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="110.8" cy="24.0" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="132.3" cy="24.0" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="153.9" cy="24.0" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="175.5" cy="24.0" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="197.1" cy="24.0" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="218.7" cy="24.0" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="240.3" cy="24.0" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="261.9" cy="24.0" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="283.4" cy="24.0" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="305.0" cy="24.0" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="326.6" cy="24.0" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="348.2" cy="24.0" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="369.8" cy="24.0" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="391.4" cy="24.0" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="413.0" cy="24.0" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="434.6" cy="24.0" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="456.1" cy="24.0" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="477.7" cy="24.0" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="499.3" cy="24.0" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="520.9" cy="24.0" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="542.5" cy="24.0" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="564.1" cy="24.0" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="585.7" cy="24.0" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="607.2" cy="24.0" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="628.8" cy="24.0" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="650.4" cy="24.0" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="672.0" cy="24.0" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
-      <text x="672.0" y="21.0" text-anchor="end" class="price-history-current-label">1 266 kr</text>
+      <line x1="46" y1="194.4" x2="672" y2="194.4" class="price-history-gridline" />
+      <text x="40" y="197.4" text-anchor="end" class="price-history-axis-label">800 kr</text>
+      <line x1="46" y1="147.0" x2="672" y2="147.0" class="price-history-gridline" />
+      <text x="40" y="150.0" text-anchor="end" class="price-history-axis-label">1 000 kr</text>
+      <line x1="46" y1="99.6" x2="672" y2="99.6" class="price-history-gridline" />
+      <text x="40" y="102.6" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
+      <line x1="46" y1="52.2" x2="672" y2="52.2" class="price-history-gridline" />
+      <text x="40" y="55.2" text-anchor="end" class="price-history-axis-label">1 400 kr</text>
+      <path d="M46.0,204.0 L46.0,114.0 L67.6,84.0 L89.2,84.0 L110.8,84.0 L132.3,84.0 L153.9,84.0 L175.5,84.0 L197.1,84.0 L218.7,84.0 L240.3,84.0 L261.9,84.0 L283.4,84.0 L305.0,84.0 L326.6,84.0 L348.2,84.0 L369.8,84.0 L391.4,84.0 L413.0,84.0 L434.6,84.0 L456.1,84.0 L477.7,84.0 L499.3,84.0 L520.9,84.0 L542.5,84.0 L564.1,84.0 L585.7,84.0 L607.2,84.0 L628.8,84.0 L650.4,84.0 L672.0,84.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,114.0 67.6,84.0 89.2,84.0 110.8,84.0 132.3,84.0 153.9,84.0 175.5,84.0 197.1,84.0 218.7,84.0 240.3,84.0 261.9,84.0 283.4,84.0 305.0,84.0 326.6,84.0 348.2,84.0 369.8,84.0 391.4,84.0 413.0,84.0 434.6,84.0 456.1,84.0 477.7,84.0 499.3,84.0 520.9,84.0 542.5,84.0 564.1,84.0 585.7,84.0 607.2,84.0 628.8,84.0 650.4,84.0 672.0,84.0" class="price-history-line" />
+      <circle cx="672.0" cy="84.0" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="114.0" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="67.6" cy="84.0" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="89.2" cy="84.0" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="110.8" cy="84.0" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="132.3" cy="84.0" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="153.9" cy="84.0" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="175.5" cy="84.0" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="197.1" cy="84.0" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="218.7" cy="84.0" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="240.3" cy="84.0" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="261.9" cy="84.0" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="283.4" cy="84.0" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="305.0" cy="84.0" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="326.6" cy="84.0" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="348.2" cy="84.0" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="369.8" cy="84.0" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="391.4" cy="84.0" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="413.0" cy="84.0" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="434.6" cy="84.0" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="456.1" cy="84.0" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="477.7" cy="84.0" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="499.3" cy="84.0" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="520.9" cy="84.0" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="542.5" cy="84.0" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="564.1" cy="84.0" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="585.7" cy="84.0" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="607.2" cy="84.0" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="628.8" cy="84.0" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="650.4" cy="84.0" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="672.0" cy="84.0" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
+      <text x="672.0" y="76.0" text-anchor="end" class="price-history-current-label">1 266 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
       <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
@@ -2157,46 +2159,48 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="143.5" x2="332" y2="143.5" class="price-history-gridline" />
-      <text x="36" y="146.5" text-anchor="end" class="price-history-axis-label">1 150 kr</text>
-      <line x1="42" y1="91.4" x2="332" y2="91.4" class="price-history-gridline" />
-      <text x="36" y="94.4" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
-      <line x1="42" y1="39.2" x2="332" y2="39.2" class="price-history-gridline" />
-      <text x="36" y="42.2" text-anchor="end" class="price-history-axis-label">1 250 kr</text>
-      <path d="M42.0,181.0 L42.0,154.6 L52.0,22.6 L62.0,22.6 L72.0,22.6 L82.0,22.6 L92.0,22.6 L102.0,22.6 L112.0,22.6 L122.0,22.6 L132.0,22.6 L142.0,22.6 L152.0,22.6 L162.0,22.6 L172.0,22.6 L182.0,22.6 L192.0,22.6 L202.0,22.6 L212.0,22.6 L222.0,22.6 L232.0,22.6 L242.0,22.6 L252.0,22.6 L262.0,22.6 L272.0,22.6 L282.0,22.6 L292.0,22.6 L302.0,22.6 L312.0,22.6 L322.0,22.6 L332.0,22.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
-      <polyline points="42.0,154.6 52.0,22.6 62.0,22.6 72.0,22.6 82.0,22.6 92.0,22.6 102.0,22.6 112.0,22.6 122.0,22.6 132.0,22.6 142.0,22.6 152.0,22.6 162.0,22.6 172.0,22.6 182.0,22.6 192.0,22.6 202.0,22.6 212.0,22.6 222.0,22.6 232.0,22.6 242.0,22.6 252.0,22.6 262.0,22.6 272.0,22.6 282.0,22.6 292.0,22.6 302.0,22.6 312.0,22.6 322.0,22.6 332.0,22.6" class="price-history-line" />
-      <circle cx="332.0" cy="22.6" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="154.6" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="52.0" cy="22.6" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="62.0" cy="22.6" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="72.0" cy="22.6" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="82.0" cy="22.6" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="92.0" cy="22.6" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="102.0" cy="22.6" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="112.0" cy="22.6" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="122.0" cy="22.6" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="132.0" cy="22.6" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="142.0" cy="22.6" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="152.0" cy="22.6" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="162.0" cy="22.6" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="172.0" cy="22.6" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="182.0" cy="22.6" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="192.0" cy="22.6" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="202.0" cy="22.6" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="212.0" cy="22.6" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="222.0" cy="22.6" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="232.0" cy="22.6" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="242.0" cy="22.6" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="252.0" cy="22.6" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="262.0" cy="22.6" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="272.0" cy="22.6" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="282.0" cy="22.6" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="292.0" cy="22.6" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="302.0" cy="22.6" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="312.0" cy="22.6" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="322.0" cy="22.6" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="332.0" cy="22.6" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
-      <text x="332.0" y="21.0" text-anchor="end" class="price-history-current-label">1 266 kr</text>
+      <line x1="42" y1="172.6" x2="332" y2="172.6" class="price-history-gridline" />
+      <text x="36" y="175.6" text-anchor="end" class="price-history-axis-label">800 kr</text>
+      <line x1="42" y1="130.9" x2="332" y2="130.9" class="price-history-gridline" />
+      <text x="36" y="133.9" text-anchor="end" class="price-history-axis-label">1 000 kr</text>
+      <line x1="42" y1="89.1" x2="332" y2="89.1" class="price-history-gridline" />
+      <text x="36" y="92.1" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
+      <line x1="42" y1="47.4" x2="332" y2="47.4" class="price-history-gridline" />
+      <text x="36" y="50.4" text-anchor="end" class="price-history-axis-label">1 400 kr</text>
+      <path d="M42.0,181.0 L42.0,101.8 L52.0,75.4 L62.0,75.4 L72.0,75.4 L82.0,75.4 L92.0,75.4 L102.0,75.4 L112.0,75.4 L122.0,75.4 L132.0,75.4 L142.0,75.4 L152.0,75.4 L162.0,75.4 L172.0,75.4 L182.0,75.4 L192.0,75.4 L202.0,75.4 L212.0,75.4 L222.0,75.4 L232.0,75.4 L242.0,75.4 L252.0,75.4 L262.0,75.4 L272.0,75.4 L282.0,75.4 L292.0,75.4 L302.0,75.4 L312.0,75.4 L322.0,75.4 L332.0,75.4 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
+      <polyline points="42.0,101.8 52.0,75.4 62.0,75.4 72.0,75.4 82.0,75.4 92.0,75.4 102.0,75.4 112.0,75.4 122.0,75.4 132.0,75.4 142.0,75.4 152.0,75.4 162.0,75.4 172.0,75.4 182.0,75.4 192.0,75.4 202.0,75.4 212.0,75.4 222.0,75.4 232.0,75.4 242.0,75.4 252.0,75.4 262.0,75.4 272.0,75.4 282.0,75.4 292.0,75.4 302.0,75.4 312.0,75.4 322.0,75.4 332.0,75.4" class="price-history-line" />
+      <circle cx="332.0" cy="75.4" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="101.8" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="52.0" cy="75.4" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="62.0" cy="75.4" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="72.0" cy="75.4" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="82.0" cy="75.4" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="92.0" cy="75.4" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="102.0" cy="75.4" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="112.0" cy="75.4" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="122.0" cy="75.4" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="132.0" cy="75.4" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="142.0" cy="75.4" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="152.0" cy="75.4" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="162.0" cy="75.4" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="172.0" cy="75.4" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="182.0" cy="75.4" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="192.0" cy="75.4" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="202.0" cy="75.4" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="212.0" cy="75.4" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="222.0" cy="75.4" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="232.0" cy="75.4" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="242.0" cy="75.4" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="252.0" cy="75.4" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="262.0" cy="75.4" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="272.0" cy="75.4" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="282.0" cy="75.4" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="292.0" cy="75.4" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="302.0" cy="75.4" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="312.0" cy="75.4" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="322.0" cy="75.4" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="332.0" cy="75.4" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
+      <text x="332.0" y="67.4" text-anchor="end" class="price-history-current-label">1 266 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">26.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
@@ -2212,75 +2216,75 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="161.4" x2="672" y2="161.4" class="price-history-gridline" />
-      <text x="40" y="164.4" text-anchor="end" class="price-history-axis-label">1 150 kr</text>
-      <line x1="46" y1="102.2" x2="672" y2="102.2" class="price-history-gridline" />
-      <text x="40" y="105.2" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
-      <line x1="46" y1="43.0" x2="672" y2="43.0" class="price-history-gridline" />
-      <text x="40" y="46.0" text-anchor="end" class="price-history-axis-label">1 250 kr</text>
-      <path d="M46.0,204.0 L46.0,174.0 L56.8,174.0 L67.6,174.0 L78.4,174.0 L89.2,174.0 L100.0,174.0 L110.8,174.0 L121.6,174.0 L132.3,174.0 L143.1,174.0 L153.9,174.0 L164.7,174.0 L175.5,174.0 L186.3,174.0 L197.1,174.0 L207.9,174.0 L218.7,174.0 L229.5,174.0 L240.3,174.0 L251.1,174.0 L261.9,174.0 L272.7,174.0 L283.4,174.0 L294.2,174.0 L305.0,174.0 L315.8,174.0 L326.6,174.0 L337.4,174.0 L348.2,174.0 L359.0,174.0 L369.8,24.0 L380.6,24.0 L391.4,24.0 L402.2,24.0 L413.0,24.0 L423.8,24.0 L434.6,24.0 L445.3,24.0 L456.1,24.0 L466.9,24.0 L477.7,24.0 L488.5,24.0 L499.3,24.0 L510.1,24.0 L520.9,24.0 L531.7,24.0 L542.5,24.0 L553.3,24.0 L564.1,24.0 L574.9,24.0 L585.7,24.0 L596.4,24.0 L607.2,24.0 L618.0,24.0 L628.8,24.0 L639.6,24.0 L650.4,24.0 L661.2,24.0 L672.0,24.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,174.0 56.8,174.0 67.6,174.0 78.4,174.0 89.2,174.0 100.0,174.0 110.8,174.0 121.6,174.0 132.3,174.0 143.1,174.0 153.9,174.0 164.7,174.0 175.5,174.0 186.3,174.0 197.1,174.0 207.9,174.0 218.7,174.0 229.5,174.0 240.3,174.0 251.1,174.0 261.9,174.0 272.7,174.0 283.4,174.0 294.2,174.0 305.0,174.0 315.8,174.0 326.6,174.0 337.4,174.0 348.2,174.0 359.0,174.0 369.8,24.0 380.6,24.0 391.4,24.0 402.2,24.0 413.0,24.0 423.8,24.0 434.6,24.0 445.3,24.0 456.1,24.0 466.9,24.0 477.7,24.0 488.5,24.0 499.3,24.0 510.1,24.0 520.9,24.0 531.7,24.0 542.5,24.0 553.3,24.0 564.1,24.0 574.9,24.0 585.7,24.0 596.4,24.0 607.2,24.0 618.0,24.0 628.8,24.0 639.6,24.0 650.4,24.0 661.2,24.0 672.0,24.0" class="price-history-line" />
-      <circle cx="672.0" cy="24.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="174.0" r="9" class="price-intel-hit"><title>14. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="56.8" cy="174.0" r="9" class="price-intel-hit"><title>15. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="67.6" cy="174.0" r="9" class="price-intel-hit"><title>16. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="78.4" cy="174.0" r="9" class="price-intel-hit"><title>17. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="89.2" cy="174.0" r="9" class="price-intel-hit"><title>18. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="100.0" cy="174.0" r="9" class="price-intel-hit"><title>19. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="110.8" cy="174.0" r="9" class="price-intel-hit"><title>20. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="121.6" cy="174.0" r="9" class="price-intel-hit"><title>21. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="132.3" cy="174.0" r="9" class="price-intel-hit"><title>22. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="143.1" cy="174.0" r="9" class="price-intel-hit"><title>23. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="153.9" cy="174.0" r="9" class="price-intel-hit"><title>24. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="164.7" cy="174.0" r="9" class="price-intel-hit"><title>25. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="175.5" cy="174.0" r="9" class="price-intel-hit"><title>26. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="186.3" cy="174.0" r="9" class="price-intel-hit"><title>27. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="197.1" cy="174.0" r="9" class="price-intel-hit"><title>28. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="207.9" cy="174.0" r="9" class="price-intel-hit"><title>29. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="218.7" cy="174.0" r="9" class="price-intel-hit"><title>30. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="229.5" cy="174.0" r="9" class="price-intel-hit"><title>31. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="240.3" cy="174.0" r="9" class="price-intel-hit"><title>1. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="251.1" cy="174.0" r="9" class="price-intel-hit"><title>2. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="261.9" cy="174.0" r="9" class="price-intel-hit"><title>3. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="272.7" cy="174.0" r="9" class="price-intel-hit"><title>4. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="283.4" cy="174.0" r="9" class="price-intel-hit"><title>5. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="294.2" cy="174.0" r="9" class="price-intel-hit"><title>6. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="305.0" cy="174.0" r="9" class="price-intel-hit"><title>7. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="315.8" cy="174.0" r="9" class="price-intel-hit"><title>8. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="326.6" cy="174.0" r="9" class="price-intel-hit"><title>9. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="337.4" cy="174.0" r="9" class="price-intel-hit"><title>10. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="348.2" cy="174.0" r="9" class="price-intel-hit"><title>11. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="359.0" cy="174.0" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="369.8" cy="24.0" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="380.6" cy="24.0" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="391.4" cy="24.0" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="402.2" cy="24.0" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="413.0" cy="24.0" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="423.8" cy="24.0" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="434.6" cy="24.0" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="445.3" cy="24.0" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="456.1" cy="24.0" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="466.9" cy="24.0" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="477.7" cy="24.0" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="488.5" cy="24.0" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="499.3" cy="24.0" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="510.1" cy="24.0" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="520.9" cy="24.0" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="531.7" cy="24.0" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="542.5" cy="24.0" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="553.3" cy="24.0" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="564.1" cy="24.0" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="574.9" cy="24.0" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="585.7" cy="24.0" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="596.4" cy="24.0" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="607.2" cy="24.0" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="618.0" cy="24.0" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="628.8" cy="24.0" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="639.6" cy="24.0" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="650.4" cy="24.0" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="661.2" cy="24.0" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="672.0" cy="24.0" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
-      <text x="672.0" y="21.0" text-anchor="end" class="price-history-current-label">1 266 kr</text>
+      <line x1="46" y1="152.4" x2="672" y2="152.4" class="price-history-gridline" />
+      <text x="40" y="155.4" text-anchor="end" class="price-history-axis-label">1 000 kr</text>
+      <line x1="46" y1="99.7" x2="672" y2="99.7" class="price-history-gridline" />
+      <text x="40" y="102.7" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
+      <line x1="46" y1="47.1" x2="672" y2="47.1" class="price-history-gridline" />
+      <text x="40" y="50.1" text-anchor="end" class="price-history-axis-label">1 400 kr</text>
+      <path d="M46.0,204.0 L46.0,115.7 L56.8,115.7 L67.6,115.7 L78.4,115.7 L89.2,115.7 L100.0,115.7 L110.8,115.7 L121.6,115.7 L132.3,115.7 L143.1,115.7 L153.9,115.7 L164.7,115.7 L175.5,115.7 L186.3,115.7 L197.1,115.7 L207.9,115.7 L218.7,115.7 L229.5,115.7 L240.3,115.7 L251.1,115.7 L261.9,115.7 L272.7,115.7 L283.4,115.7 L294.2,115.7 L305.0,115.7 L315.8,115.7 L326.6,115.7 L337.4,115.7 L348.2,115.7 L359.0,115.7 L369.8,82.3 L380.6,82.3 L391.4,82.3 L402.2,82.3 L413.0,82.3 L423.8,82.3 L434.6,82.3 L445.3,82.3 L456.1,82.3 L466.9,82.3 L477.7,82.3 L488.5,82.3 L499.3,82.3 L510.1,82.3 L520.9,82.3 L531.7,82.3 L542.5,82.3 L553.3,82.3 L564.1,82.3 L574.9,82.3 L585.7,82.3 L596.4,82.3 L607.2,82.3 L618.0,82.3 L628.8,82.3 L639.6,82.3 L650.4,82.3 L661.2,82.3 L672.0,82.3 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,115.7 56.8,115.7 67.6,115.7 78.4,115.7 89.2,115.7 100.0,115.7 110.8,115.7 121.6,115.7 132.3,115.7 143.1,115.7 153.9,115.7 164.7,115.7 175.5,115.7 186.3,115.7 197.1,115.7 207.9,115.7 218.7,115.7 229.5,115.7 240.3,115.7 251.1,115.7 261.9,115.7 272.7,115.7 283.4,115.7 294.2,115.7 305.0,115.7 315.8,115.7 326.6,115.7 337.4,115.7 348.2,115.7 359.0,115.7 369.8,82.3 380.6,82.3 391.4,82.3 402.2,82.3 413.0,82.3 423.8,82.3 434.6,82.3 445.3,82.3 456.1,82.3 466.9,82.3 477.7,82.3 488.5,82.3 499.3,82.3 510.1,82.3 520.9,82.3 531.7,82.3 542.5,82.3 553.3,82.3 564.1,82.3 574.9,82.3 585.7,82.3 596.4,82.3 607.2,82.3 618.0,82.3 628.8,82.3 639.6,82.3 650.4,82.3 661.2,82.3 672.0,82.3" class="price-history-line" />
+      <circle cx="672.0" cy="82.3" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="115.7" r="9" class="price-intel-hit"><title>14. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="56.8" cy="115.7" r="9" class="price-intel-hit"><title>15. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="67.6" cy="115.7" r="9" class="price-intel-hit"><title>16. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="78.4" cy="115.7" r="9" class="price-intel-hit"><title>17. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="89.2" cy="115.7" r="9" class="price-intel-hit"><title>18. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="100.0" cy="115.7" r="9" class="price-intel-hit"><title>19. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="110.8" cy="115.7" r="9" class="price-intel-hit"><title>20. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="121.6" cy="115.7" r="9" class="price-intel-hit"><title>21. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="132.3" cy="115.7" r="9" class="price-intel-hit"><title>22. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="143.1" cy="115.7" r="9" class="price-intel-hit"><title>23. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="153.9" cy="115.7" r="9" class="price-intel-hit"><title>24. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="164.7" cy="115.7" r="9" class="price-intel-hit"><title>25. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="175.5" cy="115.7" r="9" class="price-intel-hit"><title>26. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="186.3" cy="115.7" r="9" class="price-intel-hit"><title>27. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="197.1" cy="115.7" r="9" class="price-intel-hit"><title>28. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="207.9" cy="115.7" r="9" class="price-intel-hit"><title>29. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="218.7" cy="115.7" r="9" class="price-intel-hit"><title>30. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="229.5" cy="115.7" r="9" class="price-intel-hit"><title>31. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="240.3" cy="115.7" r="9" class="price-intel-hit"><title>1. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="251.1" cy="115.7" r="9" class="price-intel-hit"><title>2. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="261.9" cy="115.7" r="9" class="price-intel-hit"><title>3. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="272.7" cy="115.7" r="9" class="price-intel-hit"><title>4. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="283.4" cy="115.7" r="9" class="price-intel-hit"><title>5. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="294.2" cy="115.7" r="9" class="price-intel-hit"><title>6. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="305.0" cy="115.7" r="9" class="price-intel-hit"><title>7. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="315.8" cy="115.7" r="9" class="price-intel-hit"><title>8. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="326.6" cy="115.7" r="9" class="price-intel-hit"><title>9. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="337.4" cy="115.7" r="9" class="price-intel-hit"><title>10. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="348.2" cy="115.7" r="9" class="price-intel-hit"><title>11. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="359.0" cy="115.7" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="369.8" cy="82.3" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="380.6" cy="82.3" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="391.4" cy="82.3" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="402.2" cy="82.3" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="413.0" cy="82.3" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="423.8" cy="82.3" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="434.6" cy="82.3" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="445.3" cy="82.3" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="456.1" cy="82.3" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="466.9" cy="82.3" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="477.7" cy="82.3" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="488.5" cy="82.3" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="499.3" cy="82.3" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="510.1" cy="82.3" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="520.9" cy="82.3" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="531.7" cy="82.3" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="542.5" cy="82.3" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="553.3" cy="82.3" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="564.1" cy="82.3" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="574.9" cy="82.3" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="585.7" cy="82.3" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="596.4" cy="82.3" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="607.2" cy="82.3" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="618.0" cy="82.3" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="628.8" cy="82.3" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="639.6" cy="82.3" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="650.4" cy="82.3" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="661.2" cy="82.3" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="672.0" cy="82.3" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
+      <text x="672.0" y="74.3" text-anchor="end" class="price-history-current-label">1 266 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
       <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">22.08</text>
       <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.08</text>
@@ -2296,75 +2300,75 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="143.5" x2="332" y2="143.5" class="price-history-gridline" />
-      <text x="36" y="146.5" text-anchor="end" class="price-history-axis-label">1 150 kr</text>
-      <line x1="42" y1="91.4" x2="332" y2="91.4" class="price-history-gridline" />
-      <text x="36" y="94.4" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
-      <line x1="42" y1="39.2" x2="332" y2="39.2" class="price-history-gridline" />
-      <text x="36" y="42.2" text-anchor="end" class="price-history-axis-label">1 250 kr</text>
-      <path d="M42.0,181.0 L42.0,154.6 L47.0,154.6 L52.0,154.6 L57.0,154.6 L62.0,154.6 L67.0,154.6 L72.0,154.6 L77.0,154.6 L82.0,154.6 L87.0,154.6 L92.0,154.6 L97.0,154.6 L102.0,154.6 L107.0,154.6 L112.0,154.6 L117.0,154.6 L122.0,154.6 L127.0,154.6 L132.0,154.6 L137.0,154.6 L142.0,154.6 L147.0,154.6 L152.0,154.6 L157.0,154.6 L162.0,154.6 L167.0,154.6 L172.0,154.6 L177.0,154.6 L182.0,154.6 L187.0,154.6 L192.0,22.6 L197.0,22.6 L202.0,22.6 L207.0,22.6 L212.0,22.6 L217.0,22.6 L222.0,22.6 L227.0,22.6 L232.0,22.6 L237.0,22.6 L242.0,22.6 L247.0,22.6 L252.0,22.6 L257.0,22.6 L262.0,22.6 L267.0,22.6 L272.0,22.6 L277.0,22.6 L282.0,22.6 L287.0,22.6 L292.0,22.6 L297.0,22.6 L302.0,22.6 L307.0,22.6 L312.0,22.6 L317.0,22.6 L322.0,22.6 L327.0,22.6 L332.0,22.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,154.6 47.0,154.6 52.0,154.6 57.0,154.6 62.0,154.6 67.0,154.6 72.0,154.6 77.0,154.6 82.0,154.6 87.0,154.6 92.0,154.6 97.0,154.6 102.0,154.6 107.0,154.6 112.0,154.6 117.0,154.6 122.0,154.6 127.0,154.6 132.0,154.6 137.0,154.6 142.0,154.6 147.0,154.6 152.0,154.6 157.0,154.6 162.0,154.6 167.0,154.6 172.0,154.6 177.0,154.6 182.0,154.6 187.0,154.6 192.0,22.6 197.0,22.6 202.0,22.6 207.0,22.6 212.0,22.6 217.0,22.6 222.0,22.6 227.0,22.6 232.0,22.6 237.0,22.6 242.0,22.6 247.0,22.6 252.0,22.6 257.0,22.6 262.0,22.6 267.0,22.6 272.0,22.6 277.0,22.6 282.0,22.6 287.0,22.6 292.0,22.6 297.0,22.6 302.0,22.6 307.0,22.6 312.0,22.6 317.0,22.6 322.0,22.6 327.0,22.6 332.0,22.6" class="price-history-line" />
-      <circle cx="332.0" cy="22.6" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="154.6" r="9" class="price-intel-hit"><title>14. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="47.0" cy="154.6" r="9" class="price-intel-hit"><title>15. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="52.0" cy="154.6" r="9" class="price-intel-hit"><title>16. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="57.0" cy="154.6" r="9" class="price-intel-hit"><title>17. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="62.0" cy="154.6" r="9" class="price-intel-hit"><title>18. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="67.0" cy="154.6" r="9" class="price-intel-hit"><title>19. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="72.0" cy="154.6" r="9" class="price-intel-hit"><title>20. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="77.0" cy="154.6" r="9" class="price-intel-hit"><title>21. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="82.0" cy="154.6" r="9" class="price-intel-hit"><title>22. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="87.0" cy="154.6" r="9" class="price-intel-hit"><title>23. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="92.0" cy="154.6" r="9" class="price-intel-hit"><title>24. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="97.0" cy="154.6" r="9" class="price-intel-hit"><title>25. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="102.0" cy="154.6" r="9" class="price-intel-hit"><title>26. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="107.0" cy="154.6" r="9" class="price-intel-hit"><title>27. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="112.0" cy="154.6" r="9" class="price-intel-hit"><title>28. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="117.0" cy="154.6" r="9" class="price-intel-hit"><title>29. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="122.0" cy="154.6" r="9" class="price-intel-hit"><title>30. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="127.0" cy="154.6" r="9" class="price-intel-hit"><title>31. august: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="132.0" cy="154.6" r="9" class="price-intel-hit"><title>1. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="137.0" cy="154.6" r="9" class="price-intel-hit"><title>2. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="142.0" cy="154.6" r="9" class="price-intel-hit"><title>3. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="147.0" cy="154.6" r="9" class="price-intel-hit"><title>4. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="152.0" cy="154.6" r="9" class="price-intel-hit"><title>5. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="157.0" cy="154.6" r="9" class="price-intel-hit"><title>6. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="162.0" cy="154.6" r="9" class="price-intel-hit"><title>7. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="167.0" cy="154.6" r="9" class="price-intel-hit"><title>8. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="172.0" cy="154.6" r="9" class="price-intel-hit"><title>9. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="177.0" cy="154.6" r="9" class="price-intel-hit"><title>10. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="182.0" cy="154.6" r="9" class="price-intel-hit"><title>11. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="187.0" cy="154.6" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
-      <circle cx="192.0" cy="22.6" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="197.0" cy="22.6" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="202.0" cy="22.6" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="207.0" cy="22.6" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="212.0" cy="22.6" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="217.0" cy="22.6" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="222.0" cy="22.6" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="227.0" cy="22.6" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="232.0" cy="22.6" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="237.0" cy="22.6" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="242.0" cy="22.6" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="247.0" cy="22.6" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="252.0" cy="22.6" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="257.0" cy="22.6" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="262.0" cy="22.6" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="267.0" cy="22.6" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="272.0" cy="22.6" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="277.0" cy="22.6" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="282.0" cy="22.6" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="287.0" cy="22.6" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="292.0" cy="22.6" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="297.0" cy="22.6" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="302.0" cy="22.6" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="307.0" cy="22.6" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="312.0" cy="22.6" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="317.0" cy="22.6" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="322.0" cy="22.6" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="327.0" cy="22.6" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
-      <circle cx="332.0" cy="22.6" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
-      <text x="332.0" y="21.0" text-anchor="end" class="price-history-current-label">1 266 kr</text>
+      <line x1="42" y1="135.6" x2="332" y2="135.6" class="price-history-gridline" />
+      <text x="36" y="138.6" text-anchor="end" class="price-history-axis-label">1 000 kr</text>
+      <line x1="42" y1="89.2" x2="332" y2="89.2" class="price-history-gridline" />
+      <text x="36" y="92.2" text-anchor="end" class="price-history-axis-label">1 200 kr</text>
+      <line x1="42" y1="42.9" x2="332" y2="42.9" class="price-history-gridline" />
+      <text x="36" y="45.9" text-anchor="end" class="price-history-axis-label">1 400 kr</text>
+      <path d="M42.0,181.0 L42.0,103.2 L47.0,103.2 L52.0,103.2 L57.0,103.2 L62.0,103.2 L67.0,103.2 L72.0,103.2 L77.0,103.2 L82.0,103.2 L87.0,103.2 L92.0,103.2 L97.0,103.2 L102.0,103.2 L107.0,103.2 L112.0,103.2 L117.0,103.2 L122.0,103.2 L127.0,103.2 L132.0,103.2 L137.0,103.2 L142.0,103.2 L147.0,103.2 L152.0,103.2 L157.0,103.2 L162.0,103.2 L167.0,103.2 L172.0,103.2 L177.0,103.2 L182.0,103.2 L187.0,103.2 L192.0,73.9 L197.0,73.9 L202.0,73.9 L207.0,73.9 L212.0,73.9 L217.0,73.9 L222.0,73.9 L227.0,73.9 L232.0,73.9 L237.0,73.9 L242.0,73.9 L247.0,73.9 L252.0,73.9 L257.0,73.9 L262.0,73.9 L267.0,73.9 L272.0,73.9 L277.0,73.9 L282.0,73.9 L287.0,73.9 L292.0,73.9 L297.0,73.9 L302.0,73.9 L307.0,73.9 L312.0,73.9 L317.0,73.9 L322.0,73.9 L327.0,73.9 L332.0,73.9 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,103.2 47.0,103.2 52.0,103.2 57.0,103.2 62.0,103.2 67.0,103.2 72.0,103.2 77.0,103.2 82.0,103.2 87.0,103.2 92.0,103.2 97.0,103.2 102.0,103.2 107.0,103.2 112.0,103.2 117.0,103.2 122.0,103.2 127.0,103.2 132.0,103.2 137.0,103.2 142.0,103.2 147.0,103.2 152.0,103.2 157.0,103.2 162.0,103.2 167.0,103.2 172.0,103.2 177.0,103.2 182.0,103.2 187.0,103.2 192.0,73.9 197.0,73.9 202.0,73.9 207.0,73.9 212.0,73.9 217.0,73.9 222.0,73.9 227.0,73.9 232.0,73.9 237.0,73.9 242.0,73.9 247.0,73.9 252.0,73.9 257.0,73.9 262.0,73.9 267.0,73.9 272.0,73.9 277.0,73.9 282.0,73.9 287.0,73.9 292.0,73.9 297.0,73.9 302.0,73.9 307.0,73.9 312.0,73.9 317.0,73.9 322.0,73.9 327.0,73.9 332.0,73.9" class="price-history-line" />
+      <circle cx="332.0" cy="73.9" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="103.2" r="9" class="price-intel-hit"><title>14. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="47.0" cy="103.2" r="9" class="price-intel-hit"><title>15. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="52.0" cy="103.2" r="9" class="price-intel-hit"><title>16. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="57.0" cy="103.2" r="9" class="price-intel-hit"><title>17. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="62.0" cy="103.2" r="9" class="price-intel-hit"><title>18. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="67.0" cy="103.2" r="9" class="price-intel-hit"><title>19. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="72.0" cy="103.2" r="9" class="price-intel-hit"><title>20. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="77.0" cy="103.2" r="9" class="price-intel-hit"><title>21. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="82.0" cy="103.2" r="9" class="price-intel-hit"><title>22. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="87.0" cy="103.2" r="9" class="price-intel-hit"><title>23. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="92.0" cy="103.2" r="9" class="price-intel-hit"><title>24. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="97.0" cy="103.2" r="9" class="price-intel-hit"><title>25. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="102.0" cy="103.2" r="9" class="price-intel-hit"><title>26. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="107.0" cy="103.2" r="9" class="price-intel-hit"><title>27. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="112.0" cy="103.2" r="9" class="price-intel-hit"><title>28. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="117.0" cy="103.2" r="9" class="price-intel-hit"><title>29. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="122.0" cy="103.2" r="9" class="price-intel-hit"><title>30. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="127.0" cy="103.2" r="9" class="price-intel-hit"><title>31. august: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="132.0" cy="103.2" r="9" class="price-intel-hit"><title>1. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="137.0" cy="103.2" r="9" class="price-intel-hit"><title>2. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="142.0" cy="103.2" r="9" class="price-intel-hit"><title>3. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="147.0" cy="103.2" r="9" class="price-intel-hit"><title>4. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="152.0" cy="103.2" r="9" class="price-intel-hit"><title>5. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="157.0" cy="103.2" r="9" class="price-intel-hit"><title>6. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="162.0" cy="103.2" r="9" class="price-intel-hit"><title>7. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="167.0" cy="103.2" r="9" class="price-intel-hit"><title>8. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="172.0" cy="103.2" r="9" class="price-intel-hit"><title>9. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="177.0" cy="103.2" r="9" class="price-intel-hit"><title>10. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="182.0" cy="103.2" r="9" class="price-intel-hit"><title>11. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="187.0" cy="103.2" r="9" class="price-intel-hit"><title>12. september: 1 139 kr hos Brilleland</title></circle>
+      <circle cx="192.0" cy="73.9" r="9" class="price-intel-hit"><title>13. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="197.0" cy="73.9" r="9" class="price-intel-hit"><title>14. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="202.0" cy="73.9" r="9" class="price-intel-hit"><title>15. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="207.0" cy="73.9" r="9" class="price-intel-hit"><title>16. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="212.0" cy="73.9" r="9" class="price-intel-hit"><title>17. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="217.0" cy="73.9" r="9" class="price-intel-hit"><title>18. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="222.0" cy="73.9" r="9" class="price-intel-hit"><title>19. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="227.0" cy="73.9" r="9" class="price-intel-hit"><title>20. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="232.0" cy="73.9" r="9" class="price-intel-hit"><title>21. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="237.0" cy="73.9" r="9" class="price-intel-hit"><title>22. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="242.0" cy="73.9" r="9" class="price-intel-hit"><title>23. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="247.0" cy="73.9" r="9" class="price-intel-hit"><title>24. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="252.0" cy="73.9" r="9" class="price-intel-hit"><title>25. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="257.0" cy="73.9" r="9" class="price-intel-hit"><title>26. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="262.0" cy="73.9" r="9" class="price-intel-hit"><title>27. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="267.0" cy="73.9" r="9" class="price-intel-hit"><title>28. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="272.0" cy="73.9" r="9" class="price-intel-hit"><title>29. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="277.0" cy="73.9" r="9" class="price-intel-hit"><title>30. september: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="282.0" cy="73.9" r="9" class="price-intel-hit"><title>1. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="287.0" cy="73.9" r="9" class="price-intel-hit"><title>2. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="292.0" cy="73.9" r="9" class="price-intel-hit"><title>3. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="297.0" cy="73.9" r="9" class="price-intel-hit"><title>4. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="302.0" cy="73.9" r="9" class="price-intel-hit"><title>5. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="307.0" cy="73.9" r="9" class="price-intel-hit"><title>6. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="312.0" cy="73.9" r="9" class="price-intel-hit"><title>7. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="317.0" cy="73.9" r="9" class="price-intel-hit"><title>8. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="322.0" cy="73.9" r="9" class="price-intel-hit"><title>9. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="327.0" cy="73.9" r="9" class="price-intel-hit"><title>10. oktober: 1 266 kr hos Brilleland</title></circle>
+      <circle cx="332.0" cy="73.9" r="9" class="price-intel-hit"><title>11. oktober: 1 266 kr hos Brilleland</title></circle>
+      <text x="332.0" y="65.9" text-anchor="end" class="price-history-current-label">1 266 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
       <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">12.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>

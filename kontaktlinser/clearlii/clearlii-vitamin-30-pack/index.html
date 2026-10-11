@@ -726,8 +726,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -2011,48 +2011,46 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="201.0" x2="672" y2="201.0" class="price-history-gridline" />
-      <text x="40" y="204.0" text-anchor="end" class="price-history-axis-label">240 kr</text>
-      <line x1="46" y1="141.0" x2="672" y2="141.0" class="price-history-gridline" />
-      <text x="40" y="144.0" text-anchor="end" class="price-history-axis-label">260 kr</text>
-      <line x1="46" y1="81.0" x2="672" y2="81.0" class="price-history-gridline" />
-      <text x="40" y="84.0" text-anchor="end" class="price-history-axis-label">280 kr</text>
-      <line x1="46" y1="21.0" x2="672" y2="21.0" class="price-history-gridline" />
-      <text x="40" y="24.0" text-anchor="end" class="price-history-axis-label">300 kr</text>
-      <path d="M46.0,204.0 L46.0,174.0 L67.6,174.0 L89.2,24.0 L110.8,174.0 L132.3,174.0 L153.9,174.0 L175.5,174.0 L197.1,174.0 L218.7,174.0 L240.3,24.0 L261.9,174.0 L283.4,24.0 L305.0,174.0 L326.6,174.0 L348.2,174.0 L369.8,174.0 L391.4,174.0 L413.0,174.0 L434.6,174.0 L456.1,174.0 L477.7,174.0 L499.3,174.0 L520.9,174.0 L542.5,174.0 L564.1,174.0 L585.7,174.0 L607.2,174.0 L628.8,174.0 L650.4,174.0 L672.0,174.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,174.0 67.6,174.0 89.2,24.0 110.8,174.0 132.3,174.0 153.9,174.0 175.5,174.0 197.1,174.0 218.7,174.0 240.3,24.0 261.9,174.0 283.4,24.0 305.0,174.0 326.6,174.0 348.2,174.0 369.8,174.0 391.4,174.0 413.0,174.0 434.6,174.0 456.1,174.0 477.7,174.0 499.3,174.0 520.9,174.0 542.5,174.0 564.1,174.0 585.7,174.0 607.2,174.0 628.8,174.0 650.4,174.0 672.0,174.0" class="price-history-line" />
-      <circle cx="672.0" cy="174.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="174.0" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="67.6" cy="174.0" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="89.2" cy="24.0" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="110.8" cy="174.0" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="132.3" cy="174.0" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="153.9" cy="174.0" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="175.5" cy="174.0" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="197.1" cy="174.0" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="218.7" cy="174.0" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="240.3" cy="24.0" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="261.9" cy="174.0" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="283.4" cy="24.0" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="305.0" cy="174.0" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="326.6" cy="174.0" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="348.2" cy="174.0" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="369.8" cy="174.0" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="391.4" cy="174.0" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="413.0" cy="174.0" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="434.6" cy="174.0" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="456.1" cy="174.0" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="477.7" cy="174.0" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="499.3" cy="174.0" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="520.9" cy="174.0" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="542.5" cy="174.0" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="564.1" cy="174.0" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="585.7" cy="174.0" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="607.2" cy="174.0" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="628.8" cy="174.0" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="650.4" cy="174.0" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="672.0" cy="174.0" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <text x="672.0" y="166.0" text-anchor="end" class="price-history-current-label">249 kr</text>
+      <line x1="46" y1="188.2" x2="672" y2="188.2" class="price-history-gridline" />
+      <text x="40" y="191.2" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="46" y1="127.9" x2="672" y2="127.9" class="price-history-gridline" />
+      <text x="40" y="130.9" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="46" y1="67.7" x2="672" y2="67.7" class="price-history-gridline" />
+      <text x="40" y="70.7" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <path d="M46.0,204.0 L46.0,129.1 L67.6,129.1 L89.2,68.9 L110.8,129.1 L132.3,129.1 L153.9,129.1 L175.5,129.1 L197.1,129.1 L218.7,129.1 L240.3,68.9 L261.9,129.1 L283.4,68.9 L305.0,129.1 L326.6,129.1 L348.2,129.1 L369.8,129.1 L391.4,129.1 L413.0,129.1 L434.6,129.1 L456.1,129.1 L477.7,129.1 L499.3,129.1 L520.9,129.1 L542.5,129.1 L564.1,129.1 L585.7,129.1 L607.2,129.1 L628.8,129.1 L650.4,129.1 L672.0,129.1 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,129.1 67.6,129.1 89.2,68.9 110.8,129.1 132.3,129.1 153.9,129.1 175.5,129.1 197.1,129.1 218.7,129.1 240.3,68.9 261.9,129.1 283.4,68.9 305.0,129.1 326.6,129.1 348.2,129.1 369.8,129.1 391.4,129.1 413.0,129.1 434.6,129.1 456.1,129.1 477.7,129.1 499.3,129.1 520.9,129.1 542.5,129.1 564.1,129.1 585.7,129.1 607.2,129.1 628.8,129.1 650.4,129.1 672.0,129.1" class="price-history-line" />
+      <circle cx="672.0" cy="129.1" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="129.1" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="67.6" cy="129.1" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="89.2" cy="68.9" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="110.8" cy="129.1" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="132.3" cy="129.1" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="153.9" cy="129.1" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="175.5" cy="129.1" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="197.1" cy="129.1" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="218.7" cy="129.1" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="240.3" cy="68.9" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="261.9" cy="129.1" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="283.4" cy="68.9" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="305.0" cy="129.1" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="326.6" cy="129.1" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="348.2" cy="129.1" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="369.8" cy="129.1" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="391.4" cy="129.1" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="413.0" cy="129.1" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="434.6" cy="129.1" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="456.1" cy="129.1" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="477.7" cy="129.1" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="499.3" cy="129.1" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="520.9" cy="129.1" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="542.5" cy="129.1" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="564.1" cy="129.1" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="585.7" cy="129.1" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="607.2" cy="129.1" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="628.8" cy="129.1" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="650.4" cy="129.1" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="672.0" cy="129.1" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <text x="672.0" y="121.1" text-anchor="end" class="price-history-current-label">249 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">16.09</text>
       <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
@@ -2068,48 +2066,46 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="178.4" x2="332" y2="178.4" class="price-history-gridline" />
-      <text x="36" y="181.4" text-anchor="end" class="price-history-axis-label">240 kr</text>
-      <line x1="42" y1="125.5" x2="332" y2="125.5" class="price-history-gridline" />
-      <text x="36" y="128.5" text-anchor="end" class="price-history-axis-label">260 kr</text>
-      <line x1="42" y1="72.7" x2="332" y2="72.7" class="price-history-gridline" />
-      <text x="36" y="75.7" text-anchor="end" class="price-history-axis-label">280 kr</text>
-      <line x1="42" y1="19.9" x2="332" y2="19.9" class="price-history-gridline" />
-      <text x="36" y="22.9" text-anchor="end" class="price-history-axis-label">300 kr</text>
-      <path d="M42.0,181.0 L42.0,154.6 L52.0,154.6 L62.0,22.6 L72.0,154.6 L82.0,154.6 L92.0,154.6 L102.0,154.6 L112.0,154.6 L122.0,154.6 L132.0,22.6 L142.0,154.6 L152.0,22.6 L162.0,154.6 L172.0,154.6 L182.0,154.6 L192.0,154.6 L202.0,154.6 L212.0,154.6 L222.0,154.6 L232.0,154.6 L242.0,154.6 L252.0,154.6 L262.0,154.6 L272.0,154.6 L282.0,154.6 L292.0,154.6 L302.0,154.6 L312.0,154.6 L322.0,154.6 L332.0,154.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
-      <polyline points="42.0,154.6 52.0,154.6 62.0,22.6 72.0,154.6 82.0,154.6 92.0,154.6 102.0,154.6 112.0,154.6 122.0,154.6 132.0,22.6 142.0,154.6 152.0,22.6 162.0,154.6 172.0,154.6 182.0,154.6 192.0,154.6 202.0,154.6 212.0,154.6 222.0,154.6 232.0,154.6 242.0,154.6 252.0,154.6 262.0,154.6 272.0,154.6 282.0,154.6 292.0,154.6 302.0,154.6 312.0,154.6 322.0,154.6 332.0,154.6" class="price-history-line" />
-      <circle cx="332.0" cy="154.6" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="154.6" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="52.0" cy="154.6" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="62.0" cy="22.6" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="72.0" cy="154.6" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="82.0" cy="154.6" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="92.0" cy="154.6" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="102.0" cy="154.6" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="112.0" cy="154.6" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="122.0" cy="154.6" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="132.0" cy="22.6" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="142.0" cy="154.6" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="152.0" cy="22.6" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="162.0" cy="154.6" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="172.0" cy="154.6" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="182.0" cy="154.6" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="192.0" cy="154.6" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="202.0" cy="154.6" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="212.0" cy="154.6" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="222.0" cy="154.6" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="232.0" cy="154.6" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="242.0" cy="154.6" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="252.0" cy="154.6" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="262.0" cy="154.6" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="272.0" cy="154.6" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="282.0" cy="154.6" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="292.0" cy="154.6" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="302.0" cy="154.6" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="312.0" cy="154.6" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="322.0" cy="154.6" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="332.0" cy="154.6" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <text x="332.0" y="146.6" text-anchor="end" class="price-history-current-label">249 kr</text>
+      <line x1="42" y1="167.1" x2="332" y2="167.1" class="price-history-gridline" />
+      <text x="36" y="170.1" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="42" y1="114.0" x2="332" y2="114.0" class="price-history-gridline" />
+      <text x="36" y="117.0" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="42" y1="61.0" x2="332" y2="61.0" class="price-history-gridline" />
+      <text x="36" y="64.0" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <path d="M42.0,181.0 L42.0,115.1 L52.0,115.1 L62.0,62.1 L72.0,115.1 L82.0,115.1 L92.0,115.1 L102.0,115.1 L112.0,115.1 L122.0,115.1 L132.0,62.1 L142.0,115.1 L152.0,62.1 L162.0,115.1 L172.0,115.1 L182.0,115.1 L192.0,115.1 L202.0,115.1 L212.0,115.1 L222.0,115.1 L232.0,115.1 L242.0,115.1 L252.0,115.1 L262.0,115.1 L272.0,115.1 L282.0,115.1 L292.0,115.1 L302.0,115.1 L312.0,115.1 L322.0,115.1 L332.0,115.1 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
+      <polyline points="42.0,115.1 52.0,115.1 62.0,62.1 72.0,115.1 82.0,115.1 92.0,115.1 102.0,115.1 112.0,115.1 122.0,115.1 132.0,62.1 142.0,115.1 152.0,62.1 162.0,115.1 172.0,115.1 182.0,115.1 192.0,115.1 202.0,115.1 212.0,115.1 222.0,115.1 232.0,115.1 242.0,115.1 252.0,115.1 262.0,115.1 272.0,115.1 282.0,115.1 292.0,115.1 302.0,115.1 312.0,115.1 322.0,115.1 332.0,115.1" class="price-history-line" />
+      <circle cx="332.0" cy="115.1" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="115.1" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="52.0" cy="115.1" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="62.0" cy="62.1" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="72.0" cy="115.1" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="82.0" cy="115.1" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="92.0" cy="115.1" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="102.0" cy="115.1" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="112.0" cy="115.1" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="122.0" cy="115.1" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="132.0" cy="62.1" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="142.0" cy="115.1" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="152.0" cy="62.1" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="162.0" cy="115.1" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="172.0" cy="115.1" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="182.0" cy="115.1" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="192.0" cy="115.1" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="202.0" cy="115.1" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="212.0" cy="115.1" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="222.0" cy="115.1" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="232.0" cy="115.1" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="242.0" cy="115.1" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="252.0" cy="115.1" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="262.0" cy="115.1" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="272.0" cy="115.1" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="282.0" cy="115.1" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="292.0" cy="115.1" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="302.0" cy="115.1" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="312.0" cy="115.1" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="322.0" cy="115.1" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="332.0" cy="115.1" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <text x="332.0" y="107.1" text-anchor="end" class="price-history-current-label">249 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">12.09</text>
       <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">26.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
@@ -2125,71 +2121,69 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="201.0" x2="672" y2="201.0" class="price-history-gridline" />
-      <text x="40" y="204.0" text-anchor="end" class="price-history-axis-label">240 kr</text>
-      <line x1="46" y1="141.0" x2="672" y2="141.0" class="price-history-gridline" />
-      <text x="40" y="144.0" text-anchor="end" class="price-history-axis-label">260 kr</text>
-      <line x1="46" y1="81.0" x2="672" y2="81.0" class="price-history-gridline" />
-      <text x="40" y="84.0" text-anchor="end" class="price-history-axis-label">280 kr</text>
-      <line x1="46" y1="21.0" x2="672" y2="21.0" class="price-history-gridline" />
-      <text x="40" y="24.0" text-anchor="end" class="price-history-axis-label">300 kr</text>
-      <path d="M46.0,204.0 L46.0,24.0 L58.0,174.0 L70.1,24.0 L82.1,174.0 L94.2,174.0 L106.2,174.0 L118.2,174.0 L130.3,174.0 L142.3,174.0 L154.3,174.0 L166.4,24.0 L178.4,174.0 L190.5,174.0 L202.5,24.0 L214.5,174.0 L226.6,24.0 L238.6,174.0 L250.7,174.0 L262.7,174.0 L274.7,174.0 L286.8,174.0 L298.8,174.0 L310.8,24.0 L322.9,174.0 L334.9,174.0 L347.0,24.0 L359.0,174.0 L371.0,174.0 L383.1,174.0 L395.1,174.0 L407.2,174.0 L419.2,174.0 L431.2,24.0 L443.3,174.0 L455.3,24.0 L467.3,174.0 L479.4,174.0 L491.4,174.0 L503.5,174.0 L515.5,174.0 L527.5,174.0 L539.6,174.0 L551.6,174.0 L563.7,174.0 L575.7,174.0 L587.7,174.0 L599.8,174.0 L611.8,174.0 L623.8,174.0 L635.9,174.0 L647.9,174.0 L660.0,174.0 L672.0,174.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,24.0 58.0,174.0 70.1,24.0 82.1,174.0 94.2,174.0 106.2,174.0 118.2,174.0 130.3,174.0 142.3,174.0 154.3,174.0 166.4,24.0 178.4,174.0 190.5,174.0 202.5,24.0 214.5,174.0 226.6,24.0 238.6,174.0 250.7,174.0 262.7,174.0 274.7,174.0 286.8,174.0 298.8,174.0 310.8,24.0 322.9,174.0 334.9,174.0 347.0,24.0 359.0,174.0 371.0,174.0 383.1,174.0 395.1,174.0 407.2,174.0 419.2,174.0 431.2,24.0 443.3,174.0 455.3,24.0 467.3,174.0 479.4,174.0 491.4,174.0 503.5,174.0 515.5,174.0 527.5,174.0 539.6,174.0 551.6,174.0 563.7,174.0 575.7,174.0 587.7,174.0 599.8,174.0 611.8,174.0 623.8,174.0 635.9,174.0 647.9,174.0 660.0,174.0 672.0,174.0" class="price-history-line" />
-      <circle cx="672.0" cy="174.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="24.0" r="9" class="price-intel-hit"><title>20. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="58.0" cy="174.0" r="9" class="price-intel-hit"><title>21. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="70.1" cy="24.0" r="9" class="price-intel-hit"><title>22. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="82.1" cy="174.0" r="9" class="price-intel-hit"><title>23. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="94.2" cy="174.0" r="9" class="price-intel-hit"><title>24. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="106.2" cy="174.0" r="9" class="price-intel-hit"><title>25. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="118.2" cy="174.0" r="9" class="price-intel-hit"><title>26. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="130.3" cy="174.0" r="9" class="price-intel-hit"><title>27. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="142.3" cy="174.0" r="9" class="price-intel-hit"><title>28. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="154.3" cy="174.0" r="9" class="price-intel-hit"><title>29. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="166.4" cy="24.0" r="9" class="price-intel-hit"><title>30. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="178.4" cy="174.0" r="9" class="price-intel-hit"><title>31. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="190.5" cy="174.0" r="9" class="price-intel-hit"><title>1. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="202.5" cy="24.0" r="9" class="price-intel-hit"><title>2. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="214.5" cy="174.0" r="9" class="price-intel-hit"><title>3. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="226.6" cy="24.0" r="9" class="price-intel-hit"><title>4. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="238.6" cy="174.0" r="9" class="price-intel-hit"><title>5. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="250.7" cy="174.0" r="9" class="price-intel-hit"><title>6. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="262.7" cy="174.0" r="9" class="price-intel-hit"><title>7. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="274.7" cy="174.0" r="9" class="price-intel-hit"><title>8. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="286.8" cy="174.0" r="9" class="price-intel-hit"><title>9. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="298.8" cy="174.0" r="9" class="price-intel-hit"><title>10. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="310.8" cy="24.0" r="9" class="price-intel-hit"><title>11. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="322.9" cy="174.0" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="334.9" cy="174.0" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="347.0" cy="24.0" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="359.0" cy="174.0" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="371.0" cy="174.0" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="383.1" cy="174.0" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="395.1" cy="174.0" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="407.2" cy="174.0" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="419.2" cy="174.0" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="431.2" cy="24.0" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="443.3" cy="174.0" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="455.3" cy="24.0" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="467.3" cy="174.0" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="479.4" cy="174.0" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="491.4" cy="174.0" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="503.5" cy="174.0" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="515.5" cy="174.0" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="527.5" cy="174.0" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="539.6" cy="174.0" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="551.6" cy="174.0" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="563.7" cy="174.0" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="575.7" cy="174.0" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="587.7" cy="174.0" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="599.8" cy="174.0" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="611.8" cy="174.0" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="623.8" cy="174.0" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="635.9" cy="174.0" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="647.9" cy="174.0" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="660.0" cy="174.0" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="672.0" cy="174.0" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <text x="672.0" y="166.0" text-anchor="end" class="price-history-current-label">249 kr</text>
+      <line x1="46" y1="188.2" x2="672" y2="188.2" class="price-history-gridline" />
+      <text x="40" y="191.2" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="46" y1="127.9" x2="672" y2="127.9" class="price-history-gridline" />
+      <text x="40" y="130.9" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="46" y1="67.7" x2="672" y2="67.7" class="price-history-gridline" />
+      <text x="40" y="70.7" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <path d="M46.0,204.0 L46.0,68.9 L58.0,129.1 L70.1,68.9 L82.1,129.1 L94.2,129.1 L106.2,129.1 L118.2,129.1 L130.3,129.1 L142.3,129.1 L154.3,129.1 L166.4,68.9 L178.4,129.1 L190.5,129.1 L202.5,68.9 L214.5,129.1 L226.6,68.9 L238.6,129.1 L250.7,129.1 L262.7,129.1 L274.7,129.1 L286.8,129.1 L298.8,129.1 L310.8,68.9 L322.9,129.1 L334.9,129.1 L347.0,68.9 L359.0,129.1 L371.0,129.1 L383.1,129.1 L395.1,129.1 L407.2,129.1 L419.2,129.1 L431.2,68.9 L443.3,129.1 L455.3,68.9 L467.3,129.1 L479.4,129.1 L491.4,129.1 L503.5,129.1 L515.5,129.1 L527.5,129.1 L539.6,129.1 L551.6,129.1 L563.7,129.1 L575.7,129.1 L587.7,129.1 L599.8,129.1 L611.8,129.1 L623.8,129.1 L635.9,129.1 L647.9,129.1 L660.0,129.1 L672.0,129.1 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,68.9 58.0,129.1 70.1,68.9 82.1,129.1 94.2,129.1 106.2,129.1 118.2,129.1 130.3,129.1 142.3,129.1 154.3,129.1 166.4,68.9 178.4,129.1 190.5,129.1 202.5,68.9 214.5,129.1 226.6,68.9 238.6,129.1 250.7,129.1 262.7,129.1 274.7,129.1 286.8,129.1 298.8,129.1 310.8,68.9 322.9,129.1 334.9,129.1 347.0,68.9 359.0,129.1 371.0,129.1 383.1,129.1 395.1,129.1 407.2,129.1 419.2,129.1 431.2,68.9 443.3,129.1 455.3,68.9 467.3,129.1 479.4,129.1 491.4,129.1 503.5,129.1 515.5,129.1 527.5,129.1 539.6,129.1 551.6,129.1 563.7,129.1 575.7,129.1 587.7,129.1 599.8,129.1 611.8,129.1 623.8,129.1 635.9,129.1 647.9,129.1 660.0,129.1 672.0,129.1" class="price-history-line" />
+      <circle cx="672.0" cy="129.1" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="68.9" r="9" class="price-intel-hit"><title>20. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="58.0" cy="129.1" r="9" class="price-intel-hit"><title>21. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="70.1" cy="68.9" r="9" class="price-intel-hit"><title>22. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="82.1" cy="129.1" r="9" class="price-intel-hit"><title>23. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="94.2" cy="129.1" r="9" class="price-intel-hit"><title>24. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="106.2" cy="129.1" r="9" class="price-intel-hit"><title>25. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="118.2" cy="129.1" r="9" class="price-intel-hit"><title>26. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="130.3" cy="129.1" r="9" class="price-intel-hit"><title>27. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="142.3" cy="129.1" r="9" class="price-intel-hit"><title>28. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="154.3" cy="129.1" r="9" class="price-intel-hit"><title>29. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="166.4" cy="68.9" r="9" class="price-intel-hit"><title>30. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="178.4" cy="129.1" r="9" class="price-intel-hit"><title>31. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="190.5" cy="129.1" r="9" class="price-intel-hit"><title>1. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="202.5" cy="68.9" r="9" class="price-intel-hit"><title>2. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="214.5" cy="129.1" r="9" class="price-intel-hit"><title>3. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="226.6" cy="68.9" r="9" class="price-intel-hit"><title>4. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="238.6" cy="129.1" r="9" class="price-intel-hit"><title>5. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="250.7" cy="129.1" r="9" class="price-intel-hit"><title>6. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="262.7" cy="129.1" r="9" class="price-intel-hit"><title>7. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="274.7" cy="129.1" r="9" class="price-intel-hit"><title>8. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="286.8" cy="129.1" r="9" class="price-intel-hit"><title>9. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="298.8" cy="129.1" r="9" class="price-intel-hit"><title>10. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="310.8" cy="68.9" r="9" class="price-intel-hit"><title>11. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="322.9" cy="129.1" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="334.9" cy="129.1" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="347.0" cy="68.9" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="359.0" cy="129.1" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="371.0" cy="129.1" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="383.1" cy="129.1" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="395.1" cy="129.1" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="407.2" cy="129.1" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="419.2" cy="129.1" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="431.2" cy="68.9" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="443.3" cy="129.1" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="455.3" cy="68.9" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="467.3" cy="129.1" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="479.4" cy="129.1" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="491.4" cy="129.1" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="503.5" cy="129.1" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="515.5" cy="129.1" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="527.5" cy="129.1" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="539.6" cy="129.1" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="551.6" cy="129.1" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="563.7" cy="129.1" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="575.7" cy="129.1" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="587.7" cy="129.1" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="599.8" cy="129.1" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="611.8" cy="129.1" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="623.8" cy="129.1" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="635.9" cy="129.1" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="647.9" cy="129.1" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="660.0" cy="129.1" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="672.0" cy="129.1" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <text x="672.0" y="121.1" text-anchor="end" class="price-history-current-label">249 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">20.08</text>
       <text x="130.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">27.08</text>
       <text x="214.5" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">03.09</text>
@@ -2205,71 +2199,69 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="178.4" x2="332" y2="178.4" class="price-history-gridline" />
-      <text x="36" y="181.4" text-anchor="end" class="price-history-axis-label">240 kr</text>
-      <line x1="42" y1="125.5" x2="332" y2="125.5" class="price-history-gridline" />
-      <text x="36" y="128.5" text-anchor="end" class="price-history-axis-label">260 kr</text>
-      <line x1="42" y1="72.7" x2="332" y2="72.7" class="price-history-gridline" />
-      <text x="36" y="75.7" text-anchor="end" class="price-history-axis-label">280 kr</text>
-      <line x1="42" y1="19.9" x2="332" y2="19.9" class="price-history-gridline" />
-      <text x="36" y="22.9" text-anchor="end" class="price-history-axis-label">300 kr</text>
-      <path d="M42.0,181.0 L42.0,22.6 L47.6,154.6 L53.2,22.6 L58.7,154.6 L64.3,154.6 L69.9,154.6 L75.5,154.6 L81.0,154.6 L86.6,154.6 L92.2,154.6 L97.8,22.6 L103.3,154.6 L108.9,154.6 L114.5,22.6 L120.1,154.6 L125.7,22.6 L131.2,154.6 L136.8,154.6 L142.4,154.6 L148.0,154.6 L153.5,154.6 L159.1,154.6 L164.7,22.6 L170.3,154.6 L175.8,154.6 L181.4,22.6 L187.0,154.6 L192.6,154.6 L198.2,154.6 L203.7,154.6 L209.3,154.6 L214.9,154.6 L220.5,22.6 L226.0,154.6 L231.6,22.6 L237.2,154.6 L242.8,154.6 L248.3,154.6 L253.9,154.6 L259.5,154.6 L265.1,154.6 L270.7,154.6 L276.2,154.6 L281.8,154.6 L287.4,154.6 L293.0,154.6 L298.5,154.6 L304.1,154.6 L309.7,154.6 L315.3,154.6 L320.8,154.6 L326.4,154.6 L332.0,154.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,22.6 47.6,154.6 53.2,22.6 58.7,154.6 64.3,154.6 69.9,154.6 75.5,154.6 81.0,154.6 86.6,154.6 92.2,154.6 97.8,22.6 103.3,154.6 108.9,154.6 114.5,22.6 120.1,154.6 125.7,22.6 131.2,154.6 136.8,154.6 142.4,154.6 148.0,154.6 153.5,154.6 159.1,154.6 164.7,22.6 170.3,154.6 175.8,154.6 181.4,22.6 187.0,154.6 192.6,154.6 198.2,154.6 203.7,154.6 209.3,154.6 214.9,154.6 220.5,22.6 226.0,154.6 231.6,22.6 237.2,154.6 242.8,154.6 248.3,154.6 253.9,154.6 259.5,154.6 265.1,154.6 270.7,154.6 276.2,154.6 281.8,154.6 287.4,154.6 293.0,154.6 298.5,154.6 304.1,154.6 309.7,154.6 315.3,154.6 320.8,154.6 326.4,154.6 332.0,154.6" class="price-history-line" />
-      <circle cx="332.0" cy="154.6" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="22.6" r="9" class="price-intel-hit"><title>20. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="47.6" cy="154.6" r="9" class="price-intel-hit"><title>21. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="53.2" cy="22.6" r="9" class="price-intel-hit"><title>22. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="58.7" cy="154.6" r="9" class="price-intel-hit"><title>23. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="64.3" cy="154.6" r="9" class="price-intel-hit"><title>24. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="69.9" cy="154.6" r="9" class="price-intel-hit"><title>25. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="75.5" cy="154.6" r="9" class="price-intel-hit"><title>26. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="81.0" cy="154.6" r="9" class="price-intel-hit"><title>27. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="86.6" cy="154.6" r="9" class="price-intel-hit"><title>28. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="92.2" cy="154.6" r="9" class="price-intel-hit"><title>29. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="97.8" cy="22.6" r="9" class="price-intel-hit"><title>30. august: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="103.3" cy="154.6" r="9" class="price-intel-hit"><title>31. august: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="108.9" cy="154.6" r="9" class="price-intel-hit"><title>1. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="114.5" cy="22.6" r="9" class="price-intel-hit"><title>2. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="120.1" cy="154.6" r="9" class="price-intel-hit"><title>3. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="125.7" cy="22.6" r="9" class="price-intel-hit"><title>4. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="131.2" cy="154.6" r="9" class="price-intel-hit"><title>5. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="136.8" cy="154.6" r="9" class="price-intel-hit"><title>6. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="142.4" cy="154.6" r="9" class="price-intel-hit"><title>7. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="148.0" cy="154.6" r="9" class="price-intel-hit"><title>8. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="153.5" cy="154.6" r="9" class="price-intel-hit"><title>9. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="159.1" cy="154.6" r="9" class="price-intel-hit"><title>10. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="164.7" cy="22.6" r="9" class="price-intel-hit"><title>11. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="170.3" cy="154.6" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="175.8" cy="154.6" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="181.4" cy="22.6" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="187.0" cy="154.6" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="192.6" cy="154.6" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="198.2" cy="154.6" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="203.7" cy="154.6" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="209.3" cy="154.6" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="214.9" cy="154.6" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="220.5" cy="22.6" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="226.0" cy="154.6" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="231.6" cy="22.6" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
-      <circle cx="237.2" cy="154.6" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="242.8" cy="154.6" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="248.3" cy="154.6" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="253.9" cy="154.6" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="259.5" cy="154.6" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="265.1" cy="154.6" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="270.7" cy="154.6" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="276.2" cy="154.6" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="281.8" cy="154.6" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="287.4" cy="154.6" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="293.0" cy="154.6" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="298.5" cy="154.6" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="304.1" cy="154.6" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="309.7" cy="154.6" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="315.3" cy="154.6" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="320.8" cy="154.6" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="326.4" cy="154.6" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <circle cx="332.0" cy="154.6" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
-      <text x="332.0" y="146.6" text-anchor="end" class="price-history-current-label">249 kr</text>
+      <line x1="42" y1="167.1" x2="332" y2="167.1" class="price-history-gridline" />
+      <text x="36" y="170.1" text-anchor="end" class="price-history-axis-label">200 kr</text>
+      <line x1="42" y1="114.0" x2="332" y2="114.0" class="price-history-gridline" />
+      <text x="36" y="117.0" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="42" y1="61.0" x2="332" y2="61.0" class="price-history-gridline" />
+      <text x="36" y="64.0" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <path d="M42.0,181.0 L42.0,62.1 L47.6,115.1 L53.2,62.1 L58.7,115.1 L64.3,115.1 L69.9,115.1 L75.5,115.1 L81.0,115.1 L86.6,115.1 L92.2,115.1 L97.8,62.1 L103.3,115.1 L108.9,115.1 L114.5,62.1 L120.1,115.1 L125.7,62.1 L131.2,115.1 L136.8,115.1 L142.4,115.1 L148.0,115.1 L153.5,115.1 L159.1,115.1 L164.7,62.1 L170.3,115.1 L175.8,115.1 L181.4,62.1 L187.0,115.1 L192.6,115.1 L198.2,115.1 L203.7,115.1 L209.3,115.1 L214.9,115.1 L220.5,62.1 L226.0,115.1 L231.6,62.1 L237.2,115.1 L242.8,115.1 L248.3,115.1 L253.9,115.1 L259.5,115.1 L265.1,115.1 L270.7,115.1 L276.2,115.1 L281.8,115.1 L287.4,115.1 L293.0,115.1 L298.5,115.1 L304.1,115.1 L309.7,115.1 L315.3,115.1 L320.8,115.1 L326.4,115.1 L332.0,115.1 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,62.1 47.6,115.1 53.2,62.1 58.7,115.1 64.3,115.1 69.9,115.1 75.5,115.1 81.0,115.1 86.6,115.1 92.2,115.1 97.8,62.1 103.3,115.1 108.9,115.1 114.5,62.1 120.1,115.1 125.7,62.1 131.2,115.1 136.8,115.1 142.4,115.1 148.0,115.1 153.5,115.1 159.1,115.1 164.7,62.1 170.3,115.1 175.8,115.1 181.4,62.1 187.0,115.1 192.6,115.1 198.2,115.1 203.7,115.1 209.3,115.1 214.9,115.1 220.5,62.1 226.0,115.1 231.6,62.1 237.2,115.1 242.8,115.1 248.3,115.1 253.9,115.1 259.5,115.1 265.1,115.1 270.7,115.1 276.2,115.1 281.8,115.1 287.4,115.1 293.0,115.1 298.5,115.1 304.1,115.1 309.7,115.1 315.3,115.1 320.8,115.1 326.4,115.1 332.0,115.1" class="price-history-line" />
+      <circle cx="332.0" cy="115.1" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="62.1" r="9" class="price-intel-hit"><title>20. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="47.6" cy="115.1" r="9" class="price-intel-hit"><title>21. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="53.2" cy="62.1" r="9" class="price-intel-hit"><title>22. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="58.7" cy="115.1" r="9" class="price-intel-hit"><title>23. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="64.3" cy="115.1" r="9" class="price-intel-hit"><title>24. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="69.9" cy="115.1" r="9" class="price-intel-hit"><title>25. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="75.5" cy="115.1" r="9" class="price-intel-hit"><title>26. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="81.0" cy="115.1" r="9" class="price-intel-hit"><title>27. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="86.6" cy="115.1" r="9" class="price-intel-hit"><title>28. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="92.2" cy="115.1" r="9" class="price-intel-hit"><title>29. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="97.8" cy="62.1" r="9" class="price-intel-hit"><title>30. august: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="103.3" cy="115.1" r="9" class="price-intel-hit"><title>31. august: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="108.9" cy="115.1" r="9" class="price-intel-hit"><title>1. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="114.5" cy="62.1" r="9" class="price-intel-hit"><title>2. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="120.1" cy="115.1" r="9" class="price-intel-hit"><title>3. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="125.7" cy="62.1" r="9" class="price-intel-hit"><title>4. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="131.2" cy="115.1" r="9" class="price-intel-hit"><title>5. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="136.8" cy="115.1" r="9" class="price-intel-hit"><title>6. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="142.4" cy="115.1" r="9" class="price-intel-hit"><title>7. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="148.0" cy="115.1" r="9" class="price-intel-hit"><title>8. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="153.5" cy="115.1" r="9" class="price-intel-hit"><title>9. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="159.1" cy="115.1" r="9" class="price-intel-hit"><title>10. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="164.7" cy="62.1" r="9" class="price-intel-hit"><title>11. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="170.3" cy="115.1" r="9" class="price-intel-hit"><title>12. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="175.8" cy="115.1" r="9" class="price-intel-hit"><title>13. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="181.4" cy="62.1" r="9" class="price-intel-hit"><title>14. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="187.0" cy="115.1" r="9" class="price-intel-hit"><title>15. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="192.6" cy="115.1" r="9" class="price-intel-hit"><title>16. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="198.2" cy="115.1" r="9" class="price-intel-hit"><title>17. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="203.7" cy="115.1" r="9" class="price-intel-hit"><title>18. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="209.3" cy="115.1" r="9" class="price-intel-hit"><title>19. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="214.9" cy="115.1" r="9" class="price-intel-hit"><title>20. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="220.5" cy="62.1" r="9" class="price-intel-hit"><title>21. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="226.0" cy="115.1" r="9" class="price-intel-hit"><title>22. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="231.6" cy="62.1" r="9" class="price-intel-hit"><title>23. september: 299 kr hos Vitusapotek</title></circle>
+      <circle cx="237.2" cy="115.1" r="9" class="price-intel-hit"><title>24. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="242.8" cy="115.1" r="9" class="price-intel-hit"><title>25. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="248.3" cy="115.1" r="9" class="price-intel-hit"><title>26. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="253.9" cy="115.1" r="9" class="price-intel-hit"><title>27. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="259.5" cy="115.1" r="9" class="price-intel-hit"><title>28. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="265.1" cy="115.1" r="9" class="price-intel-hit"><title>29. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="270.7" cy="115.1" r="9" class="price-intel-hit"><title>30. september: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="276.2" cy="115.1" r="9" class="price-intel-hit"><title>1. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="281.8" cy="115.1" r="9" class="price-intel-hit"><title>2. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="287.4" cy="115.1" r="9" class="price-intel-hit"><title>3. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="293.0" cy="115.1" r="9" class="price-intel-hit"><title>4. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="298.5" cy="115.1" r="9" class="price-intel-hit"><title>5. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="304.1" cy="115.1" r="9" class="price-intel-hit"><title>6. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="309.7" cy="115.1" r="9" class="price-intel-hit"><title>7. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="315.3" cy="115.1" r="9" class="price-intel-hit"><title>8. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="320.8" cy="115.1" r="9" class="price-intel-hit"><title>9. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="326.4" cy="115.1" r="9" class="price-intel-hit"><title>10. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <circle cx="332.0" cy="115.1" r="9" class="price-intel-hit"><title>11. oktober: 249 kr hos Apotek For Deg</title></circle>
+      <text x="332.0" y="107.1" text-anchor="end" class="price-history-current-label">249 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">20.08</text>
       <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">15.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>

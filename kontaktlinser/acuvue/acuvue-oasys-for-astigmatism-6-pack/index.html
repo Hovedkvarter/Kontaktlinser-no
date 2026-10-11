@@ -789,8 +789,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -2124,14 +2124,14 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="171.5" x2="672" y2="171.5" class="price-history-gridline" />
-      <text x="40" y="174.5" text-anchor="end" class="price-history-axis-label">330 kr</text>
-      <line x1="46" y1="123.2" x2="672" y2="123.2" class="price-history-gridline" />
-      <text x="40" y="126.2" text-anchor="end" class="price-history-axis-label">340 kr</text>
-      <line x1="46" y1="74.8" x2="672" y2="74.8" class="price-history-gridline" />
-      <text x="40" y="77.8" text-anchor="end" class="price-history-axis-label">350 kr</text>
-      <line x1="46" y1="26.5" x2="672" y2="26.5" class="price-history-gridline" />
-      <text x="40" y="29.5" text-anchor="end" class="price-history-axis-label">360 kr</text>
+      <line x1="46" y1="181.6" x2="672" y2="181.6" class="price-history-gridline" />
+      <text x="40" y="184.6" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="46" y1="138.1" x2="672" y2="138.1" class="price-history-gridline" />
+      <text x="40" y="141.1" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="46" y1="94.7" x2="672" y2="94.7" class="price-history-gridline" />
+      <text x="40" y="97.7" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="46" y1="51.2" x2="672" y2="51.2" class="price-history-gridline" />
+      <text x="40" y="54.2" text-anchor="end" class="price-history-axis-label">400 kr</text>
       <path d="M46.0,204.0 L46.0,99.0 L67.6,99.0 L89.2,99.0 L110.8,99.0 L132.3,99.0 L153.9,99.0 L175.5,99.0 L197.1,99.0 L218.7,99.0 L240.3,99.0 L261.9,99.0 L283.4,99.0 L305.0,99.0 L326.6,99.0 L348.2,99.0 L369.8,99.0 L391.4,99.0 L413.0,99.0 L434.6,99.0 L456.1,99.0 L477.7,99.0 L499.3,99.0 L520.9,99.0 L542.5,99.0 L564.1,99.0 L585.7,99.0 L607.2,99.0 L628.8,99.0 L650.4,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
       <polyline points="46.0,99.0 67.6,99.0 89.2,99.0 110.8,99.0 132.3,99.0 153.9,99.0 175.5,99.0 197.1,99.0 218.7,99.0 240.3,99.0 261.9,99.0 283.4,99.0 305.0,99.0 326.6,99.0 348.2,99.0 369.8,99.0 391.4,99.0 413.0,99.0 434.6,99.0 456.1,99.0 477.7,99.0 499.3,99.0 520.9,99.0 542.5,99.0 564.1,99.0 585.7,99.0 607.2,99.0 628.8,99.0 650.4,99.0 672.0,99.0" class="price-history-line" />
       <circle cx="672.0" cy="99.0" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -2181,14 +2181,14 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="152.4" x2="332" y2="152.4" class="price-history-gridline" />
-      <text x="36" y="155.4" text-anchor="end" class="price-history-axis-label">330 kr</text>
-      <line x1="42" y1="109.8" x2="332" y2="109.8" class="price-history-gridline" />
-      <text x="36" y="112.8" text-anchor="end" class="price-history-axis-label">340 kr</text>
-      <line x1="42" y1="67.3" x2="332" y2="67.3" class="price-history-gridline" />
-      <text x="36" y="70.3" text-anchor="end" class="price-history-axis-label">350 kr</text>
-      <line x1="42" y1="24.8" x2="332" y2="24.8" class="price-history-gridline" />
-      <text x="36" y="27.8" text-anchor="end" class="price-history-axis-label">360 kr</text>
+      <line x1="42" y1="161.3" x2="332" y2="161.3" class="price-history-gridline" />
+      <text x="36" y="164.3" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="42" y1="123.0" x2="332" y2="123.0" class="price-history-gridline" />
+      <text x="36" y="126.0" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="42" y1="84.8" x2="332" y2="84.8" class="price-history-gridline" />
+      <text x="36" y="87.8" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="42" y1="46.5" x2="332" y2="46.5" class="price-history-gridline" />
+      <text x="36" y="49.5" text-anchor="end" class="price-history-axis-label">400 kr</text>
       <path d="M42.0,181.0 L42.0,88.6 L52.0,88.6 L62.0,88.6 L72.0,88.6 L82.0,88.6 L92.0,88.6 L102.0,88.6 L112.0,88.6 L122.0,88.6 L132.0,88.6 L142.0,88.6 L152.0,88.6 L162.0,88.6 L172.0,88.6 L182.0,88.6 L192.0,88.6 L202.0,88.6 L212.0,88.6 L222.0,88.6 L232.0,88.6 L242.0,88.6 L252.0,88.6 L262.0,88.6 L272.0,88.6 L282.0,88.6 L292.0,88.6 L302.0,88.6 L312.0,88.6 L322.0,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
       <polyline points="42.0,88.6 52.0,88.6 62.0,88.6 72.0,88.6 82.0,88.6 92.0,88.6 102.0,88.6 112.0,88.6 122.0,88.6 132.0,88.6 142.0,88.6 152.0,88.6 162.0,88.6 172.0,88.6 182.0,88.6 192.0,88.6 202.0,88.6 212.0,88.6 222.0,88.6 232.0,88.6 242.0,88.6 252.0,88.6 262.0,88.6 272.0,88.6 282.0,88.6 292.0,88.6 302.0,88.6 312.0,88.6 322.0,88.6 332.0,88.6" class="price-history-line" />
       <circle cx="332.0" cy="88.6" r="3.2" class="price-history-dot price-history-dot-last" />
@@ -2238,77 +2238,77 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="186.0" x2="672" y2="186.0" class="price-history-gridline" />
-      <text x="40" y="189.0" text-anchor="end" class="price-history-axis-label">330 kr</text>
-      <line x1="46" y1="137.6" x2="672" y2="137.6" class="price-history-gridline" />
-      <text x="40" y="140.6" text-anchor="end" class="price-history-axis-label">340 kr</text>
-      <line x1="46" y1="89.3" x2="672" y2="89.3" class="price-history-gridline" />
-      <text x="40" y="92.3" text-anchor="end" class="price-history-axis-label">350 kr</text>
-      <line x1="46" y1="41.0" x2="672" y2="41.0" class="price-history-gridline" />
-      <text x="40" y="44.0" text-anchor="end" class="price-history-axis-label">360 kr</text>
-      <path d="M46.0,204.0 L46.0,89.3 L56.8,89.3 L67.6,84.5 L78.4,84.5 L89.2,84.5 L100.0,84.5 L110.8,84.5 L121.6,89.3 L132.3,89.3 L143.1,89.3 L153.9,84.5 L164.7,84.5 L175.5,84.5 L186.3,84.5 L197.1,84.5 L207.9,84.5 L218.7,84.5 L229.5,84.5 L240.3,84.5 L251.1,84.5 L261.9,84.5 L272.7,84.5 L283.4,84.5 L294.2,84.5 L305.0,84.5 L315.8,84.5 L326.6,113.5 L337.4,113.5 L348.2,113.5 L359.0,113.5 L369.8,113.5 L380.6,113.5 L391.4,113.5 L402.2,113.5 L413.0,113.5 L423.8,113.5 L434.6,113.5 L445.3,113.5 L456.1,113.5 L466.9,113.5 L477.7,113.5 L488.5,113.5 L499.3,113.5 L510.1,113.5 L520.9,113.5 L531.7,113.5 L542.5,113.5 L553.3,113.5 L564.1,113.5 L574.9,113.5 L585.7,113.5 L596.4,113.5 L607.2,113.5 L618.0,113.5 L628.8,113.5 L639.6,113.5 L650.4,113.5 L661.2,113.5 L672.0,113.5 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,89.3 56.8,89.3 67.6,84.5 78.4,84.5 89.2,84.5 100.0,84.5 110.8,84.5 121.6,89.3 132.3,89.3 143.1,89.3 153.9,84.5 164.7,84.5 175.5,84.5 186.3,84.5 197.1,84.5 207.9,84.5 218.7,84.5 229.5,84.5 240.3,84.5 251.1,84.5 261.9,84.5 272.7,84.5 283.4,84.5 294.2,84.5 305.0,84.5 315.8,84.5 326.6,113.5 337.4,113.5 348.2,113.5 359.0,113.5 369.8,113.5 380.6,113.5 391.4,113.5 402.2,113.5 413.0,113.5 423.8,113.5 434.6,113.5 445.3,113.5 456.1,113.5 466.9,113.5 477.7,113.5 488.5,113.5 499.3,113.5 510.1,113.5 520.9,113.5 531.7,113.5 542.5,113.5 553.3,113.5 564.1,113.5 574.9,113.5 585.7,113.5 596.4,113.5 607.2,113.5 618.0,113.5 628.8,113.5 639.6,113.5 650.4,113.5 661.2,113.5 672.0,113.5" class="price-history-line" />
-      <circle cx="672.0" cy="113.5" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="89.3" r="9" class="price-intel-hit"><title>14. august: 350 kr hos Lenson</title></circle>
-      <circle cx="56.8" cy="89.3" r="9" class="price-intel-hit"><title>15. august: 350 kr hos Lenson</title></circle>
-      <circle cx="67.6" cy="84.5" r="9" class="price-intel-hit"><title>16. august: 351 kr hos Lensit</title></circle>
-      <circle cx="78.4" cy="84.5" r="9" class="price-intel-hit"><title>17. august: 351 kr hos Lensit</title></circle>
-      <circle cx="89.2" cy="84.5" r="9" class="price-intel-hit"><title>18. august: 351 kr hos Lensit</title></circle>
-      <circle cx="100.0" cy="84.5" r="9" class="price-intel-hit"><title>19. august: 351 kr hos Lensit</title></circle>
-      <circle cx="110.8" cy="84.5" r="9" class="price-intel-hit"><title>20. august: 351 kr hos Lensit</title></circle>
-      <circle cx="121.6" cy="89.3" r="9" class="price-intel-hit"><title>21. august: 350 kr hos Lenson</title></circle>
-      <circle cx="132.3" cy="89.3" r="9" class="price-intel-hit"><title>22. august: 350 kr hos Lenson</title></circle>
-      <circle cx="143.1" cy="89.3" r="9" class="price-intel-hit"><title>23. august: 350 kr hos Lenson</title></circle>
-      <circle cx="153.9" cy="84.5" r="9" class="price-intel-hit"><title>24. august: 351 kr hos Lensit</title></circle>
-      <circle cx="164.7" cy="84.5" r="9" class="price-intel-hit"><title>25. august: 351 kr hos Lensit</title></circle>
-      <circle cx="175.5" cy="84.5" r="9" class="price-intel-hit"><title>26. august: 351 kr hos Lensit</title></circle>
-      <circle cx="186.3" cy="84.5" r="9" class="price-intel-hit"><title>27. august: 351 kr hos Lensit</title></circle>
-      <circle cx="197.1" cy="84.5" r="9" class="price-intel-hit"><title>28. august: 351 kr hos Lensit</title></circle>
-      <circle cx="207.9" cy="84.5" r="9" class="price-intel-hit"><title>29. august: 351 kr hos Lensit</title></circle>
-      <circle cx="218.7" cy="84.5" r="9" class="price-intel-hit"><title>30. august: 351 kr hos Lensit</title></circle>
-      <circle cx="229.5" cy="84.5" r="9" class="price-intel-hit"><title>31. august: 351 kr hos Lensit</title></circle>
-      <circle cx="240.3" cy="84.5" r="9" class="price-intel-hit"><title>1. september: 351 kr hos Lensit</title></circle>
-      <circle cx="251.1" cy="84.5" r="9" class="price-intel-hit"><title>2. september: 351 kr hos Lensit</title></circle>
-      <circle cx="261.9" cy="84.5" r="9" class="price-intel-hit"><title>3. september: 351 kr hos Lensit</title></circle>
-      <circle cx="272.7" cy="84.5" r="9" class="price-intel-hit"><title>4. september: 351 kr hos Lensit</title></circle>
-      <circle cx="283.4" cy="84.5" r="9" class="price-intel-hit"><title>5. september: 351 kr hos Lensit</title></circle>
-      <circle cx="294.2" cy="84.5" r="9" class="price-intel-hit"><title>6. september: 351 kr hos Lensit</title></circle>
-      <circle cx="305.0" cy="84.5" r="9" class="price-intel-hit"><title>7. september: 351 kr hos Lensit</title></circle>
-      <circle cx="315.8" cy="84.5" r="9" class="price-intel-hit"><title>8. september: 351 kr hos Lensit</title></circle>
-      <circle cx="326.6" cy="113.5" r="9" class="price-intel-hit"><title>9. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="337.4" cy="113.5" r="9" class="price-intel-hit"><title>10. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="348.2" cy="113.5" r="9" class="price-intel-hit"><title>11. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="359.0" cy="113.5" r="9" class="price-intel-hit"><title>12. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="369.8" cy="113.5" r="9" class="price-intel-hit"><title>13. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="380.6" cy="113.5" r="9" class="price-intel-hit"><title>14. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="391.4" cy="113.5" r="9" class="price-intel-hit"><title>15. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="402.2" cy="113.5" r="9" class="price-intel-hit"><title>16. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="413.0" cy="113.5" r="9" class="price-intel-hit"><title>17. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="423.8" cy="113.5" r="9" class="price-intel-hit"><title>18. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="434.6" cy="113.5" r="9" class="price-intel-hit"><title>19. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="445.3" cy="113.5" r="9" class="price-intel-hit"><title>20. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="456.1" cy="113.5" r="9" class="price-intel-hit"><title>21. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="466.9" cy="113.5" r="9" class="price-intel-hit"><title>22. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="477.7" cy="113.5" r="9" class="price-intel-hit"><title>23. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="488.5" cy="113.5" r="9" class="price-intel-hit"><title>24. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="499.3" cy="113.5" r="9" class="price-intel-hit"><title>25. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="510.1" cy="113.5" r="9" class="price-intel-hit"><title>26. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="520.9" cy="113.5" r="9" class="price-intel-hit"><title>27. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="531.7" cy="113.5" r="9" class="price-intel-hit"><title>28. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="542.5" cy="113.5" r="9" class="price-intel-hit"><title>29. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="553.3" cy="113.5" r="9" class="price-intel-hit"><title>30. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="564.1" cy="113.5" r="9" class="price-intel-hit"><title>1. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="574.9" cy="113.5" r="9" class="price-intel-hit"><title>2. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="585.7" cy="113.5" r="9" class="price-intel-hit"><title>3. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="596.4" cy="113.5" r="9" class="price-intel-hit"><title>4. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="607.2" cy="113.5" r="9" class="price-intel-hit"><title>5. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="618.0" cy="113.5" r="9" class="price-intel-hit"><title>6. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="628.8" cy="113.5" r="9" class="price-intel-hit"><title>7. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="639.6" cy="113.5" r="9" class="price-intel-hit"><title>8. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="650.4" cy="113.5" r="9" class="price-intel-hit"><title>9. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="661.2" cy="113.5" r="9" class="price-intel-hit"><title>10. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="672.0" cy="113.5" r="9" class="price-intel-hit"><title>11. oktober: 345 kr hos Extra Optical</title></circle>
-      <text x="672.0" y="105.5" text-anchor="end" class="price-history-current-label">345 kr</text>
+      <line x1="46" y1="184.2" x2="672" y2="184.2" class="price-history-gridline" />
+      <text x="40" y="187.2" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="46" y1="140.7" x2="672" y2="140.7" class="price-history-gridline" />
+      <text x="40" y="143.7" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="46" y1="97.3" x2="672" y2="97.3" class="price-history-gridline" />
+      <text x="40" y="100.3" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="46" y1="53.8" x2="672" y2="53.8" class="price-history-gridline" />
+      <text x="40" y="56.8" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <path d="M46.0,204.0 L46.0,97.3 L56.8,97.3 L67.6,96.4 L78.4,96.4 L89.2,96.4 L100.0,96.4 L110.8,96.4 L121.6,97.3 L132.3,97.3 L143.1,97.3 L153.9,96.4 L164.7,96.4 L175.5,96.4 L186.3,96.4 L197.1,96.4 L207.9,96.4 L218.7,96.4 L229.5,96.4 L240.3,96.4 L251.1,96.4 L261.9,96.4 L272.7,96.4 L283.4,96.4 L294.2,96.4 L305.0,96.4 L315.8,96.4 L326.6,101.6 L337.4,101.6 L348.2,101.6 L359.0,101.6 L369.8,101.6 L380.6,101.6 L391.4,101.6 L402.2,101.6 L413.0,101.6 L423.8,101.6 L434.6,101.6 L445.3,101.6 L456.1,101.6 L466.9,101.6 L477.7,101.6 L488.5,101.6 L499.3,101.6 L510.1,101.6 L520.9,101.6 L531.7,101.6 L542.5,101.6 L553.3,101.6 L564.1,101.6 L574.9,101.6 L585.7,101.6 L596.4,101.6 L607.2,101.6 L618.0,101.6 L628.8,101.6 L639.6,101.6 L650.4,101.6 L661.2,101.6 L672.0,101.6 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,97.3 56.8,97.3 67.6,96.4 78.4,96.4 89.2,96.4 100.0,96.4 110.8,96.4 121.6,97.3 132.3,97.3 143.1,97.3 153.9,96.4 164.7,96.4 175.5,96.4 186.3,96.4 197.1,96.4 207.9,96.4 218.7,96.4 229.5,96.4 240.3,96.4 251.1,96.4 261.9,96.4 272.7,96.4 283.4,96.4 294.2,96.4 305.0,96.4 315.8,96.4 326.6,101.6 337.4,101.6 348.2,101.6 359.0,101.6 369.8,101.6 380.6,101.6 391.4,101.6 402.2,101.6 413.0,101.6 423.8,101.6 434.6,101.6 445.3,101.6 456.1,101.6 466.9,101.6 477.7,101.6 488.5,101.6 499.3,101.6 510.1,101.6 520.9,101.6 531.7,101.6 542.5,101.6 553.3,101.6 564.1,101.6 574.9,101.6 585.7,101.6 596.4,101.6 607.2,101.6 618.0,101.6 628.8,101.6 639.6,101.6 650.4,101.6 661.2,101.6 672.0,101.6" class="price-history-line" />
+      <circle cx="672.0" cy="101.6" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="46.0" cy="97.3" r="9" class="price-intel-hit"><title>14. august: 350 kr hos Lenson</title></circle>
+      <circle cx="56.8" cy="97.3" r="9" class="price-intel-hit"><title>15. august: 350 kr hos Lenson</title></circle>
+      <circle cx="67.6" cy="96.4" r="9" class="price-intel-hit"><title>16. august: 351 kr hos Lensit</title></circle>
+      <circle cx="78.4" cy="96.4" r="9" class="price-intel-hit"><title>17. august: 351 kr hos Lensit</title></circle>
+      <circle cx="89.2" cy="96.4" r="9" class="price-intel-hit"><title>18. august: 351 kr hos Lensit</title></circle>
+      <circle cx="100.0" cy="96.4" r="9" class="price-intel-hit"><title>19. august: 351 kr hos Lensit</title></circle>
+      <circle cx="110.8" cy="96.4" r="9" class="price-intel-hit"><title>20. august: 351 kr hos Lensit</title></circle>
+      <circle cx="121.6" cy="97.3" r="9" class="price-intel-hit"><title>21. august: 350 kr hos Lenson</title></circle>
+      <circle cx="132.3" cy="97.3" r="9" class="price-intel-hit"><title>22. august: 350 kr hos Lenson</title></circle>
+      <circle cx="143.1" cy="97.3" r="9" class="price-intel-hit"><title>23. august: 350 kr hos Lenson</title></circle>
+      <circle cx="153.9" cy="96.4" r="9" class="price-intel-hit"><title>24. august: 351 kr hos Lensit</title></circle>
+      <circle cx="164.7" cy="96.4" r="9" class="price-intel-hit"><title>25. august: 351 kr hos Lensit</title></circle>
+      <circle cx="175.5" cy="96.4" r="9" class="price-intel-hit"><title>26. august: 351 kr hos Lensit</title></circle>
+      <circle cx="186.3" cy="96.4" r="9" class="price-intel-hit"><title>27. august: 351 kr hos Lensit</title></circle>
+      <circle cx="197.1" cy="96.4" r="9" class="price-intel-hit"><title>28. august: 351 kr hos Lensit</title></circle>
+      <circle cx="207.9" cy="96.4" r="9" class="price-intel-hit"><title>29. august: 351 kr hos Lensit</title></circle>
+      <circle cx="218.7" cy="96.4" r="9" class="price-intel-hit"><title>30. august: 351 kr hos Lensit</title></circle>
+      <circle cx="229.5" cy="96.4" r="9" class="price-intel-hit"><title>31. august: 351 kr hos Lensit</title></circle>
+      <circle cx="240.3" cy="96.4" r="9" class="price-intel-hit"><title>1. september: 351 kr hos Lensit</title></circle>
+      <circle cx="251.1" cy="96.4" r="9" class="price-intel-hit"><title>2. september: 351 kr hos Lensit</title></circle>
+      <circle cx="261.9" cy="96.4" r="9" class="price-intel-hit"><title>3. september: 351 kr hos Lensit</title></circle>
+      <circle cx="272.7" cy="96.4" r="9" class="price-intel-hit"><title>4. september: 351 kr hos Lensit</title></circle>
+      <circle cx="283.4" cy="96.4" r="9" class="price-intel-hit"><title>5. september: 351 kr hos Lensit</title></circle>
+      <circle cx="294.2" cy="96.4" r="9" class="price-intel-hit"><title>6. september: 351 kr hos Lensit</title></circle>
+      <circle cx="305.0" cy="96.4" r="9" class="price-intel-hit"><title>7. september: 351 kr hos Lensit</title></circle>
+      <circle cx="315.8" cy="96.4" r="9" class="price-intel-hit"><title>8. september: 351 kr hos Lensit</title></circle>
+      <circle cx="326.6" cy="101.6" r="9" class="price-intel-hit"><title>9. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="337.4" cy="101.6" r="9" class="price-intel-hit"><title>10. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="348.2" cy="101.6" r="9" class="price-intel-hit"><title>11. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="359.0" cy="101.6" r="9" class="price-intel-hit"><title>12. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="369.8" cy="101.6" r="9" class="price-intel-hit"><title>13. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="380.6" cy="101.6" r="9" class="price-intel-hit"><title>14. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="391.4" cy="101.6" r="9" class="price-intel-hit"><title>15. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="402.2" cy="101.6" r="9" class="price-intel-hit"><title>16. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="413.0" cy="101.6" r="9" class="price-intel-hit"><title>17. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="423.8" cy="101.6" r="9" class="price-intel-hit"><title>18. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="434.6" cy="101.6" r="9" class="price-intel-hit"><title>19. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="445.3" cy="101.6" r="9" class="price-intel-hit"><title>20. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="456.1" cy="101.6" r="9" class="price-intel-hit"><title>21. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="466.9" cy="101.6" r="9" class="price-intel-hit"><title>22. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="477.7" cy="101.6" r="9" class="price-intel-hit"><title>23. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="488.5" cy="101.6" r="9" class="price-intel-hit"><title>24. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="499.3" cy="101.6" r="9" class="price-intel-hit"><title>25. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="510.1" cy="101.6" r="9" class="price-intel-hit"><title>26. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="520.9" cy="101.6" r="9" class="price-intel-hit"><title>27. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="531.7" cy="101.6" r="9" class="price-intel-hit"><title>28. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="542.5" cy="101.6" r="9" class="price-intel-hit"><title>29. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="553.3" cy="101.6" r="9" class="price-intel-hit"><title>30. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="564.1" cy="101.6" r="9" class="price-intel-hit"><title>1. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="574.9" cy="101.6" r="9" class="price-intel-hit"><title>2. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="585.7" cy="101.6" r="9" class="price-intel-hit"><title>3. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="596.4" cy="101.6" r="9" class="price-intel-hit"><title>4. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="607.2" cy="101.6" r="9" class="price-intel-hit"><title>5. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="618.0" cy="101.6" r="9" class="price-intel-hit"><title>6. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="628.8" cy="101.6" r="9" class="price-intel-hit"><title>7. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="639.6" cy="101.6" r="9" class="price-intel-hit"><title>8. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="650.4" cy="101.6" r="9" class="price-intel-hit"><title>9. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="661.2" cy="101.6" r="9" class="price-intel-hit"><title>10. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="672.0" cy="101.6" r="9" class="price-intel-hit"><title>11. oktober: 345 kr hos Extra Optical</title></circle>
+      <text x="672.0" y="93.6" text-anchor="end" class="price-history-current-label">345 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
       <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">22.08</text>
       <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.08</text>
@@ -2324,77 +2324,77 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="165.1" x2="332" y2="165.1" class="price-history-gridline" />
-      <text x="36" y="168.1" text-anchor="end" class="price-history-axis-label">330 kr</text>
-      <line x1="42" y1="122.6" x2="332" y2="122.6" class="price-history-gridline" />
-      <text x="36" y="125.6" text-anchor="end" class="price-history-axis-label">340 kr</text>
-      <line x1="42" y1="80.1" x2="332" y2="80.1" class="price-history-gridline" />
-      <text x="36" y="83.1" text-anchor="end" class="price-history-axis-label">350 kr</text>
-      <line x1="42" y1="37.6" x2="332" y2="37.6" class="price-history-gridline" />
-      <text x="36" y="40.6" text-anchor="end" class="price-history-axis-label">360 kr</text>
-      <path d="M42.0,181.0 L42.0,80.1 L47.0,80.1 L52.0,75.8 L57.0,75.8 L62.0,75.8 L67.0,75.8 L72.0,75.8 L77.0,80.1 L82.0,80.1 L87.0,80.1 L92.0,75.8 L97.0,75.8 L102.0,75.8 L107.0,75.8 L112.0,75.8 L117.0,75.8 L122.0,75.8 L127.0,75.8 L132.0,75.8 L137.0,75.8 L142.0,75.8 L147.0,75.8 L152.0,75.8 L157.0,75.8 L162.0,75.8 L167.0,75.8 L172.0,101.3 L177.0,101.3 L182.0,101.3 L187.0,101.3 L192.0,101.3 L197.0,101.3 L202.0,101.3 L207.0,101.3 L212.0,101.3 L217.0,101.3 L222.0,101.3 L227.0,101.3 L232.0,101.3 L237.0,101.3 L242.0,101.3 L247.0,101.3 L252.0,101.3 L257.0,101.3 L262.0,101.3 L267.0,101.3 L272.0,101.3 L277.0,101.3 L282.0,101.3 L287.0,101.3 L292.0,101.3 L297.0,101.3 L302.0,101.3 L307.0,101.3 L312.0,101.3 L317.0,101.3 L322.0,101.3 L327.0,101.3 L332.0,101.3 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,80.1 47.0,80.1 52.0,75.8 57.0,75.8 62.0,75.8 67.0,75.8 72.0,75.8 77.0,80.1 82.0,80.1 87.0,80.1 92.0,75.8 97.0,75.8 102.0,75.8 107.0,75.8 112.0,75.8 117.0,75.8 122.0,75.8 127.0,75.8 132.0,75.8 137.0,75.8 142.0,75.8 147.0,75.8 152.0,75.8 157.0,75.8 162.0,75.8 167.0,75.8 172.0,101.3 177.0,101.3 182.0,101.3 187.0,101.3 192.0,101.3 197.0,101.3 202.0,101.3 207.0,101.3 212.0,101.3 217.0,101.3 222.0,101.3 227.0,101.3 232.0,101.3 237.0,101.3 242.0,101.3 247.0,101.3 252.0,101.3 257.0,101.3 262.0,101.3 267.0,101.3 272.0,101.3 277.0,101.3 282.0,101.3 287.0,101.3 292.0,101.3 297.0,101.3 302.0,101.3 307.0,101.3 312.0,101.3 317.0,101.3 322.0,101.3 327.0,101.3 332.0,101.3" class="price-history-line" />
-      <circle cx="332.0" cy="101.3" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="80.1" r="9" class="price-intel-hit"><title>14. august: 350 kr hos Lenson</title></circle>
-      <circle cx="47.0" cy="80.1" r="9" class="price-intel-hit"><title>15. august: 350 kr hos Lenson</title></circle>
-      <circle cx="52.0" cy="75.8" r="9" class="price-intel-hit"><title>16. august: 351 kr hos Lensit</title></circle>
-      <circle cx="57.0" cy="75.8" r="9" class="price-intel-hit"><title>17. august: 351 kr hos Lensit</title></circle>
-      <circle cx="62.0" cy="75.8" r="9" class="price-intel-hit"><title>18. august: 351 kr hos Lensit</title></circle>
-      <circle cx="67.0" cy="75.8" r="9" class="price-intel-hit"><title>19. august: 351 kr hos Lensit</title></circle>
-      <circle cx="72.0" cy="75.8" r="9" class="price-intel-hit"><title>20. august: 351 kr hos Lensit</title></circle>
-      <circle cx="77.0" cy="80.1" r="9" class="price-intel-hit"><title>21. august: 350 kr hos Lenson</title></circle>
-      <circle cx="82.0" cy="80.1" r="9" class="price-intel-hit"><title>22. august: 350 kr hos Lenson</title></circle>
-      <circle cx="87.0" cy="80.1" r="9" class="price-intel-hit"><title>23. august: 350 kr hos Lenson</title></circle>
-      <circle cx="92.0" cy="75.8" r="9" class="price-intel-hit"><title>24. august: 351 kr hos Lensit</title></circle>
-      <circle cx="97.0" cy="75.8" r="9" class="price-intel-hit"><title>25. august: 351 kr hos Lensit</title></circle>
-      <circle cx="102.0" cy="75.8" r="9" class="price-intel-hit"><title>26. august: 351 kr hos Lensit</title></circle>
-      <circle cx="107.0" cy="75.8" r="9" class="price-intel-hit"><title>27. august: 351 kr hos Lensit</title></circle>
-      <circle cx="112.0" cy="75.8" r="9" class="price-intel-hit"><title>28. august: 351 kr hos Lensit</title></circle>
-      <circle cx="117.0" cy="75.8" r="9" class="price-intel-hit"><title>29. august: 351 kr hos Lensit</title></circle>
-      <circle cx="122.0" cy="75.8" r="9" class="price-intel-hit"><title>30. august: 351 kr hos Lensit</title></circle>
-      <circle cx="127.0" cy="75.8" r="9" class="price-intel-hit"><title>31. august: 351 kr hos Lensit</title></circle>
-      <circle cx="132.0" cy="75.8" r="9" class="price-intel-hit"><title>1. september: 351 kr hos Lensit</title></circle>
-      <circle cx="137.0" cy="75.8" r="9" class="price-intel-hit"><title>2. september: 351 kr hos Lensit</title></circle>
-      <circle cx="142.0" cy="75.8" r="9" class="price-intel-hit"><title>3. september: 351 kr hos Lensit</title></circle>
-      <circle cx="147.0" cy="75.8" r="9" class="price-intel-hit"><title>4. september: 351 kr hos Lensit</title></circle>
-      <circle cx="152.0" cy="75.8" r="9" class="price-intel-hit"><title>5. september: 351 kr hos Lensit</title></circle>
-      <circle cx="157.0" cy="75.8" r="9" class="price-intel-hit"><title>6. september: 351 kr hos Lensit</title></circle>
-      <circle cx="162.0" cy="75.8" r="9" class="price-intel-hit"><title>7. september: 351 kr hos Lensit</title></circle>
-      <circle cx="167.0" cy="75.8" r="9" class="price-intel-hit"><title>8. september: 351 kr hos Lensit</title></circle>
-      <circle cx="172.0" cy="101.3" r="9" class="price-intel-hit"><title>9. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="177.0" cy="101.3" r="9" class="price-intel-hit"><title>10. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="182.0" cy="101.3" r="9" class="price-intel-hit"><title>11. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="187.0" cy="101.3" r="9" class="price-intel-hit"><title>12. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="192.0" cy="101.3" r="9" class="price-intel-hit"><title>13. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="197.0" cy="101.3" r="9" class="price-intel-hit"><title>14. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="202.0" cy="101.3" r="9" class="price-intel-hit"><title>15. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="207.0" cy="101.3" r="9" class="price-intel-hit"><title>16. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="212.0" cy="101.3" r="9" class="price-intel-hit"><title>17. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="217.0" cy="101.3" r="9" class="price-intel-hit"><title>18. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="222.0" cy="101.3" r="9" class="price-intel-hit"><title>19. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="227.0" cy="101.3" r="9" class="price-intel-hit"><title>20. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="232.0" cy="101.3" r="9" class="price-intel-hit"><title>21. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="237.0" cy="101.3" r="9" class="price-intel-hit"><title>22. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="242.0" cy="101.3" r="9" class="price-intel-hit"><title>23. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="247.0" cy="101.3" r="9" class="price-intel-hit"><title>24. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="252.0" cy="101.3" r="9" class="price-intel-hit"><title>25. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="257.0" cy="101.3" r="9" class="price-intel-hit"><title>26. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="262.0" cy="101.3" r="9" class="price-intel-hit"><title>27. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="267.0" cy="101.3" r="9" class="price-intel-hit"><title>28. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="272.0" cy="101.3" r="9" class="price-intel-hit"><title>29. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="277.0" cy="101.3" r="9" class="price-intel-hit"><title>30. september: 345 kr hos Extra Optical</title></circle>
-      <circle cx="282.0" cy="101.3" r="9" class="price-intel-hit"><title>1. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="287.0" cy="101.3" r="9" class="price-intel-hit"><title>2. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="292.0" cy="101.3" r="9" class="price-intel-hit"><title>3. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="297.0" cy="101.3" r="9" class="price-intel-hit"><title>4. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="302.0" cy="101.3" r="9" class="price-intel-hit"><title>5. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="307.0" cy="101.3" r="9" class="price-intel-hit"><title>6. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="312.0" cy="101.3" r="9" class="price-intel-hit"><title>7. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="317.0" cy="101.3" r="9" class="price-intel-hit"><title>8. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="322.0" cy="101.3" r="9" class="price-intel-hit"><title>9. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="327.0" cy="101.3" r="9" class="price-intel-hit"><title>10. oktober: 345 kr hos Extra Optical</title></circle>
-      <circle cx="332.0" cy="101.3" r="9" class="price-intel-hit"><title>11. oktober: 345 kr hos Extra Optical</title></circle>
-      <text x="332.0" y="93.3" text-anchor="end" class="price-history-current-label">345 kr</text>
+      <line x1="42" y1="163.6" x2="332" y2="163.6" class="price-history-gridline" />
+      <text x="36" y="166.6" text-anchor="end" class="price-history-axis-label">250 kr</text>
+      <line x1="42" y1="125.3" x2="332" y2="125.3" class="price-history-gridline" />
+      <text x="36" y="128.3" text-anchor="end" class="price-history-axis-label">300 kr</text>
+      <line x1="42" y1="87.0" x2="332" y2="87.0" class="price-history-gridline" />
+      <text x="36" y="90.0" text-anchor="end" class="price-history-axis-label">350 kr</text>
+      <line x1="42" y1="48.8" x2="332" y2="48.8" class="price-history-gridline" />
+      <text x="36" y="51.8" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <path d="M42.0,181.0 L42.0,87.0 L47.0,87.0 L52.0,86.3 L57.0,86.3 L62.0,86.3 L67.0,86.3 L72.0,86.3 L77.0,87.0 L82.0,87.0 L87.0,87.0 L92.0,86.3 L97.0,86.3 L102.0,86.3 L107.0,86.3 L112.0,86.3 L117.0,86.3 L122.0,86.3 L127.0,86.3 L132.0,86.3 L137.0,86.3 L142.0,86.3 L147.0,86.3 L152.0,86.3 L157.0,86.3 L162.0,86.3 L167.0,86.3 L172.0,90.9 L177.0,90.9 L182.0,90.9 L187.0,90.9 L192.0,90.9 L197.0,90.9 L202.0,90.9 L207.0,90.9 L212.0,90.9 L217.0,90.9 L222.0,90.9 L227.0,90.9 L232.0,90.9 L237.0,90.9 L242.0,90.9 L247.0,90.9 L252.0,90.9 L257.0,90.9 L262.0,90.9 L267.0,90.9 L272.0,90.9 L277.0,90.9 L282.0,90.9 L287.0,90.9 L292.0,90.9 L297.0,90.9 L302.0,90.9 L307.0,90.9 L312.0,90.9 L317.0,90.9 L322.0,90.9 L327.0,90.9 L332.0,90.9 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,87.0 47.0,87.0 52.0,86.3 57.0,86.3 62.0,86.3 67.0,86.3 72.0,86.3 77.0,87.0 82.0,87.0 87.0,87.0 92.0,86.3 97.0,86.3 102.0,86.3 107.0,86.3 112.0,86.3 117.0,86.3 122.0,86.3 127.0,86.3 132.0,86.3 137.0,86.3 142.0,86.3 147.0,86.3 152.0,86.3 157.0,86.3 162.0,86.3 167.0,86.3 172.0,90.9 177.0,90.9 182.0,90.9 187.0,90.9 192.0,90.9 197.0,90.9 202.0,90.9 207.0,90.9 212.0,90.9 217.0,90.9 222.0,90.9 227.0,90.9 232.0,90.9 237.0,90.9 242.0,90.9 247.0,90.9 252.0,90.9 257.0,90.9 262.0,90.9 267.0,90.9 272.0,90.9 277.0,90.9 282.0,90.9 287.0,90.9 292.0,90.9 297.0,90.9 302.0,90.9 307.0,90.9 312.0,90.9 317.0,90.9 322.0,90.9 327.0,90.9 332.0,90.9" class="price-history-line" />
+      <circle cx="332.0" cy="90.9" r="3.2" class="price-history-dot price-history-dot-last" />
+      <circle cx="42.0" cy="87.0" r="9" class="price-intel-hit"><title>14. august: 350 kr hos Lenson</title></circle>
+      <circle cx="47.0" cy="87.0" r="9" class="price-intel-hit"><title>15. august: 350 kr hos Lenson</title></circle>
+      <circle cx="52.0" cy="86.3" r="9" class="price-intel-hit"><title>16. august: 351 kr hos Lensit</title></circle>
+      <circle cx="57.0" cy="86.3" r="9" class="price-intel-hit"><title>17. august: 351 kr hos Lensit</title></circle>
+      <circle cx="62.0" cy="86.3" r="9" class="price-intel-hit"><title>18. august: 351 kr hos Lensit</title></circle>
+      <circle cx="67.0" cy="86.3" r="9" class="price-intel-hit"><title>19. august: 351 kr hos Lensit</title></circle>
+      <circle cx="72.0" cy="86.3" r="9" class="price-intel-hit"><title>20. august: 351 kr hos Lensit</title></circle>
+      <circle cx="77.0" cy="87.0" r="9" class="price-intel-hit"><title>21. august: 350 kr hos Lenson</title></circle>
+      <circle cx="82.0" cy="87.0" r="9" class="price-intel-hit"><title>22. august: 350 kr hos Lenson</title></circle>
+      <circle cx="87.0" cy="87.0" r="9" class="price-intel-hit"><title>23. august: 350 kr hos Lenson</title></circle>
+      <circle cx="92.0" cy="86.3" r="9" class="price-intel-hit"><title>24. august: 351 kr hos Lensit</title></circle>
+      <circle cx="97.0" cy="86.3" r="9" class="price-intel-hit"><title>25. august: 351 kr hos Lensit</title></circle>
+      <circle cx="102.0" cy="86.3" r="9" class="price-intel-hit"><title>26. august: 351 kr hos Lensit</title></circle>
+      <circle cx="107.0" cy="86.3" r="9" class="price-intel-hit"><title>27. august: 351 kr hos Lensit</title></circle>
+      <circle cx="112.0" cy="86.3" r="9" class="price-intel-hit"><title>28. august: 351 kr hos Lensit</title></circle>
+      <circle cx="117.0" cy="86.3" r="9" class="price-intel-hit"><title>29. august: 351 kr hos Lensit</title></circle>
+      <circle cx="122.0" cy="86.3" r="9" class="price-intel-hit"><title>30. august: 351 kr hos Lensit</title></circle>
+      <circle cx="127.0" cy="86.3" r="9" class="price-intel-hit"><title>31. august: 351 kr hos Lensit</title></circle>
+      <circle cx="132.0" cy="86.3" r="9" class="price-intel-hit"><title>1. september: 351 kr hos Lensit</title></circle>
+      <circle cx="137.0" cy="86.3" r="9" class="price-intel-hit"><title>2. september: 351 kr hos Lensit</title></circle>
+      <circle cx="142.0" cy="86.3" r="9" class="price-intel-hit"><title>3. september: 351 kr hos Lensit</title></circle>
+      <circle cx="147.0" cy="86.3" r="9" class="price-intel-hit"><title>4. september: 351 kr hos Lensit</title></circle>
+      <circle cx="152.0" cy="86.3" r="9" class="price-intel-hit"><title>5. september: 351 kr hos Lensit</title></circle>
+      <circle cx="157.0" cy="86.3" r="9" class="price-intel-hit"><title>6. september: 351 kr hos Lensit</title></circle>
+      <circle cx="162.0" cy="86.3" r="9" class="price-intel-hit"><title>7. september: 351 kr hos Lensit</title></circle>
+      <circle cx="167.0" cy="86.3" r="9" class="price-intel-hit"><title>8. september: 351 kr hos Lensit</title></circle>
+      <circle cx="172.0" cy="90.9" r="9" class="price-intel-hit"><title>9. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="177.0" cy="90.9" r="9" class="price-intel-hit"><title>10. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="182.0" cy="90.9" r="9" class="price-intel-hit"><title>11. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="187.0" cy="90.9" r="9" class="price-intel-hit"><title>12. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="192.0" cy="90.9" r="9" class="price-intel-hit"><title>13. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="197.0" cy="90.9" r="9" class="price-intel-hit"><title>14. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="202.0" cy="90.9" r="9" class="price-intel-hit"><title>15. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="207.0" cy="90.9" r="9" class="price-intel-hit"><title>16. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="212.0" cy="90.9" r="9" class="price-intel-hit"><title>17. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="217.0" cy="90.9" r="9" class="price-intel-hit"><title>18. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="222.0" cy="90.9" r="9" class="price-intel-hit"><title>19. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="227.0" cy="90.9" r="9" class="price-intel-hit"><title>20. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="232.0" cy="90.9" r="9" class="price-intel-hit"><title>21. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="237.0" cy="90.9" r="9" class="price-intel-hit"><title>22. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="242.0" cy="90.9" r="9" class="price-intel-hit"><title>23. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="247.0" cy="90.9" r="9" class="price-intel-hit"><title>24. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="252.0" cy="90.9" r="9" class="price-intel-hit"><title>25. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="257.0" cy="90.9" r="9" class="price-intel-hit"><title>26. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="262.0" cy="90.9" r="9" class="price-intel-hit"><title>27. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="267.0" cy="90.9" r="9" class="price-intel-hit"><title>28. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="272.0" cy="90.9" r="9" class="price-intel-hit"><title>29. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="277.0" cy="90.9" r="9" class="price-intel-hit"><title>30. september: 345 kr hos Extra Optical</title></circle>
+      <circle cx="282.0" cy="90.9" r="9" class="price-intel-hit"><title>1. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="287.0" cy="90.9" r="9" class="price-intel-hit"><title>2. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="292.0" cy="90.9" r="9" class="price-intel-hit"><title>3. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="297.0" cy="90.9" r="9" class="price-intel-hit"><title>4. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="302.0" cy="90.9" r="9" class="price-intel-hit"><title>5. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="307.0" cy="90.9" r="9" class="price-intel-hit"><title>6. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="312.0" cy="90.9" r="9" class="price-intel-hit"><title>7. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="317.0" cy="90.9" r="9" class="price-intel-hit"><title>8. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="322.0" cy="90.9" r="9" class="price-intel-hit"><title>9. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="327.0" cy="90.9" r="9" class="price-intel-hit"><title>10. oktober: 345 kr hos Extra Optical</title></circle>
+      <circle cx="332.0" cy="90.9" r="9" class="price-intel-hit"><title>11. oktober: 345 kr hos Extra Optical</title></circle>
+      <text x="332.0" y="82.9" text-anchor="end" class="price-history-current-label">345 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
       <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">12.09</text>
       <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">11.10</text>
