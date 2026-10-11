@@ -751,7 +751,7 @@ a { color: inherit; }
 .price-intel-metric-desc{display:none}
 .price-intel-status-pill{border:0;box-shadow:none}
 .price-intel-period-tabs{margin:18px 0 20px}
-.price-intel-chart-shell{border:0;border-radius:0;padding:0}
+.price-intel-chart-shell{border:0;border-radius:0;padding:0;max-width:none;width:100%}
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
@@ -840,7 +840,7 @@ a { color: inherit; }
   .price-intel-value-lg{font-size:3.2rem}
   .price-intel-value{font-size:1.55rem}
   .price-intel-status-pill{width:260px;padding:14px 16px}
-  .price-intel-chart-shell{max-width:980px}
+  .price-intel-chart-shell{max-width:none}
   .price-intel-card{flex:0 1 calc((100% - 24px)/3);max-width:385px!important}
   .price-intel-stat-strip{gap:0}
   .price-intel-history-details>summary{display:none}
@@ -4548,7 +4548,7 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str, mobil
     min_price, max_price = _price_intel_chart_domain(prices)
     price_range = max_price - min_price
 
-    width, height = ((340, 205) if mobile else (680, 140))
+    width, height = ((340, 205) if mobile else (680, 280))
     pad_left, pad_right, pad_top, pad_bottom = ((42, 8, 12, 24) if mobile else (46, 8, 12, 20))
     plot_w = width - pad_left - pad_right
     plot_h = height - pad_top - pad_bottom
