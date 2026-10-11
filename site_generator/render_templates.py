@@ -625,6 +625,17 @@ a { color: inherit; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
 .price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
+.price-intel-frequency-panel { display: none; }
+.price-intel-frequency-panel.active { display: block; }
+.price-intel-frequency-number { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.55rem; color: var(--ink); }
+.price-intel-frequency-description { font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
+.price-intel-frequency-bar { display: flex; gap: 2px; height: 10px; border-radius: 999px; overflow: hidden; background: var(--mist); }
+.price-intel-frequency-lower { background: #94A3B8; }
+.price-intel-frequency-equal { background: #2563EB; }
+.price-intel-frequency-higher { background: #CBD5E1; }
+.price-intel-frequency-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.7rem; color: var(--muted); margin-top: 9px; }
+.price-intel-frequency-label { display: inline-flex; align-items: center; gap: 5px; }
+.price-intel-frequency-label i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -5036,7 +5047,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     default_key = "30d" if "30d" in period_keys else "all"
     spread = _price_intelligence_merchant_spread(offers) if offers else None
     all_retailers = {o["retailer"] for o in offers} if offers else set()
-    qty_table = _price_intelligence_quantity_table(offers, unit_singular, unit_plural) if offers else None
+    # Den gamle antallsinnsikten erstattes av historisk prisfrekvens.
     # Bidireksjonal "bytte"-pil, kun brukt av egen-data-stripen sitt
     # "N ganger har prisvinneren skiftet"-element -- ingen delt konstant
     # finnes fra før som passer semantisk (TROPHY_ICON_SVG er allerede
@@ -5052,7 +5063,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     # mockupens eksplisitte rekkefølge (visuelt reset-brief punkt 4).
     # Oppdaget 2026-09-29 ved å faktisk sjekke et produkt med færre enn 90
     # dagers historikk i browser-panelet, ikke antatt.
-    tabs, primary_strips, chart_panels, stat_strips, summary_strips, history_table_rows, winner_panels = [], [], [], [], [], [], []
+    tabs, primary_strips, chart_panels, stat_strips, summary_strips, history_table_rows, winner_panels, frequency_panels = [], [], [], [], [], [], [], []
     n_enabled = 0
     for key, label, days in PRICE_INTELLIGENCE_PERIODS:
         if key not in period_keys:
@@ -5072,6 +5083,29 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
         chart_svg_mobile = _render_price_intelligence_chart(metrics["window"], gradient_id=f"priceIntelFadeMobile-{key}", mobile=True)
         period_phrase = "i hele perioden" if key == "all" else f"siste {label}"
         period_winners = _price_intelligence_merchant_winners(metrics["window"], all_retailers)
+        observed_prices = [row["price"] for row in metrics["window"]]
+        reference_price = observed_prices[-1]
+        lower_days = sum(p < reference_price for p in observed_prices)
+        equal_days = sum(p == reference_price for p in observed_prices)
+        higher_days = sum(p > reference_price for p in observed_prices)
+        observed_days = len(observed_prices)
+        frequency_segments = "".join(
+            f'<span class="price-intel-frequency-{klass}" style="flex:{count}" aria-hidden="true"></span>'
+            for count, klass in ((lower_days, "lower"), (equal_days, "equal"), (higher_days, "higher"))
+            if count
+        )
+        frequency_legend = "".join(
+            f'<span class="price-intel-frequency-label"><i class="price-intel-frequency-{klass}" aria-hidden="true"></i>{caption}: {count}</span>'
+            for count, klass, caption in ((lower_days, "lower", "Lavere"), (equal_days, "equal", "Samme"), (higher_days, "higher", "Høyere"))
+        )
+        frequency_panels.append(f'''<div class="price-intel-card price-intel-frequency-panel{active_cls}" data-period="{key}">
+          <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">{escape(label)}</span></div>
+          <div class="price-intel-frequency-number">{lower_days + equal_days} av {observed_days}</div>
+          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i {lower_days + equal_days} av {observed_days} observerte dager.</p>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: {lower_days} dager. Samme: {equal_days} dager. Høyere: {higher_days} dager.">{frequency_segments}</div>
+          <div class="price-intel-frequency-legend">{frequency_legend}</div>
+          <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
+        </div>''')
 
         primary_strips.append(f'''<div class="price-intel-primary{active_cls}" data-period="{key}">
     <div class="price-intel-metrics-row">
@@ -5241,44 +5275,16 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <p class="price-intel-card-note"><span aria-hidden="true">&#9432;</span> Basert på priser uten frakt, for 1 {escape(unit_singular)}.</p>
   </div>'''
 
-    # "Kjøper du flere esker?" (visuelt reset-brief punkt 9, betinget
-    # skjult av _price_intelligence_quantity_table() selv -- se dens
-    # docstring for begrunnelsen) -- samme CURRENT-tilbud-grunnlag som
-    # Prisforskjell-kortet, vises derfor også KUN én gang. Siden kortet
-    # nå KUN rendres når vinnerbutikken faktisk endrer seg et sted i
-    # tabellen, sier notatet det konkrete antallet det skjer ved i
-    # stedet for den tidligere generiske "kan endre seg"-hedgingen
-    # (logikk-/semantikk-runden 2026-09-29, Kai: "do not use generic
-    # text... when we know it does not [change]" -- her vet vi tvert
-    # imot at den GJØR det, så teksten sier nøyaktig det). Kolonnen
-    # "Laveste pris" er omdøpt til "Pris totalt" (v2-redesign) -- den
-    # viser produktpris × antall, altså en TOTAL, ikke "laveste" i seg
-    # selv (regel 19: "Every proprietary metric should carry: metric +
-    # value + period/context").
-    qty_card = ""
-    if qty_table:
-        rows_html = "".join(
-            f'<tr><td>{r["qty"]} {escape(unit_singular) if r["qty"] == 1 else escape(unit_plural)}</td><td>{_fmt_kr(r["total"])}</td><td>{escape(r["store"])}</td></tr>'
-            for r in qty_table["rows"]
-        )
-        qty_card = f'''<div class="price-intel-card">
-    <div class="price-intel-card-head"><h3 class="price-intel-card-h-qty">{BOX_ICON_SVG}Kjøper du flere {escape(unit_plural)}?</h3></div>
-    <table class="price-intel-qty-table">
-      <thead><tr><th>Antall</th><th>Pris totalt</th><th>Butikk</th></tr></thead>
-      <tbody>{rows_html}</tbody>
-    </table>
-    <p class="price-intel-qty-note"><span aria-hidden="true">&#9432;</span> Prisene er uten frakt. Billigste butikk endrer seg ved {qty_table["change_qty"]} {escape(unit_plural)}.</p>
-  </div>'''
-
     winner_panels_html = "".join(winner_panels)
-    cards_html = f'<div class="price-intel-cards">{spread_card}{winner_panels_html}{qty_card}</div>' if (spread_card or winner_panels_html or qty_card) else ""
+    frequency_panels_html = "".join(frequency_panels)
+    cards_html = f'<div class="price-intel-cards">{spread_card}{winner_panels_html}{frequency_panels_html}</div>'
 
     return f'''<div class="price-intel">
   <div class="price-intel-head">
     <div class="price-intel-head-text">
       <p class="price-intel-eyebrow">Prisintelligens</p>
       <h2>Prisutvikling</h2>
-      <p>Vi har fulgt laveste produktpris hos butikkene siden {_format_no_date(coverage_start)}, slik at du kan se hvordan prisen har endret seg over tid.</p>
+      <p>Følg utviklingen i laveste registrerte produktpris, sammenlign butikkene og utforsk prishistorikken.</p>
     </div>
     <div class="price-intel-coverage">{CALENDAR_ICON_SVG}<span>Vi har fulgt prisen siden<br><strong>{_format_no_date(coverage_start)}</strong><span class="price-intel-coverage-days">{coverage_days} dager med data</span></span></div>
   </div>
