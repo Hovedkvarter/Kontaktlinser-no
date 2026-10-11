@@ -54,7 +54,7 @@
       panel.querySelectorAll('svg.price-history-chart').forEach(svg => {
         const width = svg.getBoundingClientRect().width;
         if(!width) return;
-        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : width*280/680;
+        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : width*224/680;
         svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
         const left=mobile?48:64,right=12,top=22,bottom=28, plotH=height-top-bottom;
         const start=day(d.lowest[0].date),end=day(d.lowest[d.lowest.length-1].date),span=Math.max(DAY,end-start);
@@ -63,7 +63,7 @@
         const prices=series.flatMap(s=>s.rows.filter(r=>Number.isFinite(r.price)).map(r=>r.price));
         const sorted=[...prices].sort((a,b)=>a-b),median=(sorted[Math.floor((sorted.length-1)/2)]+sorted[Math.floor(sorted.length/2)])/2;
         const min=Math.min(...prices),max=Math.max(...prices),range=Math.max(max-min,25,median*.09),extra=(range-(max-min))/2;
-        const lo=min-extra-range*.08,hi=max+extra+range*.08;
+        const lo=min-extra-range*.20,hi=max+extra+range*.08;
         const x=t=>left+(t-start)/span*(width-left-right),y=p=>top+(hi-p)/(hi-lo)*plotH;
         svg.replaceChildren(node('title',{},'Prishistorikk. '+(selected.size?[...selected].join(', '):'Laveste registrerte produktpris per dag')));
         const defs=node('defs'), gradient=node('linearGradient',{id:'storeFade-'+panel.dataset.period+'-'+(mobile?'m':'d'),x1:0,y1:0,x2:0,y2:1});
@@ -78,13 +78,12 @@
           const segments=[];let segment=[];
           s.rows.forEach(r=>{if(!Number.isFinite(r.price)){if(segment.length)segments.push(segment);segment=[];return;}if(segment.length&&day(r.date)-day(segment[segment.length-1].date)>DAY){segments.push(segment);segment=[];}segment.push(r);});if(segment.length)segments.push(segment);
           segments.forEach(points=>{
-            const line=points.map((r,i)=>(i?'L':'M')+x(day(r.date))+','+y(r.price)).join(' ');
+            const line=points.length===1 ? `M${Math.max(left,x(day(points[0].date))-5)},${y(points[0].price)} L${Math.min(width-right,x(day(points[0].date))+5)},${y(points[0].price)}` : points.map((r,i)=>(i?'L':'M')+x(day(r.date))+','+y(r.price)).join(' ');
             if(index===0&&points.length>1)svg.append(node('path',{d:line+` L${x(day(points[points.length-1].date))},${height-bottom} L${x(day(points[0].date))},${height-bottom} Z`,fill:`url(#${gradient.id})`}));
             svg.append(node('path',{d:line,fill:'none',stroke:s.color,'stroke-width':1.3,'vector-effect':'non-scaling-stroke'}));
-            if(points.length===1)svg.append(node('circle',{cx:x(day(points[0].date)),cy:y(points[0].price),r:2,fill:s.color}));
           });
         });
-        const last=d.lowest[d.lowest.length-1];svg.append(node('circle',{cx:x(end),cy:y(last.price),r:3,fill:lowest.color,stroke:'white','stroke-width':1.5}));
+        const last=d.lowest[d.lowest.length-1];
         if(!selected.size)svg.append(node('text',{x:x(end),y:Math.max(top+12,y(last.price)-10),'text-anchor':'end',fill:lowest.color,'font-size':13,'font-weight':600},money(last.price)));
         const guide=node('g');svg.append(guide);
         const hit=node('rect',{x:left,y:top,width:Math.max(1,width-left-right),height:plotH,fill:'transparent','pointer-events':'all'});svg.append(hit);
