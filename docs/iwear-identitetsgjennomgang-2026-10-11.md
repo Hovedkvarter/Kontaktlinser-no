@@ -1,10 +1,10 @@
 # iWear Connect, Flex og Slim: identitetsgjennomgang 11. oktober 2026
 
-Status: implementert i arbeidsgren etter eiers instruks om å gjennomføre sider og koblinger.
-Publiseringsstatus registreres etter produksjonskontroll.
+Status: publisert og produksjonskontrollert 11. oktober 2026 via PR #26.
+https://github.com/Hovedkvarter/Kontaktlinser-no/pull/26
 Konklusjon: høy sikkerhet for de foreslåtte koblingene under. Fem originalprodukter
-finnes i katalogen, fire mangler. Dette er ni nye iWear-aliaser, ikke ni nye originalprodukter.
-De fire nye ID-ene nedenfor er nå opprettet i arbeidsversjonen.
+fantes i katalogen, fire manglet. Dette er ni nye iWear-aliaser, ikke ni nye originalprodukter.
+De fire nye ID-ene nedenfor er nå publisert.
 
 ## Metode og bevisstyrke
 
@@ -120,3 +120,13 @@ MIRU-merketeksten inkluderer nå månedslinser. Nye produkter bruker lisensierte
 feedbilder; eksisterende manuelle bilder er beholdt. Andre butikktilbud bevares.
 Alle 77 linserader er håndtert: 75 aktive SKU-er og to grupperte TOTAL30-varianter.
 Dette gir 77 Brilleland-tilbud på 77 produktsider og 211 produkter i katalogen.
+
+## Sluttkontroll
+
+- PR #26 slått sammen: `301b2f5b770bf8bb6361a7e3977b783e62051127`.
+- 13 tester bestått; full sidegenerering og validering bestått, 211/211 produkter med pris.
+- CI 38178361507, produksjonsbygg 38178443385 og Pages 38178488490 fullført uten feil.
+- Alle 25 berørte produkt-, alias- og seriesider kontrollert live med HTTP 200 og riktig hovedoverskrift.
+- Oxygen XR kontrollert live: lenker til Biofinity XR 6-pakning, ingen lenke til 3-pakning.
+- Internlenker og canonical kontrollert i generert bygg. MIRU 1month-produktsiden og iWear Connect-seriesiden visuelt kontrollert i nettleser; aliasets pris og produkt-/serielenker kontrollert i samme nettleser.
+- Tilbud fra øvrige butikker er verifisert uendret. iWear Go Astigmatism får fortsatt ikke et Brilleland-tilbud siden produktet ikke finnes i feeden.
