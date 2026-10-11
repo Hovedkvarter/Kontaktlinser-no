@@ -1,15 +1,15 @@
 # Brilleland / Adtraction – full feedgjennomgang 11. oktober 2026
 
-Status: implementert i arbeidsgren og PR #24. Eier har godkjent GitHub/PR,
-men ikke merge eller publisering. Denne revisjonen erstatter første runde
+Status: klar for publisering via PR #24. Eier godkjente publisering av
+dokumenterte koblinger 11. oktober 2026; uavklarte oppføringer holdes tilbake. Denne revisjonen erstatter første runde
 som bare omfattet 31 eksisterende produktkoblinger.
 
 ## Resultat
 
 - Hele feeden: 922 rader. 77 kontaktlinseoppføringer er vurdert enkeltvis.
-- 66 utvalgte feed-SKU-er gir Brilleland-tilbud på 68 produktsider, inkludert
+- 65 utvalgte feed-SKU-er gir Brilleland-tilbud på 67 produktsider, inkludert
   de to etablerte Focus Dailies/All Day Comfort-aliasene.
-- 62 eksisterende katalogprodukter får tilbud. Seks nye produkter opprettes:
+- 61 eksisterende katalogprodukter får tilbud. Seks nye produkter opprettes:
   Biofinity Toric 3, Biofinity Multifocal 3, Biofinity XR Toric 6,
   Proclear Toric 3, Proclear Multifocal 3 og MiSight 1 day 30.
 - 9 nye dokumenterte iWear-aliaser gir søk/egne merkesider for koblingene.
@@ -72,7 +72,8 @@ oppdatert bare for Brilleland; ingen unødvendig full scraping.
   sider er kontrollert via nettsøk. AquaComfort Multifocal har motstridende
   URL-suffiks i feed og kategorilenke; begge ga 404 gjennom nettsøket,
   mens kategorisiden fortsatt viser 30-pakningen med samme pris. Kontroller
-  denne sporingslenkens sluttdestinasjon før merge. Ingen URL er gjettet om.
+  denne sporingslenkens sluttdestinasjon før aktivering. SKU 40000310 er
+  tatt ut av matching og katalogtilbud. Ingen URL er gjettet om.
 
-Neste steg: avklar de ni iWear-identitetene, kontroller den avvikende
-AquaComfort-lenken og forhåndsvisningen før eiers publiseringsgodkjenning.
+Neste steg etter publisering: avklar de ni iWear-identitetene og kontroller
+den avvikende AquaComfort-lenken sammen med eier.
