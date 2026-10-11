@@ -22234,6 +22234,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MIRU",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 459.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-sphere-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T22:37:37.094826+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "miru-1month-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -22291,6 +22311,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MIRU",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 624.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-astigmatism-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T22:37:48.980635+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "miru-1month-toric-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -22350,6 +22390,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MIRU",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 790.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-multifocal-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T22:38:00.551117+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "miru-1month-multifocal-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -22407,6 +22467,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MIRU",
+          "source": "scraper",
+          "network": "scrape",
+          "price_nok": 298.0,
+          "shipping_nok": 0.0,
+          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T22:38:13.728152+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": null,
+          "image_source": "unlicensed",
+          "product_id": "miru-1day-flatpack-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
