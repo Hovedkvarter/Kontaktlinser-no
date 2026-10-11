@@ -9,7 +9,7 @@ from urllib.parse import urlparse, parse_qs
 
 sys.path.insert(0, str(Path(__file__).parent / "site_generator"))
 
-from ingest_feed import load_feed
+from ingest_feed import load_feed, map_brilleland_row
 from scraper import should_scrape
 from site_generator.render_templates import reconcile_product, render_offer_card
 
@@ -28,8 +28,25 @@ class BrillelandFeedTests(unittest.TestCase):
         expected = {p['id'] for p in meta['products'] if any(t['retailer'] == 'brilleland' for t in p.get('scrape_targets', []))}
         self.assertTrue(expected <= set(self.by_id))
         self.assertEqual(len(self.offers), len(self.by_id))
-        self.assertEqual(len(self.offers), 67)
+        self.assertEqual(len(self.offers), 68)
         self.assertEqual(len(expected), 31)
+
+    def test_destination_correction_preserves_tracking_and_future_feed_updates(self):
+        import csv
+        from urllib.parse import quote
+        with (ROOT / 'tests/fixtures/brilleland-adtraction.csv').open() as f:
+            row = next(r for r in csv.DictReader(f) if r['id'] == '40000310')
+        correction = self.config['brilleland']['destination_corrections']['40000310']
+        original = row['link']
+        offer = self.by_id['dailies-aquacomfort-plus-multifocal-30pk']
+        self.assertEqual(offer.url, original.replace(correction['old_url'], correction['new_url']))
+        self.assertEqual(offer.price_nok, 357)
+        for target in (correction['new_url'], 'https://www.brilleland.no/future-product/'):
+            row['link'] = original.replace(correction['old_url'], target)
+            self.assertEqual(map_brilleland_row(row, self.match, self.config['brilleland'])[0].url, row['link'])
+        row['link'] = original.replace(correction['old_url'], quote(correction['old_url'], safe=''))
+        corrected = map_brilleland_row(row, self.match, self.config['brilleland'])[0].url
+        self.assertEqual(parse_qs(urlparse(corrected).query)['url'], [correction['new_url']])
 
     def test_three_packs_never_become_six_packs(self):
         self.assertEqual(self.match['40000281'], 'biofinity-multifocal-3pk')
@@ -68,8 +85,8 @@ class BrillelandFeedTests(unittest.TestCase):
     def test_complete_feed_accounting(self):
         audit = json.loads((ROOT / 'docs/brilleland-feed-audit.json').read_text())['rows']
         self.assertEqual(len(audit), 77)
-        self.assertNotIn('40000310', self.match)
-        self.assertEqual(next(r for r in audit if r['sku'] == '40000310')['status'], 'pending_url')
+        self.assertIn('40000310', self.match)
+        self.assertEqual(next(r for r in audit if r['sku'] == '40000310')['status'], 'mapped')
         self.assertEqual(len({r['sku'] for r in audit}), 77)
         self.assertEqual({r['sku'] for r in audit if r['status'] == 'mapped'}, set(self.match))
         for row in audit:
