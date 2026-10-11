@@ -261,7 +261,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-10-11",
-  "sig": "ce879bfc6d9898ebb8c1753298246745982483c6"
+  "sig": "4a9db757d3fc188b80c27838e13de4c081d0ddc1"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-10-11",
@@ -393,11 +393,11 @@
  },
  "/kontaktlinser/manedslinser/": {
   "lastmod": "2026-10-11",
-  "sig": "19d045a97f6888baa0be7fde9c761aab7eca39ec"
+  "sig": "4559956f9a2711cf374e0af1d40083103e2b07e0"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "ff2e290da4943190e2155e982fc792cd61c1941d"
+  "sig": "1fef5c946f983f9bf35f842fb03b03071552386c"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-astigmatism-30-pack/": {
   "lastmod": "2026-10-11",
@@ -421,15 +421,15 @@
  },
  "/kontaktlinser/miru/miru-1month-6-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "4f717e60ee83b05fbd0b545e24bd09ad1873b3b8"
+  "sig": "136ac138e6103bcc1ef0af69692c5898bf6d0e8f"
  },
  "/kontaktlinser/miru/miru-1month-multifocal-6-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "98c484fda315025dfa6b20a0433d3ed955b0d390"
+  "sig": "9d63a0579b52b6ab65376732ad3a99bc6c615ac6"
  },
  "/kontaktlinser/miru/miru-1month-toric-6-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "d69ad65b63179b85539458a9c309bf146f36a389"
+  "sig": "79a2b471f0f6a8146cbe3743a8b67c7cfb55eeb4"
  },
  "/kontaktlinser/misight/misight-1-day-30-pack/": {
   "lastmod": "2026-10-11",
@@ -437,7 +437,7 @@
  },
  "/kontaktlinser/multifokale-linser/": {
   "lastmod": "2026-10-11",
-  "sig": "c8ea8ab95f90a4ca6d2773326973236f64fed069"
+  "sig": "3181a31864bca4b09176b246042f62b3139d4d7d"
  },
  "/kontaktlinser/myday/myday-30-pack/": {
   "lastmod": "2026-10-11",
@@ -601,7 +601,7 @@
  },
  "/kontaktlinser/toriske-linser/": {
   "lastmod": "2026-10-11",
-  "sig": "d205c35af455e0946396739dd5b5c9a408d30a52"
+  "sig": "c25281259474549ff557ecd9a39910d5860ebfb4"
  },
  "/kontaktlinser/total30/total30-6-pack/": {
   "lastmod": "2026-10-11",
@@ -805,7 +805,7 @@
  },
  "/merke/iwear/": {
   "lastmod": "2026-10-11",
-  "sig": "c08d2e8926332d22357b6a64e16fce982d5e40fd"
+  "sig": "f25c776c34d4ba8648e12580d52cc54b9596df21"
  },
  "/merke/live/": {
   "lastmod": "2026-10-11",
@@ -813,7 +813,7 @@
  },
  "/merke/miru/": {
   "lastmod": "2026-10-11",
-  "sig": "9737a558ee0cdebe2e91ef3a2b3fd9f2db20f40c"
+  "sig": "77b531b375b0b22744b328053221a6e764c0a9d3"
  },
  "/merke/misight/": {
   "lastmod": "2026-10-11",
@@ -1245,15 +1245,15 @@
  },
  "/private-label/iwear-connect-astigmatism/": {
   "lastmod": "2026-10-11",
-  "sig": "d00d1536143953c7e4ae7df221a8aa10a93dfd8e"
+  "sig": "cf83c408decfdde44d68f63399363a5fbb2efabf"
  },
  "/private-label/iwear-connect-multifocal/": {
   "lastmod": "2026-10-11",
-  "sig": "695f53dcdc3202c0fb85b6c6d7be3f70cefffa86"
+  "sig": "f6306adac1ce331e6674953c1aee8679f820757b"
  },
  "/private-label/iwear-connect/": {
   "lastmod": "2026-10-11",
-  "sig": "6e2d485e55cfefc086e64a1694897c1f08bd4794"
+  "sig": "8b8130a5d516978467946a5523ce50be5273c9e4"
  },
  "/private-label/iwear-fit-astigmatism/": {
   "lastmod": "2026-10-11",
@@ -1345,7 +1345,7 @@
  },
  "/private-label/iwear-slim/": {
   "lastmod": "2026-10-11",
-  "sig": "513b5dd57d2e6903d2591d8a747094feb29877c1"
+  "sig": "c8a4b9b9ef5ffe67ef0cb3a3943c453ec8121c44"
  },
  "/private-label/iwear-vivid/": {
   "lastmod": "2026-10-11",
@@ -1413,7 +1413,7 @@
  },
  "/produsent/menicon/": {
   "lastmod": "2026-10-11",
-  "sig": "086bc0bb3071f06b5751361cc7739c8cf68f3d4f"
+  "sig": "378892b1ca457ad4d522506c7739458785d57a9a"
  },
  "/produsent/pegavision/": {
   "lastmod": "2026-10-11",
@@ -1553,7 +1553,7 @@
  },
  "/serie/iwear-connect/": {
   "lastmod": "2026-10-11",
-  "sig": "08779fa4f7b1e4bf8a39d8a01f686c31e6775c48"
+  "sig": "8657489d60c17fba106361432ac7b6317e705845"
  },
  "/serie/iwear-fit/": {
   "lastmod": "2026-10-11",
@@ -1585,11 +1585,11 @@
  },
  "/serie/iwear-slim/": {
   "lastmod": "2026-10-11",
-  "sig": "20767936c508be9c4a82dc7db46c526ef4a3c63a"
+  "sig": "77534cead4f58dd765a17531428df93a3fc618ad"
  },
  "/serie/miru-1day-flatpack/": {
   "lastmod": "2026-10-11",
-  "sig": "b7eb36d16a896f2ff8ea39b0d4e4c4c86ec8dc3a"
+  "sig": "b251af10525d411e3311d17198dc4acaf0e13ce1"
  },
  "/serie/miru-1day-upside/": {
   "lastmod": "2026-10-11",
@@ -1597,7 +1597,7 @@
  },
  "/serie/miru-1month/": {
   "lastmod": "2026-10-11",
-  "sig": "104220faf4036705bf9180b08f6bb3e1aab697ed"
+  "sig": "b3d21a385256082a709de402257c25ba3bf3dbd5"
  },
  "/serie/myday/": {
   "lastmod": "2026-10-11",
