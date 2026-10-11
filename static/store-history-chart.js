@@ -54,7 +54,7 @@
       panel.querySelectorAll('svg.price-history-chart').forEach(svg => {
         const width = svg.getBoundingClientRect().width;
         if(!width) return;
-        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : width*140/680;
+        const mobile = svg.classList.contains('price-intel-chart-mobile'), height = mobile ? Math.max(190,width*205/340) : width*280/680;
         svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
         const left=mobile?48:64,right=12,top=22,bottom=28, plotH=height-top-bottom;
         const start=day(d.lowest[0].date),end=day(d.lowest[d.lowest.length-1].date),span=Math.max(DAY,end-start);
