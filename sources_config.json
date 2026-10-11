@@ -202,7 +202,7 @@
   },
 
   "brilleland": {
-    "$comment": "Adtraction-avtale godkjent av eier 2026-10-11. Eget SKU-navnerom adtraction_brilleland. 29 feed-rader dekker alle 31 eksisterende Brilleland-produktkoblinger, inkludert to Focus Dailies-aliaser. Eksisterende dokumenterte iWear-identiteter beholdes. Scraper-oppsettet beholdes som dokumentasjon; brukes ikke når default_source er affiliate_feed. Ingen Chillout-feed-ID er antatt. Se docs/brilleland-adtraction-2026-10-11.md.",
+    "$comment": "Adtraction-avtale godkjent av eier 2026-10-11. Eget SKU-navnerom adtraction_brilleland. 66 valgte feed-rader dekker 68 produktsider, inkludert to Focus Dailies-aliaser. Alle 77 linserader er vurdert; to TOTAL30-addisjonsvarianter grupperes og ni iWear-identiteter avventer dokumentasjon. Se docs/brilleland-feed-audit.json. Scraper-oppsettet beholdes som dokumentasjon; brukes ikke når default_source er affiliate_feed. Ingen Chillout-feed-ID er antatt. Se docs/brilleland-adtraction-2026-10-11.md.",
     "display_name": "Brilleland",
     "default_source": "affiliate_feed",
     "scraper_config": {
