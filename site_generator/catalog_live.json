@@ -13497,26 +13497,6 @@
             "free_over": 700,
             "fee_nok": 39
           }
-        },
-        {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "affiliate_feed",
-          "network": "adtraction",
-          "price_nok": 357.0,
-          "shipping_nok": 59,
-          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000310&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d3c98d2d/",
-          "in_stock": true,
-          "checked_at": "2026-10-11T19:57:56.706338+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-aquacomfort-plus-multifocal/40000306_05_90.jpg",
-          "image_source": "affiliate_feed",
-          "product_id": "dailies-aquacomfort-plus-multifocal-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
         }
       ]
     },
