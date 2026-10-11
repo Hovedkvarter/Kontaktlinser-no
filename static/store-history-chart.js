@@ -7,6 +7,20 @@
   const day = s => Date.parse(s + 'T00:00:00Z');
   const date = t => new Date(t).toLocaleDateString('nb-NO', {day:'numeric',month:'long',year:'numeric',timeZone:'UTC'});
   const shortDate = t => new Date(t).toLocaleDateString('nb-NO', {day:'2-digit',month:'2-digit',timeZone:'UTC'});
+  // Display-only estimates for the former alternate-day scrape schedule.
+  // Archived observations remain unchanged; never bridge stock/conflict rows.
+  function displayRows(name, rows) {
+    if (!['Interoptik','Coptikk','Synsam'].includes(name)) return rows;
+    const result=[];
+    rows.forEach((row,i)=>{
+      const previous=rows[i-1];
+      if(previous && previous.date>='2026-09-26' && Number.isFinite(row.price) && row.price===previous.price && day(row.date)-day(previous.date)===2*DAY){
+        result.push({date:new Date(day(previous.date)+DAY).toISOString().slice(0,10),price:row.price,store:name,estimated:true});
+      }
+      result.push(row);
+    });
+    return result;
+  }
   function node(tag, attrs, text) {
     const el = document.createElementNS(NS, tag);
     Object.entries(attrs || {}).forEach(([key,value]) => el.setAttribute(key,value));
@@ -59,7 +73,7 @@
         const left=mobile?48:64,right=12,top=22,bottom=28, plotH=height-top-bottom;
         const start=day(d.lowest[0].date),end=day(d.lowest[d.lowest.length-1].date),span=Math.max(DAY,end-start);
         const lowest={name:'Laveste pris',color:'#f97308',rows:d.lowest};
-        const series=[lowest,...[...selected].map(name=>({name,color:color(name),rows:d.stores[name] || []}))];
+        const series=[lowest,...[...selected].map(name=>({name,color:color(name),rows:displayRows(name,d.stores[name] || [])}))];
         const prices=series.flatMap(s=>s.rows.filter(r=>Number.isFinite(r.price)).map(r=>r.price));
         const sorted=[...prices].sort((a,b)=>a-b),median=(sorted[Math.floor((sorted.length-1)/2)]+sorted[Math.floor(sorted.length/2)])/2;
         const min=Math.min(...prices),max=Math.max(...prices),range=Math.max(max-min,25,median*.50),extra=(range-(max-min))/2;
@@ -99,7 +113,7 @@
           const cx=x(t),cy=y(chosen.r.price);
           guide.replaceChildren(node('line',{x1:cx,x2:cx,y1:top,y2:height-bottom,stroke:chosen.s.color,'stroke-width':1,'stroke-dasharray':'4 4'}),node('circle',{cx,cy,r:4,fill:chosen.s.color,stroke:'white','stroke-width':2}));
           const store=document.createElement('span'),price=document.createElement('strong'),when=document.createElement('span');
-          store.textContent=selected.size?chosen.s.name:(chosen.r.store||'Laveste pris');price.textContent=money(chosen.r.price);when.textContent=date(t);tip.replaceChildren(store,price,when);tip.hidden=false;
+          store.textContent=selected.size?chosen.s.name:(chosen.r.store||'Laveste pris');price.textContent=money(chosen.r.price);when.textContent=date(t)+(chosen.r.estimated?" · Antatt uendret pris":"");tip.replaceChildren(store,price,when);tip.hidden=false;
           tip.style.left=Math.max(4,Math.min(width-tip.offsetWidth-4,cx+14))+'px';tip.style.top=Math.max(4,Math.min(height-tip.offsetHeight-4,cy-tip.offsetHeight-14))+'px';
         }
         hit.addEventListener('pointermove',e=>{const r=svg.getBoundingClientRect();show(e.clientX-r.left,e.clientY-r.top);});
