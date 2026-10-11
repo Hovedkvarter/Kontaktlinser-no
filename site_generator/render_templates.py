@@ -1536,6 +1536,7 @@ FOOTER_BRANDS = [
     ("freshlook", "FreshLook"),
     ("live", "Live"),
     ("miru", "MIRU"),
+    ("misight", "MiSight"),
     ("myday", "MyDay"),
     ("precision1", "Precision1"),
     ("precision7", "Precision7"),
@@ -2449,7 +2450,7 @@ MANUFACTURERS = {
         "name": "CooperVision",
         "official_url": "https://coopervision.no/",
         "official_url_label": "coopervision.no",
-        "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics", "live"],
+        "brand_slugs": ["biofinity", "proclear", "myday", "avaira", "clariti", "biomedics", "live", "misight"],
         "description_html": """
 <p>CooperVision ble stiftet i 1980 som en egen forretningsenhet under det som i dag heter
 The Cooper Companies, med hovedkontor i San Ramon, California. Selskapet er verdens

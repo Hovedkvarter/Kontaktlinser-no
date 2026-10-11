@@ -2,8 +2,12 @@
   "$comment": "Én tabell per nettverk. Nøkkelen er verdien i feedens egen SKU/produktnummer-kolonne, verdien er product.id fra products_meta.json. Oppdater denne når nye produkter legges til i en feed.",
   "duplicate_products": {
     "$comment": "Funnet 2026-08-31: Focus Dailies og Dailies All Day Comfort er bekreftet SAMME fysiske produkt, holdt som to separate katalog-oppføringer (bevisst, ikke slått sammen). En feed-tabell (f.eks. tradedoubler_lenson/tradedoubler_lensway) kan bare mappe én SKU til ÉN product_id, så Lenson/Lensway sin ene feed-oppføring for denne linsen (SKU 245) kunne aldri fylle ut BEGGE katalog-oppføringene samtidig via vanlig 1:1-matching -- den ene (focus-dailies-30pk) sto derfor alltid uten Lenson/Lensway-tilbud, selv om scrape_targets (nå død kode siden Lenson/Lensway byttet til affiliate_feed) fortsatt så identiske ut for begge. collect_feed_offers() i build_catalog.py kloner nå tilbudene fra nøkkelen (primær-id) til hver id i lista (alias-id-er) -- samme prinsipp som private_labels.json sin gjenbruk av et ekte produkts tilbud under et annet navn, bare mellom to EKTE katalogoppføringer i stedet. Legg til flere par her etter hvert som andre 'samme linse, to navn'-tilfeller oppdages -- ikke gjett, kun bekreftede par.",
-    "dailies-all-day-comfort-30pk": ["focus-dailies-30pk"],
-    "dailies-all-day-comfort-90pk": ["focus-dailies-90pk"]
+    "dailies-all-day-comfort-30pk": [
+      "focus-dailies-30pk"
+    ],
+    "dailies-all-day-comfort-90pk": [
+      "focus-dailies-90pk"
+    ]
   },
   "adtraction": {
     "$comment": "ExtraOptical (Adtraction) -- verifisert mot ekte feed 2026-08-12. 26 av feedens 75 kontaktlinse-rader er IKKE med her: enten fordi vi ikke fører produktet i det hele tatt, fordi pakningsstørrelsen ikke matcher vårt produkt (samme prinsipp som Precision7/Interoptik-unntaket), eller fordi id/title i selve feed-raden motsier hverandre (f.eks. 'MyDay 1 Day Toric 30 stk' med tittel 'Biomedics 1 Day Extra Toric 30 stk', og to PureVision2/PureVision2-HD-rader med forvirrende id/title-par) -- disse gjettes IKKE inn, se CLAUDE.md.",
@@ -564,5 +568,78 @@
     "10568": "eyz-clean-20pk",
     "9577": "swati-lens-case-tweezers",
     "10831": "clariti-1day-multifocal-3add-30pk"
+  },
+  "adtraction_brilleland": {
+    "40000013": "acuvue-moist-30pk",
+    "40000025": "acuvue-oasys-6pk",
+    "40000074": "biofinity-6pk",
+    "40000174": "acuvue-oasys-astigmatism-6pk",
+    "40000245": "acuvue-moist-astigmatism-30pk",
+    "40000267": "dailies-aquacomfort-plus-30pk",
+    "40000292": "myday-30pk",
+    "40000316": "dailies-total1-30pk",
+    "40000356": "myday-toric-30pk",
+    "40000360": "biofinity-energys-6pk",
+    "40000363": "acuvue-oasys-1day-hydraluxe-30pk",
+    "40000368": "dailies-total1-multifocal-30pk",
+    "40000371": "dailies-total1-multifocal-90pk",
+    "40000375": "clariti-1day-30pk",
+    "40000377": "clariti-1day-toric-30pk",
+    "40000407": "avaira-vitality-6pk",
+    "40000409": "dailies-total1-90pk",
+    "40000410": "acuvue-moist-astigmatism-90pk",
+    "40000411": "acuvue-moist-90pk",
+    "40000584": [
+      "focus-dailies-30pk",
+      "dailies-all-day-comfort-30pk"
+    ],
+    "40000585": [
+      "focus-dailies-90pk",
+      "dailies-all-day-comfort-90pk"
+    ],
+    "40000586": "dailies-aquacomfort-plus-90pk",
+    "40000688": "dailies-total1-astigmatism-30pk",
+    "40000702": "dailies-total1-astigmatism-90pk",
+    "40000703": "acuvue-oasys-max-1day-30pk",
+    "40000735": "precision7-12pk",
+    "40000737": "precision7-astigmatism-12pk",
+    "40000758": "biofinity-multifocal-6pk",
+    "40000759": "biofinity-toric-6pk",
+    "40000312": "dailies-aquacomfort-plus-toric-30pk",
+    "40000412": "dailies-aquacomfort-plus-toric-90pk",
+    "40000381": "clariti-1day-multifocal-30pk",
+    "40000752": "clariti-1day-multifocal-3add-30pk",
+    "40000417": "avaira-vitality-toric-6pk",
+    "40000286": "biomedics-1day-xtra-30pk",
+    "40000391": "biomedics-1day-xtra-toric-30pk",
+    "40000288": "proclear-1day-30pk",
+    "40000290": "proclear-1day-multifocal-30pk",
+    "40000684": "myday-multifocal-30pk",
+    "40000296": "proclear-toric-3pk",
+    "40000397": "proclear-multifocal-3pk",
+    "40000358": "proclear-sphere-6pk",
+    "40000179": "biofinity-toric-3pk",
+    "40000754": "biofinity-xr-toric-6pk",
+    "40000281": "biofinity-multifocal-3pk",
+    "40000320": "biofinity-xr-6pk",
+    "40000405": "live-30pk",
+    "40000318": "acuvue-moist-multifocal-30pk",
+    "40000415": "acuvue-moist-multifocal-90pk",
+    "40000413": "acuvue-oasys-1day-hydraluxe-90pk",
+    "40000365": "acuvue-oasys-1day-astigmatism-30pk",
+    "40000727": "acuvue-oasys-max-1day-astigmatism-30pk",
+    "40000742": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+    "40000705": "acuvue-oasys-max-1day-multifocal-30pk",
+    "40000579": "air-optix-hydraglyde-6pk",
+    "40000580": "air-optix-hydraglyde-astigmatism-6pk",
+    "40000583": "air-optix-hydraglyde-multifocal-6pk",
+    "40000634": "precision1-30pk",
+    "40000635": "precision1-90pk",
+    "40000636": "precision1-astigmatism-30pk",
+    "40000637": "precision1-astigmatism-90pk",
+    "40000708": "total30-6pk",
+    "40000710": "total30-astigmatism-6pk",
+    "40000718": "total30-multifocal-6pk",
+    "40000561": "misight-1day-30pk"
   }
 }

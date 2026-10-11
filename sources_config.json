@@ -202,17 +202,26 @@
   },
 
   "brilleland": {
-    "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Samme plattform som Interoptik (identisk .price-big-selector og /kontaktlinser/{merke}/{produkt}/-URL-struktur) -- bekreftet 28.08.2026. Ingen 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre.",
+    "$comment": "Adtraction-avtale godkjent av eier 2026-10-11. Eget SKU-navnerom adtraction_brilleland. 65 valgte feed-rader dekker 67 produktsider, inkludert to Focus Dailies-aliaser. Alle 77 linserader er vurdert; to TOTAL30-addisjonsvarianter grupperes og ni iWear-identiteter avventer dokumentasjon, og AquaComfort Multifocal avventer gyldig lenke. Se docs/brilleland-feed-audit.json. Scraper-oppsettet beholdes som dokumentasjon; brukes ikke når default_source er affiliate_feed. Ingen Chillout-feed-ID er antatt. Se docs/brilleland-adtraction-2026-10-11.md.",
     "display_name": "Brilleland",
-    "default_source": "scraper",
+    "default_source": "affiliate_feed",
     "scraper_config": {
       "base_url": "https://www.brilleland.no",
       "price_selector": ".price-big",
       "product_url_pattern": "/kontaktlinser/{slug}/",
-      "shipping": {"free_over": 1000, "fee_nok": 59}
+      "shipping": {
+        "free_over": 1000,
+        "fee_nok": 59
+      }
     },
     "$shipping_comment": "Gratis frakt over 1000 kr, ellers 59 kr (Posten). Bekreftet direkte sitert fra kjøpsvilkår (brilleland.no/personvernerklaring/kjops--og-leveransevilkar) 2026-08-16.",
-    "brand_overrides": {}
+    "brand_overrides": {},
+    "network": "adtraction_brilleland",
+    "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1611943890&asid=2102229792&gsh=1&pfid=657&gt=0",
+    "shipping": {
+      "free_over": 1000,
+      "fee_nok": 59
+    }
   },
 
   "coptikk": {

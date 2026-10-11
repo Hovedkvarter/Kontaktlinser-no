@@ -444,6 +444,60 @@
       "name": "TrueLens Premium Monthly Multifocal",
       "chain": "Mister Spex",
       "real_product_id": "purevision2-presbyopia-6pk"
+    },
+    {
+      "slug": "iwear-activ-presbyopia",
+      "name": "iWear Activ Presbyopia",
+      "chain": "Brilleland",
+      "real_product_id": "clariti-1day-multifocal-30pk"
+    },
+    {
+      "slug": "iwear-activ-presbyopia-3-add-30-pack",
+      "name": "iWear Activ Presbyopia (3 add) 30 pack",
+      "chain": "Brilleland",
+      "real_product_id": "clariti-1day-multifocal-3add-30pk"
+    },
+    {
+      "slug": "iwear-fresh-presbyopia",
+      "name": "iWear Fresh Presbyopia",
+      "chain": "Brilleland",
+      "real_product_id": "proclear-1day-multifocal-30pk"
+    },
+    {
+      "slug": "iwear-harmony-presbyopia",
+      "name": "iWear Harmony Presbyopia",
+      "chain": "Brilleland",
+      "real_product_id": "myday-multifocal-30pk"
+    },
+    {
+      "slug": "iwear-hydro-astigmatism",
+      "name": "iWear Hydro Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "proclear-toric-3pk"
+    },
+    {
+      "slug": "iwear-hydro-presbyopia-3-pack",
+      "name": "iWear Hydro Presbyopia 3 pack",
+      "chain": "Brilleland",
+      "real_product_id": "proclear-multifocal-3pk"
+    },
+    {
+      "slug": "iwear-hydro-sphere",
+      "name": "iWear Hydro Sphere",
+      "chain": "Brilleland",
+      "real_product_id": "proclear-sphere-6pk"
+    },
+    {
+      "slug": "iwear-oxygen-astigmatism-xr-6-pack",
+      "name": "iWear Oxygen Astigmatism XR 6 pack",
+      "chain": "Brilleland",
+      "real_product_id": "biofinity-xr-toric-6pk"
+    },
+    {
+      "slug": "iwear-vivid",
+      "name": "iWear Vivid",
+      "chain": "Brilleland",
+      "real_product_id": "live-30pk"
     }
   ]
 }

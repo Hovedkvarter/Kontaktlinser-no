@@ -7235,6 +7235,216 @@
           "slug": "clariti-1day-multifocal-3-add-lens-10831"
         }
       ]
+    },
+    {
+      "id": "proclear-toric-3pk",
+      "slug": "proclear-toric-3-pack",
+      "name": "Proclear Toric 3-pack",
+      "description": "Torisk månedslinse fra CooperVision.",
+      "long_description": "Proclear Toric er den toriske varianten av Proclear, samme omafilcon A-materiale med høyt vanninnhold, formet for astigmatisme.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "proclear-multifocal-3pk",
+      "slug": "proclear-multifocal-3-pack",
+      "name": "Proclear Multifocal 3-pack",
+      "description": "Multifokal månedslinse fra CooperVision.",
+      "long_description": "Proclear Multifocal er den progressive månedslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
+      "brand_slug": "proclear",
+      "brand_label": "Proclear",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Omafilcon A (hydrogel, PC Technology)"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "biofinity-toric-3pk",
+      "slug": "biofinity-toric-3-pack",
+      "name": "Biofinity Toric 3-pack",
+      "description": "Torisk månedslinse fra CooperVision for astigmatisme.",
+      "long_description": "Biofinity Toric er den toriske månedslinsen fra CooperVision, med samme comfilcon A-materiale og 48 % vanninnhold som standard Biofinity. Dekker sylinderstyrke fra -0,75 til -2,25 med styrker opp mot +8,00/-10,00.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,5 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-10,00 til +8,00"
+        ],
+        [
+          "Sylinder",
+          "-0,75 til -2,25"
+        ],
+        [
+          "Akse",
+          "10–180°"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "biofinity-multifocal-3pk",
+      "slug": "biofinity-multifocal-3-pack",
+      "name": "Biofinity Multifocal 3-pack",
+      "description": "Multifokal månedslinse fra CooperVision for alderssyn.",
+      "long_description": "Biofinity Multifocal er CooperVisions progressive månedslinse for alderssyn, bygget på samme comfilcon A-materiale som standard Biofinity. Addisjonsstyrke fra +1,00 til +2,50, med samme høye oksygengjennomstrømning som resten av serien.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "multifokale-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Styrkeområde",
+          "-10,00 til +6,00"
+        ],
+        [
+          "Addisjon",
+          "+1,00 til +2,50"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "biofinity-xr-toric-6pk",
+      "slug": "biofinity-xr-toric-6-pack",
+      "name": "Biofinity XR Toric 6-pack",
+      "description": "Torisk månedslinse for ekstreme styrker fra CooperVision.",
+      "long_description": "Biofinity XR Toric kombinerer Biofinity XR sitt utvidede styrkeområde med et torisk design for astigmatisme, samme comfilcon A-materiale som standard Biofinity.",
+      "brand_slug": "biofinity",
+      "brand_label": "Biofinity",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Materiale",
+          "Comfilcon A (silikonhydrogel)"
+        ],
+        [
+          "Vanninnhold",
+          "48 %"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ]
+      ],
+      "scrape_targets": []
+    },
+    {
+      "id": "misight-1day-30pk",
+      "slug": "misight-1-day-30-pack",
+      "name": "MiSight 1 day 30-pack",
+      "brand_slug": "misight",
+      "brand_label": "MiSight",
+      "category_slug": "dagslinser",
+      "description": "Dagslinse for myopikontroll fra CooperVision. Pakning med 30 linser.",
+      "long_description": "MiSight 1 day er en dagslinse for myopikontroll. Produktet må tilpasses og følges opp av optiker eller øyelege. Dette er MiSight 1 day, ikke MyDay MiSight 1 day.",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Vanninnhold",
+          "60 %"
+        ],
+        [
+          "Basiskurve",
+          "8,7 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ]
+      ],
+      "scrape_targets": []
     }
   ]
 }
