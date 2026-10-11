@@ -28,7 +28,7 @@ class BrillelandFeedTests(unittest.TestCase):
         expected = {p['id'] for p in meta['products'] if any(t['retailer'] == 'brilleland' for t in p.get('scrape_targets', []))}
         self.assertTrue(expected <= set(self.by_id))
         self.assertEqual(len(self.offers), len(self.by_id))
-        self.assertEqual(len(self.offers), 68)
+        self.assertEqual(len(self.offers), 67)
         self.assertEqual(len(expected), 31)
 
     def test_three_packs_never_become_six_packs(self):
@@ -68,6 +68,8 @@ class BrillelandFeedTests(unittest.TestCase):
     def test_complete_feed_accounting(self):
         audit = json.loads((ROOT / 'docs/brilleland-feed-audit.json').read_text())['rows']
         self.assertEqual(len(audit), 77)
+        self.assertNotIn('40000310', self.match)
+        self.assertEqual(next(r for r in audit if r['sku'] == '40000310')['status'], 'pending_url')
         self.assertEqual(len({r['sku'] for r in audit}), 77)
         self.assertEqual({r['sku'] for r in audit if r['status'] == 'mapped'}, set(self.match))
         for row in audit:
