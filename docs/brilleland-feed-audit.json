@@ -48,9 +48,9 @@
     {
       "sku": "40000310",
       "title": "Dailies AquaComfort Plus Multifocal",
-      "status": "mapped",
+      "status": "pending_url",
       "product_ids": "dailies-aquacomfort-plus-multifocal-30pk",
-      "reason": "Eksakt produkt/pakning eller dokumentert private label; se kildeoversikt.",
+      "reason": "Feedens URL og alternativ kategorilenke ga 404. Brilleland-tilbud holdes tilbake til gyldig destinasjon er bekreftet.",
       "merchant_url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d3c98d2d/",
       "pack_source": "https://www.brilleland.no/kontaktlinser/dailies/"
     },
