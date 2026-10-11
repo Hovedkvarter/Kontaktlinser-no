@@ -599,6 +599,17 @@ a { color: inherit; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
 .price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
+.price-intel-frequency-panel { display: none; }
+.price-intel-frequency-panel.active { display: block; }
+.price-intel-frequency-number { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.55rem; color: var(--ink); }
+.price-intel-frequency-description { font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
+.price-intel-frequency-bar { display: flex; gap: 2px; height: 10px; border-radius: 999px; overflow: hidden; background: var(--mist); }
+.price-intel-frequency-lower { background: #94A3B8; }
+.price-intel-frequency-equal { background: #2563EB; }
+.price-intel-frequency-higher { background: #CBD5E1; }
+.price-intel-frequency-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.7rem; color: var(--muted); margin-top: 9px; }
+.price-intel-frequency-label { display: inline-flex; align-items: center; gap: 5px; }
+.price-intel-frequency-label i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -1866,7 +1877,7 @@ a { color: inherit; }
     <div class="price-intel-head-text">
       <p class="price-intel-eyebrow">Prisintelligens</p>
       <h2>Prisutvikling</h2>
-      <p>Vi har fulgt laveste produktpris hos butikkene siden 15. august 2026, slik at du kan se hvordan prisen har endret seg over tid.</p>
+      <p>Følg utviklingen i laveste registrerte produktpris, sammenlign butikkene og utforsk prishistorikken.</p>
     </div>
     <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>15. august 2026</strong><span class="price-intel-coverage-days">58 dager med data</span></span></div>
   </div>
@@ -2230,7 +2241,21 @@ a { color: inherit; }
       <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Apotekhjem</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">45 dager &middot; 78 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensway</span><span class="price-intel-winner-bar"><span style="width:18%"></span></span><span class="price-intel-winner-days">8 dager &middot; 14 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Shopping4net</span><span class="price-intel-winner-bar"><span style="width:7%"></span></span><span class="price-intel-winner-days">3 dager &middot; 5 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:4%"></span></span><span class="price-intel-winner-days">2 dager &middot; 3 %</span></div></div>
       
       <p class="price-intel-card-note">Apotekhjem har hatt lavest registrert produktpris i 45 av 58 observerte dager i perioden. Prisvinneren har endret seg 4 ganger i perioden.</p>
-    </div></div>
+    </div><div class="price-intel-card price-intel-frequency-panel active" data-period="30d">
+          <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">30 dager</span></div>
+          <div class="price-intel-frequency-number">30 av 30</div>
+          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 30 av 30 observerte dager.</p>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 0 dager. Samme: 30 dager. Høyere: 0 dager."><span class="price-intel-frequency-equal" style="flex:30" aria-hidden="true"></span></div>
+          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 0</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 30</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 0</span></div>
+          <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
+        </div><div class="price-intel-card price-intel-frequency-panel" data-period="all">
+          <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">All historikk</span></div>
+          <div class="price-intel-frequency-number">45 av 58</div>
+          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 45 av 58 observerte dager.</p>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 0 dager. Samme: 45 dager. Høyere: 13 dager."><span class="price-intel-frequency-equal" style="flex:45" aria-hidden="true"></span><span class="price-intel-frequency-higher" style="flex:13" aria-hidden="true"></span></div>
+          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 0</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 45</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 13</span></div>
+          <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
+        </div></div>
   <div class="price-intel-conclusion active" data-period="30d">
     <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Prisen på EYZ Plus 10 ml har vært stabil i 30 dager, med 135 kr som både laveste og høyeste registrerte pris i perioden. Det er 24 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
     <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>30 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>135 kr</strong><span>laveste pris i perioden</span></div></div></div>

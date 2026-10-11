@@ -577,6 +577,17 @@ a { color: inherit; }
 .price-intel-card-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.72rem; color: var(--muted); margin: 10px 0 0; line-height: 1.45; }
 .price-intel-zero-note { margin: 9px 0 0; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
 .price-intel-qty-note { display: flex; align-items: flex-start; gap: 5px; font-size: 0.74rem; color: var(--ink); margin: 10px 0 0; line-height: 1.5; background: var(--amber-tint); border-radius: 8px; padding: 8px 10px; }
+.price-intel-frequency-panel { display: none; }
+.price-intel-frequency-panel.active { display: block; }
+.price-intel-frequency-number { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.55rem; color: var(--ink); }
+.price-intel-frequency-description { font-size: 0.8rem; line-height: 1.5; color: var(--muted); margin: 8px 0 12px; }
+.price-intel-frequency-bar { display: flex; gap: 2px; height: 10px; border-radius: 999px; overflow: hidden; background: var(--mist); }
+.price-intel-frequency-lower { background: #94A3B8; }
+.price-intel-frequency-equal { background: #2563EB; }
+.price-intel-frequency-higher { background: #CBD5E1; }
+.price-intel-frequency-legend { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.7rem; color: var(--muted); margin-top: 9px; }
+.price-intel-frequency-label { display: inline-flex; align-items: center; gap: 5px; }
+.price-intel-frequency-label i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
 .price-intel-winners-list { display: flex; flex-direction: column; gap: 7px; }
 .price-intel-winner-row { display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 8px; font-size: 0.78rem; }
 .price-intel-winner-store { font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
