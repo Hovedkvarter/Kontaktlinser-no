@@ -62,7 +62,7 @@
         const series=[lowest,...[...selected].map(name=>({name,color:color(name),rows:d.stores[name] || []}))];
         const prices=series.flatMap(s=>s.rows.filter(r=>Number.isFinite(r.price)).map(r=>r.price));
         const sorted=[...prices].sort((a,b)=>a-b),median=(sorted[Math.floor((sorted.length-1)/2)]+sorted[Math.floor(sorted.length/2)])/2;
-        const min=Math.min(...prices),max=Math.max(...prices),range=Math.max(max-min,25,median*.09),extra=(range-(max-min))/2;
+        const min=Math.min(...prices),max=Math.max(...prices),range=Math.max(max-min,25,median*.50),extra=(range-(max-min))/2;
         const lo=min-extra-range*.20,hi=max+extra+range*.08;
         const x=t=>left+(t-start)/span*(width-left-right),y=p=>top+(hi-p)/(hi-lo)*plotH;
         svg.replaceChildren(node('title',{},'Prishistorikk. '+(selected.size?[...selected].join(', '):'Laveste registrerte produktpris per dag')));
