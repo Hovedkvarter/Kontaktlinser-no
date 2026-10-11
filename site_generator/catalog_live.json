@@ -462,26 +462,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 327.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:04.586630+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -499,6 +479,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 327.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000025&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863299+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/acuvue-oasys2/40000025_10_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -786,26 +786,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 519.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/biofinity/biofinity/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:10.632391+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biofinity-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "biofinity",
           "source": "scraper",
@@ -823,6 +803,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 519.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000074&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862975+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen/iwear-oxygen-6pk_front_3d.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -989,26 +989,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 271.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:14.960107+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1026,6 +1006,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 271.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000013&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863170+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-moist-30-pack/40000013_10_-2.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -1156,26 +1156,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 499.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:19.124808+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-max-1day-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1193,6 +1173,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 499.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000703&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863330+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-oasys-max-30-pack/4000070_10.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-max-1day-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -1363,26 +1363,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 308.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:23.211723+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-1day-hydraluxe-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1400,6 +1380,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 308.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000363&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863260+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-oasys-30-pack/40000363_10_-2.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-1day-hydraluxe-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -1574,26 +1574,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 401.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:27.494686+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-astigmatism-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1611,6 +1591,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 401.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000174&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863312+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/acuvue-oasys-for-astigmatism/acuvue-oasys-for-astigmatism-6-pack",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-astigmatism-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -1765,26 +1765,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 289.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:31.591202+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-astigmatism-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1802,6 +1782,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 289.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000245&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863214+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-moist-for-astigmatism-30-pack/40000245_10_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -1996,26 +1996,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 666.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-6-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:37.499623+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biofinity-toric-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "biofinity",
           "source": "scraper",
@@ -2033,6 +2013,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 666.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000759&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862995+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-astigmatism-6-pack/40000759_10-iwear_oxygen_astigmatism_new25.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-toric-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -2642,17 +2642,17 @@
         {
           "retailer": "Brilleland",
           "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 860.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-6-pack/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000758&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:55:47.588044+00:00",
+          "checked_at": "2026-10-11T19:45:21.863030+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-presbyopia-6-pack/40000755_10-iwear_oxygen_presbyopia_new25.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "biofinity-multifocal-6pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -2778,26 +2778,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 749.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/biofinty-energys/biofinty-energys/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:55:52.985737+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biofinity-energys-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "biofinity",
           "source": "scraper",
@@ -2815,6 +2795,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 749.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000360&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-relax/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863104+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-oxygen-relax/iwear-oxygen-relax-6pk_left_3d.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-energys-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -3054,26 +3054,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "avaira",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 443.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/avaira2/avaira/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:56:01.011905+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "avaira-vitality-6pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "avaira",
           "source": "scraper",
@@ -3091,6 +3071,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "avaira",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 443.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000407&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862809+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-balance-plus3/iwear-balance-plus-astigmatism-6pk_front_3d.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "avaira-vitality-6pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -3424,17 +3424,17 @@
         {
           "retailer": "Brilleland",
           "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 283.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/myday_daily_disposable/myday-daily-disposable/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000292&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:56:09.947235+00:00",
+          "checked_at": "2026-10-11T19:45:21.862914+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-harmony/iwear-harmony-30pk_front_3d.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "myday-30pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -3686,17 +3686,17 @@
         {
           "retailer": "Brilleland",
           "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 385.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/myday-daily-disposable-toric/myday-daily-disposable-toric/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000356&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-astigmatism/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:56:16.631706+00:00",
+          "checked_at": "2026-10-11T19:45:21.862939+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-harmony-astigmatism/iwear-harmony-astigmatism-1-day-30pk_front_3d.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "myday-toric-30pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -4092,26 +4092,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "clariti",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 271.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/clariti/clariti/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:56:26.511070+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "clariti-1day-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "clariti",
           "source": "scraper",
@@ -4129,6 +4109,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 271.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000375&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862774+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ/iwear-activ-1-day-30pk_front_3d.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -4202,26 +4202,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "clariti",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 328.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/clariti-1-day-8855a282/clariti-1-day-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:56:29.562978+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "clariti-1day-toric-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "clariti",
           "source": "scraper",
@@ -4239,6 +4219,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 328.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000377&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862785+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/iwear-activ-astigmatism/iwear-activ-astigmatism-1-day-30pk_left_3d.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-toric-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -4936,17 +4936,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 301.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000316&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:56:43.082004+00:00",
+          "checked_at": "2026-10-11T19:45:21.862706+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total-1-30-pack/40000316_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-30pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -5110,17 +5110,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 422.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000368&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:56:47.595240+00:00",
+          "checked_at": "2026-10-11T19:45:21.862729+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total-1-multifocal-30-pack/40000368_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-multifocal-30pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -5260,17 +5260,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 508.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000688&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:56:51.641094+00:00",
+          "checked_at": "2026-10-11T19:45:21.862753+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total1-for-astigmatism-30-pack/40000688_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-astigmatism-30pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -5453,6 +5453,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 219.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000267&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack-0644cb1b/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862650+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-aquacomfort-plus/40000267_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -9146,26 +9166,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "precision7",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 575.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:58:27.453820+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision7-12pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "precision7",
           "source": "scraper",
@@ -9203,6 +9203,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "precision7",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 575.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000735&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863475+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/precision7-12-pack/40000735-_10-precision7_new25.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "precision7-12pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -9396,26 +9416,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "precision7",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 775.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:58:35.359735+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision7-astigmatism-12pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "precision7",
           "source": "scraper",
@@ -9453,6 +9453,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "precision7",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 775.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000737&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863491+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/precision7-for-astigmatism-12-pack/40000737-_20-precision7_astigmatism_new25_left.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "precision7-astigmatism-12pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -9767,26 +9787,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 241.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:58:41.723981+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "focus-dailies-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Interoptik",
           "brand": "dailies",
           "source": "scraper",
@@ -9804,6 +9804,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 241.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862571+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-all-day-comfort-30-pack/40000584_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "focus-dailies-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -9950,26 +9970,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 813.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:58:49.509163+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-90pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -9987,6 +9987,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 813.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000411&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863180+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-moist-90-pack/40000411_10_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-90pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -10121,26 +10141,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 867.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:58:52.477493+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-astigmatism-90pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -10158,6 +10158,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 867.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000410&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.863229+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/1-day-acuvue-moist-for-astigmatism-90-pack/40000410_10_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-astigmatism-90pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -10955,26 +10975,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 657.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:59:14.329134+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-aquacomfort-plus-90pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "dailies",
           "source": "scraper",
@@ -10992,6 +10992,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 657.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000586&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862664+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-aquacomfort-plus-90-pack/40000586_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-90pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -11135,17 +11155,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 903.0,
           "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000409&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:59:18.706607+00:00",
+          "checked_at": "2026-10-11T19:45:21.862718+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total-1-90-pack/40000409_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-90pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -11265,17 +11285,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1524.0,
           "shipping_nok": 0.0,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000702&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:59:22.084140+00:00",
+          "checked_at": "2026-10-11T19:45:21.862764+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total1-for-astigmatism-90-pack/40000702_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-astigmatism-90pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -11419,17 +11439,17 @@
         {
           "retailer": "Brilleland",
           "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1266.0,
           "shipping_nok": 0.0,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000371&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-10T01:59:25.877483+00:00",
+          "checked_at": "2026-10-11T19:45:21.862741+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-total-1-multifocal-90-pack/40000371_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-multifocal-90pk",
           "shipping_policy": {
             "free_over": 1000,
@@ -11555,26 +11575,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 723.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T01:59:28.932739+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "focus-dailies-90pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Interoptik",
           "brand": "dailies",
           "source": "scraper",
@@ -11592,6 +11592,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 723.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862632+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "focus-dailies-90pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -14976,26 +14996,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 241.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T02:00:54.300002+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-all-day-comfort-30pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Interoptik",
           "brand": "dailies",
           "source": "scraper",
@@ -15013,6 +15013,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 241.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862571+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-all-day-comfort-30-pack/40000584_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-all-day-comfort-30pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
@@ -15134,26 +15154,6 @@
           }
         },
         {
-          "retailer": "Brilleland",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 723.0,
-          "shipping_nok": 59,
-          "url": "https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-10T02:00:57.914209+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-all-day-comfort-90pk",
-          "shipping_policy": {
-            "free_over": 1000,
-            "fee_nok": 59
-          }
-        },
-        {
           "retailer": "Interoptik",
           "brand": "dailies",
           "source": "scraper",
@@ -15171,6 +15171,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Brilleland",
+          "brand": "dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 723.0,
+          "shipping_nok": 59,
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-11T19:45:21.862632+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.brilleland.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-all-day-comfort-90pk",
+          "shipping_policy": {
+            "free_over": 1000,
+            "fee_nok": 59
           }
         }
       ]
