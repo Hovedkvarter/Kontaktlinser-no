@@ -202,7 +202,7 @@
   },
 
   "brilleland": {
-    "$comment": "Adtraction-avtale godkjent av eier 2026-10-11. Eget SKU-navnerom adtraction_brilleland. 66 valgte feed-rader dekker 68 produktsider, inkludert to Focus Dailies-aliaser. Alle 77 linserader er vurdert; to TOTAL30-addisjonsvarianter grupperes og ni iWear-identiteter avventer dokumentasjon. Se docs/brilleland-feed-audit.json. Scraper-oppsettet beholdes som dokumentasjon; brukes ikke når default_source er affiliate_feed. Ingen Chillout-feed-ID er antatt. Se docs/brilleland-adtraction-2026-10-11.md.",
+    "$comment": "Adtraction-avtale godkjent av eier 2026-10-11. Eget SKU-navnerom adtraction_brilleland. 65 valgte feed-rader dekker 67 produktsider, inkludert to Focus Dailies-aliaser. Alle 77 linserader er vurdert; to TOTAL30-addisjonsvarianter grupperes og ni iWear-identiteter avventer dokumentasjon, og AquaComfort Multifocal avventer gyldig lenke. Se docs/brilleland-feed-audit.json. Scraper-oppsettet beholdes som dokumentasjon; brukes ikke når default_source er affiliate_feed. Ingen Chillout-feed-ID er antatt. Se docs/brilleland-adtraction-2026-10-11.md.",
     "display_name": "Brilleland",
     "default_source": "affiliate_feed",
     "scraper_config": {
