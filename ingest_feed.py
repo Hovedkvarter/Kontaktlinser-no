@@ -23,6 +23,7 @@ import csv
 import io
 import json
 import re
+from urllib.parse import urlsplit, unquote, quote
 
 import requests
 
@@ -95,6 +96,24 @@ def map_adtraction_row(row: dict, product_match: dict[str, str], retailer_cfg: d
         )) for product_id in product_ids]
     except (KeyError, ValueError):
         return []  # logg og hopp over feilformede rader i stedet for å publisere feil data
+
+
+def map_brilleland_row(row: dict, product_match: dict, retailer_cfg: dict) -> list[Offer]:
+    """Correct a verified stale destination without changing affiliate parameters.
+
+    Only the documented old destination is replaced. A future feed URL wins.
+    """
+    correction = retailer_cfg.get("destination_corrections", {}).get(row.get("id"))
+    link = row.get("link", "")
+    if correction and urlsplit(link).hostname == "to.brilleland.no":
+        parts = link.split("&")
+        for i, part in enumerate(parts):
+            if part.startswith("url=") and unquote(part[4:]) == correction["old_url"]:
+                target = correction["new_url"]
+                parts[i] = "url=" + (target if part[4:].startswith("https://") else quote(target, safe=""))
+                row = dict(row, link="&".join(parts))
+                break
+    return map_adtraction_row(row, product_match, retailer_cfg)
 
 
 def map_partner_ads_row(row: dict, product_match: dict[str, str], retailer_cfg: dict) -> list[Offer]:
@@ -205,7 +224,7 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str], retailer_
 NETWORK_MAPPERS = {
     "adtraction": map_adtraction_row,
     "adtraction_apotekhjem": map_adtraction_row,
-    "adtraction_brilleland": map_adtraction_row,
+    "adtraction_brilleland": map_brilleland_row,
     "partner-ads": map_partner_ads_row,
 }
 
