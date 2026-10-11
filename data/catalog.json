@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-11T20:27:38Z",
+  "generated_at": "2026-10-11T21:57:09Z",
   "currency": "NOK",
   "products": [
     {
@@ -56,7 +56,7 @@
           "total_price": 386.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000025&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys/",
-          "checked_at": "2026-10-11T19:57:56.707020+00:00"
+          "checked_at": "2026-10-11T21:53:17.298177+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -197,7 +197,7 @@
           "total_price": 578.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000074&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen/",
-          "checked_at": "2026-10-11T19:57:56.706677+00:00"
+          "checked_at": "2026-10-11T21:53:17.297919+00:00"
         }
       ]
     },
@@ -263,7 +263,7 @@
           "total_price": 330.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000013&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706811+00:00"
+          "checked_at": "2026-10-11T21:53:17.298071+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -329,7 +329,7 @@
           "total_price": 558.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000703&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
-          "checked_at": "2026-10-11T19:57:56.707044+00:00"
+          "checked_at": "2026-10-11T21:53:17.298223+00:00"
         }
       ]
     },
@@ -377,7 +377,7 @@
           "total_price": 367.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000363&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706978+00:00"
+          "checked_at": "2026-10-11T21:53:17.298137+00:00"
         },
         {
           "merchant": "Coptikk",
@@ -470,7 +470,7 @@
           "total_price": 460.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000174&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.707030+00:00"
+          "checked_at": "2026-10-11T21:53:17.298189+00:00"
         },
         {
           "merchant": "Coptikk",
@@ -527,7 +527,7 @@
           "total_price": 348.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000245&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706830+00:00"
+          "checked_at": "2026-10-11T21:53:17.298091+00:00"
         },
         {
           "merchant": "Coptikk",
@@ -629,7 +629,7 @@
           "total_price": 725.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000759&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.706700+00:00"
+          "checked_at": "2026-10-11T21:53:17.297947+00:00"
         }
       ]
     },
@@ -842,7 +842,7 @@
           "total_price": 919.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000758&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.706739+00:00"
+          "checked_at": "2026-10-11T21:53:17.297983+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -908,7 +908,7 @@
           "total_price": 808.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000360&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-relax/",
-          "checked_at": "2026-10-11T19:57:56.706748+00:00"
+          "checked_at": "2026-10-11T21:53:17.297994+00:00"
         }
       ]
     },
@@ -947,7 +947,7 @@
           "total_price": 768.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000320&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-xr-6-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706759+00:00"
+          "checked_at": "2026-10-11T21:53:17.298005+00:00"
         }
       ]
     },
@@ -1022,7 +1022,7 @@
           "total_price": 502.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000407&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus/",
-          "checked_at": "2026-10-11T19:57:56.706487+00:00"
+          "checked_at": "2026-10-11T21:53:17.297695+00:00"
         }
       ]
     },
@@ -1097,7 +1097,7 @@
           "total_price": 614.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000417&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-balance-plus-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.706498+00:00"
+          "checked_at": "2026-10-11T21:53:17.297707+00:00"
         }
       ]
     },
@@ -1127,7 +1127,7 @@
           "total_price": 342.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000292&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony/",
-          "checked_at": "2026-10-11T19:57:56.706605+00:00"
+          "checked_at": "2026-10-11T21:53:17.297845+00:00"
         },
         {
           "merchant": "Lenson",
@@ -1220,7 +1220,7 @@
           "total_price": 513.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000684&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-presbyopia/",
-          "checked_at": "2026-10-11T19:57:56.706636+00:00"
+          "checked_at": "2026-10-11T21:53:17.297875+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -1250,7 +1250,7 @@
           "total_price": 444.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000356&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-harmony-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.706623+00:00"
+          "checked_at": "2026-10-11T21:53:17.297863+00:00"
         },
         {
           "merchant": "Synsam",
@@ -1316,7 +1316,7 @@
           "total_price": 234.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000358&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-sphere/",
-          "checked_at": "2026-10-11T19:57:56.706667+00:00"
+          "checked_at": "2026-10-11T21:53:17.297908+00:00"
         },
         {
           "merchant": "Lensway",
@@ -1457,7 +1457,7 @@
           "total_price": 330.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000375&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ/",
-          "checked_at": "2026-10-11T19:57:56.706446+00:00"
+          "checked_at": "2026-10-11T21:53:17.297653+00:00"
         },
         {
           "merchant": "Synsam",
@@ -1487,7 +1487,7 @@
           "total_price": 387.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000377&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.706456+00:00"
+          "checked_at": "2026-10-11T21:53:17.297663+00:00"
         },
         {
           "merchant": "Lenson",
@@ -1571,7 +1571,7 @@
           "total_price": 478.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000579&fid=657&url=https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde/",
-          "checked_at": "2026-10-11T19:57:56.707092+00:00"
+          "checked_at": "2026-10-11T21:53:17.298275+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -1664,7 +1664,7 @@
           "total_price": 870.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000583&fid=657&url=https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-multifocal/",
-          "checked_at": "2026-10-11T19:57:56.707111+00:00"
+          "checked_at": "2026-10-11T21:53:17.298295+00:00"
         }
       ]
     },
@@ -1739,7 +1739,7 @@
           "total_price": 708.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000580&fid=657&url=https://www.brilleland.no/kontaktlinser/air-optix-/ao-hydraglyde-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.707102+00:00"
+          "checked_at": "2026-10-11T21:53:17.298285+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -1778,7 +1778,7 @@
           "total_price": 360.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000316&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706382+00:00"
+          "checked_at": "2026-10-11T21:53:17.297584+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -1835,7 +1835,7 @@
           "total_price": 481.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000368&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706406+00:00"
+          "checked_at": "2026-10-11T21:53:17.297609+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -1928,7 +1928,7 @@
           "total_price": 567.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000688&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.706426+00:00"
+          "checked_at": "2026-10-11T21:53:17.297632+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -1976,7 +1976,7 @@
           "total_price": 278.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000267&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack-0644cb1b/",
-          "checked_at": "2026-10-11T19:57:56.706308+00:00"
+          "checked_at": "2026-10-11T21:53:17.297466+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -2078,7 +2078,7 @@
           "total_price": 778.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000708&fid=657&url=https://www.brilleland.no/kontaktlinser/total30/total30-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.707219+00:00"
+          "checked_at": "2026-10-11T21:53:17.298380+00:00"
         }
       ]
     },
@@ -2117,7 +2117,7 @@
           "total_price": 336.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000634&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision1-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.707121+00:00"
+          "checked_at": "2026-10-11T21:53:17.298305+00:00"
         },
         {
           "merchant": "Lenson",
@@ -2183,7 +2183,7 @@
           "total_price": 423.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000636&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.707140+00:00"
+          "checked_at": "2026-10-11T21:53:17.298325+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -3173,7 +3173,7 @@
           "total_price": 164.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000286&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-fit/",
-          "checked_at": "2026-10-11T19:57:56.706541+00:00"
+          "checked_at": "2026-10-11T21:53:17.297763+00:00"
         },
         {
           "merchant": "Lensit",
@@ -3239,7 +3239,7 @@
           "total_price": 299.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000391&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-fit-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.706551+00:00"
+          "checked_at": "2026-10-11T21:53:17.297774+00:00"
         },
         {
           "merchant": "Lensit",
@@ -3416,7 +3416,7 @@
           "total_price": 1049.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000718&fid=657&url=https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.707241+00:00"
+          "checked_at": "2026-10-11T21:53:17.298400+00:00"
         },
         {
           "merchant": "Interoptik",
@@ -3482,7 +3482,7 @@
           "total_price": 942.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000710&fid=657&url=https://www.brilleland.no/kontaktlinser/total30/total30-for-astigmastism-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.707231+00:00"
+          "checked_at": "2026-10-11T21:53:17.298390+00:00"
         }
       ]
     },
@@ -3548,7 +3548,7 @@
           "total_price": 634.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000735&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision7-12-pack/",
-          "checked_at": "2026-10-11T19:57:56.707172+00:00"
+          "checked_at": "2026-10-11T21:53:17.298355+00:00"
         }
       ]
     },
@@ -3635,7 +3635,7 @@
           "total_price": 834.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000737&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
-          "checked_at": "2026-10-11T19:57:56.707185+00:00"
+          "checked_at": "2026-10-11T21:53:17.298369+00:00"
         },
         {
           "merchant": "Interoptik",
@@ -3770,7 +3770,7 @@
           "total_price": 300.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.706160+00:00"
+          "checked_at": "2026-10-11T21:53:17.297373+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -3881,7 +3881,7 @@
           "total_price": 872.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000411&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706820+00:00"
+          "checked_at": "2026-10-11T21:53:17.298080+00:00"
         }
       ]
     },
@@ -3920,7 +3920,7 @@
           "total_price": 926.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000410&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706843+00:00"
+          "checked_at": "2026-10-11T21:53:17.298102+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4004,7 +4004,7 @@
           "total_price": 983.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000413&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706988+00:00"
+          "checked_at": "2026-10-11T21:53:17.298147+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4292,7 +4292,7 @@
           "total_price": 716.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000586&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.706323+00:00"
+          "checked_at": "2026-10-11T21:53:17.297481+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4349,7 +4349,7 @@
           "total_price": 962.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000409&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706395+00:00"
+          "checked_at": "2026-10-11T21:53:17.297595+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4424,7 +4424,7 @@
           "total_price": 1524.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000702&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.706436+00:00"
+          "checked_at": "2026-10-11T21:53:17.297642+00:00"
         }
       ]
     },
@@ -4445,7 +4445,7 @@
           "total_price": 1266.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000371&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706416+00:00"
+          "checked_at": "2026-10-11T21:53:17.297620+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -4547,7 +4547,7 @@
           "total_price": 782.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.706237+00:00"
+          "checked_at": "2026-10-11T21:53:17.297446+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4652,7 +4652,7 @@
           "total_price": 890.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000635&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision1-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.707131+00:00"
+          "checked_at": "2026-10-11T21:53:17.298315+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4709,7 +4709,7 @@
           "total_price": 1092.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000637&fid=657&url=https://www.brilleland.no/kontaktlinser/precision/precision1-for-astigmatism-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.707158+00:00"
+          "checked_at": "2026-10-11T21:53:17.298343+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -4871,7 +4871,7 @@
           "total_price": 434.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000318&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706950+00:00"
+          "checked_at": "2026-10-11T21:53:17.298113+00:00"
         }
       ]
     },
@@ -4928,7 +4928,7 @@
           "total_price": 1125.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000415&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706967+00:00"
+          "checked_at": "2026-10-11T21:53:17.298126+00:00"
         }
       ]
     },
@@ -4976,7 +4976,7 @@
           "total_price": 441.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000365&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-oasys-for-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.707009+00:00"
+          "checked_at": "2026-10-11T21:53:17.298166+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -5201,7 +5201,7 @@
           "total_price": 416.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000310&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal-d426565a/",
-          "checked_at": "2026-10-11T20:25:23.283722+00:00"
+          "checked_at": "2026-10-11T21:53:17.297534+00:00"
         },
         {
           "merchant": "Lensway",
@@ -5324,7 +5324,7 @@
           "total_price": 398.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000312&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706360+00:00"
+          "checked_at": "2026-10-11T21:53:17.297560+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -5390,7 +5390,7 @@
           "total_price": 1017.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000412&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706371+00:00"
+          "checked_at": "2026-10-11T21:53:17.297573+00:00"
         }
       ]
     },
@@ -5471,7 +5471,7 @@
           "total_price": 234.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000288&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh/",
-          "checked_at": "2026-10-11T19:57:56.706586+00:00"
+          "checked_at": "2026-10-11T21:53:17.297824+00:00"
         },
         {
           "merchant": "Lenson",
@@ -5576,7 +5576,7 @@
           "total_price": 342.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000290&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-fresh-presbyopia/",
-          "checked_at": "2026-10-11T19:57:56.706596+00:00"
+          "checked_at": "2026-10-11T21:53:17.297834+00:00"
         },
         {
           "merchant": "Lensway",
@@ -5933,7 +5933,7 @@
           "total_price": 658.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000705&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal/",
-          "checked_at": "2026-10-11T19:57:56.707082+00:00"
+          "checked_at": "2026-10-11T21:53:17.298265+00:00"
         }
       ]
     },
@@ -6047,7 +6047,7 @@
           "total_price": 748.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000742&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.707069+00:00"
+          "checked_at": "2026-10-11T21:53:17.298252+00:00"
         }
       ]
     },
@@ -6077,7 +6077,7 @@
           "total_price": 300.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.706160+00:00"
+          "checked_at": "2026-10-11T21:53:17.297373+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -6170,7 +6170,7 @@
           "total_price": 782.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=657&url=https://www.brilleland.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "checked_at": "2026-10-11T19:57:56.706237+00:00"
+          "checked_at": "2026-10-11T21:53:17.297446+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -6194,6 +6194,15 @@
       },
       "offers": [
         {
+          "merchant": "Brilleland",
+          "price": 299.0,
+          "shipping": 59,
+          "total_price": 358.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000690&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-flex/",
+          "checked_at": "2026-10-11T21:53:17.297786+00:00"
+        },
+        {
           "merchant": "Interoptik",
           "price": 360.0,
           "shipping": 0.0,
@@ -6214,6 +6223,15 @@
         "manufacturer": "Menicon"
       },
       "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 395.0,
+          "shipping": 59,
+          "total_price": 454.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000692&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-astigmatism/",
+          "checked_at": "2026-10-11T21:53:17.297800+00:00"
+        },
         {
           "merchant": "Interoptik",
           "price": 484.0,
@@ -6243,6 +6261,15 @@
           "availability": "in_stock",
           "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-10T02:01:10.619243+00:00"
+        },
+        {
+          "merchant": "Brilleland",
+          "price": 460.0,
+          "shipping": 59,
+          "total_price": 519.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000694&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-flex-multifocal/",
+          "checked_at": "2026-10-11T21:53:17.297813+00:00"
         }
       ]
     },
@@ -6256,6 +6283,15 @@
         "manufacturer": "Menicon"
       },
       "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 297.0,
+          "shipping": 59,
+          "total_price": 356.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000674&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-astigmatism/",
+          "checked_at": "2026-10-11T21:53:17.298038+00:00"
+        },
         {
           "merchant": "Interoptik",
           "price": 399.0,
@@ -6277,6 +6313,15 @@
         "manufacturer": "Menicon"
       },
       "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 330.0,
+          "shipping": 59,
+          "total_price": 389.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000676&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-slim-multifocal/",
+          "checked_at": "2026-10-11T21:53:17.298050+00:00"
+        },
         {
           "merchant": "Interoptik",
           "price": 405.0,
@@ -6383,7 +6428,7 @@
           "total_price": 254.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000405&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-vivid/",
-          "checked_at": "2026-10-11T19:57:56.706801+00:00"
+          "checked_at": "2026-10-11T21:53:17.298061+00:00"
         }
       ]
     },
@@ -6881,7 +6926,7 @@
           "total_price": 393.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000381&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia/",
-          "checked_at": "2026-10-11T19:57:56.706468+00:00"
+          "checked_at": "2026-10-11T21:53:17.297674+00:00"
         },
         {
           "merchant": "Lensway",
@@ -6968,7 +7013,7 @@
           "total_price": 648.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000727&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-for-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.707056+00:00"
+          "checked_at": "2026-10-11T21:53:17.298236+00:00"
         }
       ]
     },
@@ -7047,7 +7092,7 @@
           "total_price": 393.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000752&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia-3-add-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.706478+00:00"
+          "checked_at": "2026-10-11T21:53:17.297685+00:00"
         },
         {
           "merchant": "Lenson",
@@ -7086,7 +7131,7 @@
           "total_price": 300.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000296&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-astigmatism/",
-          "checked_at": "2026-10-11T19:57:56.706646+00:00"
+          "checked_at": "2026-10-11T21:53:17.297885+00:00"
         }
       ]
     },
@@ -7107,7 +7152,7 @@
           "total_price": 452.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000397&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-hydro-presbyopia-3-pack/",
-          "checked_at": "2026-10-11T19:57:56.706657+00:00"
+          "checked_at": "2026-10-11T21:53:17.297897+00:00"
         }
       ]
     },
@@ -7128,7 +7173,7 @@
           "total_price": 392.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000179&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-3-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706688+00:00"
+          "checked_at": "2026-10-11T21:53:17.297930+00:00"
         }
       ]
     },
@@ -7149,7 +7194,7 @@
           "total_price": 490.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000281&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-presbyopia-3-pack2/",
-          "checked_at": "2026-10-11T19:57:56.706727+00:00"
+          "checked_at": "2026-10-11T21:53:17.297970+00:00"
         }
       ]
     },
@@ -7170,7 +7215,7 @@
           "total_price": 1418.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000754&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-oxygen-astigmatism-xr-6-pack/",
-          "checked_at": "2026-10-11T19:57:56.706717+00:00"
+          "checked_at": "2026-10-11T21:53:17.297960+00:00"
         }
       ]
     },
@@ -7191,7 +7236,91 @@
           "total_price": 408.0,
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000561&fid=657&url=https://www.brilleland.no/kontaktlinser/misight/misight-1-day-30-pack/",
-          "checked_at": "2026-10-11T19:57:56.707265+00:00"
+          "checked_at": "2026-10-11T21:53:17.298425+00:00"
+        }
+      ]
+    },
+    {
+      "id": "miru-1month-6pk",
+      "name": "Miru 1month 6-pack",
+      "brand": "MIRU",
+      "category": "manedslinser",
+      "pack_size": 6,
+      "attributes": {
+        "manufacturer": "Menicon"
+      },
+      "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 395.0,
+          "shipping": 59,
+          "total_price": 454.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000699&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect/",
+          "checked_at": "2026-10-11T21:53:17.297727+00:00"
+        }
+      ]
+    },
+    {
+      "id": "miru-1month-toric-6pk",
+      "name": "Miru 1month Toric 6-pack",
+      "brand": "MIRU",
+      "category": "toriske-linser",
+      "pack_size": 6,
+      "attributes": {
+        "manufacturer": "Menicon"
+      },
+      "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 510.0,
+          "shipping": 59,
+          "total_price": 569.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000700&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-astigmatism/",
+          "checked_at": "2026-10-11T21:53:17.297740+00:00"
+        }
+      ]
+    },
+    {
+      "id": "miru-1month-multifocal-6pk",
+      "name": "Miru 1month Multifocal 6-pack",
+      "brand": "MIRU",
+      "category": "multifokale-linser",
+      "pack_size": 6,
+      "attributes": {
+        "manufacturer": "Menicon"
+      },
+      "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 610.0,
+          "shipping": 59,
+          "total_price": 669.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000733&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-connect-multifocal/",
+          "checked_at": "2026-10-11T21:53:17.297753+00:00"
+        }
+      ]
+    },
+    {
+      "id": "miru-1day-flatpack-30pk",
+      "name": "Miru 1day Flatpack 30-pack",
+      "brand": "MIRU",
+      "category": "dagslinser",
+      "pack_size": 30,
+      "attributes": {
+        "manufacturer": "Menicon"
+      },
+      "offers": [
+        {
+          "merchant": "Brilleland",
+          "price": 252.0,
+          "shipping": 59,
+          "total_price": 311.0,
+          "availability": "in_stock",
+          "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000672&fid=657&url=https://www.brilleland.no/kontaktlinser/iwear/iwear-slim/",
+          "checked_at": "2026-10-11T21:53:17.298024+00:00"
         }
       ]
     },
