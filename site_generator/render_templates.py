@@ -762,8 +762,8 @@ a { color: inherit; }
 .price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
 .price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
 .price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
-.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
-.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);flex-shrink:0}
 .price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
 .price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
 .price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
@@ -4486,13 +4486,13 @@ def _render_price_history_chart(history: list[dict], show_heading: bool = True, 
 # bevegelse fyller da hele grafhøyden og ser ut som et stup/rebound. Gulvet
 # under sikrer et visningsspenn på MINST `_CHART_MIN_ABS_RANGE_NOK` kr
 # ELLER `_CHART_MIN_PCT_RANGE` av referanseprisen (medianen), whichever er
-# størst -- for et ~450 kr-produkt blir det ~9 % = ~40 kr, så en 449->454
+# størst -- for et ~450 kr-produkt blir det ~50 % = ~225 kr, så en 449->454
 # kr-bevegelse fortsatt er synlig, men ikke dominerer hele grafen. Gulvet
 # er KUN en nedre grense (regel 14: "Never clip observations to satisfy
 # the minimum-domain rule") -- et ekte, større spenn (f.eks. 299->499 kr)
 # vinner alltid over gulvet og klippes aldri.
 _CHART_MIN_ABS_RANGE_NOK = 25.0
-_CHART_MIN_PCT_RANGE = 0.09
+_CHART_MIN_PCT_RANGE = 0.50
 
 
 def _price_intel_chart_domain(prices: list[float]) -> tuple[float, float]:
