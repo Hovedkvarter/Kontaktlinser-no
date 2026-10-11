@@ -26,13 +26,16 @@ class BrillelandFeedTests(unittest.TestCase):
     def test_existing_coverage_and_no_duplicate_offers(self):
         meta = json.loads((ROOT / 'products_meta.json').read_text())
         expected = {p['id'] for p in meta['products'] if any(t['retailer'] == 'brilleland' for t in p.get('scrape_targets', []))}
-        self.assertEqual(set(self.by_id), expected)
-        self.assertEqual(len(self.offers), len(expected))
+        self.assertTrue(expected <= set(self.by_id))
+        self.assertEqual(len(self.offers), len(self.by_id))
+        self.assertEqual(len(self.offers), 68)
         self.assertEqual(len(expected), 31)
 
     def test_three_packs_never_become_six_packs(self):
-        self.assertNotIn('40000281', self.match)
-        self.assertNotIn('40000179', self.match)
+        self.assertEqual(self.match['40000281'], 'biofinity-multifocal-3pk')
+        self.assertEqual(self.match['40000179'], 'biofinity-toric-3pk')
+        self.assertEqual(self.by_id['biofinity-multifocal-3pk'].price_nok, 431)
+        self.assertEqual(self.by_id['biofinity-toric-3pk'].price_nok, 333)
         self.assertEqual(self.by_id['biofinity-multifocal-6pk'].price_nok, 860)
         self.assertEqual(self.by_id['biofinity-toric-6pk'].price_nok, 666)
 
@@ -61,6 +64,31 @@ class BrillelandFeedTests(unittest.TestCase):
     def test_unrelated_sunglasses_are_excluded(self):
         self.assertNotIn('90121391', self.match)
         self.assertTrue(all(o.in_stock for o in self.offers))
+
+    def test_complete_feed_accounting(self):
+        audit = json.loads((ROOT / 'docs/brilleland-feed-audit.json').read_text())['rows']
+        self.assertEqual(len(audit), 77)
+        self.assertEqual(len({r['sku'] for r in audit}), 77)
+        self.assertEqual({r['sku'] for r in audit if r['status'] == 'mapped'}, set(self.match))
+        for row in audit:
+            if row['status'] != 'mapped':
+                self.assertNotIn(row['sku'], self.match)
+                self.assertTrue(row['reason'])
+
+    def test_distinct_lens_designs_and_single_total30_offer(self):
+        self.assertEqual(self.match['40000752'], 'clariti-1day-multifocal-3add-30pk')
+        self.assertEqual(self.match['40000381'], 'clariti-1day-multifocal-30pk')
+        self.assertEqual(self.match['40000561'], 'misight-1day-30pk')
+        self.assertNotIn('myday-misight-1day-30pk', self.by_id)
+        self.assertEqual(sum(o.product_id == 'total30-multifocal-6pk' for o in self.offers), 1)
+
+    def test_new_products_and_aliases_have_valid_targets(self):
+        meta = json.loads((ROOT / 'products_meta.json').read_text())['products']
+        ids = {p['id'] for p in meta}
+        self.assertEqual(len(ids), len(meta))
+        self.assertTrue(set(self.by_id) <= ids)
+        aliases = json.loads((ROOT / 'private_labels.json').read_text())['labels']
+        self.assertTrue(all(a['real_product_id'] in ids for a in aliases))
 
 if __name__ == '__main__':
     unittest.main()
