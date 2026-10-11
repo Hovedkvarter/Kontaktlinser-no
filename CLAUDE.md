@@ -23,8 +23,9 @@ hostet på GitHub Pages, bygget automatisk daglig (og ved hver push) via GitHub 
   Kategori-ikonene på forsiden har hver sin egen aksentfarge fra den
   etablerte paletten (blue/amber/sky/lavender/coral, se `CATEGORY_COLORS`)
   — bevisst ALDRI grønt/mint der, av samme grunn.
-- Typografi: Space Grotesk (titler), Inter (brødtekst), IBM Plex Mono
-  (priser/tall/data).
+- Typografi: Mulish for titler, brødtekst og priser/tall/data (valgt av Kai
+  2026-10-11). Fontfamilien er eneste visuelle endring i denne runden;
+  behold eksisterende størrelser, vekter, linjehøyder og øvrig design.
 - Signaturmotiv: konsentriske "fokusring"-sirkler (ekko av en kontaktlinse) —
   brukes i hero-bilder og strammer seg visuelt inn mot laveste pris. Se
   `RING_MARK`/`ring-decor`/`ring-focus` i `site_generator/render_templates.py`.
