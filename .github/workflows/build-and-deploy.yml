@@ -54,6 +54,13 @@ jobs:
           KL_SKIP_FRESH_SCRAPE: ${{ github.event_name == 'schedule' && '1' || '' }}
         run: python3 build_catalog.py
 
+      - name: Test butikkhistorikk
+        run: python3 -m unittest test_store_price_history
+
+      - name: Arkiver butikkvise prisobservasjoner
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: python3 store_price_history.py
+
       - name: Lagre oppdatert prisdata tilbake til repoet
         # KRITISK: uten dette steget forsvinner hver fersk skraping igjen
         # ved neste push - push-bygg bruker catalog_live.json SLIK DEN LIGGER
@@ -66,7 +73,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add site_generator/catalog_live.json
+          git add site_generator/catalog_live.json data/store_price_history
           git diff --staged --quiet || git commit -m "Oppdater catalog_live.json med ferske priser [skip ci]"
           git pull --rebase origin main
           git push
