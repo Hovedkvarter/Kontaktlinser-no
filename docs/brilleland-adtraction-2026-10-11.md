@@ -1,49 +1,78 @@
-# Brilleland – Adtraction, 11. oktober 2026
+# Brilleland / Adtraction – full feedgjennomgang 11. oktober 2026
 
-Status: implementert og testet i arbeidsgren. Eier godkjente sending til GitHub og opprettelse av PR 2026-10-11. Ikke merget eller publisert. Visuell kontroll og eiers publiseringsgodkjenning gjenstår.
+Status: implementert i arbeidsgren og PR #24. Eier har godkjent GitHub/PR,
+men ikke merge eller publisering. Denne revisjonen erstatter første runde
+som bare omfattet 31 eksisterende produktkoblinger.
 
-## Beslutninger og omfang
+## Resultat
 
-- Eier bekreftet godkjent Adtraction-avtale og leverte feed-URL.
-- Ekte CSV hentet 11. oktober: 922 rader, hvorav 77 kontaktlinseoppføringer.
-- Gjenbruker Adtraction-mapperen med eget oppslag `adtraction_brilleland`.
-- 29 feed-SKU-er dekker alle 31 eksisterende Brilleland-produktkoblinger.
-  Focus Dailies/All Day Comfort har to etablerte aliaspar.
-- 23 koblinger treffer eksisterende produkt-URL nøyaktig. De øvrige åtte
-  er AquaComfort Plus 30 (eksakt produkt/pakningsnavn) og syv allerede
-  dokumenterte iWear-identiteter i private_labels.json. Feedens bildefilnavn
-  bekrefter de eksisterende 6-/30-pakningsstørrelsene for disse syv.
-- Ingen nye private-label-ekvivalenser er utledet. Andre feedprodukter er
-  foreløpig ikke lagt til; særlig Oxygen Presbyopia/Toric 3-pack skal aldri
-  kobles til eksisterende 6-pack. Seks-pakningene bruker 40000758/40000759.
-- Sporingslenken beholdes nøyaktig som levert, inkludert `to.brilleland.no`,
-  `a=1611943895`, `as=2102229792`, `fid=657`. Feed-URL-ens apid er et annet
-  ID-felt; det erstatter ikke `a` i ferdig genererte sporingslenker.
-- Brilleland er ikke lagt til Chillouts konverteringsliste; ingen ny
-  plattformintegrasjon eller feed-ID er antatt.
-- Eksisterende fraktregel (59 kr, gratis over 1000 kr) er videreført.
-  Feedens generiske `shipping=NO:::0 NOK` overstyrer ikke dokumentert regel.
-- Ingen andre forhandleres katalogdata, SEO-URL-er eller rangering er endret.
-  Katalogen er oppdatert kun med ferske Brilleland-tilbud; ikke full scraping.
+- Hele feeden: 922 rader. 77 kontaktlinseoppføringer er vurdert enkeltvis.
+- 66 utvalgte feed-SKU-er gir Brilleland-tilbud på 68 produktsider, inkludert
+  de to etablerte Focus Dailies/All Day Comfort-aliasene.
+- 62 eksisterende katalogprodukter får tilbud. Seks nye produkter opprettes:
+  Biofinity Toric 3, Biofinity Multifocal 3, Biofinity XR Toric 6,
+  Proclear Toric 3, Proclear Multifocal 3 og MiSight 1 day 30.
+- 9 nye dokumenterte iWear-aliaser gir søk/egne merkesider for koblingene.
+- TOTAL30 Multifocal LOW/MED/HIGH er tre rader til samme produktside,
+  alle 990 kr i eksporten. Kun SKU 40000718 brukes som tilbud. 40000719 og
+  40000720 er dokumenterte addisjonsvarianter, ikke ekstra butikker/tilbud.
+  Vi beregner ingen syntetisk laveste pris på tvers av addisjonsvariantene.
+- Ni rader avventer dokumentert produsentidentitet: Connect (3), Flex (3)
+  og Slim (3). Pakningene er kjent. Sekundære sammenligningssider antyder
+  MIRU, men dette er ikke tilstrekkelig til å publisere identiske-linse-koblinger.
+  Disse er ikke aktivert og ikke opprettet som konkurrerende duplikatprodukter.
+- Fullstendig regnskap over samtlige 77 SKU-er, status, produkt-ID-er og
+  kilder: `docs/brilleland-feed-audit.json`.
 
-## Kontroll og begrensninger
+## Kildegrunnlag og avgrensninger
 
-- Virkelig feedutdrag i tests/fixtures; tester dekning, pakningsforveksling,
-  kilde/nettverk, frakt, ukjente produkter og affiliate-lenker i HTML.
-- 7 tester bestått (Brilleland og butikkhistorikk). Statisk bygg og
-  validate_build bestått: 201 av 201 katalogprodukter har priser.
-- Brillelands åtte gamle produkt-URL-er svarte HTTP 403 i dette miljøet.
-  Identiteter er derfor kontrollert mot eksisterende dokumentasjon og feed,
-  ikke ny full kontroll av produktsidene.
-- Feeden har et bildeavvik: iWear Balance Plus peker til et bildefilnavn med
-  «astigmatism». Eksisterende produktbilder er ikke byttet ut. Feedbilder
-  bør ikke brukes til å erstatte canonical-produktbilder uten egen kontroll.
-- Visuell nettleserkontroll gjenstår: Chromium var ikke installert og nedlastingen feilet. Statisk HTML er generert og validert.
-- Affiliate-lenkenes struktur/HTML er testet; klikk gjennom sporingsnettverket
-  og faktisk provisjonsattribusjon er ikke bekreftet.
+Eksportens produktnavn og pakninger er kontrollert mot Brillelands kategori-
+og produktsider der feedtittel mangler antall. Etablerte private labels er
+bevart; nye CooperVision-koblinger er støttet av Lensways egen varemerketabell.
+Primærkilder brukt:
 
-## Neste steg
+- https://www.brilleland.no/kontaktlinser/iwear/
+- https://www.brilleland.no/kontaktlinser/acuvue/
+- https://www.brilleland.no/kontaktlinser/dailies/
+- https://www.brilleland.no/kontaktlinser/air-optix-/
+- https://www.lensway.no/optikerkjedenes-varemerker-editorial
+- https://www.brilleland.no/kontaktlinser/iwear/iwear-activ-presbyopia-3-add-30-pack/
+- https://www.linsen.dk/shop11/iwear-oxygen-astigmatism-xr-synoptik-kontaktlinser
+- https://www.brilleland.no/kontaktlinser/total30/total30-multifocal-6-pack/
+- https://www.brilleland.no/kontaktlinser/misight/misight-1-day-30-pack/
 
-Eier vurderer PR og godkjenner eventuell publisering. Kontroller deretter
-Brilleland-tilbud live og attribusjon i Adtraction. Nye produkter fra de øvrige
-feedradene og eventuell endret fraktregel behandles separat med dokumentasjon.
+MiSight 1 day og MyDay MiSight er ulike produktdesign. Brillelands produkt
+oppgir 60 % vann og BC 8,7; det legges derfor til med egen stabil ID/URL,
+ikke som et tilbud på MyDay MiSight. Ingen behandlingsråd eller effektprosent
+kopieres til den nye siden.
+
+Frakt beholdes: 59 kr / gratis over 1000 kr. Feedens generiske nullfrakt
+brukes ikke som bevis på endret regel. Brillelands sider bekrefter fortsatt
+grensen på 1000 kr. Eksisterende produktbilder og URL-er er ikke byttet ut.
+Nye pakninger arver ikke et manuelt bilde som viser feil antall; de bruker
+det lisensierte bildet fra den aktuelle feedraden via eksisterende bildelogikk.
+Feedbildene for Balance Plus og TOTAL30 Toric har misvisende filnavn;
+eksisterende manuelt kuraterte bilder vinner over dem.
+
+Koden gjenbruker Adtraction-mapperen med separat `adtraction_brilleland`-
+oppslag. Sporings-URL-er beholdes nøyaktig; ingen nye Chillout-ID-er antas.
+Alle øvrige butikktilbud og deres måletidspunkt bevares. Katalogen er
+oppdatert bare for Brilleland; ingen unødvendig full scraping.
+
+## Verifisert og gjenstående
+
+- 10 tester: feeddekning, alle 77 klassifisert, 3/6-pakninger, MiSight-
+  avgrensning, Clariti 3 Add-avgrensning, TOTAL30 uten duplikat, gyldige
+  produkt-/alias-ID-er, affiliate-HTML, frakt og butikkhistorikk.
+- Statisk generering og validate_build består: 207/207 produkter har priser.
+- Visuell nettleserkontroll gjenstår; Chromium mangler og nedlasting feilet.
+- Sporingsstruktur og HTML er kontrollert. Endelig redirect og faktisk
+  provisjonsattribusjon er ikke bekreftet.
+- Brilleland ga 403 ved direkte henting fra kodearbeidsmiljøet. Offentlige
+  sider er kontrollert via nettsøk. AquaComfort Multifocal har motstridende
+  URL-suffiks i feed og kategorilenke; begge ga 404 gjennom nettsøket,
+  mens kategorisiden fortsatt viser 30-pakningen med samme pris. Kontroller
+  denne sporingslenkens sluttdestinasjon før merge. Ingen URL er gjettet om.
+
+Neste steg: avklar de ni iWear-identitetene, kontroller den avvikende
+AquaComfort-lenken og forhåndsvisningen før eiers publiseringsgodkjenning.
