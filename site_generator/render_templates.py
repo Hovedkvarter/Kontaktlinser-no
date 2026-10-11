@@ -4510,7 +4510,7 @@ def _price_intel_chart_domain(prices: list[float]) -> tuple[float, float]:
     extra = (visual_range - observed_range) / 2
     lo, hi = real_min - extra, real_max + extra
     pad = visual_range * 0.08
-    return lo - pad, hi + pad
+    return lo - visual_range * 0.20, hi + pad
 
 
 def _nice_axis_ticks(lo: float, hi: float, target: int = 4) -> list[float]:
@@ -4548,7 +4548,7 @@ def _render_price_intelligence_chart(window: list[dict], gradient_id: str, mobil
     min_price, max_price = _price_intel_chart_domain(prices)
     price_range = max_price - min_price
 
-    width, height = ((340, 205) if mobile else (680, 280))
+    width, height = ((340, 205) if mobile else (680, 224))
     pad_left, pad_right, pad_top, pad_bottom = ((42, 8, 12, 24) if mobile else (46, 8, 12, 20))
     plot_w = width - pad_left - pad_right
     plot_h = height - pad_top - pad_bottom
