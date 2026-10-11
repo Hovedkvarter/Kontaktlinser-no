@@ -25,6 +25,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
+from store_history_chart import product_store_days
 
 
 def _json_str(s: str) -> str:
@@ -754,6 +755,31 @@ a { color: inherit; }
 .price-intel-chart-toolbar{padding:0 2px 8px;border-bottom:1px solid var(--border);margin-bottom:8px}
 .price-intel-chart-toolbar-badge{border:0;background:transparent;padding:0}
 .price-intel-chart .price-history-chart{border:0;border-radius:0}
+
+.price-intel .price-history-line{stroke-width:1.3;vector-effect:non-scaling-stroke}
+.price-intel .store-chart-controls{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:18px 0 8px}
+.price-intel .store-chart-periods{margin-left:auto;text-align:right}
+.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-end;margin:0 0 10px}
+.price-intel .store-chart-caption{font-size:.76rem;color:var(--muted);margin:0}
+.price-intel .store-chart-picker{position:relative;flex-shrink:0;font-size:.8rem;z-index:5}
+.price-intel .store-chart-picker summary{list-style:none;display:flex;justify-content:space-between;gap:18px;cursor:pointer;padding:9px 15px;border:1px solid var(--border);border-radius:999px;background:white}
+.price-intel .store-chart-picker summary::after{content:"⌄"}
+.price-intel .store-chart-picker summary::-webkit-details-marker{display:none}
+.price-intel .store-chart-options{position:absolute;left:0;top:44px;min-width:220px;max-height:320px;overflow:auto;padding:8px;border:1px solid var(--border);border-radius:12px;background:white;box-shadow:0 8px 24px #0b25451a}
+.price-intel .store-chart-options label{display:flex;gap:10px;align-items:center;padding:10px 8px;cursor:pointer}
+.price-intel .store-chart-options input{accent-color:var(--blue);width:17px;height:17px}
+.price-intel .store-chart-selected{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.price-intel .store-chart-selected[hidden],.price-intel .store-chart-picker[hidden]{display:none}
+.price-intel .store-chart-chip{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:999px;background:var(--mist);color:var(--ink);padding:7px 10px;font:inherit;font-size:.76rem;cursor:pointer}
+.price-intel .store-chart-swatch{width:8px;height:8px;border-radius:50%;display:inline-block}
+.price-intel .price-intel-chart-wrap{position:relative}
+.price-intel .store-chart-tooltip{position:absolute;z-index:4;pointer-events:none;background:white;border:1px solid var(--border);border-radius:12px;box-shadow:0 5px 18px #0b25451a;padding:12px 15px;color:var(--ink);font-size:.8rem;max-width:230px}
+.price-intel .store-chart-tooltip strong{display:block;font-size:1rem;margin:5px 0}
+.price-intel .store-chart-tooltip span{display:block}
+.price-intel .store-chart-tooltip[hidden]{display:none}
+.price-intel .store-chart-keyboard{width:100%;margin:8px 0;accent-color:var(--orange-dark)}
+.price-intel .store-chart-keyboard:not(:focus){position:absolute;width:1px;height:1px;clip-path:inset(50%);overflow:hidden}
+@media(max-width:600px){.price-intel .store-chart-controls{flex-direction:column;gap:12px}.price-intel .store-chart-periods{width:100%;text-align:left}.price-intel .store-chart-periods .price-intel-period-tabs{justify-content:flex-start}.price-intel .store-chart-picker{width:100%}.price-intel .store-chart-options{width:100%}.price-intel .store-chart-chip{min-height:40px}}
 .price-intel-chart-mobile{display:none}
 .price-intel-chart-desktop{display:block}
 .price-intel-cards{margin-top:30px;gap:0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
@@ -4831,7 +4857,7 @@ def _price_intelligence_quantity_table(offers: list[dict], unit_singular: str, u
     return {"rows": rows, "change_qty": change_qty}
 
 
-def render_price_intelligence(history: list[dict], product_name: str, unit_singular: str = "eske", unit_plural: str = "esker", offers: list[dict] | None = None) -> str:
+def render_price_intelligence(history: list[dict], product_name: str, unit_singular: str = "eske", unit_plural: str = "esker", offers: list[dict] | None = None, product_id: str | None = None) -> str:
     """Price Intelligence-modulen (Product Gold Standard v1, 2026-09-27).
     Erstatter den gamle, enkle "Prisutvikling"-grafen på produktsider
     (kontaktlinser, linsevæske/øyedråper/Tilbehør og private label).
@@ -4979,6 +5005,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     if len(history) < 7:
         return ""
 
+    store_days = product_store_days(product_id, product_name)
     coverage_days = len(history)
     coverage_start = history[0]["date"]
     latest_date = history[-1]["date"]
@@ -5051,10 +5078,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
   </div>''')
         chart_panels.append(f'''<div class="price-intel-chart-panel{active_cls}" data-period="{key}">
     <div class="price-intel-chart-shell">
-      <div class="price-intel-chart-toolbar">
-        <span>Laveste registrerte produktpris per dag</span>
-        <span class="price-intel-chart-toolbar-badge">{_chart_toolbar_icon}Viser laveste registrerte pris per dag</span>
-      </div>
+      <script type="application/json" class="store-chart-data">{json.dumps({"lowest": metrics["window"], "stores": {name: [row for row in rows if metrics["window"][0]["date"] <= row["date"] <= metrics["window"][-1]["date"]] for name, rows in store_days.items()}}, ensure_ascii=True).replace("<", "\\u003c")}</script>
       <div class="price-intel-chart-wrap">{chart_svg}{chart_svg_mobile}</div>
     </div>
   </div>''')
@@ -5237,7 +5261,11 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <div class="price-intel-coverage">{CALENDAR_ICON_SVG}<span>Vi har fulgt prisen siden<br><strong>{_format_no_date(coverage_start)}</strong><span class="price-intel-coverage-days">{coverage_days} dager med data</span></span></div>
   </div>
   {"".join(primary_strips)}
-  <div class="price-intel-period-tabs" role="tablist">{"".join(tabs)}</div>
+  <div class="store-chart-controls">
+    <details class="store-chart-picker" hidden><summary>Velg butikk</summary><div class="store-chart-options"></div></details>
+    <div class="store-chart-periods"><div class="price-intel-period-tabs" role="tablist">{"".join(tabs)}</div><p class="store-chart-caption">Laveste registrerte produktpris per dag</p></div>
+  </div>
+  <div class="store-chart-selected" hidden></div>
   {"".join(chart_panels)}
   {cards_html}
   {"".join(summary_strips)}
@@ -5264,6 +5292,7 @@ def render_price_intelligence(history: list[dict], product_name: str, unit_singu
     <span>Prisdata sist bekreftet: {_format_no_date(latest_date)}</span>
   </div>
   {script_html}
+  <script src="/static/store-history-chart.js" defer></script>
 </div>'''
 
 
@@ -5576,7 +5605,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   </div>"""
     specs_html += manufacturer_link_html
 
-    price_history_html = render_price_intelligence(price_history or [], product["name"], offers=offers)
+    price_history_html = render_price_intelligence(price_history or [], product["name"], offers=offers, product_id=product["id"])
 
     aliases_html = ""
     if aliases:
@@ -11391,7 +11420,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     # Price Intelligence -- delt med kontaktlinse-produktsiden (Kai,
     # 2026-09-28: "gjelder alle produkter på domenet kontaktlinser.no"),
     # samme funksjon, samme CSS (nå i SHARED_STYLE, se der).
-    price_history_html = render_price_intelligence(price_history or [], product["name"], unit_singular, unit_plural, offers=offers)
+    price_history_html = render_price_intelligence(price_history or [], product["name"], unit_singular, unit_plural, offers=offers, product_id=product["id"])
     size_ml = product.get("size_ml")
     price_per_unit_html = ""
     if size_ml and ex_best:
@@ -12291,7 +12320,7 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
     # kontaktlinser.no ... egne merkenavn kontaktlinser"). Historikken er
     # lagret på real_product sin id (samme fysiske vare, se docstring),
     # ikke på selve private label-etiketten.
-    price_history_html = render_price_intelligence(price_history or [], real_product["name"], offers=offers)
+    price_history_html = render_price_intelligence(price_history or [], real_product["name"], offers=offers, product_id=real_product["id"])
 
     # Samme prinsipp som render_product_page/render_solution_product_page --
     # meta-beskrivelsen skal inneholde en live pris, ikke bare den generiske
