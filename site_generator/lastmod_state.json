@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-10-11",
-  "sig": "2c0d098e4319b950b2fa2c27d8bcfc5e9baf876f"
+  "sig": "0b7194cdba236dcbd4f8d6021b0a7bbb457fae9a"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-10-11",
@@ -161,11 +161,11 @@
  },
  "/kontaktlinser/biofinity/biofinity-xr-3-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "aad08931be275f28f3b79909d745563300352b1b"
+  "sig": "71d6f79b8a4f7bafb17c9f983c1dba5be5a0ae7a"
  },
  "/kontaktlinser/biofinity/biofinity-xr-6-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "66c9d1ffe0acb5c5fa481b654d4b0bf1dc43f4d4"
+  "sig": "d883303c1449fd58badeabdd680488a1c33e8603"
  },
  "/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/": {
   "lastmod": "2026-10-11",
@@ -261,7 +261,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-10-11",
-  "sig": "a11022f169d1daf90c9ac2bac5e7bf37befad077"
+  "sig": "8f968891064230d34b71d9d1e26e2ce8592ef3d7"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-10-11",
@@ -393,27 +393,43 @@
  },
  "/kontaktlinser/manedslinser/": {
   "lastmod": "2026-10-11",
-  "sig": "16b74ae8723936314b0fbffcd7e7bc248a259b4c"
+  "sig": "4feb124fc4c812e4e3d0770b95537072ceda94af"
+ },
+ "/kontaktlinser/miru/miru-1day-flatpack-30-pack/": {
+  "lastmod": "2026-10-11",
+  "sig": "620eb3aeee4f4a488a66fe81442f2845fd7e1113"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-astigmatism-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "f683ebe11346f542ba109f2090fac3b8bc7915dd"
+  "sig": "d1e907d32137017b71eb2ddc9945204338557233"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-multifocal-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "d09dece0f41c1ec79e21e3ed44a4df06eb4c52ca"
+  "sig": "44a12195b810c8d838d00f57541310de3b8b44ef"
  },
  "/kontaktlinser/miru/miru-1day-upside-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "e81385ab28ce870c786747961ed9320cfbbc8813"
+  "sig": "0599a393f55151c3f3db7390a77c93632bb4fa6e"
  },
  "/kontaktlinser/miru/miru-1day-upside-astigmatism-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "7ab8cfef78a89b73409866abb7e1fdb4f99742ca"
+  "sig": "dfd87a574d48c176018cc3e2f02a60f7dfa8e08d"
  },
  "/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/": {
   "lastmod": "2026-10-11",
-  "sig": "4112960af589b04ceb0fa5bb0e0fe22b0e1f779f"
+  "sig": "799434553b0a614276a4038bd78958e1868f0058"
+ },
+ "/kontaktlinser/miru/miru-1month-6-pack/": {
+  "lastmod": "2026-10-11",
+  "sig": "f5ea65c89869094007d07d706761a979ffec34fe"
+ },
+ "/kontaktlinser/miru/miru-1month-multifocal-6-pack/": {
+  "lastmod": "2026-10-11",
+  "sig": "fe12734654c2b684f04f28e56b8bc850b2b30d83"
+ },
+ "/kontaktlinser/miru/miru-1month-toric-6-pack/": {
+  "lastmod": "2026-10-11",
+  "sig": "4e2c62b970c374abecf5f97f1fca63eca0ba4558"
  },
  "/kontaktlinser/misight/misight-1-day-30-pack/": {
   "lastmod": "2026-10-11",
@@ -421,7 +437,7 @@
  },
  "/kontaktlinser/multifokale-linser/": {
   "lastmod": "2026-10-11",
-  "sig": "5ffcd48af3269b89d1495c18dadd8b814800683a"
+  "sig": "3f291a807ebd5dc607b7b977b96e75f679e08665"
  },
  "/kontaktlinser/myday/myday-30-pack/": {
   "lastmod": "2026-10-11",
@@ -585,7 +601,7 @@
  },
  "/kontaktlinser/toriske-linser/": {
   "lastmod": "2026-10-11",
-  "sig": "a2ebb4a6c66e3507279f1e142f97b055d43991d2"
+  "sig": "14c714023127151dcf462ec37aaf2ba8a51d78ef"
  },
  "/kontaktlinser/total30/total30-6-pack/": {
   "lastmod": "2026-10-11",
@@ -789,7 +805,7 @@
  },
  "/merke/iwear/": {
   "lastmod": "2026-10-11",
-  "sig": "2ffa05f3b008b0cb4dc874c7b9c25ac542d5bece"
+  "sig": "c692d48de760cf99a0d0f2be8c13439b00b4aa0c"
  },
  "/merke/live/": {
   "lastmod": "2026-10-11",
@@ -797,7 +813,7 @@
  },
  "/merke/miru/": {
   "lastmod": "2026-10-11",
-  "sig": "a6f4ccab4c6c6f60b975bd49e7d336d43f2f61fe"
+  "sig": "2357f51dc1884bca0273ae91f014ad6a42e51a8e"
  },
  "/merke/misight/": {
   "lastmod": "2026-10-11",
@@ -1005,7 +1021,7 @@
  },
  "/private-label/": {
   "lastmod": "2026-10-11",
-  "sig": "1248417392429a44789b8acdbef16cdee52fd680"
+  "sig": "45371a51c8ed789f15eb0f9ff90e440da0b1e3e9"
  },
  "/private-label/ascend-active-1-day/": {
   "lastmod": "2026-10-11",
@@ -1227,6 +1243,18 @@
   "lastmod": "2026-10-11",
   "sig": "88dd3f728ba2d9cbac7f638fd87acdb2c5bafcdd"
  },
+ "/private-label/iwear-connect-astigmatism/": {
+  "lastmod": "2026-10-11",
+  "sig": "75c48dba20fa6ef897507a65f697dd667aa708cc"
+ },
+ "/private-label/iwear-connect-multifocal/": {
+  "lastmod": "2026-10-11",
+  "sig": "ca90ce33f1e0dd44291f94cbef7118f170ac624a"
+ },
+ "/private-label/iwear-connect/": {
+  "lastmod": "2026-10-11",
+  "sig": "887dc8c7aa470d43348c6feba99243a45d3596e2"
+ },
  "/private-label/iwear-fit-astigmatism/": {
   "lastmod": "2026-10-11",
   "sig": "740e7e18650f433b1f29787f5b2279eda18d0e91"
@@ -1234,6 +1262,18 @@
  "/private-label/iwear-fit/": {
   "lastmod": "2026-10-11",
   "sig": "68abd527be4dbf73021ec7a6a6184a13655f2635"
+ },
+ "/private-label/iwear-flex-astigmatism/": {
+  "lastmod": "2026-10-11",
+  "sig": "d27f2fe8a3cd8e0134b3372d56f095fb2b60c413"
+ },
+ "/private-label/iwear-flex-multifocal/": {
+  "lastmod": "2026-10-11",
+  "sig": "9661242545a830f4d27eee3372a9b810b8a1ec5c"
+ },
+ "/private-label/iwear-flex/": {
+  "lastmod": "2026-10-11",
+  "sig": "148e22e038d8f9e8b78dc5327318828bdf831864"
  },
  "/private-label/iwear-fresh-presbyopia/": {
   "lastmod": "2026-10-11",
@@ -1289,11 +1329,23 @@
  },
  "/private-label/iwear-oxygen-xr/": {
   "lastmod": "2026-10-11",
-  "sig": "4c7289c75ee2102b083b78078dcc81fe9b319891"
+  "sig": "874d28c529a3ec31d9710ae292180ba2756518d8"
  },
  "/private-label/iwear-oxygen/": {
   "lastmod": "2026-10-11",
   "sig": "eaebbc6951f5d57c513e74287605a1c165d6e10c"
+ },
+ "/private-label/iwear-slim-astigmatism/": {
+  "lastmod": "2026-10-11",
+  "sig": "ee1f0f5c55f2d54fdba794b2bc919928c857ba72"
+ },
+ "/private-label/iwear-slim-multifocal/": {
+  "lastmod": "2026-10-11",
+  "sig": "8339854e523de309dd4ed86e82e0acdfb1f5fd7c"
+ },
+ "/private-label/iwear-slim/": {
+  "lastmod": "2026-10-11",
+  "sig": "31e6c6c39780f7324eb47796c0048ac9487a2a1c"
  },
  "/private-label/iwear-vivid/": {
   "lastmod": "2026-10-11",
@@ -1361,7 +1413,7 @@
  },
  "/produsent/menicon/": {
   "lastmod": "2026-10-11",
-  "sig": "e0651aab9ce6d5f79d35612bea4cdbb42f877df6"
+  "sig": "78448357f11f42e7b7c8d57571aea1d892dae12d"
  },
  "/produsent/pegavision/": {
   "lastmod": "2026-10-11",
@@ -1499,9 +1551,17 @@
   "lastmod": "2026-10-11",
   "sig": "13fa830d0730894bc83eb7bce174b26a1f5693ce"
  },
+ "/serie/iwear-connect/": {
+  "lastmod": "2026-10-11",
+  "sig": "09bb70162d5328db5b7cd138dd5924520466fd63"
+ },
  "/serie/iwear-fit/": {
   "lastmod": "2026-10-11",
   "sig": "b2207215c0d41a7aa8e7354ddb0c95ec9f95dc63"
+ },
+ "/serie/iwear-flex/": {
+  "lastmod": "2026-10-11",
+  "sig": "a230a237fea53bd7d8459421862a77a112c90850"
  },
  "/serie/iwear-fresh/": {
   "lastmod": "2026-10-11",
@@ -1517,15 +1577,27 @@
  },
  "/serie/iwear-oxygen-xr/": {
   "lastmod": "2026-10-11",
-  "sig": "a159cb705757e1e7c1e0b9d2c330152b16ef7f0b"
+  "sig": "07b0e5148e5cfbeb56c5ed9444292d1e2b5bc773"
  },
  "/serie/iwear-oxygen/": {
   "lastmod": "2026-10-11",
   "sig": "a21a4a6cd1419fb23ceeb37ff98f40ce98d57465"
  },
+ "/serie/iwear-slim/": {
+  "lastmod": "2026-10-11",
+  "sig": "0e1a9eab067ec914267254c28677e47643618e9e"
+ },
+ "/serie/miru-1day-flatpack/": {
+  "lastmod": "2026-10-11",
+  "sig": "7dfdea50cd7db08363849f4f606e8a39f9176303"
+ },
  "/serie/miru-1day-upside/": {
   "lastmod": "2026-10-11",
-  "sig": "edf31ff0117324186efc673edddcb802a0926e2c"
+  "sig": "99356ed9b53cf30241d6992a2624c5380bf2290d"
+ },
+ "/serie/miru-1month/": {
+  "lastmod": "2026-10-11",
+  "sig": "db8a6a4b10654b82fc94c66efb33e156d106e118"
  },
  "/serie/myday/": {
   "lastmod": "2026-10-11",

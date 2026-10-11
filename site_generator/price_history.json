@@ -43328,8 +43328,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 360.0,
-      "store": "Interoptik"
+      "price": 299.0,
+      "store": "Brilleland"
     }
   ],
   "miru-1day-upside-astigmatism-30pk": [
@@ -43600,8 +43600,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 484.0,
-      "store": "Interoptik"
+      "price": 395.0,
+      "store": "Brilleland"
     }
   ],
   "miru-1day-upside-multifocal-30pk": [
@@ -43872,8 +43872,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 493.0,
-      "store": "Interoptik"
+      "price": 460.0,
+      "store": "Brilleland"
     }
   ],
   "miru-1day-flatpack-astigmatism-30pk": [
@@ -44144,8 +44144,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 399.0,
-      "store": "Interoptik"
+      "price": 297.0,
+      "store": "Brilleland"
     }
   ],
   "miru-1day-flatpack-multifocal-30pk": [
@@ -44416,8 +44416,8 @@
     },
     {
       "date": "2026-10-11",
-      "price": 405.0,
-      "store": "Interoptik"
+      "price": 330.0,
+      "store": "Brilleland"
     }
   ],
   "myday-misight-1day-30pk": [
@@ -53889,6 +53889,34 @@
     {
       "date": "2026-10-11",
       "price": 349.0,
+      "store": "Brilleland"
+    }
+  ],
+  "miru-1month-6pk": [
+    {
+      "date": "2026-10-11",
+      "price": 395.0,
+      "store": "Brilleland"
+    }
+  ],
+  "miru-1month-toric-6pk": [
+    {
+      "date": "2026-10-11",
+      "price": 510.0,
+      "store": "Brilleland"
+    }
+  ],
+  "miru-1month-multifocal-6pk": [
+    {
+      "date": "2026-10-11",
+      "price": 610.0,
+      "store": "Brilleland"
+    }
+  ],
+  "miru-1day-flatpack-30pk": [
+    {
+      "date": "2026-10-11",
+      "price": 252.0,
       "store": "Brilleland"
     }
   ]
