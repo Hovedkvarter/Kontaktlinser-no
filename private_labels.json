@@ -71,7 +71,7 @@
       "slug": "iwear-oxygen-xr",
       "name": "iWear Oxygen XR",
       "chain": "Brilleland",
-      "real_product_id": "biofinity-xr-3pk"
+      "real_product_id": "biofinity-xr-6pk"
     },
     {
       "slug": "eyeq-24-xr",
@@ -498,6 +498,60 @@
       "name": "iWear Vivid",
       "chain": "Brilleland",
       "real_product_id": "live-30pk"
+    },
+    {
+      "slug": "iwear-connect",
+      "name": "iWear Connect",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1month-6pk"
+    },
+    {
+      "slug": "iwear-connect-astigmatism",
+      "name": "iWear Connect Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1month-toric-6pk"
+    },
+    {
+      "slug": "iwear-connect-multifocal",
+      "name": "iWear Connect Multifocal",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1month-multifocal-6pk"
+    },
+    {
+      "slug": "iwear-flex",
+      "name": "iWear Flex",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-upside-30pk"
+    },
+    {
+      "slug": "iwear-flex-astigmatism",
+      "name": "iWear Flex Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-upside-astigmatism-30pk"
+    },
+    {
+      "slug": "iwear-flex-multifocal",
+      "name": "iWear Flex Multifocal",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-upside-multifocal-30pk"
+    },
+    {
+      "slug": "iwear-slim",
+      "name": "iWear Slim",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-flatpack-30pk"
+    },
+    {
+      "slug": "iwear-slim-astigmatism",
+      "name": "iWear Slim Astigmatism",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-flatpack-astigmatism-30pk"
+    },
+    {
+      "slug": "iwear-slim-multifocal",
+      "name": "iWear Slim Multifocal",
+      "chain": "Brilleland",
+      "real_product_id": "miru-1day-flatpack-multifocal-30pk"
     }
   ]
 }
