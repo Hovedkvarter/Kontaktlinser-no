@@ -138,6 +138,15 @@ def _dim_attrs(url: str | None) -> str:
     return f' width="{d[0]}" height="{d[1]}"' if d else ""
 
 
+def _seo_title(full: str, shorter: str, shortest: str | None = None) -> str:
+    """Bruk kortere SEO-tittel ved over 70 tegn; aldri kutt produktnavn."""
+    if len(full) <= 70:
+        return full
+    if len(shorter) <= 70:
+        return shorter
+    return shortest if shortest is not None else shorter
+
+
 def _og_meta(title: str, description: str, url: str, image: str | None = None) -> str:
     """Open Graph/Twitter Card-tagger, delt av alle sidetyper -- gjenbruker
     alltid samme tittel/beskrivelse som den vanlige <title>/<meta
@@ -5753,10 +5762,10 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
+<title>{escape(_seo_title(product["name"] + " » Sammenlign og få billigste pris", product["name"] + " – Sammenlign priser", product["name"]))}</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/">
-{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
+{_og_meta(_seo_title(product["name"] + " » Sammenlign og få billigste pris", product["name"] + " – Sammenlign priser", product["name"]), meta_description, f'{BASE_URL}/kontaktlinser/{product["brand_slug"]}/{product["slug"]}/', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -7219,10 +7228,10 @@ def render_manufacturer_page(manufacturer_slug: str, brand_counts: dict[str, int
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(name)} – Produsenten bak {escape(brands_text)} | Kontaktlinser.no</title>
+<title>{escape(_seo_title(name + " – Produsenten bak " + brands_text + " | Kontaktlinser.no", name + " – Kontaktlinser og merker | Kontaktlinser.no"))}</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/produsent/{manufacturer_slug}/">
-{_og_meta(f'{name} – Produsenten bak {brands_text}', meta_description, f'{BASE_URL}/produsent/{manufacturer_slug}/')}
+{_og_meta(_seo_title(name + " – Produsenten bak " + brands_text + " | Kontaktlinser.no", name + " – Kontaktlinser og merker | Kontaktlinser.no"), meta_description, f'{BASE_URL}/produsent/{manufacturer_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
@@ -9712,10 +9721,10 @@ def render_guide_page(slug: str) -> str | None:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(guide["title"])} | Kontaktlinser.no</title>
+<title>{escape(_seo_title(guide["title"] + " | Kontaktlinser.no", guide["title"]))}</title>
 <meta name="description" content="{escape(guide["description"])}">
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
-{_og_meta(f'{guide["title"]} | Kontaktlinser.no', guide["description"], f'{BASE_URL}/guide/{slug}/')}
+{_og_meta(_seo_title(guide["title"] + " | Kontaktlinser.no", guide["title"]), guide["description"], f'{BASE_URL}/guide/{slug}/')}
 {FONT_LINKS}
 {faq_schema}
 {article_schema}
@@ -11581,10 +11590,10 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(product["name"])} » Sammenlign og få billigste pris</title>
+<title>{escape(_seo_title(product["name"] + " » Sammenlign og få billigste pris", product["name"] + " – Sammenlign priser", product["name"]))}</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}{base_url_path}">
-{_og_meta(f'{product["name"]} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}{base_url_path}', image_url)}
+{_og_meta(_seo_title(product["name"] + " » Sammenlign og få billigste pris", product["name"] + " – Sammenlign priser", product["name"]), meta_description, f'{BASE_URL}{base_url_path}', image_url)}
 {FONT_LINKS}
 {schema_json_html}
 {product_faq_schema}
@@ -13227,10 +13236,10 @@ def render_family_page(
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(display_name_for_title)}-serien » Sammenlign og få billigste pris</title>
+<title>{escape(_seo_title(display_name_for_title + "-serien » Sammenlign og få billigste pris", display_name_for_title + " – Sammenlign priser"))}</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/serie/{family_slug}/">
-{_og_meta(f'{display_name_for_title}-serien » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/serie/{family_slug}/')}
+{_og_meta(_seo_title(display_name_for_title + "-serien » Sammenlign og få billigste pris", display_name_for_title + " – Sammenlign priser"), meta_description, f'{BASE_URL}/serie/{family_slug}/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {family_faq_schema}
@@ -13518,10 +13527,10 @@ def render_private_label_index_page(labels: list[dict], products_by_id: dict, ca
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Optikerkjedenes egne merker – Hva heter linsen egentlig? | Kontaktlinser.no</title>
+<title>Optikerkjedenes egne merker – Finn originalproduktet</title>
 <meta name="description" content="{escape(intro)}">
 <link rel="canonical" href="{BASE_URL}/private-label/">
-{_og_meta('Optikerkjedenes egne merker – Hva heter linsen egentlig? | Kontaktlinser.no', intro, BASE_URL + '/private-label/')}
+{_og_meta('Optikerkjedenes egne merker – Finn originalproduktet', intro, BASE_URL + '/private-label/')}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 <style>{SHARED_STYLE}
