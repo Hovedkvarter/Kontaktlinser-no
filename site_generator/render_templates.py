@@ -2568,7 +2568,7 @@ for astigmatisme og multifokale linser for alderssyn (presbyopi).</p>
   <li><strong>SofLens Toric</strong> – alphafilcon A, 66 % vanninnhold. Bruker Bausch + Lombs
   patenterte Lo-Torque-design, som holder linsen stabil i riktig rotasjon – avgjørende for at
   den toriske korreksjonen av astigmatisme skal sitte riktig gjennom dagen.</li>
-  <li><strong>SofLens Multifocal</strong> – bruker Natra-Sight Optics, med en bredere
+  <li><strong>SofLens Multi-Focal</strong> – bruker Natra-Sight Optics, med en bredere
   overgangssone mellom nær-, mellom- og langsynt-korreksjon, beregnet på alderssyn.</li>
 </ul>
 """,
@@ -2628,7 +2628,7 @@ selskapets AerGel-teknologi.</p>
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.1rem;margin:24px 0 12px;">Materiale og teknologi</h2>
 <p style="font-size:1rem;line-height:1.7;">PureVision er laget av balafilcon A, en silikonhydrogel med 36 % vanninnhold.
 AerGel-teknologien slipper gjennom naturlige nivåer med oksygen og er motstandsdyktig mot
-proteinavleiringer, mens den nyere PureVision2 i tillegg har ComfortMoist-teknologi som
+proteinavleiringer, mens den nyere PureVision 2 i tillegg har ComfortMoist-teknologi som
 tilfører ekstra fuktighet på linseoverflaten.</p>
 """,
     "biotrue": """

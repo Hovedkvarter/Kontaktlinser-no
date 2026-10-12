@@ -108,7 +108,7 @@
     },
     {
       "slug": "proclear-1day",
-      "name": "Proclear 1 Day",
+      "name": "Proclear 1 day",
       "member_ids": [
         "proclear-1day-30pk",
         "proclear-1day-90pk",
@@ -117,7 +117,7 @@
     },
     {
       "slug": "acuvue-oasys-1day-hydraluxe",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe",
       "member_ids": [
         "acuvue-oasys-1day-hydraluxe-30pk",
         "acuvue-oasys-1day-hydraluxe-90pk",
@@ -209,7 +209,7 @@
     },
     {
       "slug": "purevision2",
-      "name": "PureVision2",
+      "name": "PureVision 2",
       "member_ids": [
         "purevision2-6pk",
         "purevision2-astigmatism-6pk",
@@ -254,7 +254,7 @@
     },
     {
       "slug": "biomedics-1day-xtra",
-      "name": "Biomedics 1Day Extra",
+      "name": "Biomedics 1 day Extra",
       "member_ids": [
         "biomedics-1day-xtra-30pk",
         "biomedics-1day-xtra-90pk",
@@ -289,7 +289,7 @@
     },
     {
       "slug": "miru-1day-flatpack",
-      "name": "Miru 1day Flatpack",
+      "name": "Miru 1day Flat Pack",
       "member_ids": [
         "miru-1day-flatpack-astigmatism-30pk",
         "miru-1day-flatpack-multifocal-30pk",
