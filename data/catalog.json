@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-12T19:12:48Z",
+  "generated_at": "2026-10-12T22:38:00Z",
   "currency": "NOK",
   "products": [
     {
@@ -335,7 +335,7 @@
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-30pk",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 30-pack",
       "brand": "Acuvue",
       "category": "dagslinser",
       "pack_size": 30,
@@ -1661,7 +1661,7 @@
     },
     {
       "id": "air-optix-hydraglyde-astigmatism-6pk",
-      "name": "Air Optix HydraGlyde for Astigmatism 6-pack",
+      "name": "Air Optix plus HydraGlyde for Astigmatism 6-pack",
       "brand": "Air Optix",
       "category": "toriske-linser",
       "pack_size": 6,
@@ -2360,7 +2360,7 @@
     },
     {
       "id": "purevision2-6pk",
-      "name": "PureVision2 6-pack",
+      "name": "PureVision 2 6-pack",
       "brand": "PureVision",
       "category": "manedslinser",
       "pack_size": 6,
@@ -2720,7 +2720,7 @@
     },
     {
       "id": "purevision-multifocal-6pk",
-      "name": "PureVision Multifocal 6-pack",
+      "name": "PureVision Multi-Focal 6-pack",
       "brand": "PureVision",
       "category": "multifokale-linser",
       "pack_size": 6,
@@ -2786,7 +2786,7 @@
     },
     {
       "id": "purevision2-astigmatism-6pk",
-      "name": "PureVision2 for Astigmatism 6-pack",
+      "name": "PureVision 2 for Astigmatism 6-pack",
       "brand": "PureVision",
       "category": "toriske-linser",
       "pack_size": 6,
@@ -2816,7 +2816,7 @@
     },
     {
       "id": "purevision2-presbyopia-6pk",
-      "name": "PureVision2 for Presbyopia 6-pack",
+      "name": "PureVision 2 for Presbyopia 6-pack",
       "brand": "PureVision",
       "category": "multifokale-linser",
       "pack_size": 6,
@@ -3140,7 +3140,7 @@
     },
     {
       "id": "biomedics-1day-xtra-30pk",
-      "name": "Biomedics 1Day Extra 30-pack",
+      "name": "Biomedics 1 day Extra 30-pack",
       "brand": "Biomedics",
       "category": "dagslinser",
       "pack_size": 30,
@@ -3215,7 +3215,7 @@
     },
     {
       "id": "biomedics-1day-xtra-toric-30pk",
-      "name": "Biomedics 1Day Extra Toric 30-pack",
+      "name": "Biomedics 1 day Extra Toric 30-pack",
       "brand": "Biomedics",
       "category": "toriske-linser",
       "pack_size": 30,
@@ -3698,7 +3698,7 @@
     },
     {
       "id": "freshlook-oneday-30pk",
-      "name": "FreshLook ONEday 30-pack",
+      "name": "FreshLook ONE-DAY 30-pack",
       "brand": "FreshLook",
       "category": "fargede-linser",
       "pack_size": 30,
@@ -3944,7 +3944,7 @@
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-90pk",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 90-pack",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 90-pack",
       "brand": "Acuvue",
       "category": "dagslinser",
       "pack_size": 90,
@@ -4049,7 +4049,7 @@
     },
     {
       "id": "biomedics-1day-xtra-90pk",
-      "name": "Biomedics 1Day Extra 90-pack",
+      "name": "Biomedics 1 day Extra 90-pack",
       "brand": "Biomedics",
       "category": "dagslinser",
       "pack_size": 90,
@@ -5021,7 +5021,7 @@
     },
     {
       "id": "biofinity-multifocal-toric-3pk",
-      "name": "Biofinity Multifocal Toric 3-pack",
+      "name": "Biofinity Toric Multifocal 3-pack",
       "brand": "Biofinity",
       "category": "multifokale-linser",
       "pack_size": 3,
@@ -5447,7 +5447,7 @@
     },
     {
       "id": "proclear-1day-30pk",
-      "name": "Proclear 1 Day 30-pack",
+      "name": "Proclear 1 day 30-pack",
       "brand": "Proclear",
       "category": "dagslinser",
       "pack_size": 30,
@@ -5504,7 +5504,7 @@
     },
     {
       "id": "proclear-1day-90pk",
-      "name": "Proclear 1 Day 90-pack",
+      "name": "Proclear 1 day 90-pack",
       "brand": "Proclear",
       "category": "dagslinser",
       "pack_size": 90,
@@ -5552,7 +5552,7 @@
     },
     {
       "id": "proclear-1day-multifocal-30pk",
-      "name": "Proclear 1 Day Multifocal 30-pack",
+      "name": "Proclear 1 day Multifocal 30-pack",
       "brand": "Proclear",
       "category": "multifokale-linser",
       "pack_size": 30,
@@ -5816,7 +5816,7 @@
     },
     {
       "id": "soflens-multifocal-6pk",
-      "name": "SofLens Multifocal 6-pack",
+      "name": "SofLens Multi-Focal 6-pack",
       "brand": "SofLens",
       "category": "multifokale-linser",
       "pack_size": 6,
@@ -6206,7 +6206,7 @@
     },
     {
       "id": "miru-1day-upside-astigmatism-30pk",
-      "name": "Miru 1day UpSide Astigmatism 30-pack",
+      "name": "Miru 1day UpSide Toric 30-pack",
       "brand": "MIRU",
       "category": "toriske-linser",
       "pack_size": 30,
@@ -6266,7 +6266,7 @@
     },
     {
       "id": "miru-1day-flatpack-astigmatism-30pk",
-      "name": "Miru 1day Flatpack Astigmatism 30-pack",
+      "name": "Miru 1day Flat Pack Toric 30-pack",
       "brand": "MIRU",
       "category": "toriske-linser",
       "pack_size": 30,
@@ -6296,7 +6296,7 @@
     },
     {
       "id": "miru-1day-flatpack-multifocal-30pk",
-      "name": "Miru 1day Flatpack Multifocal 30-pack",
+      "name": "Miru 1day Flat Pack Multifocal 30-pack",
       "brand": "MIRU",
       "category": "multifokale-linser",
       "pack_size": 30,
@@ -6326,7 +6326,7 @@
     },
     {
       "id": "myday-misight-1day-30pk",
-      "name": "MyDay MiSight 1 Day 30-pack",
+      "name": "MyDay MiSight 1 day 30-pack",
       "brand": "MyDay",
       "category": "dagslinser",
       "pack_size": 30,
@@ -6356,7 +6356,7 @@
     },
     {
       "id": "myday-misight-1day-90pk",
-      "name": "MyDay MiSight 1 Day 90-pack",
+      "name": "MyDay MiSight 1 day 90-pack",
       "brand": "MyDay",
       "category": "dagslinser",
       "pack_size": 90,
@@ -7010,7 +7010,7 @@
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-180pk",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 180-pack",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 180-pack",
       "brand": "Acuvue",
       "category": "dagslinser",
       "pack_size": 180,
@@ -7323,7 +7323,7 @@
     },
     {
       "id": "miru-1day-flatpack-30pk",
-      "name": "Miru 1day Flatpack 30-pack",
+      "name": "Miru 1day Flat Pack 30-pack",
       "brand": "MIRU",
       "category": "dagslinser",
       "pack_size": 30,
