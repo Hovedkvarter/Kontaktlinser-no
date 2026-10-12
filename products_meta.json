@@ -641,16 +641,16 @@
     {
       "id": "acuvue-oasys-1day-hydraluxe-30pk",
       "slug": "acuvue-oasys-1-day-with-hydraluxe-30-pack",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 30-pack",
-      "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
-      "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 30-pack",
+      "description": "Endagslinse med HydraLuxe-teknologi for fuktighet gjennom dagen.",
+      "long_description": "Acuvue Oasys 1-Day with HydraLuxe er en dagslinse i senofilcon A med HydraLuxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
         [
           "Materiale",
-          "Senofilcon A med Hydraluxe-teknologi"
+          "Senofilcon A med HydraLuxe-teknologi"
         ],
         [
           "Vanninnhold",
@@ -1979,9 +1979,9 @@
     {
       "id": "air-optix-hydraglyde-astigmatism-6pk",
       "slug": "air-optix-hydraglyde-for-astigmatism-6-pack",
-      "name": "Air Optix HydraGlyde for Astigmatism 6-pack",
+      "name": "Air Optix plus HydraGlyde for Astigmatism 6-pack",
       "description": "Torisk månedslinse fra Alcon.",
-      "long_description": "Air Optix HydraGlyde for Astigmatism er den toriske månedslinsen fra Alcon, samme lotrafilcon B-materiale, formet for stabilt sete ved skjev hornhinne.",
+      "long_description": "Air Optix plus HydraGlyde for Astigmatism er den toriske månedslinsen fra Alcon, samme lotrafilcon B-materiale, formet for stabilt sete ved skjev hornhinne.",
       "brand_slug": "air-optix",
       "brand_label": "Air Optix",
       "category_slug": "toriske-linser",
@@ -2631,9 +2631,9 @@
     {
       "id": "purevision2-6pk",
       "slug": "purevision2-6-pack",
-      "name": "PureVision2 6-pack",
+      "name": "PureVision 2 6-pack",
       "description": "Månedslinse fra Bausch + Lomb.",
-      "long_description": "PureVision2 er en månedslinse i balafilcon A fra Bausch + Lomb, med lavere vanninnhold enn mange nyere linser men høy oksygengjennomstrømning gjennom selve materialet.",
+      "long_description": "PureVision 2 er en månedslinse i balafilcon A fra Bausch + Lomb, med lavere vanninnhold enn mange nyere linser men høy oksygengjennomstrømning gjennom selve materialet.",
       "brand_slug": "purevision",
       "brand_label": "PureVision",
       "category_slug": "manedslinser",
@@ -2947,7 +2947,7 @@
       "slug": "purevision-6-pack",
       "name": "PureVision 6-pack",
       "description": "Månedslinse fra Bausch + Lomb.",
-      "long_description": "PureVision er den opprinnelige linsen i serien fra Bausch + Lomb, i balafilcon A. Forgjengeren til PureVision2, fortsatt i salg som et rimeligere alternativ.",
+      "long_description": "PureVision er den opprinnelige linsen i serien fra Bausch + Lomb, i balafilcon A. Forgjengeren til PureVision 2, fortsatt i salg som et rimeligere alternativ.",
       "brand_slug": "purevision",
       "brand_label": "PureVision",
       "category_slug": "manedslinser",
@@ -2989,9 +2989,9 @@
     {
       "id": "purevision-multifocal-6pk",
       "slug": "purevision-multifocal-6-pack",
-      "name": "PureVision Multifocal 6-pack",
+      "name": "PureVision Multi-Focal 6-pack",
       "description": "Multifokal månedslinse fra Bausch + Lomb.",
-      "long_description": "PureVision Multifocal er den progressive varianten av den opprinnelige PureVision, samme balafilcon A-materiale, for deg med alderssyn.",
+      "long_description": "PureVision Multi-Focal er den progressive varianten av den opprinnelige PureVision, samme balafilcon A-materiale, for deg med alderssyn.",
       "brand_slug": "purevision",
       "brand_label": "PureVision",
       "category_slug": "multifokale-linser",
@@ -3037,9 +3037,9 @@
     {
       "id": "purevision2-astigmatism-6pk",
       "slug": "purevision2-for-astigmatism-6-pack",
-      "name": "PureVision2 for Astigmatism 6-pack",
+      "name": "PureVision 2 for Astigmatism 6-pack",
       "description": "Torisk månedslinse fra Bausch + Lomb.",
-      "long_description": "PureVision2 for Astigmatism er den toriske varianten av PureVision2, samme balafilcon A-materiale, formet for stabilt sete ved skjev hornhinne.",
+      "long_description": "PureVision 2 for Astigmatism er den toriske varianten av PureVision 2, samme balafilcon A-materiale, formet for stabilt sete ved skjev hornhinne.",
       "brand_slug": "purevision",
       "brand_label": "PureVision",
       "category_slug": "toriske-linser",
@@ -3088,9 +3088,9 @@
     {
       "id": "purevision2-presbyopia-6pk",
       "slug": "purevision2-for-presbyopia-6-pack",
-      "name": "PureVision2 for Presbyopia 6-pack",
+      "name": "PureVision 2 for Presbyopia 6-pack",
       "description": "Multifokal månedslinse fra Bausch + Lomb.",
-      "long_description": "PureVision2 for Presbyopia er den progressive varianten av PureVision2, samme balafilcon A-materiale, for deg med alderssyn.",
+      "long_description": "PureVision 2 for Presbyopia er den progressive varianten av PureVision 2, samme balafilcon A-materiale, for deg med alderssyn.",
       "brand_slug": "purevision",
       "brand_label": "PureVision",
       "category_slug": "multifokale-linser",
@@ -3424,9 +3424,9 @@
     {
       "id": "biomedics-1day-xtra-30pk",
       "slug": "biomedics-1day-extra-30-pack",
-      "name": "Biomedics 1Day Extra 30-pack",
+      "name": "Biomedics 1 day Extra 30-pack",
       "description": "Dagslinse fra CooperVision.",
-      "long_description": "Biomedics 1Day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
+      "long_description": "Biomedics 1 day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
       "brand_slug": "biomedics",
       "brand_label": "Biomedics",
       "category_slug": "dagslinser",
@@ -3472,9 +3472,9 @@
     {
       "id": "biomedics-1day-xtra-toric-30pk",
       "slug": "biomedics-1day-extra-toric-30-pack",
-      "name": "Biomedics 1Day Extra Toric 30-pack",
+      "name": "Biomedics 1 day Extra Toric 30-pack",
       "description": "Torisk dagslinse fra CooperVision.",
-      "long_description": "Biomedics 1Day Extra Toric er den toriske dagslinsen fra CooperVision, samme materiale som standard 1Day Extra, formet for astigmatisme.",
+      "long_description": "Biomedics 1 day Extra Toric er den toriske dagslinsen fra CooperVision, samme materiale som standard 1 day Extra, formet for astigmatisme.",
       "brand_slug": "biomedics",
       "brand_label": "Biomedics",
       "category_slug": "toriske-linser",
@@ -3862,9 +3862,9 @@
     {
       "id": "freshlook-oneday-30pk",
       "slug": "freshlook-oneday-30-pack",
-      "name": "FreshLook ONEday 30-pack",
+      "name": "FreshLook ONE-DAY 30-pack",
       "description": "Fargede dagslinser fra Alcon.",
-      "long_description": "FreshLook ONEday er Alcons fargede dagslinse, med et nytt fargelag hver dag siden linsen kastes etter én bruk. Fås både med og uten styrke, men krever resept uansett.",
+      "long_description": "FreshLook ONE-DAY er Alcons fargede dagslinse, med et nytt fargelag hver dag siden linsen kastes etter én bruk. Fås både med og uten styrke, men krever resept uansett.",
       "brand_slug": "freshlook",
       "brand_label": "FreshLook",
       "category_slug": "fargede-linser",
@@ -4088,16 +4088,16 @@
     {
       "id": "acuvue-oasys-1day-hydraluxe-90pk",
       "slug": "acuvue-oasys-1-day-with-hydraluxe-90-pack",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 90-pack",
-      "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
-      "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 90-pack",
+      "description": "Endagslinse med HydraLuxe-teknologi for fuktighet gjennom dagen.",
+      "long_description": "Acuvue Oasys 1-Day with HydraLuxe er en dagslinse i senofilcon A med HydraLuxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
         [
           "Materiale",
-          "Senofilcon A med Hydraluxe-teknologi"
+          "Senofilcon A med HydraLuxe-teknologi"
         ],
         [
           "Vanninnhold",
@@ -4214,9 +4214,9 @@
     {
       "id": "biomedics-1day-xtra-90pk",
       "slug": "biomedics-1day-extra-90-pack",
-      "name": "Biomedics 1Day Extra 90-pack",
+      "name": "Biomedics 1 day Extra 90-pack",
       "description": "Dagslinse fra CooperVision.",
-      "long_description": "Biomedics 1Day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
+      "long_description": "Biomedics 1 day Extra er en av de rimeligere dagslinsene fra CooperVision, et budsjettvennlig alternativ for deg som bytter linse hver dag.",
       "brand_slug": "biomedics",
       "brand_label": "Biomedics",
       "category_slug": "dagslinser",
@@ -5114,9 +5114,9 @@
     {
       "id": "biofinity-multifocal-toric-3pk",
       "slug": "biofinity-multifocal-toric-3-pack",
-      "name": "Biofinity Multifocal Toric 3-pack",
+      "name": "Biofinity Toric Multifocal 3-pack",
       "description": "Multifokal og torisk månedslinse fra CooperVision.",
-      "long_description": "Biofinity Multifocal Toric kombinerer Biofinitys progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
+      "long_description": "Biofinity Toric Multifocal kombinerer Biofinitys progressive og toriske design i én linse, for deg som har både astigmatisme og alderssyn.",
       "brand_slug": "biofinity",
       "brand_label": "Biofinity",
       "category_slug": "multifokale-linser",
@@ -5564,9 +5564,9 @@
     {
       "id": "proclear-1day-30pk",
       "slug": "proclear-1-day-30-pack",
-      "name": "Proclear 1 Day 30-pack",
+      "name": "Proclear 1 day 30-pack",
       "description": "Dagslinse fra CooperVision.",
-      "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
+      "long_description": "Proclear 1 day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
       "brand_slug": "proclear",
       "brand_label": "Proclear",
       "category_slug": "dagslinser",
@@ -5607,9 +5607,9 @@
     {
       "id": "proclear-1day-90pk",
       "slug": "proclear-1-day-90-pack",
-      "name": "Proclear 1 Day 90-pack",
+      "name": "Proclear 1 day 90-pack",
       "description": "Dagslinse fra CooperVision.",
-      "long_description": "Proclear 1 Day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
+      "long_description": "Proclear 1 day er dagslinse-varianten av Proclear, i samme omafilcon A-materiale med PC Technology som den toriske og sfæriske månedslinsen.",
       "brand_slug": "proclear",
       "brand_label": "Proclear",
       "category_slug": "dagslinser",
@@ -5650,9 +5650,9 @@
     {
       "id": "proclear-1day-multifocal-30pk",
       "slug": "proclear-1-day-multifocal-30-pack",
-      "name": "Proclear 1 Day Multifocal 30-pack",
+      "name": "Proclear 1 day Multifocal 30-pack",
       "description": "Multifokal dagslinse fra CooperVision.",
-      "long_description": "Proclear 1 Day Multifocal er den progressive dagslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
+      "long_description": "Proclear 1 day Multifocal er den progressive dagslinsen i Proclear-serien, samme omafilcon A-materiale med PC Technology, tilpasset alderssyn.",
       "brand_slug": "proclear",
       "brand_label": "Proclear",
       "category_slug": "multifokale-linser",
@@ -5906,9 +5906,9 @@
     {
       "id": "soflens-multifocal-6pk",
       "slug": "soflens-multifocal-6-pack",
-      "name": "SofLens Multifocal 6-pack",
+      "name": "SofLens Multi-Focal 6-pack",
       "description": "Multifokal månedslinse fra Bausch + Lomb.",
-      "long_description": "SofLens Multifocal er den progressive månedslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som SofLens 59, tilpasset alderssyn.",
+      "long_description": "SofLens Multi-Focal er den progressive månedslinsen fra Bausch + Lomb, samme hilafilcon B-materiale som SofLens 59, tilpasset alderssyn.",
       "brand_slug": "soflens",
       "brand_label": "SofLens",
       "category_slug": "multifokale-linser",
@@ -6235,9 +6235,9 @@
     {
       "id": "miru-1day-upside-astigmatism-30pk",
       "slug": "miru-1day-upside-astigmatism-30-pack",
-      "name": "Miru 1day UpSide Astigmatism 30-pack",
+      "name": "Miru 1day UpSide Toric 30-pack",
       "description": "Torisk dagslinse fra Menicon. Pakning med 30 linser.",
-      "long_description": "Miru 1day UpSide Astigmatism 30-pack er en torisk dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex Astigmatism.",
+      "long_description": "Miru 1day UpSide Toric 30-pack er en torisk dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex Astigmatism.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "toriske-linser",
@@ -6319,9 +6319,9 @@
     {
       "id": "miru-1day-flatpack-astigmatism-30pk",
       "slug": "miru-1day-flatpack-astigmatism-30-pack",
-      "name": "Miru 1day Flatpack Astigmatism 30-pack",
+      "name": "Miru 1day Flat Pack Toric 30-pack",
       "description": "Torisk dagslinse fra Menicon. Pakning med 30 linser.",
-      "long_description": "Miru 1day Flatpack Astigmatism 30-pack er en torisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Astigmatism.",
+      "long_description": "Miru 1day Flat Pack Toric 30-pack er en torisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Astigmatism.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "toriske-linser",
@@ -6361,9 +6361,9 @@
     {
       "id": "miru-1day-flatpack-multifocal-30pk",
       "slug": "miru-1day-flatpack-multifocal-30-pack",
-      "name": "Miru 1day Flatpack Multifocal 30-pack",
+      "name": "Miru 1day Flat Pack Multifocal 30-pack",
       "description": "Multifokal dagslinse fra Menicon. Pakning med 30 linser.",
-      "long_description": "Miru 1day Flatpack Multifocal 30-pack er en multifokal dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Multifocal.",
+      "long_description": "Miru 1day Flat Pack Multifocal 30-pack er en multifokal dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim Multifocal.",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "multifokale-linser",
@@ -6403,9 +6403,9 @@
     {
       "id": "myday-misight-1day-30pk",
       "slug": "myday-misight-1-day-30-pack",
-      "name": "MyDay MiSight 1 Day 30-pack",
+      "name": "MyDay MiSight 1 day 30-pack",
       "description": "Dagslinse for myopikontroll hos barn, fra CooperVision.",
-      "long_description": "MyDay MiSight 1 Day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
+      "long_description": "MyDay MiSight 1 day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
       "brand_slug": "myday",
       "brand_label": "MyDay",
       "category_slug": "dagslinser",
@@ -6437,9 +6437,9 @@
     {
       "id": "myday-misight-1day-90pk",
       "slug": "myday-misight-1-day-90-pack",
-      "name": "MyDay MiSight 1 Day 90-pack",
+      "name": "MyDay MiSight 1 day 90-pack",
       "description": "Dagslinse for myopikontroll hos barn, fra CooperVision.",
-      "long_description": "MyDay MiSight 1 Day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
+      "long_description": "MyDay MiSight 1 day er en dagslinse fra CooperVision spesielt utviklet og godkjent for å bremse utvikling av nærsynthet (myopikontroll) hos barn og unge. Vurderes og følges opp av optiker eller øyelege, ikke noe man velger selv.",
       "brand_slug": "myday",
       "brand_label": "MyDay",
       "category_slug": "dagslinser",
@@ -7196,16 +7196,16 @@
     {
       "id": "acuvue-oasys-1day-hydraluxe-180pk",
       "slug": "acuvue-oasys-1-day-with-hydraluxe-180-pack",
-      "name": "Acuvue Oasys 1-Day with Hydraluxe 180-pack",
-      "description": "Endagslinse med Hydraluxe-teknologi for fuktighet gjennom dagen.",
-      "long_description": "Acuvue Oasys 1-Day with Hydraluxe er en dagslinse i senofilcon A med Hydraluxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
+      "name": "Acuvue Oasys 1-Day with HydraLuxe 180-pack",
+      "description": "Endagslinse med HydraLuxe-teknologi for fuktighet gjennom dagen.",
+      "long_description": "Acuvue Oasys 1-Day with HydraLuxe er en dagslinse i senofilcon A med HydraLuxe-teknologi, som skal etterligne mønsteret i øyets eget tårefilm. Godt alternativ for aktive dager med mye blunking og bevegelse.",
       "brand_slug": "acuvue",
       "brand_label": "Acuvue",
       "category_slug": "dagslinser",
       "specs": [
         [
           "Materiale",
-          "Senofilcon A med Hydraluxe-teknologi"
+          "Senofilcon A med HydraLuxe-teknologi"
         ],
         [
           "Vanninnhold",
@@ -7655,7 +7655,7 @@
     {
       "id": "miru-1day-flatpack-30pk",
       "slug": "miru-1day-flatpack-30-pack",
-      "name": "Miru 1day Flatpack 30-pack",
+      "name": "Miru 1day Flat Pack 30-pack",
       "brand_slug": "miru",
       "brand_label": "MIRU",
       "category_slug": "dagslinser",
@@ -7666,7 +7666,7 @@
         }
       ],
       "description": "Sfærisk dagslinse fra Menicon. Pakning med 30 linser.",
-      "long_description": "Miru 1day Flatpack 30-pack er en sfærisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim.",
+      "long_description": "Miru 1day Flat Pack 30-pack er en sfærisk dagslinse fra Menicon, laget av hioxifilcon A med 57 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Slim.",
       "specs": [
         [
           "Brukstid",
