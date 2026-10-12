@@ -1,0 +1,83 @@
+name: Kontroller nye feedprodukter
+on:
+  schedule:
+    - cron: '20 3 * * *'
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - 'feed_discovery.py'
+      - 'feed_discovery_review.json'
+      - '.github/workflows/feed-discovery.yml'
+  pull_request:
+    paths:
+      - 'feed_discovery.py'
+      - 'test_feed_discovery.py'
+      - 'feed_discovery_review.json'
+      - '.github/workflows/feed-discovery.yml'
+permissions:
+  contents: read
+concurrency:
+  group: feed-discovery-${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+  cancel-in-progress: false
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - run: python -m unittest test_feed_discovery -v
+  discover:
+    if: github.event_name != 'pull_request'
+    needs: test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - uses: actions/cache/restore@v4
+        with:
+          path: .feed-discovery-cache
+          key: feed-discovery-v1-${{ github.run_id }}
+          restore-keys: feed-discovery-v1-
+      - name: Kontroller kun feeds
+        id: scan
+        continue-on-error: true
+        run: python feed_discovery.py
+      - name: Skriv sammendrag
+        if: always()
+        run: cat reports/feed-discovery/latest.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .feed-discovery-cache
+          key: feed-discovery-v1-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: feedkontroll-${{ github.run_id }}
+          path: reports/feed-discovery/
+          retention-days: 90
+      - name: Lagre rapport uten sidepublisering
+        if: always()
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add reports/feed-discovery/latest.json reports/feed-discovery/latest.md
+          git diff --staged --quiet && exit 0
+          git commit -m 'Oppdater feedkontroll [skip ci]'
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Varsle feil i feedkontrollen
+        if: steps.scan.outcome != 'success'
+        run: exit 1

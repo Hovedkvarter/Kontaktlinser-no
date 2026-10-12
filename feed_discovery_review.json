@@ -1,0 +1,716 @@
+{
+  "extraoptical:1-DAY ACUVUE 30 stk": {
+    "fingerprint": "8f8d3768e05b634f",
+    "status": "Avklar feeddata",
+    "family": "1-Day Acuvue 30 stk",
+    "note": "Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet."
+  },
+  "extraoptical:1-DAY ACUVUE 90 stk": {
+    "fingerprint": "319df27b788efeb0",
+    "status": "Avklar feeddata",
+    "family": "1-Day Acuvue 90 stk",
+    "note": "Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet."
+  },
+  "shopping4net:LM": {
+    "fingerprint": "e159a91b1fa11d1c",
+    "status": "Avklar pakning",
+    "family": "1-Day Acuvue Moist for Astigmatism",
+    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+  },
+  "shopping4net:LU": {
+    "fingerprint": "e698d7ebd23d6a2e",
+    "status": "Avklar pakning",
+    "family": "Acuvue Oasys 1-Day Hydraluxe for Astigmatism",
+    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+  },
+  "shopping4net:LAOA": {
+    "fingerprint": "da0bb595a688b856",
+    "status": "Ny produktkandidat",
+    "family": "Air Optix Aqua",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:LBXR": {
+    "fingerprint": "9fe72d3c72dc5ab0",
+    "status": "Avklar pakning",
+    "family": "Biofinity XR",
+    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+  },
+  "lenson:6975": {
+    "fingerprint": "787fc1749a7146f2",
+    "status": "Avklar pakning",
+    "family": "everclear ADM",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lensway:6975": {
+    "fingerprint": "5aaef9af066fce00",
+    "status": "Avklar pakning",
+    "family": "everclear ADM",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lenson:6669": {
+    "fingerprint": "1af8473d90c50f23",
+    "status": "Avklar pakning",
+    "family": "everclear AIR",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lenson:8220": {
+    "fingerprint": "ba9baa594abc85a5",
+    "status": "Avklar pakning",
+    "family": "everclear AIR",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lensway:6669": {
+    "fingerprint": "dc4aeff7b2b54397",
+    "status": "Avklar pakning",
+    "family": "everclear AIR",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lensway:8220": {
+    "fingerprint": "0ecffa826df54ae2",
+    "status": "Avklar pakning",
+    "family": "everclear AIR",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lenson:7066": {
+    "fingerprint": "5cdf9de097a3d4f8",
+    "status": "Avklar pakning",
+    "family": "everclear ELITE",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lensway:7066": {
+    "fingerprint": "d8cd63b62a3c7299",
+    "status": "Avklar pakning",
+    "family": "everclear ELITE",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lenson:8221": {
+    "fingerprint": "a2ac6137f8e8975a",
+    "status": "Avklar pakning",
+    "family": "everclear PLUS",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "lensway:8221": {
+    "fingerprint": "302766576f87b997",
+    "status": "Avklar pakning",
+    "family": "everclear PLUS",
+    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+  },
+  "shopping4net:CL": {
+    "fingerprint": "b0a015a4fd44100f",
+    "status": "Ny produktkandidat",
+    "family": "FreshLook ColorBlends",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:7824": {
+    "fingerprint": "22f586994963fa8e",
+    "status": "Ny produktkandidat",
+    "family": "clearcolor 1-day Phantom",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:7824": {
+    "fingerprint": "08ad57c0d353045e",
+    "status": "Ny produktkandidat",
+    "family": "clearcolor 1-day Phantom",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:LP13": {
+    "fingerprint": "cc059a2d6b263ad0",
+    "status": "Mulig ny butikkobling",
+    "family": "Precision1 30-pack",
+    "note": "Produktnavn og størrelse peker på Precision1 30-pack. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:LP19": {
+    "fingerprint": "6fa0e3ae3c5adc04",
+    "status": "Mulig ny butikkobling",
+    "family": "Precision1 90-pack",
+    "note": "Produktnavn og størrelse peker på Precision1 90-pack. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:LN": {
+    "fingerprint": "420ce57408acc824",
+    "status": "Mulig ny butikkobling",
+    "family": "Precision1 for Astigmatism 30-pack",
+    "note": "Produktnavn og størrelse peker på Precision1 for Astigmatism 30-pack. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:LR": {
+    "fingerprint": "842b271883dad071",
+    "status": "Mulig ny butikkobling",
+    "family": "Precision1 for Astigmatism 90-pack",
+    "note": "Produktnavn og størrelse peker på Precision1 for Astigmatism 90-pack. Kontroller endelig variant før kobling."
+  },
+  "extraoptical:MyDay 1 day Sphere 30 stk": {
+    "fingerprint": "161a0a7b490fd389",
+    "status": "Avklar feeddata",
+    "family": "Proclear 1 day",
+    "note": "Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart."
+  },
+  "shopping4net:LP2P": {
+    "fingerprint": "61001148c20cae12",
+    "status": "Avklar pakning",
+    "family": "PureVision2 For Presbyopia",
+    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+  },
+  "shopping4net:LB1": {
+    "fingerprint": "0ebf439e49cc77f4",
+    "status": "Ny produktkandidat",
+    "family": "Supra 55 UV Tint",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "brilleland:40000719": {
+    "fingerprint": "ad63e8554761b990",
+    "status": "Allerede dekket",
+    "family": "TOTAL30 Multifocal 6-pack",
+    "note": "Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json."
+  },
+  "brilleland:40000720": {
+    "fingerprint": "ad63e8554761b990",
+    "status": "Allerede dekket",
+    "family": "TOTAL30 Multifocal 6-pack",
+    "note": "Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json."
+  },
+  "shopping4net:AOC01-BL-60": {
+    "fingerprint": "a3cab50f9fd1cb32",
+    "status": "Vurder sortiment",
+    "family": "Ocuvite Complete 60 kapsler",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBHN8-R9-60": {
+    "fingerprint": "294c3c46a0326369",
+    "status": "Vurder sortiment",
+    "family": "BioCare Ögonkomplex 60 kapsler",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBLEY-EN-2X64": {
+    "fingerprint": "a58b57d8806f5106",
+    "status": "Vurder sortiment",
+    "family": "Elexir Pharma Elexir Blue Eye 2x64 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBLEY-EN-64": {
+    "fingerprint": "4343d6eedd3c2397",
+    "status": "Vurder sortiment",
+    "family": "Elexir Pharma Elexir Blue Eye 64 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HL600-HH-60": {
+    "fingerprint": "fa3e63dc3a81a875",
+    "status": "Vurder sortiment",
+    "family": "Helhetshälsa LuteinBlå 60 kapsler",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HB00F-NH-120": {
+    "fingerprint": "fe0b5f52b4a211e5",
+    "status": "Vurder sortiment",
+    "family": "Naturens Apotek Blåbär 120 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBLB3-NE-120": {
+    "fingerprint": "002f37084c84350a",
+    "status": "Vurder sortiment",
+    "family": "New Nordic Blue Berry Plus Ögonvitamin 120 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBLB3-NE-240": {
+    "fingerprint": "48200a2b96c8672c",
+    "status": "Vurder sortiment",
+    "family": "New Nordic Blue Berry Plus Ögonvitamin 240 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "shopping4net:HBLB3-NE-60": {
+    "fingerprint": "352c07ee8e1be28e",
+    "status": "Vurder sortiment",
+    "family": "New Nordic Blue Berry Plus Ögonvitamin 60 tabletter",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "apotekhjem:9984": {
+    "fingerprint": "1fb28a42e63ed16c",
+    "status": "Vurder sortiment",
+    "family": "Ocuvite Complete 60 kapsler",
+    "note": "Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no."
+  },
+  "lensway:9614": {
+    "fingerprint": "00c68e941192ab73",
+    "status": "Mulig ny butikkobling",
+    "family": "everclear REFRESH Solution Kit",
+    "note": "Vi har everclear REFRESH 3-pack 750 ml. Feedbildets filnavn viser 3x, men ml/stk er ikke oppgitt i tittel. Kontroller at kit og 3-pack er identiske."
+  },
+  "apotekhjem:12017": {
+    "fingerprint": "719904f8d502135f",
+    "status": "Ny produktkandidat",
+    "family": "Kabirinse øyeskyllevæske NaCl",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:LOFPM300": {
+    "fingerprint": "2f71d6536ced42f9",
+    "status": "Mulig ny butikkobling",
+    "family": "Opti-Free PureMoist 300 ml",
+    "note": "Produktnavn og størrelse peker på Opti-Free PureMoist 300 ml. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:LOFPM90": {
+    "fingerprint": "438390906f3c2b5d",
+    "status": "Mulig ny butikkobling",
+    "family": "Opti-Free PureMoist 90 ml",
+    "note": "Produktnavn og størrelse peker på Opti-Free PureMoist 90 ml. Kontroller endelig variant før kobling."
+  },
+  "lensway:5983": {
+    "fingerprint": "77709e8f0af11594",
+    "status": "Avklar produkttype",
+    "family": "Soft Clean",
+    "note": "Soft Clean står under Tilbehør uten nærmere produktbeskrivelse. Kontroller om det gjelder linsepleie eller briller."
+  },
+  "apotekhjem:91540": {
+    "fingerprint": "67a8a3cb74680895",
+    "status": "Ny produktkandidat",
+    "family": "Blepha varmende øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:85993": {
+    "fingerprint": "a7f4bce1885b52d9",
+    "status": "Ny produktkandidat",
+    "family": "Kompress øye BV Eyepad 56x70mm",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:9632": {
+    "fingerprint": "678098e0f5f48aaf",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Blue",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:9632": {
+    "fingerprint": "d41d2863b6481fd4",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Blue",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:9629": {
+    "fingerprint": "93c71f2527726897",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Frog",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:9629": {
+    "fingerprint": "5c07852601bdcc9a",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Frog",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:9630": {
+    "fingerprint": "b5009474a9d7fe07",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Pig",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:9630": {
+    "fingerprint": "0aec04688eba7807",
+    "status": "Ny produktkandidat",
+    "family": "Lens Case Pig",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:10677": {
+    "fingerprint": "8ff6032fc2e1e869",
+    "status": "Ny produktkandidat",
+    "family": "Lenson Lens Case",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:10676": {
+    "fingerprint": "c9bca96173310b49",
+    "status": "Ny produktkandidat",
+    "family": "Lenson Lens Case",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:10363": {
+    "fingerprint": "7294d133e9b46fd8",
+    "status": "Ny produktkandidat",
+    "family": "Lenson Lens Case",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:88623": {
+    "fingerprint": "2b4c97386bfa7ec9",
+    "status": "Ny produktkandidat",
+    "family": "Linseetui",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "extraoptical:Nor_Linsecover_3pk": {
+    "fingerprint": "095abdaf6b6bd807",
+    "status": "Ny produktkandidat",
+    "family": "Linseetui 3pak fra eo Selection - Linsecover 3pk - Grønn, Rosa, Blå",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:9892": {
+    "fingerprint": "750bad463a834dea",
+    "status": "Ny produktkandidat",
+    "family": "MediPearl øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:9892": {
+    "fingerprint": "4467170ac048950d",
+    "status": "Ny produktkandidat",
+    "family": "MediPearl øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:AMO00-MO-1": {
+    "fingerprint": "8990c29c650bbbee",
+    "status": "Ny produktkandidat",
+    "family": "MediPearl øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:94762": {
+    "fingerprint": "47991fdc12b3b634",
+    "status": "Ny produktkandidat",
+    "family": "MediPearl øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:103952": {
+    "fingerprint": "8a4eb324e4d6abe5",
+    "status": "Ny produktkandidat",
+    "family": "Opticlude 2738PG Silicone Midi 2738PG Øyelapper (Bil/Fly) 50 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:103951": {
+    "fingerprint": "4f62cdf17f4179a7",
+    "status": "Ny produktkandidat",
+    "family": "Opticlude 2738PG Silicone Midi Øyelapper Frukt/Bær 50 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:7899": {
+    "fingerprint": "8fcf3e0adae14091",
+    "status": "Ny produktkandidat",
+    "family": "Opticlude Øyelapp Maxi 20 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:7900": {
+    "fingerprint": "16f65e147f0b9769",
+    "status": "Ny produktkandidat",
+    "family": "Opticlude Øyelapp Mini 20 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:APO01-QN-17": {
+    "fingerprint": "981ef5348da4b2b5",
+    "status": "Ny produktkandidat",
+    "family": "POSIFORLID øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:103163": {
+    "fingerprint": "475f966e519d5aba",
+    "status": "Ny produktkandidat",
+    "family": "POSIFORLID øyemaske",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:86067": {
+    "fingerprint": "81fc0aef625d62bd",
+    "status": "Ny produktkandidat",
+    "family": "Øyedråpeflaske ster 10ml enpac",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:8500": {
+    "fingerprint": "5d06d728050b94ee",
+    "status": "Ny produktkandidat",
+    "family": "Øyelapp sort m/strikk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ADS02-BL-15": {
+    "fingerprint": "1ab03d61b32947c8",
+    "status": "Ny produktkandidat",
+    "family": "Desosept 15 g",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:7068": {
+    "fingerprint": "2919d49991f3d6fe",
+    "status": "Ny produktkandidat",
+    "family": "Blephaclean servietter",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:15977": {
+    "fingerprint": "03dbe0dab2979628",
+    "status": "Ny produktkandidat",
+    "family": "Blephasol Duo 100 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:7068": {
+    "fingerprint": "ca8ebef4ece17208",
+    "status": "Ny produktkandidat",
+    "family": "Blephaclean servietter",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:76437": {
+    "fingerprint": "52ec05b3564debab",
+    "status": "Ny produktkandidat",
+    "family": "Blephaclean servietter",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lenson:10573": {
+    "fingerprint": "b6312c500a8e546e",
+    "status": "Ny produktkandidat",
+    "family": "Blephacura",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "lensway:10573": {
+    "fingerprint": "b907c7600b554b8e",
+    "status": "Ny produktkandidat",
+    "family": "Blephacura",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:86225": {
+    "fingerprint": "d7335c840d545718",
+    "status": "Ny produktkandidat",
+    "family": "Blephademodex sterile våtservietter 30stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:96399": {
+    "fingerprint": "10011b3684615a8a",
+    "status": "Ny produktkandidat",
+    "family": "Blephaderm lindrende øyelokkskrem 40 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:10799": {
+    "fingerprint": "d07f3de9357f6fcf",
+    "status": "Ny produktkandidat",
+    "family": "Blephagel steril gel uten konserveringsmidler 30 G",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:11649": {
+    "fingerprint": "d6eeb88d5d8bfb24",
+    "status": "Utgått i feedtekst",
+    "family": "Blephasteam fuktkammerbriller - utgått",
+    "note": "Feedtittelen sier utgått. Ikke prioriter for publisering selv om et tilgjengelighetsfelt skulle si noe annet."
+  },
+  "apotekhjem:9990": {
+    "fingerprint": "fecf21ae8456dd5a",
+    "status": "Ny produktkandidat",
+    "family": "Blephasteam ringer fuktk brill",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:96720": {
+    "fingerprint": "03ac315210179fd2",
+    "status": "Ny produktkandidat",
+    "family": "Desosept 15 g",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:APES0-QN-15": {
+    "fingerprint": "f804e6139ff6b300",
+    "status": "Mulig ny butikkobling",
+    "family": "POSIFORLID Eye Spray 15 ml",
+    "note": "Produktnavn og størrelse peker på POSIFORLID Eye Spray 15 ml. Kontroller endelig variant før kobling."
+  },
+  "apotekhjem:103222": {
+    "fingerprint": "1418b18fad9611e1",
+    "status": "Ny produktkandidat",
+    "family": "POSIFORLID Eye Wipes 20 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:APE00-QN-20": {
+    "fingerprint": "d19c1fbdf3aadf73",
+    "status": "Ny produktkandidat",
+    "family": "POSIFORLID Eye Wipes 20 stk",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ATD1B-4D-20": {
+    "fingerprint": "1c9f8861ee7ae17c",
+    "status": "Ny produktkandidat",
+    "family": "Blephaclean servietter",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ATD12-4D-100": {
+    "fingerprint": "1f22ddad6144c394",
+    "status": "Ny produktkandidat",
+    "family": "Blephasol Duo 100 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:HATO2-BF-10": {
+    "fingerprint": "0dfd11c7faaab919",
+    "status": "Ny produktkandidat",
+    "family": "A.Vogel Ögondroppar 10 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:10255": {
+    "fingerprint": "f13eb8ded26d0b1e",
+    "status": "Ny pakning/variant",
+    "family": "Artelac Øyedråper Endose 60x0,5ml",
+    "note": "Artelac endose 60 x 0,5 ml. Vi har flaske 10 ml."
+  },
+  "shopping4net:AOCG5-BL-8": {
+    "fingerprint": "c590825b0759afe4",
+    "status": "Avklar feeddata",
+    "family": "Bausch & Lomb Desodrop 10 gram",
+    "note": "Vi har Desodrop 8 ml. Feeden sier 10 gram, mens SKU slutter på 8. Motstrid i mengde/enhet."
+  },
+  "shopping4net:AOCG0-BL-10": {
+    "fingerprint": "a10c9abfd37eadca",
+    "status": "Mulig ny butikkobling",
+    "family": "OXYAL Care Gel 10 g",
+    "note": "Produktnavn og størrelse peker på OXYAL Care Gel 10 g. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:AOCG3-BL-10": {
+    "fingerprint": "f2dd9d61216b68a6",
+    "status": "Mulig ny butikkobling",
+    "family": "OXYAL Trehalos Triple Action 10 ml",
+    "note": "Produktnavn og størrelse peker på OXYAL Trehalos Triple Action 10 ml. Kontroller endelig variant før kobling."
+  },
+  "shopping4net:AOCGO-BL-10": {
+    "fingerprint": "555dada033356348",
+    "status": "Mulig ny butikkobling",
+    "family": "OXYAL Triple Action 10 ml",
+    "note": "Produktnavn og størrelse peker på OXYAL Triple Action 10 ml. Kontroller endelig variant før kobling."
+  },
+  "apotekhjem:103813": {
+    "fingerprint": "43da05f39b7ed4e5",
+    "status": "Ny produktkandidat",
+    "family": "Bevita Eye Øyesalve 5 g – Lindrende salve for tørre øyne",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ACEBM-3E-15": {
+    "fingerprint": "e534c660bf15e74d",
+    "status": "Ny produktkandidat",
+    "family": "Clear Eyes Bright & Moist 15 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:16994": {
+    "fingerprint": "2be2d827ca2aff7a",
+    "status": "Ny produktkandidat",
+    "family": "Clear Eyes Bright & Moist 15 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ADIM0-84-10": {
+    "fingerprint": "fa4d8c70515eecba",
+    "status": "Ny produktkandidat",
+    "family": "DROP-it Drop it Dry eyes 10 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "shopping4net:ADIRE-84-10": {
+    "fingerprint": "32883c7433a94887",
+    "status": "Ny produktkandidat",
+    "family": "DROP-it Drop it Red eyes 10 ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:103601": {
+    "fingerprint": "1b4e4181245c4016",
+    "status": "Ny pakning/variant",
+    "family": "EvoTears OMEGA 3 ml",
+    "note": "Vi har EvoTears 3 ml. OMEGA er et annet variantnavn og skal ikke kobles til vanlig EvoTears uten dokumentasjon."
+  },
+  "shopping4net:APESE-EY-3": {
+    "fingerprint": "11e376a0260fa983",
+    "status": "Ny pakning/variant",
+    "family": "EvoTears OMEGA 3 ml",
+    "note": "Vi har EvoTears 3 ml. OMEGA er et annet variantnavn og skal ikke kobles til vanlig EvoTears uten dokumentasjon."
+  },
+  "apotekhjem:7757": {
+    "fingerprint": "65388b44e04bfc9a",
+    "status": "Vurder sortiment",
+    "family": "Fluoresceinna Minim øyedråper 20mg",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "shopping4net:AHET4-9A-10": {
+    "fingerprint": "1a319e1797afa358",
+    "status": "Mulig ny butikkobling",
+    "family": "Hylo Dual 10 ml",
+    "note": "Produktnavn og størrelse peker på Hylo Dual 10 ml. Kontroller endelig variant før kobling."
+  },
+  "apotekhjem:85491": {
+    "fingerprint": "be4af7776d724128",
+    "status": "Ny pakning/variant",
+    "family": "Hyprosan Øyedråper 3,2mg/ml",
+    "note": "Tidligere dokumentert 3 x 10 ml (product_matching.json); vi har enkeltflaske. Dagens feednavn skiller ikke størrelsen, må bekreftes igjen."
+  },
+  "apotekhjem:73828": {
+    "fingerprint": "b0a2fd7daa859548",
+    "status": "Vurder sortiment",
+    "family": "Lecrolyn Sine Øyedråper 40mg/ml",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:8534": {
+    "fingerprint": "8423f2d85bd6b72e",
+    "status": "Vurder sortiment",
+    "family": "Livostin Øyedråper 0,5mg/ml 4 ml",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:7805": {
+    "fingerprint": "de4958e59ef3b4df",
+    "status": "Vurder sortiment",
+    "family": "Lomudal Øyedråper 20mg/ml",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:85734": {
+    "fingerprint": "61e37c7e0dc91e56",
+    "status": "Vurder sortiment",
+    "family": "NaCl 5% øyedråper sterile",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:7744": {
+    "fingerprint": "7934404daa5c4789",
+    "status": "Vurder sortiment",
+    "family": "Oftagel øyegel 2,5mg/g - usikker leveringstid",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:8823": {
+    "fingerprint": "531895f6faa9747b",
+    "status": "Vurder sortiment",
+    "family": "Oftagel øyegel 2,5mg/g endos 30x0,5 G",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:8337": {
+    "fingerprint": "e83440d21c736a7e",
+    "status": "Ny produktkandidat",
+    "family": "Oxyal øyedråper",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:10218": {
+    "fingerprint": "bfc03594c28c0446",
+    "status": "Ny produktkandidat",
+    "family": "Red-I øyedråper",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "apotekhjem:16416": {
+    "fingerprint": "c7ea8b589e0e5c8e",
+    "status": "Vurder sortiment",
+    "family": "Simplex Øyesalve 5ml",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "extraoptical:Nor_Systane_Complet": {
+    "fingerprint": "0072c9a7eec4ae93",
+    "status": "Avklar feeddata",
+    "family": "Systane Balance øyedråper 10ml",
+    "note": "Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk."
+  },
+  "apotekhjem:97178": {
+    "fingerprint": "7a76ea62b5932917",
+    "status": "Ny produktkandidat",
+    "family": "Systane gel drops komfort øyeg 10ml",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  },
+  "extraoptical:Hylo-gel-øyedråper-10ml": {
+    "fingerprint": "6c22f3cbdbb4d176",
+    "status": "Avklar feeddata",
+    "family": "Systane Gel Drops øyedråper",
+    "note": "Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk."
+  },
+  "extraoptical:Systane_Complete-2": {
+    "fingerprint": "2516b9cc54ecb299",
+    "status": "Avklar feeddata",
+    "family": "Systane Gel Drops øyedråper 10ml",
+    "note": "Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk."
+  },
+  "apotekhjem:8567": {
+    "fingerprint": "5ef37cfabeb45c61",
+    "status": "Vurder sortiment",
+    "family": "Tears naturale øyedråper 10ml",
+    "note": "Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat."
+  },
+  "apotekhjem:9889": {
+    "fingerprint": "fcd62f731c8336be",
+    "status": "Ny pakning/variant",
+    "family": "Viscotears Øyegel 3x10g",
+    "note": "Viscotears 3 x 10 g. Vi har 10 g."
+  },
+  "apotekhjem:9887": {
+    "fingerprint": "81c1c2c442223c05",
+    "status": "Ny pakning/variant",
+    "family": "Viscotears Øyegel Endosebeholdere 30 x 0,6 ml",
+    "note": "Viscotears endose 30 x 0,6 ml. Vi har 10 g tube."
+  },
+  "apotekhjem:7949": {
+    "fingerprint": "08582bf3ed54a1c4",
+    "status": "Ny produktkandidat",
+    "family": "Øyebadeglass plast Snøgg",
+    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+  }
+}

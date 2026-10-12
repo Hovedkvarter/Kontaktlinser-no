@@ -1,3 +1,6 @@
 CONTACTLINSER_PLATFORM_INTEGRATION_AUDIT.md
 __pycache__/
 *.pyc
+
+# Local full feeds (never publish credentials or raw supplier exports)
+.feed-discovery-cache/
