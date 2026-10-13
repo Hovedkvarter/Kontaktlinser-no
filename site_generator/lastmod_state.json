@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-10-13",
-  "sig": "13540dd60408b545309ee72d774a244534a19e54"
+  "sig": "b3222f11c865d79fc7008c189c1b351b1a52eef1"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-10-13",
@@ -461,7 +461,7 @@
  },
  "/kontaktlinser/multifokale-linser/": {
   "lastmod": "2026-10-13",
-  "sig": "22adb66673f33606f05d362f9a846adfa237f6aa"
+  "sig": "0c712bba63826f462172faa1c5c6816128dc2a6c"
  },
  "/kontaktlinser/myday/myday-30-pack/": {
   "lastmod": "2026-10-13",
@@ -658,6 +658,10 @@
  "/kontaktlinser/ultra/ultra-one-day-90-pack/": {
   "lastmod": "2026-10-13",
   "sig": "c30d80d255470e68b27de2bb7803b7e7860f06e8"
+ },
+ "/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "8184bdf8c8cc47aa3c86c39d3d175a6cd2991dee"
  },
  "/linsevaeske/": {
   "lastmod": "2026-10-13",
@@ -885,7 +889,7 @@
  },
  "/merke/ultra/": {
   "lastmod": "2026-10-13",
-  "sig": "6a1b72fe13fa269eeae38659eb37d5b65b0d4428"
+  "sig": "069aa51901663dd5db6d6cbf47dda381ffbc93aa"
  },
  "/om-oss/": {
   "lastmod": "2026-10-13",
@@ -1425,7 +1429,7 @@
  },
  "/produsent/bausch-lomb/": {
   "lastmod": "2026-10-13",
-  "sig": "74bcbe2b2f0238df4753b1cb6462c3c80230e2b8"
+  "sig": "dbe77acf1b5e314ba30c54d9bdecfdc5e2e4b52e"
  },
  "/produsent/coopervision/": {
   "lastmod": "2026-10-13",
@@ -1701,7 +1705,7 @@
  },
  "/tilbehor/": {
   "lastmod": "2026-10-13",
-  "sig": "c65e6c91d39656cb2a00318cd218202e9cf503c0"
+  "sig": "7c2fd3cd5fe3ad17cf217dd349cc3543920b75ce"
  },
  "/tilbehor/blephaclean/blephaclean-20-stk/": {
   "lastmod": "2026-10-13",
@@ -1711,9 +1715,13 @@
   "lastmod": "2026-10-13",
   "sig": "261d7c83df82750feebea5a16afb9d539f450b41"
  },
+ "/tilbehor/blephagel/blephagel-30-g/": {
+  "lastmod": "2026-10-13",
+  "sig": "925b655e88214bf7bc75e5475cabd1ec4e93b9b3"
+ },
  "/tilbehor/blephasol/blephasol-duo-100-ml-100-pads/": {
   "lastmod": "2026-10-13",
-  "sig": "88e4d554d4b140abc34ad67017a3a1cc472f2edc"
+  "sig": "2b56b6a5fa1372926296f9eed46cf58bba8f13eb"
  },
  "/tilbehor/ezy-drop/ezy-drop-eye-drop-guide/": {
   "lastmod": "2026-10-13",

@@ -56120,5 +56120,19 @@
       "price": 175.0,
       "store": "Lensway"
     }
+  ],
+  "ultra-oneday-multifocal-30pk": [
+    {
+      "date": "2026-10-13",
+      "price": 779.0,
+      "store": "Interoptik"
+    }
+  ],
+  "blephagel-30g": [
+    {
+      "date": "2026-10-13",
+      "price": 159.0,
+      "store": "Interoptik"
+    }
   ]
 }
