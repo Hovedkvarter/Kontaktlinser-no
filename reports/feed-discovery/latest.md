@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-13T12:14:04.497028+00:00
+Kontrollert: 2026-10-13T12:39:36.795577+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,13 +9,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Extra Optical | ok | 2782 | 87 | 80 | 7 |
-| Lensway | ok | 1095 | 180 | 169 | 11 |
-| Lenson | ok | 181 | 181 | 169 | 12 |
-| Shopping4net | ok | 20201 | 118 | 85 | 33 |
+| Lensway | ok | 1095 | 180 | 175 | 5 |
+| Lenson | ok | 181 | 181 | 175 | 6 |
+| Shopping4net | ok | 20201 | 118 | 89 | 29 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9525 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 18.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 16.
 
 ## Kandidater
 
@@ -27,23 +27,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 18.
 | Shopping4net | Acuvue Oasys 1-Day Hydraluxe for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Acuvue Oasys 1-Day for Astigmatism 30-pack, Acuvue Oasys 1-Day for Astigmatism 90-pack, Acuvue Oasys MAX 1-Day for Astigmatism 30-pack | Uendret |
 | Shopping4net | Air Optix Aqua | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | Biofinity XR | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Biofinity XR 6-pack, Biofinity XR 3-pack, Biofinity 6-pack | Uendret |
-| Lenson | everclear ADM | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear ADM 30-pack, everclear ADM 90-pack, everclear AIR 6-pack | Uendret |
-| Lensway | everclear ADM | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear ADM 30-pack, everclear ADM 90-pack, everclear AIR 6-pack | Uendret |
-| Lenson | everclear AIR | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear AIR 6-pack, everclear ADM 30-pack, everclear ADM 90-pack | Uendret |
-| Lenson | everclear AIR | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear AIR 6-pack, everclear ADM 30-pack, everclear ADM 90-pack | Uendret |
-| Lensway | everclear AIR | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear AIR 6-pack, everclear ADM 30-pack, everclear ADM 90-pack | Uendret |
-| Lensway | everclear AIR | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear AIR 6-pack, everclear ADM 30-pack, everclear ADM 90-pack | Uendret |
-| Lenson | everclear ELITE | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear ELITE 30-pack, everclear ELITE 90-pack, everclear ELITE 180-pack | Uendret |
-| Lensway | everclear ELITE | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear ELITE 30-pack, everclear ELITE 90-pack, everclear ELITE 180-pack | Uendret |
-| Lenson | everclear PLUS | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear PLUS 6-pack, everclear AIR 6-pack | Uendret |
-| Lensway | everclear PLUS | Kontaktlinser | Avklar pakning – Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie. | everclear PLUS 6-pack, everclear AIR 6-pack | Uendret |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | Halloween - clearcolor 1-day Phantom | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lensway | Halloween - clearcolor 1-day Phantom | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | Precision1 30p | Kontaktlinser | Mulig ny butikkobling – Produktnavn og størrelse peker på Precision1 30-pack. Kontroller endelig variant før kobling. | Precision1 30-pack | Uendret |
-| Shopping4net | Precision1 90p | Kontaktlinser | Mulig ny butikkobling – Produktnavn og størrelse peker på Precision1 90-pack. Kontroller endelig variant før kobling. | Precision1 90-pack | Uendret |
-| Shopping4net | Precision1 for Astigmatism 30p | Kontaktlinser | Mulig ny butikkobling – Produktnavn og størrelse peker på Precision1 for Astigmatism 30-pack. Kontroller endelig variant før kobling. | Precision1 for Astigmatism 30-pack | Uendret |
-| Shopping4net | Precision1 for Astigmatism 90p | Kontaktlinser | Mulig ny butikkobling – Produktnavn og størrelse peker på Precision1 for Astigmatism 90-pack. Kontroller endelig variant før kobling. | Precision1 for Astigmatism 90-pack | Uendret |
 | Extra Optical | Proclear 1 day | Kontaktlinser | Avklar feeddata – Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart. | Proclear 1 day 30-pack, Proclear 1 day 90-pack | Uendret |
 | Shopping4net | PureVision2 For Presbyopia | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | PureVision 2 for Presbyopia 6-pack | Uendret |
 | Shopping4net | Supra 55 UV Tint | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
