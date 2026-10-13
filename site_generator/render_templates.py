@@ -12511,10 +12511,10 @@ def render_private_label_page(label: dict, real_product: dict, categories: dict,
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{escape(private_name)} » Sammenlign og få billigste pris</title>
+<title>{escape(_seo_title(private_name + " » Sammenlign og få billigste pris", private_name + " – Sammenlign priser", private_name))}</title>
 <meta name="description" content="{escape(meta_description)}">
 <link rel="canonical" href="{BASE_URL}/private-label/{label["slug"]}/">
-{_og_meta(f'{private_name} » Sammenlign og få billigste pris', meta_description, f'{BASE_URL}/private-label/{label["slug"]}/', image_url)}
+{_og_meta(_seo_title(private_name + " » Sammenlign og få billigste pris", private_name + " – Sammenlign priser", private_name), meta_description, f'{BASE_URL}/private-label/{label["slug"]}/', image_url)}
 {FONT_LINKS}
 <script type="application/ld+json">{schema_json}</script>
 {product_faq_schema}
