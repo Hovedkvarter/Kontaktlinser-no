@@ -229,6 +229,7 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str], retailer_
 NETWORK_MAPPERS = {
     "adtraction": map_adtraction_row,
     "adtraction_apotekhjem": map_adtraction_row,
+    "adtraction_interoptik": map_adtraction_row,
     "adtraction_brilleland": map_brilleland_row,
     "partner-ads": map_partner_ads_row,
 }

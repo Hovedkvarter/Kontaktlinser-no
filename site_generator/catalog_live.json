@@ -462,26 +462,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 326.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:10:55.837377+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -499,6 +479,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 326.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000025&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410250+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/acuvue-oasys/40000025_20_-2.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -766,26 +766,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 515.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-sphere/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:10:59.859602+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biofinity-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biofinity",
           "source": "scraper",
@@ -823,6 +803,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 515.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000591&fid=1169&url=https://www.interoptik.no/kontaktlinser/biofinity/biofinity-sphere/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409817+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biofinity-sphere/40000591_10-biofinity_cooper.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -989,26 +989,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 257.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:05.234531+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1026,6 +1006,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 257.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000013&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410135+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-30-pack/40000013_20_-2.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -1156,26 +1156,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 439.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:08.162739+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-max-1day-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1193,6 +1173,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 439.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000703&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410268+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-max-30-pack/4000070_10.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-max-1day-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -1363,26 +1363,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 327.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:11.375627+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-1day-hydraluxe-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1400,6 +1380,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 327.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000363&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-oasys-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410215+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-30-pack/40000363_20_-2.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-1day-hydraluxe-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -1574,26 +1574,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 407.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:15.511855+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-astigmatism-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1611,6 +1591,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 407.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000174&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-for-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410259+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/acuvue-oasys-for-astigmatism/acuvue-oasys-for-astigmatism-6-pack",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-astigmatism-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -1765,26 +1765,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 332.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:19.101744+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-astigmatism-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -1802,6 +1782,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 332.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000245&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410155+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-for-astigmatism-30-pack/40000245_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -1976,26 +1976,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 635.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:22.048749+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biofinity-toric-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biofinity",
           "source": "scraper",
@@ -2033,6 +2013,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 635.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000592&fid=1169&url=https://www.interoptik.no/kontaktlinser/biofinity/biofinity-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409827+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biofinity-toric/40000592_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-toric-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -2641,18 +2641,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "biofinity",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 889.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biofinity/biofinity-multifocal/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000616&fid=1169&url=https://www.interoptik.no/kontaktlinser/biofinity/biofinity-multifocal/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:11:33.546906+00:00",
+          "checked_at": "2026-10-13T16:10:00.409808+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biofinity-multifocal/40000616_20.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "biofinity-multifocal-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -2816,6 +2816,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 597.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000589&fid=1169&url=https://www.interoptik.no/kontaktlinser/biofinity/biofinity-energys/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409798+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biofinity-energys/40000589_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-energys-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -2913,6 +2933,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biofinity",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 676.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000593&fid=1169&url=https://www.interoptik.no/kontaktlinser/biofinity/biofinity-xr/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409837+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biofinity-xr/40000593_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-xr-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -3054,26 +3094,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "avaira",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 476.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/avaira/avaira-vitality/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:42.632392+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "avaira-vitality-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "avaira",
           "source": "scraper",
@@ -3111,6 +3131,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Avaira",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 476.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000587&fid=1169&url=https://www.interoptik.no/kontaktlinser/avaira/avaira-vitality/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409846+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/avaira-vitality/40000587_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "avaira-vitality-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -3244,26 +3284,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "avaira",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 515.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/avaira/avaira-vitality-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:47.504922+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "avaira-vitality-toric-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "avaira",
           "source": "scraper",
@@ -3301,6 +3321,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Avaira",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 515.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000588&fid=1169&url=https://www.interoptik.no/kontaktlinser/avaira/avaira-vitality-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409880+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/avaira-vitality-toric/40000588_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "avaira-vitality-toric-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -3442,26 +3482,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 325.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/myday/myday-sphere-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:52.173361+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "myday-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "myday",
           "source": "scraper",
@@ -3479,6 +3499,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MyDay",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 325.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000608&fid=1169&url=https://www.interoptik.no/kontaktlinser/myday/myday-sphere-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409987+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/myday-sphere-30-pack/40000608_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -3611,6 +3651,26 @@
             "free_over": null,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MyDay",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 459.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000763&fid=1169&url=https://www.interoptik.no/kontaktlinser/myday/myday-multifocal-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410035+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/myday-multifocal-30-pack/40000760_20-myday_1day_multifocal_30pk_left_beauty-sa13712.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -3724,26 +3784,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 485.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/myday/myday-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:11:58.687220+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "myday-toric-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "myday",
           "source": "scraper",
@@ -3761,6 +3801,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MyDay",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 485.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000610&fid=1169&url=https://www.interoptik.no/kontaktlinser/myday/myday-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410016+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/myday-toric/40000610_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-toric-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -3921,6 +3981,26 @@
             "free_over": 0,
             "fee_nok": 0
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 317.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000614&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410115+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-6-pack/40000614_10-proclear-sphere-6pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-sphere-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -4055,18 +4135,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "proclear",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 725.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/proclear/proclear-toric/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000615&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-toric/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:12:06.704645+00:00",
+          "checked_at": "2026-10-13T16:10:00.410106+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-toric/40000615_20.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "proclear-toric-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -4190,6 +4270,26 @@
             "free_over": 0,
             "fee_nok": 0
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 312.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000599&fid=1169&url=https://www.interoptik.no/kontaktlinser/clariti/clariti-1-day-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409948+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/clariti-1-day-30-pack/40000599_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -4299,6 +4399,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 346.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000603&fid=1169&url=https://www.interoptik.no/kontaktlinser/clariti/clariti-1-day-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409976+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/clariti-1-day-toric/40000603_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-toric-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -4498,6 +4618,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Air Optix",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 571.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000579&fid=1169&url=https://www.interoptik.no/kontaktlinser/air-optix/ao-hydraglyde/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409527+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ao-hydraglyde/40000579_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "air-optix-hydraglyde-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -4687,6 +4827,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Air Optix",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 900.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000583&fid=1169&url=https://www.interoptik.no/kontaktlinser/air-optix/ao-hydraglyde-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409567+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ao-hydraglyde-multifocal/40000583_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "air-optix-hydraglyde-multifocal-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -4894,6 +5054,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Air Optix",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 753.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000580&fid=1169&url=https://www.interoptik.no/kontaktlinser/air-optix/ao-hydraglyde-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409550+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ao-hydraglyde-astigmatism/40000580_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "air-optix-hydraglyde-astigmatism-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -5055,18 +5235,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 359.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000316&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:12:25.637901+00:00",
+          "checked_at": "2026-10-13T16:10:00.409657+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total-1-30-pack/40000316_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -5229,18 +5409,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 536.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000368&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-multifocal-30-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:12:28.738274+00:00",
+          "checked_at": "2026-10-13T16:10:00.409677+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total-1-multifocal-30-pack/40000367_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-multifocal-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -5379,18 +5559,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 493.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000688&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-30-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:12:32.051259+00:00",
+          "checked_at": "2026-10-13T16:10:00.409697+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total1-for-astigmatism-30-pack/40000688_20.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-astigmatism-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -5556,26 +5736,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 226.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:12:35.850209+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-aquacomfort-plus-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "dailies",
           "source": "scraper",
@@ -5593,6 +5753,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 226.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000267&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409615+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-aquacomfort-plus-30-pack/40000267_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -5723,18 +5903,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "total30",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "TOTAL30",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 719.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/total30/total30-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000708&fid=1169&url=https://www.interoptik.no/kontaktlinser/total30/total30-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:12:42.000364+00:00",
+          "checked_at": "2026-10-13T16:10:00.410367+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/total30-6-pack/40000708_10-original_png-total30_6_front.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "total30-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -5880,26 +6060,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision1",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 322.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision1-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:12:45.720105+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision1-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Shopping4net",
           "brand": "Precision1",
           "source": "affiliate_feed",
@@ -5917,6 +6077,26 @@
           "shipping_policy": {
             "free_over": 700,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 322.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000634&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision1-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410309+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision1-30-pack/40000634_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -6050,26 +6230,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision1",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 408.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision1-for-astigmatism-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:12:47.549670+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision1-astigmatism-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Shopping4net",
           "brand": "Precision1",
           "source": "affiliate_feed",
@@ -6087,6 +6247,26 @@
           "shipping_policy": {
             "free_over": 700,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 408.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000636&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision1-for-astigmatism-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410329+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision1-for-astigmatism-30-pack/40000636_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -6222,6 +6402,26 @@
           "is_lowest": false,
           "image_url": null,
           "image_source": "unlicensed",
+          "product_id": "soflens-59-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "SofLens",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 335.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000028&fid=1169&url=https://www.interoptik.no/kontaktlinser/soflens/soflens-59-sphere-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410855+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/soflens-59-sphere-6-pack/40000028_10-soflens-59-sphere-6pk.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "soflens-59-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -6378,6 +6578,26 @@
             "free_over": null,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "SofLens",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 163.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000744&fid=1169&url=https://www.interoptik.no/kontaktlinser/soflens/soflens-daily-disposable-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411328+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/soflens-daily-disposable-30-pack/40000744_10-soflens-daily-d-svs-30pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "soflens-daily-disposable-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -6529,6 +6749,26 @@
             "free_over": null,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "SofLens",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 824.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000066&fid=1169&url=https://www.interoptik.no/kontaktlinser/soflens/soflens-66-toric-for-astigmatism-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410867+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/soflens-66-toric-for-astigmatism-6-pack/40000066_10-soflens-66-astig-6pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "soflens-toric-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -6650,26 +6890,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "purevision",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 524.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/purevision/purevision-2-hd-svs/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:01.723143+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "purevision2-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "purevision",
           "source": "scraper",
@@ -6687,6 +6907,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "PureVision",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 524.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000326&fid=1169&url=https://www.interoptik.no/kontaktlinser/purevision/purevision-2-hd-svs/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409738+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/purevision-2-hd-svs/40000326_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "purevision2-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -6810,26 +7050,6 @@
           "url": "https://www.lensit.no/products/biotrue-oneday-btod-1231",
           "in_stock": true,
           "checked_at": "2026-10-13T03:13:04.865654+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biotrue-oneday-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "biotrue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 256.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:06.450747+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -6979,26 +7199,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "ultra",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 598.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-svs/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:11.427956+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "ultra-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "ultra",
           "source": "scraper",
@@ -7016,6 +7216,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "ULTRA",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 598.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000563&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-svs/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409768+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ultra-svs/40000563_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "ultra-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -7175,6 +7395,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biomedics",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 276.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000597&fid=1169&url=https://www.interoptik.no/kontaktlinser/biomedics/biomedics-55-evolution-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409929+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biomedics-55-evolution-6-pack/40000597_20-biomedics55_evolution_new25_left.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biomedics-55-evolution-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -7353,6 +7593,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Air Optix",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 681.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000077&fid=1169&url=https://www.interoptik.no/kontaktlinser/air-optix/air-optix-night--day/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409401+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/air-optix-night--day/40000077_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "air-optix-night-day-aqua-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -7811,26 +8071,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "purevision",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 785.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/purevision/purevision-2-hd-presbyopia/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:32.093362+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "purevision2-presbyopia-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "purevision",
           "source": "scraper",
@@ -7848,6 +8088,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "PureVision",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 785.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000568&fid=1169&url=https://www.interoptik.no/kontaktlinser/purevision/purevision-2-hd-presbyopia/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409727+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/purevision-2-hd-presbyopia/40000567_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "purevision2-presbyopia-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -7941,26 +8201,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biotrue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 388.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-astigmatism/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:38.030990+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biotrue-oneday-astigmatism-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biotrue",
           "source": "scraper",
@@ -7998,6 +8238,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biotrue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 388.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000575&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409717+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-astigmatism/40000575_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biotrue-oneday-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -8121,26 +8381,6 @@
           "url": "https://www.lensit.no/products/biotrue-oneday-for-presbyopia-biop30pk-1",
           "in_stock": true,
           "checked_at": "2026-10-13T03:13:41.188798+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biotrue-oneday-presbyopia-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "biotrue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 388.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-presbyopia/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:43.011410+00:00",
           "is_stale": false,
           "is_lowest": false,
           "image_url": null,
@@ -8276,6 +8516,26 @@
             "free_over": 0,
             "fee_nok": 0
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "ULTRA",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 454.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000745&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-sphere-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409785+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ultra-one-day-sphere-30-pack/40000745_20-left_30-cmyk-fn8.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "ultra-oneday-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -8368,26 +8628,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "ultra",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 862.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-astigmatism/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:51.286399+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "ultra-astigmatism-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "ultra",
           "source": "scraper",
@@ -8405,6 +8645,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "ULTRA",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 862.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000566&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409748+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ultra-astigmatism/40000566_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "ultra-astigmatism-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -8518,26 +8778,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "ultra",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 1013.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-presbyopia/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:13:57.884098+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "ultra-presbyopia-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "ultra",
           "source": "scraper",
@@ -8555,6 +8795,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "ULTRA",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 1013.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000565&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-presbyopia/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409758+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ultra-presbyopia/40000564_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "ultra-presbyopia-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -8681,26 +8941,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biomedics",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 139.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-30-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:02.782975+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biomedics-1day-xtra-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biomedics",
           "source": "scraper",
@@ -8718,6 +8958,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biomedics",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 139.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000594&fid=1169&url=https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409891+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biomedics-1-day-extra/40000594_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biomedics-1day-xtra-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -8864,26 +9124,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biomedics",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 325.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:07.554995+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biomedics-1day-xtra-toric-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "biomedics",
           "source": "scraper",
@@ -8901,6 +9141,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biomedics",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 325.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000596&fid=1169&url=https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409910+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biomedics-1-day-extra-toric/40000596_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biomedics-1day-xtra-toric-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -9035,26 +9295,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biomedics",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 635.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biomedics/biomedics-toric/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:11.276616+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biomedics-toric-6pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biomedics",
           "source": "scraper",
@@ -9092,6 +9332,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biomedics",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 635.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000598&fid=1169&url=https://www.interoptik.no/kontaktlinser/biomedics/biomedics-toric/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409919+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biomedics-toric/40000598_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biomedics-toric-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -9202,18 +9462,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "total30",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "TOTAL30",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1265.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/total30/total30-multifocal-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000718&fid=1169&url=https://www.interoptik.no/kontaktlinser/total30/total30-multifocal-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:14:17.178650+00:00",
+          "checked_at": "2026-10-13T16:10:00.410405+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/total30-multifocal-6-pack/40000718_20-t30mf_box_fl_rgb_black-background--kopi.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "total30-multifocal-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -9348,18 +9608,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "total30",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "TOTAL30",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 883.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/total30/total30-for-astigmastism-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000710&fid=1169&url=https://www.interoptik.no/kontaktlinser/total30/total30-for-astigmastism-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:14:20.642881+00:00",
+          "checked_at": "2026-10-13T16:10:00.410389+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/total30-for-astigmastism-6-pack/30004127_20-c-t30-fa-3ct-gws-f_left_rt.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "total30-astigmatism-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -9466,26 +9726,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision7",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 625.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:23.861255+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision7-12pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "precision7",
           "source": "scraper",
@@ -9523,6 +9763,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision7",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 625.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000735&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision7-12-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410349+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision7-12-pack/40000735-_20-precision7_new25_left.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "precision7-12pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -9716,26 +9976,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision7",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 845.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:30.940470+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision7-astigmatism-12pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "precision7",
           "source": "scraper",
@@ -9773,6 +10013,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision7",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 845.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000737&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision7-for-astigmatism-12-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410358+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision7-for-astigmatism-12-pack/40000737-_20-precision7_astigmatism_new25_left.tif",
+          "image_source": "affiliate_feed",
+          "product_id": "precision7-astigmatism-12pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -10105,26 +10365,6 @@
             "free_over": 1199,
             "fee_nok": 50
           }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 239.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:41.012238+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "focus-dailies-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
         }
       ]
     },
@@ -10270,26 +10510,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 765.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:43.799386+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -10307,6 +10527,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 765.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000411&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410145+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-90-pack/40000411_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -10441,26 +10681,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 999.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:47.310907+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-moist-astigmatism-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Coptikk",
           "brand": "acuvue",
           "source": "scraper",
@@ -10478,6 +10698,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 999.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000410&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410178+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-for-astigmatism-90-pack/40000410_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-astigmatism-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -10645,6 +10885,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 981.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000413&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-oasys-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410225+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-90-pack/40000413_05.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-1day-hydraluxe-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -10838,26 +11098,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "biomedics",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 414.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:14:55.410472+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "biomedics-1day-xtra-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "biomedics",
           "source": "scraper",
@@ -10875,6 +11115,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biomedics",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 414.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000595&fid=1169&url=https://www.interoptik.no/kontaktlinser/biomedics/biomedics-1-day-extra-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409900+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biomedics-1-day-extra/40000595_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biomedics-1day-xtra-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -11155,6 +11415,26 @@
             "free_over": 1199,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 933.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000600&fid=1169&url=https://www.interoptik.no/kontaktlinser/clariti/clariti-1-day-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409958+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/clariti-1-day-90-pack/40000600_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -11295,26 +11575,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 681.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:15:09.226464+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-aquacomfort-plus-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "dailies",
           "source": "scraper",
@@ -11332,6 +11592,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 681.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000586&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/aquacomfort-plus/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409601+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/aquacomfort-plus/40000586_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -11474,18 +11754,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1083.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000409&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-90-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:15:13.062213+00:00",
+          "checked_at": "2026-10-13T16:10:00.409667+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total-1-90-pack/40000409_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-90pk",
           "shipping_policy": {
             "free_over": 0,
@@ -11604,18 +11884,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1482.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000702&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total1-for-astigmatism-90-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:15:16.132785+00:00",
+          "checked_at": "2026-10-13T16:10:00.409706+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total1-for-astigmatism-90-pack/40000702_20.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-astigmatism-90pk",
           "shipping_policy": {
             "free_over": 0,
@@ -11758,18 +12038,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 1599.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000371&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-total-1-multifocal-90-pack2/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:15:19.400675+00:00",
+          "checked_at": "2026-10-13T16:10:00.409687+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-total-1-multifocal-90-pack/40000370_10.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "dailies-total1-multifocal-90pk",
           "shipping_policy": {
             "free_over": 0,
@@ -11913,26 +12193,6 @@
             "free_over": 1199,
             "fee_nok": 50
           }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 714.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:15:25.479995+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "focus-dailies-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
         }
       ]
     },
@@ -12033,26 +12293,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 981.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/myday/myday-sphere-90-pack2/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:15:28.434549+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "myday-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "myday",
           "source": "scraper",
@@ -12070,6 +12310,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MyDay",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 981.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000609&fid=1169&url=https://www.interoptik.no/kontaktlinser/myday/myday-sphere-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410004+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/myday-sphere-90-pack/40000609_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -12191,26 +12451,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision1",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 966.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision1-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:15:32.205943+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision1-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Shopping4net",
           "brand": "Precision1",
           "source": "affiliate_feed",
@@ -12228,6 +12468,26 @@
           "shipping_policy": {
             "free_over": 700,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 966.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000635&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision1-90-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410319+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision1-90-pack/40000635_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -12341,26 +12601,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "precision1",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 1215.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/precision/precision1-for-astigmatism-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:15:35.217255+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "precision1-astigmatism-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Shopping4net",
           "brand": "Precision1",
           "source": "affiliate_feed",
@@ -12378,6 +12618,26 @@
           "shipping_policy": {
             "free_over": 700,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 1215.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000637&fid=1169&url=https://www.interoptik.no/kontaktlinser/precision/precision1-for-astigmatism-90-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410339+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/precision1-for-astigmatism-90-pack/40000637_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-astigmatism-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -12706,6 +12966,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 339.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000318&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410192+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-multifocal-30-pack/40000318_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -12836,6 +13116,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 1014.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000415&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-moist-multifocal-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410205+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-moist-multifocal-90-pack/40000415_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-multifocal-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -12962,6 +13262,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 369.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000365&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/1-day-acuvue-oasys-for-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410241+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-for-astigmatism/40000365_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-1day-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -13577,6 +13897,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 420.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000310&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409626+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-aquacomfort-plus-multifocal/40000306_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -13798,6 +14138,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 357.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000312&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409637+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-aquacomfort-plus-toric-30-pack/40000312_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-toric-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -13927,6 +14287,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 1065.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000412&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/dailies-aquacomfort-plus-toric-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409648+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-aquacomfort-plus-toric-90-pack/40000412_20_.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-aquacomfort-plus-toric-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -14215,6 +14595,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 253.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000611&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-1-day-30-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410044+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-1-day-30-pack/40000611_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-1day-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -14325,6 +14725,26 @@
           "shipping_policy": {
             "free_over": 700,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 765.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000619&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-1-day-90-pack2/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410054+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-1-day-90-pack/40000619_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-1day-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -14457,6 +14877,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 367.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000612&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-1-day-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410086+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-1-day-multifocal/40000612_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-1day-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -14568,6 +15008,26 @@
             "free_over": 700,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 835.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000618&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410097+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-multifocal/40000618_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-multifocal-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -14667,6 +15127,26 @@
           "shipping_policy": {
             "free_over": 900,
             "fee_nok": 45
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Proclear",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 514.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000401&fid=1169&url=https://www.interoptik.no/kontaktlinser/proclear/proclear-xr-multifocal-3-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410125+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/proclear-xr-multifocal-3-pack/40000400_10-proclear-mf-xr-3or6pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "proclear-multifocal-xr-3pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -14936,6 +15416,26 @@
             "free_over": 700,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "SofLens",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 288.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000743&fid=1169&url=https://www.interoptik.no/kontaktlinser/soflens/soflens-daily-disposable-for-astigmatism-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411358+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/soflens-daily-disposable-for-astigmatism-30-pack/40000743_10-soflens-daily-d-astig-30pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "soflens-daily-disposable-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -15047,6 +15547,26 @@
             "free_over": 700,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "SofLens",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 871.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000767&fid=1169&url=https://www.interoptik.no/kontaktlinser/soflens/soflens-multifocal-6-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411514+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/soflens-multifocal-6-pack/40000767_10-soflens-mf-6pk.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "soflens-multifocal-6pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -15132,26 +15652,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 527.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:16:37.929535+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-max-1day-multifocal-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Lensit",
           "brand": "acuvue",
           "source": "scraper",
@@ -15209,6 +15709,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 527.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000705&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410299+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-max-multifocal-30-pack/40000705_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-max-1day-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -15418,26 +15938,6 @@
           }
         },
         {
-          "retailer": "Interoptik",
-          "brand": "acuvue",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 599.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:16:46.641969+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "acuvue",
           "source": "scraper",
@@ -15475,6 +15975,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 599.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000742&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-mf-for-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410289+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/acuvue-oasys-max-1-day-multifocal-astigmatism/40000742_20-online-acuvue-packshot-oasys-max-1-day-multifocal-for-astigmatism-30pk--rx_ol_left.png",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -15614,26 +16134,6 @@
             "free_over": 1000,
             "fee_nok": 59
           }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 239.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:16:52.519932+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-all-day-comfort-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
         }
       ]
     },
@@ -15772,26 +16272,6 @@
             "free_over": 1000,
             "fee_nok": 59
           }
-        },
-        {
-          "retailer": "Interoptik",
-          "brand": "dailies",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 714.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/dailies/dailies-all-day-comfort-90-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:16:55.485252+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "dailies-all-day-comfort-90pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
         }
       ]
     },
@@ -15854,18 +16334,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 360.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-30-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000746&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-30-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:16:59.870277+00:00",
+          "checked_at": "2026-10-13T16:10:00.410737+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-30-pack/40000746_20-online_png-miru_1day_upside_30_angle-1.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-upside-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -15932,18 +16412,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 484.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-astigmatism-30-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000747&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-astigmatism-30-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:01.528822+00:00",
+          "checked_at": "2026-10-13T16:10:00.410765+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-astigmatism-30-pack/40000749_20-upside-toric_packshot_left-angle.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-upside-astigmatism-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -16010,18 +16490,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 493.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000748&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-upside-multifocal-30-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:05.884253+00:00",
+          "checked_at": "2026-10-13T16:10:00.410779+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-multifocal-30-pack/40000751_20-upside-multifocal_packshot_right-angle.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-upside-multifocal-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -16088,18 +16568,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 399.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000680&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-astigmatism/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:08.707564+00:00",
+          "checked_at": "2026-10-13T16:10:00.410425+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack-astigmatism/40000680_20-online_png-miru_1_day_toric_30_front.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-flatpack-astigmatism-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -16166,18 +16646,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 405.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-multifocal/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000679&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack-multifocal/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:10.543323+00:00",
+          "checked_at": "2026-10-13T16:10:00.410438+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack-multifocal/40000679_20-flatpack-multifocal_packshot_box_left-angle.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-flatpack-multifocal-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -16207,26 +16687,6 @@
       ],
       "offers": [
         {
-          "retailer": "Interoptik",
-          "brand": "myday",
-          "source": "scraper",
-          "network": "scrape",
-          "price_nok": 1083.0,
-          "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/myday/myday-misight-1-day-30-pack/",
-          "in_stock": true,
-          "checked_at": "2026-10-13T03:17:14.978471+00:00",
-          "is_stale": false,
-          "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
-          "product_id": "myday-misight-1day-30pk",
-          "shipping_policy": {
-            "free_over": 0,
-            "fee_nok": 0
-          }
-        },
-        {
           "retailer": "Synsam",
           "brand": "myday",
           "source": "scraper",
@@ -16244,6 +16704,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MyDay",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 365.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000739&fid=1169&url=https://www.interoptik.no/kontaktlinser/myday/myday-misight-1-day-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410026+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/myday-misight-1-day-30-pack/40000739_20-myday-misight-1day-30pk-left.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-misight-1day-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -17686,6 +18166,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 386.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000602&fid=1169&url=https://www.interoptik.no/kontaktlinser/clariti/clariti-1-day-multifocal/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409967+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/clariti-1-day-multifocal/40000602_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -17865,6 +18365,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Acuvue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 509.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000727&fid=1169&url=https://www.interoptik.no/kontaktlinser/acuvue/acuvue-oasys-max-1-day-for-astigmatism/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410278+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/1-day-acuvue-oasys-max-for-astigmatism-30-pack/40000727_20-acuvue_oasys_max_astig_new25_right.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-max-1day-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -18104,6 +18624,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Clariti",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 386.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000761&fid=1169&url=https://www.interoptik.no/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.409938+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/clariti-1-day-multifocal-3-add-30-pack/40000761_20-clariti_1day_multifocal_3add_30pk_left_beauty-sa13716.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clariti-1day-multifocal-3add-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -18441,6 +18981,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "MiSight",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 365.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000561&fid=1169&url=https://www.interoptik.no/kontaktlinser/misight/misight-1-day-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.410845+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/misight-1-day-30-pack/40000561_10-misight_1day_30pk_adpromo.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "misight-1day-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -18502,18 +19062,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 459.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-sphere-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000749&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1month-sphere-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:37.169938+00:00",
+          "checked_at": "2026-10-13T16:10:00.410834+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-sphere-6-pack/original_png-miru_1month_menicon_6_angle.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1month-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -18580,18 +19140,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 624.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-astigmatism-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000750&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1month-astigmatism-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:39.960232+00:00",
+          "checked_at": "2026-10-13T16:10:00.410792+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-astigmatism-6-pack/40000747_20-original_png-miru_1month_menicon_for_astigmatism_6_openbox.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1month-toric-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -18658,18 +19218,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 790.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1month-multifocal-6-pack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000751&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1month-multifocal-6-pack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:42.928777+00:00",
+          "checked_at": "2026-10-13T16:10:00.410803+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-multifocal-6-pack/40000748_20-original_png-miru_1month_menicon_multifocal_6_angle.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1month-multifocal-6pk",
           "shipping_policy": {
             "free_over": 0,
@@ -18736,18 +19296,18 @@
         },
         {
           "retailer": "Interoptik",
-          "brand": "miru",
-          "source": "scraper",
-          "network": "scrape",
+          "brand": "MIRU",
+          "source": "affiliate_feed",
+          "network": "adtraction",
           "price_nok": 298.0,
           "shipping_nok": 0.0,
-          "url": "https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack/",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000678&fid=1169&url=https://www.interoptik.no/kontaktlinser/miru/miru-1day-flatpack/",
           "in_stock": true,
-          "checked_at": "2026-10-13T03:17:46.065264+00:00",
+          "checked_at": "2026-10-13T16:10:00.410415+00:00",
           "is_stale": false,
           "is_lowest": false,
-          "image_url": null,
-          "image_source": "unlicensed",
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack/40000678_20-miru_1_day_flatpack_angle_right.jpg",
+          "image_source": "affiliate_feed",
           "product_id": "miru-1day-flatpack-30pk",
           "shipping_policy": {
             "free_over": 0,
@@ -20162,6 +20722,26 @@
           "image_source": "affiliate_feed",
           "product_id": "hylo-care-10ml",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Hylo",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 269.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90116257&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/hylo/hylo-care-10-ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411696+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/hylo-care-10-ml2/7350023250061_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "hylo-care-10ml",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -20252,6 +20832,26 @@
           "image_source": "affiliate_feed",
           "product_id": "hylo-gel-10ml",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Hylo",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 285.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90112327&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/hylo/hylo-gel-10-ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411682+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/hylo-gel-10-ml/7350023250078_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "hylo-gel-10ml",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -20432,6 +21032,26 @@
           "image_source": "affiliate_feed",
           "product_id": "hylo-comod-10ml",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Hylo",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 285.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90101225&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/hylo/hylo-commod-10-ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411552+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/hylo-commod-10-ml/7350023250054_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "hylo-comod-10ml",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -20682,6 +21302,26 @@
           "image_source": "affiliate_feed",
           "product_id": "thealoz-duo-10ml",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Thealoz",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 229.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120618&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/thealoz/thealoz-duo-oyedraper-10-ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411707+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/thealoz-duo-oyedraper-10-ml/3662042002465_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "thealoz-duo-10ml",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -21505,6 +22145,26 @@
           "image_source": "affiliate_feed",
           "product_id": "evotears-3ml",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "EvoTears",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 369.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90122806&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/evotears/evotears-oyedraper/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411541+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/evotears-oyedraper/7350023250108_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "evotears-3ml",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -22643,6 +23303,26 @@
           "image_source": "affiliate_feed",
           "product_id": "blephaclean-20stk",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Blephaclean",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 159.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120613&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/blephaclean/blephaclean-vatservietter-20-pk/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T16:10:00.411529+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/blephaclean-vatservietter-20-pk/3662042003653_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephaclean-20stk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
