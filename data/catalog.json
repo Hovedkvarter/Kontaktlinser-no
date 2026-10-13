@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-13T11:59:18Z",
+  "generated_at": "2026-10-13T12:14:00Z",
   "currency": "NOK",
   "products": [
     {
@@ -9446,6 +9446,252 @@
           "availability": "out_of_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ADO20-GW-20)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FDrop-it-oegon-2ml.htm%3FsClickID%3DTradeDoubler-10-3)",
           "checked_at": "2026-10-13T03:10:40.630659+00:00"
+        }
+      ]
+    },
+    {
+      "id": "blephaclean-20stk",
+      "name": "Blephaclean 20 stk",
+      "brand": "Blephaclean",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 90.0,
+          "shipping": 0.0,
+          "total_price": 90.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=76437&fid=2510&url=https://www.apotekhjem.no/blephaclean-sterile-v%C3%A5tservietter-20-stk",
+          "checked_at": "2026-10-13T12:08:54.698554+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 99.0,
+          "shipping": 39,
+          "total_price": 138.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD1B-4D-20)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FBlephaclean-vaatservetter.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.694772+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 95.0,
+          "shipping": 50,
+          "total_price": 145.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-7068)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fblephaclean-extra-7068)",
+          "checked_at": "2026-10-13T12:08:54.694156+00:00"
+        },
+        {
+          "merchant": "Lenson",
+          "price": 101.0,
+          "shipping": 50,
+          "total_price": 151.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-7068)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fblephaclean-no-extra-7068)",
+          "checked_at": "2026-10-13T12:08:54.694628+00:00"
+        }
+      ]
+    },
+    {
+      "id": "medipearl-oyemaske-1stk",
+      "name": "MediPearl øyemaske 1 stk",
+      "brand": "MediPearl",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 120.0,
+          "shipping": 0.0,
+          "total_price": 120.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=94762&fid=2510&url=https://www.apotekhjem.no/medipearl-oyemaske-1-stk",
+          "checked_at": "2026-10-13T12:08:54.704492+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 119.0,
+          "shipping": 50,
+          "total_price": 169.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-9892)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fmedipearl-extra-9892)",
+          "checked_at": "2026-10-13T12:08:54.700739+00:00"
+        },
+        {
+          "merchant": "Lenson",
+          "price": 127.0,
+          "shipping": 50,
+          "total_price": 177.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9892)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fmedipearl-extra-9892)",
+          "checked_at": "2026-10-13T12:08:54.701108+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 149.0,
+          "shipping": 39,
+          "total_price": 188.0,
+          "availability": "out_of_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-AMO00-MO-1)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FMediPearl-Oegonmask.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.701222+00:00"
+        }
+      ]
+    },
+    {
+      "id": "blephacura-70ml",
+      "name": "BlephaCura 70 ml",
+      "brand": "BlephaCura",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": 70
+      },
+      "offers": [
+        {
+          "merchant": "Lensway",
+          "price": 183.0,
+          "shipping": 50,
+          "total_price": 233.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10573)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fblephacura-extra-10573)",
+          "checked_at": "2026-10-13T12:08:54.707706+00:00"
+        },
+        {
+          "merchant": "Lenson",
+          "price": 195.0,
+          "shipping": 50,
+          "total_price": 245.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10573)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fblephacura-extra-10573)",
+          "checked_at": "2026-10-13T12:08:54.707978+00:00"
+        }
+      ]
+    },
+    {
+      "id": "blephasol-duo-100ml-100pads",
+      "name": "Blephasol Duo 100 ml + 100 pads",
+      "brand": "Blephasol",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 113.0,
+          "shipping": 0.0,
+          "total_price": 113.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=15977&fid=2510&url=https://www.apotekhjem.no/blephasol-duo-mservietter",
+          "checked_at": "2026-10-13T12:08:54.712031+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 129.0,
+          "shipping": 39,
+          "total_price": 168.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD12-4D-100)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FBlephasol-Duo.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.708910+00:00"
+        }
+      ]
+    },
+    {
+      "id": "posiforlid-eye-wipes-20stk",
+      "name": "POSIFORLID Eye Wipes 20 stk",
+      "brand": "POSIFORLID",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 113.0,
+          "shipping": 0.0,
+          "total_price": 113.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103222&fid=2510&url=https://www.apotekhjem.no/posiforlid-eye-wipes",
+          "checked_at": "2026-10-13T12:08:54.716008+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 129.0,
+          "shipping": 39,
+          "total_price": 168.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APE00-QN-20)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FPOSIFORLID-Eye-wipes.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.713148+00:00"
+        }
+      ]
+    },
+    {
+      "id": "posiforlid-oyemaske-1stk",
+      "name": "POSIFORLID øyemaske 1 stk",
+      "brand": "POSIFORLID",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 174.0,
+          "shipping": 0.0,
+          "total_price": 174.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103163&fid=2510&url=https://www.apotekhjem.no/posiforlid-%C3%B8yemaske-1-stk",
+          "checked_at": "2026-10-13T12:08:54.719871+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 229.0,
+          "shipping": 39,
+          "total_price": 268.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APO01-QN-17)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FPOSIFORLID-Oegonmask.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.717683+00:00"
+        }
+      ]
+    },
+    {
+      "id": "evotears-omega-3ml",
+      "name": "EvoTears OMEGA 3 ml",
+      "brand": "EvoTears",
+      "category": "oyedraper",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": 3
+      },
+      "offers": [
+        {
+          "merchant": "Apotekhjem",
+          "price": 289.0,
+          "shipping": 0.0,
+          "total_price": 289.0,
+          "availability": "in_stock",
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103601&fid=2510&url=https://www.apotekhjem.no/evotears-omega-3-ml",
+          "checked_at": "2026-10-13T12:08:54.725481+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 319.0,
+          "shipping": 39,
+          "total_price": 358.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APESE-EY-3)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FEvoTears-OMEGA.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "checked_at": "2026-10-13T12:08:54.720786+00:00"
         }
       ]
     }
