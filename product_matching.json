@@ -241,7 +241,11 @@
     "ATD12-4D-100": "blephasol-duo-100ml-100pads",
     "APE00-QN-20": "posiforlid-eye-wipes-20stk",
     "APO01-QN-17": "posiforlid-oyemaske-1stk",
-    "APESE-EY-3": "evotears-omega-3ml"
+    "APESE-EY-3": "evotears-omega-3ml",
+    "LP13": "precision1-30pk",
+    "LP19": "precision1-90pk",
+    "LN": "precision1-astigmatism-30pk",
+    "LR": "precision1-astigmatism-90pk"
   },
   "tradedoubler_lenson": {
     "$comment": "Lenson (Tradedoubler, fid=9560) -- feed aktivert 2026-08-29. Nøkkelen er offers[0].sourceProductId. Tabellen er bygget programmatisk fra allerede verifiserte scrape_targets-slugs i products_meta.json/solutions_meta.json (retailer=lenson) -- Tradedoubler sin sourceProductId er identisk med tall-suffikset i den scrapede URL-slugen (f.eks. \"tearsagain-spray-extra-10571\" -> \"10571\"), bekreftet mot ekte feed-data for samtlige 131 rader (0 mangler, 0 navnemismatch ved manuell gjennomgang) før dette ble stolt på. Dekker både kontaktlinser og linsevæske/øyedråper (samme forhandler, samme feed). RUNDE 2 (2026-08-29, bildesjekk): la til Precision7 12-/27-pack + astigmatisme-variantene (10819-10822) -- disse hadde ALDRI scrape_targets for lenson/lensway (CLAUDE.md sin historikk viser at 6-pack-varianten ble fjernet 2026-08-15 pga. feil pakningsstørrelse, men katalogen migrerte siden til ekte 12-/27-pack-IDer uten at noen la Lenson/Lensway til på nytt). Verifisert både ved distinkt eskestørrelse på selve produktbildet (12-pack synlig smalere enn 27-pack) og riktig kategori (Kontaktlinser > Ukelinser/Toriske linser).",
@@ -413,7 +417,13 @@
     "10831": "clariti-1day-multifocal-3add-30pk",
     "7068": "blephaclean-20stk",
     "9892": "medipearl-oyemaske-1stk",
-    "10573": "blephacura-70ml"
+    "10573": "blephacura-70ml",
+    "6975": "everclear-adm-5pk",
+    "6669": "everclear-air-3pk",
+    "8220": "everclear-air-1pk",
+    "7066": "everclear-elite-5pk",
+    "8221": "everclear-plus-1pk",
+    "7824": "clearcolor-1-day-phantom-2pk"
   },
   "tradedoubler_lensway": {
     "$comment": "Lensway (Tradedoubler, fid=6884) -- feed aktivert 2026-08-29. Nøkkelen er offers[0].sourceProductId. Samme fremgangsmåte som Lenson (se der) -- 129 rader hentet fra verifiserte scrape_targets-slugs, samme sourceProductId-mønster bekreftet. 4 av disse (154, 6058, 6509, 8436) fantes ikke i feeden ved siste verifisering -- utelates ikke fra tabellen (samme SKU vil garantert dukke opp igjen om Lensway får dem tilbake på lager), men gir naturligvis ingen tilbud før de faktisk finnes i feeden. Lenson og Lensway deler for øvrig samme sourceProductId per fysisk produkt (samme LensGroup-plattform, bekreftet direkte i feed-data).",
@@ -585,7 +595,13 @@
     "10831": "clariti-1day-multifocal-3add-30pk",
     "7068": "blephaclean-20stk",
     "9892": "medipearl-oyemaske-1stk",
-    "10573": "blephacura-70ml"
+    "10573": "blephacura-70ml",
+    "6975": "everclear-adm-5pk",
+    "6669": "everclear-air-3pk",
+    "8220": "everclear-air-1pk",
+    "7066": "everclear-elite-5pk",
+    "8221": "everclear-plus-1pk",
+    "7824": "clearcolor-1-day-phantom-2pk"
   },
   "adtraction_brilleland": {
     "40000013": "acuvue-moist-30pk",

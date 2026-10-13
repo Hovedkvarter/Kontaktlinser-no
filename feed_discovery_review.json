@@ -37,63 +37,63 @@
   },
   "lenson:6975": {
     "fingerprint": "787fc1749a7146f2",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear ADM",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-adm-5pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:6975": {
     "fingerprint": "5aaef9af066fce00",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear ADM",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-adm-5pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lenson:6669": {
     "fingerprint": "1af8473d90c50f23",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear AIR",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-air-3pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lenson:8220": {
     "fingerprint": "ba9baa594abc85a5",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear AIR",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-air-1pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:6669": {
     "fingerprint": "dc4aeff7b2b54397",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear AIR",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-air-3pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:8220": {
     "fingerprint": "0ecffa826df54ae2",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear AIR",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-air-1pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lenson:7066": {
     "fingerprint": "5cdf9de097a3d4f8",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear ELITE",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-elite-5pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:7066": {
     "fingerprint": "d8cd63b62a3c7299",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear ELITE",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-elite-5pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lenson:8221": {
     "fingerprint": "a2ac6137f8e8975a",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear PLUS",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-plus-1pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:8221": {
     "fingerprint": "302766576f87b997",
-    "status": "Avklar pakning",
+    "status": "Koblet til produkt",
     "family": "everclear PLUS",
-    "note": "Serien finnes allerede. Denne feed-SKU-en mangler kobling og oppgir ikke antall linser. Ikke tell som ny serie."
+    "note": "Kontrollert 2026-10-13: everclear-plus-1pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "shopping4net:CL": {
     "fingerprint": "b0a015a4fd44100f",
@@ -103,39 +103,39 @@
   },
   "lenson:7824": {
     "fingerprint": "22f586994963fa8e",
-    "status": "Ny produktkandidat",
+    "status": "Koblet til produkt",
     "family": "clearcolor 1-day Phantom",
-    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+    "note": "Kontrollert 2026-10-13: clearcolor-1-day-phantom-2pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "lensway:7824": {
     "fingerprint": "08ad57c0d353045e",
-    "status": "Ny produktkandidat",
+    "status": "Koblet til produkt",
     "family": "clearcolor 1-day Phantom",
-    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+    "note": "Kontrollert 2026-10-13: clearcolor-1-day-phantom-2pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "shopping4net:LP13": {
     "fingerprint": "cc059a2d6b263ad0",
-    "status": "Mulig ny butikkobling",
+    "status": "Koblet til produkt",
     "family": "Precision1 30-pack",
-    "note": "Produktnavn og størrelse peker på Precision1 30-pack. Kontroller endelig variant før kobling."
+    "note": "Kontrollert 2026-10-13: precision1-30pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "shopping4net:LP19": {
     "fingerprint": "6fa0e3ae3c5adc04",
-    "status": "Mulig ny butikkobling",
+    "status": "Koblet til produkt",
     "family": "Precision1 90-pack",
-    "note": "Produktnavn og størrelse peker på Precision1 90-pack. Kontroller endelig variant før kobling."
+    "note": "Kontrollert 2026-10-13: precision1-90pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "shopping4net:LN": {
     "fingerprint": "420ce57408acc824",
-    "status": "Mulig ny butikkobling",
+    "status": "Koblet til produkt",
     "family": "Precision1 for Astigmatism 30-pack",
-    "note": "Produktnavn og størrelse peker på Precision1 for Astigmatism 30-pack. Kontroller endelig variant før kobling."
+    "note": "Kontrollert 2026-10-13: precision1-astigmatism-30pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "shopping4net:LR": {
     "fingerprint": "842b271883dad071",
-    "status": "Mulig ny butikkobling",
+    "status": "Koblet til produkt",
     "family": "Precision1 for Astigmatism 90-pack",
-    "note": "Produktnavn og størrelse peker på Precision1 for Astigmatism 90-pack. Kontroller endelig variant før kobling."
+    "note": "Kontrollert 2026-10-13: precision1-astigmatism-90pk. Eksakt varenummer, produktvariant og pakning dokumentert i docs/linsepakninger-2026-10-13.md."
   },
   "extraoptical:MyDay 1 day Sphere 30 stk": {
     "fingerprint": "161a0a7b490fd389",

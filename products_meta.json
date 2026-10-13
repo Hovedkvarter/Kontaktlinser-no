@@ -7693,6 +7693,156 @@
           "14,2"
         ]
       ]
+    },
+    {
+      "id": "everclear-adm-5pk",
+      "slug": "everclear-adm-5-pack",
+      "name": "everclear ADM 5-pack",
+      "description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "long_description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "5 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-adm-5pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/6/8/4/9/0/everclear-adm-(5)-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-adm-lens-6975"
+    },
+    {
+      "id": "everclear-air-3pk",
+      "slug": "everclear-air-3-pack",
+      "name": "everclear AIR 3-pack",
+      "description": "Månedslinse fra everclear. Pakningen inneholder 3 linser.",
+      "long_description": "Månedslinse fra everclear. Pakningen inneholder 3 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "3 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-air-3pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/5/1/7/6/9/everclear-air-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-air-lens-6669"
+    },
+    {
+      "id": "everclear-air-1pk",
+      "slug": "everclear-air-1-pack",
+      "name": "everclear AIR 1-pack",
+      "description": "Månedslinse fra everclear. Pakningen inneholder 1 linse.",
+      "long_description": "Månedslinse fra everclear. Pakningen inneholder 1 linse.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "1 linse"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-air-1pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/6/0/7/7/1/everclear-air-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-air-lens-8220"
+    },
+    {
+      "id": "everclear-elite-5pk",
+      "slug": "everclear-elite-5-pack",
+      "name": "everclear ELITE 5-pack",
+      "description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "long_description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "5 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-elite-5pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/4/8/2/0/2/everclear-elite-(5)-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-elite-lens-7066"
+    },
+    {
+      "id": "everclear-plus-1pk",
+      "slug": "everclear-plus-1-pack",
+      "name": "everclear PLUS 1-pack",
+      "description": "Ukelinse fra everclear. Pakningen inneholder 1 linse.",
+      "long_description": "Ukelinse fra everclear. Pakningen inneholder 1 linse.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Ukelinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "1 linse"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-plus-1pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/3/4/0/3/2/everclear-plus-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-plus-lens-8221"
+    },
+    {
+      "id": "clearcolor-1-day-phantom-2pk",
+      "slug": "clearcolor-1-day-phantom-2-pack",
+      "name": "clearcolor 1-day Phantom 2-pack",
+      "description": "Fargede endagslinser fra ClearLab. Pakningen inneholder 2 linser i Phantom-varianten.",
+      "long_description": "Fargede endagslinser fra ClearLab. Pakningen inneholder 2 linser i Phantom-varianten.",
+      "brand_slug": "clearlab",
+      "brand_label": "ClearLab",
+      "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "2 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/clearcolor-1-day-phantom-2pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/1/4/5/0/3/new-lw-clear-color-phantom-image-original.jpg",
+      "product_source_url": "https://www.lenson.com/no/halloween-clearcolor-1-day-phantom-lens-7824"
     }
   ]
 }
