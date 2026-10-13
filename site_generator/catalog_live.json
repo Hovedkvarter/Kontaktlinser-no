@@ -22470,6 +22470,476 @@
           "shipping_policy": null
         }
       ]
+    },
+    {
+      "id": "blephaclean-20stk",
+      "slug": "blephaclean-20-stk",
+      "name": "Blephaclean 20 stk",
+      "brand_slug": "blephaclean",
+      "brand_label": "Blephaclean",
+      "solution_category": "tilbehor",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Sterile renseservietter til øyelokk fra Théa.",
+      "long_description": "Blephaclean er sterile våtservietter for rengjøring av øyelokk og huden rundt øynene. Pakningen inneholder 20 servietter. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/blephaclean-20stk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_600,c_scale/v1/product/83/img2/prod/0/8/8/4/1/blephaclena-image-original.jpg",
+      "product_source_url": "https://thea-nordic.no/product/blephaclean/",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "Blephaclean",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 95.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-7068)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fblephaclean-extra-7068)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.694156+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/8/8/4/1/blephaclena-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephaclean-20stk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "Blephaclean",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 101.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-7068)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fblephaclean-no-extra-7068)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.694628+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/0/8/9/0/2/blephaclena-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephaclean-20stk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "Blephaclean",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 99.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD1B-4D-20)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FBlephaclean-vaatservetter.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.694772+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ATD1B-4D-20_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephaclean-20stk",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "Blephaclean",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 90.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=76437&fid=2510&url=https://www.apotekhjem.no/blephaclean-sterile-v%C3%A5tservietter-20-stk",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.698554+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0036265_blephaclean-sterile-vatservietter-20-stk_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephaclean-20stk",
+          "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "medipearl-oyemaske-1stk",
+      "slug": "medipearl-oyemaske-1-stk",
+      "name": "MediPearl øyemaske 1 stk",
+      "brand_slug": "medipearl",
+      "brand_label": "MediPearl",
+      "solution_category": "tilbehor",
+      "unit_singular": "maske",
+      "unit_plural": "masker",
+      "description": "Gjenbrukbar øyemaske for varme og kulde fra Medilens.",
+      "long_description": "MediPearl er en gjenbrukbar øyemaske med temperaturbevarende perler. Pakningen inneholder én maske som kan brukes varm eller kald. Følg pakningens anvisninger for oppvarming, nedkjøling og bruk.",
+      "manual_image": "/static/products/medipearl-oyemaske-1stk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_600,c_scale/v1/product/83/img2/prod/8/5/5/3/0/medipearl-image-original.jpg",
+      "product_source_url": "https://medilensnordic.com/medipearl/",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "MediPearl",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 119.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-9892)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fmedipearl-extra-9892)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.700739+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/5/5/3/0/medipearl-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "medipearl-oyemaske-1stk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "MediPearl",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 127.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-9892)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fmedipearl-extra-9892)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.701108+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/0/7/0/3/6/medipearl-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "medipearl-oyemaske-1stk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "MediPearl",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 149.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-AMO00-MO-1)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FMediPearl-Oegonmask.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": false,
+          "checked_at": "2026-10-13T12:08:54.701222+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-AMO00-MO-1_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "medipearl-oyemaske-1stk",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "MediPearl",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 120.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=94762&fid=2510&url=https://www.apotekhjem.no/medipearl-oyemaske-1-stk",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.704492+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0040987_medipearl-oyemaske-1-stk_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "medipearl-oyemaske-1stk",
+          "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "blephacura-70ml",
+      "slug": "blephacura-70-ml",
+      "name": "BlephaCura 70 ml",
+      "brand_slug": "blephacura",
+      "brand_label": "BlephaCura",
+      "solution_category": "tilbehor",
+      "unit_singular": "flaske",
+      "unit_plural": "flasker",
+      "description": "Rensevæske for øyelokk fra Circius Pharma.",
+      "long_description": "BlephaCura er en rensevæske for pleie og rengjøring av øyelokkskantene. Flasken inneholder 70 ml. Produktet er til rengjøring av øyelokk, og skal ikke brukes som øyedråper. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/blephacura-70ml.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_600,c_scale/v1/product/83/img2/prod/1/3/7/4/6/blephacura-image-original.jpg",
+      "product_source_url": "https://www.tearsagain.no/blephacura/",
+      "size_ml": 70,
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "BlephaCura",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 183.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10573)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fblephacura-extra-10573)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.707706+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/7/4/6/blephacura-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephacura-70ml",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "BlephaCura",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 195.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10573)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fblephacura-extra-10573)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.707978+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/4/2/4/2/9/blephacura-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephacura-70ml",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "blephasol-duo-100ml-100pads",
+      "slug": "blephasol-duo-100-ml-100-pads",
+      "name": "Blephasol Duo 100 ml + 100 pads",
+      "brand_slug": "blephasol",
+      "brand_label": "Blephasol",
+      "solution_category": "tilbehor",
+      "unit_singular": "sett",
+      "unit_plural": "sett",
+      "description": "Rensevæske med bomullspads for øyelokk fra Théa.",
+      "long_description": "Blephasol Duo er et sett med 100 ml micellær rensevæske og 100 bomullspads for rengjøring av øyelokk og området rundt øynene. Prisen gjelder hele settet. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/blephasol-duo-100ml-100pads.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.apotekhjem.no/images/thumbs/0029086_blephaclean-blephasol-duo-100-ml-med-100-servietter_400.jpg",
+      "product_source_url": "https://thea-nordic.no/product/blephasol-duo/",
+      "offers": [
+        {
+          "retailer": "Shopping4net",
+          "brand": "Blephasol",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 129.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD12-4D-100)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FBlephasol-Duo.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.708910+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ATD12-4D-100_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephasol-duo-100ml-100pads",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "Blephasol",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 113.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=15977&fid=2510&url=https://www.apotekhjem.no/blephasol-duo-mservietter",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.712031+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0029086_blephaclean-blephasol-duo-100-ml-med-100-servietter_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephasol-duo-100ml-100pads",
+          "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "posiforlid-eye-wipes-20stk",
+      "slug": "posiforlid-eye-wipes-20-stk",
+      "name": "POSIFORLID Eye Wipes 20 stk",
+      "brand_slug": "posiforlid",
+      "brand_label": "POSIFORLID",
+      "solution_category": "tilbehor",
+      "unit_singular": "pakke",
+      "unit_plural": "pakker",
+      "description": "Sterile renseservietter for øyelokk fra URSAPHARM.",
+      "long_description": "POSIFORLID Eye Wipes er sterile engangsservietter for rengjøring av øyelokk og øyevipper. Pakningen inneholder 20 individuelt pakkede servietter. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/posiforlid-eye-wipes-20stk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.apotekhjem.no/images/thumbs/0044191_posiforlid-eye-wipes-20-servietter_400.jpg",
+      "product_source_url": "https://ursapharm.de/en/products/eyelid-inflammation/posiforlid-eyelid-hygiene-wipes/",
+      "offers": [
+        {
+          "retailer": "Shopping4net",
+          "brand": "POSIFORLID",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 129.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APE00-QN-20)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FPOSIFORLID-Eye-wipes.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.713148+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-APE00-QN-20_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "posiforlid-eye-wipes-20stk",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "POSIFORLID",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 113.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103222&fid=2510&url=https://www.apotekhjem.no/posiforlid-eye-wipes",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.716008+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0044191_posiforlid-eye-wipes-20-servietter_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "posiforlid-eye-wipes-20stk",
+          "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "posiforlid-oyemaske-1stk",
+      "slug": "posiforlid-oyemaske-1-stk",
+      "name": "POSIFORLID øyemaske 1 stk",
+      "brand_slug": "posiforlid",
+      "brand_label": "POSIFORLID",
+      "solution_category": "tilbehor",
+      "unit_singular": "maske",
+      "unit_plural": "masker",
+      "description": "Gjenbrukbar, selvoppvarmende øyemaske fra URSAPHARM.",
+      "long_description": "POSIFORLID øyemaske er en gjenbrukbar, selvoppvarmende maske for øyelokkene. Pakningen inneholder én maske. Følg den medfølgende bruksanvisningen for aktivering, rengjøring og gjenbruk.",
+      "manual_image": "/static/products/posiforlid-oyemaske-1stk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.apotekhjem.no/images/thumbs/0044159_posiforlid-oyemaske-1-stk_400.jpg",
+      "product_source_url": "https://ursapharm.de/en/products/eyelid-inflammation/posiforlid-eye-mask/",
+      "offers": [
+        {
+          "retailer": "Shopping4net",
+          "brand": "POSIFORLID",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 229.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APO01-QN-17)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FPOSIFORLID-Oegonmask.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.717683+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-APO01-QN-17_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "posiforlid-oyemaske-1stk",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "POSIFORLID",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 174.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103163&fid=2510&url=https://www.apotekhjem.no/posiforlid-%C3%B8yemaske-1-stk",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.719871+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0044159_posiforlid-oyemaske-1-stk_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "posiforlid-oyemaske-1stk",
+          "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "evotears-omega-3ml",
+      "slug": "evotears-omega-3-ml",
+      "name": "EvoTears OMEGA 3 ml",
+      "brand_slug": "evotears",
+      "brand_label": "EvoTears",
+      "solution_category": "oyedraper",
+      "unit_singular": "flaske",
+      "unit_plural": "flasker",
+      "description": "Vannfrie øyedråper med omega-3 fra URSAPHARM.",
+      "long_description": "EvoTears OMEGA er vannfrie øyedråper med perfluoroheksyloktan og omega-3-fettsyrer fra alger. Flasken inneholder 3 ml. OMEGA er en egen variant og sammenlignes separat fra vanlig EvoTears. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/evotears-omega-3ml.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.apotekhjem.no/images/thumbs/0044529_evotears-omega-3-ml_400.jpg",
+      "product_source_url": "https://ursapharm.de/en/products/dry-eye-syndrome/evotears-omega/",
+      "size_ml": 3,
+      "offers": [
+        {
+          "retailer": "Shopping4net",
+          "brand": "EvoTears",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 319.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APESE-EY-3)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FEvoTears-OMEGA.htm%3FsClickID%3DTradeDoubler-10-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.720786+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-APESE-EY-3_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "evotears-omega-3ml",
+          "shipping_policy": {
+            "free_over": 350,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Apotekhjem",
+          "brand": "EvoTears",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 289.0,
+          "shipping_nok": 0.0,
+          "url": "https://pin.apotekhjem.no/t/t?a=1487386095&as=2102229792&t=2&tk=1&cupa_sku=103601&fid=2510&url=https://www.apotekhjem.no/evotears-omega-3-ml",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:08:54.725481+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.apotekhjem.no/images/thumbs/0044529_evotears-omega-3-ml_400.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "evotears-omega-3ml",
+          "shipping_policy": null
+        }
+      ]
     }
   ]
 }

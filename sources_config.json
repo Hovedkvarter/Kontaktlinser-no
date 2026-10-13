@@ -1,6 +1,5 @@
 {
   "$comment": "default_source gjelder alle merker hos en forhandler, med mindre brand_overrides sier noe annet. Når en avtale godkjennes for et merke hos en forhandler: legg til/oppdater raden i brand_overrides. Ingen kodeendring nødvendig.",
-
   "interoptik": {
     "$comment": "Har hatt en adtraction-brand_override for acuvue som pekte på en falsk testfeed (feeds/adtraction_interoptik_acuvue.csv, aldri en ekte avtale) -- fjernet på eksplisitt beskjed om å bruke direktelenke i stedet for adtraction-lenken til avtale er reell. Selectorene under er verifisert mot ekte HTML (28.08.2026): server-rendrer prisen direkte, ingen JS-triks nødvendig. Ingen 'utsolgt'-indikator funnet ved verifisering -- stock_selector er derfor utelatt, alle tilbud antas på lager inntil dette er sjekket mot et faktisk utsolgt produkt. URL-strukturen er /kontaktlinser/{merke}/{produkt}/ -- slug må derfor inneholde hele stien fra merke-segmentet.",
     "display_name": "Interoptik",
@@ -9,12 +8,14 @@
       "base_url": "https://www.interoptik.no",
       "price_selector": ".price-big",
       "product_url_pattern": "/kontaktlinser/{slug}/",
-      "shipping": {"free_over": 0, "fee_nok": 0}
+      "shipping": {
+        "free_over": 0,
+        "fee_nok": 0
+      }
     },
     "$shipping_comment": "Alltid gratis frakt, ingen grense -- bekreftet direkte sitert fra kjøpsvilkår (interoptik.no/om-oss/personvern/kjops--og-leveransevilkar) 2026-08-16.",
     "brand_overrides": {}
   },
-
   "extraoptical": {
     "$chillout_comment": "chillout_feed_id er Chillouts feed-resource-id for denne kilden, ikke et tall: Adtraction-tilbudenes offer_id i lesekontrakten er 'extraoptical:<annonsorens produktnavn>'. Verdien er lest av det faktiske svaret fra produksjon 2026-09-24, ikke utledet av noe monster.",
     "chillout_feed_id": "extraoptical",
@@ -23,13 +24,15 @@
     "default_source": "affiliate_feed",
     "network": "adtraction",
     "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1123997289&asid=2102229792&gsh=1&pfid=1650&gt=0",
-    "shipping": {"free_over": 900, "fee_nok": 45},
+    "shipping": {
+      "free_over": 900,
+      "fee_nok": 45
+    },
     "$shipping_comment": "Gratis frakt over 900 kr, ellers 45 kr -- FOR KONTAKTLINSER, bekreftet direkte på en faktisk linse-produktside 2026-08-16 ('Frakt 45,- eller fri frakt over 900,-'). Extra Optical sin generelle 'frakt-og-levering'-side (extraoptical.no/kundeservice/frakt-og-levering) oppgir et ANNET tall (49 kr/gratis over 600 kr) -- den siden gjelder BRILLER (nevner 'produksjonsordre', slipe/montere glass), ikke kontaktlinser. Brukte feilaktig briller-tallet først, rettet etter at brukeren viste et skjermbilde av den faktiske linse-produktsiden. Lærdom: sjekk alltid det linse-spesifikke tallet direkte på en linse-produktside, ikke bare en generell fraktvilkår-side, hos forhandlere som også selger briller. Leses nå direkte herfra av map_adtraction_row() i ingest_feed.py (2026-08-28: mapperen generalisert til å lese retailer_cfg i stedet for et hardkodet tall, siden Apotekhjem kom til som nummer to Adtraction-forhandler) -- ikke lenger bare dokumentasjon.",
     "commission_pct": 8,
     "$commission_comment": "8% provisjon fra Adtraction, oppgitt av brukeren 2026-08-18. IKKE brukt i noen kodelogikk ennå -- kun Extra Optical har avtale i dag, så 'velg best provisjon blant flere avtalepartnere'-regelen (se _pick_lowest() i ingest_feed.py/render_templates.py) har ingenting å sammenligne. Rent dokumentasjonsfelt frem til en to. avtale finnes.",
     "brand_overrides": {}
   },
-
   "lensway": {
     "$chillout_comment": "chillout_feed_id er Tradedoubler-feedens fid, som allerede stod i $comment over. Chillout bygger sin stabile tilbudsnokkel som feed:external_id (ADR-031), sa 6884 pluss sourceProductId gir nøyaktig det offer_id lesekontrakten returnerer. Den star her som et felt fordi kode ikke kan lese en kommentar.",
     "chillout_feed_id": "6884",
@@ -88,42 +91,71 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Thealoz?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=ULTRA?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Viscotears?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
-      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=everclear?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=everclear?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Blephaclean?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Blephacura?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=MediPearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
-    "category_prefixes": ["Linser >", "Tilbehør"],
-    "shipping": {"free_over": 1199, "fee_nok": 50},
+    "category_prefixes": [
+      "Linser >",
+      "Tilbehør"
+    ],
+    "shipping": {
+      "free_over": 1199,
+      "fee_nok": 50
+    },
     "$shipping_comment": "Ingen offentlig oppgitt grense i kjøpsvilkårene (kun 'frakt vises i kassen') -- gebyret (50 kr) er bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Grensen på 1199 kr er overført fra Lenson (samme selskap/plattform/LensGroup, identisk gebyr ved identisk ordreverdi) siden Lensway ikke oppgir tallet selv -- noe lavere sikkerhet enn Lensons egen eksplisitte banner, men ikke gjettet fra tredjepart.",
     "scraper_config": {
       "base_url": "https://www.lensway.no",
       "price_source": "embedded_json",
       "embedded_json_pattern": "var universalAnalyticsInfo = '(.*?)';",
-      "embedded_json_price_path": ["productInformation", 0, "price"],
+      "embedded_json_price_path": [
+        "productInformation",
+        0,
+        "price"
+      ],
       "product_url_pattern": "/{slug}",
-      "shipping": {"free_over": 1199, "fee_nok": 50}
+      "shipping": {
+        "free_over": 1199,
+        "fee_nok": 50
+      }
     },
     "brand_overrides": {}
   },
-
   "lenson": {
     "$comment": "Tradedoubler-feed AKTIVERT 2026-08-29 (fid=9560, samme token som Shopping4net/Lensway) -- bekreftet med brukeren, tidligere PF_392-feilen er borte. Bytt fra scraper til affiliate_feed. Hele katalogen (181 varer) er allerede rene kontaktlinse-/tilbehørsprodukter ('Kontaktlinser > ...' + 'Tilbehør', ingen briller) -- category_prefixes under er dermed dobbel forsikring, ikke et reelt behov, i motsetning til Lensway. product_matching.json sin 'tradedoubler_lenson'-tabell er bygget PROGRAMMATISK fra allerede verifiserte scrape_targets-slugs, se samme forklaring i lensway sin $comment (samme LensGroup-plattform, samme mønster bekreftet for begge).",
     "display_name": "Lenson",
     "default_source": "affiliate_feed",
     "network": "tradedoubler_lenson",
-    "feed_urls": ["https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=9560?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"],
-    "category_prefixes": ["Kontaktlinser >", "Tilbehør"],
-    "shipping": {"free_over": 1199, "fee_nok": 50},
+    "feed_urls": [
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=9560?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+    ],
+    "category_prefixes": [
+      "Kontaktlinser >",
+      "Tilbehør"
+    ],
+    "shipping": {
+      "free_over": 1199,
+      "fee_nok": 50
+    },
     "$shipping_comment": "Bekreftet direkte -- eksplisitt banner i kassen 'Kjøp for minst 1199 kr for å få fri frakt', og 50 kr-gebyret bekreftet LIVE i kassen ved en ordre på 1160 kr (2026-08-16). Et tidligere tredjeparts-rykte om '799 kr' var feil -- det var faktisk en produktpris før rabatt, ikke en fraktgrense.",
     "scraper_config": {
       "base_url": "https://www.lenson.com",
       "price_source": "embedded_json",
       "embedded_json_pattern": "var universalAnalyticsInfo = '(.*?)';",
-      "embedded_json_price_path": ["productInformation", 0, "price"],
+      "embedded_json_price_path": [
+        "productInformation",
+        0,
+        "price"
+      ],
       "product_url_pattern": "/no/{slug}",
-      "shipping": {"free_over": 1199, "fee_nok": 50}
+      "shipping": {
+        "free_over": 1199,
+        "fee_nok": 50
+      }
     },
     "brand_overrides": {}
   },
-
   "shopping4net": {
     "$chillout_comment": "chillout_feed_id er Tradedoubler-feedens fid, som allerede star i feed_urls under (fid=14910) og i produksjonssvaret 2026-09-24. Tredje annonsor, andre pa Tradedoubler: nettverket er ikke nokkelen, feeden er. Den star her som et felt fordi kode ikke kan lese en kommentar.",
     "chillout_feed_id": "14910",
@@ -148,16 +180,34 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=proclear?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=freshlook?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=air%20optix?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
-      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=avaira?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=avaira?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=blephaclean?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=blephasol?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=medipearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=posiforlid?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=evotears?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
-    "category_prefixes": ["Kontaktlinser >", "Apotek > Allergi > Øyendråper", "Apotek > Øyne"],
-    "shipping": {"free_over": 700, "fee_nok": 39},
+    "category_prefixes": [
+      "Kontaktlinser >",
+      "Apotek > Allergi > Øyendråper",
+      "Apotek > Øyne"
+    ],
+    "shipping": {
+      "free_over": 700,
+      "fee_nok": 39
+    },
     "$shipping_comment": "Kontaktlinser-avdelingen har egen fri-frakt-grense (700 kr) -- ULIK Skjønnhet/Helsekost/Fitness sine 350 kr, bekreftet direkte sitert fra kjøpsvilkår (shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm) OG mot Shopping4net sin egen 'Fri Frakt'-info-modal (skjermbilde fra brukeren) 2026-08-20 ('Det er alltid den laveste grensen som gjelder hvis du kjøper fra forskjellige avdelinger'). Gebyret under grensen (39 kr) var ikke oppgitt i vilkårsteksten selv, men bekreftet direkte av brukeren 2026-08-20. Leses nå direkte herfra av map_tradedoubler_row() i ingest_feed.py (2026-08-29: mapperen generalisert til å lese retailer_cfg i stedet for hardkodede tall, siden Lenson/Lensway kom til som nummer to og tre Tradedoubler-forhandler) -- ikke lenger bare dokumentasjon.",
     "commission_pct": 10,
     "$commission_comment": "Opptil 10% provisjon, tidligere dokumentert fra research før avtalen var reell (program-id 198299 stemmer med feedens egen p(198299) i tracking-lenkene). Rent dokumentasjonsfelt, ikke brukt i kodelogikk ennå -- se samme merknad hos extraoptical.",
-    "brand_overrides": {}
+    "brand_overrides": {},
+    "shipping_by_category": {
+      "Apotek >": {
+        "free_over": 350,
+        "fee_nok": 39
+      }
+    },
+    "$shipping_by_category_comment": "Apotek har fri-frakt-grense 350 kr, kontaktlinser 700 kr. Kontrollert 2026-10-13 mot https://www.shopping4net.com/no/Informasjon/Kjoepsvilkaar.htm. Gebyr under grensen er eksisterende brukerbekreftede 39 kr."
   },
-
   "lensit": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Standard Shopify-tema (Dawn-aktig). Ingen pålitelig 'utsolgt'-indikator funnet ved verifisering -- stock_selector utelatt inntil videre. price_source er shopify_variant_json (byttet fra ren CSS-selector 2026-08-12): mange produkter finnes i flere pakningsstørrelser som variant-valg på SAMME url (f.eks. 3-pack og 6-pack), og price_selector plukket blindt opp prisen til whatever variant Shopify rendret som forhåndsvalgt -- traff feil pakningsstørrelse for 10 av 54 produkter uten noen feilmelding. Hvert scrape_target for lensit MÅ nå ha et \"variant\"-felt (Shopify sin public_title/title for riktig pakningsstørrelse, f.eks. \"6\" eller \"30\") -- se products_meta.json.",
     "display_name": "Lensit",
@@ -166,12 +216,14 @@
       "base_url": "https://www.lensit.no",
       "price_source": "shopify_variant_json",
       "product_url_pattern": "/products/{slug}",
-      "shipping": {"free_over": 0, "fee_nok": 0}
+      "shipping": {
+        "free_over": 0,
+        "fee_nok": 0
+      }
     },
     "$shipping_comment": "Hevdet alltid gratis frakt ('Fri frakt, sendes fra lager i Norge', gjentatt markedsføringstekst på lensit.no/pages/om-lensit og /pages/hvorfor-lensit) -- IKKE nevnt i selve kjøpsvilkårene, kun i markedsføring, så lavere sikkerhet enn Interoptik. Ikke live-testet i kassen (2026-08-16) -- verdt å dobbeltsjekke senere hvis det er tvil.",
     "brand_overrides": {}
   },
-
   "specsavers": {
     "$comment": "BLOKKERT for skraping: siden sitter bak en Cloudflare bot-utfordring (Cf-Mitigated: challenge, 'Just a moment...'-side, meta robots noindex,nofollow) -- bekreftet 28.08.2026. Vi løser IKKE CAPTCHA/bot-utfordringer. price_selector/stock_selector under er fortsatt uverifiserte gjetninger fra tidligere og har aldri blitt testet mot ekte HTML siden vi ikke kommer forbi utfordringen med vanlige HTTP-kall.",
     "display_name": "Specsavers",
@@ -184,7 +236,6 @@
     },
     "brand_overrides": {}
   },
-
   "synsam": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. Next.js-app: pris finnes IKKE i vanlig DOM (som Lenson/Lensway), men embedded_json fungerer fint her siden Synsam bruker Next.js sitt standard __NEXT_DATA__-mønster (mer stabilt enn Lensons egendefinerte analytics-blob). Ingen 'utsolgt'-felt funnet på toppnivå i article-objektet -- stock_selector utelatt, alle tilbud antas på lager inntil videre.",
     "display_name": "Synsam",
@@ -193,14 +244,24 @@
       "base_url": "https://www.synsam.no",
       "price_source": "embedded_json",
       "embedded_json_pattern": "<script id=\"__NEXT_DATA__\" type=\"application/json\">(.*?)</script>",
-      "embedded_json_price_path": ["props", "pageProps", "productPage", "article", "price", "unit", "ordinaryPrice"],
+      "embedded_json_price_path": [
+        "props",
+        "pageProps",
+        "productPage",
+        "article",
+        "price",
+        "unit",
+        "ordinaryPrice"
+      ],
       "product_url_pattern": "/{slug}",
-      "shipping": {"free_over": null, "fee_nok": 39}
+      "shipping": {
+        "free_over": null,
+        "fee_nok": 39
+      }
     },
     "$shipping_comment": "INGEN fri-frakt-grense for enkeltbestillinger -- 39 kr gjelder alltid, uansett beløp (kun linseabonnement har gratis frakt, som vi ikke skraper/følger). Bekreftet direkte sitert fra kjøpsvilkår (synsam.no/kjøps-og-leveransevilkår) 2026-08-16. free_over=null er bevisst, ikke en glipp -- betyr 'aldri gratis', se compute_shipping_nok() i offer.py.",
     "brand_overrides": {}
   },
-
   "brilleland": {
     "destination_corrections": {
       "40000310": {
@@ -229,7 +290,6 @@
       "fee_nok": 59
     }
   },
-
   "coptikk": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. robots.txt er tomt (kun sitemap, ingen disallow), kjøpsvilkår har ingen anti-skraping-klausul -- sjekket 2026-08-16. Litium-plattform: prisen finnes ALDRI i server-rendret HTML på selve produktsiden (bekreftet -- class=\"price\" er fraværende i rå-respons, kun injisert av JS etter sidelast via et JSON-API). FORSØKTE FØRST å hente prisen direkte fra det API-et (/api/product/getproductitem?articleNumber={id}) -- fungerte i én natulig nettleser-sidelast, men ga konsekvent 500-feil ved isolerte kall utenfor en ordinær nettleser-økt (testet flere ganger, også etter ventetid -- ikke rate-limiting). Siden produksjonsskraperen gjør nøyaktig den typen isolerte kall (ren requests.get(), ingen browser-sesjon), ble API-tilnærmingen forkastet som upålitelig FØR noe ble lagt til products_meta.json. Løsning: kategori-LISTE-sidene (f.eks. /linsebutikk/manedslinser) ER fullt server-rendret med schema.org Product/Offer-mikrodata (pris+lagerstatus+URL) for hvert produkt i listen -- bekreftet stabil ved gjentatt testing. price_source=listing_page henter derfor listesiden i stedet for produktsiden, og matcher riktig produkt på dets egen URL-sti. slug i scrape_targets er derfor produktets EGEN fulle URL-sti (f.eks. 'linsebutikk/manedslinser/biofinity-energys-6-linser'), IKKE et artikkelnummer -- se _find_offer_in_listing_page() i scraper.py.",
     "display_name": "Coptikk",
@@ -237,12 +297,14 @@
     "scraper_config": {
       "base_url": "https://www.coptikk.no",
       "price_source": "listing_page",
-      "shipping": {"free_over": 500, "fee_nok": 50}
+      "shipping": {
+        "free_over": 500,
+        "fee_nok": 50
+      }
     },
     "$shipping_comment": "Gratis frakt over 500 kr, ellers 50 kr. Bekreftet direkte sitert fra produktside (coptikk.no/linsebutikk) 2026-08-16.",
     "brand_overrides": {}
   },
-
   "vitusapotek": {
     "$comment": "Ny forhandler (Clearlii/Pegavision-onboarding, 2026-08-20). robots.txt tillater alt utenom /cart, /checkout, /api -- ingen disallow på produktsider. Salgsbetingelser (vitusapotek.no/c/salgsbetingelser/a/A74023) har ingen anti-skraping-klausul -- sjekket 2026-08-20. Diopter-spesifikke produkt-URL-er (funnet via søk) gir 404 ved direkte kall -- de ser ut til å flyttes/utgå. Merke-hub-siden (vare-merker/{merke}/c/{id}) avslører i stedet en STABIL, generisk '-base-'-URL per pakningsstørrelse (ikke styrke-spesifikk) -- denne har alltid en fast pris uavhengig av styrke, bekreftet server-rendret via schema.org Product/Offer JSON-LD (application/ld+json, FØRSTE script-tag på siden -- andre er BreadcrumbList). embedded_json_price_path henter offers.price direkte. availability-feltet er en streng (schema.org/InStock), ikke bool -- embedded_json_stock_path er derfor utelatt (samme mønster som Lensway/Lenson/Synsam), alle tilbud antas på lager.",
     "display_name": "Vitusapotek",
@@ -251,13 +313,15 @@
       "base_url": "https://www.vitusapotek.no",
       "price_source": "embedded_json",
       "embedded_json_pattern": "<script type=\"application/ld\\+json\">(.*?)</script>",
-      "embedded_json_price_path": ["offers", "price"],
+      "embedded_json_price_path": [
+        "offers",
+        "price"
+      ],
       "product_url_pattern": "/{slug}"
     },
     "$shipping_comment": "Gratis frakt over 450 kr, bekreftet direkte sitert fra salgsbetingelser (vitusapotek.no/c/salgsbetingelser/a/A74023) 2026-08-20 ('All kjøp over kr 450 sendes fraktfritt'). Under 450 kr oppgis IKKE et fast gebyr -- 'Fraktkostnadene beregnes utifra vekt og volum og er i henhold til PostNord sine satser', altså variabelt per ordre. Utelater derfor 'shipping'-feltet helt i stedet for å gjette et tall -- compute_shipping_nok() i offer.py returnerer da 0.0 som eksplisitt 'ukjent'-standard, som er tryggere enn et gjettet fast gebyr.",
     "brand_overrides": {}
   },
-
   "apotekfordeg": {
     "$comment": "Ny forhandler (Clearlii/Pegavision-onboarding, 2026-08-20). robots.txt tillater produktsider (kun kontrollpanel/søk/faktura-endepunkter blokkert), eksplisitt Allow for ClaudeBot/OAI-SearchBot/PerplexityBot. Kjøp- og betalingsbetingelser (apotekfordeg.no/pages/conditions) har ingen anti-skraping-klausul -- sjekket 2026-08-20. VIKTIG BEGRENSNING: denne forhandleren har INGEN generisk produktside per pakningsstørrelse (i motsetning til Vitusapotek sin '-base-'-URL) -- hver styrke/diopter har sin egen unike URL og egen pris (f.eks. .../clearlii-daily-soft-endagslinser-30-pk--300 for -3,00). Siden hele siden vår sammenligner PER PAKNING (ikke per styrke), er -3,00 valgt som referanse-styrke for alle 4 Clearlii-produkter her (vanlig, bredt lagerført myopi-styrke, bekreftet i lager på alle 4 pakningene 2026-08-20) -- prisen kan derfor avvike noe fra hva en bruker med en annen styrke faktisk betaler hos denne ene forhandleren. Prisen ligger som TEKST i JSON-LD (\"197.00\", ikke tall 197) inne i @graph[0].mainEntity.offers.price -- se _find_price_in_embedded_json() i scraper.py som ble utvidet 2026-08-20 til å parse prisstrenger, ikke bare rene JSON-tall. availability er en streng, ikke bool -- embedded_json_stock_path utelatt, alle tilbud antas på lager (samme mønster som de andre embedded_json-forhandlerne).",
     "display_name": "Apotek For Deg",
@@ -266,14 +330,22 @@
       "base_url": "https://www.apotekfordeg.no",
       "price_source": "embedded_json",
       "embedded_json_pattern": "<script type=\"application/ld\\+json\">(.*?)</script>",
-      "embedded_json_price_path": ["@graph", 0, "mainEntity", "offers", "price"],
+      "embedded_json_price_path": [
+        "@graph",
+        0,
+        "mainEntity",
+        "offers",
+        "price"
+      ],
       "product_url_pattern": "/products/{slug}",
-      "shipping": {"free_over": 995, "fee_nok": 69}
+      "shipping": {
+        "free_over": 995,
+        "fee_nok": 69
+      }
     },
     "$shipping_comment": "Gratis frakt over 995 kr (695 kr for medlemmer -- bruker ikke-medlem-tallet som konservativ standard), ellers 69 eller 89 kr avhengig av leveringsalternativ -- bekreftet direkte sitert fra frakt-og-levering-siden (apotekfordeg.no/pages/frakt-og-levering) 2026-08-20 ('kr 69 eller kr 89 per forsendelse beroende på leveringsalternativ'). Bruker laveste tall (69 kr) som standard siden det ikke er entydig hvilket alternativ som er default i kassen.",
     "brand_overrides": {}
   },
-
   "apotekhjem": {
     "$comment": "Ekte Adtraction-avtale godkjent, feed-URL levert av brukeren 2026-08-28 (pfid=2510). Andre Adtraction-forhandler på siden -- se apotekhjem-notatet i extraoptical sin $comment over. Feeden er Apotekhjem sin FULLE apotek-/dyrebutikk-katalog (9416 varer 2026-08-28, kun en brøkdel relevant for kontaktlinser.no) -- product_matching.json sin 'adtraction_apotekhjem'-nøkkel er derfor den ENESTE sikkerhetssperren mot at et helt urelatert produkt (vitaminer, dyrefôr, osv.) limes inn, ingen kategorifilter i map_adtraction_row() selv (samme prinsipp som ExtraOptical, som også er en full feed). URL-en bruker format=CSV&cdelim=comma&tdelim=doublequote i stedet for brukerens opprinnelige format=XML&cdelim=tab&tdelim=singlequote -- samme underliggende Adtraction-eksport, men CSV-varianten gjenbruker _load_feed_rows()/csv.DictReader() som allerede finnes for ExtraOptical i stedet for å bygge egen XML-parsing. Verifisert 2026-08-28: identisk kolonnestruktur (id/title/link/image_link/price/availability) og samme 9416 rader uansett format-parameter. Kun linsevæske/øyedråper-produkter er koblet i product_matching -- se product_matching.json sin 'adtraction_apotekhjem'-kommentar for full liste og de to datakvalitetsfunnene (feil produktbeskrivelse på én Clearlii-rad, to sammenblandede Hyprosan-rader) som ble luket ut underveis.",
     "display_name": "Apotekhjem",
@@ -285,7 +357,6 @@
     "$commission_comment": "Ikke oppgitt av brukeren ennå -- rent dokumentasjonsfelt uansett, se samme merknad hos extraoptical/shopping4net.",
     "brand_overrides": {}
   },
-
   "kroghoptikk": {
     "$comment": "Affiliate-nettverk ikke bekreftet i research -- avklar direkte med dem. robots.txt blokkerer kun /craft/ (admin-panelet til Craft CMS) -- ingen disallow på produktsider. Kjøps-/leveringsvilkår har ingen anti-skraping-klausul -- sjekket 2026-08-16. Server-rendrer prisen direkte i HTML-en (bekreftet -- class=\"price-tag\" finnes i rå-respons, ingen JS-triks nødvendig, som Interoptik/Brilleland). URL-strukturen er /linser/{kategori}/{produkt} -- slug må derfor inneholde hele stien fra kategori-segmentet (samme mønster som Interoptik). Ingen 'utsolgt'-indikator funnet ved verifisering av et produkt på lager -- stock_selector utelatt inntil videre, som de andre CSS-selector-forhandlerne.",
     "display_name": "Krogh Optikk",
