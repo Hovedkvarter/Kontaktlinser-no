@@ -21,7 +21,12 @@
           "retailer": "lensway",
           "slug": "renu-multi-purpose-extra-5"
         }
-      ]
+      ],
+      "manual_image": "/static/products/renu-multipurpose-60ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/2/2/4/renu60-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/2/2/2/4/renu60-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "renu-multipurpose-240ml",
@@ -43,7 +48,12 @@
           "retailer": "lensway",
           "slug": "renu-multi-purpose-extra-280"
         }
-      ]
+      ],
+      "manual_image": "/static/products/renu-multipurpose-240ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/6/7/8/2/renu240-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/3/6/7/8/2/renu240-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "renu-multipurpose-360ml",
@@ -65,7 +75,12 @@
           "retailer": "lensway",
           "slug": "renu-multi-purpose-extra-102"
         }
-      ]
+      ],
+      "manual_image": "/static/products/renu-multipurpose-360ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/5/4/8/8/renu360-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/5/4/8/8/renu360-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "optifree-puremoist-90ml",
@@ -87,7 +102,12 @@
           "retailer": "lensway",
           "slug": "opti-free-puremoist-extra-1334"
         }
-      ]
+      ],
+      "manual_image": "/static/products/optifree-puremoist-90ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/2/2/1/9/lo-of-puremoist-90-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/2/2/1/9/lo-of-puremoist-90-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "optifree-puremoist-300ml",
@@ -109,7 +129,12 @@
           "retailer": "lensway",
           "slug": "opti-free-puremoist-extra-1335"
         }
-      ]
+      ],
+      "manual_image": "/static/products/optifree-puremoist-300ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/6/0/9/2/lo-of-puremoist-300-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/6/0/9/2/lo-of-puremoist-300-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "optifree-express-355ml",
@@ -131,7 +156,12 @@
           "retailer": "lensway",
           "slug": "opti-free-express-extra-56"
         }
-      ]
+      ],
+      "manual_image": "/static/products/optifree-express-355ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/7/2/3/3/lo-of-express-355-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/7/2/3/3/lo-of-express-355-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "optifree-express-120ml",
@@ -144,7 +174,9 @@
       "solution_category": "linsevaeske",
       "description": "Multipurpose linsevæske fra Alcon.",
       "long_description": "Opti-Free Express er Alcons rimeligere flerbruksløsning for rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser. Denne reisestørrelsen er praktisk for kortere turer.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/optifree-express-120ml.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "aosept-plus-360ml",
@@ -166,7 +198,12 @@
           "retailer": "lensway",
           "slug": "aosept-plus-extra-864"
         }
-      ]
+      ],
+      "manual_image": "/static/products/aosept-plus-360ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/4/9/7/9/aosept-plus-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/0/4/9/7/9/aosept-plus-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "easysept-360ml",
@@ -188,7 +225,12 @@
           "retailer": "lensway",
           "slug": "easysept-extra-303"
         }
-      ]
+      ],
+      "manual_image": "/static/products/easysept-360ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/9/5/7/6/easysept360-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/9/5/7/6/easysept360-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "easysept-120ml",
@@ -210,7 +252,12 @@
           "retailer": "lensway",
           "slug": "easysept-extra-50"
         }
-      ]
+      ],
+      "manual_image": "/static/products/easysept-120ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/9/1/9/3/easysept120-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/9/1/9/3/easysept120-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "solocare-aqua-360ml",
@@ -232,7 +279,12 @@
           "retailer": "lensway",
           "slug": "solo-care-aqua-extra-149"
         }
-      ]
+      ],
+      "manual_image": "/static/products/solocare-aqua-360ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/9/9/0/5/3/lo-solocare-aqua-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/202/img2/prod/9/9/0/5/3/lo-solocare-aqua-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biotrue-solution-300ml",
@@ -254,7 +306,12 @@
           "retailer": "lensway",
           "slug": "biotrue-extra-947"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-solution-300ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/5/4/3/6/biotrue300-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/5/4/3/6/biotrue300-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-refresh-250ml",
@@ -276,7 +333,12 @@
           "retailer": "lensway",
           "slug": "everclear-refresh-extra-8157"
         }
-      ]
+      ],
+      "manual_image": "/static/products/everclear-refresh-250ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/5/2/8/everclear-refresh-lw-case.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/2/5/2/8/everclear-refresh-lw-case.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxysept-1step-300ml",
@@ -298,7 +360,12 @@
           "retailer": "lensway",
           "slug": "oxysept-1-step-extra-6406"
         }
-      ]
+      ],
+      "manual_image": "/static/products/oxysept-1step-300ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/3/4/9/7/lo-oxysept-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/3/4/9/7/lo-oxysept-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-revitalens-100ml",
@@ -320,7 +387,12 @@
           "retailer": "lensway",
           "slug": "acuvue-revitalens-extra-7832"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-revitalens-100ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/6/1/5/3/lo-acuvue-revitalens-100-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/6/1/5/3/lo-acuvue-revitalens-100-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-revitalens-300ml",
@@ -342,7 +414,12 @@
           "retailer": "lensway",
           "slug": "acuvue-revitalens-extra-7833"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-revitalens-300ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/5/6/9/8/lw-acuvue-revitalens-300-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/5/6/9/8/lw-acuvue-revitalens-300-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "swati-lens-solution-100ml",
@@ -364,7 +441,12 @@
           "retailer": "lensway",
           "slug": "swati-lens-solution-100-ml-extra-9576"
         }
-      ]
+      ],
+      "manual_image": "/static/products/swati-lens-solution-100ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/6/9/9/lens-solution-100ml-original-image-2.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/1/6/9/9/lens-solution-100ml-original-image-2.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "systane-ultra-10ml",
@@ -385,7 +467,12 @@
           "retailer": "lensway",
           "slug": "systane-ultra-extra-10089"
         }
-      ]
+      ],
+      "manual_image": "/static/products/systane-ultra-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/0/9/1/systane-ultra-mdpf.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/3/0/9/1/systane-ultra-mdpf.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "systane-complete-10ml",
@@ -406,7 +493,12 @@
           "retailer": "lensway",
           "slug": "systane-complete-extra-10088"
         }
-      ]
+      ],
+      "manual_image": "/static/products/systane-complete-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/4/7/5/9/systane-complete-mdpf.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/4/7/5/9/systane-complete-mdpf.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "systane-hydration-10ml",
@@ -427,7 +519,12 @@
           "retailer": "lensway",
           "slug": "systane-hydration-extra-10090"
         }
-      ]
+      ],
+      "manual_image": "/static/products/systane-hydration-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-care-10ml",
@@ -448,7 +545,12 @@
           "retailer": "lensway",
           "slug": "hylo-care-extra-2263"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-care-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/7/8/8/7/hylo-care.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/7/8/8/7/hylo-care.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-gel-10ml",
@@ -469,7 +571,12 @@
           "retailer": "lensway",
           "slug": "hylo-gel-extra-2264"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-gel-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/2/9/0/hylo-gel.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/3/2/9/0/hylo-gel.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-fresh-10ml",
@@ -490,7 +597,12 @@
           "retailer": "lensway",
           "slug": "hylo-fresh-extra-9887"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-fresh-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/1/5/6/3/hylo-fresh.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/1/5/6/3/hylo-fresh.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-comod-10ml",
@@ -511,7 +623,12 @@
           "retailer": "lensway",
           "slug": "hylo-comod-extra-9888"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-comod-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/4/9/2/hylo-comod.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/4/4/4/9/2/hylo-comod.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-dual-10ml",
@@ -532,7 +649,12 @@
           "retailer": "lensway",
           "slug": "hylo-dual-extra-9889"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-dual-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/3/7/9/8/hylo-dual.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/4/3/7/9/8/hylo-dual.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-dual-intense-10ml",
@@ -553,7 +675,12 @@
           "retailer": "lensway",
           "slug": "hylo-dual-intense-extra-9890"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-dual-intense-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/6/0/3/8/hylo-dual-intense.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/6/0/3/8/hylo-dual-intense.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "thealoz-duo-10ml",
@@ -574,7 +701,12 @@
           "retailer": "lensway",
           "slug": "thealoz-duo-extra-10562"
         }
-      ]
+      ],
+      "manual_image": "/static/products/thealoz-duo-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/3/3/7/3/thealoz-duo-no-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/3/3/7/3/thealoz-duo-no-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxyal-trehalos-duo-action-10ml",
@@ -595,7 +727,12 @@
           "retailer": "lensway",
           "slug": "oxyal-trehalos-duo-action-extra-9641"
         }
-      ]
+      ],
+      "manual_image": "/static/products/oxyal-trehalos-duo-action-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/8/3/4/trehalos-duo-action-lo-image-original-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/2/8/3/4/trehalos-duo-action-lo-image-original-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxyal-trehalos-triple-action-10ml",
@@ -616,7 +753,12 @@
           "retailer": "lensway",
           "slug": "oxyal-trehalos-triple-action-extra-9642"
         }
-      ]
+      ],
+      "manual_image": "/static/products/oxyal-trehalos-triple-action-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/7/2/5/trehalos-triple-action-lo-image-original-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/5/7/2/5/trehalos-triple-action-lo-image-original-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxyal-triple-action-10ml",
@@ -637,7 +779,12 @@
           "retailer": "lensway",
           "slug": "oxyal-triple-action-extra-9643"
         }
-      ]
+      ],
+      "manual_image": "/static/products/oxyal-triple-action-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/4/9/3/9/triple-action-lo-image-original-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/4/9/3/9/triple-action-lo-image-original-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "tearsagain-10ml",
@@ -658,7 +805,12 @@
           "retailer": "lensway",
           "slug": "tearsagain-extra-10572"
         }
-      ]
+      ],
+      "manual_image": "/static/products/tearsagain-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/3/5/7/3/tearsagain-ogondroppar-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/2/3/5/7/3/tearsagain-ogondroppar-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "tearsagain-spray-10ml",
@@ -679,7 +831,12 @@
           "retailer": "lensway",
           "slug": "tearsagain-spray-extra-10571"
         }
-      ]
+      ],
+      "manual_image": "/static/products/tearsagain-spray-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/6/0/9/2/tearsagain10.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/6/0/9/2/tearsagain10.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "tearsagain-sensitive-spray-10ml",
@@ -700,7 +857,12 @@
           "retailer": "lensway",
           "slug": "tearsagain-sensitive-spray-extra-10570"
         }
-      ]
+      ],
+      "manual_image": "/static/products/tearsagain-sensitive-spray-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/0/8/8/4/tearsagain-sensitive.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/3/0/8/8/4/tearsagain-sensitive.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "eyz-plus-10ml",
@@ -721,7 +883,12 @@
           "retailer": "lensway",
           "slug": "eyz-plus-extra-10566"
         }
-      ]
+      ],
+      "manual_image": "/static/products/eyz-plus-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/5/4/1/1/eyz-plus-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/4/5/4/1/1/eyz-plus-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "eyz-protect-10ml",
@@ -742,7 +909,12 @@
           "retailer": "lensway",
           "slug": "eyz-protect-extra-10569"
         }
-      ]
+      ],
+      "manual_image": "/static/products/eyz-protect-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/0/0/8/5/eyz-protect-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/0/0/8/5/eyz-protect-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "add1-10ml",
@@ -763,7 +935,12 @@
           "retailer": "lensway",
           "slug": "add1-extra-6280"
         }
-      ]
+      ],
+      "manual_image": "/static/products/add1-10ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/1/5/4/6/lo-add1-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/1/5/4/6/lo-add1-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clearlii-multipurpose-100ml",
@@ -776,7 +953,13 @@
       "solution_category": "linsevaeske",
       "description": "Multipurpose linsevæske fra Clearlii.",
       "long_description": "Clearlii Multi-Purpose er en flerbruksløsning for rengjøring, desinfeksjon, skylling og oppbevaring av myke kontaktlinser i ett trinn.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/clearlii-multipurpose-100ml-hq.jpeg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0014240_clearlii-multi-purpose-100-ml.jpeg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0014240_clearlii-multi-purpose-100-ml.jpeg",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/-clearlii-apolinsen-multi-purpose-linsevaeske-100ml"
     },
     {
       "id": "artelac-10ml",
@@ -788,7 +971,13 @@
       "solution_category": "oyedraper",
       "description": "Fuktighetsdråper for tørre øyne.",
       "long_description": "Artelac er øyedråper mot tørre øyne ved nedsatt tåreproduksjon, i praktisk 10 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/artelac-10ml-hq.png",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0040162_artelac-oyedraper-10ml.png",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0040162_artelac-oyedraper-10ml.png",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/artelac-%C3%B8yedr"
     },
     {
       "id": "viscotears-10ml",
@@ -803,7 +992,13 @@
       "scrape_targets": [],
       "size_unit": "g",
       "unit_singular": "tube",
-      "unit_plural": "tuber"
+      "unit_plural": "tuber",
+      "manual_image": "/static/products/viscotears-10ml-hq.png",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0040181_viscotears-oyegel-10g.png",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0040181_viscotears-oyegel-10g.png",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/viscotears-%C3%B8yegel-2"
     },
     {
       "id": "evotears-3ml",
@@ -815,7 +1010,12 @@
       "solution_category": "oyedraper",
       "description": "Øyedråper for tørre øyne ved lipidmangel.",
       "long_description": "EvoTears er øyedråper som erstatter tårefilmens lipidlag, beregnet for tørre øyne forårsaket av lipidmangel (MGD), i praktisk 3 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/evotears-3ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.interoptik.no/globalassets/from-pim/evotears-oyedraper/7350023250108_20.jpg",
+      "image_retrieved_url": "https://www.interoptik.no/globalassets/from-pim/evotears-oyedraper/7350023250108_20.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hyprosan-10ml",
@@ -827,7 +1027,13 @@
       "solution_category": "oyedraper",
       "description": "Reseptfrie øyedråper mot tørre øyne.",
       "long_description": "Hyprosan er reseptfrie øyedråper (3,2 mg/ml) som erstatter naturlige tårer og fukter øynene, i praktisk 10 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/hyprosan-10ml-hq.jpeg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0040138_hyprosan-oyedraper-32mgml.jpeg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0040138_hyprosan-oyedraper-32mgml.jpeg",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/hyprosan-%C3%B8yedr-32mgml"
     },
     {
       "id": "bevita-eye-pro-forte-10ml",
@@ -839,7 +1045,13 @@
       "solution_category": "oyedraper",
       "description": "Fuktende øyedråper for moderat til alvorlig tørre øyne.",
       "long_description": "Bevita Eye Pro Forte er fuktende, beskyttende og smørende øyedråper for moderate til alvorlige tørre øyne, uten konserveringsmidler, i praktisk 10 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/bevita-eye-pro-forte-10ml-hq.png",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0044831_bevita-eye-pro-forte-oyedraper-10-ml-intensiv-fukt-til-torre-oyne.png",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0044831_bevita-eye-pro-forte-oyedraper-10-ml-intensiv-fukt-til-torre-oyne.png",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/bevita-eye-pro-forte-%C3%B8yedr%C3%A5per-10-ml"
     },
     {
       "id": "posiforlid-eye-spray-15ml",
@@ -851,7 +1063,13 @@
       "solution_category": "oyedraper",
       "description": "Øyespray for pleie av øyelokk.",
       "long_description": "POSIFORLID øyespray er beregnet for daglig hygiene og pleie av irriterte øyelokk og øyelokkskanter, i praktisk 15 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/posiforlid-eye-spray-15ml-hq.jpeg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0044516_posiforlid-eye-spray-15-ml.jpeg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0044516_posiforlid-eye-spray-15-ml.jpeg",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/posiforlid-eye-spray-t%C3%B8rre-%C3%B8yne-%C3%B8yelokkspleie"
     },
     {
       "id": "desodrop-8ml",
@@ -863,7 +1081,13 @@
       "solution_category": "oyedraper",
       "description": "Fuktighetsgivende øyedråper uten konserveringsmidler.",
       "long_description": "Desodrop er fuktighetsgivende øyedråper uten konserveringsmidler som lindrer tørre, irriterte øyne, i praktisk 8 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/desodrop-8ml-hq.png",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0044220_desodrop-oyedraper-8-ml-fuktighet-og-lindring-for-torre-oyne.png",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0044220_desodrop-oyedraper-8-ml-fuktighet-og-lindring-for-torre-oyne.png",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/desodrop-%C3%B8yedr%C3%A5per-8-ml-fuktighet-og-lindring-for-t%C3%B8rre-%C3%B8yne"
     },
     {
       "id": "cleye-10ml",
@@ -900,7 +1124,12 @@
       "solution_category": "linsevaeske",
       "description": "Multipurpose linsevæske fra Consol.",
       "long_description": "Extend er en flerbruksløsning fra Consol for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/extend-355ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/4/2/9/4/extend-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/4/2/9/4/extend-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "extend-100ml",
@@ -913,7 +1142,12 @@
       "solution_category": "linsevaeske",
       "description": "Multipurpose linsevæske fra Consol.",
       "long_description": "Extend er en flerbruksløsning fra Consol for rengjøring, skylling, desinfeksjon og oppbevaring av myke kontaktlinser, her i reisestørrelse.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/extend-100ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/5/6/5/extend-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/0/1/5/6/5/extend-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biotrue-flight-pack-100ml",
@@ -937,7 +1171,12 @@
           "retailer": "lensway",
           "slug": "biotrue-flight-pack-100ml-extra-9606"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-flight-pack-100ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/5/8/2/8/lo-biotrue-flight-pack-100ml-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/5/8/2/8/lo-biotrue-flight-pack-100ml-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "renu-flight-pack-100ml",
@@ -961,7 +1200,12 @@
           "retailer": "lensway",
           "slug": "renu-flight-pack-100ml-extra-9605"
         }
-      ]
+      ],
+      "manual_image": "/static/products/renu-flight-pack-100ml-hq.png",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/0/3/3/6/renuflightpack-image-original.png",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/0/3/3/6/renuflightpack-image-original.png",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-refresh-x3-750ml",
@@ -985,7 +1229,12 @@
           "retailer": "lensway",
           "slug": "everclear-refresh-x3-extra-9613"
         }
-      ]
+      ],
+      "manual_image": "/static/products/everclear-refresh-x3-750ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/1/4/9/2/everclear-refresh-3-pack-lensway-original-image-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/1/4/9/2/everclear-refresh-3-pack-lensway-original-image-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxyal-care-gel-10g",
@@ -1009,7 +1258,12 @@
           "retailer": "lensway",
           "slug": "oxyal-care-extra-9639"
         }
-      ]
+      ],
+      "manual_image": "/static/products/oxyal-care-gel-10g-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/6/2/2/8/care-lo-image-original-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/6/2/2/8/care-lo-image-original-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "hylo-night-5g",
@@ -1033,7 +1287,12 @@
           "retailer": "lensway",
           "slug": "hylo-night-extra-10087"
         }
-      ]
+      ],
+      "manual_image": "/static/products/hylo-night-5g-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/4/1/5/2/hylo-night.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/4/1/5/2/hylo-night.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "eyz-night-5g",
@@ -1057,7 +1316,12 @@
           "retailer": "lensway",
           "slug": "eyz-night-extra-10567"
         }
-      ]
+      ],
+      "manual_image": "/static/products/eyz-night-5g-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/3/8/8/eyz-night-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/1/3/8/8/eyz-night-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "eyz-clean-20pk",
@@ -1079,7 +1343,12 @@
           "retailer": "lensway",
           "slug": "eyz-clean-extra-10568"
         }
-      ]
+      ],
+      "manual_image": "/static/products/eyz-clean-20pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/9/7/6/eyz-clean-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/5/9/7/6/eyz-clean-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "oxyal-total-care-spray-17ml",
@@ -1091,7 +1360,12 @@
       "solution_category": "oyedraper",
       "description": "Øyespray fra Bausch + Lomb.",
       "long_description": "OXYAL Total Care Spray er en øyespray fra Bausch + Lomb, i praktisk 17 ml flaske.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/oxyal-total-care-spray-17ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0041602_oxyal-total-care-oyespray-17ml_400.jpg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0041602_oxyal-total-care-oyespray-17ml_600.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "thealoz-duo-gel-30x04g",
@@ -1104,7 +1378,12 @@
       "unit_plural": "pakker",
       "description": "Øyegel i pakke med 30 doser fra Théa.",
       "long_description": "Thealoz Duo Gel er en øyegel fra Théa, i pakke med 30 doser à 0,4 g.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/thealoz-duo-gel-30x04g-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.interoptik.no/globalassets/from-pim/thealoz-duo-gel-30x04ml/3662042004032_20.jpg",
+      "image_retrieved_url": "https://www.interoptik.no/globalassets/from-pim/thealoz-duo-gel-30x04ml/3662042004032_20.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "swati-lens-case-tweezers",
@@ -1126,7 +1405,12 @@
           "retailer": "lensway",
           "slug": "swati-lens-case-tweezers-extra-9577"
         }
-      ]
+      ],
+      "manual_image": "/static/products/swati-lens-case-tweezers-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/5/6/5/0/lens-case-original-image-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/4/5/6/5/0/lens-case-original-image-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "ezy-drop-eye-drop-guide",
@@ -1139,7 +1423,13 @@
       "unit_plural": "stk",
       "description": "Dråpestøtte som gjør det enklere å ta øyedråper.",
       "long_description": "Ezy-Drop er en dråpestøtte i myk silikon som holder øyedråpeflasken stødig i riktig stilling, slik at dråpene treffer øyet. Til flergangsbruk, og passer til de fleste øyedråpeflasker.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/ezy-drop-eye-drop-guide-hq.jpeg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0041374_ezy-drop-eye-drop-guide.jpeg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0041374_ezy-drop-eye-drop-guide.jpeg",
+      "image_reviewed_at": "2026-10-13",
+      "image_source_page": "https://www.apotekhjem.no/ezy-drop-dr%C3%A5pe-drypper"
     },
     {
       "id": "drop-it-20x5ml",
@@ -1152,7 +1442,12 @@
       "unit_plural": "pakker",
       "description": "Steril saltvannsløsning i engangspipetter.",
       "long_description": "Drop-it er en steril saltvannsløsning (0,9 % natriumklorid) uten konserveringsmiddel, i engangspipetter (20 × 5 ml). Fukter øynene ved midlertidig tørrhet og skyller bort støv, skitt og pollen.",
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/drop-it-20x5ml-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.apotekhjem.no/images/thumbs/0039303_drop-it-oyedraper-engangspipetter_400.jpg",
+      "image_retrieved_url": "https://www.apotekhjem.no/images/thumbs/0039303_drop-it-oyedraper-engangspipetter_600.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "blephaclean-20stk",

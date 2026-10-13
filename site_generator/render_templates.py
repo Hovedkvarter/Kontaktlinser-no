@@ -3144,6 +3144,8 @@ def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy
 
     Browsers selecting a missing <source> do not fall back to the <img>.
     """
+    if _is_own_illustration(image_url):
+        alt = "Egen illustrasjon av " + alt
     cls_attr = f' class="{escape(css_class)}"' if css_class else ""
     dims = _dim_attrs(image_url)
     if (image_url.startswith("/static/products/") and image_url.endswith(".jpg")
@@ -3153,6 +3155,30 @@ def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy
                 f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}"></picture>')
     return f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}">'
 
+
+
+def _is_own_illustration(url: str | None) -> bool:
+    return bool(url and url.startswith("/static/product-illustrations/"))
+
+
+def _product_hero_visual(product: dict, image_url: str | None) -> str:
+    if not image_url:
+        return escape(product["brand_label"][:2].upper())
+    image = _img_tag(image_url, product["name"], loading="eager")
+    if not _is_own_illustration(image_url):
+        return image
+    return (f'<div class="own-illustration-visual">{image}</div>'
+            '<p class="own-illustration-note">Egen illustrasjon, ikke et ekte produktbilde. '
+            '<a href="/om-produktillustrasjoner/">Les mer</a></p>')
+
+
+SHARED_STYLE += """
+.hero-product-image.has-own-illustration { flex-direction: column; gap: 8px; }
+.hero-product-image.has-own-illustration .own-illustration-visual { flex: 1 1 0; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.hero-product-image.has-own-illustration .own-illustration-visual img { width: 100%; height: 100%; object-fit: contain; }
+.own-illustration-note { flex: 0 0 auto; margin: 0; padding: 0 8px 6px; font-family: 'Mulish', sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1.4; color: var(--muted); text-align: center; }
+.own-illustration-note a { color: var(--blue); }
+"""
 
 def _private_label_image(label: dict) -> str | None:
     """Only use reviewed, licensed images of this exact private-label package."""
@@ -3176,9 +3202,10 @@ def _product_image(product: dict) -> str | None:
     private_brands = tuple(name.lower() for name in PRIVATE_LABEL_SUBBRANDS.values())
     return pick_product_image([
         offer for offer in product["offers"]
-        if not any(brand in re.sub(r"[^a-z0-9]", "", (offer.get("image_url") or "").lower())
+        if offer.get("image_url") not in product.get("excluded_image_urls", [])
+        and not any(brand in re.sub(r"[^a-z0-9]", "", (offer.get("image_url") or "").lower())
                    for brand in private_brands)
-    ])
+    ]) or product.get("illustration_image")
 
 
 TRUCK_ICON_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="7" width="13" height="9" rx="1" fill="currentColor"/><path d="M14 10h4l3 3v3h-7z" fill="currentColor" opacity="0.6"/><circle cx="6" cy="18" r="2" fill="currentColor"/><circle cx="17" cy="18" r="2" fill="currentColor"/></svg>'
@@ -5516,8 +5543,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
   <div class="pack-size-callout-arrow">→</div>
 </a>"""
 
-    thumb = _img_tag(image_url, product["name"], loading="eager") if image_url \
-        else escape(product["brand_label"][:2].upper())
+    thumb = _product_hero_visual(product, image_url)
 
     ship_chip_html = _ship_chip_boxed_html("ship-chip") if offers else ""
     offers_block, ex_best = render_price_list(offers, product["name"], product["id"], clickouts, show_ship_chip=False, qty_unit_label="1 eske", collapse_after=10, product_ship_chip_html=ship_chip_html)
@@ -6023,7 +6049,7 @@ def render_product_page(product: dict, categories: dict, products_by_id: dict | 
           {hero_facts_html}
         </div>
         <div class="hero-media-row">
-          <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+          <div class="hero-product-image{' has-photo' if image_url else ''}{' has-own-illustration' if _is_own_illustration(image_url) else ''}">{thumb}</div>
           {winner_html}
         </div>
       </div>
@@ -11406,16 +11432,6 @@ HERO_IMAGE_STYLE = """.hero-card { background: white; border: 1px solid var(--bo
 """
 
 
-def _larger_feed_image(url: str) -> str:
-    """Feedbildene er små miniatyrer (Lensway w_170, Apotekhjem _400) som blir
-    uskarpe i den store hero-ruten. Begge kildene serverer større varianter av
-    samme bilde via en størrelse i URL-en; andre kilder returneres uendret."""
-    if "lwg-res.cloudinary.com" in url:
-        return url.replace(",w_170,", ",w_600,")
-    if "apotekhjem.no/images/thumbs/" in url and url.endswith("_400.jpg"):
-        return url[:-len("_400.jpg")] + "_600.jpg"
-    return url
-
 
 def render_solution_product_page(product: dict, now: datetime | None = None, clickouts: dict | None = None, price_history: list[dict] | None = None) -> str:
     """Linsevæske/øyedråper o.l. -- egen produkttype med annen datamodell enn
@@ -11470,8 +11486,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
     if size_ml and ex_best:
         per_100 = ex_best["price_nok"] / size_ml * 100
         price_per_unit_html = f'<p class="price-per-unit">{_fmt_kr(per_100)} per 100 {size_unit}, ved laveste pris (uten frakt)</p>'
-    thumb = _img_tag(_larger_feed_image(image_url), product["name"], loading="eager") if image_url \
-        else escape(product["brand_label"][:2].upper())
+    thumb = _product_hero_visual(product, image_url)
 
     safety_notice = ""
     if product.get("solution_type") == "peroxide":
@@ -11626,7 +11641,7 @@ def render_solution_product_page(product: dict, now: datetime | None = None, cli
           <p class="hero-subtitle">Sammenlign priser</p>
         </div>
         <div class="hero-media-row">
-          <div class="hero-product-image{' has-photo' if image_url else ''}">{thumb}</div>
+          <div class="hero-product-image{' has-photo' if image_url else ''}{' has-own-illustration' if _is_own_illustration(image_url) else ''}">{thumb}</div>
           {winner_html}
         </div>
       </div>
