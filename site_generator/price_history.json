@@ -56029,5 +56029,54 @@
       "price": 252.0,
       "store": "Brilleland"
     }
+  ],
+  "blephaclean-20stk": [
+    {
+      "date": "2026-10-13",
+      "price": 90.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "medipearl-oyemaske-1stk": [
+    {
+      "date": "2026-10-13",
+      "price": 119.0,
+      "store": "Lensway"
+    }
+  ],
+  "blephacura-70ml": [
+    {
+      "date": "2026-10-13",
+      "price": 183.0,
+      "store": "Lensway"
+    }
+  ],
+  "blephasol-duo-100ml-100pads": [
+    {
+      "date": "2026-10-13",
+      "price": 113.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "posiforlid-eye-wipes-20stk": [
+    {
+      "date": "2026-10-13",
+      "price": 113.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "posiforlid-oyemaske-1stk": [
+    {
+      "date": "2026-10-13",
+      "price": 174.0,
+      "store": "Apotekhjem"
+    }
+  ],
+  "evotears-omega-3ml": [
+    {
+      "date": "2026-10-13",
+      "price": 289.0,
+      "store": "Apotekhjem"
+    }
   ]
 }
