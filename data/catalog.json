@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-13T16:14:02Z",
+  "generated_at": "2026-10-13T17:16:06Z",
   "currency": "NOK",
   "products": [
     {
@@ -7808,6 +7808,27 @@
       ]
     },
     {
+      "id": "ultra-oneday-multifocal-30pk",
+      "name": "ULTRA ONE DAY Multifocal 30-pack",
+      "brand": "ULTRA",
+      "category": "multifokale-linser",
+      "pack_size": 30,
+      "attributes": {
+        "manufacturer": "Bausch + Lomb"
+      },
+      "offers": [
+        {
+          "merchant": "Interoptik",
+          "price": 779.0,
+          "shipping": 0.0,
+          "total_price": 779.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000765&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/",
+          "checked_at": "2026-10-13T17:12:38.893022+00:00"
+        }
+      ]
+    },
+    {
       "id": "renu-multipurpose-60ml",
       "name": "ReNu Multi-Purpose 60 ml",
       "brand": "ReNu",
@@ -10121,6 +10142,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD12-4D-100)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FBlephasol-Duo.htm%3FsClickID%3DTradeDoubler-10-3)",
           "checked_at": "2026-10-13T12:08:54.708910+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 179.0,
+          "shipping": 0.0,
+          "total_price": 179.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120620&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/blephasol/blephasol-duo-lotion-100-ml/",
+          "checked_at": "2026-10-13T17:12:38.894489+00:00"
         }
       ]
     },
@@ -10211,6 +10241,27 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-APESE-EY-3)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FEvoTears-OMEGA.htm%3FsClickID%3DTradeDoubler-10-3)",
           "checked_at": "2026-10-13T12:08:54.720786+00:00"
+        }
+      ]
+    },
+    {
+      "id": "blephagel-30g",
+      "name": "Blephagel 30 g",
+      "brand": "Blephagel",
+      "category": "tilbehor",
+      "pack_size": null,
+      "attributes": {
+        "size_ml": null
+      },
+      "offers": [
+        {
+          "merchant": "Interoptik",
+          "price": 159.0,
+          "shipping": 0.0,
+          "total_price": 159.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120614&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/blephagel/blephagel-rengjoringsgel-30-gr/",
+          "checked_at": "2026-10-13T17:12:38.894357+00:00"
         }
       ]
     }
