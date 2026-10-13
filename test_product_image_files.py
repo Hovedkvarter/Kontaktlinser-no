@@ -22,6 +22,18 @@ class ProductImageFilesTests(unittest.TestCase):
             (folder / 'example.webp').write_bytes(b'webp')
             self.assertIn('srcset="/static/products/example.webp"', render._img_tag(jpg, 'Example'))
 
+    def test_homepage_uses_private_label_package_photo(self):
+        import json
+        root = Path(__file__).parent
+        catalog = json.loads((root / 'site_generator/catalog_live.json').read_text())
+        labels = json.loads((root / 'private_labels.json').read_text())['labels']
+        html = render.render_home_page(catalog, private_labels=labels)
+        import re
+        card = re.search(r'<a class="brand-card[^>]+href="/merke/iwear/">(.*?)</a>', html, re.S).group(1)
+        self.assertIn('/static/private-label/iwear-', card)
+        self.assertNotIn('pli-iwear-pack', card)
+        self.assertNotIn('/static/products/', card)
+
     def test_validator_checks_srcset_even_when_original_exists(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(validate, 'BUILD_DIR', Path(tmp)):
             root = Path(tmp)

@@ -7631,16 +7631,12 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
         # Kjedenavnet (Synsam/Brilleland/Specsavers/Coptikk) og kjedens egen
         # logo skal IKKE vises her -- bruker ønsker (2026-08-30) at disse
         # seriene fremstår som egne merker på linje med ekte linsemerker.
-        # Kobling til kjeden ligger fortsatt på /private-label/ (egen
-        # oversiktsside dedikert til akkurat den forklaringen). Illustrasjon
-        # (egen tegnet grafikk, se render_private_label_illustration) vinner
-        # alltid over et lånt bilde av det ekte produktet -- iWear/Brilleland
-        # har ingen illustrasjonspakke ennå og faller derfor fortsatt tilbake
-        # til det lånte produktbildet + en initial-badge.
+        # Prefer a licensed photo of this brand's own package. Otherwise use
+        # its labelled illustration; never borrow the underlying brand's box.
         n_label = "eget merke" if count == 1 else "egne merker"
         subbrand = PRIVATE_LABEL_SUBBRANDS.get(chain, chain)
         subbrand_logo = PRIVATE_LABEL_SUBBRAND_LOGOS.get(subbrand)
-        if illustration_html:
+        if illustration_html and not sample_image:
             card_cls = "brand-card has-photo"
             photo_html = f'<div class="brand-card-photo"><div class="pli-frame">{illustration_html}</div></div>'
             badge_html = (f'<div class="brand-card-badge has-logo">'
@@ -7674,12 +7670,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
             if html:
                 chain_illustration[chain] = html
         if chain not in chain_sample_image:
-            real_product = product_by_id.get(label.get("real_product_id"))
-            if real_product:
-                img = _product_image(real_product)
-                if img:
-                    chain_sample_image[chain] = img
-    any_pli_illustration = bool(chain_illustration)
+            img = _private_label_image(label)
+            if img:
+                chain_sample_image[chain] = img
+    any_pli_illustration = any(chain not in chain_sample_image for chain in chain_illustration)
     pli_disclaimer_note = (
         '<p style="margin:10px 0 0;font-size:0.72rem;color:var(--muted);">'
         'Noen merker over vises med en egen illustrasjon i stedet for et ekte produktbilde. '

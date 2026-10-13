@@ -11012,7 +11012,7 @@
           "Ja"
         ]
       ],
-      "manual_image": "/static/products/acuvue-oasys-max-1day.jpg",
+      "manual_image": "/static/products/acuvue-oasys-max-1day-90pk-verified.jpg",
       "offers": [
         {
           "retailer": "Lensway",
@@ -11074,7 +11074,11 @@
             "fee_nok": 50
           }
         }
-      ]
+      ],
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/7/9/4/4/acuvue-oasys-max-1-day-90-lensway-image-original-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/7/9/4/4/acuvue-oasys-max-1-day-90-lensway-image-original-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biomedics-1day-xtra-90pk",
@@ -15269,7 +15273,12 @@
             "fee_nok": 0
           }
         }
-      ]
+      ],
+      "manual_image": "/static/products/proclear-multifocal-xr-3pk-verified.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/proclear-xr-multifocal-3-pack/40000400_10-proclear-mf-xr-3or6pk.jpg",
+      "image_retrieved_url": "https://www.interoptik.no/globalassets/from-pim/proclear-xr-multifocal-3-pack/40000400_10-proclear-mf-xr-3or6pk.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "proclear-toric-xr-3pk",
@@ -15872,7 +15881,7 @@
           "Multifokal"
         ]
       ],
-      "manual_image": "/static/products/acuvue-oasys-max-multifocal.jpg",
+      "manual_image": "/static/products/acuvue-oasys-max-1day-multifocal-90pk-verified.jpg",
       "offers": [
         {
           "retailer": "Lensway",
@@ -15974,7 +15983,11 @@
             "fee_nok": 50
           }
         }
-      ]
+      ],
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/4/1/6/8/acuvue-oasys-max-1-day-multifocal-90-lensway-origial-image-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/6/4/1/6/8/acuvue-oasys-max-1-day-multifocal-90-lensway-origial-image-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
@@ -16439,7 +16452,7 @@
       "id": "miru-1day-upside-30pk",
       "slug": "miru-1day-upside-30-pack",
       "name": "Miru 1day UpSide 30-pack",
-      "manual_image": "/static/products/miru-1day-upside-30pk.jpg",
+      "manual_image": "/static/products/miru-1day-upside-30pk-verified.jpg",
       "description": "Sfærisk dagslinse fra Menicon. Pakning med 30 linser.",
       "long_description": "Miru 1day UpSide 30-pack er en sfærisk dagslinse fra Menicon, laget av midafilcon A med 56 % vanninnhold. Pakningen inneholder 30 linser. Brilleland selger denne varianten under navnet iWear Flex.",
       "brand_slug": "miru",
@@ -16512,7 +16525,11 @@
             "fee_nok": 0
           }
         }
-      ]
+      ],
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-30-pack/40000746_20-online_png-miru_1day_upside_30_angle-1.jpg",
+      "image_retrieved_url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-30-pack/40000746_20-online_png-miru_1day_upside_30_angle-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "miru-1day-upside-astigmatism-30pk",
@@ -18592,7 +18609,7 @@
           "Ja"
         ]
       ],
-      "manual_image": "/static/products/acuvue-oasys-1day-hydraluxe-90pk.jpg",
+      "manual_image": "/static/products/acuvue-oasys-1day-hydraluxe-180pk-verified.jpg",
       "offers": [
         {
           "retailer": "Lensway",
@@ -18634,7 +18651,11 @@
             "fee_nok": 50
           }
         }
-      ]
+      ],
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/0/9/4/5/acuvue-oasys-1-day-with-hydraluxe-180p-lensway-original-image-1.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/0/9/4/5/acuvue-oasys-1-day-with-hydraluxe-180p-lensway-original-image-1.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-elite-180pk",

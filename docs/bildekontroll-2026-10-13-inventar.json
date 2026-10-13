@@ -1,0 +1,3374 @@
+[
+  {
+    "id": "acuvue-oasys-6pk",
+    "name": "Acuvue Oasys 6-pack",
+    "url": "/static/products/acuvue-oasys-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      714
+    ]
+  },
+  {
+    "id": "acuvue-vita-6pk",
+    "name": "Acuvue Vita 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/5/7/6/6/acuvue-vita-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biofinity-6pk",
+    "name": "Biofinity 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/b/i/biofinity-contacts_1_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "acuvue-moist-30pk",
+    "name": "1-Day Acuvue Moist 30-pack",
+    "url": "/static/products/acuvue-moist-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-30pk",
+    "name": "Acuvue Oasys MAX 1-Day 30-pack",
+    "url": "/static/products/acuvue-oasys-max-1day.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "acuvue-oasys-1day-hydraluxe-30pk",
+    "name": "Acuvue Oasys 1-Day with HydraLuxe 30-pack",
+    "url": "/static/products/acuvue-oasys-1day-hydraluxe-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-oasys-astigmatism-6pk",
+    "name": "Acuvue Oasys for Astigmatism 6-pack",
+    "url": "/static/products/acuvue-oasys-astigmatism-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-moist-astigmatism-30pk",
+    "name": "1-Day Acuvue Moist for Astigmatism 30-pack",
+    "url": "/static/products/acuvue-moist-astigmatism-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biofinity-toric-6pk",
+    "name": "Biofinity Toric 6-pack",
+    "url": "/static/products/biofinity-toric-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "air-optix-colors-2pk",
+    "name": "Air Optix Colors 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/3/0/1/5/air-optix-colors-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "adore-bi-tone-2pk",
+    "name": "ADORE Bi-tone 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/6/4/2/3/adore-bi-tone-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "adore-dare-2pk",
+    "name": "ADORE Dare 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/2/3/2/9/5/adore-dare-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "acuvue-oasys-multifocal-6pk",
+    "name": "Acuvue Oasys Multifocal 6-pack",
+    "url": "/static/products/acuvue-oasys-multifocal.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "biofinity-multifocal-6pk",
+    "name": "Biofinity Multifocal 6-pack",
+    "url": "/static/products/biofinity-multifocal-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biofinity-energys-6pk",
+    "name": "Biofinity Energys 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biofinity-xr-6pk",
+    "name": "Biofinity XR 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/B/i/Biofinity_XR_3pk_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "avaira-vitality-6pk",
+    "name": "Avaira Vitality 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "avaira-vitality-toric-6pk",
+    "name": "Avaira Vitality Toric 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/9/3/2/7/avaira-vitality-toric-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "myday-30pk",
+    "name": "MyDay 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "myday-multifocal-30pk",
+    "name": "MyDay Multifocal 30-pack",
+    "url": "/static/products/myday-multifocal.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "myday-toric-30pk",
+    "name": "MyDay Toric 30-pack",
+    "url": "/static/products/myday-toric.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-sphere-6pk",
+    "name": "Proclear Sphere 6-pack",
+    "url": "/static/products/proclear-sphere-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-toric-6pk",
+    "name": "Proclear Toric 6-pack",
+    "url": "/static/products/proclear-toric-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "clariti-1day-30pk",
+    "name": "Clariti 1 day 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clariti-1day-toric-30pk",
+    "name": "Clariti 1 day Toric 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "air-optix-hydraglyde-6pk",
+    "name": "Air Optix plus HydraGlyde 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "air-optix-hydraglyde-multifocal-6pk",
+    "name": "Air Optix plus HydraGlyde Multifocal 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_hydraglyde_multifocal_6.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "air-optix-hydraglyde-astigmatism-6pk",
+    "name": "Air Optix plus HydraGlyde for Astigmatism 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_plus_hydraglyde_for_astigmastis_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-30pk",
+    "name": "Dailies Total1 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailiestotal1_30pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-multifocal-30pk",
+    "name": "Dailies Total1 Multifocal 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-30-stk_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-astigmatism-30pk",
+    "name": "Dailies Total1 for Astigmatism 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-30-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-30pk",
+    "name": "Dailies AquaComfort Plus 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-30st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "total30-6pk",
+    "name": "TOTAL30 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total30_6pk1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "precision1-30pk",
+    "name": "Precision1 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/alcon-precision1_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "precision1-astigmatism-30pk",
+    "name": "Precision1 for Astigmatism 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/p/r/precision1-astigmatism-30st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "soflens-59-6pk",
+    "name": "SofLens 59 6-pack",
+    "url": "/static/products/soflens-59-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "soflens-daily-disposable-30pk",
+    "name": "SofLens Daily Disposable 30-pack",
+    "url": "/static/products/soflens-daily-disposable-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "soflens-toric-6pk",
+    "name": "SofLens Toric 6-pack",
+    "url": "/static/products/soflens-toric-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "purevision2-6pk",
+    "name": "PureVision 2 6-pack",
+    "url": "/static/products/purevision2-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biotrue-oneday-30pk",
+    "name": "Biotrue ONEday 30-pack",
+    "url": "/static/products/biotrue-oneday-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "ultra-6pk",
+    "name": "ULTRA 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/5/1/9/ultra-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biomedics-55-evolution-6pk",
+    "name": "Biomedics 55 Evolution 6-pack",
+    "url": "/static/products/biomedics-55-evolution-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "air-optix-night-day-aqua-6pk",
+    "name": "Air Optix Night & Day Aqua 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/i/air_optix_night_day_aqua.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "purevision-6pk",
+    "name": "PureVision 6-pack",
+    "url": "/static/products/purevision-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "purevision-multifocal-6pk",
+    "name": "PureVision Multi-Focal 6-pack",
+    "url": "/static/products/purevision-multifocal-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "purevision2-astigmatism-6pk",
+    "name": "PureVision 2 for Astigmatism 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/3/7/6/6/5/purevision2-for-astigmatism-1244x987.png",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      135
+    ]
+  },
+  {
+    "id": "purevision2-presbyopia-6pk",
+    "name": "PureVision 2 for Presbyopia 6-pack",
+    "url": "/static/products/purevision2-presbyopia-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biotrue-oneday-astigmatism-30pk",
+    "name": "Biotrue ONEday for Astigmatism 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/1/2/8/2/biotrue-oneday-for-astigmatism-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biotrue-oneday-presbyopia-30pk",
+    "name": "Biotrue ONEday for Presbyopia 30-pack",
+    "url": "/static/products/biotrue-oneday-presbyopia-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "ultra-oneday-30pk",
+    "name": "ULTRA ONE DAY 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/7/1/6/9/lw-ultra-oneday-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "ultra-astigmatism-6pk",
+    "name": "ULTRA for Astigmatism 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/6/0/4/lw-ultra-for-astig-6-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "ultra-presbyopia-6pk",
+    "name": "ULTRA for Presbyopia 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/0/9/7/3/ultra-for-presbyopia-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biomedics-1day-xtra-30pk",
+    "name": "Biomedics 1 day Extra 30-pack",
+    "url": "/static/products/biomedics-1day-xtra-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biomedics-1day-xtra-toric-30pk",
+    "name": "Biomedics 1 day Extra Toric 30-pack",
+    "url": "/static/products/biomedics-1day-xtra-toric-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biomedics-toric-6pk",
+    "name": "Biomedics Toric 6-pack",
+    "url": "/static/products/biomedics-toric-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "total30-multifocal-6pk",
+    "name": "TOTAL30 Multifocal 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/1/1/2/total30-multifocal-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "total30-astigmatism-6pk",
+    "name": "TOTAL30 for Astigmatism 6-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total30-for-astigmatism.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "precision7-12pk",
+    "name": "Precision7 12-pack",
+    "url": "/static/products/precision7-12pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "precision7-27pk",
+    "name": "Precision7 27-pack",
+    "url": "/static/products/precision7-27pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "precision7-astigmatism-12pk",
+    "name": "Precision7 for Astigmatism 12-pack",
+    "url": "/static/products/precision7-astigmatism-12pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "precision7-astigmatism-27pk",
+    "name": "Precision7 for Astigmatism 27-pack",
+    "url": "/static/products/precision7-astigmatism-27pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "freshlook-oneday-30pk",
+    "name": "FreshLook ONE-DAY 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/8/3/7/1/freshlook-oneday-color-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "focus-dailies-30pk",
+    "name": "Focus Dailies 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  {
+    "id": "acuvue-moist-90pk",
+    "name": "1-Day Acuvue Moist 90-pack",
+    "url": "/static/products/acuvue-moist-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-moist-astigmatism-90pk",
+    "name": "1-Day Acuvue Moist for Astigmatism 90-pack",
+    "url": "/static/products/acuvue-moist-astigmatism-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-oasys-1day-hydraluxe-90pk",
+    "name": "Acuvue Oasys 1-Day with HydraLuxe 90-pack",
+    "url": "/static/products/acuvue-oasys-1day-hydraluxe-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-90pk",
+    "name": "Acuvue Oasys MAX 1-Day 90-pack",
+    "url": "/static/products/acuvue-oasys-max-1day.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "biomedics-1day-xtra-90pk",
+    "name": "Biomedics 1 day Extra 90-pack",
+    "url": "/static/products/biomedics-1day-xtra-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biotrue-oneday-90pk",
+    "name": "Biotrue ONEday 90-pack",
+    "url": "/static/products/biotrue-oneday-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biotrue-oneday-presbyopia-90pk",
+    "name": "Biotrue ONEday for Presbyopia 90-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-presbyopia/40000573_20.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2504,
+      1670
+    ]
+  },
+  {
+    "id": "clariti-1day-90pk",
+    "name": "Clariti 1 day 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/7/1/8/4/clariti-1-day-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-90pk",
+    "name": "Dailies AquaComfort Plus 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_90pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "dailies-total1-90pk",
+    "name": "Dailies Total1 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-90-180.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-astigmatism-90pk",
+    "name": "Dailies Total1 for Astigmatism 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/total1-toric-90-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-multifocal-90pk",
+    "name": "Dailies Total1 Multifocal 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-multifocal-90st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "focus-dailies-90pk",
+    "name": "Focus Dailies 90-pack",
+    "url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-CB_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      270,
+      270
+    ]
+  },
+  {
+    "id": "myday-90pk",
+    "name": "MyDay 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/6/3/0/myday-daily-disposable-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "precision1-90pk",
+    "name": "Precision1 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/alcon-precision1_90_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "precision1-astigmatism-90pk",
+    "name": "Precision1 for Astigmatism 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/p/r/precision1-astigmatism-90st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "soflens-daily-disposable-90pk",
+    "name": "SofLens Daily Disposable 90-pack",
+    "url": "/static/products/soflens-daily-disposable-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "ultra-oneday-90pk",
+    "name": "ULTRA ONE DAY 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/2/0/3/3/ultra-one-day-90-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "acuvue-moist-multifocal-30pk",
+    "name": "1-Day Acuvue Moist Multifocal 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal_2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "acuvue-moist-multifocal-90pk",
+    "name": "1-Day Acuvue Moist Multifocal 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-day_acuvue_moist_multifocal90_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "acuvue-oasys-1day-astigmatism-30pk",
+    "name": "Acuvue Oasys 1-Day for Astigmatism 30-pack",
+    "url": "/static/products/acuvue-oasys-1day-astigmatism.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      714
+    ]
+  },
+  {
+    "id": "acuvue-oasys-1day-astigmatism-90pk",
+    "name": "Acuvue Oasys 1-Day for Astigmatism 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/0/4/1/1/acuvue-oasys-1-day-with-hydraluxe-for-astigmatism-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biofinity-multifocal-toric-3pk",
+    "name": "Biofinity Toric Multifocal 3-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/t/o/toricm-3stk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      800,
+      400
+    ]
+  },
+  {
+    "id": "biofinity-xr-toric-3pk",
+    "name": "Biofinity XR Toric 3-pack",
+    "url": "/static/products/biofinity-xr-toric-3pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "biofinity-xr-3pk",
+    "name": "Biofinity XR 3-pack",
+    "url": "/static/products/biofinity-xr-3pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-180pk",
+    "name": "Dailies AquaComfort Plus 180-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/_/D/_Dailies_Aquacomfort_Plus_180pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-multifocal-30pk",
+    "name": "Dailies AquaComfort Plus Multifocal 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-multifocal-30-stk_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-multifocal-90pk",
+    "name": "Dailies AquaComfort Plus Multifocal 90-pack",
+    "url": "/static/products/dailies-aquacomfort-plus-multifocal-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-toric-30pk",
+    "name": "Dailies AquaComfort Plus Toric 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-30st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-aquacomfort-plus-toric-90pk",
+    "name": "Dailies AquaComfort Plus Toric 90-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-aquacomfort-plus-toric-90st_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-total1-180pk",
+    "name": "Dailies Total1 180-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/d/a/dailies-total1-180_main.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1760,
+      1200
+    ]
+  },
+  {
+    "id": "focus-dailies-180pk",
+    "name": "Focus Dailies 180-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-180-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  {
+    "id": "proclear-1day-30pk",
+    "name": "Proclear 1 day 30-pack",
+    "url": "/static/products/proclear-1day-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-1day-90pk",
+    "name": "Proclear 1 day 90-pack",
+    "url": "/static/products/proclear-1day-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-1day-multifocal-30pk",
+    "name": "Proclear 1 day Multifocal 30-pack",
+    "url": "/static/products/proclear-1day-multifocal-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-multifocal-6pk",
+    "name": "Proclear Multifocal 6-pack",
+    "url": "/static/products/proclear-multifocal-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "proclear-multifocal-toric-3pk",
+    "name": "Proclear Multifocal Toric 3-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_Toric_3pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "proclear-multifocal-xr-3pk",
+    "name": "Proclear Multifocal XR 3-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Multifocal_XR_3pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "proclear-toric-xr-3pk",
+    "name": "Proclear Toric XR 3-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/P/r/Proclear_Toric_XR_3pk.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      2200,
+      1500
+    ]
+  },
+  {
+    "id": "soflens-38-6pk",
+    "name": "SofLens 38 6-pack",
+    "url": "/static/products/soflens-38-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "soflens-daily-disposable-astigmatism-30pk",
+    "name": "SofLens Daily Disposable for Astigmatism 30-pack",
+    "url": "/static/products/soflens-daily-disposable-astigmatism-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "soflens-multifocal-6pk",
+    "name": "SofLens Multi-Focal 6-pack",
+    "url": "/static/products/soflens-multifocal-6pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-multifocal-30pk",
+    "name": "Acuvue Oasys MAX 1-Day Multifocal 30-pack",
+    "url": "/static/products/acuvue-oasys-max-multifocal.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-multifocal-90pk",
+    "name": "Acuvue Oasys MAX 1-Day Multifocal 90-pack",
+    "url": "/static/products/acuvue-oasys-max-multifocal.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-multifocal-astigmatism-30pk",
+    "name": "Acuvue Oasys MAX 1-Day Multifocal for Astigmatism 30-pack",
+    "url": "/static/products/acuvue-oasys-max-multifocal-astigmatism.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      900
+    ]
+  },
+  {
+    "id": "dailies-all-day-comfort-30pk",
+    "name": "Dailies All Day Comfort 30-pack",
+    "url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/a/l/all-day-comfort-30-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      1600,
+      1200
+    ]
+  },
+  {
+    "id": "dailies-all-day-comfort-90pk",
+    "name": "Dailies All Day Comfort 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "miru-1day-upside-30pk",
+    "name": "Miru 1day UpSide 30-pack",
+    "url": "/static/products/miru-1day-upside-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      1500,
+      1500
+    ]
+  },
+  {
+    "id": "miru-1day-upside-astigmatism-30pk",
+    "name": "Miru 1day UpSide Toric 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-astigmatism-30-pack/40000749_20-upside-toric_packshot_left-angle.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3445,
+      2297
+    ]
+  },
+  {
+    "id": "miru-1day-upside-multifocal-30pk",
+    "name": "Miru 1day UpSide Multifocal 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-upside-multifocal-30-pack/40000751_20-upside-multifocal_packshot_right-angle.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3445,
+      2297
+    ]
+  },
+  {
+    "id": "miru-1day-flatpack-astigmatism-30pk",
+    "name": "Miru 1day Flat Pack Toric 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack-astigmatism/40000680_20-online_png-miru_1_day_toric_30_front.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      923,
+      493
+    ]
+  },
+  {
+    "id": "miru-1day-flatpack-multifocal-30pk",
+    "name": "Miru 1day Flat Pack Multifocal 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack-multifocal/40000679_20-flatpack-multifocal_packshot_box_left-angle.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      4032,
+      3024
+    ]
+  },
+  {
+    "id": "myday-misight-1day-30pk",
+    "name": "MyDay MiSight 1 day 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/myday-misight-1-day-30-pack/40000739_20-myday-misight-1day-30pk-left.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "myday-misight-1day-90pk",
+    "name": "MyDay MiSight 1 day 90-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "live-30pk",
+    "name": "Live 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/9/7/9/5/live-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "live-90pk",
+    "name": "Live 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/6/3/8/8/live-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clearlii-daily-30pk",
+    "name": "Clearlii Daily 30-pack",
+    "url": "/static/products/clearlii-daily-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      1000,
+      564
+    ]
+  },
+  {
+    "id": "clearlii-daily-90pk",
+    "name": "Clearlii Daily 90-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "clearlii-monthly-6pk",
+    "name": "Clearlii Hydrogel Månedslinser 6-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "clearlii-vitamin-30pk",
+    "name": "Clearlii Vitamin 30-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "everclear-adm-30pk",
+    "name": "everclear ADM 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/7/8/0/6/everclear-adm-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "everclear-adm-90pk",
+    "name": "everclear ADM 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/0/8/5/5/everclear-adm-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "everclear-air-6pk",
+    "name": "everclear AIR 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/7/9/5/7/everclear-air-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "everclear-elite-30pk",
+    "name": "everclear ELITE 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/5/2/2/everclear-elite-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "everclear-elite-90pk",
+    "name": "everclear ELITE 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/0/8/8/1/everclear-elite-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "everclear-plus-6pk",
+    "name": "everclear PLUS 6-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/7/5/5/everclear-plus-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clear-1-day-30pk",
+    "name": "Clear 1-day 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/7/0/2/4/7/clear-1-day-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "daysoft-silk-32pk",
+    "name": "Daysoft SILK 32-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/7/2/2/daysoft-silk-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "daysoft-silk-96pk",
+    "name": "Daysoft SILK 96-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/1/0/2/daysoft-silk-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "queens-trilogy-2pk",
+    "name": "Queen's Trilogy 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/4/2/0/2/queen-s-trilogy-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "swati-coloured-lenses-1month-2pk",
+    "name": "SWATI Coloured Lenses 1 month 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/3/3/8/7350100163154-02-front.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      151
+    ]
+  },
+  {
+    "id": "swati-coloured-lenses-6months-2pk",
+    "name": "SWATI Coloured Lenses 6 months 2-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/1/0/8/7350100161303-02-front.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      154
+    ]
+  },
+  {
+    "id": "clariti-1day-multifocal-30pk",
+    "name": "Clariti 1 day Multifocal 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clariti-1day-multifocal-90pk",
+    "name": "Clariti 1 day Multifocal 90-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "acuvue-oasys-max-1day-astigmatism-30pk",
+    "name": "Acuvue Oasys MAX 1-Day for Astigmatism 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/7/8/8/image-original-maxastig.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      128
+    ]
+  },
+  {
+    "id": "acuvue-oasys-1day-hydraluxe-180pk",
+    "name": "Acuvue Oasys 1-Day with HydraLuxe 180-pack",
+    "url": "/static/products/acuvue-oasys-1day-hydraluxe-90pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      900,
+      525
+    ]
+  },
+  {
+    "id": "everclear-elite-180pk",
+    "name": "everclear ELITE 180-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/4/2/9/3/lw-everclear-elite-180-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clariti-1day-multifocal-3add-30pk",
+    "name": "Clariti 1 day Multifocal 3 Add 30-pack",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/1/9/2/8/clariti-1day-multifocal-3-add-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "proclear-toric-3pk",
+    "name": "Proclear Toric 3-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "proclear-multifocal-3pk",
+    "name": "Proclear Multifocal 3-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "biofinity-toric-3pk",
+    "name": "Biofinity Toric 3-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "biofinity-multifocal-3pk",
+    "name": "Biofinity Multifocal 3-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "biofinity-xr-toric-6pk",
+    "name": "Biofinity XR Toric 6-pack",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "misight-1day-30pk",
+    "name": "MiSight 1 day 30-pack",
+    "url": "https://www.brilleland.no/globalassets/from-pim/misight-1-day-30-pack/40000561_10-misight_1day_30pk_adpromo.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "miru-1month-6pk",
+    "name": "Miru 1month 6-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-sphere-6-pack/original_png-miru_1month_menicon_6_angle.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3850,
+      2167
+    ]
+  },
+  {
+    "id": "miru-1month-toric-6pk",
+    "name": "Miru 1month Toric 6-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-astigmatism-6-pack/40000747_20-original_png-miru_1month_menicon_for_astigmatism_6_openbox.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3850,
+      2167
+    ]
+  },
+  {
+    "id": "miru-1month-multifocal-6pk",
+    "name": "Miru 1month Multifocal 6-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1month-multifocal-6-pack/40000748_20-original_png-miru_1month_menicon_multifocal_6_angle.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      3850,
+      2167
+    ]
+  },
+  {
+    "id": "miru-1day-flatpack-30pk",
+    "name": "Miru 1day Flat Pack 30-pack",
+    "url": "https://www.interoptik.no/globalassets/from-pim/miru-1day-flatpack/40000678_20-miru_1_day_flatpack_angle_right.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      923,
+      568
+    ]
+  },
+  {
+    "id": "renu-multipurpose-60ml",
+    "name": "ReNu Multi-Purpose 60 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/2/2/4/renu60-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      143
+    ]
+  },
+  {
+    "id": "renu-multipurpose-240ml",
+    "name": "ReNu Multi-Purpose 240 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/6/7/8/2/renu240-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      170
+    ]
+  },
+  {
+    "id": "renu-multipurpose-360ml",
+    "name": "ReNu Multi-Purpose 360 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/5/4/8/8/renu360-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      170
+    ]
+  },
+  {
+    "id": "optifree-puremoist-90ml",
+    "name": "Opti-Free PureMoist 90 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/2/2/1/9/lo-of-puremoist-90-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "optifree-puremoist-300ml",
+    "name": "Opti-Free PureMoist 300 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/6/0/9/2/lo-of-puremoist-300-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "optifree-express-355ml",
+    "name": "Opti-Free Express 355 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/7/2/3/3/lo-of-express-355-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "optifree-express-120ml",
+    "name": "Opti-Free Express 120 ml",
+    "url": null,
+    "kind": "product",
+    "status": "no_image"
+  },
+  {
+    "id": "aosept-plus-360ml",
+    "name": "AOSept Plus 360 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/4/9/7/9/aosept-plus-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "easysept-360ml",
+    "name": "EasySept 360 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/9/5/7/6/easysept360-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      161
+    ]
+  },
+  {
+    "id": "easysept-120ml",
+    "name": "EasySept 120 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/9/1/9/3/easysept120-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      170
+    ]
+  },
+  {
+    "id": "solocare-aqua-360ml",
+    "name": "SoloCare Aqua 360 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/9/9/0/5/3/lo-solocare-aqua-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      197
+    ]
+  },
+  {
+    "id": "biotrue-solution-300ml",
+    "name": "Biotrue 300 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/5/4/3/6/biotrue300-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      170
+    ]
+  },
+  {
+    "id": "everclear-refresh-250ml",
+    "name": "everclear REFRESH 250 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/5/2/8/everclear-refresh-lw-case.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxysept-1step-300ml",
+    "name": "Oxysept 1-Step 300 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/3/4/9/7/lo-oxysept-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "acuvue-revitalens-100ml",
+    "name": "Acuvue RevitaLens 100 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/6/1/5/3/lo-acuvue-revitalens-100-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "acuvue-revitalens-300ml",
+    "name": "Acuvue RevitaLens 300 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/5/6/9/8/lw-acuvue-revitalens-300-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "swati-lens-solution-100ml",
+    "name": "SWATI Lens Solution 100 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/6/9/9/lens-solution-100ml-original-image-2.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "systane-ultra-10ml",
+    "name": "Systane Ultra 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/0/9/1/systane-ultra-mdpf.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "systane-complete-10ml",
+    "name": "Systane Complete 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/4/7/5/9/systane-complete-mdpf.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "systane-hydration-10ml",
+    "name": "Systane Hydration 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-care-10ml",
+    "name": "Hylo-Care 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/7/8/8/7/hylo-care.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-gel-10ml",
+    "name": "Hylo-Gel 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/2/9/0/hylo-gel.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-fresh-10ml",
+    "name": "Hylo Fresh 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/1/5/6/3/hylo-fresh.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-comod-10ml",
+    "name": "Hylo Comod 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/4/9/2/hylo-comod.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-dual-10ml",
+    "name": "Hylo Dual 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/3/7/9/8/hylo-dual.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-dual-intense-10ml",
+    "name": "Hylo Dual Intense 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/6/0/3/8/hylo-dual-intense.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "thealoz-duo-10ml",
+    "name": "Thealoz Duo 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/3/3/7/3/thealoz-duo-no-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxyal-trehalos-duo-action-10ml",
+    "name": "OXYAL Trehalos Duo Action 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/8/3/4/trehalos-duo-action-lo-image-original-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxyal-trehalos-triple-action-10ml",
+    "name": "OXYAL Trehalos Triple Action 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/7/2/5/trehalos-triple-action-lo-image-original-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxyal-triple-action-10ml",
+    "name": "OXYAL Triple Action 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/4/9/3/9/triple-action-lo-image-original-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "tearsagain-10ml",
+    "name": "Tearsagain 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/3/5/7/3/tearsagain-ogondroppar-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "tearsagain-spray-10ml",
+    "name": "Tearsagain Spray 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/6/0/9/2/tearsagain10.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "tearsagain-sensitive-spray-10ml",
+    "name": "Tearsagain Sensitive Spray 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/0/8/8/4/tearsagain-sensitive.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "eyz-plus-10ml",
+    "name": "EYZ Plus 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/5/4/1/1/eyz-plus-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "eyz-protect-10ml",
+    "name": "EYZ Protect 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/0/0/8/5/eyz-protect-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "add1-10ml",
+    "name": "Add1 10 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/1/5/4/6/lo-add1-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "clearlii-multipurpose-100ml",
+    "name": "Clearlii Multi-Purpose 100 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0014240_clearlii-multi-purpose-100-ml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      114,
+      400
+    ]
+  },
+  {
+    "id": "artelac-10ml",
+    "name": "Artelac Øyedråper 10 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0040162_artelac-oyedraper-10ml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      261,
+      400
+    ]
+  },
+  {
+    "id": "viscotears-10ml",
+    "name": "Viscotears Øyegel 10 g",
+    "url": "https://www.apotekhjem.no/images/thumbs/0040181_viscotears-oyegel-10g_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      186,
+      400
+    ]
+  },
+  {
+    "id": "evotears-3ml",
+    "name": "EvoTears 3 ml",
+    "url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-AHET0-9A-3_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      270,
+      270
+    ]
+  },
+  {
+    "id": "hyprosan-10ml",
+    "name": "Hyprosan Øyedråper 10 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0040138_hyprosan-oyedraper-32mgml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      320,
+      400
+    ]
+  },
+  {
+    "id": "bevita-eye-pro-forte-10ml",
+    "name": "Bevita Eye Pro Forte 10 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0044831_bevita-eye-pro-forte-oyedraper-10-ml-intensiv-fukt-til-torre-oyne_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "posiforlid-eye-spray-15ml",
+    "name": "POSIFORLID Eye Spray 15 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0044516_posiforlid-eye-spray-15-ml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "desodrop-8ml",
+    "name": "Desodrop Øyedråper 8 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0044220_desodrop-oyedraper-8-ml-fuktighet-og-lindring-for-torre-oyne_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      127,
+      400
+    ]
+  },
+  {
+    "id": "cleye-10ml",
+    "name": "Cleye Øyedråper 10 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0024244_cleye-oyedraper-012-mgml-10-ml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      166,
+      400
+    ]
+  },
+  {
+    "id": "euphrasia-pollendraper-10ml",
+    "name": "Euphrasia Pollendråper 10 ml",
+    "url": "https://www.apotekhjem.no/images/thumbs/0043951_euphrasia-pollendraper-oyedraper-10ml_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "extend-355ml",
+    "name": "Extend 355 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/4/2/9/4/extend-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "extend-100ml",
+    "name": "Extend 100 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/5/6/5/extend-1362x795.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "biotrue-flight-pack-100ml",
+    "name": "Biotrue Flight Pack 100 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/5/8/2/8/lo-biotrue-flight-pack-100ml-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "renu-flight-pack-100ml",
+    "name": "ReNu Flight Pack 100 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/0/3/3/6/renuflightpack-image-original.png",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      294
+    ]
+  },
+  {
+    "id": "everclear-refresh-x3-750ml",
+    "name": "everclear REFRESH 3-pack 750 ml",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/1/4/9/2/everclear-refresh-3-pack-lensway-original-image-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxyal-care-gel-10g",
+    "name": "OXYAL Care Gel 10 g",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/6/2/2/8/care-lo-image-original-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "hylo-night-5g",
+    "name": "Hylo Night 5 g",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/4/1/5/2/hylo-night.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "eyz-night-5g",
+    "name": "EYZ Night 5 g",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/3/8/8/eyz-night-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "eyz-clean-20pk",
+    "name": "EYZ Clean 20 stk",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/9/7/6/eyz-clean-image-original.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "oxyal-total-care-spray-17ml",
+    "name": "OXYAL Total Care Spray 17 ml",
+    "url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-AOCG4-BL-17_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      270,
+      270
+    ]
+  },
+  {
+    "id": "thealoz-duo-gel-30x04g",
+    "name": "Thealoz Duo Gel 30 x 0,4 g",
+    "url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ATD11-4D-30_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      270,
+      270
+    ]
+  },
+  {
+    "id": "swati-lens-case-tweezers",
+    "name": "SWATI Lens Case & Tweezers",
+    "url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/5/6/5/0/lens-case-original-image-1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      170,
+      99
+    ]
+  },
+  {
+    "id": "ezy-drop-eye-drop-guide",
+    "name": "Ezy-Drop Eye Drop Guide",
+    "url": "https://www.apotekhjem.no/images/thumbs/0041374_ezy-drop-eye-drop-guide_400.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "drop-it-20x5ml",
+    "name": "Drop-it Øyedråper 20 x 5 ml",
+    "url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ADO20-GW-20_1.jpg",
+    "kind": "product",
+    "http": 200,
+    "status": "ok",
+    "size": [
+      270,
+      270
+    ]
+  },
+  {
+    "id": "blephaclean-20stk",
+    "name": "Blephaclean 20 stk",
+    "url": "/static/products/blephaclean-20stk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      600,
+      350
+    ]
+  },
+  {
+    "id": "medipearl-oyemaske-1stk",
+    "name": "MediPearl øyemaske 1 stk",
+    "url": "/static/products/medipearl-oyemaske-1stk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      600,
+      350
+    ]
+  },
+  {
+    "id": "blephacura-70ml",
+    "name": "BlephaCura 70 ml",
+    "url": "/static/products/blephacura-70ml.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      600,
+      350
+    ]
+  },
+  {
+    "id": "blephasol-duo-100ml-100pads",
+    "name": "Blephasol Duo 100 ml + 100 pads",
+    "url": "/static/products/blephasol-duo-100ml-100pads.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "posiforlid-eye-wipes-20stk",
+    "name": "POSIFORLID Eye Wipes 20 stk",
+    "url": "/static/products/posiforlid-eye-wipes-20stk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      400,
+      295
+    ]
+  },
+  {
+    "id": "posiforlid-oyemaske-1stk",
+    "name": "POSIFORLID øyemaske 1 stk",
+    "url": "/static/products/posiforlid-oyemaske-1stk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      320,
+      400
+    ]
+  },
+  {
+    "id": "evotears-omega-3ml",
+    "name": "EvoTears OMEGA 3 ml",
+    "url": "/static/products/evotears-omega-3ml.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      400,
+      400
+    ]
+  },
+  {
+    "id": "everclear-adm-5pk",
+    "name": "everclear ADM 5-pack",
+    "url": "/static/products/everclear-adm-5pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "everclear-air-3pk",
+    "name": "everclear AIR 3-pack",
+    "url": "/static/products/everclear-air-3pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "everclear-air-1pk",
+    "name": "everclear AIR 1-pack",
+    "url": "/static/products/everclear-air-1pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "everclear-elite-5pk",
+    "name": "everclear ELITE 5-pack",
+    "url": "/static/products/everclear-elite-5pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "everclear-plus-1pk",
+    "name": "everclear PLUS 1-pack",
+    "url": "/static/products/everclear-plus-1pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "clearcolor-1-day-phantom-2pk",
+    "name": "clearcolor 1-day Phantom 2-pack",
+    "url": "/static/products/clearcolor-1-day-phantom-2pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      800,
+      467
+    ]
+  },
+  {
+    "id": "ultra-oneday-multifocal-30pk",
+    "name": "ULTRA ONE DAY Multifocal 30-pack",
+    "url": "/static/products/ultra-oneday-multifocal-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      7000,
+      3204
+    ]
+  },
+  {
+    "id": "blephagel-30g",
+    "name": "Blephagel 30 g",
+    "url": "/static/products/blephagel-30g.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      3140,
+      2174
+    ]
+  },
+  {
+    "id": "eyexpert-natural-30pk",
+    "name": "Eyexpert Natural 30-pack",
+    "url": "/static/products/eyexpert-natural-30pk.jpg",
+    "kind": "product",
+    "status": "ok",
+    "size": [
+      2014,
+      1343
+    ]
+  },
+  {
+    "id": "iwear-oxygen",
+    "name": "iWear Oxygen",
+    "url": "/static/private-label/iwear-oxygen.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-24",
+    "name": "EyeQ 24",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-opteyes",
+    "name": "Easyvision Opteyes",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-oxygen-astigmatism",
+    "name": "iWear Oxygen Astigmatism",
+    "url": "/static/private-label/iwear-oxygen-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-24-for-astigmatism",
+    "name": "EyeQ 24 For Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-opteyes-toric",
+    "name": "Easyvision Opteyes Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-oxygen-presbyopia",
+    "name": "iWear Oxygen Presbyopia",
+    "url": "/static/private-label/iwear-oxygen-presbyopia.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-24-progressive",
+    "name": "EyeQ 24 Progressive",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-opteyes-multifocal",
+    "name": "Easyvision Opteyes Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-oxygen-relax",
+    "name": "iWear Oxygen Relax",
+    "url": "/static/private-label/iwear-oxygen-relax.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-digital-focus",
+    "name": "EyeQ Digital Focus",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-oxygen-xr",
+    "name": "iWear Oxygen XR",
+    "url": "/static/private-label/iwear-oxygen-xr.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-24-xr",
+    "name": "EyeQ 24 XR",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-opteyes-xr",
+    "name": "Easyvision Opteyes XR",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-balance-plus",
+    "name": "iWear Balance Plus",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-uvicia-plus",
+    "name": "Easyvision Uvicia Plus",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-balance-plus-astigmatism",
+    "name": "iWear Balance Plus Astigmatism",
+    "url": "/static/private-label/iwear-balance-plus-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      2940,
+      1624
+    ]
+  },
+  {
+    "id": "easyvision-uvicia-plus-toric",
+    "name": "Easyvision Uvicia Plus Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-fit",
+    "name": "iWear Fit",
+    "url": "/static/private-label/iwear-fit.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-one-day-classic",
+    "name": "EyeQ One-Day Classic",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-fit-astigmatism",
+    "name": "iWear Fit Astigmatism",
+    "url": "/static/private-label/iwear-fit-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-one-day-classic-for-astigmatism",
+    "name": "EyeQ One-Day Classic For Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-go-astigmatism",
+    "name": "iWear Go Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-toric-classic",
+    "name": "EyeQ Toric Classic",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-harmony",
+    "name": "iWear Harmony",
+    "url": "/static/private-label/iwear-harmony.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-harmony-astigmatism",
+    "name": "iWear Harmony Astigmatism",
+    "url": "/static/private-label/iwear-harmony-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-activ",
+    "name": "iWear Activ",
+    "url": "/static/private-label/iwear-activ.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "easyvision-umere",
+    "name": "Easyvision Umere",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-activ-astigmatism",
+    "name": "iWear Activ Astigmatism",
+    "url": "/static/private-label/iwear-activ-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "easyvision-umere-toric",
+    "name": "Easyvision Umere Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-fresh",
+    "name": "iWear Fresh",
+    "url": "/static/private-label/iwear-fresh.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "eyeq-one-day-premium",
+    "name": "EyeQ One-Day Premium",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-one-day-premium-progressive",
+    "name": "EyeQ One-Day Premium Progressive",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-premium",
+    "name": "EyeQ Premium",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-premium-for-astigmatism",
+    "name": "EyeQ Premium For Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-premium-progressive",
+    "name": "EyeQ Premium Progressive",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-hydro",
+    "name": "EyeQ Hydro",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-hydro-for-astigmatism",
+    "name": "EyeQ Hydro For Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-hydro-progressive",
+    "name": "EyeQ Hydro Progressive",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-total30",
+    "name": "EyeQ Total 30",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-total30-for-astigmatism",
+    "name": "EyeQ Total 30 for Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-precision1",
+    "name": "EyeQ Precision1",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "eyeq-precision1-for-astigmatism",
+    "name": "EyeQ Precision1 for Astigmatism",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-vitrea",
+    "name": "Easyvision Vitrea",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-vitrea-toric",
+    "name": "Easyvision Vitrea Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-vitrea-multifocal",
+    "name": "Easyvision Vitrea Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-clearus",
+    "name": "Easyvision Clearus",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-linarial",
+    "name": "Easyvision Linarial",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-linarial-toric",
+    "name": "Easyvision Linarial Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-linarial-multifocal",
+    "name": "Easyvision Linarial Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-natural",
+    "name": "Easyvision Natural",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-sential",
+    "name": "Easyvision Sential",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-irisian-plus",
+    "name": "Easyvision Irisian Plus",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-irisian-plus-toric",
+    "name": "Easyvision Irisian Plus Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "easyvision-umere-multifocal",
+    "name": "Easyvision Umere Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-premier",
+    "name": "Ascend Premier",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-premier-toric",
+    "name": "Ascend Premier Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-evolve-plus",
+    "name": "Ascend Evolve+",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-evolve-plus-toric",
+    "name": "Ascend Evolve+ Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-active-toric-1-day",
+    "name": "Ascend Active Toric 1 Day",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-premier-multifocal-distance",
+    "name": "Ascend Premier Multifocal Distance",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-premier-multifocal-near",
+    "name": "Ascend Premier Multifocal Near",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-active-1-day",
+    "name": "Ascend Active 1 Day",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "ascend-active-multifocal-1-day",
+    "name": "Ascend Active Multifocal 1 Day",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-premium-daily",
+    "name": "TrueLens Premium Daily",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-daily",
+    "name": "TrueLens Platinum Daily",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-daily-toric",
+    "name": "TrueLens Platinum Daily Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-daily-multifocal",
+    "name": "TrueLens Platinum Daily Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-monthly",
+    "name": "TrueLens Platinum Monthly",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-monthly-toric",
+    "name": "TrueLens Platinum Monthly Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-platinum-monthly-multifocal",
+    "name": "TrueLens Platinum Monthly Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-premium-monthly",
+    "name": "TrueLens Premium Monthly",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-premium-monthly-toric",
+    "name": "TrueLens Premium Monthly Toric",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "truelens-premium-monthly-multifocal",
+    "name": "TrueLens Premium Monthly Multifocal",
+    "url": null,
+    "kind": "label",
+    "status": "no_image"
+  },
+  {
+    "id": "iwear-activ-presbyopia",
+    "name": "iWear Activ Presbyopia",
+    "url": "/static/private-label/iwear-activ-presbyopia.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-activ-presbyopia-3-add-30-pack",
+    "name": "iWear Activ Presbyopia (3 add) 30 pack",
+    "url": "/static/private-label/iwear-activ-presbyopia-3-add-30-pack.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-fresh-presbyopia",
+    "name": "iWear Fresh Presbyopia",
+    "url": "/static/private-label/iwear-fresh-presbyopia.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-harmony-presbyopia",
+    "name": "iWear Harmony Presbyopia",
+    "url": "/static/private-label/iwear-harmony-presbyopia.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-hydro-astigmatism",
+    "name": "iWear Hydro Astigmatism",
+    "url": "/static/private-label/iwear-hydro-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-hydro-presbyopia-3-pack",
+    "name": "iWear Hydro Presbyopia 3 pack",
+    "url": "/static/private-label/iwear-hydro-presbyopia-3-pack.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-hydro-sphere",
+    "name": "iWear Hydro Sphere",
+    "url": "/static/private-label/iwear-hydro-sphere.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-oxygen-astigmatism-xr-6-pack",
+    "name": "iWear Oxygen Astigmatism XR 6 pack",
+    "url": "/static/private-label/iwear-oxygen-astigmatism-xr-6-pack.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-vivid",
+    "name": "iWear Vivid",
+    "url": "/static/private-label/iwear-vivid.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      3000,
+      3000
+    ]
+  },
+  {
+    "id": "iwear-connect",
+    "name": "iWear Connect",
+    "url": "/static/private-label/iwear-connect.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-connect-astigmatism",
+    "name": "iWear Connect Astigmatism",
+    "url": "/static/private-label/iwear-connect-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-connect-multifocal",
+    "name": "iWear Connect Multifocal",
+    "url": "/static/private-label/iwear-connect-multifocal.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-flex",
+    "name": "iWear Flex",
+    "url": "/static/private-label/iwear-flex.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-flex-astigmatism",
+    "name": "iWear Flex Astigmatism",
+    "url": "/static/private-label/iwear-flex-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      8000,
+      4500
+    ]
+  },
+  {
+    "id": "iwear-flex-multifocal",
+    "name": "iWear Flex Multifocal",
+    "url": "/static/private-label/iwear-flex-multifocal.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-slim",
+    "name": "iWear Slim",
+    "url": "/static/private-label/iwear-slim.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-slim-astigmatism",
+    "name": "iWear Slim Astigmatism",
+    "url": "/static/private-label/iwear-slim-astigmatism.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  },
+  {
+    "id": "iwear-slim-multifocal",
+    "name": "iWear Slim Multifocal",
+    "url": "/static/private-label/iwear-slim-multifocal.jpg",
+    "kind": "label",
+    "status": "ok",
+    "size": [
+      1440,
+      811
+    ]
+  }
+]
