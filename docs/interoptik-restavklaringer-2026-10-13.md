@@ -1,5 +1,7 @@
 # Interoptik: oppfølging av de 13 radene
 
+**Oppdatert senere 13. oktober:** De åtte gjenværende radene er nå behandlet. Se [ny avklaring](interoptik-siste-aatte-2026-10-13.md). Vurderingene nedenfor dokumenterer den tidligere statusen.
+
 ## Tre rader avklart og publisert
 
 - SKU 90120620 Blephasol Duo: 100 ml + 100 pads. Produsentens norske produktside bekrefter innholdet uttrykkelig: https://thea-nordic.no/product/blephasol-duo/ . Interoptik oppgir samme produkt og produsent Théa Nordic. Koblet til eksisterende sett.

@@ -7079,6 +7079,26 @@
             "free_over": null,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biotrue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 256.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000576&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586438+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday/40000576_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biotrue-oneday-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -8429,6 +8449,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biotrue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 388.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000572&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-presbyopia/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586734+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-presbyopia/40000571_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biotrue-oneday-presbyopia-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -10365,6 +10405,26 @@
             "free_over": 1199,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 239.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.585738+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-30-pack/40000584_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "focus-dailies-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -11267,6 +11327,26 @@
             "free_over": null,
             "fee_nok": 39
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biotrue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 765.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000577&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586627+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday/40000577_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biotrue-oneday-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -11336,6 +11416,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Biotrue",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 1164.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000574&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-presbyopia/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586824+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-presbyopia/40000573_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biotrue-oneday-presbyopia-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -12192,6 +12292,26 @@
           "shipping_policy": {
             "free_over": 1199,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 714.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586300+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "focus-dailies-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -16134,6 +16254,26 @@
             "free_over": 1000,
             "fee_nok": 59
           }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 239.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.585738+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-30-pack/40000584_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-all-day-comfort-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -16271,6 +16411,26 @@
           "shipping_policy": {
             "free_over": 1000,
             "fee_nok": 59
+          }
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Dailies",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 714.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586300+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "dailies-all-day-comfort-90pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]
@@ -23072,6 +23232,26 @@
           "image_source": "affiliate_feed",
           "product_id": "thealoz-duo-gel-30x04g",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Thealoz",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 209.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120619&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/thealoz/thealoz-duo-gel-30x04ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586979+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/thealoz-duo-gel-30x04ml/3662042004032_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "thealoz-duo-gel-30x04g",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -24202,6 +24382,64 @@
           "image_url": "https://www.interoptik.no/globalassets/from-pim/blephagel-rengjoringsgel-30-gr/3662042000553_20.jpg",
           "image_source": "affiliate_feed",
           "product_id": "blephagel-30g",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "eyexpert-natural-30pk",
+      "slug": "eyexpert-natural-30-pack",
+      "name": "Eyexpert Natural 30-pack",
+      "brand_slug": "eyexpert",
+      "brand_label": "Eyexpert",
+      "category_slug": "dagslinser",
+      "description": "Sfæriske dagslinser fra Eyexpert. Pakningen inneholder 30 linser.",
+      "long_description": "Eyexpert Natural er sfæriske dagslinser som selges hos Interoptik. Pakningen inneholder 30 linser. Linsene har 56 % vanninnhold, basiskurve 8,6 mm og diameter 14,0 mm.",
+      "specs": [
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "manual_image": "/static/products/eyexpert-natural-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/eyexpert-natural/40000607_20.jpg",
+      "product_source_url": "https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/",
+      "offers": [
+        {
+          "retailer": "Interoptik",
+          "brand": "Eyexpert",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 213.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000607&fid=1169&url=https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:49:12.586906+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/eyexpert-natural/40000607_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "eyexpert-natural-30pk",
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
