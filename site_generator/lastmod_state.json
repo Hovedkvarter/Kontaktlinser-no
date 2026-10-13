@@ -821,7 +821,7 @@
  },
  "/merke/easyvision/": {
   "lastmod": "2026-10-13",
-  "sig": "2ed2c0615e605d50a0178cdc9c05e14ffec9514e"
+  "sig": "dbc655b7255cff47e3d1990d72c5c8a1f98d43b3"
  },
  "/merke/everclear/": {
   "lastmod": "2026-10-13",
@@ -1101,31 +1101,31 @@
  },
  "/private-label/easyvision-clearus/": {
   "lastmod": "2026-10-13",
-  "sig": "d5d5bd492c539bb00b58e50c707831de7b3dc9ac"
+  "sig": "a7299fac3dc338c1e9fe562d3ba188bf9a1f933d"
  },
  "/private-label/easyvision-irisian-plus-toric/": {
   "lastmod": "2026-10-13",
-  "sig": "9071f7bab5e6be0025ab51759a5bc47f1f959491"
+  "sig": "8aaf2585f488e566ff6ca0db1b045fa1759fdd01"
  },
  "/private-label/easyvision-irisian-plus/": {
   "lastmod": "2026-10-13",
-  "sig": "d9850770ddc17377c7ffc827ade90434636c4ff2"
+  "sig": "a431b6b37bed5856f4d6ae6eeda589410a06f511"
  },
  "/private-label/easyvision-linarial-multifocal/": {
   "lastmod": "2026-10-13",
-  "sig": "9c9df3f4cf289f0698bd63d0d1a243f180731e58"
+  "sig": "a6d3e3c143f38489f5bdd41f659531b831869bb1"
  },
  "/private-label/easyvision-linarial-toric/": {
   "lastmod": "2026-10-13",
-  "sig": "aa96449ea24a3458cdecd40bdf9f023d84c73fae"
+  "sig": "2a0b00b3df52d59b89d772cd58115bdbd46f9de2"
  },
  "/private-label/easyvision-linarial/": {
   "lastmod": "2026-10-13",
-  "sig": "0d21fafe48be7e04bdee9e1dd6d78647818c0e07"
+  "sig": "74e5e854b7c6c05c4ce7b674d2f048a490028e38"
  },
  "/private-label/easyvision-natural/": {
   "lastmod": "2026-10-13",
-  "sig": "d0a9b00546635bca576c2d04fa7a8b29c5c8813d"
+  "sig": "0a336ffed55e24e1345359c93ce8c3ae65a18787"
  },
  "/private-label/easyvision-opteyes-multifocal/": {
   "lastmod": "2026-10-13",
@@ -1145,11 +1145,11 @@
  },
  "/private-label/easyvision-sential/": {
   "lastmod": "2026-10-13",
-  "sig": "12755c5dd9b47bedaab1a8ce1e2d431daee306b5"
+  "sig": "1e40521699a5f982aa5237834d8813ff006359d3"
  },
  "/private-label/easyvision-umere-multifocal/": {
   "lastmod": "2026-10-13",
-  "sig": "590ac647bf06f5a5a4bea85356b333d78892abaf"
+  "sig": "032881cdecab0c6c8df7c357bd44fcc6a46cad67"
  },
  "/private-label/easyvision-umere-toric/": {
   "lastmod": "2026-10-13",
