@@ -3140,15 +3140,14 @@ def pick_product_image(offers: list[dict]) -> str | None:
 
 
 def _img_tag(image_url: str, alt: str, css_class: str = "", loading: str = "lazy") -> str:
-    """<picture>+WebP for våre egne manuelt kuraterte bilder (static/products/*.jpg,
-    som ALLTID har en generert .webp ved siden av seg -- se scriptet som
-    konverterte hele mappen 2026-08-30), vanlig <img> for bilder vi henter
-    direkte fra en forhandlers feed (image_source affiliate_feed/
-    manufacturer_kit) -- vi kontrollerer ikke de filene og har ingen WebP-
-    variant av dem."""
+    """Use a local WebP only when it exists; otherwise serve the original.
+
+    Browsers selecting a missing <source> do not fall back to the <img>.
+    """
     cls_attr = f' class="{escape(css_class)}"' if css_class else ""
     dims = _dim_attrs(image_url)
-    if image_url.startswith("/static/products/") and image_url.endswith(".jpg"):
+    if (image_url.startswith("/static/products/") and image_url.endswith(".jpg")
+            and (_REPO_ROOT / (image_url.lstrip("/")[:-4] + ".webp")).is_file()):
         webp_url = image_url[:-4] + ".webp"
         return (f'<picture><source srcset="{escape(webp_url)}" type="image/webp">'
                 f'<img{cls_attr} src="{escape(image_url)}" alt="{escape(alt)}"{dims} loading="{loading}"></picture>')

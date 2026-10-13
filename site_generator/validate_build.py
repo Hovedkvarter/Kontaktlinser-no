@@ -27,6 +27,8 @@ import json
 import re
 import sys
 from pathlib import Path
+from html.parser import HTMLParser
+from urllib.parse import urlsplit, unquote
 
 BUILD_DIR = Path(__file__).parent / "build"
 CATALOG_PATH = Path(__file__).parent / "catalog_live.json"
@@ -183,6 +185,39 @@ def check_orphan_pages(errors: list[str]) -> None:
         errors.append(f"FORELDRELØS SIDE: {url_path} -- ingen annen side lenker til den (kun i sitemap.xml)")
 
 
+class _ImageReferences(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.urls = set()
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in {"img", "source"}:
+            return
+        attrs = dict(attrs)
+        if attrs.get("src"):
+            self.urls.add(attrs["src"])
+        for candidate in attrs.get("srcset", "").split(","):
+            if candidate.strip():
+                self.urls.add(candidate.strip().split()[0])
+
+
+def check_local_image_files(errors: list[str]) -> None:
+    """Check img and picture source candidates, not merely the JPG fallback."""
+    missing = {}
+    for page in BUILD_DIR.rglob("*.html"):
+        parser = _ImageReferences()
+        parser.feed(page.read_text(encoding="utf-8"))
+        for url in parser.urls:
+            parsed = urlsplit(url)
+            if parsed.netloc and parsed.netloc != urlsplit(BASE_URL).netloc:
+                continue
+            path = unquote(parsed.path)
+            if path.startswith("/static/") and not (BUILD_DIR / path.lstrip("/")).is_file():
+                missing.setdefault(path, page.relative_to(BUILD_DIR))
+    for path, page in sorted(missing.items()):
+        errors.append(f"MANGLER BILDEFIL: {path} (referert fra {page})")
+
+
 def main() -> int:
     catalog = json.loads(CATALOG_PATH.read_text(encoding="utf-8"))
     errors: list[str] = []
@@ -212,6 +247,7 @@ def main() -> int:
             missing_offers_count += 1
             warnings.append(f"Ingen tilbud: {product['id']} (publiseres uten priser)")
 
+    check_local_image_files(errors)
     check_orphan_pages(errors)
     check_absolute_image_urls(errors)
     check_llms_txt(errors)

@@ -52,7 +52,7 @@ jobs:
         run: python3 build_catalog.py
 
       - name: Test butikkhistorikk
-        run: python3 -m unittest test_store_price_history test_brilleland_feed test_feed_shipping test_interoptik_feed
+        run: python3 -m unittest test_store_price_history test_brilleland_feed test_feed_shipping test_interoptik_feed test_product_image_files
 
       - name: Arkiver butikkvise prisobservasjoner
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
