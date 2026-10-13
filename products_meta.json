@@ -7843,6 +7843,39 @@
       "image_source": "affiliate_feed",
       "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/1/4/5/0/3/new-lw-clear-color-phantom-image-original.jpg",
       "product_source_url": "https://www.lenson.com/no/halloween-clearcolor-1-day-phantom-lens-7824"
+    },
+    {
+      "id": "ultra-oneday-multifocal-30pk",
+      "slug": "ultra-one-day-multifocal-30-pack",
+      "name": "ULTRA ONE DAY Multifocal 30-pack",
+      "brand_slug": "ultra",
+      "brand_label": "ULTRA",
+      "category_slug": "multifokale-linser",
+      "description": "Multifokale dagslinser fra Bausch + Lomb. Pakningen inneholder 30 linser.",
+      "long_description": "ULTRA ONE DAY Multifocal er multifokale dagslinser i silikonhydrogel fra Bausch + Lomb. Pakningen inneholder 30 linser.",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/ultra-oneday-multifocal-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/ultra-one-day-multifocal-30-pack/40000764_20-uod_left-facing_30-rgb_mf.jpg",
+      "product_source_url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/"
     }
   ]
 }
