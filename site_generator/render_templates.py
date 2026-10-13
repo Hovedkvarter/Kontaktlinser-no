@@ -2222,6 +2222,15 @@ ASCEND_ILLUSTRATIONS: dict[str, dict] = {
 # (bruker: "vi nevner igjen ikke specsavers"), resten av illustrasjonen er
 # uendret fra det brukeren sendte.
 EASYVISION_ILLUSTRATIONS: dict[str, dict] = {
+    "easyvision-clearus": {"variant": "Clearus", "qty": "30", "label": "daily disposable<br>contact lenses", "family": "umere"},
+    "easyvision-linarial": {"variant": "Linarial", "qty": "30", "label": "daily disposable<br>contact lenses", "family": "umere"},
+    "easyvision-linarial-toric": {"variant": "Linarial Toric", "qty": "30", "label": "contact lenses<br>for astigmatism", "family": "umere-toric"},
+    "easyvision-linarial-multifocal": {"variant": "Linarial Multifocal", "qty": "30", "label": "multifocal<br>contact lenses", "family": "vitrea-mf"},
+    "easyvision-natural": {"variant": "Natural", "qty": "6", "label": "monthly<br>contact lenses", "family": "opteyes"},
+    "easyvision-sential": {"variant": "Sential", "qty": "30", "label": "daily disposable<br>contact lenses", "family": "umere"},
+    "easyvision-irisian-plus": {"variant": "Irisian Plus", "qty": "6", "label": "monthly<br>contact lenses", "family": "opteyes"},
+    "easyvision-irisian-plus-toric": {"variant": "Irisian Plus Toric", "qty": "6", "label": "contact lenses<br>for astigmatism", "family": "opteyes-toric"},
+    "easyvision-umere-multifocal": {"variant": "Umere Multifocal", "qty": "30", "label": "multifocal<br>contact lenses", "family": "vitrea-mf"},
     "easyvision-opteyes": {"variant": "Opteyes", "qty": "6", "label": "monthly<br>contact lenses", "family": "opteyes"},
     "easyvision-opteyes-toric": {"variant": "Opteyes Toric", "qty": "6", "label": "contact lenses<br>for astigmatism", "family": "opteyes-toric"},
     "easyvision-opteyes-multifocal": {"variant": "Opteyes Multifocal", "qty": "6", "label": "multifocal<br>contact lenses", "family": "opteyes-mf"},

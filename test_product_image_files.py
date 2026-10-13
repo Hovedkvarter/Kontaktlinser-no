@@ -47,6 +47,18 @@ class ProductImageFilesTests(unittest.TestCase):
         self.assertEqual(render._product_image(product), product['manual_image'])
         self.assertNotIn('own-illustration-note', render._product_hero_visual(product, product['manual_image']))
 
+    def test_all_easyvision_variants_have_labelled_visuals(self):
+        import json
+        labels = json.loads((Path(__file__).parent / 'private_labels.json').read_text())['labels']
+        labels = [p for p in labels if p['chain'] == 'Specsavers']
+        self.assertEqual(len(labels), 20)
+        for label in labels:
+            with self.subTest(slug=label['slug']):
+                html = render.render_private_label_illustration(label['chain'], label['slug'])
+                self.assertIsNotNone(html)
+                self.assertIn('Illustrasjon, ikke et ekte produktbilde', html)
+                self.assertIn(render.EASYVISION_ILLUSTRATIONS[label['slug']]['variant'], html)
+
     def test_wrong_pack_images_are_excluded(self):
         import json
         catalog = json.loads((Path(__file__).parent / 'site_generator/catalog_live.json').read_text())
