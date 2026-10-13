@@ -1542,6 +1542,7 @@ FOOTER_BRANDS = [
     ("clariti", "Clariti"),
     ("clearlii", "Clearlii"),
     ("dailies", "Dailies"),
+    ("eyexpert", "Eyexpert"),
     ("freshlook", "FreshLook"),
     ("live", "Live"),
     ("miru", "MIRU"),

@@ -1,0 +1,95 @@
+[
+  {
+    "sku": "40000584",
+    "product_id": "dailies-all-day-comfort-30pk",
+    "feed_title": "All Day Comfort",
+    "feed_price": "239 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-30-pack/40000584_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "11915",
+    "retailer_pack_label": "All Day Comfort 30 PACK",
+    "retailer_price_crosscheck": "239,00"
+  },
+  {
+    "sku": "40000585",
+    "product_id": "dailies-all-day-comfort-90pk",
+    "feed_title": "All Day Comfort",
+    "feed_price": "714 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "11914",
+    "retailer_pack_label": "All Day Comfort 90 PACK",
+    "retailer_price_crosscheck": "714,00"
+  },
+  {
+    "sku": "40000576",
+    "product_id": "biotrue-oneday-30pk",
+    "feed_title": "Biotrue Oneday",
+    "feed_price": "256 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday/40000576_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "9289",
+    "retailer_pack_label": "Biotrue Oneday 30 PACK",
+    "retailer_price_crosscheck": "256,00"
+  },
+  {
+    "sku": "40000577",
+    "product_id": "biotrue-oneday-90pk",
+    "feed_title": "Biotrue Oneday",
+    "feed_price": "765 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday/40000577_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "11924",
+    "retailer_pack_label": "Biotrue Oneday 90 PACK",
+    "retailer_price_crosscheck": "765,00"
+  },
+  {
+    "sku": "40000572",
+    "product_id": "biotrue-oneday-presbyopia-30pk",
+    "feed_title": "Biotrue Oneday Presbyopia",
+    "feed_price": "388 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-presbyopia/40000571_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "9294",
+    "retailer_pack_label": "Biotrue Oneday Presbyopia 30 PACK",
+    "retailer_price_crosscheck": "388,00"
+  },
+  {
+    "sku": "40000574",
+    "product_id": "biotrue-oneday-presbyopia-90pk",
+    "feed_title": "Biotrue Oneday Presbyopia",
+    "feed_price": "1164 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/biotrue-oneday-presbyopia/40000573_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "9293",
+    "retailer_pack_label": "Biotrue Oneday Presbyopia 90 PACK",
+    "retailer_price_crosscheck": "1 164,00"
+  },
+  {
+    "sku": "40000607",
+    "product_id": "eyexpert-natural-30pk",
+    "feed_title": "Eyexpert Natural",
+    "feed_price": "213 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/eyexpert-natural/40000607_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13",
+    "retailer_internal_code": "11878",
+    "retailer_pack_label": "Eyexpert Natural 30 PACK",
+    "retailer_price_crosscheck": "213,00"
+  },
+  {
+    "sku": "90120619",
+    "product_id": "thealoz-duo-gel-30x04g",
+    "feed_title": "THEALOZ Duo Gel 30x0,4ml",
+    "feed_price": "209 NOK",
+    "feed_image_url": "https://www.interoptik.no/globalassets/from-pim/thealoz-duo-gel-30x04ml/3662042004032_20.jpg",
+    "in_stock": true,
+    "checked_date": "2026-10-13"
+  }
+]

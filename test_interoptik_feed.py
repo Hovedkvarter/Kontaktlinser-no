@@ -39,9 +39,16 @@ class InteroptikFeedTests(unittest.TestCase):
         self.assertEqual(offers[1].price_nok,299)
         self.assertFalse(offers[1].in_stock)
 
-    def test_ambiguous_packs_are_not_mapped(self):
-        for sku in ['40000584','40000585','40000576','40000577','40000572','40000574']:
-            self.assertNotIn(sku,self.matching)
+    def test_verified_pack_pairs_remain_separate(self):
+        for sku30, sku90, family in [
+            ('40000584', '40000585', 'dailies-all-day-comfort'),
+            ('40000576', '40000577', 'biotrue-oneday'),
+            ('40000572', '40000574', 'biotrue-oneday-presbyopia'),
+        ]:
+            self.assertEqual(self.matching[sku30], family + '-30pk')
+            self.assertEqual(self.matching[sku90], family + '-90pk')
+        self.assertEqual(self.matching['40000607'], 'eyexpert-natural-30pk')
+        self.assertEqual(self.matching['90120619'], 'thealoz-duo-gel-30x04g')
         self.assertEqual(len(set(self.matching.values())),len(self.matching))
 
 if __name__=='__main__':unittest.main()

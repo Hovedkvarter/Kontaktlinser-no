@@ -7876,6 +7876,43 @@
       "image_source": "affiliate_feed",
       "image_original_url": "https://www.interoptik.no/globalassets/from-pim/ultra-one-day-multifocal-30-pack/40000764_20-uod_left-facing_30-rgb_mf.jpg",
       "product_source_url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/"
+    },
+    {
+      "id": "eyexpert-natural-30pk",
+      "slug": "eyexpert-natural-30-pack",
+      "name": "Eyexpert Natural 30-pack",
+      "brand_slug": "eyexpert",
+      "brand_label": "Eyexpert",
+      "category_slug": "dagslinser",
+      "description": "Sfæriske dagslinser fra Eyexpert. Pakningen inneholder 30 linser.",
+      "long_description": "Eyexpert Natural er sfæriske dagslinser som selges hos Interoptik. Pakningen inneholder 30 linser. Linsene har 56 % vanninnhold, basiskurve 8,6 mm og diameter 14,0 mm.",
+      "specs": [
+        [
+          "Vanninnhold",
+          "56 %"
+        ],
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,0 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/eyexpert-natural-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/eyexpert-natural/40000607_20.jpg",
+      "product_source_url": "https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/"
     }
   ]
 }
