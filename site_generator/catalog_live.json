@@ -5898,6 +5898,26 @@
             "free_over": 0,
             "fee_nok": 0
           }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 279.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LP13)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FDagslinser%2FPrecision1-30p.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.487082+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LP13_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-30pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
+          }
         }
       ]
     },
@@ -6047,6 +6067,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 359.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LN)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2FPrecision1-for-Astigmatism-30p.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.488091+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LN_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
           }
         }
       ]
@@ -12169,6 +12209,26 @@
             "free_over": 0,
             "fee_nok": 0
           }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 749.0,
+          "shipping_nok": 0.0,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LP19)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FDagslinser%2FPrecision1-90p.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.487619+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LP19_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-90pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
+          }
         }
       ]
     },
@@ -12298,6 +12358,26 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "Precision1",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 990.0,
+          "shipping_nok": 0.0,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LR)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2FPrecision1-for-Astigmatism-90p.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.488126+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LR_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "precision1-astigmatism-90pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
           }
         }
       ]
@@ -22938,6 +23018,402 @@
           "image_source": "affiliate_feed",
           "product_id": "evotears-omega-3ml",
           "shipping_policy": null
+        }
+      ]
+    },
+    {
+      "id": "everclear-adm-5pk",
+      "slug": "everclear-adm-5-pack",
+      "name": "everclear ADM 5-pack",
+      "description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "long_description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "5 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-adm-5pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/6/8/4/9/0/everclear-adm-(5)-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-adm-lens-6975",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 56.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-6975)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-adm-lens-6975)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.478032+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/8/4/9/0/everclear-adm-(5)-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-adm-5pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 59.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-6975)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-adm-lens-6975)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.478149+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/9/0/5/5/2/everclear-adm-2000x2000.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-adm-5pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-air-3pk",
+      "slug": "everclear-air-3-pack",
+      "name": "everclear AIR 3-pack",
+      "description": "Månedslinse fra everclear. Pakningen inneholder 3 linser.",
+      "long_description": "Månedslinse fra everclear. Pakningen inneholder 3 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "3 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-air-3pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/5/1/7/6/9/everclear-air-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-air-lens-6669",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 175.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-6669)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-air-lens-6669)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.479969+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/1/7/6/9/everclear-air-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-air-3pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 186.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-6669)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-air-lens-6669)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.480034+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/6/9/8/4/5/everclear-air-1244x987.png",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-air-3pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-air-1pk",
+      "slug": "everclear-air-1-pack",
+      "name": "everclear AIR 1-pack",
+      "description": "Månedslinse fra everclear. Pakningen inneholder 1 linse.",
+      "long_description": "Månedslinse fra everclear. Pakningen inneholder 1 linse.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "1 linse"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-air-1pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/6/0/7/7/1/everclear-air-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-air-lens-8220",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 76.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-8220)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-air-lens-8220)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.481197+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/0/7/7/1/everclear-air-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-air-1pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 81.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-8220)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-air-lens-8220)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.481243+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/4/9/4/1/1/everclear-air-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-air-1pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-elite-5pk",
+      "slug": "everclear-elite-5-pack",
+      "name": "everclear ELITE 5-pack",
+      "description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "long_description": "Dagslinse fra everclear. Pakningen inneholder 5 linser.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "5 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-elite-5pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/4/8/2/0/2/everclear-elite-(5)-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-elite-lens-7066",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 68.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-7066)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-elite-lens-7066)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.483271+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/8/2/0/2/everclear-elite-(5)-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-elite-5pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 72.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-7066)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-elite-lens-7066)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.483369+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/5/7/4/6/2/everclear-elite-2000x2000.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-elite-5pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-plus-1pk",
+      "slug": "everclear-plus-1-pack",
+      "name": "everclear PLUS 1-pack",
+      "description": "Ukelinse fra everclear. Pakningen inneholder 1 linse.",
+      "long_description": "Ukelinse fra everclear. Pakningen inneholder 1 linse.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "manedslinser",
+      "specs": [
+        [
+          "Brukstid",
+          "Ukelinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "1 linse"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-plus-1pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/3/4/0/3/2/everclear-plus-1362x795.jpg",
+      "product_source_url": "https://www.lenson.com/no/everclear-plus-lens-8221",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 63.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-8221)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-plus-lens-8221)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.484803+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/4/0/3/2/everclear-plus-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-plus-1pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 67.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-8221)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-plus-lens-8221)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.484843+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/7/0/1/6/1/everclear-plus-1362x795.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-plus-1pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "clearcolor-1-day-phantom-2pk",
+      "slug": "clearcolor-1-day-phantom-2-pack",
+      "name": "clearcolor 1-day Phantom 2-pack",
+      "description": "Fargede endagslinser fra ClearLab. Pakningen inneholder 2 linser i Phantom-varianten.",
+      "long_description": "Fargede endagslinser fra ClearLab. Pakningen inneholder 2 linser i Phantom-varianten.",
+      "brand_slug": "clearlab",
+      "brand_label": "ClearLab",
+      "category_slug": "fargede-linser",
+      "specs": [
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Pakningsstørrelse",
+          "2 linser"
+        ]
+      ],
+      "manual_image": "/static/products/clearcolor-1-day-phantom-2pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_800,c_scale/v1/product/83/img2/prod/1/4/5/0/3/new-lw-clear-color-phantom-image-original.jpg",
+      "product_source_url": "https://www.lenson.com/no/halloween-clearcolor-1-day-phantom-lens-7824",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "ClearLab",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 175.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-7824)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Fhalloween-clearcolor-1-day-phantom-lens-7824)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.486358+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/4/5/0/3/new-lw-clear-color-phantom-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clearcolor-1-day-phantom-2pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "ClearLab",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 186.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-7824)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Fhalloween-clearcolor-1-day-phantom-lens-7824)",
+          "in_stock": true,
+          "checked_at": "2026-10-13T12:35:28.486464+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/4/2/4/6/5/new-lo-clear-color-phantom-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "clearcolor-1-day-phantom-2pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
         }
       ]
     }

@@ -94,7 +94,8 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=everclear?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Blephaclean?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=Blephacura?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
-      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=MediPearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=MediPearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=6884;q=clearcolor?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
     "category_prefixes": [
       "Linser >",
@@ -185,7 +186,8 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=blephasol?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=medipearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=posiforlid?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
-      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=evotears?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=evotears?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=precision1?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
     "category_prefixes": [
       "Kontaktlinser >",
