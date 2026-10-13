@@ -869,6 +869,12 @@ a { color: inherit; }
 }
 
 
+.hero-product-image.has-own-illustration { flex-direction: column; gap: 8px; }
+.hero-product-image.has-own-illustration .own-illustration-visual { flex: 1 1 0; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.hero-product-image.has-own-illustration .own-illustration-visual img { width: 100%; height: 100%; object-fit: contain; }
+.own-illustration-note { flex: 0 0 auto; margin: 0; padding: 0 8px 6px; font-family: 'Mulish', sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1.4; color: var(--muted); text-align: center; }
+.own-illustration-note a { color: var(--blue); }
+
 /* Premium toppbanner (2026-09-27, ETT delt bilde for alle serie-sider --
    static/hero/serie-{560,840,1120}.webp, samme beskjærings-/fade-teknikk
    som forsidens hero). Egne klassenavn (serie-hero*) i stedet for å
@@ -1702,7 +1708,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/kontaktlinser/biofinity/biofinity-xr-toric-3-pack/">Sammenlign priser</a>
 </div><div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/biofinity-xr-toric-6pk.svg" alt="Egen illustrasjon av Biofinity XR Toric 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-name">Biofinity XR Toric 6-pack</div></a>

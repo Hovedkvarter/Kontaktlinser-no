@@ -847,6 +847,12 @@ a { color: inherit; }
   .price-intel-history-table td:nth-child(8)::before{content:"Butikker billigst";display:block;font-family:Mulish,sans-serif;font-size:.66rem;color:var(--muted);text-transform:uppercase}
 }
 
+
+.hero-product-image.has-own-illustration { flex-direction: column; gap: 8px; }
+.hero-product-image.has-own-illustration .own-illustration-visual { flex: 1 1 0; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.hero-product-image.has-own-illustration .own-illustration-visual img { width: 100%; height: 100%; object-fit: contain; }
+.own-illustration-note { flex: 0 0 auto; margin: 0; padding: 0 8px 6px; font-family: 'Mulish', sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1.4; color: var(--muted); text-align: center; }
+.own-illustration-note a { color: var(--blue); }
 </style>
 </head>
 <body>
@@ -1233,7 +1239,7 @@ a { color: inherit; }
   <div id="product-list" class="product-tile-grid">
     <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/artelac/artelac-oyedraper-10-ml/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0040162_artelac-oyedraper-10ml_400.jpg" alt="Artelac Øyedråper 10 ml" width="261" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/artelac/artelac-oyedraper-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/artelac-10ml-hq.png" alt="Artelac Øyedråper 10 ml" width="597" height="912" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/artelac/artelac-oyedraper-10-ml/"><div class="product-name">Artelac Øyedråper 10 ml</div></a>
@@ -1246,7 +1252,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ADO20-GW-20_1.jpg" alt="Drop-it Øyedråper 20 x 5 ml" width="270" height="270" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/"><div class="product-tile-image has-photo"><img src="/static/products/drop-it-20x5ml-hq.jpg" alt="Drop-it Øyedråper 20 x 5 ml" width="600" height="360" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/drop-it/drop-it-oyedraper-20-x-5-ml/"><div class="product-name">Drop-it Øyedråper 20 x 5 ml</div></a>
@@ -1259,7 +1265,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/viscotears/viscotears-oyegel-10-g/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0040181_viscotears-oyegel-10g_400.jpg" alt="Viscotears Øyegel 10 g" width="186" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/viscotears/viscotears-oyegel-10-g/"><div class="product-tile-image has-photo"><img src="/static/products/viscotears-10ml-hq.png" alt="Viscotears Øyegel 10 g" width="417" height="896" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/viscotears/viscotears-oyegel-10-g/"><div class="product-name">Viscotears Øyegel 10 g</div></a>
@@ -1272,7 +1278,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="16 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 16 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-care-gel-10-g/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/6/2/2/8/care-lo-image-original-1.jpg" alt="OXYAL Care Gel 10 g" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-care-gel-10-g/"><div class="product-tile-image has-photo"><img src="/static/products/oxyal-care-gel-10g-hq.jpg" alt="OXYAL Care Gel 10 g" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/oxyal/oxyal-care-gel-10-g/"><div class="product-name">OXYAL Care Gel 10 g</div></a>
@@ -1285,7 +1291,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="12 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="12 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 12 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-clean-20-stk/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/9/7/6/eyz-clean-image-original.jpg" alt="EYZ Clean 20 stk" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-clean-20-stk/"><div class="product-tile-image has-photo"><img src="/static/products/eyz-clean-20pk-hq.jpg" alt="EYZ Clean 20 stk" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/eyz/eyz-clean-20-stk/"><div class="product-name">EYZ Clean 20 stk</div></a>
@@ -1298,7 +1304,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 8 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/8/3/4/trehalos-duo-action-lo-image-original-1.jpg" alt="OXYAL Trehalos Duo Action 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/oxyal-trehalos-duo-action-10ml-hq.jpg" alt="OXYAL Trehalos Duo Action 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/oxyal/oxyal-trehalos-duo-action-10-ml/"><div class="product-name">OXYAL Trehalos Duo Action 10 ml</div></a>
@@ -1311,7 +1317,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 18 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-night-5-g/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/3/8/8/eyz-night-image-original.jpg" alt="EYZ Night 5 g" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-night-5-g/"><div class="product-tile-image has-photo"><img src="/static/products/eyz-night-5g-hq.jpg" alt="EYZ Night 5 g" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/eyz/eyz-night-5-g/"><div class="product-name">EYZ Night 5 g</div></a>
@@ -1324,7 +1330,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 5 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/3/5/7/3/tearsagain-ogondroppar-image-original.jpg" alt="Tearsagain 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/tearsagain-10ml-hq.jpg" alt="Tearsagain 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/tearsagain/tearsagain-10-ml/"><div class="product-name">Tearsagain 10 ml</div></a>
@@ -1337,7 +1343,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-night-5-g/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/4/1/5/2/hylo-night.jpg" alt="Hylo Night 5 g" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-night-5-g/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-night-5g-hq.jpg" alt="Hylo Night 5 g" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-night-5-g/"><div class="product-name">Hylo Night 5 g</div></a>
@@ -1350,7 +1356,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 31 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/systane/systane-ultra-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/0/9/1/systane-ultra-mdpf.jpg" alt="Systane Ultra 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/systane/systane-ultra-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/systane-ultra-10ml-hq.jpg" alt="Systane Ultra 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/systane/systane-ultra-10-ml/"><div class="product-name">Systane Ultra 10 ml</div></a>
@@ -1363,7 +1369,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-plus-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/5/4/1/1/eyz-plus-image-original.jpg" alt="EYZ Plus 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-plus-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/eyz-plus-10ml-hq.jpg" alt="EYZ Plus 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/eyz/eyz-plus-10-ml/"><div class="product-name">EYZ Plus 10 ml</div></a>
@@ -1376,7 +1382,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="11 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="11 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 11 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-fresh-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/1/5/6/3/hylo-fresh.jpg" alt="Hylo Fresh 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-fresh-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-fresh-10ml-hq.jpg" alt="Hylo Fresh 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-fresh-10-ml/"><div class="product-name">Hylo Fresh 10 ml</div></a>
@@ -1389,7 +1395,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0044831_bevita-eye-pro-forte-oyedraper-10-ml-intensiv-fukt-til-torre-oyne_400.jpg" alt="Bevita Eye Pro Forte 10 ml" width="400" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/bevita-eye-pro-forte-10ml-hq.png" alt="Bevita Eye Pro Forte 10 ml" width="866" height="866" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/bevita/bevita-eye-pro-forte-10-ml/"><div class="product-name">Bevita Eye Pro Forte 10 ml</div></a>
@@ -1402,7 +1408,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="32 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="32 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 32 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/systane/systane-hydration-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/4/1/7/4/systane-hydration-mdpf.jpg" alt="Systane Hydration 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/systane/systane-hydration-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/systane-hydration-10ml-hq.jpg" alt="Systane Hydration 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/systane/systane-hydration-10-ml/"><div class="product-name">Systane Hydration 10 ml</div></a>
@@ -1415,7 +1421,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="31 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 31 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/4/9/3/9/triple-action-lo-image-original-1.jpg" alt="OXYAL Triple Action 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/oxyal-triple-action-10ml-hq.jpg" alt="OXYAL Triple Action 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/oxyal/oxyal-triple-action-10-ml/"><div class="product-name">OXYAL Triple Action 10 ml</div></a>
@@ -1428,7 +1434,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 35 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/thealoz/thealoz-duo-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/6/3/3/7/3/thealoz-duo-no-image-original.jpg" alt="Thealoz Duo 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/thealoz/thealoz-duo-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/thealoz-duo-10ml-hq.jpg" alt="Thealoz Duo 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/thealoz/thealoz-duo-10-ml/"><div class="product-name">Thealoz Duo 10 ml</div></a>
@@ -1441,7 +1447,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 25 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-ATD11-4D-30_1.jpg" alt="Thealoz Duo Gel 30 x 0,4 g" width="270" height="270" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/"><div class="product-tile-image has-photo"><img src="/static/products/thealoz-duo-gel-30x04g-hq.jpg" alt="Thealoz Duo Gel 30 x 0,4 g" width="2763" height="1843" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/thealoz/thealoz-duo-gel-30x0-4-g/"><div class="product-name">Thealoz Duo Gel 30 x 0,4 g</div></a>
@@ -1454,7 +1460,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0040138_hyprosan-oyedraper-32mgml_400.jpg" alt="Hyprosan Øyedråper 10 ml" width="320" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hyprosan-10ml-hq.jpeg" alt="Hyprosan Øyedråper 10 ml" width="400" height="500" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hyprosan/hyprosan-oyedraper-10-ml/"><div class="product-name">Hyprosan Øyedråper 10 ml</div></a>
@@ -1467,7 +1473,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0044516_posiforlid-eye-spray-15-ml_400.jpg" alt="POSIFORLID Eye Spray 15 ml" width="400" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/"><div class="product-tile-image has-photo"><img src="/static/products/posiforlid-eye-spray-15ml-hq.jpeg" alt="POSIFORLID Eye Spray 15 ml" width="733" height="733" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/posiforlid/posiforlid-eye-spray-15-ml/"><div class="product-name">POSIFORLID Eye Spray 15 ml</div></a>
@@ -1493,7 +1499,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="10 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="10 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 10 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/0/8/8/4/tearsagain-sensitive.jpg" alt="Tearsagain Sensitive Spray 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/tearsagain-sensitive-spray-10ml-hq.jpg" alt="Tearsagain Sensitive Spray 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/tearsagain/tearsagain-sensitive-spray-10-ml/"><div class="product-name">Tearsagain Sensitive Spray 10 ml</div></a>
@@ -1519,7 +1525,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="40 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="40 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 40 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-comod-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/4/9/2/hylo-comod.jpg" alt="Hylo Comod 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-comod-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-comod-10ml-hq.jpg" alt="Hylo Comod 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-comod-10-ml/"><div class="product-name">Hylo Comod 10 ml</div></a>
@@ -1532,7 +1538,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="20 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 20 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/systane/systane-complete-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/4/7/5/9/systane-complete-mdpf.jpg" alt="Systane Complete 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/systane/systane-complete-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/systane-complete-10ml-hq.jpg" alt="Systane Complete 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/systane/systane-complete-10-ml/"><div class="product-name">Systane Complete 10 ml</div></a>
@@ -1545,7 +1551,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="7 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="7 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 7 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/6/0/9/2/tearsagain10.jpg" alt="Tearsagain Spray 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/tearsagain-spray-10ml-hq.jpg" alt="Tearsagain Spray 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/tearsagain/tearsagain-spray-10-ml/"><div class="product-name">Tearsagain Spray 10 ml</div></a>
@@ -1558,7 +1564,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 18 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/5/7/2/5/trehalos-triple-action-lo-image-original-1.jpg" alt="OXYAL Trehalos Triple Action 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/oxyal-trehalos-triple-action-10ml-hq.jpg" alt="OXYAL Trehalos Triple Action 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/oxyal/oxyal-trehalos-triple-action-10-ml/"><div class="product-name">OXYAL Trehalos Triple Action 10 ml</div></a>
@@ -1571,7 +1577,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="6 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="6 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 6 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/add1/add1-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/1/5/4/6/lo-add1-image-original.jpg" alt="Add1 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/add1/add1-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/add1-10ml-hq.jpg" alt="Add1 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/add1/add1-10-ml/"><div class="product-name">Add1 10 ml</div></a>
@@ -1584,7 +1590,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="35 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 35 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-gel-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/2/9/0/hylo-gel.jpg" alt="Hylo-Gel 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-gel-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-gel-10ml-hq.jpg" alt="Hylo-Gel 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-gel-10-ml/"><div class="product-name">Hylo-Gel 10 ml</div></a>
@@ -1597,7 +1603,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="14 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="14 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 14 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-dual-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/3/7/9/8/hylo-dual.jpg" alt="Hylo Dual 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-dual-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-dual-10ml-hq.jpg" alt="Hylo Dual 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-dual-10-ml/"><div class="product-name">Hylo Dual 10 ml</div></a>
@@ -1610,7 +1616,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="25 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 25 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-dual-intense-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/6/0/3/8/hylo-dual-intense.jpg" alt="Hylo Dual Intense 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-dual-intense-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-dual-intense-10ml-hq.jpg" alt="Hylo Dual Intense 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-dual-intense-10-ml/"><div class="product-name">Hylo Dual Intense 10 ml</div></a>
@@ -1623,7 +1629,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="8 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 8 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-protect-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/0/0/8/5/eyz-protect-image-original.jpg" alt="EYZ Protect 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/eyz/eyz-protect-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/eyz-protect-10ml-hq.jpg" alt="EYZ Protect 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/eyz/eyz-protect-10-ml/"><div class="product-name">EYZ Protect 10 ml</div></a>
@@ -1636,7 +1642,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="23 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="23 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 23 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-care-10-ml/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/7/8/8/7/hylo-care.jpg" alt="Hylo-Care 10 ml" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/hylo/hylo-care-10-ml/"><div class="product-tile-image has-photo"><img src="/static/products/hylo-care-10ml-hq.jpg" alt="Hylo-Care 10 ml" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/hylo/hylo-care-10-ml/"><div class="product-name">Hylo-Care 10 ml</div></a>
@@ -1649,7 +1655,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="43 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="43 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 43 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/evotears/evotears-3-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-AHET0-9A-3_1.jpg" alt="EvoTears 3 ml" width="270" height="270" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/evotears/evotears-3-ml/"><div class="product-tile-image has-photo"><img src="/static/products/evotears-3ml-hq.jpg" alt="EvoTears 3 ml" width="2577" height="1719" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/evotears/evotears-3-ml/"><div class="product-name">EvoTears 3 ml</div></a>
@@ -1662,7 +1668,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/"><div class="product-tile-image has-photo"><img src="https://www.apotekhjem.no/images/thumbs/0044220_desodrop-oyedraper-8-ml-fuktighet-og-lindring-for-torre-oyne_400.jpg" alt="Desodrop Øyedråper 8 ml" width="127" height="400" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/"><div class="product-tile-image has-photo"><img src="/static/products/desodrop-8ml-hq.png" alt="Desodrop Øyedråper 8 ml" width="612" height="1920" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/desodrop/desodrop-oyedraper-8-ml/"><div class="product-name">Desodrop Øyedråper 8 ml</div></a>
@@ -1675,7 +1681,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="6 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="6 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 6 %</span>
-  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/"><div class="product-tile-image has-photo"><img src="http://www.shopping4net.com/Common/PCCs/Products/Grpx/A4Net/Img-AOCG4-BL-17_1.jpg" alt="OXYAL Total Care Spray 17 ml" width="270" height="270" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/"><div class="product-tile-image has-photo"><img src="/static/products/oxyal-total-care-spray-17ml-hq.jpg" alt="OXYAL Total Care Spray 17 ml" width="338" height="600" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Øyedråper</div>
     <a class="product-tile-name-link" href="/oyedraper/oxyal/oxyal-total-care-spray-17-ml/"><div class="product-name">OXYAL Total Care Spray 17 ml</div></a>

@@ -867,6 +867,12 @@ a { color: inherit; }
 }
 
 
+.hero-product-image.has-own-illustration { flex-direction: column; gap: 8px; }
+.hero-product-image.has-own-illustration .own-illustration-visual { flex: 1 1 0; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.hero-product-image.has-own-illustration .own-illustration-visual img { width: 100%; height: 100%; object-fit: contain; }
+.own-illustration-note { flex: 0 0 auto; margin: 0; padding: 0 8px 6px; font-family: 'Mulish', sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1.4; color: var(--muted); text-align: center; }
+.own-illustration-note a { color: var(--blue); }
+
 /* Premium toppbanner (2026-09-27, ETT delt bilde for alle serie-sider --
    static/hero/serie-{560,840,1120}.webp, samme beskjærings-/fade-teknikk
    som forsidens hero). Egne klassenavn (serie-hero*) i stedet for å
@@ -1569,7 +1575,7 @@ a { color: inherit; }
   <div class="product-tile-grid">
     <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="15 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="15 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 15 %</span>
-  <a class="product-tile-image-link" href="/private-label/easyvision-umere/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="Easyvision Umere" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/private-label/easyvision-umere/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-30pk-hq.jpg" alt="Easyvision Umere" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/private-label/easyvision-umere/"><div class="product-name">Easyvision Umere</div></a>
@@ -1581,7 +1587,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/easyvision-umere/">Sammenlign priser</a>
 </div><div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 17 %</span>
-  <a class="product-tile-image-link" href="/private-label/easyvision-umere-toric/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg" alt="Easyvision Umere Toric" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/private-label/easyvision-umere-toric/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-toric-30pk-hq.jpg" alt="Easyvision Umere Toric" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/private-label/easyvision-umere-toric/"><div class="product-name">Easyvision Umere Toric</div></a>
@@ -1593,7 +1599,7 @@ a { color: inherit; }
   <a class="product-tile-cta" href="/private-label/easyvision-umere-toric/">Sammenlign priser</a>
 </div><div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
-  <a class="product-tile-image-link" href="/private-label/easyvision-umere-multifocal/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg" alt="Easyvision Umere Multifocal" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/private-label/easyvision-umere-multifocal/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-multifocal-30pk-hq.jpg" alt="Easyvision Umere Multifocal" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/private-label/easyvision-umere-multifocal/"><div class="product-name">Easyvision Umere Multifocal</div></a>
@@ -1618,7 +1624,7 @@ a { color: inherit; }
     </thead>
     <tbody>
       <tr>
-    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere/"><img class="spec-row-thumb" src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" width="170" height="99" loading="lazy">Easyvision Umere</a></th>
+    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere/"><img class="spec-row-thumb" src="/static/products/clariti-1day-30pk-hq.jpg" alt="" width="900" height="525" loading="lazy">Easyvision Umere</a></th>
     <td class="spec-value">Vanlig synskorreksjon</td>
     <td class="spec-value">Somofilcon A (silikonhydrogel)</td>
     <td class="spec-value">56 %</td>
@@ -1627,7 +1633,7 @@ a { color: inherit; }
     <td class="spec-value">30</td>
     <td class="spec-value">263 kr</td>
   </tr><tr>
-    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere-toric/"><img class="spec-row-thumb" src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg" alt="" width="170" height="99" loading="lazy">Easyvision Umere Toric</a></th>
+    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere-toric/"><img class="spec-row-thumb" src="/static/products/clariti-1day-toric-30pk-hq.jpg" alt="" width="900" height="525" loading="lazy">Easyvision Umere Toric</a></th>
     <td class="spec-value">Astigmatisme</td>
     <td class="spec-value">Somofilcon A (silikonhydrogel)</td>
     <td class="spec-value">56 %</td>
@@ -1636,7 +1642,7 @@ a { color: inherit; }
     <td class="spec-value">30</td>
     <td class="spec-value">328 kr</td>
   </tr><tr>
-    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere-multifocal/"><img class="spec-row-thumb" src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg" alt="" width="170" height="99" loading="lazy">Easyvision Umere Multifocal</a></th>
+    <th scope="row" class="spec-label"><a href="/private-label/easyvision-umere-multifocal/"><img class="spec-row-thumb" src="/static/products/clariti-1day-multifocal-30pk-hq.jpg" alt="" width="900" height="525" loading="lazy">Easyvision Umere Multifocal</a></th>
     <td class="spec-value">Alderssyn / multifokal</td>
     <td class="spec-value">Somofilcon A (silikonhydrogel)</td>
     <td class="spec-value">56 %</td>

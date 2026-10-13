@@ -813,6 +813,12 @@ a { color: inherit; }
 }
 
 
+.hero-product-image.has-own-illustration { flex-direction: column; gap: 8px; }
+.hero-product-image.has-own-illustration .own-illustration-visual { flex: 1 1 0; min-height: 0; width: 100%; display: flex; align-items: center; justify-content: center; }
+.hero-product-image.has-own-illustration .own-illustration-visual img { width: 100%; height: 100%; object-fit: contain; }
+.own-illustration-note { flex: 0 0 auto; margin: 0; padding: 0 8px 6px; font-family: 'Mulish', sans-serif; font-size: 0.68rem; font-weight: 400; line-height: 1.4; color: var(--muted); text-align: center; }
+.own-illustration-note a { color: var(--blue); }
+
 
 /* Merke-siden sitt løft (2026-09-27, samme dag som serie-siden sin
    FAQ-regelmotor) -- egne brand-*-klassenavn (ikke gjenbruk av
@@ -1499,7 +1505,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="26 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 26 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/live/live-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/9/7/9/5/live-1362x795.jpg" alt="Live 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/live/live-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/live-30pk-hq.jpg" alt="Live 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/live/live-30-pack/"><div class="product-name">Live 30-pack</div></a>
@@ -1525,7 +1531,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-3-pack/"><div class="product-tile-image"><span class="product-tile-fallback">PR</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-toric-3-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/proclear-toric-3pk.svg" alt="Egen illustrasjon av Proclear Toric 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-toric-3-pack/"><div class="product-name">Proclear Toric 3-pack</div></a>
@@ -1538,7 +1544,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="46 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="46 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 46 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg" alt="Avaira Vitality 6-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-tile-image has-photo"><img src="/static/products/avaira-vitality-6pk-hq.jpg" alt="Avaira Vitality 6-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/avaira/avaira-vitality-6-pack/"><div class="product-name">Avaira Vitality 6-pack</div></a>
@@ -1551,7 +1557,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="15 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="15 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 15 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="Clariti 1 day 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-30pk-hq.jpg" alt="Clariti 1 day 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-30-pack/"><div class="product-name">Clariti 1 day 30-pack</div></a>
@@ -1577,7 +1583,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg" alt="MyDay 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/myday-30pk-hq.jpg" alt="MyDay 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/myday/myday-30-pack/"><div class="product-name">MyDay 30-pack</div></a>
@@ -1603,7 +1609,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="17 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 17 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg" alt="Clariti 1 day Toric 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-toric-30pk-hq.jpg" alt="Clariti 1 day Toric 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-toric-30-pack/"><div class="product-name">Clariti 1 day Toric 30-pack</div></a>
@@ -1616,7 +1622,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-toric-3-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-toric-3-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/biofinity-toric-3pk.svg" alt="Egen illustrasjon av Biofinity Toric 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-toric-3-pack/"><div class="product-name">Biofinity Toric 3-pack</div></a>
@@ -1629,7 +1635,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-multifocal-30pk-hq.jpg" alt="Clariti 1 day Multifocal 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-30-pack/"><div class="product-name">Clariti 1 day Multifocal 30-pack</div></a>
@@ -1642,7 +1648,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="21 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 21 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/1/9/2/8/clariti-1day-multifocal-3-add-image-original.jpg" alt="Clariti 1 day Multifocal 3 Add 30-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-multifocal-3add-30pk-hq.jpg" alt="Clariti 1 day Multifocal 3 Add 30-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-3-add-30-pack/"><div class="product-name">Clariti 1 day Multifocal 3 Add 30-pack</div></a>
@@ -1668,7 +1674,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="37 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="37 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 37 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/avaira/avaira-vitality-toric-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/9/3/2/7/avaira-vitality-toric-1362x795.jpg" alt="Avaira Vitality Toric 6-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/avaira/avaira-vitality-toric-6-pack/"><div class="product-tile-image has-photo"><img src="/static/products/avaira-vitality-toric-6pk-hq.jpg" alt="Avaira Vitality Toric 6-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/avaira/avaira-vitality-toric-6-pack/"><div class="product-name">Avaira Vitality Toric 6-pack</div></a>
@@ -1720,7 +1726,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-3-pack/"><div class="product-tile-image"><span class="product-tile-fallback">PR</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/proclear/proclear-multifocal-3-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/proclear-multifocal-3pk.svg" alt="Egen illustrasjon av Proclear Multifocal 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/proclear/proclear-multifocal-3-pack/"><div class="product-name">Proclear Multifocal 3-pack</div></a>
@@ -1733,7 +1739,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="46 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="46 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 46 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg" alt="Biofinity Energys 6-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-tile-image has-photo"><img src="/static/products/biofinity-energys-6pk-hq.jpg" alt="Biofinity Energys 6-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Månedslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-energys-6-pack/"><div class="product-name">Biofinity Energys 6-pack</div></a>
@@ -1785,7 +1791,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-3-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-multifocal-3-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/biofinity-multifocal-3pk.svg" alt="Egen illustrasjon av Biofinity Multifocal 3-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-multifocal-3-pack/"><div class="product-name">Biofinity Multifocal 3-pack</div></a>
@@ -1798,7 +1804,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 5 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/live/live-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/6/3/8/8/live-1362x795.jpg" alt="Live 90-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/live/live-90-pack/"><div class="product-tile-image has-photo"><img src="/static/products/live-90pk-hq.jpg" alt="Live 90-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/live/live-90-pack/"><div class="product-name">Live 90-pack</div></a>
@@ -1902,7 +1908,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="29 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 29 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/7/1/8/4/clariti-1-day-1362x795.jpg" alt="Clariti 1 day 90-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-90pk-hq.jpg" alt="Clariti 1 day 90-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-90-pack/"><div class="product-name">Clariti 1 day 90-pack</div></a>
@@ -1941,7 +1947,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="18 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 18 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/6/3/0/myday-daily-disposable-1362x795.jpg" alt="MyDay 90-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-90-pack/"><div class="product-tile-image has-photo"><img src="/static/products/myday-90pk-hq.jpg" alt="MyDay 90-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/myday/myday-90-pack/"><div class="product-name">MyDay 90-pack</div></a>
@@ -1954,7 +1960,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   <span class="product-tile-savings" tabindex="0" aria-label="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt." data-explanation="5 % lavere enn høyeste tilgjengelige butikkpris for samme pakning, uten frakt.">Spar 5 %</span>
-  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg" alt="Clariti 1 day Multifocal 90-pack" width="170" height="99" loading="lazy"></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-tile-image has-photo"><img src="/static/products/clariti-1day-multifocal-90pk-hq.jpg" alt="Clariti 1 day Multifocal 90-pack" width="900" height="525" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Multifokale linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/clariti/clariti-1-day-multifocal-90-pack/"><div class="product-name">Clariti 1 day Multifocal 90-pack</div></a>
@@ -1993,7 +1999,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-misight-1-day-90-pack/"><div class="product-tile-image"><span class="product-tile-fallback">MY</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/myday/myday-misight-1-day-90-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/myday-misight-1day-90pk.svg" alt="Egen illustrasjon av MyDay MiSight 1 day 90-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Dagslinser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/myday/myday-misight-1-day-90-pack/"><div class="product-name">MyDay MiSight 1 day 90-pack</div></a>
@@ -2006,7 +2012,7 @@ a { color: inherit; }
 </div>
 <div class="product-tile">
   
-  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-tile-image"><span class="product-tile-fallback">BI</span></div></a>
+  <a class="product-tile-image-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-tile-image has-photo"><img src="/static/product-illustrations/biofinity-xr-toric-6pk.svg" alt="Egen illustrasjon av Biofinity XR Toric 6-pack" loading="lazy"></div></a>
   <div class="product-tile-body">
     <div class="product-tile-category">Toriske linser</div>
     <a class="product-tile-name-link" href="/kontaktlinser/biofinity/biofinity-xr-toric-6-pack/"><div class="product-name">Biofinity XR Toric 6-pack</div></a>
@@ -2035,7 +2041,7 @@ a { color: inherit; }
 </a><a class="brand-serie-card" href="/serie/proclear/" style="--serie-tint:var(--sky-tint);">
 <div class="brand-serie-card-top">
   <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
-  <div class="brand-serie-card-image"><div class="brand-serie-card-fallback">PR</div></div>
+  <div class="brand-serie-card-image"><img src="/static/product-illustrations/proclear-toric-3pk.svg" alt="" loading="lazy" decoding="async"></div>
 </div>
 <div class="brand-serie-card-body">
   <div class="brand-serie-card-name">Proclear</div>
@@ -2074,7 +2080,7 @@ a { color: inherit; }
 </a><a class="brand-serie-card" href="/serie/avaira-vitality/" style="--serie-tint:var(--coral-tint);">
 <div class="brand-serie-card-top">
   <span class="brand-serie-card-eyebrow" style="background:var(--sky-tint);color:var(--sky);">MÅNEDSLINSER</span>
-  <div class="brand-serie-card-image"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg" alt="" width="170" height="99" loading="lazy" decoding="async"></div>
+  <div class="brand-serie-card-image"><img src="/static/products/avaira-vitality-6pk-hq.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
 </div>
 <div class="brand-serie-card-body">
   <div class="brand-serie-card-name">Avaira Vitality</div>
@@ -2100,7 +2106,7 @@ a { color: inherit; }
 </a><a class="brand-serie-card" href="/serie/clariti-1day/" style="--serie-tint:var(--mint-tint);">
 <div class="brand-serie-card-top">
   <span class="brand-serie-card-eyebrow" style="background:var(--amber-tint);color:var(--amber);">DAGSLINSER</span>
-  <div class="brand-serie-card-image"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg" alt="" width="170" height="99" loading="lazy" decoding="async"></div>
+  <div class="brand-serie-card-image"><img src="/static/products/clariti-1day-30pk-hq.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
 </div>
 <div class="brand-serie-card-body">
   <div class="brand-serie-card-name">Clariti 1 day</div>
@@ -2113,7 +2119,7 @@ a { color: inherit; }
 </a><a class="brand-serie-card" href="/serie/myday/" style="--serie-tint:var(--sky-tint);">
 <div class="brand-serie-card-top">
   <span class="brand-serie-card-eyebrow" style="background:var(--amber-tint);color:var(--amber);">DAGSLINSER</span>
-  <div class="brand-serie-card-image"><img src="https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg" alt="" width="170" height="99" loading="lazy" decoding="async"></div>
+  <div class="brand-serie-card-image"><img src="/static/products/myday-30pk-hq.jpg" alt="" width="900" height="525" loading="lazy" decoding="async"></div>
 </div>
 <div class="brand-serie-card-body">
   <div class="brand-serie-card-name">MyDay</div>
