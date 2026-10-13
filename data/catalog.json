@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-13T17:16:06Z",
+  "generated_at": "2026-10-13T17:52:57Z",
   "currency": "NOK",
   "products": [
     {
@@ -2561,6 +2561,15 @@
           "checked_at": "2026-10-13T03:10:44.235654+00:00"
         },
         {
+          "merchant": "Interoptik",
+          "price": 256.0,
+          "shipping": 0.0,
+          "total_price": 256.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000576&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday/",
+          "checked_at": "2026-10-13T17:49:12.586438+00:00"
+        },
+        {
           "merchant": "Lensit",
           "price": 294.0,
           "shipping": 0.0,
@@ -3072,6 +3081,15 @@
           "availability": "in_stock",
           "url": "https://www.synsam.no/biotrue-oneday-for-presbyopia-30-stk-pk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-13T03:13:44.722037+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 388.0,
+          "shipping": 0.0,
+          "total_price": 388.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000572&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-presbyopia/",
+          "checked_at": "2026-10-13T17:49:12.586734+00:00"
         },
         {
           "merchant": "Shopping4net",
@@ -3881,6 +3899,15 @@
       },
       "offers": [
         {
+          "merchant": "Interoptik",
+          "price": 239.0,
+          "shipping": 0.0,
+          "total_price": 239.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "checked_at": "2026-10-13T17:49:12.585738+00:00"
+        },
+        {
           "merchant": "Brilleland",
           "price": 241.0,
           "shipping": 59,
@@ -4286,6 +4313,15 @@
           "checked_at": "2026-10-13T03:10:39.410545+00:00"
         },
         {
+          "merchant": "Interoptik",
+          "price": 765.0,
+          "shipping": 0.0,
+          "total_price": 765.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000577&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday/",
+          "checked_at": "2026-10-13T17:49:12.586627+00:00"
+        },
+        {
           "merchant": "Extra Optical",
           "price": 805.0,
           "shipping": 45,
@@ -4323,6 +4359,15 @@
           "availability": "in_stock",
           "url": "https://www.coptikk.no/linsebutikk/progressive-linser/biotrue-oneday-presbyopia-90-linser?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-13T03:15:04.605503+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 1164.0,
+          "shipping": 0.0,
+          "total_price": 1164.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000574&fid=1169&url=https://www.interoptik.no/kontaktlinser/biotrue/biotrue-oneday-presbyopia/",
+          "checked_at": "2026-10-13T17:49:12.586824+00:00"
         }
       ]
     },
@@ -4647,6 +4692,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-335)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Ffocus-dailies-lens-335)",
           "checked_at": "2026-10-13T03:10:20.960717+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 714.0,
+          "shipping": 0.0,
+          "total_price": 714.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "checked_at": "2026-10-13T17:49:12.586300+00:00"
         },
         {
           "merchant": "Lenson",
@@ -6323,6 +6377,15 @@
       },
       "offers": [
         {
+          "merchant": "Interoptik",
+          "price": 239.0,
+          "shipping": 0.0,
+          "total_price": 239.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000584&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "checked_at": "2026-10-13T17:49:12.585738+00:00"
+        },
+        {
           "merchant": "Brilleland",
           "price": 241.0,
           "shipping": 59,
@@ -6387,6 +6450,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-335)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Ffocus-dailies-lens-335)",
           "checked_at": "2026-10-13T03:10:20.960717+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 714.0,
+          "shipping": 0.0,
+          "total_price": 714.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000585&fid=1169&url=https://www.interoptik.no/kontaktlinser/dailies/all-day-comfort/",
+          "checked_at": "2026-10-13T17:49:12.586300+00:00"
         },
         {
           "merchant": "Lenson",
@@ -7825,6 +7897,25 @@
           "availability": "in_stock",
           "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000765&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/",
           "checked_at": "2026-10-13T17:12:38.893022+00:00"
+        }
+      ]
+    },
+    {
+      "id": "eyexpert-natural-30pk",
+      "name": "Eyexpert Natural 30-pack",
+      "brand": "Eyexpert",
+      "category": "dagslinser",
+      "pack_size": 30,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Interoptik",
+          "price": 213.0,
+          "shipping": 0.0,
+          "total_price": 213.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000607&fid=1169&url=https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/",
+          "checked_at": "2026-10-13T17:49:12.586906+00:00"
         }
       ]
     },
@@ -9896,6 +9987,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-ATD11-4D-30)ttid(19)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FApotek%2FOeyne-Oerer%2FOeyeplager%2FThealoz-Duo-Gel.htm%3FsClickID%3DTradeDoubler-10-3)",
           "checked_at": "2026-10-13T03:10:41.159765+00:00"
+        },
+        {
+          "merchant": "Interoptik",
+          "price": 209.0,
+          "shipping": 0.0,
+          "total_price": 209.0,
+          "availability": "in_stock",
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120619&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/thealoz/thealoz-duo-gel-30x04ml/",
+          "checked_at": "2026-10-13T17:49:12.586979+00:00"
         }
       ]
     },
