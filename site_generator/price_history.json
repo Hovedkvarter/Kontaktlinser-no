@@ -56078,5 +56078,47 @@
       "price": 289.0,
       "store": "Apotekhjem"
     }
+  ],
+  "everclear-adm-5pk": [
+    {
+      "date": "2026-10-13",
+      "price": 56.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-air-3pk": [
+    {
+      "date": "2026-10-13",
+      "price": 175.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-air-1pk": [
+    {
+      "date": "2026-10-13",
+      "price": 76.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-elite-5pk": [
+    {
+      "date": "2026-10-13",
+      "price": 68.0,
+      "store": "Lensway"
+    }
+  ],
+  "everclear-plus-1pk": [
+    {
+      "date": "2026-10-13",
+      "price": 63.0,
+      "store": "Lensway"
+    }
+  ],
+  "clearcolor-1-day-phantom-2pk": [
+    {
+      "date": "2026-10-13",
+      "price": 175.0,
+      "store": "Lensway"
+    }
   ]
 }

@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-10-13",
-  "sig": "4ed32ed0f1cb3b062107e5a3895d13e0d5fe1b48"
+  "sig": "31a81e5e287c171889dee1d22a3739cfd5d5220b"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-10-13",
@@ -243,6 +243,10 @@
   "lastmod": "2026-10-13",
   "sig": "91eb5f9e8b7b300c3ee08c945bff603c0fb0f4bb"
  },
+ "/kontaktlinser/clearlab/clearcolor-1-day-phantom-2-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "0e90b6912fc4487e4015621efd96a52d22c95333"
+ },
  "/kontaktlinser/clearlii/clearlii-daily-30-pack/": {
   "lastmod": "2026-10-13",
   "sig": "4bd60b26991a19aaf3680e5232778c38eab29610"
@@ -261,7 +265,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-10-13",
-  "sig": "57a2918c6b85d6a9a0cefdda20069480c08519d5"
+  "sig": "0e80bc1c0554249f25f04940776a073c80687b44"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-10-13",
@@ -349,35 +353,55 @@
  },
  "/kontaktlinser/everclear/everclear-adm-30-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "0232eb3948c52bed20ec11dc4343df7fffa14ead"
+  "sig": "67de00f6ae65c6f843b673ead39e06060dfffaef"
+ },
+ "/kontaktlinser/everclear/everclear-adm-5-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "f3a5f412798095aa0d53cfec446acec0717ce5cb"
  },
  "/kontaktlinser/everclear/everclear-adm-90-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "51d86c7fa525cd24f4ee3949d2e6058eb2fdcbcf"
+  "sig": "61645e2a882c7f11c7383c57a49a4286c1a9ac13"
+ },
+ "/kontaktlinser/everclear/everclear-air-1-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "0b226c691ac385e8f29ad23d5bdbc0eff4daed04"
+ },
+ "/kontaktlinser/everclear/everclear-air-3-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "945e7fe125163966953cdf46a2f3f18101a24316"
  },
  "/kontaktlinser/everclear/everclear-air-6-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "b289c16d4e297f3863b4b43b181c931f018b2c9e"
+  "sig": "65acdf59789ddb5dc38c0de5acca268d95346ba1"
  },
  "/kontaktlinser/everclear/everclear-elite-180-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "69b794c98101429686aad57adfcfc7d4436522ba"
+  "sig": "020165c984600e70a061caaa76ac88b1fcabc3f2"
  },
  "/kontaktlinser/everclear/everclear-elite-30-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "98018b655410797c4b9d9cff93c25ee5e31c6a1b"
+  "sig": "d54083e05edae621e06739c3609ce7b2021b5c90"
+ },
+ "/kontaktlinser/everclear/everclear-elite-5-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "79725994cd569421624211375ba13d00d7b57e9d"
  },
  "/kontaktlinser/everclear/everclear-elite-90-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "56ea98c03350b9b9754e21d038dbb34fcc2c3aba"
+  "sig": "ffed6b85c6b7d0bf81c8c459ddd18f28f0c3abc5"
+ },
+ "/kontaktlinser/everclear/everclear-plus-1-pack/": {
+  "lastmod": "2026-10-13",
+  "sig": "4bb7f62dd8e33193753af5d8d323b46fee210048"
  },
  "/kontaktlinser/everclear/everclear-plus-6-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "9b74bdeada29c6f63221160d1b01350bbcc5b509"
+  "sig": "d1fd4b5e370b2d1b6fe13579e14afd897c9eb8f6"
  },
  "/kontaktlinser/fargede-linser/": {
   "lastmod": "2026-10-13",
-  "sig": "4a30f8687c58e5fadd665255c395c871df3fe6a9"
+  "sig": "a23de2c59c328a4e1e4f630ec4886297a90b8bf4"
  },
  "/kontaktlinser/freshlook/freshlook-oneday-30-pack/": {
   "lastmod": "2026-10-13",
@@ -393,7 +417,7 @@
  },
  "/kontaktlinser/manedslinser/": {
   "lastmod": "2026-10-13",
-  "sig": "a3c7f54ecd32e83705c73282ba470c1c3d046bed"
+  "sig": "4e702f72120a688be9eb2a74948ce80fe4c74d96"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-30-pack/": {
   "lastmod": "2026-10-13",
@@ -465,19 +489,19 @@
  },
  "/kontaktlinser/precision1/precision1-30-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "e8004864e3e72ebc6bd892a5e09f52da717a5d12"
+  "sig": "b910164cbceab471d1d83d7090a8071082fb9e41"
  },
  "/kontaktlinser/precision1/precision1-90-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "94b4f5fc1dd642930a8c1c0ab65e8340aa33dab1"
+  "sig": "069d950bee89dbab6dc7ac89f51d0338a1c737bd"
  },
  "/kontaktlinser/precision1/precision1-for-astigmatism-30-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "68e0ea2e5f342a554483aa2ce1f7202ac3cbd10c"
+  "sig": "d0f40753f47967dec5c9699345c9d4ded15f705c"
  },
  "/kontaktlinser/precision1/precision1-for-astigmatism-90-pack/": {
   "lastmod": "2026-10-13",
-  "sig": "d575ff88faa3907497bbaf6fa8db4a76649673f7"
+  "sig": "0645d792370728d77fdbea63d6f61e25d0d43de5"
  },
  "/kontaktlinser/precision7/precision7-12-pack/": {
   "lastmod": "2026-10-13",
@@ -601,7 +625,7 @@
  },
  "/kontaktlinser/toriske-linser/": {
   "lastmod": "2026-10-13",
-  "sig": "40cc5836fc5d09bac54e2d2b7fd8d252335c1ddb"
+  "sig": "8426f26025a0ed2109fcde45b3ae31239b31811d"
  },
  "/kontaktlinser/total30/total30-6-pack/": {
   "lastmod": "2026-10-13",
@@ -773,7 +797,7 @@
  },
  "/merke/clearlab/": {
   "lastmod": "2026-10-13",
-  "sig": "86d7f634eb662fb65e6f787eaff49313e7fce11c"
+  "sig": "544049ef7e2ea84848aab9c0b75ac7e2d0d9aba8"
  },
  "/merke/clearlii/": {
   "lastmod": "2026-10-13",
@@ -793,11 +817,11 @@
  },
  "/merke/everclear/": {
   "lastmod": "2026-10-13",
-  "sig": "a3d8c2303c6e49c69b4a23765fd9454c91accee6"
+  "sig": "fa38f6802203c13fe65e94b9d8469038f714cf71"
  },
  "/merke/eyeq/": {
   "lastmod": "2026-10-13",
-  "sig": "aaa783045047aa4eb71eea3b8ab56c01115a5a90"
+  "sig": "a43ff5b770973075f3b1ab45d0eb89f2960979c7"
  },
  "/merke/freshlook/": {
   "lastmod": "2026-10-13",
@@ -825,7 +849,7 @@
  },
  "/merke/precision1/": {
   "lastmod": "2026-10-13",
-  "sig": "2bd0e4587518d2b8caa6e3d601d49202534ee970"
+  "sig": "8e21b4824b35f77160bc1afc6357bf0716f804a1"
  },
  "/merke/precision7/": {
   "lastmod": "2026-10-13",
@@ -1193,11 +1217,11 @@
  },
  "/private-label/eyeq-precision1-for-astigmatism/": {
   "lastmod": "2026-10-13",
-  "sig": "d09d9d5ba1df56bb690db7abf48348e4b5bbcff6"
+  "sig": "91089138a166dc14f8acaf7872020fb652c2bea7"
  },
  "/private-label/eyeq-precision1/": {
   "lastmod": "2026-10-13",
-  "sig": "a6637d3eddb373f9c9777760b76678c5e522b3dd"
+  "sig": "102329c8b46be79fb9d4102d5feeac8c04922c65"
  },
  "/private-label/eyeq-premium-for-astigmatism/": {
   "lastmod": "2026-10-13",
@@ -1397,7 +1421,7 @@
  },
  "/produsent/alcon/": {
   "lastmod": "2026-10-13",
-  "sig": "bc51c1579706f3139870113df4d8fc4bbcc8071a"
+  "sig": "470f78f6588dfd64c99f5b4b3e27d9e5ae25a362"
  },
  "/produsent/bausch-lomb/": {
   "lastmod": "2026-10-13",
@@ -1537,7 +1561,7 @@
  },
  "/serie/eyeq-precision1/": {
   "lastmod": "2026-10-13",
-  "sig": "6e1b89bfb86f610e0260a096b7f2760e9e842171"
+  "sig": "1ecbd2e266e8bf65efdea9cc780d72d89b5ac664"
  },
  "/serie/eyeq-premium/": {
   "lastmod": "2026-10-13",
@@ -1609,7 +1633,7 @@
  },
  "/serie/precision1/": {
   "lastmod": "2026-10-13",
-  "sig": "52aa51db9a00a5a4edbc2dd949048af024568744"
+  "sig": "1be859bb1be171a11a15a496ba29ba2483eba4fa"
  },
  "/serie/precision7/": {
   "lastmod": "2026-10-13",
