@@ -1274,6 +1274,23 @@
       "image_original_url": "https://www.apotekhjem.no/images/thumbs/0044529_evotears-omega-3-ml_400.jpg",
       "product_source_url": "https://ursapharm.de/en/products/dry-eye-syndrome/evotears-omega/",
       "size_ml": 3
+    },
+    {
+      "id": "blephagel-30g",
+      "slug": "blephagel-30-g",
+      "name": "Blephagel 30 g",
+      "brand_slug": "blephagel",
+      "brand_label": "Blephagel",
+      "solution_category": "tilbehor",
+      "unit_singular": "tube",
+      "unit_plural": "tuber",
+      "description": "Rensegel til øyelokk og øyevipper fra Théa.",
+      "long_description": "Blephagel er en gel til daglig rengjøring av øyelokk og øyevipper. Pakningen inneholder 30 g. Følg bruksanvisningen på pakningen.",
+      "scrape_targets": [],
+      "manual_image": "/static/products/blephagel-30g.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/blephagel-rengjoringsgel-30-gr/3662042000553_20.jpg",
+      "product_source_url": "https://www.interoptik.no/oyehelseprodukter/blephagel/blephagel-rengjoringsgel-30-gr/"
     }
   ]
 }

@@ -23532,6 +23532,26 @@
           "image_source": "affiliate_feed",
           "product_id": "blephasol-duo-100ml-100pads",
           "shipping_policy": null
+        },
+        {
+          "retailer": "Interoptik",
+          "brand": "Blephasol",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 179.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120620&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/blephasol/blephasol-duo-lotion-100-ml/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:12:38.894489+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/blephasol-duo-lotion-100-ml/3662042003998_10.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephasol-duo-100ml-100pads",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
         }
       ]
     },
@@ -24093,6 +24113,98 @@
           "shipping_policy": {
             "free_over": 1199,
             "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "ultra-oneday-multifocal-30pk",
+      "slug": "ultra-one-day-multifocal-30-pack",
+      "name": "ULTRA ONE DAY Multifocal 30-pack",
+      "brand_slug": "ultra",
+      "brand_label": "ULTRA",
+      "category_slug": "multifokale-linser",
+      "description": "Multifokale dagslinser fra Bausch + Lomb. Pakningen inneholder 30 linser.",
+      "long_description": "ULTRA ONE DAY Multifocal er multifokale dagslinser i silikonhydrogel fra Bausch + Lomb. Pakningen inneholder 30 linser.",
+      "specs": [
+        [
+          "Basiskurve",
+          "8,6 mm"
+        ],
+        [
+          "Diameter",
+          "14,2 mm"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Multifokal"
+        ]
+      ],
+      "manual_image": "/static/products/ultra-oneday-multifocal-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/ultra-one-day-multifocal-30-pack/40000764_20-uod_left-facing_30-rgb_mf.jpg",
+      "product_source_url": "https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/",
+      "offers": [
+        {
+          "retailer": "Interoptik",
+          "brand": "ULTRA",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 779.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000765&fid=1169&url=https://www.interoptik.no/kontaktlinser/ultra/ultra-one-day-multifocal-30-pack/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:12:38.893022+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/ultra-one-day-multifocal-30-pack/40000764_20-uod_left-facing_30-rgb_mf.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "ultra-oneday-multifocal-30pk",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "blephagel-30g",
+      "slug": "blephagel-30-g",
+      "name": "Blephagel 30 g",
+      "brand_slug": "blephagel",
+      "brand_label": "Blephagel",
+      "solution_category": "tilbehor",
+      "unit_singular": "tube",
+      "unit_plural": "tuber",
+      "description": "Rensegel til øyelokk og øyevipper fra Théa.",
+      "long_description": "Blephagel er en gel til daglig rengjøring av øyelokk og øyevipper. Pakningen inneholder 30 g. Følg bruksanvisningen på pakningen.",
+      "manual_image": "/static/products/blephagel-30g.jpg",
+      "image_source": "affiliate_feed",
+      "image_original_url": "https://www.interoptik.no/globalassets/from-pim/blephagel-rengjoringsgel-30-gr/3662042000553_20.jpg",
+      "product_source_url": "https://www.interoptik.no/oyehelseprodukter/blephagel/blephagel-rengjoringsgel-30-gr/",
+      "offers": [
+        {
+          "retailer": "Interoptik",
+          "brand": "Blephagel",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 159.0,
+          "shipping_nok": 0.0,
+          "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=90120614&fid=1169&url=https://www.interoptik.no/oyehelseprodukter/blephagel/blephagel-rengjoringsgel-30-gr/",
+          "in_stock": true,
+          "checked_at": "2026-10-13T17:12:38.894357+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://www.interoptik.no/globalassets/from-pim/blephagel-rengjoringsgel-30-gr/3662042000553_20.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "blephagel-30g",
+          "shipping_policy": {
+            "free_over": 0,
+            "fee_nok": 0
           }
         }
       ]

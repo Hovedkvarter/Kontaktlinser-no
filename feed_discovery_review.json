@@ -877,9 +877,9 @@
   },
   "interoptik:40000765": {
     "fingerprint": "1c4187fead774926",
-    "status": "Avklar variant/pakning",
+    "status": "Koblet til produkt",
     "family": "ULTRA® ONE DAY Multifocal 30 pack",
-    "note": "Ny produktkandidat: ULTRA ONE DAY Multifocal"
+    "note": "Avklart 2026-10-13. Se docs/interoptik-restavklaringer-2026-10-13.md. Koblet til ultra-oneday-multifocal-30pk"
   },
   "interoptik:40000745": {
     "fingerprint": "9cdddc4194e559f9",
@@ -993,7 +993,7 @@
     "fingerprint": "9a6e333b7efc9739",
     "status": "Avklar variant/pakning",
     "family": "Eyexpert Natural",
-    "note": "Eyexpert Natural: avklar produsent og tilsvarende produkt"
+    "note": "Eyexpert Natural 30-pack bekreftet hos Interoptik (BC 8,6, diameter 14,0, vann 56%). Tilsvarende Live 1 Day er sannsynlig, men eksterne ommerkingstabeller motsier hverandre (også Proclear oppgis). Ingen kobling til originalprodukt uten primærdokumentasjon."
   },
   "interoptik:40000608": {
     "fingerprint": "41e11b6414c84133",
@@ -1213,15 +1213,15 @@
   },
   "interoptik:40000719": {
     "fingerprint": "a8d6cd50a202006a",
-    "status": "Avklar variant/pakning",
+    "status": "Dekket av eksisterende produkt",
     "family": "Total30 Multifocal 6 pack",
-    "note": "Ekstra styrke/add-variant av TOTAL30 Multifocal; én butikkrad brukes"
+    "note": "TOTAL30 Multifocal 6-pack er allerede koblet gjennom SKU 40000718. Disse ekstra variantradene opprettes ikke som egne produkter eller ekstra butikktilbud."
   },
   "interoptik:40000720": {
     "fingerprint": "e4796aad029febf7",
-    "status": "Avklar variant/pakning",
+    "status": "Dekket av eksisterende produkt",
     "family": "Total30 Multifocal 6 pack",
-    "note": "Ekstra styrke/add-variant av TOTAL30 Multifocal; én butikkrad brukes"
+    "note": "TOTAL30 Multifocal 6-pack er allerede koblet gjennom SKU 40000718. Disse ekstra variantradene opprettes ikke som egne produkter eller ekstra butikktilbud."
   },
   "interoptik:40000678": {
     "fingerprint": "ab00ecbaca072b97",
@@ -1321,15 +1321,15 @@
   },
   "interoptik:90120614": {
     "fingerprint": "3e1db9f648d08f16",
-    "status": "Avklar variant/pakning",
+    "status": "Koblet til produkt",
     "family": "BLEPHAGEL Rengjøringsgel 30 gr",
-    "note": "Ny produktkandidat: Blephagel 30 g"
+    "note": "Avklart 2026-10-13. Se docs/interoptik-restavklaringer-2026-10-13.md. Koblet til blephagel-30g"
   },
   "interoptik:90120620": {
     "fingerprint": "c43b8ccf67e112b8",
-    "status": "Avklar variant/pakning",
+    "status": "Koblet til produkt",
     "family": "BLEPHASOL Duo Lotion 100 ml",
-    "note": "Avklar om Duo-sett inkluderer 100 pads"
+    "note": "Avklart 2026-10-13. Se docs/interoptik-restavklaringer-2026-10-13.md. Koblet til blephasol-duo-100ml-100pads"
   },
   "interoptik:90122806": {
     "fingerprint": "ffefd782275e414e",
@@ -1359,7 +1359,7 @@
     "fingerprint": "648422d56ab418c1",
     "status": "Avklar variant/pakning",
     "family": "THEALOZ Duo Gel 30x0,4ml",
-    "note": "Avklar enhet: feed 30x0,4 ml, lokal katalog 30x0,4 g"
+    "note": "Samme eldre EAN 3662042004032 markedsføres som både g og ml hos andre forhandlere. Interoptik-feeden mangler GTIN; EAN finnes bare i bildefilnavnet. Lokalt koblet Apotekhjem-feed har EAN 3662042006623. Paknings-/versjonsavklaring kreves; behold 0,4 g i eksisterende navn."
   },
   "interoptik:90120618": {
     "fingerprint": "398d94b726739730",
