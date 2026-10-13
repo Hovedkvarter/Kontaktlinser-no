@@ -18132,8 +18132,8 @@
     },
     {
       "date": "2026-10-13",
-      "price": 241.0,
-      "store": "Brilleland"
+      "price": 239.0,
+      "store": "Interoptik"
     }
   ],
   "acuvue-moist-90pk": [
@@ -44234,8 +44234,8 @@
     },
     {
       "date": "2026-10-13",
-      "price": 241.0,
-      "store": "Brilleland"
+      "price": 239.0,
+      "store": "Interoptik"
     }
   ],
   "dailies-all-day-comfort-90pk": [
@@ -56132,6 +56132,13 @@
     {
       "date": "2026-10-13",
       "price": 159.0,
+      "store": "Interoptik"
+    }
+  ],
+  "eyexpert-natural-30pk": [
+    {
+      "date": "2026-10-13",
+      "price": 213.0,
       "store": "Interoptik"
     }
   ]
