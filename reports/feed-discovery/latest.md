@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-13T10:45:18.639730+00:00
+Kontrollert: 2026-10-13T12:14:04.497028+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,13 +9,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Extra Optical | ok | 2782 | 87 | 80 | 7 |
-| Lensway | ok | 1095 | 180 | 166 | 14 |
-| Lenson | ok | 181 | 181 | 166 | 15 |
-| Shopping4net | ok | 20201 | 118 | 79 | 39 |
+| Lensway | ok | 1095 | 180 | 169 | 11 |
+| Lenson | ok | 181 | 181 | 169 | 12 |
+| Shopping4net | ok | 20201 | 118 | 85 | 33 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9525 | 79 | 37 | 42 |
+| Apotekhjem | ok | 9525 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 18.
 
 ## Kandidater
 
@@ -77,25 +77,13 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Linseetui | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Linseetui 3pak fra eo Selection - Linsecover 3pk - Grønn, Rosa, Blå | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | MediPearl | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lensway | MediPearl | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | MediPearl Ögonmask | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Medipearl øyemaske 1 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Opticlude 2738PG Silicone Midi 2738PG Øyelapper (Bil/Fly) 50 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Opticlude 2738PG Silicone Midi Øyelapper Frukt/Bær 50 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Opticlude Øyelapp Maxi 20 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Opticlude Øyelapp Mini 20 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | POSIFORLID® Eye mask 1 stk/pakke | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | POSIFORLID® Øyemaske – 1 stk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Øyedråpeflaske ster 10ml enpac | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Øyelapp sort m/strikk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | Bausch &amp; Lomb Desosept Salva 15 gram | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lensway | Blephaclean | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephaclean Blephasol Duo 100 ml med 100 servietter | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | Blephaclean NO | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephaclean Sterile Våtservietter 20 stk | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | Blephacura | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lensway | Blephacura | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Blephademodex sterile våtservietter 30stk | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Blephaderm lindrende øyelokkskrem 40 ml | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Blephagel steril gel uten konserveringsmidler 30 G | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
@@ -103,10 +91,6 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Blephasteam ringer fuktk brill | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Desosept salve øyelokk 15 g | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | POSIFORLID® Eye Spray 15 ml | Øyelokkspleie | Mulig ny butikkobling – Produktnavn og størrelse peker på POSIFORLID Eye Spray 15 ml. Kontroller endelig variant før kobling. | POSIFORLID Eye Spray 15 ml | Uendret |
-| Apotekhjem | POSIFORLID® Eye wipes  - 20 servietter | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | POSIFORLID® Eye wipes 20 stk/pakke | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | Théa Blephaclean våtservetter 20 stk/pakke | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | Théa Blephasol Duo 100 ml | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | A.Vogel Ögondroppar 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Artelac Øyedråper Endose 60x0,5ml | Øyepleie – vurder variant | Ny pakning/variant – Artelac endose 60 x 0,5 ml. Vi har flaske 10 ml. | Artelac Øyedråper 10 ml | Uendret |
 | Shopping4net | Bausch &amp; Lomb Desodrop 10 gram | Øyepleie – vurder variant | Avklar feeddata – Vi har Desodrop 8 ml. Feeden sier 10 gram, mens SKU slutter på 8. Motstrid i mengde/enhet. |  | Uendret |
@@ -118,8 +102,6 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Cleareyes bright &amp; moist øyedråper-15ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | DROP-it Drop it Dry eyes 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | DROP-it Drop it Red eyes 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | EvoTears® OMEGA 3 ml | Øyepleie – vurder variant | Ny pakning/variant – Vi har EvoTears 3 ml. OMEGA er et annet variantnavn og skal ikke kobles til vanlig EvoTears uten dokumentasjon. | EvoTears 3 ml | Uendret |
-| Shopping4net | EvoTears® OMEGA 3 ml | Øyepleie – vurder variant | Ny pakning/variant – Vi har EvoTears 3 ml. OMEGA er et annet variantnavn og skal ikke kobles til vanlig EvoTears uten dokumentasjon. | EvoTears 3 ml | Uendret |
 | Apotekhjem | Fluoresceinna Minim øyedråper 20mg | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
 | Shopping4net | Hylo Eye Care HYLO Dual 10 ml | Øyepleie – vurder variant | Mulig ny butikkobling – Produktnavn og størrelse peker på Hylo Dual 10 ml. Kontroller endelig variant før kobling. | Hylo-Care 10 ml, Hylo Dual 10 ml | Uendret |
 | Apotekhjem | Hyprosan Øyedråper 3,2mg/ml | Øyepleie – vurder variant | Ny pakning/variant – Tidligere dokumentert 3 x 10 ml (product_matching.json); vi har enkeltflaske. Dagens feednavn skiller ikke størrelsen, må bekreftes igjen. | Hyprosan Øyedråper 10 ml | Uendret |
