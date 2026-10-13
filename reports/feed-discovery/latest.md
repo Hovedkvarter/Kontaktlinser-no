@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-13T12:39:36.795577+00:00
+Kontrollert: 2026-10-13T16:14:14.458655+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -8,6 +8,7 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
+| Interoptik | ok | 1217 | 109 | 96 | 13 |
 | Extra Optical | ok | 2782 | 87 | 80 | 7 |
 | Lensway | ok | 1095 | 180 | 175 | 5 |
 | Lenson | ok | 181 | 181 | 175 | 6 |
@@ -15,7 +16,7 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Brilleland | ok | 922 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9525 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 16.
+Nye rader: 13. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -26,13 +27,23 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 16.
 | Shopping4net | 1-Day Acuvue Moist for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | 1-Day Acuvue Moist for Astigmatism 30-pack, 1-Day Acuvue Moist for Astigmatism 90-pack, Acuvue Oasys for Astigmatism 6-pack | Uendret |
 | Shopping4net | Acuvue Oasys 1-Day Hydraluxe for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Acuvue Oasys 1-Day for Astigmatism 30-pack, Acuvue Oasys 1-Day for Astigmatism 90-pack, Acuvue Oasys MAX 1-Day for Astigmatism 30-pack | Uendret |
 | Shopping4net | Air Optix Aqua | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Interoptik | All Day Comfort | Kontaktlinser | Åpen – Avklar variant/pakning | Dailies All Day Comfort 30-pack, Dailies All Day Comfort 90-pack | Ny |
+| Interoptik | All Day Comfort | Kontaktlinser | Åpen – Avklar variant/pakning | Dailies All Day Comfort 30-pack, Dailies All Day Comfort 90-pack | Ny |
 | Shopping4net | Biofinity XR | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Biofinity XR 6-pack, Biofinity XR 3-pack, Biofinity 6-pack | Uendret |
+| Interoptik | Biotrue Oneday | Kontaktlinser | Åpen – Avklar variant/pakning | Biotrue ONEday 30-pack, Biotrue ONEday 90-pack | Ny |
+| Interoptik | Biotrue Oneday | Kontaktlinser | Åpen – Avklar variant/pakning | Biotrue ONEday 30-pack, Biotrue ONEday 90-pack | Ny |
+| Interoptik | Biotrue Oneday Presbyopia | Kontaktlinser | Åpen – Avklar variant/pakning | Biotrue ONEday for Presbyopia 30-pack, Biotrue ONEday for Presbyopia 90-pack, Biotrue ONEday 30-pack | Ny |
+| Interoptik | Biotrue Oneday Presbyopia | Kontaktlinser | Åpen – Avklar variant/pakning | Biotrue ONEday for Presbyopia 30-pack, Biotrue ONEday for Presbyopia 90-pack, Biotrue ONEday 30-pack | Ny |
+| Interoptik | Eyexpert Natural | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Proclear 1 day | Kontaktlinser | Avklar feeddata – Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart. | Proclear 1 day 30-pack, Proclear 1 day 90-pack | Uendret |
 | Shopping4net | PureVision2 For Presbyopia | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | PureVision 2 for Presbyopia 6-pack | Uendret |
 | Shopping4net | Supra 55 UV Tint | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
+| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Åpen – Mulig eksisterende produkt | TOTAL30 Multifocal 6-pack | Ny |
+| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Åpen – Mulig eksisterende produkt | TOTAL30 Multifocal 6-pack | Ny |
+| Interoptik | ULTRA® ONE DAY Multifocal 30 pack | Kontaktlinser | Åpen – Avklar variant/pakning | MyDay Multifocal 30-pack, Clariti 1 day Multifocal 30-pack, ULTRA ONE DAY 30-pack | Ny |
 | Shopping4net | Bausch &amp; Lomb Ocuvite Complete 60 kapsler | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
 | Shopping4net | BioCare Ögonkomplex 60 kapsler | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
 | Shopping4net | Elexir Pharma Elexir Blue Eye 2x64 tabletter | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
@@ -70,7 +81,9 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 16.
 | Shopping4net | Bausch &amp; Lomb Desosept Salva 15 gram | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Blephademodex sterile våtservietter 30stk | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Blephaderm lindrende øyelokkskrem 40 ml | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Interoptik | BLEPHAGEL Rengjøringsgel 30 gr | Øyelokkspleie | Åpen – Ny produktkandidat |  | Ny |
 | Apotekhjem | Blephagel steril gel uten konserveringsmidler 30 G | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Interoptik | BLEPHASOL Duo Lotion 100 ml | Øyelokkspleie | Åpen – Avklar variant/pakning | Blephasol Duo 100 ml + 100 pads | Ny |
 | Apotekhjem | Blephasteam fuktkammerbriller - utgått | Øyelokkspleie | Utgått i feedtekst – Feedtittelen sier utgått. Ikke prioriter for publisering selv om et tilgjengelighetsfelt skulle si noe annet. |  | Uendret |
 | Apotekhjem | Blephasteam ringer fuktk brill | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Desosept salve øyelokk 15 g | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
@@ -103,6 +116,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 16.
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Apotekhjem | Tears naturale øyedråper 10ml | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
+| Interoptik | THEALOZ Duo Gel 30x0,4ml | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Thealoz Duo Gel 30 x 0,4 g, Thealoz Duo 10 ml | Ny |
 | Apotekhjem | Viscotears Øyegel 3x10g | Øyepleie – vurder variant | Ny pakning/variant – Viscotears 3 x 10 g. Vi har 10 g. | Viscotears Øyegel 10 g | Uendret |
 | Apotekhjem | Viscotears Øyegel Endosebeholdere 30 x 0,6 ml | Øyepleie – vurder variant | Ny pakning/variant – Viscotears endose 30 x 0,6 ml. Vi har 10 g tube. |  | Uendret |
 | Apotekhjem | Øyebadeglass plast Snøgg | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
