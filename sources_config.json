@@ -1,9 +1,9 @@
 {
   "$comment": "default_source gjelder alle merker hos en forhandler, med mindre brand_overrides sier noe annet. Når en avtale godkjennes for et merke hos en forhandler: legg til/oppdater raden i brand_overrides. Ingen kodeendring nødvendig.",
   "interoptik": {
-    "$comment": "Har hatt en adtraction-brand_override for acuvue som pekte på en falsk testfeed (feeds/adtraction_interoptik_acuvue.csv, aldri en ekte avtale) -- fjernet på eksplisitt beskjed om å bruke direktelenke i stedet for adtraction-lenken til avtale er reell. Selectorene under er verifisert mot ekte HTML (28.08.2026): server-rendrer prisen direkte, ingen JS-triks nødvendig. Ingen 'utsolgt'-indikator funnet ved verifisering -- stock_selector er derfor utelatt, alle tilbud antas på lager inntil dette er sjekket mot et faktisk utsolgt produkt. URL-strukturen er /kontaktlinser/{merke}/{produkt}/ -- slug må derfor inneholde hele stien fra merke-segmentet.",
+    "$comment": "Affiliate-avtale godkjent av eier 2026-10-13. Feed 1169 er primærkilde for pris, lager, bilder og ferdige trackinglenker. Eksplisitte SKU-koblinger; uavklarte pakninger holdes ute. Scraper-konfigurasjonen er inaktiv. Se docs/interoptik-feed-2026-10-13.md.",
     "display_name": "Interoptik",
-    "default_source": "scraper",
+    "default_source": "affiliate_feed",
     "scraper_config": {
       "base_url": "https://www.interoptik.no",
       "price_selector": ".price-big",
@@ -14,7 +14,13 @@
       }
     },
     "$shipping_comment": "Alltid gratis frakt, ingen grense -- bekreftet direkte sitert fra kjøpsvilkår (interoptik.no/om-oss/personvern/kjops--og-leveransevilkar) 2026-08-16.",
-    "brand_overrides": {}
+    "brand_overrides": {},
+    "network": "adtraction_interoptik",
+    "feed_url": "https://secure.adtraction.com/productfeed.htm?type=feed&format=CSV&encoding=UTF8&epi=0&zip=0&cdelim=comma&tdelim=doublequote&sd=0&sn=0&flat=0&apid=1717731573&asid=2102229792&gsh=1&pfid=1169&gt=0",
+    "shipping": {
+      "free_over": 0,
+      "fee_nok": 0
+    }
   },
   "extraoptical": {
     "$chillout_comment": "chillout_feed_id er Chillouts feed-resource-id for denne kilden, ikke et tall: Adtraction-tilbudenes offer_id i lesekontrakten er 'extraoptical:<annonsorens produktnavn>'. Verdien er lest av det faktiske svaret fra produksjon 2026-09-24, ikke utledet av noe monster.",
