@@ -1383,7 +1383,7 @@ def _topbar_html(show_search: bool = True) -> str:
           <div class="mega-col-title">Kategori</div>
           <a class="mega-menu-link" href="/linsevaeske/">Linsevæske</a>
           <a class="mega-menu-link" href="/oyedraper/">Øyedråper</a>
-          <a class="mega-menu-link" href="/tilbehor/">Etui og hjelpemidler</a>
+          <a class="mega-menu-link" href="/tilbehor/">Tilbehør og øyelokkspleie</a>
         </div>
       </div>
     </div>
@@ -11308,8 +11308,8 @@ SOLUTION_CATEGORIES = {
     },
     "tilbehor": {
         "label": "Tilbehør",
-        "title_label": "Billig linsetilbehør",
-        "intro": "Sammenlign priser på linseetui, pinsett og hjelpemidler for kontaktlinser og øyedråper hos norske nettbutikker.",
+        "title_label": "Tilbehør og øyelokkspleie",
+        "intro": "Sammenlign priser på linseetui, hjelpemidler, øyemasker og produkter for rengjøring av øyelokk hos norske nettbutikker.",
     },
     "oyedraper": {
         "label": "Øyedråper",

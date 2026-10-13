@@ -197,6 +197,11 @@ def map_tradedoubler_row(product: dict, product_match: dict[str, str], retailer_
     image_url = (product.get("productImage") or {}).get("url") or None
     checked_at = datetime.now(timezone.utc).isoformat()
     shipping_policy = retailer_cfg.get("shipping")
+    # Retailers may use different free-shipping thresholds by department.
+    for prefix, policy in retailer_cfg.get("shipping_by_category", {}).items():
+        if any(category.startswith(prefix) for category in categories):
+            shipping_policy = policy
+            break
     # Ulike Tradedoubler-annonsører formaterer dette feltet ulikt -- bekreftet
     # 2026-08-29: Shopping4net sier "in_stock"/"out_of_stock" (understrek,
     # små bokstaver), Lenson/Lensway sier "In stock" (mellomrom, stor
