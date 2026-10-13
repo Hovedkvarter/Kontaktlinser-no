@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="540" viewBox="0 0 900 540" role="img" aria-labelledby="title desc">
+<title id="title">Egen illustrasjon av Clearlii Hydrogel Månedslinser 6 linser</title>
+<desc id="desc">Ikke et ekte produktbilde. Emballasjens utforming og farger er illustrert.</desc>
+
+<ellipse cx="447" cy="460" rx="343" ry="18" fill="#0b2545" opacity=".07"/>
+<path d="M90 131 165 80 811 80 736 131Z" fill="#f9fbfc" stroke="#d6e0e6" stroke-width="2"/>
+<path d="M736 131 811 80 811 381 736 432Z" fill="#eae3f3" stroke="#c8d4dc" stroke-width="2"/>
+<path d="M90 131H736V432H90Z" fill="#f7fafb" stroke="#c8d4dc" stroke-width="2"/>
+<path d="M90 131H736V145H90Z" fill="#7964a2"/>
+<path d="M736 131 811 80V94L736 145Z" fill="#7964a2" opacity=".72"/>
+<g font-family="Arial, sans-serif">
+ <text x="688" y="113" text-anchor="end" font-size="15" letter-spacing="2" fill="#6b7e8a">EGEN ILLUSTRASJON</text>
+ <text x="132" y="212" font-size="49" font-weight="600" fill="#153449">Clearlii</text>
+ <text x="135" y="258" font-size="31" fill="#7964a2">Hydrogel</text><text x="135" y="297" font-size="31" fill="#7964a2">Månedslinser</text>
+ <text x="135" y="379" font-size="48" font-weight="600" fill="#153449">6<tspan dx="12" font-size="23" font-weight="400">linser</tspan></text>
+ <circle cx="624" cy="302" r="83" fill="#eae3f3"/>
+ <circle cx="624" cy="302" r="59" fill="none" stroke="#7964a2" stroke-width="2" opacity=".65"/>
+ <circle cx="624" cy="302" r="42" fill="#fff" opacity=".8"/>
+ <path d="M603 310Q624 325 645 310" fill="none" stroke="#7964a2" stroke-width="2" opacity=".6"/>
+ <text x="782" y="271" text-anchor="middle" transform="rotate(90 782 271)" font-size="15" letter-spacing="1.7" fill="#5a707d">ILLUSTRASJON</text>
+</g>
+</svg>

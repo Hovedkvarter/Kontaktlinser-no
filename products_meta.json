@@ -421,7 +421,12 @@
           "retailer": "lensway",
           "slug": "acuvue-vita-lens-6648"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-vita-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/5/7/6/6/acuvue-vita-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/4/5/7/6/6/acuvue-vita-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biofinity-6pk",
@@ -1003,7 +1008,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/fargelinser/air-optix-colors-2-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/air-optix-colors-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/3/0/1/5/air-optix-colors-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/3/0/1/5/air-optix-colors-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "adore-bi-tone-2pk",
@@ -1057,7 +1067,12 @@
           "retailer": "lensway",
           "slug": "adore-bi-tone-lens-6282"
         }
-      ]
+      ],
+      "manual_image": "/static/products/adore-bi-tone-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/6/4/2/3/adore-bi-tone-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/9/6/4/2/3/adore-bi-tone-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "adore-dare-2pk",
@@ -1111,7 +1126,12 @@
           "retailer": "lensway",
           "slug": "adore-dare-lens-6281"
         }
-      ]
+      ],
+      "manual_image": "/static/products/adore-dare-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/2/3/2/9/5/adore-dare-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/2/3/2/9/5/adore-dare-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-oasys-multifocal-6pk",
@@ -1306,7 +1326,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/biofinity-energys-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biofinity-energys-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/8/2/7/9/6/biofinity-energys-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biofinity-xr-6pk",
@@ -1415,7 +1440,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/avaira-vitality-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/avaira-vitality-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/0/1/0/6/2/avaira-vitality-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "avaira-vitality-toric-6pk",
@@ -1470,7 +1500,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/avaira-vitality-toric-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/avaira-vitality-toric-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/9/3/2/7/avaira-vitality-toric-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/7/9/3/2/7/avaira-vitality-toric-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "myday-30pk",
@@ -1537,7 +1572,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/myday-daily-disposable-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/myday-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/4/3/0/6/3/myday-daily-disposable-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "myday-multifocal-30pk",
@@ -1810,7 +1850,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/clariti-1-day-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/clariti-1day-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/4/0/6/1/clariti-1-day-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clariti-1day-toric-30pk",
@@ -1856,7 +1901,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/toriske-linser/clariti-1-day-toric-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/clariti-1day-toric-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/0/3/6/9/4/clariti-1-day-toric-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "air-optix-hydraglyde-6pk",
@@ -2821,7 +2871,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/ultra-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/ultra-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/5/1/9/ultra-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/7/2/5/1/9/ultra-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biomedics-55-evolution-6pk",
@@ -3083,7 +3138,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dognlinser/purevision-2-hd-for-astigmatisme-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/purevision2-astigmatism-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/3/7/6/6/5/purevision2-for-astigmatism-1244x987.png",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/202/img2/3/7/6/6/5/purevision2-for-astigmatism-1244x987.png",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "purevision2-presbyopia-6pk",
@@ -3198,7 +3258,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/toriske-linser/biotrue-oneday-astigmatism-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/biotrue-oneday-astigmatism-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/1/2/8/2/biotrue-oneday-for-astigmatism-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/5/1/2/8/2/biotrue-oneday-for-astigmatism-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biotrue-oneday-presbyopia-30pk",
@@ -3301,7 +3366,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/ultra-oneday-30-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/ultra-oneday-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/7/1/6/9/lw-ultra-oneday-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/7/1/6/9/lw-ultra-oneday-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "ultra-astigmatism-6pk",
@@ -3360,7 +3430,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/ultra-for-astigmatism-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/ultra-astigmatism-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/7/2/6/0/4/lw-ultra-for-astig-6-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/7/2/6/0/4/lw-ultra-for-astig-6-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "ultra-presbyopia-6pk",
@@ -3419,7 +3494,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/ultra-for-presbyopia-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/ultra-presbyopia-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/0/9/7/3/ultra-for-presbyopia-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/1/0/9/7/3/ultra-for-presbyopia-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biomedics-1day-xtra-30pk",
@@ -3618,7 +3698,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/manedslinser/total-30-multifocal-6-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/total30-multifocal-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/4/4/1/1/2/total30-multifocal-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/4/4/1/1/2/total30-multifocal-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "total30-astigmatism-6pk",
@@ -3887,6 +3972,13 @@
           "retailer": "lensway",
           "slug": "freshlook-oneday-lens-328"
         }
+      ],
+      "illustration_image": "/static/product-illustrations/freshlook-oneday-30pk.svg",
+      "illustration_source": "own_illustration",
+      "excluded_image_urls": [
+        "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/4/8/3/7/1/freshlook-oneday-color-1362x795.jpg",
+        "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/1/6/5/7/5/freshlook-oneday-color-1362x795.jpg",
+        "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-CQ_1.jpg"
       ]
     },
     {
@@ -4395,7 +4487,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/clariti-1-day-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/clariti-1day-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/7/1/8/4/clariti-1-day-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/3/7/1/8/4/clariti-1-day-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "dailies-aquacomfort-plus-90pk",
@@ -4693,7 +4790,12 @@
           "retailer": "lensway",
           "slug": "focus-dailies-lens-335"
         }
-      ]
+      ],
+      "manual_image": "/static/products/focus-dailies-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_20.jpg",
+      "image_retrieved_url": "https://www.interoptik.no/globalassets/from-pim/dailies-all-day-comfort-90-pack/40000585_20.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "myday-90pk",
@@ -4751,7 +4853,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/myday-daily-disposable-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/myday-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/4/6/3/0/myday-daily-disposable-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/4/6/3/0/myday-daily-disposable-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "precision1-90pk",
@@ -4948,7 +5055,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/ultra-oneday-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/ultra-oneday-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/2/0/3/3/ultra-one-day-90-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/2/0/3/3/ultra-one-day-90-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-moist-multifocal-30pk",
@@ -5113,7 +5225,12 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/acuvue-oasys-1-day-for-astigmatism-90-linser"
         }
-      ]
+      ],
+      "manual_image": "/static/products/acuvue-oasys-1day-astigmatism-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/3/0/4/1/1/acuvue-oasys-1-day-with-hydraluxe-for-astigmatism-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/3/0/4/1/1/acuvue-oasys-1-day-with-hydraluxe-for-astigmatism-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "biofinity-multifocal-toric-3pk",
@@ -6200,7 +6317,12 @@
           "retailer": "lensway",
           "slug": "focus-dailies-lens-335"
         }
-      ]
+      ],
+      "manual_image": "/static/products/dailies-all-day-comfort-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/9/5/2/1/focus-dailies-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "miru-1day-upside-30pk",
@@ -6479,7 +6601,9 @@
           "retailer": "coptikk",
           "slug": "linsebutikk/dagslinser/myday-misight-1-day-90-linser"
         }
-      ]
+      ],
+      "illustration_image": "/static/product-illustrations/myday-misight-1day-90pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "live-30pk",
@@ -6522,7 +6646,12 @@
           "retailer": "lensway",
           "slug": "live-lens-7639"
         }
-      ]
+      ],
+      "manual_image": "/static/products/live-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/3/9/7/9/5/live-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/3/9/7/9/5/live-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "live-90pk",
@@ -6560,7 +6689,12 @@
           "retailer": "lensway",
           "slug": "live-lens-7668"
         }
-      ]
+      ],
+      "manual_image": "/static/products/live-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/6/3/8/8/live-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/6/3/8/8/live-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clearlii-daily-30pk",
@@ -6653,7 +6787,9 @@
           "retailer": "apotekfordeg",
           "slug": "clearlii-daily-soft-endagslinser-90-pk--300"
         }
-      ]
+      ],
+      "illustration_image": "/static/product-illustrations/clearlii-daily-90pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "clearlii-monthly-6pk",
@@ -6699,7 +6835,9 @@
           "retailer": "apotekfordeg",
           "slug": "clearlii-hydrogel-manedslinser-6-stk--300"
         }
-      ]
+      ],
+      "illustration_image": "/static/product-illustrations/clearlii-monthly-6pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "clearlii-vitamin-30pk",
@@ -6745,7 +6883,9 @@
           "retailer": "apotekfordeg",
           "slug": "clearlii-vitamin-enriched-endagslinser-30-pk--300"
         }
-      ]
+      ],
+      "illustration_image": "/static/product-illustrations/clearlii-vitamin-30pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "everclear-adm-30pk",
@@ -6774,7 +6914,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-adm-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/8/7/8/0/6/everclear-adm-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/8/7/8/0/6/everclear-adm-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-adm-90pk",
@@ -6803,7 +6948,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-adm-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/6/0/8/5/5/everclear-adm-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/6/0/8/5/5/everclear-adm-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-air-6pk",
@@ -6832,7 +6982,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-air-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/7/9/5/7/everclear-air-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/5/7/9/5/7/everclear-air-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-elite-30pk",
@@ -6861,7 +7016,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-elite-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/0/3/5/2/2/everclear-elite-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/0/3/5/2/2/everclear-elite-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-elite-90pk",
@@ -6890,7 +7050,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-elite-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/0/8/8/1/everclear-elite-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/7/0/8/8/1/everclear-elite-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "everclear-plus-6pk",
@@ -6919,7 +7084,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-plus-6pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/7/5/5/everclear-plus-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/5/4/7/5/5/everclear-plus-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clear-1-day-30pk",
@@ -6948,7 +7118,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/clear-1-day-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/7/0/2/4/7/clear-1-day-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/202/img2/prod/7/0/2/4/7/clear-1-day-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "daysoft-silk-32pk",
@@ -6977,7 +7152,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/daysoft-silk-32pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/7/2/7/2/2/daysoft-silk-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/7/2/7/2/2/daysoft-silk-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "daysoft-silk-96pk",
@@ -7006,7 +7186,12 @@
           "Sfærisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/daysoft-silk-96pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/5/4/1/0/2/daysoft-silk-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/5/4/1/0/2/daysoft-silk-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "queens-trilogy-2pk",
@@ -7035,7 +7220,12 @@
           "Farget, med og uten styrke"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/queens-trilogy-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/4/2/0/2/queen-s-trilogy-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/9/4/2/0/2/queen-s-trilogy-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "swati-coloured-lenses-1month-2pk",
@@ -7064,7 +7254,12 @@
           "Farget, med og uten styrke"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/swati-coloured-lenses-1month-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/3/3/8/7350100163154-02-front.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/0/3/3/8/7350100163154-02-front.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "swati-coloured-lenses-6months-2pk",
@@ -7093,7 +7288,12 @@
           "Farget, med og uten styrke"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/swati-coloured-lenses-6months-2pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/0/1/0/8/7350100161303-02-front.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/0/1/0/8/7350100161303-02-front.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clariti-1day-multifocal-30pk",
@@ -7130,7 +7330,12 @@
           "Multifokal"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/clariti-1day-multifocal-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/1/5/9/3/5/clariti-1-day-multifocal-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clariti-1day-multifocal-90pk",
@@ -7167,7 +7372,12 @@
           "Multifokal"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/clariti-1day-multifocal-90pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/9/3/8/4/7/clariti-1-day-multifocal-1362x795.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-oasys-max-1day-astigmatism-30pk",
@@ -7208,7 +7418,12 @@
           "Ja"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "manual_image": "/static/products/acuvue-oasys-max-1day-astigmatism-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/1/7/8/8/image-original-maxastig.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/1/7/8/8/image-original-maxastig.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "acuvue-oasys-1day-hydraluxe-180pk",
@@ -7305,7 +7520,12 @@
           "retailer": "lensway",
           "slug": "everclear-elite-lens-9621"
         }
-      ]
+      ],
+      "manual_image": "/static/products/everclear-elite-180pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/5/4/2/9/3/lw-everclear-elite-180-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/5/4/2/9/3/lw-everclear-elite-180-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "clariti-1day-multifocal-3add-30pk",
@@ -7335,7 +7555,12 @@
           "retailer": "lensway",
           "slug": "clariti-1day-multifocal-3-add-lens-10831"
         }
-      ]
+      ],
+      "manual_image": "/static/products/clariti-1day-multifocal-3add-30pk-hq.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/1/9/2/8/clariti-1day-multifocal-3-add-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/2/1/9/2/8/clariti-1day-multifocal-3-add-image-original.jpg",
+      "image_reviewed_at": "2026-10-13"
     },
     {
       "id": "proclear-toric-3pk",
@@ -7364,7 +7589,9 @@
           "Torisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/proclear-toric-3pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "proclear-multifocal-3pk",
@@ -7393,7 +7620,9 @@
           "Multifokal"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/proclear-multifocal-3pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "biofinity-toric-3pk",
@@ -7442,7 +7671,9 @@
           "Torisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/biofinity-toric-3pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "biofinity-multifocal-3pk",
@@ -7487,7 +7718,9 @@
           "Multifokal"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/biofinity-multifocal-3pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "biofinity-xr-toric-6pk",
@@ -7516,7 +7749,9 @@
           "Torisk"
         ]
       ],
-      "scrape_targets": []
+      "scrape_targets": [],
+      "illustration_image": "/static/product-illustrations/biofinity-xr-toric-6pk.svg",
+      "illustration_source": "own_illustration"
     },
     {
       "id": "misight-1day-30pk",

@@ -34,6 +34,26 @@ class ProductImageFilesTests(unittest.TestCase):
         self.assertNotIn('pli-iwear-pack', card)
         self.assertNotIn('/static/products/', card)
 
+    def test_illustration_fallback_and_original_priority(self):
+        product = {'name': 'Example', 'brand_label': 'Example', 'offers': [],
+                   'illustration_image': '/static/product-illustrations/example.svg'}
+        url = render._product_image(product)
+        self.assertEqual(url, product['illustration_image'])
+        html = render._product_hero_visual(product, url)
+        self.assertIn('Egen illustrasjon, ikke et ekte produktbilde.', html)
+        self.assertIn('href="/om-produktillustrasjoner/">Les mer</a>', html)
+        self.assertIn('alt="Egen illustrasjon av Example"', html)
+        product['manual_image'] = '/static/products/original.jpg'
+        self.assertEqual(render._product_image(product), product['manual_image'])
+        self.assertNotIn('own-illustration-note', render._product_hero_visual(product, product['manual_image']))
+
+    def test_wrong_pack_images_are_excluded(self):
+        import json
+        catalog = json.loads((Path(__file__).parent / 'site_generator/catalog_live.json').read_text())
+        product = next(p for p in catalog['products'] if p['id'] == 'freshlook-oneday-30pk')
+        self.assertEqual(render._product_image(product), product['illustration_image'])
+        self.assertEqual(len(product['excluded_image_urls']), 3)
+
     def test_validator_checks_srcset_even_when_original_exists(self):
         with tempfile.TemporaryDirectory() as tmp, patch.object(validate, 'BUILD_DIR', Path(tmp)):
             root = Path(tmp)
