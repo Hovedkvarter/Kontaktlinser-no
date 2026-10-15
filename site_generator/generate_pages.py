@@ -34,6 +34,10 @@ PRODUCT_FAMILIES_PATH = Path(__file__).parent.parent / "product_families.json"
 
 
 def write_file(path: Path, content: str) -> None:
+    if path.suffix == ".html":
+        from render_templates import LENS_SEARCH_JS
+        from search_assets import compile_search
+        content = compile_search(content, LENS_SEARCH_JS)
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 

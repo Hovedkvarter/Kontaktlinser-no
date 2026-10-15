@@ -89,6 +89,11 @@ jobs:
           CHILLOUT_ORIGIN: ${{ vars.CHILLOUT_ORIGIN }}
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
+      - name: Test smartere søk mot ferdig bygget nettsted
+        run: |
+          node --test tests/test_search.cjs
+          python3 -m unittest test_search_rendering
+
       - name: Lagre oppdatert prishistorikk tilbake til repoet
         # generate_pages.py skriver dagens laveste pris til
         # site_generator/price_history.json ved HVER kjøring (også push,
