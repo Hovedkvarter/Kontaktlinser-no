@@ -1423,115 +1423,328 @@ a { color: inherit; }
   });
 })();
 
-(function () {
-  // Kjøres fra TOPBAR_HTML, som ligger tidlig i <body> -- FØR forsidens
-  // egen .search-row (hero-søkefeltet) er parset inn i DOM-en på sider
-  // som har en slik ekstra rad. Uten denne DOMContentLoaded-sjekken
-  // returnerte scriptet tidlig (rows.length === 0 på det tidspunktet det
-  // kjørte) og bandt ALDRI noen event-lyttere på forsidens søkefelt --
-  // oppdaget 2026-09-27 (Kai: "søkefunksjon virker ikke nå! på
-  // startsiden"). Sider der .search-row allerede finnes når scriptet
-  // kjører (readyState !== 'loading') kjører init() umiddelbart som før.
-  function init() {
-  var rows = document.querySelectorAll('.search-row');
-  if (!rows.length) return;
-
-  // Forsiden har indeksen innebygd som skjult JSON; guide-sidene henter den
-  // først når noen faktisk fokuserer søkefeltet (holder guide-HTML-en lett).
-  var dataPromise = null;
-  function loadData() {
-    if (dataPromise) return dataPromise;
-    var inlineProducts = document.getElementById('product-search-data');
-    if (inlineProducts) {
-      var inlineLabels = document.getElementById('private-label-search-data');
-      dataPromise = Promise.resolve(
-        JSON.parse(inlineProducts.textContent).concat(inlineLabels ? JSON.parse(inlineLabels.textContent) : [])
-      );
+/* Kontaktlinser.no search v2. Pure matching + shared homepage/header UI.
+ * Search spelling only: product identity, hrefs, prices and offers are not changed.
+ * No network/API/AI dependency beyond the existing /data/search-index.json.
+ */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root && root.document) {
+    root.KLSearch = api;
+    if (root.document.readyState === 'loading') {
+      root.document.addEventListener('DOMContentLoaded', function () { api.init(root); });
     } else {
-      dataPromise = fetch('/data/search-index.json')
-        .then(function (r) { return r.json(); })
-        .catch(function () { dataPromise = null; return []; });
+      api.init(root);
     }
-    return dataPromise;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  var PROTECTED = new Set(['max', 'xr', 'toric', 'multifocal']);
+  var IGNORE = new Set(['for', 'with', 'linse', 'linser', 'kontaktlinse', 'kontaktlinser']);
+  var WORDS = {
+    pk: 'pack', pakke: 'pack', pakker: 'pack', pakning: 'pack', pakninger: 'pack',
+    packs: 'pack', stk: 'pack', pcs: 'pack',
+    torisk: 'toric', toriske: 'toric', astigmatism: 'toric', astigmatisme: 'toric',
+    multifokal: 'multifocal', multifokale: 'multifocal'
+  };
+
+  function tokens(value) {
+    var text = String(value || '').toLowerCase().replace(/[\u00ae\u2122]/g, '')
+      .replace(/æ/g, 'ae').replace(/ø/g, 'o').normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '');
+    // Explicit spelling variants, not new private-label/product equivalences.
+    text = text.replace(/\bone\s*day\b/g, '1 day').replace(/\bmy\s+day\b/g, 'myday')
+      .replace(/\bi\s+wear\b/g, 'iwear').replace(/\beye\s+q\b/g, 'eyeq')
+      .replace(/\beasy\s+vision\b/g, 'easyvision').replace(/\btrue\s+lens\b/g, 'truelens')
+      .replace(/\bair\s*optix\b/g, 'air optix').replace(/\bopti\s*free\b/g, 'opti free')
+      .replace(/\baqua\s+comfort\b/g, 'aquacomfort')
+      .replace(/\bhydra\s+luxe\b/g, 'hydraluxe').replace(/\bhydra\s+glyde\b/g, 'hydraglyde')
+      .replace(/(\d+)\s+linser\b/g, '$1 pack');
+    // Letter/digit boundaries make 1-day / 1 day / 1day and Total1 / Total 1 equal.
+    // Numeric tokens stay whole: 6 never matches 16, and 30 never matches 90.
+    return (text.match(/[a-z]+|\d+(?:[.,]\d+)?/g) || []).map(function (t) {
+      t = t.replace(',', '.');
+      return Object.prototype.hasOwnProperty.call(WORDS, t) ? WORDS[t] : t;
+    }).filter(function (t) { return !IGNORE.has(t); });
   }
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+  function normalize(value) { return tokens(value).join(' '); }
+  function numeric(t) { return /^\d/.test(t); }
+  function internalHref(href) {
+    return typeof href === 'string' && /^\/(?!\/)/.test(href) && !/[\\\u0000-\u0020]/.test(href);
+  }
+
+  function createIndex(items) {
+    if (!Array.isArray(items)) throw new TypeError('Invalid search index');
+    var seen = new Set();
+    return items.filter(function (item) {
+      if (!item || typeof item.name !== 'string' || !internalHref(item.href) || seen.has(item.href)) return false;
+      seen.add(item.href);
+      return true;
+    }).map(function (item, order) {
+      var name = tokens(item.name);
+      return { item: item, name: name, phrase: name.join(' '),
+        terms: tokens(item.search || item.name), order: order };
     });
   }
 
-  function track(row, name, source) {
-    var guide = row.getAttribute('data-guide');
-    if (!guide) return;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+  function oneEdit(a, b) {
+    // One missing/extra/wrong letter OR one adjacent transposition. Bounded work.
+    if (Math.abs(a.length - b.length) > 1) return false;
+    if (a === b) return true;
+    var i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (a.length === b.length) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    }
+    return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
 
-  rows.forEach(function (row) {
-    var input = row.querySelector('.search-input');
-    var suggestions = row.querySelector('.search-suggestions');
-    var button = row.querySelector('.search-btn');
+  function identityMatches(entry, query) {
+    var counts = Object.create(null);
+    entry.name.forEach(function (t) { if (numeric(t)) counts[t] = (counts[t] || 0) + 1; });
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i];
+      // A number or an explicit variant cannot be supplied by metadata/series counts.
+      if (numeric(t)) {
+        if (!counts[t]) return false;
+        counts[t]--;
+        if (/^(pack|ml|g)$/.test(query[i + 1] || '') &&
+            (' ' + entry.phrase + ' ').indexOf(' ' + t + ' ' + query[i + 1] + ' ') === -1) return false;
+      }
+      if (PROTECTED.has(t) && entry.name.indexOf(t) === -1) return false;
+    }
+    return true;
+  }
 
-    function hide() { suggestions.style.display = 'none'; suggestions.innerHTML = ''; }
+  function scoreEntry(entry, query, fuzzy) {
+    if (!identityMatches(entry, query)) return null;
+    var score = 0, edits = 0, allName = true;
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i], exact = entry.name.indexOf(t) !== -1;
+      var prefix = function (word) { return !numeric(t) && word.indexOf(t) === 0; };
+      if (exact) { score += 100; continue; }
+      if (entry.name.some(prefix)) { score += 70; continue; }
+      allName = false;
+      if (entry.terms.indexOf(t) !== -1) { score += 40; continue; }
+      if (entry.terms.some(prefix)) { score += 20; continue; }
+      // Fuzzy fallback only for ONE word >=4 letters, never numbers/short variant codes.
+      if (fuzzy && edits === 0 && t.length >= 4 && !numeric(t) && !PROTECTED.has(t) &&
+          entry.name.some(function (word) { return !numeric(word) && word.length >= 4 && oneEdit(t, word); })) {
+        edits++; score += 5; continue;
+      }
+      return null;
+    }
+    var phrase = query.join(' '), exactName = entry.phrase === phrase;
+    if (exactName) score += 10000;
+    else if (entry.phrase.indexOf(phrase + ' ') === 0) score += 500;
+    else if ((' ' + entry.phrase + ' ').indexOf(' ' + phrase + ' ') !== -1) score += 250;
+    if (allName) score += 300;
+    score -= Math.max(0, entry.name.length - query.length);
+    return { item: entry.item, score: score, approximate: edits > 0, exactName: exactName, order: entry.order };
+  }
 
-    function render(q) {
-      if (!q) { hide(); return; }
-      loadData().then(function (all) {
-        if (input.value.trim().toLowerCase() !== q) return;
-        var matches = all.filter(function (item) { return item.search.indexOf(q) !== -1; }).slice(0, 8);
-        if (matches.length === 0) {
-          suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
-          suggestions.style.display = 'block';
-          return;
+  function search(index, value) {
+    var query = tokens(value);
+    if (String(value || '').length > 160 || query.length > 20) {
+      return { results: [], approximate: false, tooLong: true };
+    }
+    if (!query.length) return { results: [], approximate: false, tooLong: false };
+    var results = index.map(function (e) { return scoreEntry(e, query, false); }).filter(Boolean);
+    if (!results.length && query.some(function (t) { return t.length >= 4 && !numeric(t); })) {
+      results = index.map(function (e) { return scoreEntry(e, query, true); }).filter(Boolean);
+    }
+    results.sort(function (a, b) { return b.score - a.score || a.order - b.order; });
+    return { results: results, approximate: results.some(function (r) { return r.approximate; }), tooLong: false };
+  }
+
+  function directMatch(result) {
+    if (result.approximate) return null; // Spelling suggestions always require a choice.
+    var exact = result.results.filter(function (r) { return r.exactName; });
+    if (exact.length === 1) return exact[0];
+    return result.results.length === 1 ? result.results[0] : null;
+  }
+
+  function esc(value) {
+    return String(value || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function init(win) {
+    var doc = win.document, rows = doc.querySelectorAll('.search-row'), dataPromise = null;
+    if (!rows.length) return;
+    if (!doc.getElementById('kl-search-v2-style')) {
+      var style = doc.createElement('style');
+      style.id = 'kl-search-v2-style';
+      style.textContent = '.search-suggestions{max-height:min(420px,60vh);overflow-y:auto;overscroll-behavior:contain}' +
+        '.search-suggestion[aria-selected="true"]{background:var(--blue-tint);outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-result-note{padding:10px 14px;font-size:.8rem;line-height:1.4;color:var(--muted);border-bottom:1px solid var(--border)}' +
+        '.search-more,.search-retry{display:block;width:100%;padding:12px 14px;background:transparent;border:0;border-top:1px solid var(--border);color:var(--blue);font:inherit;font-size:.85rem;cursor:pointer;text-align:left;min-height:44px}' +
+        '.search-more:focus-visible,.search-retry:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-no-match a{color:var(--blue);text-decoration:underline}' +
+        '.search-live-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}' +
+        '.search-suggestion>div:last-child{min-width:0}.search-suggestion-name{overflow-wrap:anywhere}';
+      doc.head.appendChild(style);
+    }
+
+    function loadData() {
+      if (dataPromise) return dataPromise;
+      dataPromise = Promise.resolve().then(function () {
+        var products = doc.getElementById('product-search-data');
+        if (products) {
+          var labels = doc.getElementById('private-label-search-data');
+          var data = JSON.parse(products.textContent);
+          if (!Array.isArray(data)) throw new TypeError('Invalid inline search data');
+          if (labels) {
+            var labelData = JSON.parse(labels.textContent);
+            if (!Array.isArray(labelData)) throw new TypeError('Invalid label search data');
+            data = data.concat(labelData);
+          }
+          return data;
         }
-        suggestions.innerHTML = matches.map(function (item) {
-          var thumb = item.image
-            ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
-            : '<div class="product-thumb">' + esc((item.badge || item.meta).slice(0, 2).toUpperCase()) + '</div>';
-          return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
-            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
-            '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
+        return win.fetch('/data/search-index.json').then(function (response) {
+          if (!response.ok) throw new Error('Search index HTTP ' + response.status);
+          return response.json();
+        });
+      }).then(createIndex).catch(function (error) {
+        dataPromise = null; // A later focus/retry can recover; never cache a failed request as []!
+        throw error;
+      });
+      return dataPromise;
+    }
+
+    function track(row, name, source) {
+      var guide = row.getAttribute('data-guide');
+      if (!guide) return;
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({ event: 'guide_search_click', guide: guide, product: name, source: source });
+    }
+
+    rows.forEach(function (row, rowIndex) {
+      if (row.dataset.klSearchReady) return;
+      var input = row.querySelector('.search-input'), suggestions = row.querySelector('.search-suggestions');
+      var button = row.querySelector('.search-btn');
+      if (!input || !suggestions || !button) return;
+      row.dataset.klSearchReady = '2';
+      var listId = 'kl-search-list-' + rowIndex, active = -1, visible = [], limit = 8;
+      var revision = 0, current = null, currentValue = '';
+      var live = doc.createElement('div');
+      live.className = 'search-live-status'; live.setAttribute('role', 'status');
+      live.setAttribute('aria-live', 'polite'); live.setAttribute('aria-atomic', 'true');
+      row.appendChild(live);
+      var emptyList = '<div id="' + listId + '" role="listbox" aria-label="Søkeforslag"></div>';
+      suggestions.innerHTML = emptyList;
+      input.setAttribute('role', 'combobox'); input.setAttribute('aria-autocomplete', 'list');
+      input.setAttribute('aria-expanded', 'false'); input.setAttribute('aria-controls', listId);
+      input.setAttribute('enterkeyhint', 'search');
+      if (!input.labels || !input.labels.length) input.setAttribute('aria-label', 'Søk etter linse eller merke');
+
+      function hide() {
+        revision++; active = -1; current = null; visible = [];
+        input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant');
+        suggestions.style.display = 'none'; suggestions.innerHTML = emptyList; live.textContent = '';
+      }
+      function open() { suggestions.style.display = 'block'; input.setAttribute('aria-expanded', 'true'); }
+      function choose(match, source) {
+        if (!match || !internalHref(match.item.href)) return;
+        track(row, match.item.name, source);
+        win.location.href = match.item.href;
+      }
+      function render(result, choosing) {
+        current = result; active = -1;
+        input.removeAttribute('aria-activedescendant');
+        visible = result.results.slice(0, limit);
+        if (!visible.length) {
+          var text = result.tooLong ? 'Prøv et kortere produktnavn.' : 'Ingen treff. Prøv merkenavnet eller en kortere del av produktnavnet.';
+          suggestions.innerHTML = '<div class="search-no-match">' + text + ' <a href="/#merker">Se alle merker</a></div>' + emptyList;
+          live.textContent = text; open(); return;
+        }
+        var note = result.approximate ? 'Mente du disse? Forslag med lignende skrivemåte.' :
+          (choosing ? 'Velg riktig variant og pakning.' : result.results.length + (result.results.length === 1 ? ' treff' : ' treff'));
+        var html = '<div class="search-result-note">' + esc(note) + '</div><div id="' + listId + '" role="listbox" aria-label="Søkeforslag">';
+        html += visible.map(function (match, i) {
+          var item = match.item;
+          var image = typeof item.image === 'string' && /^(https?:\/\/|\/(?!\/))/.test(item.image) ? item.image : '';
+          var thumb = image ? '<div class="product-thumb"><img src="' + esc(image) + '" alt="" loading="lazy"></div>' :
+            '<div class="product-thumb">' + esc(String(item.badge || item.meta || item.name).slice(0, 2).toUpperCase()) + '</div>';
+          return '<a class="search-suggestion" id="' + listId + '-' + i + '" role="option" aria-selected="false" tabindex="-1" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
+            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div><div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
         }).join('');
-        suggestions.style.display = 'block';
+        html += '</div>';
+        if (result.results.length > limit) html += '<button type="button" class="search-more">Vis alle ' + result.results.length + ' treff</button>';
+        suggestions.innerHTML = html;
+        live.textContent = result.results.length + ' treff.' + (result.approximate ? ' Forslag med lignende skrivemåte.' : ' Bruk piltastene for å velge.');
+        open();
+      }
+      function update(choosing) {
+        var value = input.value, ticket = ++revision;
+        if (!value.trim()) { hide(); return Promise.resolve(null); }
+        if (currentValue !== value) { limit = 8; currentValue = value; }
+        return loadData().then(function (index) {
+          if (ticket !== revision || input.value !== value) return null;
+          var result = search(index, value); render(result, choosing); return result;
+        }).catch(function () {
+          if (ticket !== revision || input.value !== value) return null;
+          current = null; visible = []; active = -1; input.removeAttribute('aria-activedescendant');
+          suggestions.innerHTML = '<div class="search-no-match">Søket kunne ikke lastes. <a href="/#merker">Bla i merkene</a></div><button type="button" class="search-retry">Prøv søket igjen</button>' + emptyList;
+          live.textContent = 'Søket kunne ikke lastes. Prøv igjen.'; open(); return null;
+        });
+      }
+      function select(delta) {
+        if (!visible.length) return;
+        active = active < 0 ? (delta > 0 ? 0 : visible.length - 1) : (active + delta + visible.length) % visible.length;
+        suggestions.querySelectorAll('.search-suggestion').forEach(function (link, i) {
+          link.setAttribute('aria-selected', i === active ? 'true' : 'false');
+        });
+        var option = doc.getElementById(listId + '-' + active);
+        input.setAttribute('aria-activedescendant', option.id);
+        option.scrollIntoView({ block: 'nearest' });
+      }
+      function submit() {
+        if (currentValue === input.value && active >= 0 && visible[active]) { choose(visible[active], 'button'); return; }
+        update(true).then(function (result) {
+          if (!result) return;
+          var match = directMatch(result);
+          if (match) choose(match, 'button');
+          else input.focus();
+        });
+      }
+      input.addEventListener('input', function () { current = null; active = -1; update(false); });
+      input.addEventListener('focus', function () {
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') return;
+        // A focus-only preload must not generate an unhandled rejection.
+        if (input.value.trim()) update(false); else loadData().catch(function () {});
       });
-    }
-
-    input.addEventListener('input', function () { render(input.value.trim().toLowerCase()); });
-    input.addEventListener('focus', function () {
-      loadData();
-      if (input.value.trim()) render(input.value.trim().toLowerCase());
-    });
-    document.addEventListener('click', function (e) { if (!row.contains(e.target)) suggestions.style.display = 'none'; });
-    suggestions.addEventListener('click', function (e) {
-      var link = e.target.closest('.search-suggestion');
-      if (link) track(row, link.getAttribute('data-name'), 'suggestion');
-    });
-
-    // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
-    // klikke første forslag -- vi har ingen egen søkeresultat-side, kun
-    // autofullføring, så dette er nærmeste naturlige "søk"-handling.
-    function goToBestMatch() {
-      var q = input.value.trim().toLowerCase();
-      if (!q) { input.focus(); return; }
-      loadData().then(function (all) {
-        var best = all.find(function (item) { return item.search.indexOf(q) !== -1; });
-        if (best) { track(row, best.name, 'button'); window.location.href = best.href; }
-        else { render(q); }
+      input.addEventListener('keydown', function (event) {
+        if (event.isComposing) return;
+        if (event.key === 'Escape') { event.preventDefault(); hide(); return; }
+        if (event.key === 'Enter') { event.preventDefault(); submit(); return; }
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+        event.preventDefault();
+        var delta = event.key === 'ArrowDown' ? 1 : -1;
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') select(delta);
+        else update(false).then(function (result) { if (result) select(delta); });
       });
-    }
-    button.addEventListener('click', goToBestMatch);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
+      button.addEventListener('click', submit);
+      suggestions.addEventListener('click', function (event) {
+        var more = event.target.closest('.search-more');
+        if (more && current) { event.stopPropagation(); limit = current.results.length; render(current, false); input.focus(); return; }
+        if (event.target.closest('.search-retry')) { event.stopPropagation(); update(false); return; }
+        var link = event.target.closest('.search-suggestion');
+        if (link) track(row, link.getAttribute('data-name'), 'suggestion');
+      });
+      doc.addEventListener('click', function (event) { if (!row.contains(event.target)) hide(); });
+      doc.addEventListener('focusin', function (event) { if (!row.contains(event.target)) hide(); });
     });
-  });
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+
+  return { normalize: normalize, tokens: tokens, createIndex: createIndex, search: search, directMatch: directMatch, init: init };
+});
+
 
 </script>
 <div class="wrap wrap-product">
@@ -1593,7 +1806,7 @@ a { color: inherit; }
       <h2>Prisutvikling</h2>
       <p>Følg utviklingen i laveste registrerte produktpris, sammenlign butikkene og utforsk prishistorikken.</p>
     </div>
-    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>28. august 2026</strong><span class="price-intel-coverage-days">48 dager med data</span></span></div>
+    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>28. august 2026</strong><span class="price-intel-coverage-days">49 dager med data</span></span></div>
   </div>
   <div class="price-intel-primary active" data-period="30d">
     <div class="price-intel-metrics-row">
@@ -1605,7 +1818,7 @@ a { color: inherit; }
       <div class="price-intel-metric-col">
         <span class="price-intel-value">141 kr</span>
         <span class="price-intel-metric-label">Laveste pris<br>siste 30 dager</span>
-        <span class="price-intel-metric-sublabel">Først registrert 15. september 2026</span>
+        <span class="price-intel-metric-sublabel">Først registrert 16. september 2026</span>
       </div>
       <div class="price-intel-metric-col" title="Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i valgt periode.">
         <span class="price-intel-value">141 kr</span>
@@ -1638,11 +1851,11 @@ a { color: inherit; }
       </div>
       <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
         <span class="price-intel-value">141 kr</span>
-        <span class="price-intel-metric-label">48-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
+        <span class="price-intel-metric-label">49-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
         <span class="price-intel-metric-desc">Medianen av den laveste registrerte produktprisen for hver dag i perioden.</span>
       </div>
     </div>
-    <div class="price-intel-status-pill price-intel-status-flat"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har vært 141 kr i 48 dager.</span></div>
+    <div class="price-intel-status-pill price-intel-status-flat"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12h4l3-7 4 14 3-7h2"/></svg></span><span><strong>Stabil pris</strong>Laveste produktpris har vært 141 kr i 49 dager.</span></div>
   </div>
   <div class="store-chart-controls">
     <details class="store-chart-picker" hidden><summary>Velg butikk</summary><div class="store-chart-options"></div></details>
@@ -1651,7 +1864,7 @@ a { color: inherit; }
   <div class="store-chart-selected" hidden></div>
   <div class="price-intel-chart-panel active" data-period="30d">
     <div class="price-intel-chart-shell">
-      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}], "stores": {"Apotekhjem": [{"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}]}}</script>
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-15", "price": 141.0, "store": "Apotekhjem"}], "stores": {"Apotekhjem": [{"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}]}}</script>
       <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 224" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 141 kr til 141 kr">
       <defs>
         <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="204" gradientUnits="userSpaceOnUse">
@@ -1672,45 +1885,45 @@ a { color: inherit; }
       <path d="M46.0,204.0 L46.0,99.0 L67.6,99.0 L89.2,99.0 L110.8,99.0 L132.3,99.0 L153.9,99.0 L175.5,99.0 L197.1,99.0 L218.7,99.0 L240.3,99.0 L261.9,99.0 L283.4,99.0 L305.0,99.0 L326.6,99.0 L348.2,99.0 L369.8,99.0 L391.4,99.0 L413.0,99.0 L434.6,99.0 L456.1,99.0 L477.7,99.0 L499.3,99.0 L520.9,99.0 L542.5,99.0 L564.1,99.0 L585.7,99.0 L607.2,99.0 L628.8,99.0 L650.4,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
       <polyline points="46.0,99.0 67.6,99.0 89.2,99.0 110.8,99.0 132.3,99.0 153.9,99.0 175.5,99.0 197.1,99.0 218.7,99.0 240.3,99.0 261.9,99.0 283.4,99.0 305.0,99.0 326.6,99.0 348.2,99.0 369.8,99.0 391.4,99.0 413.0,99.0 434.6,99.0 456.1,99.0 477.7,99.0 499.3,99.0 520.9,99.0 542.5,99.0 564.1,99.0 585.7,99.0 607.2,99.0 628.8,99.0 650.4,99.0 672.0,99.0" class="price-history-line" />
       <circle cx="672.0" cy="99.0" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="99.0" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="67.6" cy="99.0" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="89.2" cy="99.0" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="110.8" cy="99.0" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="132.3" cy="99.0" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="153.9" cy="99.0" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="175.5" cy="99.0" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="197.1" cy="99.0" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="218.7" cy="99.0" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="240.3" cy="99.0" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="261.9" cy="99.0" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="283.4" cy="99.0" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="305.0" cy="99.0" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="326.6" cy="99.0" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="348.2" cy="99.0" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="369.8" cy="99.0" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="391.4" cy="99.0" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="413.0" cy="99.0" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="434.6" cy="99.0" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="456.1" cy="99.0" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="477.7" cy="99.0" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="499.3" cy="99.0" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="520.9" cy="99.0" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="542.5" cy="99.0" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="564.1" cy="99.0" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="585.7" cy="99.0" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="607.2" cy="99.0" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="628.8" cy="99.0" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="650.4" cy="99.0" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="672.0" cy="99.0" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="46.0" cy="99.0" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="67.6" cy="99.0" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="89.2" cy="99.0" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="110.8" cy="99.0" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="132.3" cy="99.0" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="153.9" cy="99.0" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="175.5" cy="99.0" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="197.1" cy="99.0" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="218.7" cy="99.0" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="240.3" cy="99.0" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="261.9" cy="99.0" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="283.4" cy="99.0" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="305.0" cy="99.0" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="326.6" cy="99.0" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="348.2" cy="99.0" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="369.8" cy="99.0" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="391.4" cy="99.0" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="413.0" cy="99.0" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="434.6" cy="99.0" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="456.1" cy="99.0" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="477.7" cy="99.0" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="499.3" cy="99.0" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="520.9" cy="99.0" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="542.5" cy="99.0" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="564.1" cy="99.0" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="585.7" cy="99.0" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="607.2" cy="99.0" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="628.8" cy="99.0" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="650.4" cy="99.0" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="672.0" cy="99.0" r="9" class="price-intel-hit"><title>15. oktober: 141 kr hos Apotekhjem</title></circle>
       <text x="672.0" y="91.0" text-anchor="end" class="price-history-current-label">141 kr</text>
-      <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.09</text>
-      <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">19.09</text>
-      <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.09</text>
-      <text x="305.0" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">27.09</text>
-      <text x="391.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.10</text>
-      <text x="477.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">05.10</text>
-      <text x="564.1" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">09.10</text>
-      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">16.09</text>
+      <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
+      <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">24.09</text>
+      <text x="305.0" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
+      <text x="391.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
+      <text x="477.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
+      <text x="564.1" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.10</text>
+      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 141 kr til 141 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-30d" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -1731,45 +1944,45 @@ a { color: inherit; }
       <path d="M42.0,181.0 L42.0,88.6 L52.0,88.6 L62.0,88.6 L72.0,88.6 L82.0,88.6 L92.0,88.6 L102.0,88.6 L112.0,88.6 L122.0,88.6 L132.0,88.6 L142.0,88.6 L152.0,88.6 L162.0,88.6 L172.0,88.6 L182.0,88.6 L192.0,88.6 L202.0,88.6 L212.0,88.6 L222.0,88.6 L232.0,88.6 L242.0,88.6 L252.0,88.6 L262.0,88.6 L272.0,88.6 L282.0,88.6 L292.0,88.6 L302.0,88.6 L312.0,88.6 L322.0,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
       <polyline points="42.0,88.6 52.0,88.6 62.0,88.6 72.0,88.6 82.0,88.6 92.0,88.6 102.0,88.6 112.0,88.6 122.0,88.6 132.0,88.6 142.0,88.6 152.0,88.6 162.0,88.6 172.0,88.6 182.0,88.6 192.0,88.6 202.0,88.6 212.0,88.6 222.0,88.6 232.0,88.6 242.0,88.6 252.0,88.6 262.0,88.6 272.0,88.6 282.0,88.6 292.0,88.6 302.0,88.6 312.0,88.6 322.0,88.6 332.0,88.6" class="price-history-line" />
       <circle cx="332.0" cy="88.6" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="88.6" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="52.0" cy="88.6" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="62.0" cy="88.6" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="72.0" cy="88.6" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="82.0" cy="88.6" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="92.0" cy="88.6" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="102.0" cy="88.6" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="112.0" cy="88.6" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="122.0" cy="88.6" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="132.0" cy="88.6" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="142.0" cy="88.6" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="152.0" cy="88.6" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="162.0" cy="88.6" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="172.0" cy="88.6" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="182.0" cy="88.6" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="192.0" cy="88.6" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="202.0" cy="88.6" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="212.0" cy="88.6" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="222.0" cy="88.6" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="232.0" cy="88.6" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="242.0" cy="88.6" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="252.0" cy="88.6" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="262.0" cy="88.6" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="272.0" cy="88.6" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="282.0" cy="88.6" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="292.0" cy="88.6" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="302.0" cy="88.6" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="312.0" cy="88.6" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="322.0" cy="88.6" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="332.0" cy="88.6" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="42.0" cy="88.6" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="52.0" cy="88.6" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="62.0" cy="88.6" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="72.0" cy="88.6" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="82.0" cy="88.6" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="92.0" cy="88.6" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="102.0" cy="88.6" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="112.0" cy="88.6" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="122.0" cy="88.6" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="132.0" cy="88.6" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="142.0" cy="88.6" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="152.0" cy="88.6" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="162.0" cy="88.6" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="172.0" cy="88.6" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="182.0" cy="88.6" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="192.0" cy="88.6" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="202.0" cy="88.6" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="212.0" cy="88.6" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="222.0" cy="88.6" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="232.0" cy="88.6" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="242.0" cy="88.6" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="252.0" cy="88.6" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="262.0" cy="88.6" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="272.0" cy="88.6" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="282.0" cy="88.6" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="292.0" cy="88.6" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="302.0" cy="88.6" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="312.0" cy="88.6" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="322.0" cy="88.6" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="332.0" cy="88.6" r="9" class="price-intel-hit"><title>15. oktober: 141 kr hos Apotekhjem</title></circle>
       <text x="332.0" y="80.6" text-anchor="end" class="price-history-current-label">141 kr</text>
-      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.09</text>
-      <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">29.09</text>
-      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">16.09</text>
+      <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg></div>
     </div>
   </div><div class="price-intel-chart-panel" data-period="all">
     <div class="price-intel-chart-shell">
-      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-08-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-31", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}], "stores": {"Apotekhjem": [{"date": "2026-08-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-31", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}]}}</script>
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-08-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-31", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-15", "price": 141.0, "store": "Apotekhjem"}], "stores": {"Apotekhjem": [{"date": "2026-08-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-08-31", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-14", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-15", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-16", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-17", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-18", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-19", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-20", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-21", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-22", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-23", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-24", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-25", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-26", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-27", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-28", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-29", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-09-30", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-01", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-02", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-03", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-04", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-05", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-06", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-07", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-08", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-09", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-10", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-11", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-12", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-13", "price": 141.0, "store": "Apotekhjem"}, {"date": "2026-10-14", "price": 141.0, "store": "Apotekhjem"}]}}</script>
       <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 224" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 141 kr til 141 kr">
       <defs>
         <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="204" gradientUnits="userSpaceOnUse">
@@ -1787,66 +2000,67 @@ a { color: inherit; }
       <text x="40" y="61.6" text-anchor="end" class="price-history-axis-label">160 kr</text>
       <line x1="46" y1="16.0" x2="672" y2="16.0" class="price-history-gridline" />
       <text x="40" y="19.0" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <path d="M46.0,204.0 L46.0,99.0 L59.3,99.0 L72.6,99.0 L86.0,99.0 L99.3,99.0 L112.6,99.0 L125.9,99.0 L139.2,99.0 L152.6,99.0 L165.9,99.0 L179.2,99.0 L192.5,99.0 L205.8,99.0 L219.1,99.0 L232.5,99.0 L245.8,99.0 L259.1,99.0 L272.4,99.0 L285.7,99.0 L299.1,99.0 L312.4,99.0 L325.7,99.0 L339.0,99.0 L352.3,99.0 L365.7,99.0 L379.0,99.0 L392.3,99.0 L405.6,99.0 L418.9,99.0 L432.3,99.0 L445.6,99.0 L458.9,99.0 L472.2,99.0 L485.5,99.0 L498.9,99.0 L512.2,99.0 L525.5,99.0 L538.8,99.0 L552.1,99.0 L565.4,99.0 L578.8,99.0 L592.1,99.0 L605.4,99.0 L618.7,99.0 L632.0,99.0 L645.4,99.0 L658.7,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,99.0 59.3,99.0 72.6,99.0 86.0,99.0 99.3,99.0 112.6,99.0 125.9,99.0 139.2,99.0 152.6,99.0 165.9,99.0 179.2,99.0 192.5,99.0 205.8,99.0 219.1,99.0 232.5,99.0 245.8,99.0 259.1,99.0 272.4,99.0 285.7,99.0 299.1,99.0 312.4,99.0 325.7,99.0 339.0,99.0 352.3,99.0 365.7,99.0 379.0,99.0 392.3,99.0 405.6,99.0 418.9,99.0 432.3,99.0 445.6,99.0 458.9,99.0 472.2,99.0 485.5,99.0 498.9,99.0 512.2,99.0 525.5,99.0 538.8,99.0 552.1,99.0 565.4,99.0 578.8,99.0 592.1,99.0 605.4,99.0 618.7,99.0 632.0,99.0 645.4,99.0 658.7,99.0 672.0,99.0" class="price-history-line" />
+      <path d="M46.0,204.0 L46.0,99.0 L59.0,99.0 L72.1,99.0 L85.1,99.0 L98.2,99.0 L111.2,99.0 L124.2,99.0 L137.3,99.0 L150.3,99.0 L163.4,99.0 L176.4,99.0 L189.5,99.0 L202.5,99.0 L215.5,99.0 L228.6,99.0 L241.6,99.0 L254.7,99.0 L267.7,99.0 L280.8,99.0 L293.8,99.0 L306.8,99.0 L319.9,99.0 L332.9,99.0 L346.0,99.0 L359.0,99.0 L372.0,99.0 L385.1,99.0 L398.1,99.0 L411.2,99.0 L424.2,99.0 L437.2,99.0 L450.3,99.0 L463.3,99.0 L476.4,99.0 L489.4,99.0 L502.5,99.0 L515.5,99.0 L528.5,99.0 L541.6,99.0 L554.6,99.0 L567.7,99.0 L580.7,99.0 L593.8,99.0 L606.8,99.0 L619.8,99.0 L632.9,99.0 L645.9,99.0 L659.0,99.0 L672.0,99.0 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,99.0 59.0,99.0 72.1,99.0 85.1,99.0 98.2,99.0 111.2,99.0 124.2,99.0 137.3,99.0 150.3,99.0 163.4,99.0 176.4,99.0 189.5,99.0 202.5,99.0 215.5,99.0 228.6,99.0 241.6,99.0 254.7,99.0 267.7,99.0 280.8,99.0 293.8,99.0 306.8,99.0 319.9,99.0 332.9,99.0 346.0,99.0 359.0,99.0 372.0,99.0 385.1,99.0 398.1,99.0 411.2,99.0 424.2,99.0 437.2,99.0 450.3,99.0 463.3,99.0 476.4,99.0 489.4,99.0 502.5,99.0 515.5,99.0 528.5,99.0 541.6,99.0 554.6,99.0 567.7,99.0 580.7,99.0 593.8,99.0 606.8,99.0 619.8,99.0 632.9,99.0 645.9,99.0 659.0,99.0 672.0,99.0" class="price-history-line" />
       <circle cx="672.0" cy="99.0" r="3.2" class="price-history-dot price-history-dot-last" />
       <circle cx="46.0" cy="99.0" r="9" class="price-intel-hit"><title>28. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="59.3" cy="99.0" r="9" class="price-intel-hit"><title>29. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="72.6" cy="99.0" r="9" class="price-intel-hit"><title>30. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="86.0" cy="99.0" r="9" class="price-intel-hit"><title>31. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="99.3" cy="99.0" r="9" class="price-intel-hit"><title>1. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="112.6" cy="99.0" r="9" class="price-intel-hit"><title>2. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="125.9" cy="99.0" r="9" class="price-intel-hit"><title>3. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="139.2" cy="99.0" r="9" class="price-intel-hit"><title>4. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="152.6" cy="99.0" r="9" class="price-intel-hit"><title>5. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="165.9" cy="99.0" r="9" class="price-intel-hit"><title>6. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="179.2" cy="99.0" r="9" class="price-intel-hit"><title>7. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="192.5" cy="99.0" r="9" class="price-intel-hit"><title>8. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="205.8" cy="99.0" r="9" class="price-intel-hit"><title>9. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="219.1" cy="99.0" r="9" class="price-intel-hit"><title>10. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="232.5" cy="99.0" r="9" class="price-intel-hit"><title>11. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="245.8" cy="99.0" r="9" class="price-intel-hit"><title>12. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="259.1" cy="99.0" r="9" class="price-intel-hit"><title>13. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="272.4" cy="99.0" r="9" class="price-intel-hit"><title>14. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="285.7" cy="99.0" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="299.1" cy="99.0" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="312.4" cy="99.0" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="325.7" cy="99.0" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="339.0" cy="99.0" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="352.3" cy="99.0" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="365.7" cy="99.0" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="379.0" cy="99.0" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="392.3" cy="99.0" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="405.6" cy="99.0" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="418.9" cy="99.0" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="432.3" cy="99.0" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="445.6" cy="99.0" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="458.9" cy="99.0" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="472.2" cy="99.0" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="485.5" cy="99.0" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="498.9" cy="99.0" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="512.2" cy="99.0" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="525.5" cy="99.0" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="538.8" cy="99.0" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="552.1" cy="99.0" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="565.4" cy="99.0" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="578.8" cy="99.0" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="592.1" cy="99.0" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="605.4" cy="99.0" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="618.7" cy="99.0" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="632.0" cy="99.0" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="645.4" cy="99.0" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="658.7" cy="99.0" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="672.0" cy="99.0" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="59.0" cy="99.0" r="9" class="price-intel-hit"><title>29. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="72.1" cy="99.0" r="9" class="price-intel-hit"><title>30. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="85.1" cy="99.0" r="9" class="price-intel-hit"><title>31. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="98.2" cy="99.0" r="9" class="price-intel-hit"><title>1. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="111.2" cy="99.0" r="9" class="price-intel-hit"><title>2. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="124.2" cy="99.0" r="9" class="price-intel-hit"><title>3. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="137.3" cy="99.0" r="9" class="price-intel-hit"><title>4. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="150.3" cy="99.0" r="9" class="price-intel-hit"><title>5. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="163.4" cy="99.0" r="9" class="price-intel-hit"><title>6. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="176.4" cy="99.0" r="9" class="price-intel-hit"><title>7. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="189.5" cy="99.0" r="9" class="price-intel-hit"><title>8. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="202.5" cy="99.0" r="9" class="price-intel-hit"><title>9. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="215.5" cy="99.0" r="9" class="price-intel-hit"><title>10. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="228.6" cy="99.0" r="9" class="price-intel-hit"><title>11. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="241.6" cy="99.0" r="9" class="price-intel-hit"><title>12. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="254.7" cy="99.0" r="9" class="price-intel-hit"><title>13. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="267.7" cy="99.0" r="9" class="price-intel-hit"><title>14. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="280.8" cy="99.0" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="293.8" cy="99.0" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="306.8" cy="99.0" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="319.9" cy="99.0" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="332.9" cy="99.0" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="346.0" cy="99.0" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="359.0" cy="99.0" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="372.0" cy="99.0" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="385.1" cy="99.0" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="398.1" cy="99.0" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="411.2" cy="99.0" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="424.2" cy="99.0" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="437.2" cy="99.0" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="450.3" cy="99.0" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="463.3" cy="99.0" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="476.4" cy="99.0" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="489.4" cy="99.0" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="502.5" cy="99.0" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="515.5" cy="99.0" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="528.5" cy="99.0" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="541.6" cy="99.0" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="554.6" cy="99.0" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="567.7" cy="99.0" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="580.7" cy="99.0" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="593.8" cy="99.0" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="606.8" cy="99.0" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="619.8" cy="99.0" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="632.9" cy="99.0" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="645.9" cy="99.0" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="659.0" cy="99.0" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="672.0" cy="99.0" r="9" class="price-intel-hit"><title>15. oktober: 141 kr hos Apotekhjem</title></circle>
       <text x="672.0" y="91.0" text-anchor="end" class="price-history-current-label">141 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">28.08</text>
-      <text x="139.2" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.09</text>
-      <text x="232.5" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">11.09</text>
-      <text x="325.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">18.09</text>
-      <text x="418.9" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">25.09</text>
-      <text x="512.2" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
-      <text x="605.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">09.10</text>
-      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="137.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">04.09</text>
+      <text x="228.6" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">11.09</text>
+      <text x="319.9" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">18.09</text>
+      <text x="411.2" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">25.09</text>
+      <text x="502.5" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
+      <text x="593.8" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">09.10</text>
+      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 141 kr til 141 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-all" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -1864,61 +2078,62 @@ a { color: inherit; }
       <text x="36" y="56.0" text-anchor="end" class="price-history-axis-label">160 kr</text>
       <line x1="42" y1="15.5" x2="332" y2="15.5" class="price-history-gridline" />
       <text x="36" y="18.5" text-anchor="end" class="price-history-axis-label">180 kr</text>
-      <path d="M42.0,181.0 L42.0,88.6 L48.2,88.6 L54.3,88.6 L60.5,88.6 L66.7,88.6 L72.9,88.6 L79.0,88.6 L85.2,88.6 L91.4,88.6 L97.5,88.6 L103.7,88.6 L109.9,88.6 L116.0,88.6 L122.2,88.6 L128.4,88.6 L134.6,88.6 L140.7,88.6 L146.9,88.6 L153.1,88.6 L159.2,88.6 L165.4,88.6 L171.6,88.6 L177.7,88.6 L183.9,88.6 L190.1,88.6 L196.3,88.6 L202.4,88.6 L208.6,88.6 L214.8,88.6 L220.9,88.6 L227.1,88.6 L233.3,88.6 L239.4,88.6 L245.6,88.6 L251.8,88.6 L258.0,88.6 L264.1,88.6 L270.3,88.6 L276.5,88.6 L282.6,88.6 L288.8,88.6 L295.0,88.6 L301.1,88.6 L307.3,88.6 L313.5,88.6 L319.7,88.6 L325.8,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,88.6 48.2,88.6 54.3,88.6 60.5,88.6 66.7,88.6 72.9,88.6 79.0,88.6 85.2,88.6 91.4,88.6 97.5,88.6 103.7,88.6 109.9,88.6 116.0,88.6 122.2,88.6 128.4,88.6 134.6,88.6 140.7,88.6 146.9,88.6 153.1,88.6 159.2,88.6 165.4,88.6 171.6,88.6 177.7,88.6 183.9,88.6 190.1,88.6 196.3,88.6 202.4,88.6 208.6,88.6 214.8,88.6 220.9,88.6 227.1,88.6 233.3,88.6 239.4,88.6 245.6,88.6 251.8,88.6 258.0,88.6 264.1,88.6 270.3,88.6 276.5,88.6 282.6,88.6 288.8,88.6 295.0,88.6 301.1,88.6 307.3,88.6 313.5,88.6 319.7,88.6 325.8,88.6 332.0,88.6" class="price-history-line" />
+      <path d="M42.0,181.0 L42.0,88.6 L48.0,88.6 L54.1,88.6 L60.1,88.6 L66.2,88.6 L72.2,88.6 L78.2,88.6 L84.3,88.6 L90.3,88.6 L96.4,88.6 L102.4,88.6 L108.5,88.6 L114.5,88.6 L120.5,88.6 L126.6,88.6 L132.6,88.6 L138.7,88.6 L144.7,88.6 L150.8,88.6 L156.8,88.6 L162.8,88.6 L168.9,88.6 L174.9,88.6 L181.0,88.6 L187.0,88.6 L193.0,88.6 L199.1,88.6 L205.1,88.6 L211.2,88.6 L217.2,88.6 L223.2,88.6 L229.3,88.6 L235.3,88.6 L241.4,88.6 L247.4,88.6 L253.5,88.6 L259.5,88.6 L265.5,88.6 L271.6,88.6 L277.6,88.6 L283.7,88.6 L289.7,88.6 L295.8,88.6 L301.8,88.6 L307.8,88.6 L313.9,88.6 L319.9,88.6 L326.0,88.6 L332.0,88.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,88.6 48.0,88.6 54.1,88.6 60.1,88.6 66.2,88.6 72.2,88.6 78.2,88.6 84.3,88.6 90.3,88.6 96.4,88.6 102.4,88.6 108.5,88.6 114.5,88.6 120.5,88.6 126.6,88.6 132.6,88.6 138.7,88.6 144.7,88.6 150.8,88.6 156.8,88.6 162.8,88.6 168.9,88.6 174.9,88.6 181.0,88.6 187.0,88.6 193.0,88.6 199.1,88.6 205.1,88.6 211.2,88.6 217.2,88.6 223.2,88.6 229.3,88.6 235.3,88.6 241.4,88.6 247.4,88.6 253.5,88.6 259.5,88.6 265.5,88.6 271.6,88.6 277.6,88.6 283.7,88.6 289.7,88.6 295.8,88.6 301.8,88.6 307.8,88.6 313.9,88.6 319.9,88.6 326.0,88.6 332.0,88.6" class="price-history-line" />
       <circle cx="332.0" cy="88.6" r="3.2" class="price-history-dot price-history-dot-last" />
       <circle cx="42.0" cy="88.6" r="9" class="price-intel-hit"><title>28. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="48.2" cy="88.6" r="9" class="price-intel-hit"><title>29. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="54.3" cy="88.6" r="9" class="price-intel-hit"><title>30. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="60.5" cy="88.6" r="9" class="price-intel-hit"><title>31. august: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="66.7" cy="88.6" r="9" class="price-intel-hit"><title>1. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="72.9" cy="88.6" r="9" class="price-intel-hit"><title>2. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="79.0" cy="88.6" r="9" class="price-intel-hit"><title>3. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="85.2" cy="88.6" r="9" class="price-intel-hit"><title>4. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="91.4" cy="88.6" r="9" class="price-intel-hit"><title>5. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="97.5" cy="88.6" r="9" class="price-intel-hit"><title>6. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="103.7" cy="88.6" r="9" class="price-intel-hit"><title>7. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="109.9" cy="88.6" r="9" class="price-intel-hit"><title>8. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="116.0" cy="88.6" r="9" class="price-intel-hit"><title>9. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="122.2" cy="88.6" r="9" class="price-intel-hit"><title>10. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="128.4" cy="88.6" r="9" class="price-intel-hit"><title>11. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="134.6" cy="88.6" r="9" class="price-intel-hit"><title>12. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="140.7" cy="88.6" r="9" class="price-intel-hit"><title>13. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="146.9" cy="88.6" r="9" class="price-intel-hit"><title>14. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="153.1" cy="88.6" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="159.2" cy="88.6" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="165.4" cy="88.6" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="171.6" cy="88.6" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="177.7" cy="88.6" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="183.9" cy="88.6" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="190.1" cy="88.6" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="196.3" cy="88.6" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="202.4" cy="88.6" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="208.6" cy="88.6" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="214.8" cy="88.6" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="220.9" cy="88.6" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="227.1" cy="88.6" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="233.3" cy="88.6" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="239.4" cy="88.6" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="245.6" cy="88.6" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="251.8" cy="88.6" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="258.0" cy="88.6" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="264.1" cy="88.6" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="270.3" cy="88.6" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="276.5" cy="88.6" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="282.6" cy="88.6" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="288.8" cy="88.6" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="295.0" cy="88.6" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="301.1" cy="88.6" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="307.3" cy="88.6" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="313.5" cy="88.6" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="319.7" cy="88.6" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="325.8" cy="88.6" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
-      <circle cx="332.0" cy="88.6" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="48.0" cy="88.6" r="9" class="price-intel-hit"><title>29. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="54.1" cy="88.6" r="9" class="price-intel-hit"><title>30. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="60.1" cy="88.6" r="9" class="price-intel-hit"><title>31. august: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="66.2" cy="88.6" r="9" class="price-intel-hit"><title>1. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="72.2" cy="88.6" r="9" class="price-intel-hit"><title>2. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="78.2" cy="88.6" r="9" class="price-intel-hit"><title>3. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="84.3" cy="88.6" r="9" class="price-intel-hit"><title>4. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="90.3" cy="88.6" r="9" class="price-intel-hit"><title>5. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="96.4" cy="88.6" r="9" class="price-intel-hit"><title>6. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="102.4" cy="88.6" r="9" class="price-intel-hit"><title>7. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="108.5" cy="88.6" r="9" class="price-intel-hit"><title>8. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="114.5" cy="88.6" r="9" class="price-intel-hit"><title>9. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="120.5" cy="88.6" r="9" class="price-intel-hit"><title>10. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="126.6" cy="88.6" r="9" class="price-intel-hit"><title>11. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="132.6" cy="88.6" r="9" class="price-intel-hit"><title>12. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="138.7" cy="88.6" r="9" class="price-intel-hit"><title>13. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="144.7" cy="88.6" r="9" class="price-intel-hit"><title>14. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="150.8" cy="88.6" r="9" class="price-intel-hit"><title>15. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="156.8" cy="88.6" r="9" class="price-intel-hit"><title>16. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="162.8" cy="88.6" r="9" class="price-intel-hit"><title>17. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="168.9" cy="88.6" r="9" class="price-intel-hit"><title>18. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="174.9" cy="88.6" r="9" class="price-intel-hit"><title>19. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="181.0" cy="88.6" r="9" class="price-intel-hit"><title>20. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="187.0" cy="88.6" r="9" class="price-intel-hit"><title>21. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="193.0" cy="88.6" r="9" class="price-intel-hit"><title>22. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="199.1" cy="88.6" r="9" class="price-intel-hit"><title>23. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="205.1" cy="88.6" r="9" class="price-intel-hit"><title>24. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="211.2" cy="88.6" r="9" class="price-intel-hit"><title>25. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="217.2" cy="88.6" r="9" class="price-intel-hit"><title>26. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="223.2" cy="88.6" r="9" class="price-intel-hit"><title>27. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="229.3" cy="88.6" r="9" class="price-intel-hit"><title>28. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="235.3" cy="88.6" r="9" class="price-intel-hit"><title>29. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="241.4" cy="88.6" r="9" class="price-intel-hit"><title>30. september: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="247.4" cy="88.6" r="9" class="price-intel-hit"><title>1. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="253.5" cy="88.6" r="9" class="price-intel-hit"><title>2. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="259.5" cy="88.6" r="9" class="price-intel-hit"><title>3. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="265.5" cy="88.6" r="9" class="price-intel-hit"><title>4. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="271.6" cy="88.6" r="9" class="price-intel-hit"><title>5. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="277.6" cy="88.6" r="9" class="price-intel-hit"><title>6. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="283.7" cy="88.6" r="9" class="price-intel-hit"><title>7. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="289.7" cy="88.6" r="9" class="price-intel-hit"><title>8. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="295.8" cy="88.6" r="9" class="price-intel-hit"><title>9. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="301.8" cy="88.6" r="9" class="price-intel-hit"><title>10. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="307.8" cy="88.6" r="9" class="price-intel-hit"><title>11. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="313.9" cy="88.6" r="9" class="price-intel-hit"><title>12. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="319.9" cy="88.6" r="9" class="price-intel-hit"><title>13. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="326.0" cy="88.6" r="9" class="price-intel-hit"><title>14. oktober: 141 kr hos Apotekhjem</title></circle>
+      <circle cx="332.0" cy="88.6" r="9" class="price-intel-hit"><title>15. oktober: 141 kr hos Apotekhjem</title></circle>
       <text x="332.0" y="80.6" text-anchor="end" class="price-history-current-label">141 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">28.08</text>
-      <text x="183.9" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
-      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">21.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg></div>
     </div>
   </div>
@@ -1929,9 +2144,9 @@ a { color: inherit; }
       <p class="price-intel-card-note">Apotekhjem har hatt lavest registrert produktpris i 30 av 30 observerte dager i perioden.</p>
     </div><div class="price-intel-card price-intel-winners-panel" data-period="all">
       <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">All historikk</span></div>
-      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Apotekhjem</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">48 dager &middot; 100 %</span></div></div>
+      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Apotekhjem</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">49 dager &middot; 100 %</span></div></div>
       
-      <p class="price-intel-card-note">Apotekhjem har hatt lavest registrert produktpris i 48 av 48 observerte dager i perioden.</p>
+      <p class="price-intel-card-note">Apotekhjem har hatt lavest registrert produktpris i 49 av 49 observerte dager i perioden.</p>
     </div><div class="price-intel-card price-intel-frequency-panel active" data-period="30d">
           <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">30 dager</span></div>
           <div class="price-intel-frequency-number">30 av 30</div>
@@ -1941,10 +2156,10 @@ a { color: inherit; }
           <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
         </div><div class="price-intel-card price-intel-frequency-panel" data-period="all">
           <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">All historikk</span></div>
-          <div class="price-intel-frequency-number">48 av 48</div>
-          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 48 av 48 observerte dager.</p>
-          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 0 dager. Samme: 48 dager. Høyere: 0 dager."><span class="price-intel-frequency-equal" style="flex:48" aria-hidden="true"></span></div>
-          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 0</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 48</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 0</span></div>
+          <div class="price-intel-frequency-number">49 av 49</div>
+          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 49 av 49 observerte dager.</p>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 0 dager. Samme: 49 dager. Høyere: 0 dager."><span class="price-intel-frequency-equal" style="flex:49" aria-hidden="true"></span></div>
+          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 0</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 49</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 0</span></div>
           <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
         </div></div>
   <div class="price-intel-conclusion active" data-period="30d">
@@ -1952,7 +2167,7 @@ a { color: inherit; }
     <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>30 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>141 kr</strong><span>laveste pris i perioden</span></div></div></div>
   </div><div class="price-intel-conclusion" data-period="all">
     <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Prisen på Bevita Eye Pro Forte 10 ml har vært stabil i all historikk, med 141 kr som både laveste og høyeste registrerte pris i perioden.</span></div>
-    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>48 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>141 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
+    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>49 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>141 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
   </div>
   <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">
     <div class="price-intel-section-head">
@@ -1974,7 +2189,7 @@ a { color: inherit; }
   </section>
   <div class="price-intel-footer">
     <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
-    <span>Prisdata sist bekreftet: 14. oktober 2026</span>
+    <span>Prisdata sist bekreftet: 15. oktober 2026</span>
   </div>
   <script>
 (function () {

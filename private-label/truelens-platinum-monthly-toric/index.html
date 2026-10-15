@@ -1594,115 +1594,328 @@ a { color: inherit; }
   });
 })();
 
-(function () {
-  // Kjøres fra TOPBAR_HTML, som ligger tidlig i <body> -- FØR forsidens
-  // egen .search-row (hero-søkefeltet) er parset inn i DOM-en på sider
-  // som har en slik ekstra rad. Uten denne DOMContentLoaded-sjekken
-  // returnerte scriptet tidlig (rows.length === 0 på det tidspunktet det
-  // kjørte) og bandt ALDRI noen event-lyttere på forsidens søkefelt --
-  // oppdaget 2026-09-27 (Kai: "søkefunksjon virker ikke nå! på
-  // startsiden"). Sider der .search-row allerede finnes når scriptet
-  // kjører (readyState !== 'loading') kjører init() umiddelbart som før.
-  function init() {
-  var rows = document.querySelectorAll('.search-row');
-  if (!rows.length) return;
-
-  // Forsiden har indeksen innebygd som skjult JSON; guide-sidene henter den
-  // først når noen faktisk fokuserer søkefeltet (holder guide-HTML-en lett).
-  var dataPromise = null;
-  function loadData() {
-    if (dataPromise) return dataPromise;
-    var inlineProducts = document.getElementById('product-search-data');
-    if (inlineProducts) {
-      var inlineLabels = document.getElementById('private-label-search-data');
-      dataPromise = Promise.resolve(
-        JSON.parse(inlineProducts.textContent).concat(inlineLabels ? JSON.parse(inlineLabels.textContent) : [])
-      );
+/* Kontaktlinser.no search v2. Pure matching + shared homepage/header UI.
+ * Search spelling only: product identity, hrefs, prices and offers are not changed.
+ * No network/API/AI dependency beyond the existing /data/search-index.json.
+ */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root && root.document) {
+    root.KLSearch = api;
+    if (root.document.readyState === 'loading') {
+      root.document.addEventListener('DOMContentLoaded', function () { api.init(root); });
     } else {
-      dataPromise = fetch('/data/search-index.json')
-        .then(function (r) { return r.json(); })
-        .catch(function () { dataPromise = null; return []; });
+      api.init(root);
     }
-    return dataPromise;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  var PROTECTED = new Set(['max', 'xr', 'toric', 'multifocal']);
+  var IGNORE = new Set(['for', 'with', 'linse', 'linser', 'kontaktlinse', 'kontaktlinser']);
+  var WORDS = {
+    pk: 'pack', pakke: 'pack', pakker: 'pack', pakning: 'pack', pakninger: 'pack',
+    packs: 'pack', stk: 'pack', pcs: 'pack',
+    torisk: 'toric', toriske: 'toric', astigmatism: 'toric', astigmatisme: 'toric',
+    multifokal: 'multifocal', multifokale: 'multifocal'
+  };
+
+  function tokens(value) {
+    var text = String(value || '').toLowerCase().replace(/[\u00ae\u2122]/g, '')
+      .replace(/æ/g, 'ae').replace(/ø/g, 'o').normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '');
+    // Explicit spelling variants, not new private-label/product equivalences.
+    text = text.replace(/\bone\s*day\b/g, '1 day').replace(/\bmy\s+day\b/g, 'myday')
+      .replace(/\bi\s+wear\b/g, 'iwear').replace(/\beye\s+q\b/g, 'eyeq')
+      .replace(/\beasy\s+vision\b/g, 'easyvision').replace(/\btrue\s+lens\b/g, 'truelens')
+      .replace(/\bair\s*optix\b/g, 'air optix').replace(/\bopti\s*free\b/g, 'opti free')
+      .replace(/\baqua\s+comfort\b/g, 'aquacomfort')
+      .replace(/\bhydra\s+luxe\b/g, 'hydraluxe').replace(/\bhydra\s+glyde\b/g, 'hydraglyde')
+      .replace(/(\d+)\s+linser\b/g, '$1 pack');
+    // Letter/digit boundaries make 1-day / 1 day / 1day and Total1 / Total 1 equal.
+    // Numeric tokens stay whole: 6 never matches 16, and 30 never matches 90.
+    return (text.match(/[a-z]+|\d+(?:[.,]\d+)?/g) || []).map(function (t) {
+      t = t.replace(',', '.');
+      return Object.prototype.hasOwnProperty.call(WORDS, t) ? WORDS[t] : t;
+    }).filter(function (t) { return !IGNORE.has(t); });
   }
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+  function normalize(value) { return tokens(value).join(' '); }
+  function numeric(t) { return /^\d/.test(t); }
+  function internalHref(href) {
+    return typeof href === 'string' && /^\/(?!\/)/.test(href) && !/[\\\u0000-\u0020]/.test(href);
+  }
+
+  function createIndex(items) {
+    if (!Array.isArray(items)) throw new TypeError('Invalid search index');
+    var seen = new Set();
+    return items.filter(function (item) {
+      if (!item || typeof item.name !== 'string' || !internalHref(item.href) || seen.has(item.href)) return false;
+      seen.add(item.href);
+      return true;
+    }).map(function (item, order) {
+      var name = tokens(item.name);
+      return { item: item, name: name, phrase: name.join(' '),
+        terms: tokens(item.search || item.name), order: order };
     });
   }
 
-  function track(row, name, source) {
-    var guide = row.getAttribute('data-guide');
-    if (!guide) return;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+  function oneEdit(a, b) {
+    // One missing/extra/wrong letter OR one adjacent transposition. Bounded work.
+    if (Math.abs(a.length - b.length) > 1) return false;
+    if (a === b) return true;
+    var i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (a.length === b.length) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    }
+    return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
 
-  rows.forEach(function (row) {
-    var input = row.querySelector('.search-input');
-    var suggestions = row.querySelector('.search-suggestions');
-    var button = row.querySelector('.search-btn');
+  function identityMatches(entry, query) {
+    var counts = Object.create(null);
+    entry.name.forEach(function (t) { if (numeric(t)) counts[t] = (counts[t] || 0) + 1; });
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i];
+      // A number or an explicit variant cannot be supplied by metadata/series counts.
+      if (numeric(t)) {
+        if (!counts[t]) return false;
+        counts[t]--;
+        if (/^(pack|ml|g)$/.test(query[i + 1] || '') &&
+            (' ' + entry.phrase + ' ').indexOf(' ' + t + ' ' + query[i + 1] + ' ') === -1) return false;
+      }
+      if (PROTECTED.has(t) && entry.name.indexOf(t) === -1) return false;
+    }
+    return true;
+  }
 
-    function hide() { suggestions.style.display = 'none'; suggestions.innerHTML = ''; }
+  function scoreEntry(entry, query, fuzzy) {
+    if (!identityMatches(entry, query)) return null;
+    var score = 0, edits = 0, allName = true;
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i], exact = entry.name.indexOf(t) !== -1;
+      var prefix = function (word) { return !numeric(t) && word.indexOf(t) === 0; };
+      if (exact) { score += 100; continue; }
+      if (entry.name.some(prefix)) { score += 70; continue; }
+      allName = false;
+      if (entry.terms.indexOf(t) !== -1) { score += 40; continue; }
+      if (entry.terms.some(prefix)) { score += 20; continue; }
+      // Fuzzy fallback only for ONE word >=4 letters, never numbers/short variant codes.
+      if (fuzzy && edits === 0 && t.length >= 4 && !numeric(t) && !PROTECTED.has(t) &&
+          entry.name.some(function (word) { return !numeric(word) && word.length >= 4 && oneEdit(t, word); })) {
+        edits++; score += 5; continue;
+      }
+      return null;
+    }
+    var phrase = query.join(' '), exactName = entry.phrase === phrase;
+    if (exactName) score += 10000;
+    else if (entry.phrase.indexOf(phrase + ' ') === 0) score += 500;
+    else if ((' ' + entry.phrase + ' ').indexOf(' ' + phrase + ' ') !== -1) score += 250;
+    if (allName) score += 300;
+    score -= Math.max(0, entry.name.length - query.length);
+    return { item: entry.item, score: score, approximate: edits > 0, exactName: exactName, order: entry.order };
+  }
 
-    function render(q) {
-      if (!q) { hide(); return; }
-      loadData().then(function (all) {
-        if (input.value.trim().toLowerCase() !== q) return;
-        var matches = all.filter(function (item) { return item.search.indexOf(q) !== -1; }).slice(0, 8);
-        if (matches.length === 0) {
-          suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
-          suggestions.style.display = 'block';
-          return;
+  function search(index, value) {
+    var query = tokens(value);
+    if (String(value || '').length > 160 || query.length > 20) {
+      return { results: [], approximate: false, tooLong: true };
+    }
+    if (!query.length) return { results: [], approximate: false, tooLong: false };
+    var results = index.map(function (e) { return scoreEntry(e, query, false); }).filter(Boolean);
+    if (!results.length && query.some(function (t) { return t.length >= 4 && !numeric(t); })) {
+      results = index.map(function (e) { return scoreEntry(e, query, true); }).filter(Boolean);
+    }
+    results.sort(function (a, b) { return b.score - a.score || a.order - b.order; });
+    return { results: results, approximate: results.some(function (r) { return r.approximate; }), tooLong: false };
+  }
+
+  function directMatch(result) {
+    if (result.approximate) return null; // Spelling suggestions always require a choice.
+    var exact = result.results.filter(function (r) { return r.exactName; });
+    if (exact.length === 1) return exact[0];
+    return result.results.length === 1 ? result.results[0] : null;
+  }
+
+  function esc(value) {
+    return String(value || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function init(win) {
+    var doc = win.document, rows = doc.querySelectorAll('.search-row'), dataPromise = null;
+    if (!rows.length) return;
+    if (!doc.getElementById('kl-search-v2-style')) {
+      var style = doc.createElement('style');
+      style.id = 'kl-search-v2-style';
+      style.textContent = '.search-suggestions{max-height:min(420px,60vh);overflow-y:auto;overscroll-behavior:contain}' +
+        '.search-suggestion[aria-selected="true"]{background:var(--blue-tint);outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-result-note{padding:10px 14px;font-size:.8rem;line-height:1.4;color:var(--muted);border-bottom:1px solid var(--border)}' +
+        '.search-more,.search-retry{display:block;width:100%;padding:12px 14px;background:transparent;border:0;border-top:1px solid var(--border);color:var(--blue);font:inherit;font-size:.85rem;cursor:pointer;text-align:left;min-height:44px}' +
+        '.search-more:focus-visible,.search-retry:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-no-match a{color:var(--blue);text-decoration:underline}' +
+        '.search-live-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}' +
+        '.search-suggestion>div:last-child{min-width:0}.search-suggestion-name{overflow-wrap:anywhere}';
+      doc.head.appendChild(style);
+    }
+
+    function loadData() {
+      if (dataPromise) return dataPromise;
+      dataPromise = Promise.resolve().then(function () {
+        var products = doc.getElementById('product-search-data');
+        if (products) {
+          var labels = doc.getElementById('private-label-search-data');
+          var data = JSON.parse(products.textContent);
+          if (!Array.isArray(data)) throw new TypeError('Invalid inline search data');
+          if (labels) {
+            var labelData = JSON.parse(labels.textContent);
+            if (!Array.isArray(labelData)) throw new TypeError('Invalid label search data');
+            data = data.concat(labelData);
+          }
+          return data;
         }
-        suggestions.innerHTML = matches.map(function (item) {
-          var thumb = item.image
-            ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
-            : '<div class="product-thumb">' + esc((item.badge || item.meta).slice(0, 2).toUpperCase()) + '</div>';
-          return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
-            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
-            '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
+        return win.fetch('/data/search-index.json').then(function (response) {
+          if (!response.ok) throw new Error('Search index HTTP ' + response.status);
+          return response.json();
+        });
+      }).then(createIndex).catch(function (error) {
+        dataPromise = null; // A later focus/retry can recover; never cache a failed request as []!
+        throw error;
+      });
+      return dataPromise;
+    }
+
+    function track(row, name, source) {
+      var guide = row.getAttribute('data-guide');
+      if (!guide) return;
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({ event: 'guide_search_click', guide: guide, product: name, source: source });
+    }
+
+    rows.forEach(function (row, rowIndex) {
+      if (row.dataset.klSearchReady) return;
+      var input = row.querySelector('.search-input'), suggestions = row.querySelector('.search-suggestions');
+      var button = row.querySelector('.search-btn');
+      if (!input || !suggestions || !button) return;
+      row.dataset.klSearchReady = '2';
+      var listId = 'kl-search-list-' + rowIndex, active = -1, visible = [], limit = 8;
+      var revision = 0, current = null, currentValue = '';
+      var live = doc.createElement('div');
+      live.className = 'search-live-status'; live.setAttribute('role', 'status');
+      live.setAttribute('aria-live', 'polite'); live.setAttribute('aria-atomic', 'true');
+      row.appendChild(live);
+      var emptyList = '<div id="' + listId + '" role="listbox" aria-label="Søkeforslag"></div>';
+      suggestions.innerHTML = emptyList;
+      input.setAttribute('role', 'combobox'); input.setAttribute('aria-autocomplete', 'list');
+      input.setAttribute('aria-expanded', 'false'); input.setAttribute('aria-controls', listId);
+      input.setAttribute('enterkeyhint', 'search');
+      if (!input.labels || !input.labels.length) input.setAttribute('aria-label', 'Søk etter linse eller merke');
+
+      function hide() {
+        revision++; active = -1; current = null; visible = [];
+        input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant');
+        suggestions.style.display = 'none'; suggestions.innerHTML = emptyList; live.textContent = '';
+      }
+      function open() { suggestions.style.display = 'block'; input.setAttribute('aria-expanded', 'true'); }
+      function choose(match, source) {
+        if (!match || !internalHref(match.item.href)) return;
+        track(row, match.item.name, source);
+        win.location.href = match.item.href;
+      }
+      function render(result, choosing) {
+        current = result; active = -1;
+        input.removeAttribute('aria-activedescendant');
+        visible = result.results.slice(0, limit);
+        if (!visible.length) {
+          var text = result.tooLong ? 'Prøv et kortere produktnavn.' : 'Ingen treff. Prøv merkenavnet eller en kortere del av produktnavnet.';
+          suggestions.innerHTML = '<div class="search-no-match">' + text + ' <a href="/#merker">Se alle merker</a></div>' + emptyList;
+          live.textContent = text; open(); return;
+        }
+        var note = result.approximate ? 'Mente du disse? Forslag med lignende skrivemåte.' :
+          (choosing ? 'Velg riktig variant og pakning.' : result.results.length + (result.results.length === 1 ? ' treff' : ' treff'));
+        var html = '<div class="search-result-note">' + esc(note) + '</div><div id="' + listId + '" role="listbox" aria-label="Søkeforslag">';
+        html += visible.map(function (match, i) {
+          var item = match.item;
+          var image = typeof item.image === 'string' && /^(https?:\/\/|\/(?!\/))/.test(item.image) ? item.image : '';
+          var thumb = image ? '<div class="product-thumb"><img src="' + esc(image) + '" alt="" loading="lazy"></div>' :
+            '<div class="product-thumb">' + esc(String(item.badge || item.meta || item.name).slice(0, 2).toUpperCase()) + '</div>';
+          return '<a class="search-suggestion" id="' + listId + '-' + i + '" role="option" aria-selected="false" tabindex="-1" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
+            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div><div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
         }).join('');
-        suggestions.style.display = 'block';
+        html += '</div>';
+        if (result.results.length > limit) html += '<button type="button" class="search-more">Vis alle ' + result.results.length + ' treff</button>';
+        suggestions.innerHTML = html;
+        live.textContent = result.results.length + ' treff.' + (result.approximate ? ' Forslag med lignende skrivemåte.' : ' Bruk piltastene for å velge.');
+        open();
+      }
+      function update(choosing) {
+        var value = input.value, ticket = ++revision;
+        if (!value.trim()) { hide(); return Promise.resolve(null); }
+        if (currentValue !== value) { limit = 8; currentValue = value; }
+        return loadData().then(function (index) {
+          if (ticket !== revision || input.value !== value) return null;
+          var result = search(index, value); render(result, choosing); return result;
+        }).catch(function () {
+          if (ticket !== revision || input.value !== value) return null;
+          current = null; visible = []; active = -1; input.removeAttribute('aria-activedescendant');
+          suggestions.innerHTML = '<div class="search-no-match">Søket kunne ikke lastes. <a href="/#merker">Bla i merkene</a></div><button type="button" class="search-retry">Prøv søket igjen</button>' + emptyList;
+          live.textContent = 'Søket kunne ikke lastes. Prøv igjen.'; open(); return null;
+        });
+      }
+      function select(delta) {
+        if (!visible.length) return;
+        active = active < 0 ? (delta > 0 ? 0 : visible.length - 1) : (active + delta + visible.length) % visible.length;
+        suggestions.querySelectorAll('.search-suggestion').forEach(function (link, i) {
+          link.setAttribute('aria-selected', i === active ? 'true' : 'false');
+        });
+        var option = doc.getElementById(listId + '-' + active);
+        input.setAttribute('aria-activedescendant', option.id);
+        option.scrollIntoView({ block: 'nearest' });
+      }
+      function submit() {
+        if (currentValue === input.value && active >= 0 && visible[active]) { choose(visible[active], 'button'); return; }
+        update(true).then(function (result) {
+          if (!result) return;
+          var match = directMatch(result);
+          if (match) choose(match, 'button');
+          else input.focus();
+        });
+      }
+      input.addEventListener('input', function () { current = null; active = -1; update(false); });
+      input.addEventListener('focus', function () {
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') return;
+        // A focus-only preload must not generate an unhandled rejection.
+        if (input.value.trim()) update(false); else loadData().catch(function () {});
       });
-    }
-
-    input.addEventListener('input', function () { render(input.value.trim().toLowerCase()); });
-    input.addEventListener('focus', function () {
-      loadData();
-      if (input.value.trim()) render(input.value.trim().toLowerCase());
-    });
-    document.addEventListener('click', function (e) { if (!row.contains(e.target)) suggestions.style.display = 'none'; });
-    suggestions.addEventListener('click', function (e) {
-      var link = e.target.closest('.search-suggestion');
-      if (link) track(row, link.getAttribute('data-name'), 'suggestion');
-    });
-
-    // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
-    // klikke første forslag -- vi har ingen egen søkeresultat-side, kun
-    // autofullføring, så dette er nærmeste naturlige "søk"-handling.
-    function goToBestMatch() {
-      var q = input.value.trim().toLowerCase();
-      if (!q) { input.focus(); return; }
-      loadData().then(function (all) {
-        var best = all.find(function (item) { return item.search.indexOf(q) !== -1; });
-        if (best) { track(row, best.name, 'button'); window.location.href = best.href; }
-        else { render(q); }
+      input.addEventListener('keydown', function (event) {
+        if (event.isComposing) return;
+        if (event.key === 'Escape') { event.preventDefault(); hide(); return; }
+        if (event.key === 'Enter') { event.preventDefault(); submit(); return; }
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+        event.preventDefault();
+        var delta = event.key === 'ArrowDown' ? 1 : -1;
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') select(delta);
+        else update(false).then(function (result) { if (result) select(delta); });
       });
-    }
-    button.addEventListener('click', goToBestMatch);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
+      button.addEventListener('click', submit);
+      suggestions.addEventListener('click', function (event) {
+        var more = event.target.closest('.search-more');
+        if (more && current) { event.stopPropagation(); limit = current.results.length; render(current, false); input.focus(); return; }
+        if (event.target.closest('.search-retry')) { event.stopPropagation(); update(false); return; }
+        var link = event.target.closest('.search-suggestion');
+        if (link) track(row, link.getAttribute('data-name'), 'suggestion');
+      });
+      doc.addEventListener('click', function (event) { if (!row.contains(event.target)) hide(); });
+      doc.addEventListener('focusin', function (event) { if (!row.contains(event.target)) hide(); });
     });
-  });
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+
+  return { normalize: normalize, tokens: tokens, createIndex: createIndex, search: search, directMatch: directMatch, init: init };
+});
+
 
 </script>
 <div class="wrap wrap-product">
@@ -2014,7 +2227,7 @@ a { color: inherit; }
       <h2>Prisutvikling</h2>
       <p>Følg utviklingen i laveste registrerte produktpris, sammenlign butikkene og utforsk prishistorikken.</p>
     </div>
-    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong><span class="price-intel-coverage-days">62 dager med data</span></span></div>
+    <div class="price-intel-coverage"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Vi har fulgt prisen siden<br><strong>14. august 2026</strong><span class="price-intel-coverage-days">63 dager med data</span></span></div>
   </div>
   <div class="price-intel-primary active" data-period="30d">
     <div class="price-intel-metrics-row">
@@ -2034,12 +2247,12 @@ a { color: inherit; }
         <span class="price-intel-metric-desc">Høyeste registrerte verdi for den laveste tilgjengelige produktprisen i perioden.</span>
       </div>
       <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
-        <span class="price-intel-value">526 kr</span>
+        <span class="price-intel-value">529 kr</span>
         <span class="price-intel-metric-label">30-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
         <span class="price-intel-metric-desc">Medianen av den laveste registrerte produktprisen for hver dag i perioden.</span>
       </div>
     </div>
-    <div class="price-intel-status-pill price-intel-status-up"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg></span><span><strong>Pris opp</strong>Laveste produktpris er 9 % høyere enn for 30 dager siden.</span></div>
+    <div class="price-intel-status-pill price-intel-status-up"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg></span><span><strong>Pris opp</strong>Laveste produktpris er 10 % høyere enn for 30 dager siden.</span></div>
   </div><div class="price-intel-primary" data-period="all">
     <div class="price-intel-metrics-row">
       <div class="price-intel-metric-col price-intel-metric-current">
@@ -2059,11 +2272,11 @@ a { color: inherit; }
       </div>
       <div class="price-intel-metric-col" title="Medianen av den laveste registrerte produktprisen for hver dag i perioden.">
         <span class="price-intel-value">529 kr</span>
-        <span class="price-intel-metric-label">62-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
+        <span class="price-intel-metric-label">63-dagers median <span class="price-intel-metric-info" aria-hidden="true">&#9432;</span></span>
         <span class="price-intel-metric-desc">Medianen av den laveste registrerte produktprisen for hver dag i perioden.</span>
       </div>
     </div>
-    <div class="price-intel-status-pill price-intel-status-down"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l7 7 4-4 5 5M20 11v4h-4"/></svg></span><span><strong>Pris ned</strong>Laveste produktpris har falt 6 % de siste 62 dagene.</span></div>
+    <div class="price-intel-status-pill price-intel-status-down"><span class="price-intel-status-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7l7 7 4-4 5 5M20 11v4h-4"/></svg></span><span><strong>Pris ned</strong>Laveste produktpris har falt 6 % de siste 63 dagene.</span></div>
   </div>
   <div class="store-chart-controls">
     <details class="store-chart-picker" hidden><summary>Velg butikk</summary><div class="store-chart-options"></div></details>
@@ -2072,7 +2285,7 @@ a { color: inherit; }
   <div class="store-chart-selected" hidden></div>
   <div class="price-intel-chart-panel active" data-period="30d">
     <div class="price-intel-chart-shell">
-      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-27", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-29", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-01", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-05", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-07", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-09", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-11", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}], "stores": {"Interoptik": [{"date": "2026-09-15", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-14", "price": 862.0, "store": "Interoptik"}], "Lensit": [{"date": "2026-09-15", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-14", "price": 562.0, "store": "Lensit"}], "Lenson": [{"date": "2026-09-15", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-14", "price": 637.0, "store": "Lenson"}], "Lensway": [{"date": "2026-09-15", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 637.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-13", "price": 599.0, "store": "Lensway"}, {"date": "2026-10-14", "price": 599.0, "store": "Lensway"}], "Synsam": [{"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}]}}</script>
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-27", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-29", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-01", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-05", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-07", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-09", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-11", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-15", "price": 529.0, "store": "Synsam"}], "stores": {"Interoptik": [{"date": "2026-09-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-14", "price": 862.0, "store": "Interoptik"}], "Lensit": [{"date": "2026-09-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-14", "price": 562.0, "store": "Lensit"}], "Lenson": [{"date": "2026-09-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-14", "price": 637.0, "store": "Lenson"}], "Lensway": [{"date": "2026-09-16", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 637.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-13", "price": 599.0, "store": "Lensway"}, {"date": "2026-10-14", "price": 599.0, "store": "Lensway"}], "Synsam": [{"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}]}}</script>
       <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 224" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 480 kr til 539 kr">
       <defs>
         <linearGradient id="priceIntelFade-30d" x1="0" y1="12" x2="0" y2="204" gradientUnits="userSpaceOnUse">
@@ -2080,54 +2293,54 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="46" y1="161.4" x2="672" y2="161.4" class="price-history-gridline" />
-      <text x="40" y="164.4" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="46" y1="161.1" x2="672" y2="161.1" class="price-history-gridline" />
+      <text x="40" y="164.1" text-anchor="end" class="price-history-axis-label">400 kr</text>
       <line x1="46" y1="104.4" x2="672" y2="104.4" class="price-history-gridline" />
       <text x="40" y="107.4" text-anchor="end" class="price-history-axis-label">500 kr</text>
-      <line x1="46" y1="47.4" x2="672" y2="47.4" class="price-history-gridline" />
-      <text x="40" y="50.4" text-anchor="end" class="price-history-axis-label">600 kr</text>
-      <path d="M46.0,204.0 L46.0,113.0 L67.6,115.2 L89.2,115.8 L110.8,87.9 L132.3,87.9 L153.9,87.9 L175.5,87.9 L197.1,90.7 L218.7,93.6 L240.3,87.9 L261.9,90.7 L283.4,90.7 L305.0,87.9 L326.6,87.9 L348.2,87.9 L369.8,90.7 L391.4,90.7 L413.0,87.9 L434.6,87.9 L456.1,99.3 L477.7,99.3 L499.3,82.2 L520.9,82.2 L542.5,96.4 L564.1,96.4 L585.7,90.7 L607.2,90.7 L628.8,87.9 L650.4,87.9 L672.0,87.9 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
-      <polyline points="46.0,113.0 67.6,115.2 89.2,115.8 110.8,87.9 132.3,87.9 153.9,87.9 175.5,87.9 197.1,90.7 218.7,93.6 240.3,87.9 261.9,90.7 283.4,90.7 305.0,87.9 326.6,87.9 348.2,87.9 369.8,90.7 391.4,90.7 413.0,87.9 434.6,87.9 456.1,99.3 477.7,99.3 499.3,82.2 520.9,82.2 542.5,96.4 564.1,96.4 585.7,90.7 607.2,90.7 628.8,87.9 650.4,87.9 672.0,87.9" class="price-history-line" />
+      <line x1="46" y1="47.7" x2="672" y2="47.7" class="price-history-gridline" />
+      <text x="40" y="50.7" text-anchor="end" class="price-history-axis-label">600 kr</text>
+      <path d="M46.0,204.0 L46.0,115.2 L67.6,115.7 L89.2,87.9 L110.8,87.9 L132.3,87.9 L153.9,87.9 L175.5,90.8 L197.1,93.6 L218.7,87.9 L240.3,90.8 L261.9,90.8 L283.4,87.9 L305.0,87.9 L326.6,87.9 L348.2,90.8 L369.8,90.8 L391.4,87.9 L413.0,87.9 L434.6,99.3 L456.1,99.3 L477.7,82.3 L499.3,82.3 L520.9,96.4 L542.5,96.4 L564.1,90.8 L585.7,90.8 L607.2,87.9 L628.8,87.9 L650.4,87.9 L672.0,87.9 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-30d)" />
+      <polyline points="46.0,115.2 67.6,115.7 89.2,87.9 110.8,87.9 132.3,87.9 153.9,87.9 175.5,90.8 197.1,93.6 218.7,87.9 240.3,90.8 261.9,90.8 283.4,87.9 305.0,87.9 326.6,87.9 348.2,90.8 369.8,90.8 391.4,87.9 413.0,87.9 434.6,99.3 456.1,99.3 477.7,82.3 499.3,82.3 520.9,96.4 542.5,96.4 564.1,90.8 585.7,90.8 607.2,87.9 628.8,87.9 650.4,87.9 672.0,87.9" class="price-history-line" />
       <circle cx="672.0" cy="87.9" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="46.0" cy="113.0" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
-      <circle cx="67.6" cy="115.2" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
-      <circle cx="89.2" cy="115.8" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
-      <circle cx="110.8" cy="87.9" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
-      <circle cx="132.3" cy="87.9" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
-      <circle cx="153.9" cy="87.9" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
-      <circle cx="175.5" cy="87.9" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
-      <circle cx="197.1" cy="90.7" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
-      <circle cx="218.7" cy="93.6" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
-      <circle cx="240.3" cy="87.9" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
-      <circle cx="261.9" cy="90.7" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
-      <circle cx="283.4" cy="90.7" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
-      <circle cx="305.0" cy="87.9" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
-      <circle cx="326.6" cy="87.9" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
-      <circle cx="348.2" cy="87.9" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
-      <circle cx="369.8" cy="90.7" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
-      <circle cx="391.4" cy="90.7" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="413.0" cy="87.9" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="434.6" cy="87.9" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="456.1" cy="99.3" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="477.7" cy="99.3" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="499.3" cy="82.2" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="520.9" cy="82.2" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="542.5" cy="96.4" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="564.1" cy="96.4" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="585.7" cy="90.7" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="607.2" cy="90.7" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="628.8" cy="87.9" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="650.4" cy="87.9" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="672.0" cy="87.9" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="46.0" cy="115.2" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
+      <circle cx="67.6" cy="115.7" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
+      <circle cx="89.2" cy="87.9" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
+      <circle cx="110.8" cy="87.9" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
+      <circle cx="132.3" cy="87.9" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
+      <circle cx="153.9" cy="87.9" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
+      <circle cx="175.5" cy="90.8" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
+      <circle cx="197.1" cy="93.6" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
+      <circle cx="218.7" cy="87.9" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
+      <circle cx="240.3" cy="90.8" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
+      <circle cx="261.9" cy="90.8" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
+      <circle cx="283.4" cy="87.9" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
+      <circle cx="305.0" cy="87.9" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
+      <circle cx="326.6" cy="87.9" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
+      <circle cx="348.2" cy="90.8" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
+      <circle cx="369.8" cy="90.8" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="391.4" cy="87.9" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="413.0" cy="87.9" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="434.6" cy="99.3" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="456.1" cy="99.3" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="477.7" cy="82.3" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="499.3" cy="82.3" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="520.9" cy="96.4" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="542.5" cy="96.4" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="564.1" cy="90.8" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="585.7" cy="90.8" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="607.2" cy="87.9" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="628.8" cy="87.9" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="650.4" cy="87.9" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="672.0" cy="87.9" r="9" class="price-intel-hit"><title>15. oktober: 529 kr hos Synsam</title></circle>
       <text x="672.0" y="79.9" text-anchor="end" class="price-history-current-label">529 kr</text>
-      <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.09</text>
-      <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">19.09</text>
-      <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.09</text>
-      <text x="305.0" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">27.09</text>
-      <text x="391.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.10</text>
-      <text x="477.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">05.10</text>
-      <text x="564.1" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">09.10</text>
-      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">16.09</text>
+      <text x="132.3" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">20.09</text>
+      <text x="218.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">24.09</text>
+      <text x="305.0" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
+      <text x="391.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">02.10</text>
+      <text x="477.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">06.10</text>
+      <text x="564.1" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.10</text>
+      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 480 kr til 539 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-30d" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -2135,54 +2348,54 @@ a { color: inherit; }
           <stop offset="100%" stop-color="#FB923C" stop-opacity="0.02" />
         </linearGradient>
       </defs>
-      <line x1="42" y1="143.5" x2="332" y2="143.5" class="price-history-gridline" />
-      <text x="36" y="146.5" text-anchor="end" class="price-history-axis-label">400 kr</text>
+      <line x1="42" y1="143.2" x2="332" y2="143.2" class="price-history-gridline" />
+      <text x="36" y="146.2" text-anchor="end" class="price-history-axis-label">400 kr</text>
       <line x1="42" y1="93.3" x2="332" y2="93.3" class="price-history-gridline" />
       <text x="36" y="96.3" text-anchor="end" class="price-history-axis-label">500 kr</text>
-      <line x1="42" y1="43.2" x2="332" y2="43.2" class="price-history-gridline" />
-      <text x="36" y="46.2" text-anchor="end" class="price-history-axis-label">600 kr</text>
-      <path d="M42.0,181.0 L42.0,100.9 L52.0,102.9 L62.0,103.4 L72.0,78.8 L82.0,78.8 L92.0,78.8 L102.0,78.8 L112.0,81.3 L122.0,83.8 L132.0,78.8 L142.0,81.3 L152.0,81.3 L162.0,78.8 L172.0,78.8 L182.0,78.8 L192.0,81.3 L202.0,81.3 L212.0,78.8 L222.0,78.8 L232.0,88.8 L242.0,88.8 L252.0,73.8 L262.0,73.8 L272.0,86.3 L282.0,86.3 L292.0,81.3 L302.0,81.3 L312.0,78.8 L322.0,78.8 L332.0,78.8 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
-      <polyline points="42.0,100.9 52.0,102.9 62.0,103.4 72.0,78.8 82.0,78.8 92.0,78.8 102.0,78.8 112.0,81.3 122.0,83.8 132.0,78.8 142.0,81.3 152.0,81.3 162.0,78.8 172.0,78.8 182.0,78.8 192.0,81.3 202.0,81.3 212.0,78.8 222.0,78.8 232.0,88.8 242.0,88.8 252.0,73.8 262.0,73.8 272.0,86.3 282.0,86.3 292.0,81.3 302.0,81.3 312.0,78.8 322.0,78.8 332.0,78.8" class="price-history-line" />
+      <line x1="42" y1="43.4" x2="332" y2="43.4" class="price-history-gridline" />
+      <text x="36" y="46.4" text-anchor="end" class="price-history-axis-label">600 kr</text>
+      <path d="M42.0,181.0 L42.0,102.8 L52.0,103.3 L62.0,78.8 L72.0,78.8 L82.0,78.8 L92.0,78.8 L102.0,81.3 L112.0,83.8 L122.0,78.8 L132.0,81.3 L142.0,81.3 L152.0,78.8 L162.0,78.8 L172.0,78.8 L182.0,81.3 L192.0,81.3 L202.0,78.8 L212.0,78.8 L222.0,88.8 L232.0,88.8 L242.0,73.9 L252.0,73.9 L262.0,86.3 L272.0,86.3 L282.0,81.3 L292.0,81.3 L302.0,78.8 L312.0,78.8 L322.0,78.8 L332.0,78.8 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-30d)" />
+      <polyline points="42.0,102.8 52.0,103.3 62.0,78.8 72.0,78.8 82.0,78.8 92.0,78.8 102.0,81.3 112.0,83.8 122.0,78.8 132.0,81.3 142.0,81.3 152.0,78.8 162.0,78.8 172.0,78.8 182.0,81.3 192.0,81.3 202.0,78.8 212.0,78.8 222.0,88.8 232.0,88.8 242.0,73.9 252.0,73.9 262.0,86.3 272.0,86.3 282.0,81.3 292.0,81.3 302.0,78.8 312.0,78.8 322.0,78.8 332.0,78.8" class="price-history-line" />
       <circle cx="332.0" cy="78.8" r="3.2" class="price-history-dot price-history-dot-last" />
-      <circle cx="42.0" cy="100.9" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
-      <circle cx="52.0" cy="102.9" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
-      <circle cx="62.0" cy="103.4" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
-      <circle cx="72.0" cy="78.8" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
-      <circle cx="82.0" cy="78.8" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
-      <circle cx="92.0" cy="78.8" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
-      <circle cx="102.0" cy="78.8" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
-      <circle cx="112.0" cy="81.3" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
-      <circle cx="122.0" cy="83.8" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
-      <circle cx="132.0" cy="78.8" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
-      <circle cx="142.0" cy="81.3" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
-      <circle cx="152.0" cy="81.3" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
-      <circle cx="162.0" cy="78.8" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
-      <circle cx="172.0" cy="78.8" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
-      <circle cx="182.0" cy="78.8" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
-      <circle cx="192.0" cy="81.3" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
-      <circle cx="202.0" cy="81.3" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="212.0" cy="78.8" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="222.0" cy="78.8" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="232.0" cy="88.8" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="242.0" cy="88.8" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="252.0" cy="73.8" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="262.0" cy="73.8" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="272.0" cy="86.3" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="282.0" cy="86.3" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="292.0" cy="81.3" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="302.0" cy="81.3" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="312.0" cy="78.8" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="322.0" cy="78.8" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="332.0" cy="78.8" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="42.0" cy="102.8" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
+      <circle cx="52.0" cy="103.3" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
+      <circle cx="62.0" cy="78.8" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
+      <circle cx="72.0" cy="78.8" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
+      <circle cx="82.0" cy="78.8" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
+      <circle cx="92.0" cy="78.8" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
+      <circle cx="102.0" cy="81.3" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
+      <circle cx="112.0" cy="83.8" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
+      <circle cx="122.0" cy="78.8" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
+      <circle cx="132.0" cy="81.3" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
+      <circle cx="142.0" cy="81.3" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
+      <circle cx="152.0" cy="78.8" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
+      <circle cx="162.0" cy="78.8" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
+      <circle cx="172.0" cy="78.8" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
+      <circle cx="182.0" cy="81.3" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
+      <circle cx="192.0" cy="81.3" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="202.0" cy="78.8" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="212.0" cy="78.8" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="222.0" cy="88.8" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="232.0" cy="88.8" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="242.0" cy="73.9" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="252.0" cy="73.9" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="262.0" cy="86.3" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="272.0" cy="86.3" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="282.0" cy="81.3" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="292.0" cy="81.3" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="302.0" cy="78.8" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="312.0" cy="78.8" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="322.0" cy="78.8" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="332.0" cy="78.8" r="9" class="price-intel-hit"><title>15. oktober: 529 kr hos Synsam</title></circle>
       <text x="332.0" y="70.8" text-anchor="end" class="price-history-current-label">529 kr</text>
-      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.09</text>
-      <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">29.09</text>
-      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">16.09</text>
+      <text x="182.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">30.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg></div>
     </div>
   </div><div class="price-intel-chart-panel" data-period="all">
     <div class="price-intel-chart-shell">
-      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-08-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-21", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-22", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-23", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-28", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-29", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-30", "price": 539.0, "store": "Synsam"}, {"date": "2026-08-31", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-01", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-02", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-04", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-05", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-06", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-07", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-08", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-09", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-10", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-11", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-12", "price": 505.0, "store": "Synsam"}, {"date": "2026-09-13", "price": 493.0, "store": "Synsam"}, {"date": "2026-09-14", "price": 489.0, "store": "Synsam"}, {"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-27", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-29", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-01", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-05", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-07", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-09", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-11", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}], "stores": {"Interoptik": [{"date": "2026-08-14", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-15", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-27", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-29", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-31", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-01", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-03", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-05", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-07", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-09", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-11", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-14", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-15", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-14", "price": 862.0, "store": "Interoptik"}], "Lensit": [{"date": "2026-08-14", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-15", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-29", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-31", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-01", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-03", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-05", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-07", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-09", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-11", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-14", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-15", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-14", "price": 562.0, "store": "Lensit"}], "Lenson": [{"date": "2026-08-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-24", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-25", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-26", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-27", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-28", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-29", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-30", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-31", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-01", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-02", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-03", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-04", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-07", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-08", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-09", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-10", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-11", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-15", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-14", "price": 637.0, "store": "Lenson"}], "Lensway": [{"date": "2026-08-14", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-15", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-16", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-17", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-18", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-19", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-20", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-21", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-22", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-23", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-29", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-30", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-31", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-01", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-02", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-03", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-04", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-05", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-06", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-07", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-08", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-09", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-10", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-11", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-12", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-13", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-14", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 637.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-13", "price": 599.0, "store": "Lensway"}, {"date": "2026-10-14", "price": 599.0, "store": "Lensway"}], "Synsam": [{"date": "2026-08-14", "price": 524.0, "store": "Synsam"}, {"date": "2026-08-15", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-16", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-17", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-19", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-20", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-21", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-22", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-23", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-25", "price": 574.0, "store": "Synsam"}, {"date": "2026-08-26", "price": 569.0, "store": "Synsam"}, {"date": "2026-08-27", "price": 564.0, "store": "Synsam"}, {"date": "2026-08-28", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-29", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-30", "price": 539.0, "store": "Synsam"}, {"date": "2026-08-31", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-01", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-02", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-04", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-05", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-06", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-07", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-08", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-09", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-10", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-11", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-12", "price": 505.0, "store": "Synsam"}, {"date": "2026-09-13", "price": 493.0, "store": "Synsam"}, {"date": "2026-09-14", "price": 489.0, "store": "Synsam"}, {"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}]}}</script>
+      <script type="application/json" class="store-chart-data">{"lowest": [{"date": "2026-08-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-21", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-22", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-23", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-28", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-29", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-30", "price": 539.0, "store": "Synsam"}, {"date": "2026-08-31", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-01", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-02", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-04", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-05", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-06", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-07", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-08", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-09", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-10", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-11", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-12", "price": 505.0, "store": "Synsam"}, {"date": "2026-09-13", "price": 493.0, "store": "Synsam"}, {"date": "2026-09-14", "price": 489.0, "store": "Synsam"}, {"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-27", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-29", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-01", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-05", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-07", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-09", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-11", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-15", "price": 529.0, "store": "Synsam"}], "stores": {"Interoptik": [{"date": "2026-08-14", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-15", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-27", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-29", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-08-31", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-01", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-03", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-05", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-07", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-09", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-11", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-14", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-15", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-16", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-17", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-18", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-19", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-20", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-21", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-22", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-23", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-24", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-25", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-26", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-28", "price": 862.0, "store": "Interoptik"}, {"date": "2026-09-30", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-02", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-04", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-06", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-08", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-10", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-12", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-13", "price": 862.0, "store": "Interoptik"}, {"date": "2026-10-14", "price": 862.0, "store": "Interoptik"}], "Lensit": [{"date": "2026-08-14", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-15", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-29", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-08-31", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-01", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-03", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-05", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-07", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-09", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-11", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-14", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-15", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensit"}, {"date": "2026-09-30", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-02", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-04", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-13", "price": 562.0, "store": "Lensit"}, {"date": "2026-10-14", "price": 562.0, "store": "Lensit"}], "Lenson": [{"date": "2026-08-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-15", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-08-24", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-25", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-26", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-27", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-28", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-29", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-30", "price": 599.0, "store": "Lenson"}, {"date": "2026-08-31", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-01", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-02", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-03", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-04", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-09-07", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-08", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-09", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-10", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-11", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-09-14", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-15", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-16", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-17", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-18", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-19", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-20", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-21", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-22", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-23", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-24", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-25", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-26", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-27", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-28", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-29", "price": 562.0, "store": "Lenson"}, {"date": "2026-09-30", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-01", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-02", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-03", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-04", "price": 562.0, "store": "Lenson"}, {"date": "2026-10-05", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-06", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-07", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-08", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-09", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-10", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-11", "price": 599.0, "store": "Lenson"}, {"date": "2026-10-12", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-13", "price": 637.0, "store": "Lenson"}, {"date": "2026-10-14", "price": 637.0, "store": "Lenson"}], "Lensway": [{"date": "2026-08-14", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-15", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-16", "price": 639.0, "store": "Lensway"}, {"date": "2026-08-17", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-18", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-19", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-20", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-21", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-22", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-23", "price": 637.0, "store": "Lensway"}, {"date": "2026-08-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-29", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-30", "price": 562.0, "store": "Lensway"}, {"date": "2026-08-31", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-01", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-02", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-03", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-04", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-05", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-06", "price": 599.0, "store": "Lensway"}, {"date": "2026-09-07", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-08", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-09", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-10", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-11", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-12", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-13", "price": 749.0, "store": "Lensway"}, {"date": "2026-09-14", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-15", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-16", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-17", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-18", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-19", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-20", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-21", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-22", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-23", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-24", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-25", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-26", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-27", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-28", "price": 562.0, "store": "Lensway"}, {"date": "2026-09-29", "price": 637.0, "store": "Lensway"}, {"date": "2026-09-30", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-01", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-02", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-03", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-04", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-05", "price": 637.0, "store": "Lensway"}, {"date": "2026-10-06", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-07", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-08", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-09", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-10", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-11", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-12", "price": 562.0, "store": "Lensway"}, {"date": "2026-10-13", "price": 599.0, "store": "Lensway"}, {"date": "2026-10-14", "price": 599.0, "store": "Lensway"}], "Synsam": [{"date": "2026-08-14", "price": 524.0, "store": "Synsam"}, {"date": "2026-08-15", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-16", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-17", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-19", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-20", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-21", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-22", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-23", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-08-25", "price": 574.0, "store": "Synsam"}, {"date": "2026-08-26", "price": 569.0, "store": "Synsam"}, {"date": "2026-08-27", "price": 564.0, "store": "Synsam"}, {"date": "2026-08-28", "price": 559.0, "store": "Synsam"}, {"date": "2026-08-29", "price": 544.0, "store": "Synsam"}, {"date": "2026-08-30", "price": 539.0, "store": "Synsam"}, {"date": "2026-08-31", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-01", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-02", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-03", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-04", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-05", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-06", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-07", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-08", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-09", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-10", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-11", "price": 509.0, "store": "Synsam"}, {"date": "2026-09-12", "price": 505.0, "store": "Synsam"}, {"date": "2026-09-13", "price": 493.0, "store": "Synsam"}, {"date": "2026-09-14", "price": 489.0, "store": "Synsam"}, {"date": "2026-09-15", "price": 485.0, "store": "Synsam"}, {"date": "2026-09-16", "price": 481.0, "store": "Synsam"}, {"date": "2026-09-17", "price": 480.0, "store": "Synsam"}, {"date": "2026-09-18", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-19", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-20", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-21", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-22", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-23", "price": 519.0, "store": "Synsam"}, {"date": "2026-09-24", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-25", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-26", "price": 524.0, "store": "Synsam"}, {"date": "2026-09-28", "price": 529.0, "store": "Synsam"}, {"date": "2026-09-30", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-02", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-04", "price": 509.0, "store": "Synsam"}, {"date": "2026-10-06", "price": 539.0, "store": "Synsam"}, {"date": "2026-10-08", "price": 514.0, "store": "Synsam"}, {"date": "2026-10-10", "price": 524.0, "store": "Synsam"}, {"date": "2026-10-12", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-13", "price": 529.0, "store": "Synsam"}, {"date": "2026-10-14", "price": 529.0, "store": "Synsam"}]}}</script>
       <div class="price-intel-chart-wrap"><svg viewBox="0 0 680 224" class="price-history-chart price-intel-chart price-intel-chart-desktop" role="img" aria-label="Prisutvikling, fra 480 kr til 562 kr">
       <defs>
         <linearGradient id="priceIntelFade-all" x1="0" y1="12" x2="0" y2="204" gradientUnits="userSpaceOnUse">
@@ -2196,80 +2409,81 @@ a { color: inherit; }
       <text x="40" y="113.9" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <line x1="46" y1="54.2" x2="672" y2="54.2" class="price-history-gridline" />
       <text x="40" y="57.2" text-anchor="end" class="price-history-axis-label">600 kr</text>
-      <path d="M46.0,204.0 L46.0,75.7 L56.3,86.0 L66.5,75.7 L76.8,75.7 L87.0,75.7 L97.3,75.7 L107.6,75.7 L117.8,77.4 L128.1,86.0 L138.4,77.4 L148.6,94.5 L158.9,75.7 L169.1,75.7 L179.4,75.7 L189.7,77.4 L199.9,86.0 L210.2,88.8 L220.5,97.3 L230.7,105.8 L241.0,105.8 L251.2,94.5 L261.5,94.5 L271.8,97.3 L282.0,94.5 L292.3,94.5 L302.6,94.5 L312.8,94.5 L323.1,94.5 L333.3,105.8 L343.6,108.1 L353.9,114.9 L364.1,117.1 L374.4,119.4 L384.7,121.7 L394.9,122.3 L405.2,94.5 L415.4,94.5 L425.7,94.5 L436.0,94.5 L446.2,97.3 L456.5,100.1 L466.8,94.5 L477.0,97.3 L487.3,97.3 L497.5,94.5 L507.8,94.5 L518.1,94.5 L528.3,97.3 L538.6,97.3 L548.9,94.5 L559.1,94.5 L569.4,105.8 L579.6,105.8 L589.9,88.8 L600.2,88.8 L610.4,103.0 L620.7,103.0 L631.0,97.3 L641.2,97.3 L651.5,94.5 L661.7,94.5 L672.0,94.5 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
-      <polyline points="46.0,75.7 56.3,86.0 66.5,75.7 76.8,75.7 87.0,75.7 97.3,75.7 107.6,75.7 117.8,77.4 128.1,86.0 138.4,77.4 148.6,94.5 158.9,75.7 169.1,75.7 179.4,75.7 189.7,77.4 199.9,86.0 210.2,88.8 220.5,97.3 230.7,105.8 241.0,105.8 251.2,94.5 261.5,94.5 271.8,97.3 282.0,94.5 292.3,94.5 302.6,94.5 312.8,94.5 323.1,94.5 333.3,105.8 343.6,108.1 353.9,114.9 364.1,117.1 374.4,119.4 384.7,121.7 394.9,122.3 405.2,94.5 415.4,94.5 425.7,94.5 436.0,94.5 446.2,97.3 456.5,100.1 466.8,94.5 477.0,97.3 487.3,97.3 497.5,94.5 507.8,94.5 518.1,94.5 528.3,97.3 538.6,97.3 548.9,94.5 559.1,94.5 569.4,105.8 579.6,105.8 589.9,88.8 600.2,88.8 610.4,103.0 620.7,103.0 631.0,97.3 641.2,97.3 651.5,94.5 661.7,94.5 672.0,94.5" class="price-history-line" />
+      <path d="M46.0,204.0 L46.0,75.7 L56.1,86.0 L66.2,75.7 L76.3,75.7 L86.4,75.7 L96.5,75.7 L106.6,75.7 L116.7,77.4 L126.8,86.0 L136.9,77.4 L147.0,94.5 L157.1,75.7 L167.2,75.7 L177.3,75.7 L187.4,77.4 L197.5,86.0 L207.5,88.8 L217.6,97.3 L227.7,105.8 L237.8,105.8 L247.9,94.5 L258.0,94.5 L268.1,97.3 L278.2,94.5 L288.3,94.5 L298.4,94.5 L308.5,94.5 L318.6,94.5 L328.7,105.8 L338.8,108.1 L348.9,114.9 L359.0,117.1 L369.1,119.4 L379.2,121.7 L389.3,122.3 L399.4,94.5 L409.5,94.5 L419.6,94.5 L429.7,94.5 L439.8,97.3 L449.9,100.1 L460.0,94.5 L470.1,97.3 L480.2,97.3 L490.3,94.5 L500.4,94.5 L510.5,94.5 L520.5,97.3 L530.6,97.3 L540.7,94.5 L550.8,94.5 L560.9,105.8 L571.0,105.8 L581.1,88.8 L591.2,88.8 L601.3,103.0 L611.4,103.0 L621.5,97.3 L631.6,97.3 L641.7,94.5 L651.8,94.5 L661.9,94.5 L672.0,94.5 L672.0,204.0 Z" class="price-history-area" fill="url(#priceIntelFade-all)" />
+      <polyline points="46.0,75.7 56.1,86.0 66.2,75.7 76.3,75.7 86.4,75.7 96.5,75.7 106.6,75.7 116.7,77.4 126.8,86.0 136.9,77.4 147.0,94.5 157.1,75.7 167.2,75.7 177.3,75.7 187.4,77.4 197.5,86.0 207.5,88.8 217.6,97.3 227.7,105.8 237.8,105.8 247.9,94.5 258.0,94.5 268.1,97.3 278.2,94.5 288.3,94.5 298.4,94.5 308.5,94.5 318.6,94.5 328.7,105.8 338.8,108.1 348.9,114.9 359.0,117.1 369.1,119.4 379.2,121.7 389.3,122.3 399.4,94.5 409.5,94.5 419.6,94.5 429.7,94.5 439.8,97.3 449.9,100.1 460.0,94.5 470.1,97.3 480.2,97.3 490.3,94.5 500.4,94.5 510.5,94.5 520.5,97.3 530.6,97.3 540.7,94.5 550.8,94.5 560.9,105.8 571.0,105.8 581.1,88.8 591.2,88.8 601.3,103.0 611.4,103.0 621.5,97.3 631.6,97.3 641.7,94.5 651.8,94.5 661.9,94.5 672.0,94.5" class="price-history-line" />
       <circle cx="672.0" cy="94.5" r="3.2" class="price-history-dot price-history-dot-last" />
       <circle cx="46.0" cy="75.7" r="9" class="price-intel-hit"><title>14. august: 562 kr hos Lenson</title></circle>
-      <circle cx="56.3" cy="86.0" r="9" class="price-intel-hit"><title>15. august: 544 kr hos Synsam</title></circle>
-      <circle cx="66.5" cy="75.7" r="9" class="price-intel-hit"><title>16. august: 562 kr hos Lensit</title></circle>
-      <circle cx="76.8" cy="75.7" r="9" class="price-intel-hit"><title>17. august: 562 kr hos Lensit</title></circle>
-      <circle cx="87.0" cy="75.7" r="9" class="price-intel-hit"><title>18. august: 562 kr hos Lensit</title></circle>
-      <circle cx="97.3" cy="75.7" r="9" class="price-intel-hit"><title>19. august: 562 kr hos Lensit</title></circle>
-      <circle cx="107.6" cy="75.7" r="9" class="price-intel-hit"><title>20. august: 562 kr hos Lensit</title></circle>
-      <circle cx="117.8" cy="77.4" r="9" class="price-intel-hit"><title>21. august: 559 kr hos Synsam</title></circle>
-      <circle cx="128.1" cy="86.0" r="9" class="price-intel-hit"><title>22. august: 544 kr hos Synsam</title></circle>
-      <circle cx="138.4" cy="77.4" r="9" class="price-intel-hit"><title>23. august: 559 kr hos Synsam</title></circle>
-      <circle cx="148.6" cy="94.5" r="9" class="price-intel-hit"><title>24. august: 529 kr hos Synsam</title></circle>
-      <circle cx="158.9" cy="75.7" r="9" class="price-intel-hit"><title>25. august: 562 kr hos Lensit</title></circle>
-      <circle cx="169.1" cy="75.7" r="9" class="price-intel-hit"><title>26. august: 562 kr hos Lensit</title></circle>
-      <circle cx="179.4" cy="75.7" r="9" class="price-intel-hit"><title>27. august: 562 kr hos Lensit</title></circle>
-      <circle cx="189.7" cy="77.4" r="9" class="price-intel-hit"><title>28. august: 559 kr hos Synsam</title></circle>
-      <circle cx="199.9" cy="86.0" r="9" class="price-intel-hit"><title>29. august: 544 kr hos Synsam</title></circle>
-      <circle cx="210.2" cy="88.8" r="9" class="price-intel-hit"><title>30. august: 539 kr hos Synsam</title></circle>
-      <circle cx="220.5" cy="97.3" r="9" class="price-intel-hit"><title>31. august: 524 kr hos Synsam</title></circle>
-      <circle cx="230.7" cy="105.8" r="9" class="price-intel-hit"><title>1. september: 509 kr hos Synsam</title></circle>
-      <circle cx="241.0" cy="105.8" r="9" class="price-intel-hit"><title>2. september: 509 kr hos Synsam</title></circle>
-      <circle cx="251.2" cy="94.5" r="9" class="price-intel-hit"><title>3. september: 529 kr hos Synsam</title></circle>
-      <circle cx="261.5" cy="94.5" r="9" class="price-intel-hit"><title>4. september: 529 kr hos Synsam</title></circle>
-      <circle cx="271.8" cy="97.3" r="9" class="price-intel-hit"><title>5. september: 524 kr hos Synsam</title></circle>
-      <circle cx="282.0" cy="94.5" r="9" class="price-intel-hit"><title>6. september: 529 kr hos Synsam</title></circle>
-      <circle cx="292.3" cy="94.5" r="9" class="price-intel-hit"><title>7. september: 529 kr hos Synsam</title></circle>
-      <circle cx="302.6" cy="94.5" r="9" class="price-intel-hit"><title>8. september: 529 kr hos Synsam</title></circle>
-      <circle cx="312.8" cy="94.5" r="9" class="price-intel-hit"><title>9. september: 529 kr hos Synsam</title></circle>
-      <circle cx="323.1" cy="94.5" r="9" class="price-intel-hit"><title>10. september: 529 kr hos Synsam</title></circle>
-      <circle cx="333.3" cy="105.8" r="9" class="price-intel-hit"><title>11. september: 509 kr hos Synsam</title></circle>
-      <circle cx="343.6" cy="108.1" r="9" class="price-intel-hit"><title>12. september: 505 kr hos Synsam</title></circle>
-      <circle cx="353.9" cy="114.9" r="9" class="price-intel-hit"><title>13. september: 493 kr hos Synsam</title></circle>
-      <circle cx="364.1" cy="117.1" r="9" class="price-intel-hit"><title>14. september: 489 kr hos Synsam</title></circle>
-      <circle cx="374.4" cy="119.4" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
-      <circle cx="384.7" cy="121.7" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
-      <circle cx="394.9" cy="122.3" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
-      <circle cx="405.2" cy="94.5" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
-      <circle cx="415.4" cy="94.5" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
-      <circle cx="425.7" cy="94.5" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
-      <circle cx="436.0" cy="94.5" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
-      <circle cx="446.2" cy="97.3" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
-      <circle cx="456.5" cy="100.1" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
-      <circle cx="466.8" cy="94.5" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
-      <circle cx="477.0" cy="97.3" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
-      <circle cx="487.3" cy="97.3" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
-      <circle cx="497.5" cy="94.5" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
-      <circle cx="507.8" cy="94.5" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
-      <circle cx="518.1" cy="94.5" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
-      <circle cx="528.3" cy="97.3" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
-      <circle cx="538.6" cy="97.3" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="548.9" cy="94.5" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="559.1" cy="94.5" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="569.4" cy="105.8" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="579.6" cy="105.8" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="589.9" cy="88.8" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="600.2" cy="88.8" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="610.4" cy="103.0" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="620.7" cy="103.0" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="631.0" cy="97.3" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="641.2" cy="97.3" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="651.5" cy="94.5" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="661.7" cy="94.5" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="672.0" cy="94.5" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="56.1" cy="86.0" r="9" class="price-intel-hit"><title>15. august: 544 kr hos Synsam</title></circle>
+      <circle cx="66.2" cy="75.7" r="9" class="price-intel-hit"><title>16. august: 562 kr hos Lensit</title></circle>
+      <circle cx="76.3" cy="75.7" r="9" class="price-intel-hit"><title>17. august: 562 kr hos Lensit</title></circle>
+      <circle cx="86.4" cy="75.7" r="9" class="price-intel-hit"><title>18. august: 562 kr hos Lensit</title></circle>
+      <circle cx="96.5" cy="75.7" r="9" class="price-intel-hit"><title>19. august: 562 kr hos Lensit</title></circle>
+      <circle cx="106.6" cy="75.7" r="9" class="price-intel-hit"><title>20. august: 562 kr hos Lensit</title></circle>
+      <circle cx="116.7" cy="77.4" r="9" class="price-intel-hit"><title>21. august: 559 kr hos Synsam</title></circle>
+      <circle cx="126.8" cy="86.0" r="9" class="price-intel-hit"><title>22. august: 544 kr hos Synsam</title></circle>
+      <circle cx="136.9" cy="77.4" r="9" class="price-intel-hit"><title>23. august: 559 kr hos Synsam</title></circle>
+      <circle cx="147.0" cy="94.5" r="9" class="price-intel-hit"><title>24. august: 529 kr hos Synsam</title></circle>
+      <circle cx="157.1" cy="75.7" r="9" class="price-intel-hit"><title>25. august: 562 kr hos Lensit</title></circle>
+      <circle cx="167.2" cy="75.7" r="9" class="price-intel-hit"><title>26. august: 562 kr hos Lensit</title></circle>
+      <circle cx="177.3" cy="75.7" r="9" class="price-intel-hit"><title>27. august: 562 kr hos Lensit</title></circle>
+      <circle cx="187.4" cy="77.4" r="9" class="price-intel-hit"><title>28. august: 559 kr hos Synsam</title></circle>
+      <circle cx="197.5" cy="86.0" r="9" class="price-intel-hit"><title>29. august: 544 kr hos Synsam</title></circle>
+      <circle cx="207.5" cy="88.8" r="9" class="price-intel-hit"><title>30. august: 539 kr hos Synsam</title></circle>
+      <circle cx="217.6" cy="97.3" r="9" class="price-intel-hit"><title>31. august: 524 kr hos Synsam</title></circle>
+      <circle cx="227.7" cy="105.8" r="9" class="price-intel-hit"><title>1. september: 509 kr hos Synsam</title></circle>
+      <circle cx="237.8" cy="105.8" r="9" class="price-intel-hit"><title>2. september: 509 kr hos Synsam</title></circle>
+      <circle cx="247.9" cy="94.5" r="9" class="price-intel-hit"><title>3. september: 529 kr hos Synsam</title></circle>
+      <circle cx="258.0" cy="94.5" r="9" class="price-intel-hit"><title>4. september: 529 kr hos Synsam</title></circle>
+      <circle cx="268.1" cy="97.3" r="9" class="price-intel-hit"><title>5. september: 524 kr hos Synsam</title></circle>
+      <circle cx="278.2" cy="94.5" r="9" class="price-intel-hit"><title>6. september: 529 kr hos Synsam</title></circle>
+      <circle cx="288.3" cy="94.5" r="9" class="price-intel-hit"><title>7. september: 529 kr hos Synsam</title></circle>
+      <circle cx="298.4" cy="94.5" r="9" class="price-intel-hit"><title>8. september: 529 kr hos Synsam</title></circle>
+      <circle cx="308.5" cy="94.5" r="9" class="price-intel-hit"><title>9. september: 529 kr hos Synsam</title></circle>
+      <circle cx="318.6" cy="94.5" r="9" class="price-intel-hit"><title>10. september: 529 kr hos Synsam</title></circle>
+      <circle cx="328.7" cy="105.8" r="9" class="price-intel-hit"><title>11. september: 509 kr hos Synsam</title></circle>
+      <circle cx="338.8" cy="108.1" r="9" class="price-intel-hit"><title>12. september: 505 kr hos Synsam</title></circle>
+      <circle cx="348.9" cy="114.9" r="9" class="price-intel-hit"><title>13. september: 493 kr hos Synsam</title></circle>
+      <circle cx="359.0" cy="117.1" r="9" class="price-intel-hit"><title>14. september: 489 kr hos Synsam</title></circle>
+      <circle cx="369.1" cy="119.4" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
+      <circle cx="379.2" cy="121.7" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
+      <circle cx="389.3" cy="122.3" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
+      <circle cx="399.4" cy="94.5" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
+      <circle cx="409.5" cy="94.5" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
+      <circle cx="419.6" cy="94.5" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
+      <circle cx="429.7" cy="94.5" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
+      <circle cx="439.8" cy="97.3" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
+      <circle cx="449.9" cy="100.1" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
+      <circle cx="460.0" cy="94.5" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
+      <circle cx="470.1" cy="97.3" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
+      <circle cx="480.2" cy="97.3" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
+      <circle cx="490.3" cy="94.5" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
+      <circle cx="500.4" cy="94.5" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
+      <circle cx="510.5" cy="94.5" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
+      <circle cx="520.5" cy="97.3" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
+      <circle cx="530.6" cy="97.3" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="540.7" cy="94.5" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="550.8" cy="94.5" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="560.9" cy="105.8" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="571.0" cy="105.8" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="581.1" cy="88.8" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="591.2" cy="88.8" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="601.3" cy="103.0" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="611.4" cy="103.0" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="621.5" cy="97.3" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="631.6" cy="97.3" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="641.7" cy="94.5" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="651.8" cy="94.5" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="661.9" cy="94.5" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="672.0" cy="94.5" r="9" class="price-intel-hit"><title>15. oktober: 529 kr hos Synsam</title></circle>
       <text x="672.0" y="86.5" text-anchor="end" class="price-history-current-label">529 kr</text>
       <text x="46.0" y="219" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
-      <text x="138.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.08</text>
-      <text x="230.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.09</text>
-      <text x="323.1" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.09</text>
-      <text x="415.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">19.09</text>
-      <text x="507.8" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
-      <text x="600.2" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">07.10</text>
-      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="136.9" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">23.08</text>
+      <text x="227.7" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">01.09</text>
+      <text x="318.6" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">10.09</text>
+      <text x="409.5" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">19.09</text>
+      <text x="500.4" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">28.09</text>
+      <text x="591.2" y="219" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">07.10</text>
+      <text x="672.0" y="219" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg><svg viewBox="0 0 340 205" class="price-history-chart price-intel-chart price-intel-chart-mobile" role="img" aria-label="Prisutvikling, fra 480 kr til 562 kr">
       <defs>
         <linearGradient id="priceIntelFadeMobile-all" x1="0" y1="12" x2="0" y2="181" gradientUnits="userSpaceOnUse">
@@ -2283,75 +2497,76 @@ a { color: inherit; }
       <text x="36" y="102.1" text-anchor="end" class="price-history-axis-label">500 kr</text>
       <line x1="42" y1="49.1" x2="332" y2="49.1" class="price-history-gridline" />
       <text x="36" y="52.1" text-anchor="end" class="price-history-axis-label">600 kr</text>
-      <path d="M42.0,181.0 L42.0,68.1 L46.8,77.1 L51.5,68.1 L56.3,68.1 L61.0,68.1 L65.8,68.1 L70.5,68.1 L75.3,69.6 L80.0,77.1 L84.8,69.6 L89.5,84.6 L94.3,68.1 L99.0,68.1 L103.8,68.1 L108.6,69.6 L113.3,77.1 L118.1,79.6 L122.8,87.1 L127.6,94.6 L132.3,94.6 L137.1,84.6 L141.8,84.6 L146.6,87.1 L151.3,84.6 L156.1,84.6 L160.9,84.6 L165.6,84.6 L170.4,84.6 L175.1,94.6 L179.9,96.6 L184.6,102.6 L189.4,104.6 L194.1,106.5 L198.9,108.5 L203.6,109.0 L208.4,84.6 L213.1,84.6 L217.9,84.6 L222.7,84.6 L227.4,87.1 L232.2,89.6 L236.9,84.6 L241.7,87.1 L246.4,87.1 L251.2,84.6 L255.9,84.6 L260.7,84.6 L265.4,87.1 L270.2,87.1 L275.0,84.6 L279.7,84.6 L284.5,94.6 L289.2,94.6 L294.0,79.6 L298.7,79.6 L303.5,92.1 L308.2,92.1 L313.0,87.1 L317.7,87.1 L322.5,84.6 L327.2,84.6 L332.0,84.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
-      <polyline points="42.0,68.1 46.8,77.1 51.5,68.1 56.3,68.1 61.0,68.1 65.8,68.1 70.5,68.1 75.3,69.6 80.0,77.1 84.8,69.6 89.5,84.6 94.3,68.1 99.0,68.1 103.8,68.1 108.6,69.6 113.3,77.1 118.1,79.6 122.8,87.1 127.6,94.6 132.3,94.6 137.1,84.6 141.8,84.6 146.6,87.1 151.3,84.6 156.1,84.6 160.9,84.6 165.6,84.6 170.4,84.6 175.1,94.6 179.9,96.6 184.6,102.6 189.4,104.6 194.1,106.5 198.9,108.5 203.6,109.0 208.4,84.6 213.1,84.6 217.9,84.6 222.7,84.6 227.4,87.1 232.2,89.6 236.9,84.6 241.7,87.1 246.4,87.1 251.2,84.6 255.9,84.6 260.7,84.6 265.4,87.1 270.2,87.1 275.0,84.6 279.7,84.6 284.5,94.6 289.2,94.6 294.0,79.6 298.7,79.6 303.5,92.1 308.2,92.1 313.0,87.1 317.7,87.1 322.5,84.6 327.2,84.6 332.0,84.6" class="price-history-line" />
+      <path d="M42.0,181.0 L42.0,68.1 L46.7,77.1 L51.4,68.1 L56.0,68.1 L60.7,68.1 L65.4,68.1 L70.1,68.1 L74.7,69.6 L79.4,77.1 L84.1,69.6 L88.8,84.6 L93.5,68.1 L98.1,68.1 L102.8,68.1 L107.5,69.6 L112.2,77.1 L116.8,79.6 L121.5,87.1 L126.2,94.6 L130.9,94.6 L135.5,84.6 L140.2,84.6 L144.9,87.1 L149.6,84.6 L154.3,84.6 L158.9,84.6 L163.6,84.6 L168.3,84.6 L173.0,94.6 L177.6,96.6 L182.3,102.6 L187.0,104.6 L191.7,106.5 L196.4,108.5 L201.0,109.0 L205.7,84.6 L210.4,84.6 L215.1,84.6 L219.7,84.6 L224.4,87.1 L229.1,89.6 L233.8,84.6 L238.5,87.1 L243.1,87.1 L247.8,84.6 L252.5,84.6 L257.2,84.6 L261.8,87.1 L266.5,87.1 L271.2,84.6 L275.9,84.6 L280.5,94.6 L285.2,94.6 L289.9,79.6 L294.6,79.6 L299.3,92.1 L303.9,92.1 L308.6,87.1 L313.3,87.1 L318.0,84.6 L322.6,84.6 L327.3,84.6 L332.0,84.6 L332.0,181.0 Z" class="price-history-area" fill="url(#priceIntelFadeMobile-all)" />
+      <polyline points="42.0,68.1 46.7,77.1 51.4,68.1 56.0,68.1 60.7,68.1 65.4,68.1 70.1,68.1 74.7,69.6 79.4,77.1 84.1,69.6 88.8,84.6 93.5,68.1 98.1,68.1 102.8,68.1 107.5,69.6 112.2,77.1 116.8,79.6 121.5,87.1 126.2,94.6 130.9,94.6 135.5,84.6 140.2,84.6 144.9,87.1 149.6,84.6 154.3,84.6 158.9,84.6 163.6,84.6 168.3,84.6 173.0,94.6 177.6,96.6 182.3,102.6 187.0,104.6 191.7,106.5 196.4,108.5 201.0,109.0 205.7,84.6 210.4,84.6 215.1,84.6 219.7,84.6 224.4,87.1 229.1,89.6 233.8,84.6 238.5,87.1 243.1,87.1 247.8,84.6 252.5,84.6 257.2,84.6 261.8,87.1 266.5,87.1 271.2,84.6 275.9,84.6 280.5,94.6 285.2,94.6 289.9,79.6 294.6,79.6 299.3,92.1 303.9,92.1 308.6,87.1 313.3,87.1 318.0,84.6 322.6,84.6 327.3,84.6 332.0,84.6" class="price-history-line" />
       <circle cx="332.0" cy="84.6" r="3.2" class="price-history-dot price-history-dot-last" />
       <circle cx="42.0" cy="68.1" r="9" class="price-intel-hit"><title>14. august: 562 kr hos Lenson</title></circle>
-      <circle cx="46.8" cy="77.1" r="9" class="price-intel-hit"><title>15. august: 544 kr hos Synsam</title></circle>
-      <circle cx="51.5" cy="68.1" r="9" class="price-intel-hit"><title>16. august: 562 kr hos Lensit</title></circle>
-      <circle cx="56.3" cy="68.1" r="9" class="price-intel-hit"><title>17. august: 562 kr hos Lensit</title></circle>
-      <circle cx="61.0" cy="68.1" r="9" class="price-intel-hit"><title>18. august: 562 kr hos Lensit</title></circle>
-      <circle cx="65.8" cy="68.1" r="9" class="price-intel-hit"><title>19. august: 562 kr hos Lensit</title></circle>
-      <circle cx="70.5" cy="68.1" r="9" class="price-intel-hit"><title>20. august: 562 kr hos Lensit</title></circle>
-      <circle cx="75.3" cy="69.6" r="9" class="price-intel-hit"><title>21. august: 559 kr hos Synsam</title></circle>
-      <circle cx="80.0" cy="77.1" r="9" class="price-intel-hit"><title>22. august: 544 kr hos Synsam</title></circle>
-      <circle cx="84.8" cy="69.6" r="9" class="price-intel-hit"><title>23. august: 559 kr hos Synsam</title></circle>
-      <circle cx="89.5" cy="84.6" r="9" class="price-intel-hit"><title>24. august: 529 kr hos Synsam</title></circle>
-      <circle cx="94.3" cy="68.1" r="9" class="price-intel-hit"><title>25. august: 562 kr hos Lensit</title></circle>
-      <circle cx="99.0" cy="68.1" r="9" class="price-intel-hit"><title>26. august: 562 kr hos Lensit</title></circle>
-      <circle cx="103.8" cy="68.1" r="9" class="price-intel-hit"><title>27. august: 562 kr hos Lensit</title></circle>
-      <circle cx="108.6" cy="69.6" r="9" class="price-intel-hit"><title>28. august: 559 kr hos Synsam</title></circle>
-      <circle cx="113.3" cy="77.1" r="9" class="price-intel-hit"><title>29. august: 544 kr hos Synsam</title></circle>
-      <circle cx="118.1" cy="79.6" r="9" class="price-intel-hit"><title>30. august: 539 kr hos Synsam</title></circle>
-      <circle cx="122.8" cy="87.1" r="9" class="price-intel-hit"><title>31. august: 524 kr hos Synsam</title></circle>
-      <circle cx="127.6" cy="94.6" r="9" class="price-intel-hit"><title>1. september: 509 kr hos Synsam</title></circle>
-      <circle cx="132.3" cy="94.6" r="9" class="price-intel-hit"><title>2. september: 509 kr hos Synsam</title></circle>
-      <circle cx="137.1" cy="84.6" r="9" class="price-intel-hit"><title>3. september: 529 kr hos Synsam</title></circle>
-      <circle cx="141.8" cy="84.6" r="9" class="price-intel-hit"><title>4. september: 529 kr hos Synsam</title></circle>
-      <circle cx="146.6" cy="87.1" r="9" class="price-intel-hit"><title>5. september: 524 kr hos Synsam</title></circle>
-      <circle cx="151.3" cy="84.6" r="9" class="price-intel-hit"><title>6. september: 529 kr hos Synsam</title></circle>
-      <circle cx="156.1" cy="84.6" r="9" class="price-intel-hit"><title>7. september: 529 kr hos Synsam</title></circle>
-      <circle cx="160.9" cy="84.6" r="9" class="price-intel-hit"><title>8. september: 529 kr hos Synsam</title></circle>
-      <circle cx="165.6" cy="84.6" r="9" class="price-intel-hit"><title>9. september: 529 kr hos Synsam</title></circle>
-      <circle cx="170.4" cy="84.6" r="9" class="price-intel-hit"><title>10. september: 529 kr hos Synsam</title></circle>
-      <circle cx="175.1" cy="94.6" r="9" class="price-intel-hit"><title>11. september: 509 kr hos Synsam</title></circle>
-      <circle cx="179.9" cy="96.6" r="9" class="price-intel-hit"><title>12. september: 505 kr hos Synsam</title></circle>
-      <circle cx="184.6" cy="102.6" r="9" class="price-intel-hit"><title>13. september: 493 kr hos Synsam</title></circle>
-      <circle cx="189.4" cy="104.6" r="9" class="price-intel-hit"><title>14. september: 489 kr hos Synsam</title></circle>
-      <circle cx="194.1" cy="106.5" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
-      <circle cx="198.9" cy="108.5" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
-      <circle cx="203.6" cy="109.0" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
-      <circle cx="208.4" cy="84.6" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
-      <circle cx="213.1" cy="84.6" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
-      <circle cx="217.9" cy="84.6" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
-      <circle cx="222.7" cy="84.6" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
-      <circle cx="227.4" cy="87.1" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
-      <circle cx="232.2" cy="89.6" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
-      <circle cx="236.9" cy="84.6" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
-      <circle cx="241.7" cy="87.1" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
-      <circle cx="246.4" cy="87.1" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
-      <circle cx="251.2" cy="84.6" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
-      <circle cx="255.9" cy="84.6" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
-      <circle cx="260.7" cy="84.6" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
-      <circle cx="265.4" cy="87.1" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
-      <circle cx="270.2" cy="87.1" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="275.0" cy="84.6" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="279.7" cy="84.6" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="284.5" cy="94.6" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="289.2" cy="94.6" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
-      <circle cx="294.0" cy="79.6" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="298.7" cy="79.6" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
-      <circle cx="303.5" cy="92.1" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="308.2" cy="92.1" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
-      <circle cx="313.0" cy="87.1" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="317.7" cy="87.1" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
-      <circle cx="322.5" cy="84.6" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="327.2" cy="84.6" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
-      <circle cx="332.0" cy="84.6" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="46.7" cy="77.1" r="9" class="price-intel-hit"><title>15. august: 544 kr hos Synsam</title></circle>
+      <circle cx="51.4" cy="68.1" r="9" class="price-intel-hit"><title>16. august: 562 kr hos Lensit</title></circle>
+      <circle cx="56.0" cy="68.1" r="9" class="price-intel-hit"><title>17. august: 562 kr hos Lensit</title></circle>
+      <circle cx="60.7" cy="68.1" r="9" class="price-intel-hit"><title>18. august: 562 kr hos Lensit</title></circle>
+      <circle cx="65.4" cy="68.1" r="9" class="price-intel-hit"><title>19. august: 562 kr hos Lensit</title></circle>
+      <circle cx="70.1" cy="68.1" r="9" class="price-intel-hit"><title>20. august: 562 kr hos Lensit</title></circle>
+      <circle cx="74.7" cy="69.6" r="9" class="price-intel-hit"><title>21. august: 559 kr hos Synsam</title></circle>
+      <circle cx="79.4" cy="77.1" r="9" class="price-intel-hit"><title>22. august: 544 kr hos Synsam</title></circle>
+      <circle cx="84.1" cy="69.6" r="9" class="price-intel-hit"><title>23. august: 559 kr hos Synsam</title></circle>
+      <circle cx="88.8" cy="84.6" r="9" class="price-intel-hit"><title>24. august: 529 kr hos Synsam</title></circle>
+      <circle cx="93.5" cy="68.1" r="9" class="price-intel-hit"><title>25. august: 562 kr hos Lensit</title></circle>
+      <circle cx="98.1" cy="68.1" r="9" class="price-intel-hit"><title>26. august: 562 kr hos Lensit</title></circle>
+      <circle cx="102.8" cy="68.1" r="9" class="price-intel-hit"><title>27. august: 562 kr hos Lensit</title></circle>
+      <circle cx="107.5" cy="69.6" r="9" class="price-intel-hit"><title>28. august: 559 kr hos Synsam</title></circle>
+      <circle cx="112.2" cy="77.1" r="9" class="price-intel-hit"><title>29. august: 544 kr hos Synsam</title></circle>
+      <circle cx="116.8" cy="79.6" r="9" class="price-intel-hit"><title>30. august: 539 kr hos Synsam</title></circle>
+      <circle cx="121.5" cy="87.1" r="9" class="price-intel-hit"><title>31. august: 524 kr hos Synsam</title></circle>
+      <circle cx="126.2" cy="94.6" r="9" class="price-intel-hit"><title>1. september: 509 kr hos Synsam</title></circle>
+      <circle cx="130.9" cy="94.6" r="9" class="price-intel-hit"><title>2. september: 509 kr hos Synsam</title></circle>
+      <circle cx="135.5" cy="84.6" r="9" class="price-intel-hit"><title>3. september: 529 kr hos Synsam</title></circle>
+      <circle cx="140.2" cy="84.6" r="9" class="price-intel-hit"><title>4. september: 529 kr hos Synsam</title></circle>
+      <circle cx="144.9" cy="87.1" r="9" class="price-intel-hit"><title>5. september: 524 kr hos Synsam</title></circle>
+      <circle cx="149.6" cy="84.6" r="9" class="price-intel-hit"><title>6. september: 529 kr hos Synsam</title></circle>
+      <circle cx="154.3" cy="84.6" r="9" class="price-intel-hit"><title>7. september: 529 kr hos Synsam</title></circle>
+      <circle cx="158.9" cy="84.6" r="9" class="price-intel-hit"><title>8. september: 529 kr hos Synsam</title></circle>
+      <circle cx="163.6" cy="84.6" r="9" class="price-intel-hit"><title>9. september: 529 kr hos Synsam</title></circle>
+      <circle cx="168.3" cy="84.6" r="9" class="price-intel-hit"><title>10. september: 529 kr hos Synsam</title></circle>
+      <circle cx="173.0" cy="94.6" r="9" class="price-intel-hit"><title>11. september: 509 kr hos Synsam</title></circle>
+      <circle cx="177.6" cy="96.6" r="9" class="price-intel-hit"><title>12. september: 505 kr hos Synsam</title></circle>
+      <circle cx="182.3" cy="102.6" r="9" class="price-intel-hit"><title>13. september: 493 kr hos Synsam</title></circle>
+      <circle cx="187.0" cy="104.6" r="9" class="price-intel-hit"><title>14. september: 489 kr hos Synsam</title></circle>
+      <circle cx="191.7" cy="106.5" r="9" class="price-intel-hit"><title>15. september: 485 kr hos Synsam</title></circle>
+      <circle cx="196.4" cy="108.5" r="9" class="price-intel-hit"><title>16. september: 481 kr hos Synsam</title></circle>
+      <circle cx="201.0" cy="109.0" r="9" class="price-intel-hit"><title>17. september: 480 kr hos Synsam</title></circle>
+      <circle cx="205.7" cy="84.6" r="9" class="price-intel-hit"><title>18. september: 529 kr hos Synsam</title></circle>
+      <circle cx="210.4" cy="84.6" r="9" class="price-intel-hit"><title>19. september: 529 kr hos Synsam</title></circle>
+      <circle cx="215.1" cy="84.6" r="9" class="price-intel-hit"><title>20. september: 529 kr hos Synsam</title></circle>
+      <circle cx="219.7" cy="84.6" r="9" class="price-intel-hit"><title>21. september: 529 kr hos Synsam</title></circle>
+      <circle cx="224.4" cy="87.1" r="9" class="price-intel-hit"><title>22. september: 524 kr hos Synsam</title></circle>
+      <circle cx="229.1" cy="89.6" r="9" class="price-intel-hit"><title>23. september: 519 kr hos Synsam</title></circle>
+      <circle cx="233.8" cy="84.6" r="9" class="price-intel-hit"><title>24. september: 529 kr hos Synsam</title></circle>
+      <circle cx="238.5" cy="87.1" r="9" class="price-intel-hit"><title>25. september: 524 kr hos Synsam</title></circle>
+      <circle cx="243.1" cy="87.1" r="9" class="price-intel-hit"><title>26. september: 524 kr hos Synsam</title></circle>
+      <circle cx="247.8" cy="84.6" r="9" class="price-intel-hit"><title>27. september: 529 kr hos Synsam</title></circle>
+      <circle cx="252.5" cy="84.6" r="9" class="price-intel-hit"><title>28. september: 529 kr hos Synsam</title></circle>
+      <circle cx="257.2" cy="84.6" r="9" class="price-intel-hit"><title>29. september: 529 kr hos Synsam</title></circle>
+      <circle cx="261.8" cy="87.1" r="9" class="price-intel-hit"><title>30. september: 524 kr hos Synsam</title></circle>
+      <circle cx="266.5" cy="87.1" r="9" class="price-intel-hit"><title>1. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="271.2" cy="84.6" r="9" class="price-intel-hit"><title>2. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="275.9" cy="84.6" r="9" class="price-intel-hit"><title>3. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="280.5" cy="94.6" r="9" class="price-intel-hit"><title>4. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="285.2" cy="94.6" r="9" class="price-intel-hit"><title>5. oktober: 509 kr hos Synsam</title></circle>
+      <circle cx="289.9" cy="79.6" r="9" class="price-intel-hit"><title>6. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="294.6" cy="79.6" r="9" class="price-intel-hit"><title>7. oktober: 539 kr hos Synsam</title></circle>
+      <circle cx="299.3" cy="92.1" r="9" class="price-intel-hit"><title>8. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="303.9" cy="92.1" r="9" class="price-intel-hit"><title>9. oktober: 514 kr hos Synsam</title></circle>
+      <circle cx="308.6" cy="87.1" r="9" class="price-intel-hit"><title>10. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="313.3" cy="87.1" r="9" class="price-intel-hit"><title>11. oktober: 524 kr hos Synsam</title></circle>
+      <circle cx="318.0" cy="84.6" r="9" class="price-intel-hit"><title>12. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="322.6" cy="84.6" r="9" class="price-intel-hit"><title>13. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="327.3" cy="84.6" r="9" class="price-intel-hit"><title>14. oktober: 529 kr hos Synsam</title></circle>
+      <circle cx="332.0" cy="84.6" r="9" class="price-intel-hit"><title>15. oktober: 529 kr hos Synsam</title></circle>
       <text x="332.0" y="76.6" text-anchor="end" class="price-history-current-label">529 kr</text>
       <text x="42.0" y="200" text-anchor="start" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.08</text>
-      <text x="184.6" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">13.09</text>
-      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">14.10</text>
+      <text x="187.0" y="200" text-anchor="middle" class="price-history-axis-label price-history-axis-label-x">14.09</text>
+      <text x="332.0" y="200" text-anchor="end" class="price-history-axis-label price-history-axis-label-x price-history-axis-label-edge">15.10</text>
     </svg></div>
     </div>
   </div>
@@ -2369,30 +2584,30 @@ a { color: inherit; }
       <p class="price-intel-card-note">Synsam har hatt lavest registrert produktpris i 30 av 30 observerte dager i perioden.</p>
     </div><div class="price-intel-card price-intel-winners-panel" data-period="all">
       <div class="price-intel-card-head"><h3 class="price-intel-card-h-winner"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg>Prisvinnere over tid</h3><span class="price-intel-card-head-note">All historikk</span></div>
-      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Synsam</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">53 dager &middot; 85 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensit</span><span class="price-intel-winner-bar"><span style="width:15%"></span></span><span class="price-intel-winner-days">8 dager &middot; 13 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:2%"></span></span><span class="price-intel-winner-days">1 dag &middot; 2 %</span></div></div>
+      <div class="price-intel-winners-list"><div class="price-intel-winner-row"><span class="price-intel-winner-store">Synsam</span><span class="price-intel-winner-bar"><span style="width:100%"></span></span><span class="price-intel-winner-days">54 dager &middot; 86 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lensit</span><span class="price-intel-winner-bar"><span style="width:15%"></span></span><span class="price-intel-winner-days">8 dager &middot; 13 %</span></div><div class="price-intel-winner-row"><span class="price-intel-winner-store">Lenson</span><span class="price-intel-winner-bar"><span style="width:2%"></span></span><span class="price-intel-winner-days">1 dag &middot; 2 %</span></div></div>
       <p class="price-intel-zero-note">2 andre butikker er også sammenlignet, men har ikke vært billigst i perioden.</p>
-      <p class="price-intel-card-note">Synsam har hatt lavest registrert produktpris i 53 av 62 observerte dager i perioden. Prisvinneren har endret seg 5 ganger i perioden.</p>
+      <p class="price-intel-card-note">Synsam har hatt lavest registrert produktpris i 54 av 63 observerte dager i perioden. Prisvinneren har endret seg 5 ganger i perioden.</p>
     </div><div class="price-intel-card price-intel-frequency-panel active" data-period="30d">
           <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">30 dager</span></div>
           <div class="price-intel-frequency-number">28 av 30</div>
           <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 28 av 30 observerte dager.</p>
-          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 15 dager. Samme: 13 dager. Høyere: 2 dager."><span class="price-intel-frequency-lower" style="flex:15" aria-hidden="true"></span><span class="price-intel-frequency-equal" style="flex:13" aria-hidden="true"></span><span class="price-intel-frequency-higher" style="flex:2" aria-hidden="true"></span></div>
-          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 15</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 13</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 2</span></div>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 14 dager. Samme: 14 dager. Høyere: 2 dager."><span class="price-intel-frequency-lower" style="flex:14" aria-hidden="true"></span><span class="price-intel-frequency-equal" style="flex:14" aria-hidden="true"></span><span class="price-intel-frequency-higher" style="flex:2" aria-hidden="true"></span></div>
+          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 14</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 14</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 2</span></div>
           <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
         </div><div class="price-intel-card price-intel-frequency-panel" data-period="all">
           <div class="price-intel-card-head"><h3>Hvor vanlig er dagens pris?</h3><span class="price-intel-card-head-note">All historikk</span></div>
-          <div class="price-intel-frequency-number">44 av 62</div>
-          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 44 av 62 observerte dager.</p>
-          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 23 dager. Samme: 21 dager. Høyere: 18 dager."><span class="price-intel-frequency-lower" style="flex:23" aria-hidden="true"></span><span class="price-intel-frequency-equal" style="flex:21" aria-hidden="true"></span><span class="price-intel-frequency-higher" style="flex:18" aria-hidden="true"></span></div>
-          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 23</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 21</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 18</span></div>
+          <div class="price-intel-frequency-number">45 av 63</div>
+          <p class="price-intel-frequency-description">Prisen har vært på siste registrerte nivå eller lavere i 45 av 63 observerte dager.</p>
+          <div class="price-intel-frequency-bar" role="img" aria-label="Lavere: 23 dager. Samme: 22 dager. Høyere: 18 dager."><span class="price-intel-frequency-lower" style="flex:23" aria-hidden="true"></span><span class="price-intel-frequency-equal" style="flex:22" aria-hidden="true"></span><span class="price-intel-frequency-higher" style="flex:18" aria-hidden="true"></span></div>
+          <div class="price-intel-frequency-legend"><span class="price-intel-frequency-label"><i class="price-intel-frequency-lower" aria-hidden="true"></i>Lavere: 23</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-equal" aria-hidden="true"></i>Samme: 22</span><span class="price-intel-frequency-label"><i class="price-intel-frequency-higher" aria-hidden="true"></i>Høyere: 18</span></div>
           <p class="price-intel-card-note">Laveste registrerte produktpris uten frakt. Manglende dager telles ikke.</p>
         </div></div>
   <div class="price-intel-conclusion active" data-period="30d">
-    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste registrerte pris har steget fra 485 kr til 529 kr de siste 30 dagene. Dagens laveste pris er 9 % høyere enn ved starten av perioden. Det er 38 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
-    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>3 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>12,3 %</strong><span>prisspenn siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>480 kr</strong><span>laveste pris i perioden</span></div></div></div>
+    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste registrerte pris har steget fra 481 kr til 529 kr de siste 30 dagene. Dagens laveste pris er 10 % høyere enn ved starten av perioden. Det er 38 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
+    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>4 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>1 butikk</strong><span>har vært prisvinner siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>12,3 %</strong><span>prisspenn siste 30 dager</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>480 kr</strong><span>laveste pris i perioden</span></div></div></div>
   </div><div class="price-intel-conclusion" data-period="all">
-    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste registrerte pris har falt fra 562 kr til 529 kr de siste 62 dagene. Dagens laveste pris er 6 % lavere enn ved starten av perioden. Det er 38 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
-    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>3 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>5 ganger</strong><span>har prisvinneren skiftet i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>17,1 %</strong><span>prisspenn i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>480 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
+    <div class="price-intel-summary"><span class="price-intel-summary-icon" aria-hidden="true">&#128161;</span><span><strong>Kort fortalt</strong>Laveste registrerte pris har falt fra 562 kr til 529 kr de siste 63 dagene. Dagens laveste pris er 6 % lavere enn ved starten av perioden. Det er 38 % prisforskjell mellom billigste og dyreste butikk akkurat nå.</span></div>
+    <div class="price-intel-stat-strip"><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9.5h18" stroke="currentColor" stroke-width="1.8"/><path d="M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><div><strong>4 dager</strong><span>siden siste prisendring</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h13l-3-3M20 17H7l3 3"/></svg><div><strong>5 ganger</strong><span>har prisvinneren skiftet i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-5 5 5 5 0 0 1-5-5V4z" fill="currentColor"/><path d="M7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="10.5" y="13" width="3" height="4" fill="currentColor"/><rect x="7" y="18" width="10" height="2.2" rx="1.1" fill="currentColor"/></svg><div><strong>3 butikker</strong><span>har vært prisvinner i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17l7-7 4 4 5-5M20 13V9h-4"/></svg><div><strong>17,1 %</strong><span>prisspenn i hele perioden</span></div></div><div class="price-intel-stat"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4 3.6l8 8a2 2 0 0 1 0 2.8l-5 5a2 2 0 0 1-2.8 0l-8-8V4.6a1 1 0 0 1 1-1h6.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/></svg><div><strong>480 kr</strong><span>laveste pris vi har registrert</span></div></div></div>
   </div>
   <section class="price-intel-history-data" aria-labelledby="price-intel-history-title">
     <div class="price-intel-section-head">
@@ -2407,14 +2622,14 @@ a { color: inherit; }
       <div class="price-intel-history-table-wrap">
         <table class="price-intel-history-table">
           <thead><tr><th>Periode</th><th>Laveste</th><th>Høyeste prisnivå</th><th>Median</th><th>Prisspenn</th><th>Prisendringer</th><th>Vinnerbytter</th><th>Butikker billigst</th></tr></thead>
-          <tbody><tr><th scope="row">30 dager</th><td>480 kr</td><td>539 kr</td><td>526 kr</td><td>12,3 %</td><td>15</td><td>0</td><td>1</td></tr><tr><th scope="row">All historikk</th><td>480 kr</td><td>562 kr</td><td>529 kr</td><td>17,1 %</td><td>35</td><td>5</td><td>3</td></tr></tbody>
+          <tbody><tr><th scope="row">30 dager</th><td>480 kr</td><td>539 kr</td><td>529 kr</td><td>12,3 %</td><td>14</td><td>0</td><td>1</td></tr><tr><th scope="row">All historikk</th><td>480 kr</td><td>562 kr</td><td>529 kr</td><td>17,1 %</td><td>35</td><td>5</td><td>3</td></tr></tbody>
         </table>
       </div>
     </details>
   </section>
   <div class="price-intel-footer">
     <span class="price-intel-footer-source"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Alle priser hentes daglig fra norske nettbutikker. <a href="/slik-sammenligner-vi-priser/">Les mer om hvordan vi samler inn priser &rarr;</a></span>
-    <span>Prisdata sist bekreftet: 14. oktober 2026</span>
+    <span>Prisdata sist bekreftet: 15. oktober 2026</span>
   </div>
   <script>
 (function () {

@@ -1362,115 +1362,328 @@ a { color: inherit; }
   });
 })();
 
-(function () {
-  // Kjøres fra TOPBAR_HTML, som ligger tidlig i <body> -- FØR forsidens
-  // egen .search-row (hero-søkefeltet) er parset inn i DOM-en på sider
-  // som har en slik ekstra rad. Uten denne DOMContentLoaded-sjekken
-  // returnerte scriptet tidlig (rows.length === 0 på det tidspunktet det
-  // kjørte) og bandt ALDRI noen event-lyttere på forsidens søkefelt --
-  // oppdaget 2026-09-27 (Kai: "søkefunksjon virker ikke nå! på
-  // startsiden"). Sider der .search-row allerede finnes når scriptet
-  // kjører (readyState !== 'loading') kjører init() umiddelbart som før.
-  function init() {
-  var rows = document.querySelectorAll('.search-row');
-  if (!rows.length) return;
-
-  // Forsiden har indeksen innebygd som skjult JSON; guide-sidene henter den
-  // først når noen faktisk fokuserer søkefeltet (holder guide-HTML-en lett).
-  var dataPromise = null;
-  function loadData() {
-    if (dataPromise) return dataPromise;
-    var inlineProducts = document.getElementById('product-search-data');
-    if (inlineProducts) {
-      var inlineLabels = document.getElementById('private-label-search-data');
-      dataPromise = Promise.resolve(
-        JSON.parse(inlineProducts.textContent).concat(inlineLabels ? JSON.parse(inlineLabels.textContent) : [])
-      );
+/* Kontaktlinser.no search v2. Pure matching + shared homepage/header UI.
+ * Search spelling only: product identity, hrefs, prices and offers are not changed.
+ * No network/API/AI dependency beyond the existing /data/search-index.json.
+ */
+(function (root, factory) {
+  'use strict';
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  if (root && root.document) {
+    root.KLSearch = api;
+    if (root.document.readyState === 'loading') {
+      root.document.addEventListener('DOMContentLoaded', function () { api.init(root); });
     } else {
-      dataPromise = fetch('/data/search-index.json')
-        .then(function (r) { return r.json(); })
-        .catch(function () { dataPromise = null; return []; });
+      api.init(root);
     }
-    return dataPromise;
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  var PROTECTED = new Set(['max', 'xr', 'toric', 'multifocal']);
+  var IGNORE = new Set(['for', 'with', 'linse', 'linser', 'kontaktlinse', 'kontaktlinser']);
+  var WORDS = {
+    pk: 'pack', pakke: 'pack', pakker: 'pack', pakning: 'pack', pakninger: 'pack',
+    packs: 'pack', stk: 'pack', pcs: 'pack',
+    torisk: 'toric', toriske: 'toric', astigmatism: 'toric', astigmatisme: 'toric',
+    multifokal: 'multifocal', multifokale: 'multifocal'
+  };
+
+  function tokens(value) {
+    var text = String(value || '').toLowerCase().replace(/[\u00ae\u2122]/g, '')
+      .replace(/æ/g, 'ae').replace(/ø/g, 'o').normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '');
+    // Explicit spelling variants, not new private-label/product equivalences.
+    text = text.replace(/\bone\s*day\b/g, '1 day').replace(/\bmy\s+day\b/g, 'myday')
+      .replace(/\bi\s+wear\b/g, 'iwear').replace(/\beye\s+q\b/g, 'eyeq')
+      .replace(/\beasy\s+vision\b/g, 'easyvision').replace(/\btrue\s+lens\b/g, 'truelens')
+      .replace(/\bair\s*optix\b/g, 'air optix').replace(/\bopti\s*free\b/g, 'opti free')
+      .replace(/\baqua\s+comfort\b/g, 'aquacomfort')
+      .replace(/\bhydra\s+luxe\b/g, 'hydraluxe').replace(/\bhydra\s+glyde\b/g, 'hydraglyde')
+      .replace(/(\d+)\s+linser\b/g, '$1 pack');
+    // Letter/digit boundaries make 1-day / 1 day / 1day and Total1 / Total 1 equal.
+    // Numeric tokens stay whole: 6 never matches 16, and 30 never matches 90.
+    return (text.match(/[a-z]+|\d+(?:[.,]\d+)?/g) || []).map(function (t) {
+      t = t.replace(',', '.');
+      return Object.prototype.hasOwnProperty.call(WORDS, t) ? WORDS[t] : t;
+    }).filter(function (t) { return !IGNORE.has(t); });
   }
 
-  function esc(s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+  function normalize(value) { return tokens(value).join(' '); }
+  function numeric(t) { return /^\d/.test(t); }
+  function internalHref(href) {
+    return typeof href === 'string' && /^\/(?!\/)/.test(href) && !/[\\\u0000-\u0020]/.test(href);
+  }
+
+  function createIndex(items) {
+    if (!Array.isArray(items)) throw new TypeError('Invalid search index');
+    var seen = new Set();
+    return items.filter(function (item) {
+      if (!item || typeof item.name !== 'string' || !internalHref(item.href) || seen.has(item.href)) return false;
+      seen.add(item.href);
+      return true;
+    }).map(function (item, order) {
+      var name = tokens(item.name);
+      return { item: item, name: name, phrase: name.join(' '),
+        terms: tokens(item.search || item.name), order: order };
     });
   }
 
-  function track(row, name, source) {
-    var guide = row.getAttribute('data-guide');
-    if (!guide) return;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+  function oneEdit(a, b) {
+    // One missing/extra/wrong letter OR one adjacent transposition. Bounded work.
+    if (Math.abs(a.length - b.length) > 1) return false;
+    if (a === b) return true;
+    var i = 0;
+    while (i < a.length && a[i] === b[i]) i++;
+    if (a.length === b.length) {
+      return a.slice(i + 1) === b.slice(i + 1) ||
+        (a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2));
+    }
+    return a.length > b.length ? a.slice(i + 1) === b.slice(i) : a.slice(i) === b.slice(i + 1);
   }
 
-  rows.forEach(function (row) {
-    var input = row.querySelector('.search-input');
-    var suggestions = row.querySelector('.search-suggestions');
-    var button = row.querySelector('.search-btn');
+  function identityMatches(entry, query) {
+    var counts = Object.create(null);
+    entry.name.forEach(function (t) { if (numeric(t)) counts[t] = (counts[t] || 0) + 1; });
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i];
+      // A number or an explicit variant cannot be supplied by metadata/series counts.
+      if (numeric(t)) {
+        if (!counts[t]) return false;
+        counts[t]--;
+        if (/^(pack|ml|g)$/.test(query[i + 1] || '') &&
+            (' ' + entry.phrase + ' ').indexOf(' ' + t + ' ' + query[i + 1] + ' ') === -1) return false;
+      }
+      if (PROTECTED.has(t) && entry.name.indexOf(t) === -1) return false;
+    }
+    return true;
+  }
 
-    function hide() { suggestions.style.display = 'none'; suggestions.innerHTML = ''; }
+  function scoreEntry(entry, query, fuzzy) {
+    if (!identityMatches(entry, query)) return null;
+    var score = 0, edits = 0, allName = true;
+    for (var i = 0; i < query.length; i++) {
+      var t = query[i], exact = entry.name.indexOf(t) !== -1;
+      var prefix = function (word) { return !numeric(t) && word.indexOf(t) === 0; };
+      if (exact) { score += 100; continue; }
+      if (entry.name.some(prefix)) { score += 70; continue; }
+      allName = false;
+      if (entry.terms.indexOf(t) !== -1) { score += 40; continue; }
+      if (entry.terms.some(prefix)) { score += 20; continue; }
+      // Fuzzy fallback only for ONE word >=4 letters, never numbers/short variant codes.
+      if (fuzzy && edits === 0 && t.length >= 4 && !numeric(t) && !PROTECTED.has(t) &&
+          entry.name.some(function (word) { return !numeric(word) && word.length >= 4 && oneEdit(t, word); })) {
+        edits++; score += 5; continue;
+      }
+      return null;
+    }
+    var phrase = query.join(' '), exactName = entry.phrase === phrase;
+    if (exactName) score += 10000;
+    else if (entry.phrase.indexOf(phrase + ' ') === 0) score += 500;
+    else if ((' ' + entry.phrase + ' ').indexOf(' ' + phrase + ' ') !== -1) score += 250;
+    if (allName) score += 300;
+    score -= Math.max(0, entry.name.length - query.length);
+    return { item: entry.item, score: score, approximate: edits > 0, exactName: exactName, order: entry.order };
+  }
 
-    function render(q) {
-      if (!q) { hide(); return; }
-      loadData().then(function (all) {
-        if (input.value.trim().toLowerCase() !== q) return;
-        var matches = all.filter(function (item) { return item.search.indexOf(q) !== -1; }).slice(0, 8);
-        if (matches.length === 0) {
-          suggestions.innerHTML = '<div class="search-no-match">Ingen treff. Prøv et annet merke eller produktnavn.</div>';
-          suggestions.style.display = 'block';
-          return;
+  function search(index, value) {
+    var query = tokens(value);
+    if (String(value || '').length > 160 || query.length > 20) {
+      return { results: [], approximate: false, tooLong: true };
+    }
+    if (!query.length) return { results: [], approximate: false, tooLong: false };
+    var results = index.map(function (e) { return scoreEntry(e, query, false); }).filter(Boolean);
+    if (!results.length && query.some(function (t) { return t.length >= 4 && !numeric(t); })) {
+      results = index.map(function (e) { return scoreEntry(e, query, true); }).filter(Boolean);
+    }
+    results.sort(function (a, b) { return b.score - a.score || a.order - b.order; });
+    return { results: results, approximate: results.some(function (r) { return r.approximate; }), tooLong: false };
+  }
+
+  function directMatch(result) {
+    if (result.approximate) return null; // Spelling suggestions always require a choice.
+    var exact = result.results.filter(function (r) { return r.exactName; });
+    if (exact.length === 1) return exact[0];
+    return result.results.length === 1 ? result.results[0] : null;
+  }
+
+  function esc(value) {
+    return String(value || '').replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function init(win) {
+    var doc = win.document, rows = doc.querySelectorAll('.search-row'), dataPromise = null;
+    if (!rows.length) return;
+    if (!doc.getElementById('kl-search-v2-style')) {
+      var style = doc.createElement('style');
+      style.id = 'kl-search-v2-style';
+      style.textContent = '.search-suggestions{max-height:min(420px,60vh);overflow-y:auto;overscroll-behavior:contain}' +
+        '.search-suggestion[aria-selected="true"]{background:var(--blue-tint);outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-result-note{padding:10px 14px;font-size:.8rem;line-height:1.4;color:var(--muted);border-bottom:1px solid var(--border)}' +
+        '.search-more,.search-retry{display:block;width:100%;padding:12px 14px;background:transparent;border:0;border-top:1px solid var(--border);color:var(--blue);font:inherit;font-size:.85rem;cursor:pointer;text-align:left;min-height:44px}' +
+        '.search-more:focus-visible,.search-retry:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}' +
+        '.search-no-match a{color:var(--blue);text-decoration:underline}' +
+        '.search-live-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}' +
+        '.search-suggestion>div:last-child{min-width:0}.search-suggestion-name{overflow-wrap:anywhere}';
+      doc.head.appendChild(style);
+    }
+
+    function loadData() {
+      if (dataPromise) return dataPromise;
+      dataPromise = Promise.resolve().then(function () {
+        var products = doc.getElementById('product-search-data');
+        if (products) {
+          var labels = doc.getElementById('private-label-search-data');
+          var data = JSON.parse(products.textContent);
+          if (!Array.isArray(data)) throw new TypeError('Invalid inline search data');
+          if (labels) {
+            var labelData = JSON.parse(labels.textContent);
+            if (!Array.isArray(labelData)) throw new TypeError('Invalid label search data');
+            data = data.concat(labelData);
+          }
+          return data;
         }
-        suggestions.innerHTML = matches.map(function (item) {
-          var thumb = item.image
-            ? '<div class="product-thumb"><img src="' + esc(item.image) + '" alt="" loading="lazy"></div>'
-            : '<div class="product-thumb">' + esc((item.badge || item.meta).slice(0, 2).toUpperCase()) + '</div>';
-          return '<a class="search-suggestion" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
-            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div>' +
-            '<div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
+        return win.fetch('/data/search-index.json').then(function (response) {
+          if (!response.ok) throw new Error('Search index HTTP ' + response.status);
+          return response.json();
+        });
+      }).then(createIndex).catch(function (error) {
+        dataPromise = null; // A later focus/retry can recover; never cache a failed request as []!
+        throw error;
+      });
+      return dataPromise;
+    }
+
+    function track(row, name, source) {
+      var guide = row.getAttribute('data-guide');
+      if (!guide) return;
+      win.dataLayer = win.dataLayer || [];
+      win.dataLayer.push({ event: 'guide_search_click', guide: guide, product: name, source: source });
+    }
+
+    rows.forEach(function (row, rowIndex) {
+      if (row.dataset.klSearchReady) return;
+      var input = row.querySelector('.search-input'), suggestions = row.querySelector('.search-suggestions');
+      var button = row.querySelector('.search-btn');
+      if (!input || !suggestions || !button) return;
+      row.dataset.klSearchReady = '2';
+      var listId = 'kl-search-list-' + rowIndex, active = -1, visible = [], limit = 8;
+      var revision = 0, current = null, currentValue = '';
+      var live = doc.createElement('div');
+      live.className = 'search-live-status'; live.setAttribute('role', 'status');
+      live.setAttribute('aria-live', 'polite'); live.setAttribute('aria-atomic', 'true');
+      row.appendChild(live);
+      var emptyList = '<div id="' + listId + '" role="listbox" aria-label="Søkeforslag"></div>';
+      suggestions.innerHTML = emptyList;
+      input.setAttribute('role', 'combobox'); input.setAttribute('aria-autocomplete', 'list');
+      input.setAttribute('aria-expanded', 'false'); input.setAttribute('aria-controls', listId);
+      input.setAttribute('enterkeyhint', 'search');
+      if (!input.labels || !input.labels.length) input.setAttribute('aria-label', 'Søk etter linse eller merke');
+
+      function hide() {
+        revision++; active = -1; current = null; visible = [];
+        input.setAttribute('aria-expanded', 'false'); input.removeAttribute('aria-activedescendant');
+        suggestions.style.display = 'none'; suggestions.innerHTML = emptyList; live.textContent = '';
+      }
+      function open() { suggestions.style.display = 'block'; input.setAttribute('aria-expanded', 'true'); }
+      function choose(match, source) {
+        if (!match || !internalHref(match.item.href)) return;
+        track(row, match.item.name, source);
+        win.location.href = match.item.href;
+      }
+      function render(result, choosing) {
+        current = result; active = -1;
+        input.removeAttribute('aria-activedescendant');
+        visible = result.results.slice(0, limit);
+        if (!visible.length) {
+          var text = result.tooLong ? 'Prøv et kortere produktnavn.' : 'Ingen treff. Prøv merkenavnet eller en kortere del av produktnavnet.';
+          suggestions.innerHTML = '<div class="search-no-match">' + text + ' <a href="/#merker">Se alle merker</a></div>' + emptyList;
+          live.textContent = text; open(); return;
+        }
+        var note = result.approximate ? 'Mente du disse? Forslag med lignende skrivemåte.' :
+          (choosing ? 'Velg riktig variant og pakning.' : result.results.length + (result.results.length === 1 ? ' treff' : ' treff'));
+        var html = '<div class="search-result-note">' + esc(note) + '</div><div id="' + listId + '" role="listbox" aria-label="Søkeforslag">';
+        html += visible.map(function (match, i) {
+          var item = match.item;
+          var image = typeof item.image === 'string' && /^(https?:\/\/|\/(?!\/))/.test(item.image) ? item.image : '';
+          var thumb = image ? '<div class="product-thumb"><img src="' + esc(image) + '" alt="" loading="lazy"></div>' :
+            '<div class="product-thumb">' + esc(String(item.badge || item.meta || item.name).slice(0, 2).toUpperCase()) + '</div>';
+          return '<a class="search-suggestion" id="' + listId + '-' + i + '" role="option" aria-selected="false" tabindex="-1" href="' + esc(item.href) + '" data-name="' + esc(item.name) + '">' + thumb +
+            '<div><div class="search-suggestion-name">' + esc(item.name) + '</div><div class="search-suggestion-meta">' + esc(item.meta) + '</div></div></a>';
         }).join('');
-        suggestions.style.display = 'block';
+        html += '</div>';
+        if (result.results.length > limit) html += '<button type="button" class="search-more">Vis alle ' + result.results.length + ' treff</button>';
+        suggestions.innerHTML = html;
+        live.textContent = result.results.length + ' treff.' + (result.approximate ? ' Forslag med lignende skrivemåte.' : ' Bruk piltastene for å velge.');
+        open();
+      }
+      function update(choosing) {
+        var value = input.value, ticket = ++revision;
+        if (!value.trim()) { hide(); return Promise.resolve(null); }
+        if (currentValue !== value) { limit = 8; currentValue = value; }
+        return loadData().then(function (index) {
+          if (ticket !== revision || input.value !== value) return null;
+          var result = search(index, value); render(result, choosing); return result;
+        }).catch(function () {
+          if (ticket !== revision || input.value !== value) return null;
+          current = null; visible = []; active = -1; input.removeAttribute('aria-activedescendant');
+          suggestions.innerHTML = '<div class="search-no-match">Søket kunne ikke lastes. <a href="/#merker">Bla i merkene</a></div><button type="button" class="search-retry">Prøv søket igjen</button>' + emptyList;
+          live.textContent = 'Søket kunne ikke lastes. Prøv igjen.'; open(); return null;
+        });
+      }
+      function select(delta) {
+        if (!visible.length) return;
+        active = active < 0 ? (delta > 0 ? 0 : visible.length - 1) : (active + delta + visible.length) % visible.length;
+        suggestions.querySelectorAll('.search-suggestion').forEach(function (link, i) {
+          link.setAttribute('aria-selected', i === active ? 'true' : 'false');
+        });
+        var option = doc.getElementById(listId + '-' + active);
+        input.setAttribute('aria-activedescendant', option.id);
+        option.scrollIntoView({ block: 'nearest' });
+      }
+      function submit() {
+        if (currentValue === input.value && active >= 0 && visible[active]) { choose(visible[active], 'button'); return; }
+        update(true).then(function (result) {
+          if (!result) return;
+          var match = directMatch(result);
+          if (match) choose(match, 'button');
+          else input.focus();
+        });
+      }
+      input.addEventListener('input', function () { current = null; active = -1; update(false); });
+      input.addEventListener('focus', function () {
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') return;
+        // A focus-only preload must not generate an unhandled rejection.
+        if (input.value.trim()) update(false); else loadData().catch(function () {});
       });
-    }
-
-    input.addEventListener('input', function () { render(input.value.trim().toLowerCase()); });
-    input.addEventListener('focus', function () {
-      loadData();
-      if (input.value.trim()) render(input.value.trim().toLowerCase());
-    });
-    document.addEventListener('click', function (e) { if (!row.contains(e.target)) suggestions.style.display = 'none'; });
-    suggestions.addEventListener('click', function (e) {
-      var link = e.target.closest('.search-suggestion');
-      if (link) track(row, link.getAttribute('data-name'), 'suggestion');
-    });
-
-    // "Søk"-knappen/Enter går til det beste treffet, samme resultat som å
-    // klikke første forslag -- vi har ingen egen søkeresultat-side, kun
-    // autofullføring, så dette er nærmeste naturlige "søk"-handling.
-    function goToBestMatch() {
-      var q = input.value.trim().toLowerCase();
-      if (!q) { input.focus(); return; }
-      loadData().then(function (all) {
-        var best = all.find(function (item) { return item.search.indexOf(q) !== -1; });
-        if (best) { track(row, best.name, 'button'); window.location.href = best.href; }
-        else { render(q); }
+      input.addEventListener('keydown', function (event) {
+        if (event.isComposing) return;
+        if (event.key === 'Escape') { event.preventDefault(); hide(); return; }
+        if (event.key === 'Enter') { event.preventDefault(); submit(); return; }
+        if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+        event.preventDefault();
+        var delta = event.key === 'ArrowDown' ? 1 : -1;
+        if (current && currentValue === input.value && input.getAttribute('aria-expanded') === 'true') select(delta);
+        else update(false).then(function (result) { if (result) select(delta); });
       });
-    }
-    button.addEventListener('click', goToBestMatch);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); goToBestMatch(); }
+      button.addEventListener('click', submit);
+      suggestions.addEventListener('click', function (event) {
+        var more = event.target.closest('.search-more');
+        if (more && current) { event.stopPropagation(); limit = current.results.length; render(current, false); input.focus(); return; }
+        if (event.target.closest('.search-retry')) { event.stopPropagation(); update(false); return; }
+        var link = event.target.closest('.search-suggestion');
+        if (link) track(row, link.getAttribute('data-name'), 'suggestion');
+      });
+      doc.addEventListener('click', function (event) { if (!row.contains(event.target)) hide(); });
+      doc.addEventListener('focusin', function (event) { if (!row.contains(event.target)) hide(); });
     });
-  });
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+
+  return { normalize: normalize, tokens: tokens, createIndex: createIndex, search: search, directMatch: directMatch, init: init };
+});
+
 
 </script>
 <div class="wrap wrap-wide">
@@ -1529,16 +1742,16 @@ a { color: inherit; }
     <div class="price-insight-now">
       <div class="price-insight-current">231 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 1 varianter i Daysoft-sortimentet</div>
-      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 47 dagers snitt</span></div>
+      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 48 dagers snitt</span></div>
       <div class="price-insight-tiles">
-        <div class="price-insight-tile"><strong>217 kr</strong><span>47 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>230 kr</strong><span>47 dagers snitt</span></div>
-        <div class="price-insight-tile"><strong>246 kr</strong><span>47 dagers høyeste</span></div>
+        <div class="price-insight-tile"><strong>217 kr</strong><span>48 dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>230 kr</strong><span>48 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>246 kr</strong><span>48 dagers høyeste</span></div>
       </div>
     </div>
     <div class="price-insight-chart"><div class="price-history">
     
-    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 47 dager, fra 217 kr til 246 kr">
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 48 dager, fra 217 kr til 246 kr">
       <defs>
         <linearGradient id="priceHistoryFade-32" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
@@ -1551,74 +1764,75 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">232 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">215 kr</text>
-      <path d="M48.0,158.0 L48.0,148.1 L61.6,148.1 L75.1,88.1 L88.7,88.1 L102.3,88.1 L115.8,88.1 L129.4,88.1 L143.0,88.1 L156.5,88.1 L170.1,23.9 L183.7,23.9 L197.2,23.9 L210.8,23.9 L224.3,23.9 L237.9,23.9 L251.5,23.9 L265.0,96.7 L278.6,96.7 L292.2,96.7 L305.7,96.7 L319.3,96.7 L332.9,96.7 L346.4,96.7 L360.0,148.1 L373.6,148.1 L387.1,148.1 L400.7,148.1 L414.3,148.1 L427.8,148.1 L441.4,96.7 L455.0,96.7 L468.5,96.7 L482.1,96.7 L495.7,96.7 L509.2,96.7 L522.8,96.7 L536.3,96.7 L549.9,88.1 L563.5,96.7 L577.0,96.7 L590.6,96.7 L604.2,96.7 L617.7,96.7 L631.3,96.7 L644.9,96.7 L658.4,88.1 L672.0,88.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-32)" />
-      <polyline points="48.0,148.1 61.6,148.1 75.1,88.1 88.7,88.1 102.3,88.1 115.8,88.1 129.4,88.1 143.0,88.1 156.5,88.1 170.1,23.9 183.7,23.9 197.2,23.9 210.8,23.9 224.3,23.9 237.9,23.9 251.5,23.9 265.0,96.7 278.6,96.7 292.2,96.7 305.7,96.7 319.3,96.7 332.9,96.7 346.4,96.7 360.0,148.1 373.6,148.1 387.1,148.1 400.7,148.1 414.3,148.1 427.8,148.1 441.4,96.7 455.0,96.7 468.5,96.7 482.1,96.7 495.7,96.7 509.2,96.7 522.8,96.7 536.3,96.7 549.9,88.1 563.5,96.7 577.0,96.7 590.6,96.7 604.2,96.7 617.7,96.7 631.3,96.7 644.9,96.7 658.4,88.1 672.0,88.1" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,148.1 L61.3,148.1 L74.6,88.1 L87.8,88.1 L101.1,88.1 L114.4,88.1 L127.7,88.1 L140.9,88.1 L154.2,88.1 L167.5,23.9 L180.8,23.9 L194.0,23.9 L207.3,23.9 L220.6,23.9 L233.9,23.9 L247.1,23.9 L260.4,96.7 L273.7,96.7 L287.0,96.7 L300.3,96.7 L313.5,96.7 L326.8,96.7 L340.1,96.7 L353.4,148.1 L366.6,148.1 L379.9,148.1 L393.2,148.1 L406.5,148.1 L419.7,148.1 L433.0,96.7 L446.3,96.7 L459.6,96.7 L472.9,96.7 L486.1,96.7 L499.4,96.7 L512.7,96.7 L526.0,96.7 L539.2,88.1 L552.5,96.7 L565.8,96.7 L579.1,96.7 L592.3,96.7 L605.6,96.7 L618.9,96.7 L632.2,96.7 L645.4,88.1 L658.7,88.1 L672.0,88.1 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-32)" />
+      <polyline points="48.0,148.1 61.3,148.1 74.6,88.1 87.8,88.1 101.1,88.1 114.4,88.1 127.7,88.1 140.9,88.1 154.2,88.1 167.5,23.9 180.8,23.9 194.0,23.9 207.3,23.9 220.6,23.9 233.9,23.9 247.1,23.9 260.4,96.7 273.7,96.7 287.0,96.7 300.3,96.7 313.5,96.7 326.8,96.7 340.1,96.7 353.4,148.1 366.6,148.1 379.9,148.1 393.2,148.1 406.5,148.1 419.7,148.1 433.0,96.7 446.3,96.7 459.6,96.7 472.9,96.7 486.1,96.7 499.4,96.7 512.7,96.7 526.0,96.7 539.2,88.1 552.5,96.7 565.8,96.7 579.1,96.7 592.3,96.7 605.6,96.7 618.9,96.7 632.2,96.7 645.4,88.1 658.7,88.1 672.0,88.1" class="price-history-line" />
       <circle cx="48.0" cy="148.1" r="2.2" class="price-history-dot"><title>29.08: 217 kr (snitt for serien)</title></circle>
-      <circle cx="61.6" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 217 kr (snitt for serien)</title></circle>
-      <circle cx="75.1" cy="88.1" r="2.2" class="price-history-dot"><title>31.08: 231 kr (snitt for serien)</title></circle>
-      <circle cx="88.7" cy="88.1" r="2.2" class="price-history-dot"><title>01.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="102.3" cy="88.1" r="2.2" class="price-history-dot"><title>02.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="115.8" cy="88.1" r="2.2" class="price-history-dot"><title>03.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="129.4" cy="88.1" r="2.2" class="price-history-dot"><title>04.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="143.0" cy="88.1" r="2.2" class="price-history-dot"><title>05.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="156.5" cy="88.1" r="2.2" class="price-history-dot"><title>06.09: 231 kr (snitt for serien)</title></circle>
-      <circle cx="170.1" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="183.7" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="197.2" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="210.8" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="224.3" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="237.9" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="251.5" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 246 kr (snitt for serien)</title></circle>
-      <circle cx="265.0" cy="96.7" r="2.2" class="price-history-dot"><title>14.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="278.6" cy="96.7" r="2.2" class="price-history-dot"><title>15.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="292.2" cy="96.7" r="2.2" class="price-history-dot"><title>16.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="305.7" cy="96.7" r="2.2" class="price-history-dot"><title>17.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="319.3" cy="96.7" r="2.2" class="price-history-dot"><title>18.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="332.9" cy="96.7" r="2.2" class="price-history-dot"><title>19.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="346.4" cy="96.7" r="2.2" class="price-history-dot"><title>20.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="360.0" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="373.6" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="387.1" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="400.7" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="414.3" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="427.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 217 kr (snitt for serien)</title></circle>
-      <circle cx="441.4" cy="96.7" r="2.2" class="price-history-dot"><title>27.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="455.0" cy="96.7" r="2.2" class="price-history-dot"><title>28.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="468.5" cy="96.7" r="2.2" class="price-history-dot"><title>29.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="482.1" cy="96.7" r="2.2" class="price-history-dot"><title>30.09: 229 kr (snitt for serien)</title></circle>
-      <circle cx="495.7" cy="96.7" r="2.2" class="price-history-dot"><title>01.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="509.2" cy="96.7" r="2.2" class="price-history-dot"><title>02.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="522.8" cy="96.7" r="2.2" class="price-history-dot"><title>03.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="536.3" cy="96.7" r="2.2" class="price-history-dot"><title>04.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="549.9" cy="88.1" r="2.2" class="price-history-dot"><title>05.10: 231 kr (snitt for serien)</title></circle>
-      <circle cx="563.5" cy="96.7" r="2.2" class="price-history-dot"><title>06.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="577.0" cy="96.7" r="2.2" class="price-history-dot"><title>07.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="590.6" cy="96.7" r="2.2" class="price-history-dot"><title>08.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="604.2" cy="96.7" r="2.2" class="price-history-dot"><title>09.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="617.7" cy="96.7" r="2.2" class="price-history-dot"><title>10.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="631.3" cy="96.7" r="2.2" class="price-history-dot"><title>11.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="644.9" cy="96.7" r="2.2" class="price-history-dot"><title>12.10: 229 kr (snitt for serien)</title></circle>
-      <circle cx="658.4" cy="88.1" r="2.2" class="price-history-dot"><title>13.10: 231 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="88.1" r="3.2" class="price-history-dot price-history-dot-last"><title>14.10: 231 kr (snitt for serien)</title></circle>
+      <circle cx="61.3" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 217 kr (snitt for serien)</title></circle>
+      <circle cx="74.6" cy="88.1" r="2.2" class="price-history-dot"><title>31.08: 231 kr (snitt for serien)</title></circle>
+      <circle cx="87.8" cy="88.1" r="2.2" class="price-history-dot"><title>01.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="101.1" cy="88.1" r="2.2" class="price-history-dot"><title>02.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="114.4" cy="88.1" r="2.2" class="price-history-dot"><title>03.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="127.7" cy="88.1" r="2.2" class="price-history-dot"><title>04.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="140.9" cy="88.1" r="2.2" class="price-history-dot"><title>05.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="154.2" cy="88.1" r="2.2" class="price-history-dot"><title>06.09: 231 kr (snitt for serien)</title></circle>
+      <circle cx="167.5" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="180.8" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="194.0" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="207.3" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="220.6" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="233.9" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="247.1" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 246 kr (snitt for serien)</title></circle>
+      <circle cx="260.4" cy="96.7" r="2.2" class="price-history-dot"><title>14.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="273.7" cy="96.7" r="2.2" class="price-history-dot"><title>15.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="287.0" cy="96.7" r="2.2" class="price-history-dot"><title>16.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="300.3" cy="96.7" r="2.2" class="price-history-dot"><title>17.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="313.5" cy="96.7" r="2.2" class="price-history-dot"><title>18.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="326.8" cy="96.7" r="2.2" class="price-history-dot"><title>19.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="340.1" cy="96.7" r="2.2" class="price-history-dot"><title>20.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="353.4" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="366.6" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="379.9" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="393.2" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="406.5" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="419.7" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 217 kr (snitt for serien)</title></circle>
+      <circle cx="433.0" cy="96.7" r="2.2" class="price-history-dot"><title>27.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="446.3" cy="96.7" r="2.2" class="price-history-dot"><title>28.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="459.6" cy="96.7" r="2.2" class="price-history-dot"><title>29.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="472.9" cy="96.7" r="2.2" class="price-history-dot"><title>30.09: 229 kr (snitt for serien)</title></circle>
+      <circle cx="486.1" cy="96.7" r="2.2" class="price-history-dot"><title>01.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="499.4" cy="96.7" r="2.2" class="price-history-dot"><title>02.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="512.7" cy="96.7" r="2.2" class="price-history-dot"><title>03.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="526.0" cy="96.7" r="2.2" class="price-history-dot"><title>04.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="539.2" cy="88.1" r="2.2" class="price-history-dot"><title>05.10: 231 kr (snitt for serien)</title></circle>
+      <circle cx="552.5" cy="96.7" r="2.2" class="price-history-dot"><title>06.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="565.8" cy="96.7" r="2.2" class="price-history-dot"><title>07.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="579.1" cy="96.7" r="2.2" class="price-history-dot"><title>08.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="592.3" cy="96.7" r="2.2" class="price-history-dot"><title>09.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="605.6" cy="96.7" r="2.2" class="price-history-dot"><title>10.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="618.9" cy="96.7" r="2.2" class="price-history-dot"><title>11.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="632.2" cy="96.7" r="2.2" class="price-history-dot"><title>12.10: 229 kr (snitt for serien)</title></circle>
+      <circle cx="645.4" cy="88.1" r="2.2" class="price-history-dot"><title>13.10: 231 kr (snitt for serien)</title></circle>
+      <circle cx="658.7" cy="88.1" r="2.2" class="price-history-dot"><title>14.10: 231 kr (snitt for serien)</title></circle>
+      <circle cx="672.0" cy="88.1" r="3.2" class="price-history-dot price-history-dot-last"><title>15.10: 231 kr (snitt for serien)</title></circle>
       <text x="672.0" y="80.1" text-anchor="end" class="price-history-current-label">231 kr</text>
       <text x="48" y="174" class="price-history-axis-label">29.08</text>
-      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">14.10</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">15.10</text>
     </svg>
   </div></div>
   </div><div class="price-insight-panel" data-pack="96">
     <div class="price-insight-now">
       <div class="price-insight-current">599 kr</div>
       <div class="price-insight-label">Snitt laveste pris nå &middot; 1 varianter i Daysoft-sortimentet</div>
-      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 47 dagers snitt</span></div>
+      <div class="price-insight-trend insight-flat"><span aria-hidden="true">→</span> 0 % <span class="price-insight-trend-note">vs. 48 dagers snitt</span></div>
       <div class="price-insight-tiles">
-        <div class="price-insight-tile"><strong>562 kr</strong><span>47 dagers laveste</span></div>
-        <div class="price-insight-tile"><strong>598 kr</strong><span>47 dagers snitt</span></div>
-        <div class="price-insight-tile"><strong>637 kr</strong><span>47 dagers høyeste</span></div>
+        <div class="price-insight-tile"><strong>562 kr</strong><span>48 dagers laveste</span></div>
+        <div class="price-insight-tile"><strong>598 kr</strong><span>48 dagers snitt</span></div>
+        <div class="price-insight-tile"><strong>637 kr</strong><span>48 dagers høyeste</span></div>
       </div>
     </div>
     <div class="price-insight-chart"><div class="price-history">
     
-    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 47 dager, fra 562 kr til 637 kr">
+    <svg viewBox="0 0 680 180" class="price-history-chart" role="img" aria-label="Prisutvikling siste 48 dager, fra 562 kr til 637 kr">
       <defs>
         <linearGradient id="priceHistoryFade-96" x1="0" y1="14" x2="0" y2="158" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stop-color="#F0740F" stop-opacity="0.38" />
@@ -1631,58 +1845,59 @@ a { color: inherit; }
       <text x="42" y="89.0" text-anchor="end" class="price-history-axis-label">600 kr</text>
       <line x1="48" y1="158.0" x2="672" y2="158.0" class="price-history-gridline" />
       <text x="42" y="161.0" text-anchor="end" class="price-history-axis-label">556 kr</text>
-      <path d="M48.0,158.0 L48.0,148.1 L61.6,148.1 L75.1,86.8 L88.7,86.8 L102.3,86.8 L115.8,86.8 L129.4,86.8 L143.0,86.8 L156.5,86.8 L170.1,23.9 L183.7,23.9 L197.2,23.9 L210.8,23.9 L224.3,23.9 L237.9,23.9 L251.5,23.9 L265.0,86.8 L278.6,86.8 L292.2,86.8 L305.7,86.8 L319.3,86.8 L332.9,86.8 L346.4,86.8 L360.0,148.1 L373.6,148.1 L387.1,148.1 L400.7,148.1 L414.3,148.1 L427.8,148.1 L441.4,86.8 L455.0,86.8 L468.5,86.8 L482.1,86.8 L495.7,86.8 L509.2,86.8 L522.8,86.8 L536.3,86.8 L549.9,86.8 L563.5,86.8 L577.0,86.8 L590.6,86.8 L604.2,86.8 L617.7,86.8 L631.3,86.8 L644.9,86.8 L658.4,86.8 L672.0,86.8 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-96)" />
-      <polyline points="48.0,148.1 61.6,148.1 75.1,86.8 88.7,86.8 102.3,86.8 115.8,86.8 129.4,86.8 143.0,86.8 156.5,86.8 170.1,23.9 183.7,23.9 197.2,23.9 210.8,23.9 224.3,23.9 237.9,23.9 251.5,23.9 265.0,86.8 278.6,86.8 292.2,86.8 305.7,86.8 319.3,86.8 332.9,86.8 346.4,86.8 360.0,148.1 373.6,148.1 387.1,148.1 400.7,148.1 414.3,148.1 427.8,148.1 441.4,86.8 455.0,86.8 468.5,86.8 482.1,86.8 495.7,86.8 509.2,86.8 522.8,86.8 536.3,86.8 549.9,86.8 563.5,86.8 577.0,86.8 590.6,86.8 604.2,86.8 617.7,86.8 631.3,86.8 644.9,86.8 658.4,86.8 672.0,86.8" class="price-history-line" />
+      <path d="M48.0,158.0 L48.0,148.1 L61.3,148.1 L74.6,86.8 L87.8,86.8 L101.1,86.8 L114.4,86.8 L127.7,86.8 L140.9,86.8 L154.2,86.8 L167.5,23.9 L180.8,23.9 L194.0,23.9 L207.3,23.9 L220.6,23.9 L233.9,23.9 L247.1,23.9 L260.4,86.8 L273.7,86.8 L287.0,86.8 L300.3,86.8 L313.5,86.8 L326.8,86.8 L340.1,86.8 L353.4,148.1 L366.6,148.1 L379.9,148.1 L393.2,148.1 L406.5,148.1 L419.7,148.1 L433.0,86.8 L446.3,86.8 L459.6,86.8 L472.9,86.8 L486.1,86.8 L499.4,86.8 L512.7,86.8 L526.0,86.8 L539.2,86.8 L552.5,86.8 L565.8,86.8 L579.1,86.8 L592.3,86.8 L605.6,86.8 L618.9,86.8 L632.2,86.8 L645.4,86.8 L658.7,86.8 L672.0,86.8 L672.0,158.0 Z" class="price-history-area" fill="url(#priceHistoryFade-96)" />
+      <polyline points="48.0,148.1 61.3,148.1 74.6,86.8 87.8,86.8 101.1,86.8 114.4,86.8 127.7,86.8 140.9,86.8 154.2,86.8 167.5,23.9 180.8,23.9 194.0,23.9 207.3,23.9 220.6,23.9 233.9,23.9 247.1,23.9 260.4,86.8 273.7,86.8 287.0,86.8 300.3,86.8 313.5,86.8 326.8,86.8 340.1,86.8 353.4,148.1 366.6,148.1 379.9,148.1 393.2,148.1 406.5,148.1 419.7,148.1 433.0,86.8 446.3,86.8 459.6,86.8 472.9,86.8 486.1,86.8 499.4,86.8 512.7,86.8 526.0,86.8 539.2,86.8 552.5,86.8 565.8,86.8 579.1,86.8 592.3,86.8 605.6,86.8 618.9,86.8 632.2,86.8 645.4,86.8 658.7,86.8 672.0,86.8" class="price-history-line" />
       <circle cx="48.0" cy="148.1" r="2.2" class="price-history-dot"><title>29.08: 562 kr (snitt for serien)</title></circle>
-      <circle cx="61.6" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 562 kr (snitt for serien)</title></circle>
-      <circle cx="75.1" cy="86.8" r="2.2" class="price-history-dot"><title>31.08: 599 kr (snitt for serien)</title></circle>
-      <circle cx="88.7" cy="86.8" r="2.2" class="price-history-dot"><title>01.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="102.3" cy="86.8" r="2.2" class="price-history-dot"><title>02.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="115.8" cy="86.8" r="2.2" class="price-history-dot"><title>03.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="129.4" cy="86.8" r="2.2" class="price-history-dot"><title>04.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="143.0" cy="86.8" r="2.2" class="price-history-dot"><title>05.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="156.5" cy="86.8" r="2.2" class="price-history-dot"><title>06.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="170.1" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="183.7" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="197.2" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="210.8" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="224.3" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="237.9" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="251.5" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 637 kr (snitt for serien)</title></circle>
-      <circle cx="265.0" cy="86.8" r="2.2" class="price-history-dot"><title>14.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="278.6" cy="86.8" r="2.2" class="price-history-dot"><title>15.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="292.2" cy="86.8" r="2.2" class="price-history-dot"><title>16.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="305.7" cy="86.8" r="2.2" class="price-history-dot"><title>17.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="319.3" cy="86.8" r="2.2" class="price-history-dot"><title>18.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="332.9" cy="86.8" r="2.2" class="price-history-dot"><title>19.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="346.4" cy="86.8" r="2.2" class="price-history-dot"><title>20.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="360.0" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="373.6" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="387.1" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="400.7" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="414.3" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="427.8" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 562 kr (snitt for serien)</title></circle>
-      <circle cx="441.4" cy="86.8" r="2.2" class="price-history-dot"><title>27.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="455.0" cy="86.8" r="2.2" class="price-history-dot"><title>28.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="468.5" cy="86.8" r="2.2" class="price-history-dot"><title>29.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="482.1" cy="86.8" r="2.2" class="price-history-dot"><title>30.09: 599 kr (snitt for serien)</title></circle>
-      <circle cx="495.7" cy="86.8" r="2.2" class="price-history-dot"><title>01.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="509.2" cy="86.8" r="2.2" class="price-history-dot"><title>02.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="522.8" cy="86.8" r="2.2" class="price-history-dot"><title>03.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="536.3" cy="86.8" r="2.2" class="price-history-dot"><title>04.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="549.9" cy="86.8" r="2.2" class="price-history-dot"><title>05.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="563.5" cy="86.8" r="2.2" class="price-history-dot"><title>06.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="577.0" cy="86.8" r="2.2" class="price-history-dot"><title>07.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="590.6" cy="86.8" r="2.2" class="price-history-dot"><title>08.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="604.2" cy="86.8" r="2.2" class="price-history-dot"><title>09.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="617.7" cy="86.8" r="2.2" class="price-history-dot"><title>10.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="631.3" cy="86.8" r="2.2" class="price-history-dot"><title>11.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="644.9" cy="86.8" r="2.2" class="price-history-dot"><title>12.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="658.4" cy="86.8" r="2.2" class="price-history-dot"><title>13.10: 599 kr (snitt for serien)</title></circle>
-      <circle cx="672.0" cy="86.8" r="3.2" class="price-history-dot price-history-dot-last"><title>14.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="61.3" cy="148.1" r="2.2" class="price-history-dot"><title>30.08: 562 kr (snitt for serien)</title></circle>
+      <circle cx="74.6" cy="86.8" r="2.2" class="price-history-dot"><title>31.08: 599 kr (snitt for serien)</title></circle>
+      <circle cx="87.8" cy="86.8" r="2.2" class="price-history-dot"><title>01.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="101.1" cy="86.8" r="2.2" class="price-history-dot"><title>02.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="114.4" cy="86.8" r="2.2" class="price-history-dot"><title>03.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="127.7" cy="86.8" r="2.2" class="price-history-dot"><title>04.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="140.9" cy="86.8" r="2.2" class="price-history-dot"><title>05.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="154.2" cy="86.8" r="2.2" class="price-history-dot"><title>06.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="167.5" cy="23.9" r="2.2" class="price-history-dot"><title>07.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="180.8" cy="23.9" r="2.2" class="price-history-dot"><title>08.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="194.0" cy="23.9" r="2.2" class="price-history-dot"><title>09.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="207.3" cy="23.9" r="2.2" class="price-history-dot"><title>10.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="220.6" cy="23.9" r="2.2" class="price-history-dot"><title>11.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="233.9" cy="23.9" r="2.2" class="price-history-dot"><title>12.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="247.1" cy="23.9" r="2.2" class="price-history-dot"><title>13.09: 637 kr (snitt for serien)</title></circle>
+      <circle cx="260.4" cy="86.8" r="2.2" class="price-history-dot"><title>14.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="273.7" cy="86.8" r="2.2" class="price-history-dot"><title>15.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="287.0" cy="86.8" r="2.2" class="price-history-dot"><title>16.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="300.3" cy="86.8" r="2.2" class="price-history-dot"><title>17.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="313.5" cy="86.8" r="2.2" class="price-history-dot"><title>18.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="326.8" cy="86.8" r="2.2" class="price-history-dot"><title>19.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="340.1" cy="86.8" r="2.2" class="price-history-dot"><title>20.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="353.4" cy="148.1" r="2.2" class="price-history-dot"><title>21.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="366.6" cy="148.1" r="2.2" class="price-history-dot"><title>22.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="379.9" cy="148.1" r="2.2" class="price-history-dot"><title>23.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="393.2" cy="148.1" r="2.2" class="price-history-dot"><title>24.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="406.5" cy="148.1" r="2.2" class="price-history-dot"><title>25.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="419.7" cy="148.1" r="2.2" class="price-history-dot"><title>26.09: 562 kr (snitt for serien)</title></circle>
+      <circle cx="433.0" cy="86.8" r="2.2" class="price-history-dot"><title>27.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="446.3" cy="86.8" r="2.2" class="price-history-dot"><title>28.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="459.6" cy="86.8" r="2.2" class="price-history-dot"><title>29.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="472.9" cy="86.8" r="2.2" class="price-history-dot"><title>30.09: 599 kr (snitt for serien)</title></circle>
+      <circle cx="486.1" cy="86.8" r="2.2" class="price-history-dot"><title>01.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="499.4" cy="86.8" r="2.2" class="price-history-dot"><title>02.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="512.7" cy="86.8" r="2.2" class="price-history-dot"><title>03.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="526.0" cy="86.8" r="2.2" class="price-history-dot"><title>04.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="539.2" cy="86.8" r="2.2" class="price-history-dot"><title>05.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="552.5" cy="86.8" r="2.2" class="price-history-dot"><title>06.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="565.8" cy="86.8" r="2.2" class="price-history-dot"><title>07.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="579.1" cy="86.8" r="2.2" class="price-history-dot"><title>08.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="592.3" cy="86.8" r="2.2" class="price-history-dot"><title>09.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="605.6" cy="86.8" r="2.2" class="price-history-dot"><title>10.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="618.9" cy="86.8" r="2.2" class="price-history-dot"><title>11.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="632.2" cy="86.8" r="2.2" class="price-history-dot"><title>12.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="645.4" cy="86.8" r="2.2" class="price-history-dot"><title>13.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="658.7" cy="86.8" r="2.2" class="price-history-dot"><title>14.10: 599 kr (snitt for serien)</title></circle>
+      <circle cx="672.0" cy="86.8" r="3.2" class="price-history-dot price-history-dot-last"><title>15.10: 599 kr (snitt for serien)</title></circle>
       <text x="672.0" y="78.8" text-anchor="end" class="price-history-current-label">599 kr</text>
       <text x="48" y="174" class="price-history-axis-label">29.08</text>
-      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">14.10</text>
+      <text x="672" y="174" text-anchor="end" class="price-history-axis-label">15.10</text>
     </svg>
   </div></div>
   </div>
