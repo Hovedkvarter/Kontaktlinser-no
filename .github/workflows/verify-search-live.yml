@@ -1,0 +1,122 @@
+name: Verify published search once (no deployment)
+on:
+  push:
+    branches: [chatgpt/verify-search-publish-20261015]
+    paths: [.github/workflows/verify-search-live.yml]
+permissions: {}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Install isolated browser test dependencies
+        run: |
+          python -m pip install playwright==1.56.0
+          python -m playwright install --with-deps chromium
+      - name: Read-only browser checks on published pages
+        run: |
+          mkdir -p verification
+          python - <<'PY'
+          import json, re, traceback, urllib.request
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          origin = 'https://kontaktlinser.no'
+          expected = urllib.request.urlopen('https://raw.githubusercontent.com/Hovedkvarter/Kontaktlinser-no/9c687a1359001d8499c378c4f7d9fb24e5fc0b0f/site_generator/lens_search.js', timeout=30).read().decode().strip()
+          report, failed = [], []
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              for width in (375, 768, 1024, 1440):
+                  for surface, path in [('home', '/'), ('header', '/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/')]:
+                      item = {'width': width, 'surface': surface, 'url': origin + path, 'checks': []}
+                      context = browser.new_context(viewport={'width': width, 'height': 900}, locale='nb-NO')
+                      page = context.new_page()
+                      page.set_default_timeout(15000)
+                      errors = []
+                      page.on('pageerror', lambda error: errors.append(str(error)))
+                      try:
+                          response = page.goto(origin + path, wait_until='domcontentloaded', timeout=45000)
+                          assert response.status == 200, response.status
+                          item['http_status'] = response.status
+                          item['cache_status'] = response.headers.get('cf-cache-status')
+                          scripts = '\n'.join(page.locator('script').all_text_contents())
+                          assert expected in scripts, 'Published search source differs from approved version (or stale cache)'
+                          item['checks'].append('exact approved source served on ordinary URL')
+                          page.wait_for_function('window.KLSearch && document.querySelector("[data-kl-search-ready]")')
+                          for button in page.get_by_role('button', name=re.compile('kun n.dvendige', re.I)).all():
+                              if button.is_visible(): button.click()
+                          input = page.locator('.search-input').first
+                          if not input.is_visible():
+                              page.locator('.topbar-mobile-actions button[aria-label*="søk" i]').first.click()
+                          assert input.is_visible()
+                          def query(text):
+                              input.fill(text)
+                              page.wait_for_timeout(400)
+                              page.wait_for_function('document.querySelector(".search-input").getAttribute("aria-expanded") === "true"')
+                              page.locator('.search-suggestion').first.wait_for(state='visible')
+                              return page.locator('.search-suggestion').evaluate_all('(els) => els.map(e => ({href:e.getAttribute("href"),name:e.getAttribute("data-name")}))')
+                          variants = [query(q) for q in ('1 day acuvue', '1-day acuvue', '1day acuvue')]
+                          assert variants[0] and variants[0] == variants[1] == variants[2]
+                          item['checks'].append('three Acuvue spellings give identical visible results')
+                          item['acuvue_results'] = variants[0]
+                          before = page.url
+                          input.press('Enter')
+                          page.wait_for_timeout(500)
+                          assert page.url == before and page.locator('.search-suggestion').count() > 1
+                          assert 'Velg riktig variant' in page.locator('.search-result-note').inner_text()
+                          item['checks'].append('broad Enter keeps variant choices')
+                          more = page.locator('.search-more')
+                          assert more.is_visible()
+                          count = page.locator('.search-suggestion').count()
+                          more.click()
+                          assert page.locator('.search-suggestion').count() > count
+                          item['checks'].append('show all expands results')
+                          total = query('dailies total1')
+                          assert total and total == query('dailies total 1')
+                          item['checks'].append('Total1 and Total 1 give identical results')
+                          pack = query('biofinity toric 6 pk')
+                          assert pack and all('6-pack' in r['href'] and 'toric' in r['href'] for r in pack)
+                          item['checks'].append('explicit Toric and 6-pack retained')
+                          typo = query('acuve moist')
+                          assert typo and 'Mente du disse?' in page.locator('.search-result-note').inner_text()
+                          item['checks'].append('typo produces labelled suggestions')
+                          input.press('Escape')
+                          assert input.get_attribute('aria-expanded') == 'false'
+                          item['checks'].append('Escape closes results')
+                          query('1 day acuvue')
+                          bounds = page.locator('.search-suggestions').bounding_box()
+                          assert bounds['x'] >= -1 and bounds['x'] + bounds['width'] <= width + 1
+                          item['checks'].append('search panel fits viewport')
+                          page.screenshot(path=f'verification/{surface}-{width}.png')
+                          input.press('ArrowDown')
+                          selected = page.locator('.search-suggestion[aria-selected="true"]')
+                          assert selected.count() == 1
+                          target = selected.get_attribute('href')
+                          input.press('Enter')
+                          page.wait_for_url(origin + target, wait_until='domcontentloaded', timeout=30000)
+                          assert page.locator('h1').count() == 1
+                          item['checks'].append('keyboard selection opens original internal destination')
+                          item['page_errors'] = errors
+                          assert not errors, errors
+                          item['status'] = 'PASS'
+                      except Exception as error:
+                          item['status'] = 'FAIL'
+                          item['error'] = str(error)
+                          failed.append(item)
+                          traceback.print_exc()
+                          page.screenshot(path=f'verification/{surface}-{width}-failure.png')
+                      finally:
+                          report.append(item)
+                          context.close()
+              browser.close()
+          Path('verification/report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2))
+          print('VERIFICATION_REPORT=' + json.dumps(report, ensure_ascii=False))
+          print(f'SUMMARY: {len(report)-len(failed)}/{len(report)} live browser scenarios passed')
+          if failed: raise SystemExit(1)
+          PY
+      - name: Retain evidence (seven days)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-search-verification
+          path: verification/
+          retention-days: 7
