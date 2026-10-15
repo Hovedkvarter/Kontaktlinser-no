@@ -1,10 +1,41 @@
 # Smartere søk – 15. oktober 2026
 
-Status: implementert og kontrollert i PR #42, **ikke publisert**. Venter på eiers godkjenning av konkret versjon.
+Status: **publisert og kontrollert mot aktivt nettsted** etter eiers uttrykkelige godkjenning av PR #42, versjon `9c687a1359001d8499c378c4f7d9fb24e5fc0b0f`.
 Base: `0f97c9cb4df4ae320edba7a7adc534cd513caba7`.
 Implementasjonscommit: `c991c0f2eabe1f8b137274572c237f39fbb65a6d`.
 Gren: `chatgpt/smarter-search`.
 PR: https://github.com/Hovedkvarter/Kontaktlinser-no/pull/42
+
+## Publisering og produksjonskontroll
+
+- Godkjent head ble kontrollert uendret, og siste PR-CI 38657592923 var bestått før merge. Merge brukte eksakt forventet head-SHA.
+- Merge: `5be409daba22c12ff486ee8bd8ce7a204b4a8b91`.
+- Bygg, søketester, validering og publiseringssteg bestod i kjøring 38658021927. Ingen ny feedinnhenting eller scraping ble startet.
+- Publisert gh-pages-commit: `adaf27b42a4f9c28f7913c0759851ab98a9a0d2c`. GitHub Pages-kjøring 38658155765 bestod; ferdig 15. oktober 2026 kl. 00:07:35 UTC.
+- Etterkontroll: 8 av 8 nettleserscenarier bestod i kjøring 38658490119, jobb 116173840898, ferdig kl. 00:11:34 UTC.
+
+Etterkontrollen brukte ekte Chromium mot de ordinære nettadressene på
+https://kontaktlinser.no – ingen simulert HTML, søkeindeks eller navigasjon.
+Forsidesøk og toppmenysøk på Acuvue Moist 30-pack ble prøvd ved 375, 768,
+1024 og 1440 px. Alle åtte scenarier bekreftet:
+
+- HTTP 200 og at den komplette godkjente søkekilden faktisk ble servert.
+- Identiske synlige treff for `1 day acuvue`, `1-day acuvue` og `1day acuvue`.
+- Brede Enter-søk viser variantvalg, og Vis alle utvider trefflisten.
+- `dailies total1` og `dailies total 1` gir identiske treff.
+- `biofinity toric 6 pk` beholder både Toric og 6-pakning som krav.
+- `acuve moist` gir tydelig merkede skriveforslag.
+- Escape lukker listen; piltast og Enter åpner treffets opprinnelige interne adresse.
+- Søkelisten holder seg innenfor skjermbredden. Ingen ukjente JavaScript-unntak ble registrert under scenariene.
+
+Testjobben er isolert på `chatgpt/verify-search-publish-20261015`, uten tilgang
+til å skrive repository-innhold, uten deploy-steg og uten planlagt gjentakelse.
+Den er ikke merget til main og endrer ikke nettstedet. Den ble brukt fordi det
+lokale arbeidsmiljøet ikke kunne slå opp nettstedets DNS. Rapport og åtte
+skjermbilder er lagret som Actions-artefakten `published-search-verification`
+(ID 11938360712, sju dagers oppbevaring). Skjermbildene er ikke manuelt visuelt
+gjennomgått i denne etterkontrollen. Testen dekker Chromium ved disse breddene,
+ikke alle nettlesere eller fysiske telefoner. Pris-/affiliatekjøp ble ikke utført.
 
 ## Beslutning og avgrensning
 
@@ -30,10 +61,11 @@ returnerer en mal; ferdig nettsted går gjennom write_file. Manglende eller dobb
 søkeinjeksjon stopper bygget.
 
 Produktnavn, slugs, canonical, schema, priser, affiliate-/Chillout-logikk, meny og
-samtykke er uendret. Eksisterende `guide_search_click` beholdes, uten nye analysetagger.
-Ingen ny frontend-pakke eller ekstra nettverksforespørsel for søkeprogrammet.
+samtykke er uendret av søkeimplementasjonen. Eksisterende `guide_search_click`
+beholdes, uten nye analysetagger. Ingen ny frontend-pakke eller ekstra
+nettverksforespørsel for søkeprogrammet.
 
-## Verifisert
+## Verifisert før publisering
 
 CI-kjøring 38657350661, jobb 116170158291, på implementasjonscommit c991c0f:
 
@@ -51,19 +83,21 @@ Lokalt: 29 Chromium-kontroller bestått for forside/header ved 375, 768, 1024 og
 lastefeil/ny prøve, Vis alle og ventende forespørsler. Før-kontrollen reproduserte
 bindestrekfeilen. En Vis alle-feil med klikkbobling ble fanget og rettet før PR.
 
-**Begrensning:** Repoet kunne ikke klones i arbeidsmiljøet. Nettleserkontrollene
-brukte HTML i minnet, simulert fetch/navigasjon og 207 testoppføringer fra eksporten
-6. oktober pluss seks eksplisitte eksempler. Eksisterende CSS/header ble brukt,
-men eksterne bilder, fonter, analyse og samtykkeoverlegg ble utelatt. Dette er
-interaksjonstester, ikke full visuell produksjonskontroll. CI brukte faktisk kode
-og katalog, men kjørte ikke nettleser.
+**Begrensning ved førkontrollen:** Repoet kunne ikke klones i arbeidsmiljøet.
+De lokale nettleserkontrollene brukte HTML i minnet, simulert fetch/navigasjon og
+207 testoppføringer fra eksporten 6. oktober pluss seks eksplisitte eksempler.
+Eksisterende CSS/header ble brukt, men eksterne bilder, fonter, analyse og
+samtykkeoverlegg ble utelatt. Den opprinnelige PR-CI-en brukte faktisk kode og
+katalog, men kjørte ikke nettleser. Etterkontrollen ovenfor supplerer dette med
+reelle nettleserscenarier mot publisert nettsted.
 
 Bygget rapporterte også 27 produkter uten Chillout-kobling, med eksisterende
 fallback til leverandør-URL, og advarsler om Node-versjon i eksisterende Actions.
 Disse forholdene er ikke endret eller løst av søkeoppgaven.
 
-## Neste steg
+## Åpne spørsmål og neste steg
 
-Eier ser testvisningen og godkjenner konkret PR-versjon. Kontroller siste CI og
-publiser først etter godkjenning. Kontroller deretter søket på det aktive nettstedet,
-inkludert faktiske bilder, mobilheader og navigasjon til valgt produkt.
+Publiseringen av denne versjonen er ferdig. Hvor mange brukere som tidligere
+møtte null treff eller forlot nettstedet, og effekten av endringen på faktisk
+bruk, er ikke målt. Eventuell måling og videre søkeforbedringer er egne oppgaver;
+ingen nye analysetagger eller automatiske overvåkninger er opprettet.
