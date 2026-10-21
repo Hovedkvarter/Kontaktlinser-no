@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-20T08:40:24.812431+00:00
+Kontrollert: 2026-10-21T08:41:31.445297+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -10,13 +10,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
 | Extra Optical | ok | 2776 | 87 | 80 | 7 |
-| Lensway | ok | 1071 | 180 | 175 | 5 |
-| Lenson | ok | 181 | 181 | 175 | 6 |
-| Shopping4net | ok | 20152 | 118 | 89 | 29 |
+| Lensway | ok | 1069 | 181 | 175 | 6 |
+| Lenson | ok | 182 | 182 | 175 | 7 |
+| Shopping4net | ok | 20155 | 119 | 90 | 29 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9532 | 79 | 43 | 36 |
+| Apotekhjem | ok | 9527 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 2. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -59,6 +59,8 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Lensway | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Lenson | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Ny |
+| Lensway | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Ny |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
