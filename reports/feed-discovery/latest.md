@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-22T08:43:43.733329+00:00
+Kontrollert: 2026-10-23T08:39:35.322870+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2777 | 87 | 80 | 7 |
-| Lensway | ok | 1071 | 185 | 175 | 10 |
+| Extra Optical | ok | 2775 | 87 | 80 | 7 |
+| Lensway | ok | 1088 | 185 | 175 | 10 |
 | Lenson | ok | 186 | 186 | 175 | 11 |
-| Shopping4net | ok | 20198 | 119 | 90 | 29 |
+| Shopping4net | ok | 20197 | 119 | 90 | 29 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9530 | 79 | 43 | 36 |
+| Apotekhjem | ok | 9529 | 79 | 43 | 36 |
 
-Nye rader: 8. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -28,14 +28,14 @@ Nye rader: 8. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Shopping4net | Acuvue Oasys 1-Day Hydraluxe for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Acuvue Oasys 1-Day for Astigmatism 30-pack, Acuvue Oasys 1-Day for Astigmatism 90-pack, Acuvue Oasys MAX 1-Day for Astigmatism 30-pack | Uendret |
 | Shopping4net | Air Optix Aqua | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | Biofinity XR | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Biofinity XR 6-pack, Biofinity XR 3-pack, Biofinity 6-pack | Uendret |
-| Lenson | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lensway | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
-| Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Ny |
+| Lenson | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lensway | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
+| Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Proclear 1 day | Kontaktlinser | Avklar feeddata – Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart. | Proclear 1 day 30-pack, Proclear 1 day 90-pack | Uendret |
 | Shopping4net | PureVision2 For Presbyopia | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | PureVision 2 for Presbyopia 6-pack | Uendret |
