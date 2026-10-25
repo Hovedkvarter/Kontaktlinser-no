@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-24T08:14:31.068933+00:00
+Kontrollert: 2026-10-25T08:32:21.648595+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -10,13 +10,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
 | Extra Optical | ok | 2773 | 87 | 80 | 7 |
-| Lensway | ok | 1085 | 185 | 175 | 10 |
+| Lensway | ok | 1084 | 185 | 175 | 10 |
 | Lenson | ok | 186 | 186 | 175 | 11 |
-| Shopping4net | ok | 20198 | 119 | 90 | 29 |
+| Shopping4net | ok | 20230 | 119 | 90 | 29 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9527 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -116,6 +116,6 @@ Nye rader: 0. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Apotekhjem | Tears naturale øyedråper 10ml | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
-| Apotekhjem | Viscotears Øyegel (3x10 g) | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Viscotears Øyegel 10 g | Endret |
-| Apotekhjem | Viscotears Øyegel Endosebeholdere (30 x 0,6 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Viscotears Øyegel (3x10 g) | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Viscotears Øyegel 10 g | Uendret |
+| Apotekhjem | Viscotears Øyegel Endosebeholdere (30 x 0,6 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Øyebadeglass plast Snøgg | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
