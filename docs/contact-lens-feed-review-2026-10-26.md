@@ -2,11 +2,13 @@
 
 ## Beslutning og status
 
-Alle kontaktlinser er prioritet 1: nye produkter/serier, nye pakninger og flere annonsører på eksisterende produkter. Funn skal undersøkes og få et konkret opprettelses-/koblingsforslag. Navnelikhet er ikke nok. Produksjon og test er godkjent; merge og publisering av denne arbeidsrunden avventer godkjenning etter forhåndsvisning.
+Alle kontaktlinser er prioritet 1: nye produkter/serier, nye pakninger og flere annonsører på eksisterende produkter. Funn skal undersøkes og få et konkret opprettelses-/koblingsforslag. Navnelikhet er ikke nok. Publisering ble godkjent av eier 26. oktober 2026. PR #43 er merget og publisert; etterkontrollen på kontaktlinser.no er bestått.
+
+SEO er alltid prioritert. Ved produkt- og serieendringer skal titler, canonical-adresser, strukturert data, internlenker, sitemap og indekserbarhet kontrolleres, samtidig som etablerte URL-er og sporingslenker bevares.
 
 Utgangspunkt: `3363de35b2ab7283324bfd6bc04d2a6f58159e2d`. Norske URL-er, prisrangering og Extra Opticals direkte-lenkeregel er beholdt. Visuell kontroll avdekket horisontal overløping i everclear-merkesidens prisfaner; to avgrensede CSS-regler lar kortene krympe og fanene brytes over flere linjer.
 
-## Klargjort
+## Publisert
 
 | Produkt | Pakning | Nye butikkoblinger |
 |---|---|---|
@@ -52,4 +54,13 @@ Alle beslutninger, kildelenker og vurderingsfingeravtrykk finnes i `contact-lens
 - 12 nettleserkontroller bestått: fire nye produkter, PRIME-serien og everclear-merket på 390 og 1440 px. Ingen horisontal overløping eller manglende bilder. Skjermbilder og målinger finnes i `docs/previews/contact-lens-feed-review-20261026/`.
 - Norsk prishistorikk og lastmod-filer er tilbakeført etter lokal bygging. Ingen testhistorikk legges i PR-en.
 
-Neste steg er gjennomgang av endringene og forhåndsvisningen, deretter særskilt godkjenning av merge/publisering. Utsolgte og uklare kandidater skal fortsatt følges opp, men hindrer ikke de dokumenterte endringene.
+## Publisering og etterkontroll
+
+- PR #43: https://github.com/Hovedkvarter/Kontaktlinser-no/pull/43
+- Mergekommit: `1d2e813a067286f213bf5c3d0c17cac88a8be97b`.
+- Produksjonsbygg (40323821417), feedvalidering (40323821462) og Pages-publisering fullført uten feil.
+- Alle fire nye produktsider og PRIME-seriesiden svarer HTTP 200, med riktige titler, selvrefererende canonical, strukturert data og uten indekseringsblokkering. Dette bekrefter indekserbarhet, ikke at Google allerede har indeksert sidene.
+- De fire produktene finnes i produktsitemap, og PRIME-serien finnes i seriesitemap. Nye produktlenker finnes på everclear-merkesiden.
+- Begge butikktilbudene er synlige på hver ny produktside. De fem nye tilbudene på eksisterende produkter er også bekreftet på de publiserte sidene.
+
+Neste steg er videre oppfølging av utsolgte og uklare kandidater, med kontaktlinser som prioritet 1 og SEO som fast prioritet.
