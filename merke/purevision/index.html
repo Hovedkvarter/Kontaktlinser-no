@@ -950,6 +950,8 @@ a { color: inherit; }
    samme her som på serie") -- samme to-kolonners stretch-mønster som
    .serie-insight-row (Prisinnsikt + Kort om X). */
 .brand-insight-row { display: grid; grid-template-columns: 1fr; gap: 16px; margin: 8px 0 32px; }
+.brand-insight-row > * { min-width: 0; }
+.brand-insight-row .insight-tabs { flex-wrap: wrap; }
 @media (min-width: 900px) { .brand-insight-row { grid-template-columns: 1fr 1fr; align-items: stretch; } }
 .brand-i-tall { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; box-shadow: var(--card-shadow); height: 100%; box-sizing: border-box; }
 .brand-i-tall h2 { margin: 0; font-family: 'Mulish', sans-serif; font-size: 1.05rem; }
@@ -1990,7 +1992,7 @@ a { color: inherit; }
     <a class="product-tile-manufacturer" href="/produsent/bausch-lomb/">Bausch + Lomb</a>
     
     <div class="product-tile-divider"></div>
-    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">785 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">607</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 4 butikker</div></a>
+    <a class="product-tile-price-link" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/"><div class="product-tile-price-label"><span class="product-tile-price-label-default">Fra (ekskl. frakt)</span><s class="product-tile-high-price">785 kr</s></div><div class="product-tile-price"><span class="product-tile-price-from">Fra</span><span class="product-tile-price-number">607</span><span class="product-tile-price-currency">kr</span></div><div class="product-tile-store-line"> hos 5 butikker</div></a>
   </div>
   <a class="product-tile-cta" href="/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/">Sammenlign priser</a>
 </div>

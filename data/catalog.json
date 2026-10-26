@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-10-26T00:48:44Z",
+  "generated_at": "2026-10-26T12:36:31Z",
   "currency": "NOK",
   "products": [
     {
@@ -528,6 +528,15 @@
           "availability": "in_stock",
           "url": "https://to.brilleland.no/t/t?a=1611943895&as=2102229792&t=2&tk=1&cupa_sku=40000245&fid=657&url=https://www.brilleland.no/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack2/",
           "checked_at": "2026-10-26T00:43:17.193350+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 339.0,
+          "shipping": 39,
+          "total_price": 378.0,
+          "availability": "out_of_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LM)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2F1-Day-Acuvue-Moist-for-Astigmatism.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "checked_at": "2026-10-26T12:17:35.031093+00:00"
         },
         {
           "merchant": "Coptikk",
@@ -1191,6 +1200,15 @@
           "availability": "in_stock",
           "url": "https://www.synsam.no/myday-daily-disposable-30-stk-pk-1?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-26T00:44:07.143108+00:00"
+        },
+        {
+          "merchant": "Extra Optical",
+          "price": 375.0,
+          "shipping": 45,
+          "total_price": 420.0,
+          "availability": "in_stock",
+          "url": "https://extraoptical.no/myday-1-day-sphere-30-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
+          "checked_at": "2026-10-26T12:17:37.081476+00:00"
         }
       ]
     },
@@ -2985,6 +3003,15 @@
           "availability": "in_stock",
           "url": "https://extraoptical.no/purevision-2-for-presbyopia-6-stk?utm_source=kontaktlinserno&utm_medium=referral&utm_campaign=prissammenligning",
           "checked_at": "2026-10-26T00:42:41.575829+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 689.0,
+          "shipping": 39,
+          "total_price": 728.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LP2P)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FBifokale-linser%2FPureVision2-For-Presbyopia.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "checked_at": "2026-10-26T12:17:37.055991+00:00"
         },
         {
           "merchant": "Interoptik",
@@ -5195,6 +5222,15 @@
           "checked_at": "2026-10-26T00:43:17.193479+00:00"
         },
         {
+          "merchant": "Shopping4net",
+          "price": 415.0,
+          "shipping": 39,
+          "total_price": 454.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LU)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2FAcuvue-Oasys-1-Day-Hydraluxe-for-Astigmatism.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "checked_at": "2026-10-26T12:17:35.589606+00:00"
+        },
+        {
           "merchant": "Extra Optical",
           "price": 415.0,
           "shipping": 45,
@@ -5340,6 +5376,15 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-4244)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Fbiofinity-xr-lens-4244)",
           "checked_at": "2026-10-26T00:42:46.307443+00:00"
+        },
+        {
+          "merchant": "Shopping4net",
+          "price": 269.0,
+          "shipping": 39,
+          "total_price": 308.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LBXR)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FBiofinity-XR.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "checked_at": "2026-10-26T12:17:36.393734+00:00"
         },
         {
           "merchant": "Extra Optical",
@@ -7907,6 +7952,118 @@
           "availability": "in_stock",
           "url": "https://to.interoptik.no/t/t?a=1717731578&as=2102229792&t=2&tk=1&cupa_sku=40000607&fid=1169&url=https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/",
           "checked_at": "2026-10-26T00:42:39.446827+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-prime-30pk",
+      "name": "everclear PRIME 30-pack",
+      "brand": "everclear",
+      "category": "dagslinser",
+      "pack_size": 30,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 191.0,
+          "shipping": 50,
+          "total_price": 241.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10914)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-prime-lens-10914)",
+          "checked_at": "2026-10-26T12:17:34.204928+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 191.0,
+          "shipping": 50,
+          "total_price": 241.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10914)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-prime-lens-10914)",
+          "checked_at": "2026-10-26T12:17:34.241122+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-prime-astigmatism-30pk",
+      "name": "everclear PRIME for Astigmatism 30-pack",
+      "brand": "everclear",
+      "category": "toriske-linser",
+      "pack_size": 30,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 279.0,
+          "shipping": 50,
+          "total_price": 329.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10915)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-prime-for-astigmatism-lens-10915)",
+          "checked_at": "2026-10-26T12:17:34.208269+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 279.0,
+          "shipping": 50,
+          "total_price": 329.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10915)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-prime-for-astigmatism-lens-10915)",
+          "checked_at": "2026-10-26T12:17:34.254928+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate1-astigmatism-30pk",
+      "name": "everclear ULTIMATE1 for Astigmatism 30-pack",
+      "brand": "everclear",
+      "category": "toriske-linser",
+      "pack_size": 30,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 343.0,
+          "shipping": 50,
+          "total_price": 393.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10917)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-for-astigmatism-lens-10917)",
+          "checked_at": "2026-10-26T12:17:34.212165+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 343.0,
+          "shipping": 50,
+          "total_price": 393.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10917)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-for-astigmatism-lens-10917)",
+          "checked_at": "2026-10-26T12:17:34.265445+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate30-astigmatism-3pk",
+      "name": "everclear ULTIMATE30 for Astigmatism 3-pack",
+      "brand": "everclear",
+      "category": "toriske-linser",
+      "pack_size": 3,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 199.0,
+          "shipping": 50,
+          "total_price": 249.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10919)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate30-for-astigmatism-lens-10919)",
+          "checked_at": "2026-10-26T12:17:34.222253+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 199.0,
+          "shipping": 50,
+          "total_price": 249.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10919)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate30-for-astigmatism-lens-10919)",
+          "checked_at": "2026-10-26T12:17:34.283048+00:00"
         }
       ]
     },
