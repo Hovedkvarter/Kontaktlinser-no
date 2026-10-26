@@ -1808,6 +1808,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 339.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LM)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2F1-Day-Acuvue-Moist-for-Astigmatism.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": false,
+          "checked_at": "2026-10-26T12:17:35.031093+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LM_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-moist-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
+          }
         }
       ]
     },
@@ -3559,6 +3579,26 @@
           "shipping_policy": {
             "free_over": null,
             "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Extra Optical",
+          "brand": "myday",
+          "source": "affiliate_feed",
+          "network": "adtraction",
+          "price_nok": 375.0,
+          "shipping_nok": 45,
+          "url": "https://track.adtraction.com/t/t?a=1487383541&as=2102229792&t=2&tk=1&cupa_sku=MyDay+1+day+Sphere+30+stk&fid=1650&url=https://extraoptical.no/myday-1-day-sphere-30-stk",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:37.081476+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/m/y/myday30.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "myday-30pk",
+          "shipping_policy": {
+            "free_over": 900,
+            "fee_nok": 45
           }
         }
       ]
@@ -8187,6 +8227,26 @@
           "product_id": "purevision2-presbyopia-6pk",
           "shipping_policy": {
             "free_over": null,
+            "fee_nok": 39
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "purevision",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 689.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LP2P)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FBifokale-linser%2FPureVision2-For-Presbyopia.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:37.055991+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LP2P_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "purevision2-presbyopia-6pk",
+          "shipping_policy": {
+            "free_over": 700,
             "fee_nok": 39
           }
         }
@@ -13519,6 +13579,26 @@
             "free_over": 500,
             "fee_nok": 50
           }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "acuvue",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 415.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LU)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FToriske-linser%2FAcuvue-Oasys-1-Day-Hydraluxe-for-Astigmatism.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:35.589606+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LU_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "acuvue-oasys-1day-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
+          }
         }
       ]
     },
@@ -13909,6 +13989,26 @@
           "shipping_policy": {
             "free_over": 500,
             "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Shopping4net",
+          "brand": "biofinity",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 269.0,
+          "shipping_nok": 39,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(198299)product(14910-LBXR)ttid(3)url(https%3A%2F%2Fwww.shopping4net.com%2Fno%2FKontaktlinser%2FMaanedslinser%2FBiofinity-XR.htm%3FsClickID%3DTradeDoubler-1-3)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:36.393734+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LBXR_1.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "biofinity-xr-3pk",
+          "shipping_policy": {
+            "free_over": 700,
+            "fee_nok": 39
           }
         }
       ]
@@ -25014,6 +25114,326 @@
           "shipping_policy": {
             "free_over": 0,
             "fee_nok": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-prime-30pk",
+      "slug": "everclear-prime-30-pack",
+      "name": "everclear PRIME 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear PRIME er en sfærisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er hydrogel. Dette er den sfæriske varianten av PRIME. Varianten for astigmatisme har en egen produktside. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materialtype",
+          "Hydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-prime-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-prime-lens-10914",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 191.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10914)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-prime-lens-10914)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.204928+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/2/1/3/5/6/everclear-prime-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-prime-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 191.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10914)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-prime-lens-10914)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.241122+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-prime-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-prime-astigmatism-30pk",
+      "slug": "everclear-prime-astigmatism-30-pack",
+      "name": "everclear PRIME for Astigmatism 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear PRIME for Astigmatism er en torisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er hydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Hydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-prime-astigmatism-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-prime-for-astigmatism-lens-10915",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 279.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10915)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-prime-for-astigmatism-lens-10915)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.208269+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/2/8/3/8/9/everclear-prime-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-prime-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 279.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10915)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-prime-for-astigmatism-lens-10915)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.254928+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-prime-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate1-astigmatism-30pk",
+      "slug": "everclear-ultimate1-astigmatism-30-pack",
+      "name": "everclear ULTIMATE1 for Astigmatism 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear ULTIMATE1 for Astigmatism er en torisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er silikonhydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-ultimate1-astigmatism-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-ultimate1-for-astigmatism-lens-10917",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 343.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10917)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-for-astigmatism-lens-10917)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.212165+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/1/2/1/3/9/lo-everclear-ultimate1-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 343.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10917)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-for-astigmatism-lens-10917)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.265445+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-astigmatism-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate30-astigmatism-3pk",
+      "slug": "everclear-ultimate30-astigmatism-3-pack",
+      "name": "everclear ULTIMATE30 for Astigmatism 3-pack",
+      "description": "Månedslinse fra Menicon under merket everclear. Pakningen inneholder 3 linser.",
+      "long_description": "everclear ULTIMATE30 for Astigmatism er en torisk månedslinse fra Menicon. Pakningen inneholder 3 linser, og linsetypen er silikonhydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 3-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "3 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-ultimate30-astigmatism-3pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-ultimate30-for-astigmatism-lens-10919",
+      "offers": [
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 199.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10919)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate30-for-astigmatism-lens-10919)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.222253+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/6/0/3/0/9/everclear-ultimate30-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate30-astigmatism-3pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 199.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10919)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate30-for-astigmatism-lens-10919)",
+          "in_stock": true,
+          "checked_at": "2026-10-26T12:17:34.283048+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate30-astigmatism-3pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
           }
         }
       ]

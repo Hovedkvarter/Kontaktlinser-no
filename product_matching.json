@@ -96,7 +96,8 @@
     "Nor_PureMoist 300ml": "optifree-puremoist-300ml",
     "Nor_Express 355ml": "optifree-express-355ml",
     "Nor_Express 120ml": "optifree-express-120ml",
-    "Nor_Aosept 360ml": "aosept-plus-360ml"
+    "Nor_Aosept 360ml": "aosept-plus-360ml",
+    "MyDay 1 day Sphere 30 stk": "myday-30pk"
   },
   "adtraction_apotekhjem": {
     "$comment": "Apotekhjem (Adtraction, pfid=2510) -- verifisert mot ekte feed 2026-08-28. Nøkkelen er feedens 'id'-kolonne (numerisk, IKKE samme navnerom som ExtraOptical sin id-kolonne -- derfor egen tabell, se sources_config.json). Feeden er Apotekhjem sin fulle apotek-/dyrebutikk-katalog (9416 varer), kun linsevæske-/øyedråpe-produkter er koblet her. 'Systane hydra ... u/kon' og 'Systane ultra ... u/kon' matchet mot hhv. systane-hydration-10ml/systane-ultra-10ml på navn+størrelse -- moderat sikkerhet (apotekhjem sin 'u/kon'-kvalifikator antas å beskrive samme produkt Lenson/Lensway allerede sporer under samme navn, ikke en egen konkurrerende variant, siden Norge normalt bare selger én SKU per Systane-navn+størrelse). RUNDE 2 (samme dag): la til 10 nye produkter i solutions_meta.json for merker feeden avdekket som vi ikke sporet fra før (Clearlii, Artelac, Viscotears, EvoTears, Hyprosan, Bevita, POSIFORLID, Desodrop, Cleye, Euphrasia Pollendråper) -- kun ETT representativt SKU/pakningsstørrelse per merke, ikke alle varianter feeden har (f.eks. Artelac finnes også som endose-pakning, Viscotears i 3 ulike pakninger -- disse er bevisst utelatt for å holde omfanget likt spørsmålet brukeren fikk). To datakvalitetsfunn underveis: id 11517 ('Clearlii multi-purpose' uten ml-angivelse) hadde en beskrivelse som tydelig tilhørte et helt annet produkt ('Apolinsen linsevæske 355ml') -- luket ut, brukte i stedet id 11515 ('Clearlii multi-purpose 100 ml', bekreftet på selve produktsiden). To Hyprosan-rader (85491/85492) delte identisk tittel/beskrivelse men ulik pris -- besøkte begge produktsidene direkte og fant at 85491 er en 3-pakning (3x10 ml, 447 kr) og 85492 er enkeltflasken (10 ml, 157 kr) -- brukte 85492 for å matche enkeltflaske-mønsteret resten av katalogen følger.",
@@ -245,7 +246,11 @@
     "LP13": "precision1-30pk",
     "LP19": "precision1-90pk",
     "LN": "precision1-astigmatism-30pk",
-    "LR": "precision1-astigmatism-90pk"
+    "LR": "precision1-astigmatism-90pk",
+    "LM": "acuvue-moist-astigmatism-30pk",
+    "LU": "acuvue-oasys-1day-astigmatism-30pk",
+    "LBXR": "biofinity-xr-3pk",
+    "LP2P": "purevision2-presbyopia-6pk"
   },
   "tradedoubler_lenson": {
     "$comment": "Lenson (Tradedoubler, fid=9560) -- feed aktivert 2026-08-29. Nøkkelen er offers[0].sourceProductId. Tabellen er bygget programmatisk fra allerede verifiserte scrape_targets-slugs i products_meta.json/solutions_meta.json (retailer=lenson) -- Tradedoubler sin sourceProductId er identisk med tall-suffikset i den scrapede URL-slugen (f.eks. \"tearsagain-spray-extra-10571\" -> \"10571\"), bekreftet mot ekte feed-data for samtlige 131 rader (0 mangler, 0 navnemismatch ved manuell gjennomgang) før dette ble stolt på. Dekker både kontaktlinser og linsevæske/øyedråper (samme forhandler, samme feed). RUNDE 2 (2026-08-29, bildesjekk): la til Precision7 12-/27-pack + astigmatisme-variantene (10819-10822) -- disse hadde ALDRI scrape_targets for lenson/lensway (CLAUDE.md sin historikk viser at 6-pack-varianten ble fjernet 2026-08-15 pga. feil pakningsstørrelse, men katalogen migrerte siden til ekte 12-/27-pack-IDer uten at noen la Lenson/Lensway til på nytt). Verifisert både ved distinkt eskestørrelse på selve produktbildet (12-pack synlig smalere enn 27-pack) og riktig kategori (Kontaktlinser > Ukelinser/Toriske linser).",
@@ -423,7 +428,11 @@
     "8220": "everclear-air-1pk",
     "7066": "everclear-elite-5pk",
     "8221": "everclear-plus-1pk",
-    "7824": "clearcolor-1-day-phantom-2pk"
+    "7824": "clearcolor-1-day-phantom-2pk",
+    "10914": "everclear-prime-30pk",
+    "10915": "everclear-prime-astigmatism-30pk",
+    "10917": "everclear-ultimate1-astigmatism-30pk",
+    "10919": "everclear-ultimate30-astigmatism-3pk"
   },
   "tradedoubler_lensway": {
     "$comment": "Lensway (Tradedoubler, fid=6884) -- feed aktivert 2026-08-29. Nøkkelen er offers[0].sourceProductId. Samme fremgangsmåte som Lenson (se der) -- 129 rader hentet fra verifiserte scrape_targets-slugs, samme sourceProductId-mønster bekreftet. 4 av disse (154, 6058, 6509, 8436) fantes ikke i feeden ved siste verifisering -- utelates ikke fra tabellen (samme SKU vil garantert dukke opp igjen om Lensway får dem tilbake på lager), men gir naturligvis ingen tilbud før de faktisk finnes i feeden. Lenson og Lensway deler for øvrig samme sourceProductId per fysisk produkt (samme LensGroup-plattform, bekreftet direkte i feed-data).",
@@ -601,7 +610,11 @@
     "8220": "everclear-air-1pk",
     "7066": "everclear-elite-5pk",
     "8221": "everclear-plus-1pk",
-    "7824": "clearcolor-1-day-phantom-2pk"
+    "7824": "clearcolor-1-day-phantom-2pk",
+    "10914": "everclear-prime-30pk",
+    "10915": "everclear-prime-astigmatism-30pk",
+    "10917": "everclear-ultimate1-astigmatism-30pk",
+    "10919": "everclear-ultimate30-astigmatism-3pk"
   },
   "adtraction_brilleland": {
     "40000013": "acuvue-moist-30pk",

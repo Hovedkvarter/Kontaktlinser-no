@@ -193,7 +193,8 @@
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=medipearl?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=posiforlid?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
       "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=evotears?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
-      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=precision1?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=precision1?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663",
+      "https://api.tradedoubler.com/1.0/products.json;pageSize=100;fid=14910;q=PureVision2?token=8FEF4DDC21744F9BA511C7FEB37BE96014788663"
     ],
     "category_prefixes": [
       "Kontaktlinser >",

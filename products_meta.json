@@ -8169,6 +8169,162 @@
       "image_source": "affiliate_feed",
       "image_original_url": "https://www.interoptik.no/globalassets/from-pim/eyexpert-natural/40000607_20.jpg",
       "product_source_url": "https://www.interoptik.no/kontaktlinser/eyexpert/eyexpert-natural/"
+    },
+    {
+      "id": "everclear-prime-30pk",
+      "slug": "everclear-prime-30-pack",
+      "name": "everclear PRIME 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear PRIME er en sfærisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er hydrogel. Dette er den sfæriske varianten av PRIME. Varianten for astigmatisme har en egen produktside. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materialtype",
+          "Hydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-prime-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-prime-lens-10914"
+    },
+    {
+      "id": "everclear-prime-astigmatism-30pk",
+      "slug": "everclear-prime-astigmatism-30-pack",
+      "name": "everclear PRIME for Astigmatism 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear PRIME for Astigmatism er en torisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er hydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Hydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-prime-astigmatism-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-prime-for-astigmatism-lens-10915"
+    },
+    {
+      "id": "everclear-ultimate1-astigmatism-30pk",
+      "slug": "everclear-ultimate1-astigmatism-30-pack",
+      "name": "everclear ULTIMATE1 for Astigmatism 30-pack",
+      "description": "Dagslinse fra Menicon under merket everclear. Pakningen inneholder 30 linser.",
+      "long_description": "everclear ULTIMATE1 for Astigmatism er en torisk dagslinse fra Menicon. Pakningen inneholder 30 linser, og linsetypen er silikonhydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 30-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-ultimate1-astigmatism-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-ultimate1-for-astigmatism-lens-10917"
+    },
+    {
+      "id": "everclear-ultimate30-astigmatism-3pk",
+      "slug": "everclear-ultimate30-astigmatism-3-pack",
+      "name": "everclear ULTIMATE30 for Astigmatism 3-pack",
+      "description": "Månedslinse fra Menicon under merket everclear. Pakningen inneholder 3 linser.",
+      "long_description": "everclear ULTIMATE30 for Astigmatism er en torisk månedslinse fra Menicon. Pakningen inneholder 3 linser, og linsetypen er silikonhydrogel. Varianten er laget for korreksjon av astigmatisme og har egne valg for sylinder og akse. Her sammenligner du butikktilbud på samme 3-pakning. Kontroller at produktnavn, pakningsstørrelse og linseparametere samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "toriske-linser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Månedslinse"
+        ],
+        [
+          "Linsetype",
+          "Torisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "3 linser"
+        ]
+      ],
+      "scrape_targets": [],
+      "manual_image": "/static/products/everclear-ultimate30-astigmatism-3pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "image_reviewed_at": "2026-10-26",
+      "product_source_url": "https://www.lenson.com/no/everclear-ultimate30-for-astigmatism-lens-10919"
     }
   ]
 }

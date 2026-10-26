@@ -1,0 +1,190 @@
+{
+  "checked_at": "2026-10-26T12:17:37.140618+00:00",
+  "base_commit": "3363de35b2ab7283324bfd6bc04d2a6f58159e2d",
+  "decisions": [
+    {
+      "key": "lenson:10914",
+      "product_id": "everclear-prime-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lenson.com/no/everclear-prime-lens-10914",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/2/1/3/5/6/everclear-prime-image-original.jpg",
+      "fingerprint": "513119ef0c5d9634",
+      "checked_at": "2026-10-26T12:17:34.204928+00:00"
+    },
+    {
+      "key": "lenson:10915",
+      "product_id": "everclear-prime-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lenson.com/no/everclear-prime-for-astigmatism-lens-10915",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/2/8/3/8/9/everclear-prime-for-astigmatism-image-original.jpg",
+      "fingerprint": "0e8c1f66276b6034",
+      "checked_at": "2026-10-26T12:17:34.208269+00:00"
+    },
+    {
+      "key": "lenson:10917",
+      "product_id": "everclear-ultimate1-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lenson.com/no/everclear-ultimate1-for-astigmatism-lens-10917",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/1/2/1/3/9/lo-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "fingerprint": "e853598479567057",
+      "checked_at": "2026-10-26T12:17:34.212165+00:00"
+    },
+    {
+      "key": "lenson:10919",
+      "product_id": "everclear-ultimate30-astigmatism-3pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lenson.com/no/everclear-ultimate30-for-astigmatism-lens-10919",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/6/0/3/0/9/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "fingerprint": "65cd8b4b328a6537",
+      "checked_at": "2026-10-26T12:17:34.222253+00:00"
+    },
+    {
+      "key": "lensway:10914",
+      "product_id": "everclear-prime-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lensway.no/everclear-prime-lens-10914",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/3/7/8/5/everclear-prime-image-original.jpg",
+      "fingerprint": "a8c529f062a53771",
+      "checked_at": "2026-10-26T12:17:34.241122+00:00"
+    },
+    {
+      "key": "lensway:10915",
+      "product_id": "everclear-prime-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lensway.no/everclear-prime-for-astigmatism-lens-10915",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/2/7/7/2/4/everclear-prime-for-astigmatism-image-original.jpg",
+      "fingerprint": "3f961e71bf7a085f",
+      "checked_at": "2026-10-26T12:17:34.254928+00:00"
+    },
+    {
+      "key": "lensway:10917",
+      "product_id": "everclear-ultimate1-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lensway.no/everclear-ultimate1-for-astigmatism-lens-10917",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/9/2/8/4/9/lw-everclear-ultimate1-for-astigmatism-image-original.jpg",
+      "fingerprint": "5762d5734cd110fb",
+      "checked_at": "2026-10-26T12:17:34.265445+00:00"
+    },
+    {
+      "key": "lensway:10919",
+      "product_id": "everclear-ultimate30-astigmatism-3pk",
+      "decision": "mapped",
+      "evidence": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker.",
+      "source_url": "https://www.lensway.no/everclear-ultimate30-for-astigmatism-lens-10919",
+      "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/8/3/8/5/0/everclear-ultimate30-for-astigmatism-image-original.jpg",
+      "fingerprint": "f527eb788e0c604f",
+      "checked_at": "2026-10-26T12:17:34.283048+00:00"
+    },
+    {
+      "key": "shopping4net:LM",
+      "product_id": "acuvue-moist-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Toriske-linser/1-Day-Acuvue-Moist-for-Astigmatism.htm",
+      "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LM_1.jpg",
+      "fingerprint": "e159a91b1fa11d1c",
+      "checked_at": "2026-10-26T12:17:35.031093+00:00"
+    },
+    {
+      "key": "shopping4net:LU",
+      "product_id": "acuvue-oasys-1day-astigmatism-30pk",
+      "decision": "mapped",
+      "evidence": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Toriske-linser/Acuvue-Oasys-1-Day-Hydraluxe-for-Astigmatism.htm",
+      "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LU_1.jpg",
+      "fingerprint": "e698d7ebd23d6a2e",
+      "checked_at": "2026-10-26T12:17:35.589606+00:00"
+    },
+    {
+      "key": "shopping4net:LBXR",
+      "product_id": "biofinity-xr-3pk",
+      "decision": "mapped",
+      "evidence": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Maanedslinser/Biofinity-XR.htm",
+      "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LBXR_1.jpg",
+      "fingerprint": "9fe72d3c72dc5ab0",
+      "checked_at": "2026-10-26T12:17:36.393734+00:00"
+    },
+    {
+      "key": "shopping4net:LP2P",
+      "product_id": "purevision2-presbyopia-6pk",
+      "decision": "mapped",
+      "evidence": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Bifokale-linser/PureVision2-For-Presbyopia.htm",
+      "image_url": "http://www.shopping4net.com/Common/PCCs/Products/Grpx/L4Net/Img-LP2P_1.jpg",
+      "fingerprint": "61001148c20cae12",
+      "checked_at": "2026-10-26T12:17:37.055991+00:00"
+    },
+    {
+      "key": "extraoptical:MyDay 1 day Sphere 30 stk",
+      "product_id": "myday-30pk",
+      "decision": "mapped",
+      "evidence": "Feedtittelen sier feilaktig Proclear. SKU, MyDay-beskrivelse, måladresse og feedbilde med MyDay 30 linser bekrefter MyDay 30-pack. Ingen kobling til Proclear.",
+      "source_url": "https://extraoptical.no/myday-1-day-sphere-30-stk",
+      "image_url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/m/y/myday30.jpg",
+      "fingerprint": "161a0a7b490fd389",
+      "checked_at": "2026-10-26T12:17:37.081476+00:00"
+    },
+    {
+      "key": "interoptik:40000719",
+      "decision": "covered",
+      "fingerprint": "1bfaee1d4b964cbd",
+      "evidence": "Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718.",
+      "source_url": "https://www.interoptik.no/kontaktlinser/total30/total30-multifocal-6-pack/"
+    },
+    {
+      "key": "interoptik:40000720",
+      "decision": "covered",
+      "fingerprint": "1bfaee1d4b964cbd",
+      "evidence": "Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718.",
+      "source_url": "https://www.interoptik.no/kontaktlinser/total30/total30-multifocal-6-pack/"
+    },
+    {
+      "key": "shopping4net:LB1",
+      "decision": "deferred_out_of_stock",
+      "pack_size": 1,
+      "fingerprint": "0ebf439e49cc77f4",
+      "evidence": "Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Fargede-linser/Biomedics-55-Evolution-Color-1p.htm"
+    },
+    {
+      "key": "shopping4net:CL",
+      "decision": "deferred_out_of_stock",
+      "pack_size": 2,
+      "fingerprint": "b0a015a4fd44100f",
+      "evidence": "Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Fargede-linser/FreshLook-ColorBlends.htm"
+    },
+    {
+      "key": "shopping4net:LAOA",
+      "decision": "deferred_out_of_stock",
+      "pack_size": 6,
+      "fingerprint": "da0bb595a688b856",
+      "evidence": "Identitet og 6-pakning bekreftet i butikkens produkttabell (artikkelnummer LAOA). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt.",
+      "source_url": "https://www.shopping4net.com/no/Kontaktlinser/Maanedslinser/Air-Optix-Aqua-6p.htm"
+    },
+    {
+      "key": "extraoptical:1-DAY ACUVUE 30 stk",
+      "decision": "unresolved_no_duplicate",
+      "fingerprint": "8f8d3768e05b634f",
+      "evidence": "Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart.",
+      "source_url": "https://extraoptical.no/1-day-acuvue-30-stk",
+      "image_url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_30pk.jpg"
+    },
+    {
+      "key": "extraoptical:1-DAY ACUVUE 90 stk",
+      "decision": "unresolved_no_duplicate",
+      "fingerprint": "319df27b788efeb0",
+      "evidence": "Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart.",
+      "source_url": "https://extraoptical.no/1-day-acuvue-90-stk",
+      "image_url": "https://extraoptical.media-tinyelephant.no/pub/media/catalog/product/1/-/1-DAY_ACUVUE_90pk.jpg"
+    }
+  ]
+}
