@@ -38,6 +38,8 @@ Relevansfilteret inkluderer linsekategorier, øyepleie, linsepleie, linseetuier,
 
 ## Drift og gjennomgang
 
+Prioritering avklart 26. oktober 2026: Alle kontaktlinser er prioritet 1, også eldre uavklarte kandidater. Nye produkter/serier og pakninger skal undersøkes og foreslås for produksjon og publisering. Nye annonsører på eksisterende produkter skal kobles etter bekreftet identitet, variant og pakning. Rapporter skal skille mellom klart for opprettelse, klart for kobling og konkret manglende dokumentasjon. Publisering krever godkjenning. Se `contact-lens-feed-review-2026-10-26.md` for første samlede arbeidsrunde.
+
 Workflow: `.github/workflows/feed-discovery.yml`.
 
 - Kjøres hver dag kl. 03:20 UTC (05:20 norsk sommertid / 04:20 vintertid), og kan startes manuelt i GitHub Actions.

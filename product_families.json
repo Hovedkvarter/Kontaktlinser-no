@@ -295,6 +295,14 @@
         "miru-1day-flatpack-multifocal-30pk",
         "miru-1day-flatpack-30pk"
       ]
+    },
+    {
+      "slug": "everclear-prime",
+      "name": "everclear PRIME",
+      "member_ids": [
+        "everclear-prime-30pk",
+        "everclear-prime-astigmatism-30pk"
+      ]
     }
   ]
 }

@@ -1,39 +1,39 @@
 {
   "extraoptical:1-DAY ACUVUE 30 stk": {
     "fingerprint": "8f8d3768e05b634f",
-    "status": "Avklar feeddata",
+    "status": "Avklar feeddata – butikk allerede dekket",
     "family": "1-Day Acuvue 30 stk",
-    "note": "Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet."
+    "note": "Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart."
   },
   "extraoptical:1-DAY ACUVUE 90 stk": {
     "fingerprint": "319df27b788efeb0",
-    "status": "Avklar feeddata",
+    "status": "Avklar feeddata – butikk allerede dekket",
     "family": "1-Day Acuvue 90 stk",
-    "note": "Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet."
+    "note": "Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart."
   },
   "shopping4net:LM": {
     "fingerprint": "e159a91b1fa11d1c",
-    "status": "Avklar pakning",
-    "family": "1-Day Acuvue Moist for Astigmatism",
-    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+    "status": "Koblet",
+    "family": "1-Day Acuvue Moist for Astigmatism 30-pack",
+    "note": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell."
   },
   "shopping4net:LU": {
     "fingerprint": "e698d7ebd23d6a2e",
-    "status": "Avklar pakning",
-    "family": "Acuvue Oasys 1-Day Hydraluxe for Astigmatism",
-    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+    "status": "Koblet",
+    "family": "Acuvue Oasys 1-Day for Astigmatism 30-pack",
+    "note": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell."
   },
   "shopping4net:LAOA": {
     "fingerprint": "da0bb595a688b856",
-    "status": "Ny produktkandidat",
+    "status": "Pakning avklart – utsolgt",
     "family": "Air Optix Aqua",
-    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+    "note": "Identitet og 6-pakning bekreftet i butikkens produkttabell (artikkelnummer LAOA). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt."
   },
   "shopping4net:LBXR": {
     "fingerprint": "9fe72d3c72dc5ab0",
-    "status": "Avklar pakning",
-    "family": "Biofinity XR",
-    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+    "status": "Koblet",
+    "family": "Biofinity XR 3-pack",
+    "note": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell."
   },
   "lenson:6975": {
     "fingerprint": "787fc1749a7146f2",
@@ -97,9 +97,9 @@
   },
   "shopping4net:CL": {
     "fingerprint": "b0a015a4fd44100f",
-    "status": "Ny produktkandidat",
+    "status": "Pakning avklart – utsolgt",
     "family": "FreshLook ColorBlends",
-    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+    "note": "Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt."
   },
   "lenson:7824": {
     "fingerprint": "22f586994963fa8e",
@@ -139,21 +139,21 @@
   },
   "extraoptical:MyDay 1 day Sphere 30 stk": {
     "fingerprint": "161a0a7b490fd389",
-    "status": "Avklar feeddata",
-    "family": "Proclear 1 day",
-    "note": "Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart."
+    "status": "Koblet",
+    "family": "MyDay 30-pack",
+    "note": "Feedtittelen sier feilaktig Proclear. SKU, MyDay-beskrivelse, måladresse og feedbilde med MyDay 30 linser bekrefter MyDay 30-pack. Ingen kobling til Proclear."
   },
   "shopping4net:LP2P": {
     "fingerprint": "61001148c20cae12",
-    "status": "Avklar pakning",
-    "family": "PureVision2 For Presbyopia",
-    "note": "Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning."
+    "status": "Koblet",
+    "family": "PureVision 2 for Presbyopia 6-pack",
+    "note": "Pakning og artikkelnummer bekreftet i Shopping4nets produkttabell."
   },
   "shopping4net:LB1": {
     "fingerprint": "0ebf439e49cc77f4",
-    "status": "Ny produktkandidat",
+    "status": "Pakning avklart – utsolgt",
     "family": "Supra 55 UV Tint",
-    "note": "Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse."
+    "note": "Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt."
   },
   "brilleland:40000719": {
     "fingerprint": "ad63e8554761b990",
@@ -1212,16 +1212,16 @@
     "note": "Koblet til total30-multifocal-6pk. Feednavn angir pakning"
   },
   "interoptik:40000719": {
-    "fingerprint": "a8d6cd50a202006a",
-    "status": "Dekket av eksisterende produkt",
-    "family": "Total30 Multifocal 6 pack",
-    "note": "TOTAL30 Multifocal 6-pack er allerede koblet gjennom SKU 40000718. Disse ekstra variantradene opprettes ikke som egne produkter eller ekstra butikktilbud."
+    "fingerprint": "1bfaee1d4b964cbd",
+    "status": "Allerede dekket",
+    "family": "TOTAL30 Multifocal 6-pack",
+    "note": "Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718."
   },
   "interoptik:40000720": {
-    "fingerprint": "e4796aad029febf7",
-    "status": "Dekket av eksisterende produkt",
-    "family": "Total30 Multifocal 6 pack",
-    "note": "TOTAL30 Multifocal 6-pack er allerede koblet gjennom SKU 40000718. Disse ekstra variantradene opprettes ikke som egne produkter eller ekstra butikktilbud."
+    "fingerprint": "1bfaee1d4b964cbd",
+    "status": "Allerede dekket",
+    "family": "TOTAL30 Multifocal 6-pack",
+    "note": "Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718."
   },
   "interoptik:40000678": {
     "fingerprint": "ab00ecbaca072b97",
@@ -1366,5 +1366,53 @@
     "status": "Koblet til produkt",
     "family": "THEALOZ Duo Øyedråper 10 ml",
     "note": "Koblet til thealoz-duo-10ml. Feednavn angir pakning"
+  },
+  "lenson:10914": {
+    "fingerprint": "513119ef0c5d9634",
+    "status": "Koblet",
+    "family": "everclear PRIME 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lenson:10915": {
+    "fingerprint": "0e8c1f66276b6034",
+    "status": "Koblet",
+    "family": "everclear PRIME for Astigmatism 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lenson:10917": {
+    "fingerprint": "e853598479567057",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 for Astigmatism 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lenson:10919": {
+    "fingerprint": "65cd8b4b328a6537",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE30 for Astigmatism 3-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lensway:10914": {
+    "fingerprint": "a8c529f062a53771",
+    "status": "Koblet",
+    "family": "everclear PRIME 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lensway:10915": {
+    "fingerprint": "3f961e71bf7a085f",
+    "status": "Koblet",
+    "family": "everclear PRIME for Astigmatism 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lensway:10917": {
+    "fingerprint": "5762d5734cd110fb",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 for Astigmatism 30-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lensway:10919": {
+    "fingerprint": "f527eb788e0c604f",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE30 for Astigmatism 3-pack",
+    "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
   }
 }
