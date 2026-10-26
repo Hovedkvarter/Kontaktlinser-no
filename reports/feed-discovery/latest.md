@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-26T09:05:35.831655+00:00
+Kontrollert: 2026-10-26T12:36:42.659977+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,41 +9,28 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2772 | 87 | 80 | 7 |
-| Lensway | ok | 1081 | 185 | 175 | 10 |
-| Lenson | ok | 186 | 186 | 175 | 11 |
-| Shopping4net | ok | 20207 | 119 | 90 | 29 |
+| Extra Optical | ok | 2772 | 87 | 81 | 6 |
+| Lensway | ok | 1079 | 185 | 179 | 6 |
+| Lenson | ok | 186 | 186 | 179 | 7 |
+| Shopping4net | ok | 20207 | 119 | 94 | 25 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9523 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 13.
 
 ## Kandidater
 
 | Feed | Produkt | Gruppe | Vurdering | Mulige eksisterende | Endring |
 |---|---|---|---|---|---|
-| Extra Optical | 1-Day Acuvue 30 stk | Kontaktlinser | Avklar feeddata – Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet. | 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist Multifocal 30-pack | Uendret |
-| Extra Optical | 1-Day Acuvue 90 stk | Kontaktlinser | Avklar feeddata – Feeden sier bare 1-Day Acuvue. Ikke anta Moist eller Oasys ut fra navnelikhet. | 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist Multifocal 90-pack | Uendret |
-| Shopping4net | 1-Day Acuvue Moist for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | 1-Day Acuvue Moist for Astigmatism 30-pack, 1-Day Acuvue Moist for Astigmatism 90-pack, Acuvue Oasys for Astigmatism 6-pack | Uendret |
-| Shopping4net | Acuvue Oasys 1-Day Hydraluxe for Astigmatism | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Acuvue Oasys 1-Day for Astigmatism 30-pack, Acuvue Oasys 1-Day for Astigmatism 90-pack, Acuvue Oasys MAX 1-Day for Astigmatism 30-pack | Uendret |
-| Shopping4net | Air Optix Aqua | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Shopping4net | Biofinity XR | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | Biofinity XR 6-pack, Biofinity XR 3-pack, Biofinity 6-pack | Uendret |
-| Lenson | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lensway | everclear PRIME | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Ny produktkandidat |  | Uendret |
-| Shopping4net | FreshLook ColorBlends | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Extra Optical | Proclear 1 day | Kontaktlinser | Avklar feeddata – Varenummer sier MyDay, mens tittel sier Proclear. Ikke koble før motstriden er avklart. | Proclear 1 day 30-pack, Proclear 1 day 90-pack | Uendret |
-| Shopping4net | PureVision2 For Presbyopia | Kontaktlinser | Avklar pakning – Serien finnes allerede, men feedtittelen mangler pakningsstørrelse. Kan være ny kobling eller annen pakning. | PureVision 2 for Presbyopia 6-pack | Uendret |
-| Shopping4net | Supra 55 UV Tint | Kontaktlinser | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Extra Optical | 1-Day Acuvue 30 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist Multifocal 30-pack | Uendret |
+| Extra Optical | 1-Day Acuvue 90 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist Multifocal 90-pack | Uendret |
+| Shopping4net | Air Optix Aqua | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 6-pakning bekreftet i butikkens produkttabell (artikkelnummer LAOA). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
+| Shopping4net | FreshLook ColorBlends | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
+| Shopping4net | Supra 55 UV Tint | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
-| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Åpen – Mulig eksisterende produkt | TOTAL30 Multifocal 6-pack | Uendret |
-| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Åpen – Mulig eksisterende produkt | TOTAL30 Multifocal 6-pack | Uendret |
+| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718. | TOTAL30 Multifocal 6-pack | Uendret |
+| Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718. | TOTAL30 Multifocal 6-pack | Uendret |
 | Shopping4net | Bausch &amp; Lomb Ocuvite Complete 60 kapsler | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
 | Shopping4net | BioCare Ögonkomplex 60 kapsler | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
 | Shopping4net | Elexir Pharma Elexir Blue Eye 2x64 tabletter | Kosttilskudd – vurder relevans | Vurder sortiment – Øyerelatert kosttilskudd. Vurder om denne produktgruppen skal inngå på kontaktlinser.no. |  | Uendret |
