@@ -70896,5 +70896,33 @@
       "price": 213.0,
       "store": "Interoptik"
     }
+  ],
+  "everclear-prime-30pk": [
+    {
+      "date": "2026-10-26",
+      "price": 191.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-prime-astigmatism-30pk": [
+    {
+      "date": "2026-10-26",
+      "price": 279.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-ultimate1-astigmatism-30pk": [
+    {
+      "date": "2026-10-26",
+      "price": 343.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-ultimate30-astigmatism-3pk": [
+    {
+      "date": "2026-10-26",
+      "price": 199.0,
+      "store": "Lenson"
+    }
   ]
 }

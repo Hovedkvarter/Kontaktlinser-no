@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-10-26",
-  "sig": "8efb6f9e0956d548e7adc4dd0a3a20a0351ffa5a"
+  "sig": "149e924a4611c2a662d102efdea63e88be41f70c"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-10-15",
@@ -21,7 +21,7 @@
  },
  "/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-30-pack/": {
   "lastmod": "2026-10-26",
-  "sig": "24218ce4779adbac709f480ea77ff26c9ffadae9"
+  "sig": "aad04a5f074c16a036891bf1887358f19ce123c6"
  },
  "/kontaktlinser/acuvue/1-day-acuvue-moist-for-astigmatism-90-pack/": {
   "lastmod": "2026-10-26",
@@ -37,7 +37,7 @@
  },
  "/kontaktlinser/acuvue/acuvue-oasys-1-day-for-astigmatism-30-pack/": {
   "lastmod": "2026-10-26",
-  "sig": "81df907b974efef536011b1b487473f9ac6448f1"
+  "sig": "7cbc71bc2646cb3d0affe78fbdb2e0d3679a369c"
  },
  "/kontaktlinser/acuvue/acuvue-oasys-1-day-for-astigmatism-90-pack/": {
   "lastmod": "2026-10-26",
@@ -161,7 +161,7 @@
  },
  "/kontaktlinser/biofinity/biofinity-xr-3-pack/": {
   "lastmod": "2026-10-26",
-  "sig": "88624268a7c02eb31f24728be8c4d07b867651a2"
+  "sig": "de331b5273104746bbc0a4a656b9b53ee8ce82d5"
  },
  "/kontaktlinser/biofinity/biofinity-xr-6-pack/": {
   "lastmod": "2026-10-26",
@@ -265,7 +265,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-10-26",
-  "sig": "b143b517b2e9c48f1795f7c7fac1fc9bf6d26041"
+  "sig": "b915bf664e31349478bf91c222d2d4ba8e972997"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-10-26",
@@ -399,6 +399,22 @@
   "lastmod": "2026-10-26",
   "sig": "7ea10eafbf4695f5a9b157f44032a56e3ebca068"
  },
+ "/kontaktlinser/everclear/everclear-prime-30-pack/": {
+  "lastmod": "2026-10-26",
+  "sig": "e85432485a28acc605d4becc0e957b8468607ea7"
+ },
+ "/kontaktlinser/everclear/everclear-prime-astigmatism-30-pack/": {
+  "lastmod": "2026-10-26",
+  "sig": "d8774a80e10a73bbcdeef8a37db72a1da70eee0c"
+ },
+ "/kontaktlinser/everclear/everclear-ultimate1-astigmatism-30-pack/": {
+  "lastmod": "2026-10-26",
+  "sig": "230351a8cf9a28ff16492530802306c91700d100"
+ },
+ "/kontaktlinser/everclear/everclear-ultimate30-astigmatism-3-pack/": {
+  "lastmod": "2026-10-26",
+  "sig": "2e5cb4caaaf1d9b9b3b83c6c52b1b5b2d4e0f26b"
+ },
  "/kontaktlinser/eyexpert/eyexpert-natural-30-pack/": {
   "lastmod": "2026-10-26",
   "sig": "4ba8e6a90ee3e3a1738c7339e8c327a5470268e5"
@@ -421,7 +437,7 @@
  },
  "/kontaktlinser/manedslinser/": {
   "lastmod": "2026-10-26",
-  "sig": "ebdc3857a2d947edc53a465fbec289b6bb2a1ac9"
+  "sig": "7f087bb9548b9e45d657759738bdab2c39652b41"
  },
  "/kontaktlinser/miru/miru-1day-flatpack-30-pack/": {
   "lastmod": "2026-10-26",
@@ -465,11 +481,11 @@
  },
  "/kontaktlinser/multifokale-linser/": {
   "lastmod": "2026-10-26",
-  "sig": "551c56fdf87289aca041d8652d3cddad1c437c94"
+  "sig": "bc0ed86dfbd126cbedd3f7681e7b0affc654be5d"
  },
  "/kontaktlinser/myday/myday-30-pack/": {
   "lastmod": "2026-10-26",
-  "sig": "0c1f639270b8dd842a59b0e158a1d62582790230"
+  "sig": "9a1da80b8ef974310abe02773a1338ff41f442d1"
  },
  "/kontaktlinser/myday/myday-90-pack/": {
   "lastmod": "2026-10-26",
@@ -585,7 +601,7 @@
  },
  "/kontaktlinser/purevision/purevision2-for-presbyopia-6-pack/": {
   "lastmod": "2026-10-26",
-  "sig": "1f41e0abf2c5817076f28ef6e5bc6d3b604d486c"
+  "sig": "f5397a00a33d79cd2842cc3aa8582d39a74ede5b"
  },
  "/kontaktlinser/queens-trilogy/queen-s-trilogy-2-pack/": {
   "lastmod": "2026-10-26",
@@ -629,7 +645,7 @@
  },
  "/kontaktlinser/toriske-linser/": {
   "lastmod": "2026-10-26",
-  "sig": "222281c680c6492837bc60e583cf7650c50b6db7"
+  "sig": "243bba4dd978cbec5b90d17aba08081d6a83d104"
  },
  "/kontaktlinser/total30/total30-6-pack/": {
   "lastmod": "2026-10-26",
@@ -769,135 +785,135 @@
  },
  "/merke/acuvue/": {
   "lastmod": "2026-10-26",
-  "sig": "8bcd66d61cbbb29e3df6d6e2cddc3ccaa284e0da"
+  "sig": "825642f0fd8bf9d885a805720a167b8f00bed175"
  },
  "/merke/adore/": {
   "lastmod": "2026-10-26",
-  "sig": "bd2f513d54880135d479f7bb5ae76f23b3255d18"
+  "sig": "5fa2a921acc2793f23144b80f955858e2983f6e8"
  },
  "/merke/air-optix/": {
   "lastmod": "2026-10-26",
-  "sig": "f21380c9017263cc8450685689dd667cb7222f19"
+  "sig": "e766178e958091523ff824a8c756acf78423b723"
  },
  "/merke/ascend/": {
   "lastmod": "2026-10-26",
-  "sig": "b7de317c1aed71b744e207588ab3854d4996a2b6"
+  "sig": "d8683e40706199d2b9c0e0d911e85331c19dab9d"
  },
  "/merke/avaira/": {
   "lastmod": "2026-10-26",
-  "sig": "164810149e498a2cbb660b942ed8f13d301bbe46"
+  "sig": "7cc6bf0961bf7fe1a3480add3ea24745062ff2e0"
  },
  "/merke/biofinity/": {
   "lastmod": "2026-10-26",
-  "sig": "cac809bcc5f8f6741552c35195beccdba8e59ecc"
+  "sig": "4633f2049d20d82311bceee9e384bffa7b2d6522"
  },
  "/merke/biomedics/": {
   "lastmod": "2026-10-26",
-  "sig": "5adf76cc16c2e47b9c4c6b097faf0e1309e96d09"
+  "sig": "c485b26ebb358c7017e3a9f45d8030f16ad1147c"
  },
  "/merke/biotrue/": {
   "lastmod": "2026-10-26",
-  "sig": "4bbe163d14c8bdbb3c850c4cfee9ff36edb67b40"
+  "sig": "775911344827516de33997c9b33e58665a443c8b"
  },
  "/merke/clariti/": {
   "lastmod": "2026-10-26",
-  "sig": "da77f8bae42a41523f072c7209fd39a7dd31686a"
+  "sig": "c54dcdd7248f3e76f6b2273001595d412d61a28c"
  },
  "/merke/clearlab/": {
   "lastmod": "2026-10-26",
-  "sig": "258e34ca30c2d8afcc0abe4d4c15bdf852b6f469"
+  "sig": "8d4d1c1d8a5e77b4b5d126adb1c675fca143fd36"
  },
  "/merke/clearlii/": {
   "lastmod": "2026-10-26",
-  "sig": "4a5b5de4b06fe9301de08a2680c9cde3cdcd2f96"
+  "sig": "04bb7fd21a56521e975d7268385e36b7a4fb18a5"
  },
  "/merke/dailies/": {
   "lastmod": "2026-10-26",
-  "sig": "b63f6824d9a2704addbc201645f6791493aff3a7"
+  "sig": "d97eccb075b0484caed5d85775da19bec57ddf76"
  },
  "/merke/daysoft/": {
   "lastmod": "2026-10-26",
-  "sig": "f70c365fc3fdbff4d303ffb8352e88686f1aa01d"
+  "sig": "2a5bf4a548cdf1bf14a1ab4e2d6a38a60e60fd18"
  },
  "/merke/easyvision/": {
   "lastmod": "2026-10-26",
-  "sig": "06c916437caeb85f1e6ebfd2bdaa762731c152ef"
+  "sig": "593edc340a7eec0a3753671348d7778242143500"
  },
  "/merke/everclear/": {
   "lastmod": "2026-10-26",
-  "sig": "8bb8888b98345aa1fe2a1888d7022159787d5f78"
+  "sig": "aadec1c63632bf28fcad4d41a28e872c03e20e3b"
  },
  "/merke/eyeq/": {
   "lastmod": "2026-10-26",
-  "sig": "6813a4894e105b88f6ed64f05c783ab7f9f4364d"
+  "sig": "d85250cece9a890ea4d6febc4c2214f75d254848"
  },
  "/merke/eyexpert/": {
   "lastmod": "2026-10-26",
-  "sig": "1c2fd6fc1c04027e99f415691cc23df87c1a6823"
+  "sig": "33bc732390d23ed0561d9d15eed4cba2870bea56"
  },
  "/merke/freshlook/": {
   "lastmod": "2026-10-26",
-  "sig": "469ca0f56372d371a306ac6a92a9eeac984b623c"
+  "sig": "348bf2fa9ff032307e174e862ac0d33888b843f1"
  },
  "/merke/iwear/": {
   "lastmod": "2026-10-26",
-  "sig": "e9ecfa6a9b95f6e23c0eb2ad9c0da10438c1f4e3"
+  "sig": "c8226abc40cf994f1ac04917c0f26210891bb899"
  },
  "/merke/live/": {
   "lastmod": "2026-10-26",
-  "sig": "fc39ee43a14eb3ed6b3fd8e8e4d60b058ca918f8"
+  "sig": "2afc08a27ed5bb3c46c91acaec3136dec59e64a2"
  },
  "/merke/miru/": {
   "lastmod": "2026-10-26",
-  "sig": "b199d50b8c95de3eee6b3dfea0c0d17a161e7d85"
+  "sig": "4e9a8d469d0c5397e9700d45e8d56a307275a7c5"
  },
  "/merke/misight/": {
   "lastmod": "2026-10-26",
-  "sig": "c5811de4b1a3ce7802d1822b3ae1796bb1b0c7f0"
+  "sig": "812c8463d93207fa2a968c0168bfeb1dbb67f7ad"
  },
  "/merke/myday/": {
   "lastmod": "2026-10-26",
-  "sig": "21fe5044377c94bfc89be26f27b5d9f09d78048f"
+  "sig": "62ab4a74dc18023c65850f8f64a3400dca2deb04"
  },
  "/merke/precision1/": {
   "lastmod": "2026-10-26",
-  "sig": "0c462b2a0ddb572339f46a6d8743dcad6663b2f4"
+  "sig": "f58a1501471d51be451216b5ef0efd7c139cd7c0"
  },
  "/merke/precision7/": {
   "lastmod": "2026-10-26",
-  "sig": "3ea6bcdef739802c7d7c60f7ec2993459a6fd616"
+  "sig": "f98c197b03e0266e8322d109f3ee3a35c8f49423"
  },
  "/merke/proclear/": {
   "lastmod": "2026-10-26",
-  "sig": "943912485afe4bc5dfb1c1a6180b15617aaf0747"
+  "sig": "9e4c82e9a6c803c5524b5870e7537a1d5378c347"
  },
  "/merke/purevision/": {
   "lastmod": "2026-10-26",
-  "sig": "ab78ee5eaad1060f1c0fe105dc0adb9153f9eea7"
+  "sig": "d8fa942579f7ffd77de31024ffd9e12f5bc15434"
  },
  "/merke/queens-trilogy/": {
   "lastmod": "2026-10-26",
-  "sig": "bf24948c5ce9982624ef7c7dfc539e5f0a8d77ff"
+  "sig": "b435f0578c2f89116df2633eab000ea1cb9fa1f6"
  },
  "/merke/soflens/": {
   "lastmod": "2026-10-26",
-  "sig": "5122995d2e30b3bcab0b622e57f1d43542d26bd3"
+  "sig": "b11eee924fb216b39680dbefe58195fd534b018d"
  },
  "/merke/swati/": {
   "lastmod": "2026-10-26",
-  "sig": "04b0e2ae173c6e08b5a2cee834932bcb109dae8e"
+  "sig": "be4b876685575a05acf76bc1fc48a588140408a8"
  },
  "/merke/total30/": {
   "lastmod": "2026-10-26",
-  "sig": "25c0e599bfe2a515d60d66556a075e04f2187549"
+  "sig": "8861a32311a7dd0decce8238bff26f6959df296b"
  },
  "/merke/truelens/": {
   "lastmod": "2026-10-26",
-  "sig": "d11155ebebc48798ebc2a380b36049aaafe3ad86"
+  "sig": "a82f107af9a3624420e3c56976e1a2a26bc30a93"
  },
  "/merke/ultra/": {
   "lastmod": "2026-10-26",
-  "sig": "63c76644374a1c801e2da32bca4b6a7cc6df8769"
+  "sig": "a05faa073e7a58c9f3c5d8baeb0f13ddfe4cd1ef"
  },
  "/om-oss/": {
   "lastmod": "2026-10-15",
@@ -1121,7 +1137,7 @@
  },
  "/private-label/easyvision-linarial/": {
   "lastmod": "2026-10-26",
-  "sig": "1e80e52d420a02dc12b737746e4b51cb40050866"
+  "sig": "3fca8b3b8996b5d7a68766c95de3bfdb715c2bed"
  },
  "/private-label/easyvision-natural/": {
   "lastmod": "2026-10-26",
@@ -1137,7 +1153,7 @@
  },
  "/private-label/easyvision-opteyes-xr/": {
   "lastmod": "2026-10-26",
-  "sig": "f1a778efc1fa27c0744122dbc91a70eb46a0364c"
+  "sig": "5eb4197b004fbd090e035404b5bdf119f4daf642"
  },
  "/private-label/easyvision-opteyes/": {
   "lastmod": "2026-10-26",
@@ -1189,7 +1205,7 @@
  },
  "/private-label/eyeq-24-xr/": {
   "lastmod": "2026-10-26",
-  "sig": "d1fdbb2f5ad39f9172cafdf54e7116c2b8f2c238"
+  "sig": "4c0a316998afa21a36328fa704bcad6230b01574"
  },
  "/private-label/eyeq-24/": {
   "lastmod": "2026-10-26",
@@ -1337,7 +1353,7 @@
  },
  "/private-label/iwear-harmony/": {
   "lastmod": "2026-10-26",
-  "sig": "56c091d7556f26c8f4114fbf2e6ec2731238d092"
+  "sig": "d56d584807d2b433bb3bb6cc989f0c548b7be97a"
  },
  "/private-label/iwear-hydro-astigmatism/": {
   "lastmod": "2026-10-26",
@@ -1401,7 +1417,7 @@
  },
  "/private-label/truelens-platinum-daily/": {
   "lastmod": "2026-10-26",
-  "sig": "c566d3e7ba053a348b5ca80c6e91b17b016de028"
+  "sig": "6cd44104ae986b485960e15a5d521f44af2e09f9"
  },
  "/private-label/truelens-platinum-monthly-multifocal/": {
   "lastmod": "2026-10-26",
@@ -1421,7 +1437,7 @@
  },
  "/private-label/truelens-premium-monthly-multifocal/": {
   "lastmod": "2026-10-26",
-  "sig": "20fe7ebf7d82986d526e29f3ef0d002ade1b5ce6"
+  "sig": "d04267ee539d13dcee35deeac17d3f16dc592f84"
  },
  "/private-label/truelens-premium-monthly-toric/": {
   "lastmod": "2026-10-26",
@@ -1433,31 +1449,31 @@
  },
  "/produsent/alcon/": {
   "lastmod": "2026-10-26",
-  "sig": "c842326c44b0aff68101a29d5aa85c066cbc0352"
+  "sig": "8839bbeb48313598caae41d3a5a4478eef9484c6"
  },
  "/produsent/bausch-lomb/": {
   "lastmod": "2026-10-26",
-  "sig": "b14801cf45cfa8348dd2c6070b2344cef21af730"
+  "sig": "b8f9c0849764920bc6135fe5fc2bbb536219b6e7"
  },
  "/produsent/coopervision/": {
-  "lastmod": "2026-10-25",
-  "sig": "b9dd232f2831b8c51c455e543e342a8ee8f9b61a"
+  "lastmod": "2026-10-26",
+  "sig": "e92838438462eba2c976c79d9ee5290a5350e217"
  },
  "/produsent/eyemed-technologies/": {
-  "lastmod": "2026-10-20",
-  "sig": "97d3a51614ea420cfb47e990713b6c9bd970c862"
+  "lastmod": "2026-10-26",
+  "sig": "c3474a9f93e3c70c866f9701941296b2bf410c67"
  },
  "/produsent/jnj-vision/": {
-  "lastmod": "2026-10-21",
-  "sig": "4141162d7215742b43da6c68010db3860b80cc5d"
+  "lastmod": "2026-10-26",
+  "sig": "32577fe07fedc1ec215ab80a1d8ebe38ef227b24"
  },
  "/produsent/menicon/": {
   "lastmod": "2026-10-26",
-  "sig": "bac531113fa881fe1ecb023d0430afcfa2b58a2e"
+  "sig": "e6a3bf20aae579cb5cbcf91d0a5bd4d7a86b4ebd"
  },
  "/produsent/pegavision/": {
-  "lastmod": "2026-10-15",
-  "sig": "527a74df2a87320f569d2a878167baf1e8346e54"
+  "lastmod": "2026-10-26",
+  "sig": "66bef4be7bcf790a01f24fa4ea99851be9de769c"
  },
  "/redaksjonelle-prinsipper/": {
   "lastmod": "2026-10-15",
@@ -1469,7 +1485,7 @@
  },
  "/serie/acuvue-oasys-1day-hydraluxe/": {
   "lastmod": "2026-10-26",
-  "sig": "233d786be6df6665524a23e24fafc50c7fd5d329"
+  "sig": "9dcad843712df26b9e61227092d3c74d65649c30"
  },
  "/serie/acuvue-oasys-max-1day/": {
   "lastmod": "2026-10-26",
@@ -1501,7 +1517,7 @@
  },
  "/serie/biofinity-xr/": {
   "lastmod": "2026-10-26",
-  "sig": "80948d1a45dc9406219d9509be1ca0dc630462d6"
+  "sig": "04c2cde2e7271ca9089a9ababb5400d6a2fe5264"
  },
  "/serie/biofinity/": {
   "lastmod": "2026-10-26",
@@ -1537,7 +1553,7 @@
  },
  "/serie/easyvision-linarial/": {
   "lastmod": "2026-10-26",
-  "sig": "d391530b6e52255f67f301f21edea8c61c8f4a67"
+  "sig": "a2af24f15734d890c26dcf2ac1aa93df728ef9cd"
  },
  "/serie/easyvision-opteyes/": {
   "lastmod": "2026-10-26",
@@ -1554,6 +1570,10 @@
  "/serie/easyvision-vitrea/": {
   "lastmod": "2026-10-26",
   "sig": "77bfc6a48cf14f99a0633c5feef8bca79408c6c7"
+ },
+ "/serie/everclear-prime/": {
+  "lastmod": "2026-10-26",
+  "sig": "a952476560ea7203094d81d9778640b69b9ab53c"
  },
  "/serie/eyeq-24/": {
   "lastmod": "2026-10-26",
@@ -1609,7 +1629,7 @@
  },
  "/serie/iwear-harmony/": {
   "lastmod": "2026-10-26",
-  "sig": "af970232e7bb97404c4548538c708df70078df41"
+  "sig": "ef8aa828ca15cebe9f46854cbfc271f7f564be56"
  },
  "/serie/iwear-hydro-sphere/": {
   "lastmod": "2026-10-26",
@@ -1641,7 +1661,7 @@
  },
  "/serie/myday/": {
   "lastmod": "2026-10-26",
-  "sig": "d5b6f24a9141bea34352898be1f905db704b67a4"
+  "sig": "4e67af18a8d17cef7a1ee363827479da298d4aa6"
  },
  "/serie/precision1/": {
   "lastmod": "2026-10-26",
@@ -1669,7 +1689,7 @@
  },
  "/serie/purevision2/": {
   "lastmod": "2026-10-26",
-  "sig": "249adf1a25177db67036d066cf95064d4f536708"
+  "sig": "cdb3f5d9f6b58bf1e0d16501e1f9be783b5db54f"
  },
  "/serie/soflens-59/": {
   "lastmod": "2026-10-26",
@@ -1685,7 +1705,7 @@
  },
  "/serie/truelens-platinum-daily/": {
   "lastmod": "2026-10-26",
-  "sig": "6913d4b00c292c85e9355d09dee79258884d035c"
+  "sig": "efd5ac07697dea66b0852fd2b92b4b72f2d80fa8"
  },
  "/serie/truelens-platinum-monthly/": {
   "lastmod": "2026-10-26",
@@ -1693,7 +1713,7 @@
  },
  "/serie/truelens-premium-monthly/": {
   "lastmod": "2026-10-26",
-  "sig": "d7e07ccb01527c34c3711eeb2acd61a3e5d131b0"
+  "sig": "93a804e03f1e63b040583fcc7ae1410c9cc1156e"
  },
  "/serie/ultra-oneday/": {
   "lastmod": "2026-10-26",
