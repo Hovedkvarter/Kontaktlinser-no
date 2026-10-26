@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-25T08:32:21.648595+00:00
+Kontrollert: 2026-10-26T09:05:35.831655+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,12 +9,12 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2773 | 87 | 80 | 7 |
-| Lensway | ok | 1084 | 185 | 175 | 10 |
+| Extra Optical | ok | 2772 | 87 | 80 | 7 |
+| Lensway | ok | 1081 | 185 | 175 | 10 |
 | Lenson | ok | 186 | 186 | 175 | 11 |
-| Shopping4net | ok | 20230 | 119 | 90 | 29 |
+| Shopping4net | ok | 20207 | 119 | 90 | 29 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9527 | 79 | 43 | 36 |
+| Apotekhjem | ok | 9523 | 79 | 43 | 36 |
 
 Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
