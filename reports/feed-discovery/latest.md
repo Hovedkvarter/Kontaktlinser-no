@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-26T12:36:42.659977+00:00
+Kontrollert: 2026-10-27T09:08:14.194214+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2772 | 87 | 81 | 6 |
-| Lensway | ok | 1079 | 185 | 179 | 6 |
+| Extra Optical | ok | 2765 | 87 | 81 | 6 |
+| Lensway | ok | 1152 | 185 | 179 | 6 |
 | Lenson | ok | 186 | 186 | 179 | 7 |
-| Shopping4net | ok | 20207 | 119 | 94 | 25 |
+| Shopping4net | ok | 20176 | 119 | 94 | 25 |
 | Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9523 | 79 | 43 | 36 |
+| Apotekhjem | ok | 9521 | 79 | 43 | 36 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 13.
+Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -102,7 +102,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 13.
 | Apotekhjem | Systane gel drops komfort øyeg 10ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
-| Apotekhjem | Tears naturale øyedråper 10ml | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
+| Apotekhjem | Tears Naturale Øyedråper (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
 | Apotekhjem | Viscotears Øyegel (3x10 g) | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Viscotears Øyegel 10 g | Uendret |
 | Apotekhjem | Viscotears Øyegel Endosebeholdere (30 x 0,6 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Øyebadeglass plast Snøgg | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
