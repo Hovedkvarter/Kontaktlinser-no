@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-27T09:08:14.194214+00:00
+Kontrollert: 2026-10-28T09:48:59.405845+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2765 | 87 | 81 | 6 |
-| Lensway | ok | 1152 | 185 | 179 | 6 |
+| Extra Optical | ok | 2771 | 87 | 81 | 6 |
+| Lensway | ok | 1147 | 185 | 179 | 6 |
 | Lenson | ok | 186 | 186 | 179 | 7 |
-| Shopping4net | ok | 20176 | 119 | 94 | 25 |
-| Brilleland | ok | 922 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9521 | 79 | 43 | 36 |
+| Shopping4net | ok | 20169 | 119 | 94 | 25 |
+| Brilleland | ok | 925 | 77 | 75 | 2 |
+| Apotekhjem | ok | 9524 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
+Nye rader: 1. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -97,12 +97,13 @@ Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Oftagel øyegel 2,5mg/g endos 30x0,5 G | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
 | Apotekhjem | Oxyal øyedråper | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Red-I øyedråper | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Simplex Øyesalve 5ml | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
+| Apotekhjem | Simplex Øyesalve (5 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Snøgg Øyebadeglass Plast (1 stk) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
 | Extra Optical | Systane Balance øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Apotekhjem | Systane gel drops komfort øyeg 10ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
-| Apotekhjem | Tears Naturale Øyedråper (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Tears Naturale Øyedråper (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Viscotears Øyegel (3x10 g) | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Viscotears Øyegel 10 g | Uendret |
 | Apotekhjem | Viscotears Øyegel Endosebeholdere (30 x 0,6 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
-| Apotekhjem | Øyebadeglass plast Snøgg | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Apotekhjem | Zalispray øyespray (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Ny |
