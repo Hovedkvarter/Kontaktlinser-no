@@ -22,16 +22,23 @@ concurrency:
   cancel-in-progress: false
 jobs:
   test:
+    outputs:
+      operational: ${{ steps.changes.outputs.operational }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Klassifiser hele endringen
+        id: changes
+        run: python .github/scripts/site_changes.py
       - run: pip install requests
       - run: python -m unittest test_feed_discovery -v
   discover:
-    if: github.event_name != 'pull_request'
+    if: needs.test.outputs.operational == 'true'
     needs: test
     runs-on: ubuntu-latest
     timeout-minutes: 20
