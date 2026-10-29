@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-28T09:48:59.405845+00:00
+Kontrollert: 2026-10-29T10:09:02.401538+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1217 | 109 | 107 | 2 |
-| Extra Optical | ok | 2771 | 87 | 81 | 6 |
-| Lensway | ok | 1147 | 185 | 179 | 6 |
+| Extra Optical | ok | 2782 | 87 | 81 | 6 |
+| Lensway | ok | 1145 | 189 | 179 | 10 |
 | Lenson | ok | 186 | 186 | 179 | 7 |
-| Shopping4net | ok | 20169 | 119 | 94 | 25 |
+| Shopping4net | ok | 20233 | 119 | 94 | 25 |
 | Brilleland | ok | 925 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9524 | 80 | 43 | 37 |
 
-Nye rader: 1. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
+Nye rader: 4. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -25,6 +25,10 @@ Nye rader: 1. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
 | Extra Optical | 1-Day Acuvue 30 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist Multifocal 30-pack | Uendret |
 | Extra Optical | 1-Day Acuvue 90 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist Multifocal 90-pack | Uendret |
 | Shopping4net | Air Optix Aqua | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 6-pakning bekreftet i butikkens produkttabell (artikkelnummer LAOA). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
+| Lensway | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Ny |
+| Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Ny |
+| Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Ny |
+| Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Ny |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
 | Shopping4net | Supra 55 UV Tint | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
@@ -97,8 +101,8 @@ Nye rader: 1. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Oftagel øyegel 2,5mg/g endos 30x0,5 G | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
 | Apotekhjem | Oxyal øyedråper | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Red-I øyedråper | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Simplex Øyesalve (5 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
-| Apotekhjem | Snøgg Øyebadeglass Plast (1 stk) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Simplex Øyesalve (5 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
+| Apotekhjem | Snøgg Øyebadeglass Plast (1 stk) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Extra Optical | Systane Balance øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Apotekhjem | Systane gel drops komfort øyeg 10ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
@@ -106,4 +110,4 @@ Nye rader: 1. Endrede rader: 2. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Tears Naturale Øyedråper (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Viscotears Øyegel (3x10 g) | Øyepleie – vurder variant | Åpen – Avklar variant/pakning | Viscotears Øyegel 10 g | Uendret |
 | Apotekhjem | Viscotears Øyegel Endosebeholdere (30 x 0,6 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
-| Apotekhjem | Zalispray øyespray (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Ny |
+| Apotekhjem | Zalispray øyespray (10 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
