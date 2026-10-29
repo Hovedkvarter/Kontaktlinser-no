@@ -28,11 +28,20 @@ jobs:
     steps:
       - name: Sjekk ut repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Sett opp Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Klassifiser hele endringen
+        id: changes
+        run: python .github/scripts/site_changes.py
+
+      - name: Test sperre for operative endringer
+        run: python -m unittest discover -s .github/scripts -p "test_*.py" -v
 
       - name: Installer avhengigheter
         run: pip install requests beautifulsoup4
@@ -75,6 +84,8 @@ jobs:
           git pull --rebase origin main
           git push
 
+      # Dokumentasjonsendringer valideres fra lagret katalog uten Core-tilgang.
+      # Testbygget er kun i runnerens midlertidige arbeidskopi; ingen tilbakeskriving.
       - name: Generer statiske sider
         env:
           # Chillouts lesenokkel. Uten denne linja ser generatoren den ikke i
@@ -82,11 +93,11 @@ jobs:
           # steg -- og /go/-lenken ville stille forsvunnet fra det konverterte
           # kortet ved neste bygg. GitHub maskerer verdien i loggen; koden
           # skriver den uansett aldri ut.
-          CHILLOUT_READ_KEY: ${{ secrets.CHILLOUT_READ_KEY }}
+          CHILLOUT_READ_KEY: ${{ steps.changes.outputs.site_changed == 'true' && secrets.CHILLOUT_READ_KEY || '' }}
           # Ikke en secret: originet er ikke hemmelig, og en secret ville
           # blitt maskert i loggen der den nettopp er det man vil se. En
           # repository VARIABLE, sa a flytte API-et er a endre en verdi.
-          CHILLOUT_ORIGIN: ${{ vars.CHILLOUT_ORIGIN }}
+          CHILLOUT_ORIGIN: ${{ steps.changes.outputs.site_changed == 'true' && vars.CHILLOUT_ORIGIN || '' }}
         run: python3 site_generator/generate_pages.py site_generator/catalog_live.json
 
       - name: Test smartere søk mot ferdig bygget nettsted
@@ -102,7 +113,7 @@ jobs:
         # problem som catalog_live.json hadde før 2026-08-11-fiksen.
         # [skip ci] hindrer at denne commiten trigger enda en kjøring.
         # Ikke på pull requests: en PR skal aldri skrive til repoet.
-        if: github.event_name != 'pull_request'
+        if: steps.changes.outputs.operational == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -126,7 +137,7 @@ jobs:
 
       - name: Publiser til GitHub Pages
         # Aldri fra en pull request: kun main (push), planlagt kjøring og manuell.
-        if: github.event_name != 'pull_request'
+        if: steps.changes.outputs.operational == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
