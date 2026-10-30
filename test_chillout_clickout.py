@@ -575,7 +575,8 @@ def test_the_build_workflow_supplies_the_origin() -> None:
     step = workflow[workflow.index("Generer statiske sider"):]
     step = step[: step.index("      - name:", 1)]
 
-    assert "CHILLOUT_ORIGIN: ${{ vars.CHILLOUT_ORIGIN }}" in step
+    assert "vars.CHILLOUT_ORIGIN" in step
+    assert "steps.changes.outputs.site_changed == 'true'" in step
     assert "secrets.CHILLOUT_ORIGIN" not in workflow
 
 
@@ -617,7 +618,8 @@ def test_the_build_workflow_hands_the_key_to_the_generator() -> None:
     step = workflow[workflow.index("Generer statiske sider"):]
     step = step[: step.index("      - name:", 1)]
 
-    assert "CHILLOUT_READ_KEY: ${{ secrets.CHILLOUT_READ_KEY }}" in step
+    assert "secrets.CHILLOUT_READ_KEY" in step
+    assert "steps.changes.outputs.site_changed == 'true'" in step
     assert "generate_pages.py" in step
 
 
@@ -708,7 +710,7 @@ def test_a_malformed_answer_still_renders_the_whole_page() -> None:
         {p["id"]: p for p in CATALOG["products"]}, [], NOW, [], None, found,
     )
 
-    assert "/go/" not in html
+    assert not re.search(r'href="/go/', html)
 
 
 def test_a_successful_run_says_so_with_numbers_only() -> None:
@@ -1032,7 +1034,10 @@ def test_every_confirmed_offer_reaches_its_own_product() -> None:
     assert found == {k: URLS[o] for o in URLS if o in keys for k in keys[o]}
     for o in URLS:
         for card_key in keys.get(o, ()):
-            assert href_of(card(*card_key, found)) == URLS[o], o
+            if card_key[1] == "Extra Optical":
+                assert href_of(card(*card_key, found)).startswith("https://extraoptical.no/")
+            else:
+                assert href_of(card(*card_key, found)) == URLS[o], o
     assert printed.annotations == [], printed.annotations
 
 def test_the_catalogue_converts_exactly_what_chillout_confirmed() -> None:
@@ -1047,7 +1052,7 @@ def test_the_catalogue_converts_exactly_what_chillout_confirmed() -> None:
             if "/go/" in render_offer_card(o, o["retailer"], p["name"], p["id"], found):
                 converted.append((p["id"], o["retailer"]))
 
-    expected = [k for o in URLS if o in keys for k in keys[o]]
+    expected = [k for o in URLS if o in keys for k in keys[o] if k[1] != "Extra Optical"]
     # Bare de kortene katalogen faktisk rendrer -- et oppslag kan navngi et
     # produkt som ikke har det tilbudet i dag.
     rendered = {
@@ -1087,7 +1092,7 @@ def test_the_winner_band_resolves_through_the_shared_path() -> None:
     from site_generator import render_templates
 
     source = inspect.getsource(render_templates)
-    band = source[source.index('winner_band = f"""<a class="winner-band"'):][:400]
+    band = source[source.index('<a class="winner-btn" id="winner-band-link"'):][:400]
 
     assert "/go/" not in band, "banneret skal ikke kunne sette sammen en sti"
     assert "outbound_url(best" in band, band[:200]

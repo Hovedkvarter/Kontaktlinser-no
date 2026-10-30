@@ -1010,15 +1010,15 @@ CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidde
       </div>
       <div class="consent-category">
         <div class="consent-category-row">
-          <span>Statistikk</span>
-          <input type="checkbox" class="consent-toggle" id="consent-stats" checked>
+          <label for="consent-stats">Statistikk</label>
+          <input type="checkbox" class="consent-toggle" id="consent-stats">
         </div>
         <p class="consent-category-desc">Måler trafikk og bruk av siden, slik at vi vet hva som faktisk er nyttig.</p>
       </div>
       <div class="consent-category">
         <div class="consent-category-row">
-          <span>Affiliate-sporing</span>
-          <input type="checkbox" class="consent-toggle" id="consent-affiliate" checked>
+          <label for="consent-affiliate">Affiliate-sporing</label>
+          <input type="checkbox" class="consent-toggle" id="consent-affiliate">
         </div>
         <p class="consent-category-desc">Registrerer at et kjøp kom via en lenke fra oss, slik at forhandleren kan betale riktig provisjon.</p>
         <button type="button" id="consent-toggle-providers" class="consent-link-btn">Vis alle leverandører</button>
@@ -1029,6 +1029,14 @@ CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidde
         </ul>
       </div>
 
+      <div class="consent-category">
+        <div class="consent-category-row">
+          <label for="consent-ads">Annonsemåling</label>
+          <input type="checkbox" class="consent-toggle" id="consent-ads">
+        </div>
+        <p class="consent-category-desc">Knytter annonsebesøk til klikk og provisjon for å måle annonser. Ingen personlig tilpassede annonser.</p>
+      </div>
+
       <div class="consent-actions" style="margin-top:18px;">
         <button type="button" id="consent-back" class="consent-btn consent-btn-secondary">Avbryt</button>
         <button type="button" id="consent-save" class="consent-btn consent-btn-primary">Lagre valg</button>
@@ -1037,124 +1045,9 @@ CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidde
   </div>
 </div>"""
 
-CONSENT_SCRIPT = """<script>
-(function () {
-  var KEY = 'kl_consent_v1';
-
-  function getConsent() {
-    try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; }
-  }
-
-  function apply(c) {
-    window.__klConsent = c;
-    if (c.stats && window.__loadGTM) window.__loadGTM();
-  }
-
-  function saveConsent(c) {
-    c.timestamp = new Date().toISOString();
-    try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) {}
-    apply(c);
-  }
-
-  var overlay = document.getElementById('consent-overlay');
-  var existing = getConsent();
-  if (existing) {
-    apply(existing);
-  } else if (overlay) {
-    overlay.hidden = false;
-  }
-
-  if (!overlay) return;
-
-  var stepMain = document.getElementById('consent-step-main');
-  var stepSettings = document.getElementById('consent-step-settings');
-
-  function hide() { overlay.hidden = true; }
-  function showSettings() { stepMain.hidden = true; stepSettings.hidden = false; }
-  function showMain() { stepSettings.hidden = true; stepMain.hidden = false; }
-
-  document.getElementById('consent-accept').addEventListener('click', function () {
-    saveConsent({ stats: true, affiliate: true });
-    hide();
-  });
-  document.getElementById('consent-reject').addEventListener('click', function () {
-    saveConsent({ stats: false, affiliate: false });
-    hide();
-  });
-  document.getElementById('consent-customize').addEventListener('click', showSettings);
-  document.getElementById('consent-back').addEventListener('click', showMain);
-  document.getElementById('consent-toggle-providers').addEventListener('click', function () {
-    var list = document.getElementById('consent-providers-list');
-    list.hidden = !list.hidden;
-  });
-  document.getElementById('consent-save').addEventListener('click', function () {
-    saveConsent({
-      stats: document.getElementById('consent-stats').checked,
-      affiliate: document.getElementById('consent-affiliate').checked
-    });
-    hide();
-  });
-})();
-
-// Utgående-klikk-sporing (2026-08-31): pusher ETT dataLayer-event per
-// klikk på en tilbudslenke (data-retailer er satt av render_offer_card/
-// render_winner_widget), uansett om forhandleren har avtale eller ikke --
-// gir en per-forhandler klikkoversikt selv for de uten avtale, bl.a. som
-// dokumentasjon når vi ber om en avtale senere. Trygt å kjøre UBETINGET
-// (ikke bak samtykke-sjekk her): window.dataLayer.push() gjør ingenting i
-// seg selv, det bare legger til i et array i minnet -- selve sendingen
-// skjer først når GTM.js er lastet, og det skjer FORTSATT kun etter
-// samtykke (se apply()/__loadGTM over). Uten samtykke blir arrayet aldri
-// lest av noe, og forsvinner med siden ved neste navigasjon.
-//
-// Forhandlerlenker åpnes i ny fane (target="_blank", se render_offer_card/
-// render_winner_widget) -- brukeren beholder Kontaktlinser.no åpent og kan
-// sammenligne flere butikker uten å miste sammenligningen, samme mønster
-// bekreftet hos andre prissammenligningstjenester. Siden fanen med DENNE
-// siden ALDRI navigerer bort, er det ingen kappløp mot GTM-sendingen lenger
-// -- vanlig window.open()/target="_blank"-navigering kan skje helt normalt,
-// vi trenger bare å pushe dataLayer-eventet ved siden av.
-//
-// eventCallback/eventTimeout-mønsteret under er likevel beholdt som
-// fallback for en lenke uten target="_blank" (skulle en sånn dukke opp et
-// sted): tilbudslenker som navigerer i SAMME fane rekker ofte å forlate
-// siden FØR GTM faktisk har sendt hendelsen til GA4 -- bekreftet i praksis
-// 2026-08-31 (klikk ga aldri noe utslag i sanntidsrapporten). preventDefault()
-// + maks 300ms forsinket navigering løser det for det tilfellet.
-window.dataLayer = window.dataLayer || [];
-document.addEventListener('click', function (e) {
-  var link = e.target.closest('a[data-retailer]');
-  if (!link) return;
-  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-
-  if (link.target === '_blank') {
-    // Nettleseren håndterer selve navigeringen til den nye fanen -- vi
-    // pusher bare sporingseventet ved siden av, ingen forsinkelse nødvendig.
-    window.dataLayer.push({
-      event: 'outbound_click',
-      retailer: link.getAttribute('data-retailer'),
-      affiliate: link.getAttribute('data-affiliate') === '1'
-    });
-    return;
-  }
-
-  e.preventDefault();
-  var navigated = false;
-  function go() {
-    if (navigated) return;
-    navigated = true;
-    window.location.href = link.href;
-  }
-  window.dataLayer.push({
-    event: 'outbound_click',
-    retailer: link.getAttribute('data-retailer'),
-    affiliate: link.getAttribute('data-affiliate') === '1',
-    eventCallback: go,
-    eventTimeout: 300
-  });
-  setTimeout(go, 300);
-});
-</script>"""
+# Inlined so consent guards have no extra network dependency.
+_TRACKING_CONFIG = json.loads((Path(__file__).resolve().parents[1] / "tracking_readiness.json").read_text())
+CONSENT_SCRIPT = "<script>window.__klTrackingConfig=" + json.dumps(_TRACKING_CONFIG).replace("<", "\\u003c") + ";\n" + (Path(__file__).parent / "consent.js").read_text() + "</script>"
 
 # BRAND_LOGOS/_brand_badge flyttet hit (fra sin opprinnelige plass lenger
 # ned i filen) fordi TOPBAR_HTML under nå viser ekte merkelogoer i
@@ -1923,6 +1816,7 @@ def render_footer() -> str:
     <a href="/guider/">Guider</a>
     <a href="/om-oss/" rel="author">Om oss</a>
     <a href="/personvern/" rel="privacy-policy">Personvern og cookies</a>
+    <button type="button" class="consent-link-btn" data-consent-open>Endre samtykke</button>
     <a href="/vilkar/" rel="terms-of-service">Vilkår og ansvarsfraskrivelse</a>
     <a href="/meld-feil/">Meld feil</a>
     {_contact_email_link()}
@@ -4117,8 +4011,7 @@ _QTY_CALC_SCRIPT = r"""<script>
     try { localStorage.setItem('kl_incl_shipping', v ? '1' : '0'); } catch (e) {}
     render();
     if (track) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'price_shipping_toggle', included: v ? 'yes' : 'no' });
+      window.__klTrack && window.__klTrack({ event: 'price_shipping_toggle', included: v ? 'yes' : 'no' });
     }
   }
   document.addEventListener('click', function (e) {
@@ -4128,8 +4021,7 @@ _QTY_CALC_SCRIPT = r"""<script>
       var offersEl = document.querySelector('.offers');
       if (offersEl) offersEl.classList.remove('is-collapsed');
       showMoreBtn.remove();
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'offers_show_all' });
+      window.__klTrack && window.__klTrack({ event: 'offers_show_all' });
     }
   });
 
@@ -7407,8 +7299,7 @@ LENS_SEARCH_JS = """
   function track(row, name, source) {
     var guide = row.getAttribute('data-guide');
     if (!guide) return;
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event: 'guide_search_click', guide: guide, product: name, source: source});
+    window.__klTrack && window.__klTrack({event: 'guide_search_click', guide: guide, product: name, source: source});
   }
 
   rows.forEach(function (row) {
@@ -10568,18 +10459,21 @@ def render_privacy_page() -> str:
         <td>Ikke nødvendig (tilknyttet markedsføring)</td>
       </tr>
     </table>
-    <p style="font-size:0.8rem;color:var(--muted);">Vi bruker ikke cookies til noe utover dette - ingen retargeting-annonsering
-    og ingen deling eller salg av data til tredjeparter.</p>
+    <p>Ved aktivert annonsemåling og ditt samtykke til både annonsemåling og
+    affiliate-sporing kan annonse-ID og kampanje-ID knyttes til butikkbesøk og
+    provisjon. Besøkskonteksten varer maksimalt 30 minutter i nettleseren og
+    fjernes ved tilbaketrekking. Vi bruker ikke denne funksjonen til personlig
+    tilpassede annonser. Lagring av historiske klikkdata beskrives før aktivering.</p>
 
     <h2>Samtykke</h2>
     <p>Ved første besøk får du opp en samtykke-boks der du kan velge "Godta",
-    "Kun nødvendige", eller tilpasse statistikk og affiliate-sporing hver for
+    "Kun nødvendige", eller tilpasse statistikk, affiliate-sporing og annonsemåling hver for
     seg (under "Innstillinger" finner du også en full liste over
     tredjepartsleverandørene vi samarbeider med). Statistikk-skriptet (Google
     Tag Manager) lastes ikke før du har samtykket til det. Valget lagres i
-    nettleseren din og du kan endre det når som helst ved å slette lagret
-    nettstedsdata for Kontaktlinser.no i nettleserinnstillingene og laste
-    siden på nytt.</p>
+    nettleseren din i inntil 180 dager. Du kan endre det med «Endre samtykke»
+    i bunnteksten. Nye hendelser registreres ikke for formål du har slått av.
+    Affiliate-lenker åpner samtykkevalgene hvis affiliate-sporing er avslått.</p>
 
     <h2>Hvordan kontrollere eller slette cookies</h2>
     <p>De fleste nettlesere lar deg se, blokkere og slette cookies under

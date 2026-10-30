@@ -5304,3 +5304,13 @@ titler, H1, meta description eller pakningsspesifikke SEO-tekster.
 - Tester: `python3 test_product_seo_growth.py` (14 stk, bevist med mutasjoner).
 - **Måling:** GSC-baseline for Everclear ELITE 90 og Dailies Total1 Multifocal 90 står i
   PR-beskrivelsen. Sammenlign sidenivå og query-nivå etter 3 til 4 uker.
+
+## Google Ads readiness — draft only, 2026-10-30
+
+See `docs/google-ads-readiness.md` for the source-pinned audit, pilot candidates,
+consent/cookie contract, baseline test corrections and release approvals.
+This dated entry does not supersede the Extra Optical exception or authorize
+publication. In the draft, all analytics emitters use the consent gate; a queued
+`dataLayer` event is no longer considered harmless before permission. GTM must
+be reviewed as a whole: Consent Mode does not control arbitrary Custom HTML.
+Acquisition is disabled by default and belongs to Products, not Leads.

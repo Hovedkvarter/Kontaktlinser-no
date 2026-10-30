@@ -116,7 +116,7 @@ def href_of(html: str) -> str:
 def band_href_of(html: str) -> str:
     """Banneret har `id` mellom class og href, sa href_of bommer pa det --
     og bommer ved a returnere None, ikke ved a si fra."""
-    found = re.search(r'<a class="winner-band"[^>]*? href="([^"]*)"', html)
+    found = re.search(r'<a class="winner-btn"[^>]*? href="([^"]*)"', html)
     assert found, "fant ikke vinnerbanneret"
     return found.group(1)
 
@@ -290,7 +290,7 @@ def test_the_winner_band_is_untouched_on_a_page_whose_winner_is_not_converted() 
     )
 
     assert GO in html, "forutsetningen faller bort om siden ikke konverterte noe"
-    winner = re.search(r'<a class="winner-band"[^>]*>', html).group(0)
+    winner = re.search(r'<a class="winner-btn"[^>]*>', html).group(0)
     assert "/go/" not in winner, winner
     assert 'data-retailer="Lensway"' not in winner, "vinneren er ikke Lensway i dag"
 
@@ -335,7 +335,7 @@ def test_the_winner_band_uses_the_clickout_when_the_winner_is_converted() -> Non
     offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
     winner = next(o for o in offers if o["retailer"] == TARGET_RETAILER)
 
-    band, _ = render_winner_widget(
+    band, _, _ = render_winner_widget(
         winner, offers, product(TARGET_PRODUCT)["name"],
         product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
     )
@@ -394,7 +394,7 @@ def test_the_winner_band_keeps_the_provider_url_for_an_unconverted_winner() -> N
     offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
     winner = next(o for o in offers if o["retailer"] != TARGET_RETAILER)
 
-    band, _ = render_winner_widget(
+    band, _, _ = render_winner_widget(
         winner, offers, product(TARGET_PRODUCT)["name"],
         product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
     )
@@ -411,7 +411,7 @@ def test_the_calculator_carries_the_same_target_as_the_card() -> None:
     from site_generator.render_templates import reconcile_product, render_winner_widget
 
     offers = reconcile_product(product(TARGET_PRODUCT)["offers"], NOW)
-    _, qty = render_winner_widget(
+    _, qty, _ = render_winner_widget(
         offers[0], offers, product(TARGET_PRODUCT)["name"],
         product_id=TARGET_PRODUCT, clickouts=CLICKOUTS,
     )
@@ -463,7 +463,7 @@ def test_a_solution_page_gets_the_map_and_converts_nothing() -> None:
 
     for solution in solutions[:5]:
         html = render_solution_product_page(solution, NOW, CLICKOUTS)
-        assert "/go/" not in html, solution["id"]
+        assert not re.search(r'href="/go/', html), solution["id"]
 
 
 def test_json_ld_never_carries_a_clickout() -> None:
