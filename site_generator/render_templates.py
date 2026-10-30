@@ -987,15 +987,17 @@ CONSENT_BANNER_HTML = """<div id="consent-overlay" class="consent-overlay" hidde
     <div id="consent-step-main">
       <h2 id="consent-title">Vi bruker cookies på Kontaktlinser.no</h2>
       <p class="consent-text">
-        Vi og våre samarbeidspartnere bruker cookies til statistikk og for å
-        registrere når et kjøp hos en forhandler skjedde via en lenke fra oss,
-        slik at vi kan motta provisjon. Du velger selv, og kan endre valget
+        Vi og våre samarbeidspartnere bruker cookies til statistikk,
+        affiliate-sporing og annonsemåling. Vi måler bruk av siden, registrerer
+        kjøp via lenkene våre og knytter annonsebesøk til klikk og provisjon.
+        Vi bruker ikke dette til personlig tilpassede annonser.
+        Du velger selv, og kan endre valget
         når som helst. <a href="/personvern/">Mer informasjon</a>.
       </p>
       <div class="consent-actions">
         <button type="button" id="consent-customize" class="consent-btn consent-btn-secondary">Innstillinger</button>
         <button type="button" id="consent-reject" class="consent-btn consent-btn-secondary">Kun nødvendige</button>
-        <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta</button>
+        <button type="button" id="consent-accept" class="consent-btn consent-btn-primary">Godta alle</button>
       </div>
     </div>
     <div id="consent-step-settings" hidden>
