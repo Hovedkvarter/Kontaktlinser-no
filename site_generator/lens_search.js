@@ -195,8 +195,7 @@
     function track(row, name, source) {
       var guide = row.getAttribute('data-guide');
       if (!guide) return;
-      win.dataLayer = win.dataLayer || [];
-      win.dataLayer.push({ event: 'guide_search_click', guide: guide, product: name, source: source });
+      win.__klTrack && win.__klTrack({ event: 'guide_search_click', guide: guide, product: name, source: source });
     }
 
     rows.forEach(function (row, rowIndex) {
