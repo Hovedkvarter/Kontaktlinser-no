@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-10-30T10:13:19.010221+00:00
+Kontrollert: 2026-10-31T09:48:55.168700+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1216 | 109 | 107 | 2 |
-| Extra Optical | ok | 2789 | 87 | 81 | 6 |
-| Lensway | ok | 1141 | 189 | 179 | 10 |
+| Extra Optical | ok | 2788 | 87 | 81 | 6 |
+| Lensway | ok | 1140 | 189 | 179 | 10 |
 | Lenson | ok | 190 | 190 | 179 | 11 |
-| Shopping4net | ok | 20267 | 120 | 94 | 26 |
+| Shopping4net | ok | 20277 | 120 | 94 | 26 |
 | Brilleland | ok | 925 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9525 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9533 | 80 | 43 | 37 |
 
-Nye rader: 5. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -25,13 +25,13 @@ Nye rader: 5. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Extra Optical | 1-Day Acuvue 30 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist Multifocal 30-pack | Uendret |
 | Extra Optical | 1-Day Acuvue 90 stk | Kontaktlinser | Avklar feeddata – butikk allerede dekket – Feedbildet viser 1-Day Acuvue Moist med riktig antall. Tittel/beskrivelse er generiske og GTIN avviker fra egne MOIST-rader. Extra Optical er allerede koblet til Moist i samme pakning med samme pris. Behold den entydige MOIST-raden; ingen ekstra butikkrad. Endelig identitet for generisk SKU er fortsatt uavklart. | 1-Day Acuvue Moist 90-pack, 1-Day Acuvue Moist 30-pack, 1-Day Acuvue Moist Multifocal 90-pack | Uendret |
 | Shopping4net | Air Optix Aqua | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 6-pakning bekreftet i butikkens produkttabell (artikkelnummer LAOA). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
-| Lenson | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Ny |
+| Lenson | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Uendret |
 | Lensway | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Uendret |
-| Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Ny |
+| Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
 | Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
-| Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Ny |
+| Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
-| Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Ny |
+| Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
 | Shopping4net | Supra 55 UV Tint | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
@@ -107,7 +107,7 @@ Nye rader: 5. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Red-I øyedråper | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Simplex Øyesalve (5 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Snøgg Øyebadeglass Plast (1 stk) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
-| Shopping4net | SoloCare Aqua 360ml | Øyepleie – vurder variant | Åpen – Mulig eksisterende produkt | SoloCare Aqua 360 ml | Ny |
+| Shopping4net | SoloCare Aqua 360ml | Øyepleie – vurder variant | Åpen – Mulig eksisterende produkt | SoloCare Aqua 360 ml | Uendret |
 | Extra Optical | Systane Balance øyedråper 10ml | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
 | Apotekhjem | Systane gel drops komfort øyeg 10ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Extra Optical | Systane Gel Drops øyedråper | Øyepleie – vurder variant | Avklar feeddata – Systane-tittel og varenummer viser ulike produktnavn (Complete/Hylo-Gel/Gel Drops). Ikke koble automatisk. |  | Uendret |
