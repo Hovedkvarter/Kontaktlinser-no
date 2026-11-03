@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-02T11:25:54.139103+00:00
+Kontrollert: 2026-11-03T11:02:52.546005+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1215 | 109 | 107 | 2 |
-| Extra Optical | ok | 2793 | 87 | 81 | 6 |
-| Lensway | ok | 1130 | 189 | 179 | 10 |
+| Extra Optical | ok | 2787 | 87 | 81 | 6 |
+| Lensway | ok | 1129 | 190 | 179 | 11 |
 | Lenson | ok | 190 | 190 | 179 | 11 |
-| Shopping4net | ok | 20309 | 120 | 94 | 26 |
+| Shopping4net | ok | 20281 | 120 | 94 | 26 |
 | Brilleland | ok | 925 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9533 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9539 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 1. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -35,6 +35,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
 | Shopping4net | Supra 55 UV Tint | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 1-pakning bekreftet i butikkens produkttabell (artikkelnummer LB1). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
+| Lensway | SWATI Cosmetics - Coloured Lenses 1-day | Kontaktlinser | Åpen – Avklar variant/pakning | SWATI Coloured Lenses 1 month 2-pack | Ny |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
 | Brilleland | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Dokumentert addisjonsvariant, dekket av SKU 40000718. Ikke et nytt produkt. Se docs/brilleland-feed-audit.json. | TOTAL30 Multifocal 6-pack | Uendret |
 | Interoptik | Total30 Multifocal 6 pack | Kontaktlinser | Allerede dekket – Kontrollert mot fersk feed 26.10: samme navn, pakning, måladresse og pris som 40000718. Tidligere dokumentert addisjonsvariant, se docs/interoptik-feed-2026-10-13.md. Behold én butikkrad gjennom 40000718. | TOTAL30 Multifocal 6-pack | Uendret |
