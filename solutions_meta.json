@@ -374,10 +374,10 @@
       "brand_slug": "acuvue-revitalens",
       "brand_label": "Acuvue RevitaLens",
       "size_ml": 100,
-      "solution_type": "peroxide",
+      "solution_type": "multipurpose",
       "solution_category": "linsevaeske",
-      "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
-      "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
+      "description": "Flerbruksvæske til rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
+      "long_description": "Acuvue RevitaLens er en flerbruksvæske for myke kontaktlinser. Bruk den til å rengjøre, skylle, desinfisere og oppbevare linsene etter bruksanvisningen.",
       "scrape_targets": [
         {
           "retailer": "lenson",
@@ -401,10 +401,10 @@
       "brand_slug": "acuvue-revitalens",
       "brand_label": "Acuvue RevitaLens",
       "size_ml": 300,
-      "solution_type": "peroxide",
+      "solution_type": "multipurpose",
       "solution_category": "linsevaeske",
-      "description": "Peroksidbasert linsevæske fra Johnson & Johnson.",
-      "long_description": "Acuvue RevitaLens er en peroksidbasert oppbevaringsløsning fra Johnson & Johnson. Krever et etui med nøytraliseringssystem -- linsene kan IKKE settes rett i øyet fra ufortynnet peroksidløsning.",
+      "description": "Flerbruksvæske til rengjøring, desinfeksjon og oppbevaring av myke kontaktlinser.",
+      "long_description": "Acuvue RevitaLens er en flerbruksvæske for myke kontaktlinser. Bruk den til å rengjøre, skylle, desinfisere og oppbevare linsene etter bruksanvisningen.",
       "scrape_targets": [
         {
           "retailer": "lenson",
