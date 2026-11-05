@@ -8086,7 +8086,8 @@ GUIDE_CONTENT = {
     **PRICE_GUIDES,
     "manedslinser-vs-dagslinser": {
         "title": "Månedslinser vs. dagslinser – hva passer deg?",
-        "updated": "2026-08-10",
+        "published": "2026-08-10",
+        "updated": "2026-11-05",
         "description": "Fordeler og ulemper ved månedslinser og dagslinser, og hvordan brukshyppighet avgjør hva som lønner seg.",
         "body_html": """
 <p>Det korte svaret: bruker du linser <strong>sjeldnere enn 4–5 dager i uken</strong>, kommer
@@ -8108,7 +8109,7 @@ linser <strong>daglig</strong>, er månedslinser normalt rimeligst per bruksdag.
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Samme par brukes i opptil 30 dager (følg optikerens anbefaling)</li>
   <li>Lavere kostnad per bruksdag ved daglig bruk</li>
-  <li>Krever daglig rengjøring og riktig oppbevaringsvæske</li>
+  <li>Krever daglig rengjøring og <a href="/linsevaeske/">linsevæske til rengjøring og oppbevaring</a> som passer til linsene dine</li>
   <li>Mange moderne månedslinser (silikonhydrogel) slipper gjennom mer oksygen enn eldre
   materialer, noe som kan gi bedre komfort ved lange dager med linser</li>
 </ul>
@@ -8339,7 +8340,8 @@ resten av tiden.</p>
     },
     "vedlikehold-av-kontaktlinser": {
         "title": "Vedlikehold av kontaktlinser",
-        "updated": "2026-08-16",
+        "published": "2026-08-16",
+        "updated": "2026-11-05",
         "description": "Riktig rengjøring og oppbevaring av kontaktlinser som gjenbrukes, og de vanligste feilene å unngå.",
         "body_html": """
 <p>Dagslinser kastes etter én dag og trenger ikke rengjøring. Bruker du ukes- eller
@@ -8353,15 +8355,14 @@ skal vare lenge.</p>
   aldri på gammel væske i etuiet («topping off»), skift den helt hver gang</li>
   <li>Følg optikerens anbefalte gni-og-skyll-rutine hvis væsken tilsier det, selv om
   enkelte væsker markedsføres som "no-rub"</li>
-  <li>Skift oppbevaringsetui jevnlig (følg produsentens anbefaling, ofte hver 1.–3. måned)</li>
+  <li>Skift <a href="/tilbehor/">linseetui</a> jevnlig etter produsentens anbefaling. Bruker du peroksidvæske, bruk spesialetuiet som følger med systemet.</li>
   <li>Bruk aldri springvann eller spytt på linsene – det kan tilføre mikroorganismer
   linsevæsken ikke er laget for å drepe</li>
   <li>Følg byttefrekvensen linsen faktisk er godkjent for, selv om den fortsatt føles
   komfortabel</li>
 </ul>
 
-<p style="margin-top:24px;">Vi sammenligner priser på linsevæske fra flere norske nettbutikker – se
-<a href="/">forsiden</a> for å søke opp den du bruker.</p>
+<p style="margin-top:24px;">Du kan <a href="/linsevaeske/">sammenligne priser på linsevæsken du bruker</a> og se hva ulike flaskestørrelser koster per 100 ml.</p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/livsstil/egenomsorg/kontaktlinser-og-vann" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> er dette et av de tydeligste rådene fra både amerikanske og norske helsemyndigheter:</p>
 
@@ -8383,23 +8384,23 @@ skal vare lenge.</p>
     },
     "reising-med-kontaktlinser": {
         "title": "Reising med kontaktlinser",
-        "updated": "2026-08-16",
+        "published": "2026-08-16",
+        "updated": "2026-11-05",
         "description": "Praktiske tips for å bruke kontaktlinser på reise, fra flyturens tørre kabinluft til væskeregler i håndbagasjen.",
         "body_html": """
 <p>Kontaktlinser er praktiske på reise, men noen få forberedelser gjør det enklere.</p>
 
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Før avreise</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
-  <li>Pakk nok linser og eventuell linsevæske til hele reisen – ikke alle merker er
-  tilgjengelige overalt</li>
+  <li>Pakk nok linser til reisen. Bruker du gjenbrukbare linser, ta med etuiet ditt og den <a href="/linsevaeske/">linsevæsken</a> du vanligvis bruker.</li>
   <li>Ta med briller som backup, i tilfelle irritasjon eller tørre øyne underveis</li>
-  <li>Linsevæske i håndbagasje må følge vanlige væskeregler (beholdere under 100 ml)</li>
+  <li>Skal linsevæsken i håndbagasjen, er hovedregelen på Avinors flyplasser beholdere på inntil 100 ml. Se <a href="https://www.avinor.no/praktisk-info/bagasjeregler/">Avinors bagasjeregler</a>.</li>
 </ul>
 
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Underveis</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Kabinluft på fly er svært tørr og kan gjøre linser mindre behagelige på lange
-  flyvninger – ha øyedråper eller briller tilgjengelig</li>
+  flyvninger – ha briller tilgjengelig og eventuelt <a href="/oyedraper/">øyedråper</a> som er merket for bruk med linsene på</li>
   <li>Dagslinser er ofte praktiske på reise, siden du slipper å ha med etui og
   oppbevaringsvæske – f.eks. <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue
   Moist</a></li>
@@ -8408,7 +8409,7 @@ skal vare lenge.</p>
         "faq": [
             {
                 "question": "Kan jeg ha linsevæske i håndbagasjen?",
-                "answer": "Ja, men den må følge vanlige væskeregler for håndbagasje (beholdere under 100 ml). Vurder heller reisestørrelser eller dagslinser hvis du vil unngå væske helt.",
+                "answer": "Ja. Ved avreise fra Avinors flyplasser er hovedregelen at hver beholder kan romme inntil 100 ml, og at alle væskene skal få plass i én gjennomsiktig, gjenlukkbar pose på én liter. Sjekk reglene for flyplassene du skal reise fra.",
             },
             {
                 "question": "Hvorfor blir kontaktlinser mer ukomfortable på fly?",
@@ -8711,7 +8712,8 @@ etterpå.</p>
     },
     "kan-man-dusje-med-kontaktlinser": {
         "title": "Dusje med kontaktlinser? Slik unngår du problemer",
-        "updated": "2026-09-05",
+        "published": "2026-09-05",
+        "updated": "2026-11-05",
         "description": "Kort svar: unngå vann i linsene hvis du kan. Se hvorfor, og nøyaktig hva du skal gjøre hvis de blir våte likevel.",
         "body_html": """
 <p>Det anbefales å unngå at kontaktlinsene kommer i kontakt med vann – enten det er
@@ -8722,8 +8724,7 @@ vanskelig behandlebare øyeinfeksjoner.</p>
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Hvis linsene blir våte</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li><strong>Dagslinser:</strong> kast dem og sett inn et nytt, rent par</li>
-  <li><strong>Gjenbrukbare linser:</strong> rengjør og desinfiser dem grundig med linsevæske
-  før de brukes igjen – skyll dem aldri bare med vann</li>
+  <li><strong>Gjenbrukbare linser:</strong> rengjør og desinfiser dem med <a href="/linsevaeske/">linsevæske</a> som passer til linsene. Følg hele desinfeksjonstiden i bruksanvisningen før du bruker dem igjen – skyll dem aldri bare med vann</li>
 </ul>
 
 <p style="margin-top:16px;">Skal du svømme og ønsker klart syn i vannet, er tettsittende svømmebriller et tryggere
@@ -9380,36 +9381,36 @@ optikerkjedes eget merke), er dette noe annet enn å faktisk bytte produkt – s
     },
     "linse-sitter-fast-i-oyet": {
         "title": "Linse sitter fast i øyet? Gjør dette (og ikke dette)",
-        "updated": "2026-09-05",
+        "published": "2026-09-05",
+        "updated": "2026-11-05",
         "description": "Som regel ufarlig – linsen har bare tørket ut eller flyttet seg. Se de trygge stegene for å løsne den, og når du heller bør oppsøke optiker med det samme.",
         "body_html": """
-<p>Kjennes linsen "fastlåst" i øyet, har den som regel bare tørket litt ut eller flyttet seg
-til et annet sted i øyet enn du er vant til å finne den. Det er ikke farlig i seg selv, men
-det finnes en riktig og en gal måte å håndtere det på.</p>
+<p>Hvis en myk kontaktlinse sitter fast, bør du vente med å ta den ut til den glir fritt når du blunker. Har du smerter, rødt øye eller dårligere syn, ta kontakt med optiker eller lege med en gang.</p>
 
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Vanlige grunner</h2>
 <ul style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
-  <li>Linsen har tørket ut – ofte fordi den har vært i øyet lenger enn de anbefalte ca. 8 timene mange eksperter fraråder å overskride, eller fordi øyet er tørt</li>
-  <li>Linsen har gled opp under det øvre øyelokket</li>
+  <li>Linsen kjennes tørr, for eksempel etter lang tids bruk</li>
+  <li>Linsen har glidd opp under det øvre øyelokket</li>
   <li>Du blunker mye og stresser, som gjør det vanskeligere å kjenne hvor linsen faktisk er</li>
 </ul>
 
 <h2 style="font-family:'Mulish',sans-serif;font-size:1.05rem;margin:28px 0 10px;">Slik gjør du det trygt</h2>
 <ol style="padding-left:20px;color:var(--ink);font-size:1rem;line-height:1.7;">
   <li>Vask hendene grundig først</li>
-  <li>Fukt øyet med linsevæske eller øyedråper laget for bruk med kontaktlinser</li>
-  <li>Lukk øyet og masser forsiktig på det lukkede øyelokket i noen sekunder</li>
-  <li>Blunk rolig mens du ser opp, ned og til siden – linsen glir ofte tilbake av seg selv</li>
+  <li>Har du fuktdråper som er merket for bruk med kontaktlinsene på, kan du bruke dem etter bruksanvisningen. Bruk aldri rense- eller desinfeksjonsvæske som øyedråper.</li>
+  <li>Blunk rolig og gi dråpene noen minutter til å virke. Ta linsen forsiktig ut først når den beveger seg fritt.</li>
 </ol>
 
 <div style="background:#FFF4E5;border:1px solid #F0C674;border-radius:12px;padding:14px 16px;margin:16px 0;font-size:0.85rem;line-height:1.6;color:var(--ink);">
 <strong>Ikke gni hardt i øyet, og bruk aldri pinsett, nål eller andre spisse gjenstander</strong> for å
-få tak i linsen. Løsner den ikke etter noen forsøk, eller du kjenner smerte eller ser
-rødhet, bør du oppsøke optiker, øyelege eller legevakt samme dag – ikke vent og se an.
+få tak i linsen. Hvis linsen fortsatt sitter fast, avslutt forsøket og kontakt optiker eller øyelege for hjelp. Ved smerte, tydelig rødhet eller nedsatt syn, kontakt lege eller legevakt raskt.
 </div>
 
 <p style="margin-top:16px;">Er du usikker på om linsen faktisk er ute av øyet, kan optikeren enkelt sjekke dette med
-en lampe – det er ikke noe å kvie seg for å spørre om.</p>
+en lampe.</p>
+
+<p>Bruker du ofte dråper sammen med linsene? I <a href="/oyedraper/">oversikten over øyedråper</a> finner du også gel og salve. Sjekk på pakningen om akkurat ditt produkt kan brukes med linsene på.</p>
+<p><a href="https://www.acuvue.com/en-us/eye-health/stuck-contacts/">ACUVUEs råd om en fastsittende kontaktlinse</a></p>
 
 <p style="margin-top:16px;font-size:0.92rem;line-height:1.7;">Ifølge <a href="https://nhi.no/sykdommer/oye/brytningsfeil-nedsatt-syn/kontaktlinser" target="_blank" rel="noopener">Norsk Helseinformatikk (NHI)</a> gjelder denne enkle tommelfingerregelen for når du bør oppsøke lege:</p>
 
@@ -9425,7 +9426,7 @@ en lampe – det er ikke noe å kvie seg for å spørre om.</p>
             },
             {
                 "question": "Hvor lenge kan jeg prøve selv før jeg oppsøker optiker?",
-                "answer": "Noen få forsiktige forsøk med fukt og massering er greit. Kjenner du smerte, ser rødhet, eller linsen ikke løsner, bør du oppsøke optiker eller legevakt samme dag i stedet for å fortsette å prøve selv.",
+                "answer": "Kontakt optiker eller øyelege hvis linsen fortsatt ikke beveger seg etter at du har blunket og latt egnede fuktdråper virke noen minutter. Ved smerter, tydelig rødhet eller dårligere syn bør du kontakte lege eller legevakt raskt.",
             },
         ],
     },
@@ -11359,7 +11360,7 @@ SOLUTION_CATEGORIES = {
         "label": "Øyedråper",
         "title_label": "Billige øyedråper",
         "meta_description": "Sammenlign priser på øyedråper, øyegel, øyesalve og øyepleie hos norske nettbutikker. Pris per 100 ml eller 100 g, med eller uten frakt.",
-        "intro": "Sammenlign priser på øyedråper, øyegel, øyesalve og øyepleie mot tørre øyne hos norske nettbutikker. Vi viser pris per 100 ml (eller 100 g for gel og salve) der det er relevant, slik at ulike pakningsstørrelser er sammenlignbare.",
+        "intro": "Sammenlign priser på øyedråper, gel og salve. Skal du dryppe med linsene på, velg et produkt som er uttrykkelig merket for det. For enkelte produkter må du ta ut linsene først. Du kan sammenligne pakningene etter pris per 100 ml eller 100 g.",
     },
 }
 

@@ -138,7 +138,7 @@ PRICE_GUIDES = {
 <p><strong>To halvårskjøp kostet like mye som ett årskjøp.</strong> Med fire esker kom varebeløpet over fraktgrensen. Da kunne du beholde 2 396 kr til neste bestilling uten at de åtte eskene ble dyrere, så lenge prisen holdt seg. <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-90-pack/">Sjekk dagens priser på 1-Day Acuvue Moist 90-pakning</a>.</p>
 
 <h2>Månedslinser med ulik styrke på øynene</h2>
-<p>Bruker du Biofinity XR månedslinser med ulik styrke på høyre og venstre øye, gir én 3-pakning av hver styrke tre måneders forbruk. Hos Lenson kostet en eske 247 kr i prissjekken. Også fire esker kom under fraktgrensen. Her kostet det derfor mer å dele årskjøpet i to.</p>
+<p>Bruker du Biofinity XR månedslinser med ulik styrke på høyre og venstre øye, gir én 3-pakning av hver styrke tre måneders forbruk. Hos Lenson kostet en eske 247 kr i prissjekken. Også fire esker kom under fraktgrensen. Her kostet det derfor mer å dele årskjøpet i to. Tabellen dekker linser og frakt. Utgiften til <a href="/linsevaeske/">linsevæske til månedslinsene</a> kommer i tillegg.</p>
 <table class="guide-table">
 <caption>Biofinity XR 3-pakning hos Lenson, inkludert frakt</caption>
 <thead><tr><th scope="col">Bestill hver</th><th scope="col">Per bestilling</th><th scope="col">For 12 måneder</th></tr></thead>
