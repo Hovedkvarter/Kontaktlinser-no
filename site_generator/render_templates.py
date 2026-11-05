@@ -25,6 +25,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, unquote, urlencode, urlsplit, urlunsplit
 
 from offer import compute_shipping_nok
+from price_guides import PRICE_GUIDES
 from store_history_chart import product_store_days
 
 # New content gets a new URL so browsers/CDNs cannot reuse an older chart.
@@ -8082,6 +8083,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
 
 GUIDE_CONTENT = {
+    **PRICE_GUIDES,
     "manedslinser-vs-dagslinser": {
         "title": "Månedslinser vs. dagslinser – hva passer deg?",
         "updated": "2026-08-10",
@@ -9081,7 +9083,8 @@ brillestyrken din.</p>
     },
     "hva-koster-kontaktlinser": {
         "title": "Hva koster kontaktlinser?",
-        "updated": "2026-08-16",
+        "published": "2026-08-16",
+        "updated": "2026-11-05",
         "description": "Hvorfor det ikke finnes ett fast svar på hva kontaktlinser koster, og hva som faktisk avgjør prisen.",
         "body_html": """
 <p>Det finnes ikke ett fast svar – prisen på kontaktlinser varierer mye ut fra
@@ -9104,6 +9107,8 @@ opp direkte – bruk søkefeltet på <a href="/">forsiden</a> for å sammenligne
 oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
 <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> eller
 <a href="/kontaktlinser/acuvue/1-day-acuvue-moist-30-pack/">Acuvue Moist</a> som konkrete eksempler.</p>
+
+<p><a href="/guide/hvilken-nettbutikk-har-billigst-kontaktlinser/">Se hvem som hadde lavest totalpris på 20 linsepakninger i prisundersøkelsen vår.</a></p>
 """,
         "faq": [
             {
@@ -9118,7 +9123,8 @@ oppdaterte priser fra norske nettbutikker. Se f.eks. gjeldende pris på
     },
     "pakningsstorrelse-30-vs-90": {
         "title": "30 vs. 90-pakning – hva lønner seg?",
-        "updated": "2026-08-16",
+        "published": "2026-08-16",
+        "updated": "2026-11-05",
         "description": "Er større pakninger alltid billigst per linse? Slik vurderer du pakningsstørrelse riktig.",
         "body_html": """
 <p>Større pakninger har ofte lavere pris per linse, siden mange produsenter og
@@ -9137,6 +9143,8 @@ pris per linse</a> for hvordan du regner ut det reelle sammenligningsgrunnlaget.
 eksempel på et produkt som finnes i begge størrelser er
 <a href="/kontaktlinser/dailies/focus-dailies-30-pack/">Focus Dailies 30-pack</a> og
 <a href="/kontaktlinser/dailies/focus-dailies-90-pack/">90-pack</a>.</p>
+
+<p><a href="/guide/kjope-kontaktlinser-for-tre-seks-eller-tolv-maneder/">Se hva tre, seks og tolv måneders forbruk koster når frakten regnes med.</a></p>
 """,
         "faq": [
             {
@@ -9186,7 +9194,8 @@ konkret eksempel.</p>
     },
     "hvorfor-varierer-prisene-mellom-butikkene": {
         "title": "Hvorfor varierer prisene på kontaktlinser mellom butikkene?",
-        "updated": "2026-08-16",
+        "published": "2026-08-16",
+        "updated": "2026-11-05",
         "description": "Hvorfor samme kontaktlinse kan koste ulikt hos forskjellige norske nettbutikker.",
         "body_html": """
 <p>Samme kontaktlinse kan koste ulikt fra butikk til butikk, av flere grunner:</p>
@@ -9203,6 +9212,8 @@ konkret eksempel.</p>
 oppdaterer prisene daglig. Se f.eks.
 <a href="/kontaktlinser/biofinity/biofinity-6-pack/">Biofinity</a> for et konkret
 eksempel på hvor mye prisen faktisk varierer mellom butikkene akkurat nå.</p>
+
+<p><a href="/guide/vente-pa-linsetilbud-eller-bytte-butikk/">Se hva som betydde mest for tre linsepakninger da vi sammenlignet butikkprisene med 30 dagers prishistorikk.</a></p>
 """,
         "faq": [
             {
@@ -9711,7 +9722,7 @@ def render_guide_page(slug: str) -> str | None:
   "mainEntityOfPage": {{"@type": "WebPage", "@id": "{guide_url}"}},
   "author": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
   "publisher": {{"@type": "Organization", "name": "Kontaktlinser.no"}},
-  "datePublished": "{updated_iso}",
+  "datePublished": "{guide.get("published", updated_iso)}",
   "dateModified": "{updated_iso}"
 }}</script>"""
     # BreadcrumbList = nøyaktig den synlige brødsmulen under (Hjem > guidetittel),
@@ -9755,8 +9766,9 @@ def render_guide_page(slug: str) -> str | None:
 <title>{escape(_seo_title(guide["title"] + " | Kontaktlinser.no", guide["title"]))}</title>
 <meta name="description" content="{escape(guide["description"])}">
 <link rel="canonical" href="{BASE_URL}/guide/{slug}/">
-{_og_meta(_seo_title(guide["title"] + " | Kontaktlinser.no", guide["title"]), guide["description"], f'{BASE_URL}/guide/{slug}/')}
+{_og_meta(_seo_title(guide["title"] + " | Kontaktlinser.no", guide["title"]), guide["description"], guide_url, guide_photo_url if slug in PRICE_GUIDES else None)}
 {FONT_LINKS}
+{'<link rel="stylesheet" href="/static/price-guides.css">' if slug in PRICE_GUIDES else ''}
 {faq_schema}
 {article_schema}
 {breadcrumb_schema}
@@ -9979,6 +9991,7 @@ GUIDE_ICONS = {
 # merkbart mykere enn en ekte høyoppløst original. Bytt ut med skarpere
 # originaler hvis/når Kai får tak i dem.
 GUIDE_PHOTOS = {slug: slug for slug in [
+    *PRICE_GUIDES,
     "hvordan-bruke-kontaktlinser", "hvordan-velge-kontaktlinser", "kontaktlinser-for-barn",
     "harde-eller-myke-linser", "hvorfor-bruke-kontaktlinser", "vedlikehold-av-kontaktlinser",
     "reising-med-kontaktlinser", "kosmetiske-kontaktlinser", "kontaktlinsens-materiale",
