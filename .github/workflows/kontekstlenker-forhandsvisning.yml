@@ -1,0 +1,27 @@
+name: Forhåndsvis interne guidelenker
+on:
+  push:
+    branches: ['qa/kontekstlenker-guider-20261105']
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow playwright lxml
+      - run: python site_generator/generate_pages.py site_generator/catalog_live.json > /tmp/build.log
+      - name: Kontroller 375 og 1440 piksler i Chrome
+        run: |
+          python -m http.server 8117 --bind 127.0.0.1 --directory site_generator/build >/tmp/preview-server.log 2>&1 &
+          python .github/scripts/guide_preview_qa.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kontekstlenker-forhandsvisning
+          path: preview-images/
+          retention-days: 7
