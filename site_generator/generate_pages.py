@@ -396,12 +396,8 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
                 families_written.append(primary_label["slug"])
                 print(f"  serie    -> /serie/{primary_label['slug']}/ ({chain})")
 
-    guide_slugs = {g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])}
-    for slug in guide_slugs:
+    for slug in GUIDE_CONTENT:
         html = render_guide_page(slug)
-        if html is None:
-            print(f"  [advarsel] guide referert i en kategori, men mangler innhold: {slug}")
-            continue
         write_file(BUILD_DIR / "guide" / slug / "index.html", html)
         print(f"  guide    -> /guide/{slug}/")
 
@@ -470,8 +466,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
         PRIVATE_LABEL_SUBBRANDS.get(chain, chain).lower() for chain in sorted({label["chain"] for label in private_labels})
     ]
     manufacturer_slugs = list(MANUFACTURERS)
-    # dict.fromkeys: samme guide ligger i flere kategorier, men skal kun stå én gang i sitemap
-    guide_slugs = list(dict.fromkeys(g["slug"] for cat in catalog["categories"].values() for g in cat.get("guides", [])))
+    guide_slugs = list(GUIDE_CONTENT)
     product_paths = {p["id"]: f"/kontaktlinser/{p['brand_slug']}/{p['slug']}/" for p in lens_products}
     solution_paths = {p["id"]: f"/{p['solution_category']}/{p['brand_slug']}/{p['slug']}/" for p in solution_products}
     label_paths = [f"/private-label/{label['slug']}/" for label in private_labels]

@@ -1,0 +1,15 @@
+.price-study { font-size: 1rem; line-height: 1.65; color: var(--ink); }
+.price-study h2 { margin: 1.8em 0 .45em; font-size: 1.3rem; line-height: 1.35; }
+.price-study h3 { margin: 1.3em 0 .4em; font-size: 1.08rem; }
+.price-study p, .price-study ul, .price-study ol { margin: .75em 0; }
+.price-study a { color: var(--blue-dark); text-underline-offset: .15em; }
+.price-study table { width: 100%; border-collapse: collapse; font-size: .94rem; font-variant-numeric: tabular-nums; }
+.price-study caption { text-align: left; font-weight: 700; padding: .6rem 0; }
+.price-study th, .price-study td { text-align: left; padding: .65rem .55rem; vertical-align: top; border-bottom: 1px solid var(--border); }
+.price-study thead th { background: var(--blue-tint); }
+.price-study tbody tr:nth-child(even) { background: var(--mist); }
+.guide-table-wrap { max-width: 100%; overflow-x: auto; margin: .75rem 0 1.25rem; }
+@media (max-width: 480px) {
+  .price-study table { font-size: .86rem; line-height: 1.4; }
+  .price-study th, .price-study td { padding: .5rem .3rem; overflow-wrap: anywhere; }
+}
