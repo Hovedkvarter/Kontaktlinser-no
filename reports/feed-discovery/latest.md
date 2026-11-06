@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-05T11:10:53.014870+00:00
+Kontrollert: 2026-11-06T11:07:34.511544+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -10,13 +10,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1215 | 109 | 107 | 2 |
 | Extra Optical | ok | 2791 | 87 | 81 | 6 |
-| Lensway | ok | 1122 | 192 | 179 | 13 |
+| Lensway | ok | 1120 | 192 | 179 | 13 |
 | Lenson | ok | 193 | 193 | 179 | 14 |
-| Shopping4net | ok | 20273 | 120 | 94 | 26 |
+| Shopping4net | ok | 20212 | 120 | 94 | 26 |
 | Brilleland | ok | 925 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9540 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9536 | 80 | 43 | 37 |
 
-Nye rader: 4. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -29,10 +29,10 @@ Nye rader: 4. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Lensway | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Uendret |
 | Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
 | Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
-| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Ny |
-| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Ny |
-| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Ny |
-| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Ny |
+| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Uendret |
+| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Uendret |
+| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Uendret |
+| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ELITE 180-pack, everclear ELITE 5-pack, everclear ELITE 30-pack | Uendret |
 | Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
