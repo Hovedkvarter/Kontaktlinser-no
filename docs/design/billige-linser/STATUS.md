@@ -1,3 +1,14 @@
+# Publisert og verifisert — 7. november 2026
+
+PR #49 merget som `ce76bad493b149caaf143be4307162f91320eeea` etter grønn CI [42370020316](https://github.com/Hovedkvarter/Kontaktlinser-no/actions/runs/42370020316). Ordinær publiseringsjobb [42370165560](https://github.com/Hovedkvarter/Kontaktlinser-no/actions/runs/42370165560) fullført med success, inkludert Pages-publisering. Ingen prisimport kjørt.
+
+Aktiv URL https://kontaktlinser.no/billige-linser-pa-nett/ svarte HTTP 200 med korrekt title/canonical og tolv produktkort. Butikkantall i rekkefølge: 8,8,8,8,8,8,8,8,8,7,7,6. Ny sorteringstekst finnes. Sitemap-statiske svarte 200 og inneholder siden; forsiden har intern lenke. Dette bekrefter publisert HTML, ikke en ny visuell nettleserrevisjon eller Google-indeksering. Lensit-regelen, eksisterende sporing/ruting/import og Mulish er bevart.
+
+Neste steg: følg faktisk indeksering og søkeordfordeling når GSC-tilgang er tilgjengelig. Ingen nye integrasjoner eller andre publiseringer er bestilt. Ingen ny plattformlæring: denne endringen og regresjonstesten gjelder bare Kontaktlinser.no sitt utvalg.
+
+---
+Checkpoint før publisering:
+
 # Gjeldende status — 7. november 2026
 
 ## Vedtatt
