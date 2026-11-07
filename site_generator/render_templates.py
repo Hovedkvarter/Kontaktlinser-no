@@ -3067,7 +3067,7 @@ FEED_STALE_HOURS = 36
 SCRAPED_STALE_HOURS = 60
 
 
-def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None = None, *, exclude_legacy_retailer: bool = True) -> list[dict]:
+def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None = None) -> list[dict]:
     """Samme logikk som reconcile() i ingest_feed.py, men på rå dict-data
     slik generatoren kan kjøre den direkte på catalog.json uten omveier.
 
@@ -3117,7 +3117,7 @@ def reconcile_product(offers: list[dict], now: datetime, stale_hours: int | None
     # De vises fortsatt som et vanlig, ikke-vinnende tilbud når de IKKE er
     # billigst. "Billigst" avgjøres på selve prisen (inkl. evt. uavgjort),
     # ikke bare hvem som til slutt får trofé-merket via tie-break.
-    if eligible and exclude_legacy_retailer:
+    if eligible:
         lowest_total = min(o["total"] for o in eligible)
         if any(o["retailer"] == "Lensit" and o["total"] == lowest_total for o in eligible):
             enriched = [o for o in enriched if o["retailer"] != "Lensit"]

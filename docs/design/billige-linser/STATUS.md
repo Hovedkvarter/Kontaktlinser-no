@@ -1,6 +1,16 @@
 # Billige linser på nett — status 7. november 2026
 
-## Vedtatt
+## Gjeldende avklaring — 7. november 2026
+
+Kai presiserte etter første gjennomgang: «lensit skal ikke publiseres der de er billigst, frem til de inngår avtale med oss.» Dette erstatter første arbeidsordres nøytralitetskrav for akkurat dette unntaket og lukker avklaringspunktet nedenfor.
+
+Landingssiden bruker nå uendret `reconcile_product` med samme Lensit-regel som resten av nettstedet. Den nye overstyringsparameteren er fjernet. Eksisterende regel sammenligner totalpris og utelater også Lensit ved delt laveste pris. Lensit kan fortsatt vises når de ikke er billigst. Ingen automatisk avtaleaktivering er innført.
+
+Teksten på den nye siden forklarer avgrensningen og lover ikke lenger at butikkavtaler er uten betydning for utvalget. Nye tester dekker billigst, delt billigst, dyrere tilbud og Lensit som eneste tilbud. Ingen merge eller publisering er godkjent eller utført. Første skjermbilder nedenfor er historiske; layouten er uendret, men forklaringen under produktene og eventuelle butikkantall følger den nye avklaringen.
+
+Tidligere status nedenfor beholdes som historikk. Åpne Lensit-punkter og beskrivelse av nøytralitetsunntaket nedenfor er erstattet av avklaringen her. Neste steg er gjennomgang og uttrykkelig publiseringsgodkjenning.
+
+## Vedtatt (før første gjennomgang)
 
 Arbeidsordre i Kontaktlinser Work 2: egen kjøpsorientert inngang på `/billige-linser-pa-nett/`, eksisterende katalog/søk/Mulish/produktkort. Bare utvikling, forhåndsvisning og Draft PR. Ingen merge eller publisering. Utgangspunkt: main `1944722`.
 

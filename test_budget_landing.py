@@ -41,14 +41,25 @@ class LandingTests(unittest.TestCase):
         self.assertIn('hos 2 butikker', soup.select_one('.product-tile-store-line').text)
         self.assertEqual(soup.select_one('.product-tile-price-number').text, '100')
 
-    def test_neutral_ranking_keeps_lensit_and_legacy_default_unchanged(self):
-        offers = [offer(80, 'Lensit'), offer(100, 'Partner')]
-        original = copy.deepcopy(offers)
+    def test_lensit_cheapest_and_tied_are_excluded_without_mutating_catalog(self):
+        for lensit_price in (80, 100):
+            with self.subTest(lensit_price=lensit_price):
+                offers = [offer(lensit_price, 'Lensit'), offer(100, 'Partner')]
+                original = copy.deepcopy(offers)
+                row = landing.select_products(catalog([product('test-30pk', offers)]), NOW)[0]
+                self.assertEqual(row['lowest']['retailer'], 'Partner')
+                self.assertEqual([o['retailer'] for o in row['offers']], ['Partner'])
+                self.assertEqual(offers, original)
+
+    def test_lensit_remains_when_not_cheapest(self):
+        offers = [offer(120, 'Lensit'), offer(100, 'Partner')]
         row = landing.select_products(catalog([product('test-30pk', offers)]), NOW)[0]
-        self.assertEqual(row['lowest']['retailer'], 'Lensit')
+        self.assertEqual(row['lowest']['retailer'], 'Partner')
         self.assertEqual(len(row['offers']), 2)
-        self.assertEqual([o['retailer'] for o in t.reconcile_product(offers, NOW)], ['Partner'])
-        self.assertEqual(offers, original)
+
+    def test_only_lensit_offer_does_not_publish_product_or_price(self):
+        self.assertEqual(landing.select_products(catalog([
+            product('test-30pk', [offer(80, 'Lensit')])]), NOW), [])
 
     def test_category_balance_models_and_trial_exclusion(self):
         products = []

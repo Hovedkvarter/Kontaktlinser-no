@@ -14,11 +14,11 @@ CATEGORIES = ('dagslinser', 'manedslinser', 'toriske-linser', 'multifokale-linse
 
 
 def select_products(catalog, now):
-    """Three lowest box prices per category, one pack per model, no paid priority.
+    """Three lowest eligible box prices per category, one pack per model.
 
     Small trial packs (< 3 lenses) are omitted. Freshness and image provenance
-    use the existing helpers. The legacy Lensit exclusion is explicitly disabled
-    on this page in accordance with the owner's neutral-ranking work order.
+    use the existing helpers, including the owner-confirmed Lensit exclusion:
+    omit Lensit when cheapest (including ties) until an agreement is in place.
     """
     groups = {key: [] for key in CATEGORIES}
     for product in catalog['products']:
@@ -27,7 +27,7 @@ def select_products(catalog, now):
         image = t._product_image(product)
         if category not in groups or not pack or pack[1] < 3 or not image or t._is_own_illustration(image):
             continue
-        offers = t.reconcile_product(product['offers'], now, exclude_legacy_retailer=False)
+        offers = t.reconcile_product(product['offers'], now)
         valid = [o for o in offers if o['in_stock'] and not o['is_stale']
                  and math.isfinite(o['price_nok']) and o['price_nok'] > 0]
         if not valid:
@@ -177,8 +177,8 @@ def render_budget_landing(catalog, now=None):
 <div id="budget-products" class="product-tile-grid">{''.join(cards)}</div>
 {'' if rows else '<p>Ingen ferske priser er tilgjengelige i utvalget akkurat nå. Søk etter linsen din eller gå til en kategori over.</p>'}
 <p class="budget-note">Prisene gjelder én eske. Ulike linsetyper og pakninger dekker ulike perioder – lavest eskepris betyr ikke alltid lavest månedskostnad. Se frakt og sist kontrollerte pris på produktsiden.</p>
-<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil tre produkter per linsetype, valgt etter laveste eskepris blant ferske tilbud på lager med produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter eskepris, uten frakt. Butikkavtaler påvirker ikke utvalget.</p></details>
-<p class="disclosure">Vi kan få provisjon når du handler via lenkene på produktsidene. Dette påvirker ikke utvalget eller rangeringen her. Et «Spar»-merke viser forskjellen mot høyeste tilgjengelige butikkpris for samme pakning, uten frakt – ikke en førprisrabatt.</p>
+<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil tre produkter per linsetype, valgt etter laveste eskepris blant ferske tilbud på lager med produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter eskepris, uten frakt. Lensit er foreløpig utelatt når de har lavest totalpris, fordi vi ikke har en avtale med dem.</p></details>
+<p class="disclosure">Vi kan få provisjon når du handler via lenkene på produktsidene. Tilbudene som inngår i sammenligningen, sorteres etter pris. Se «Slik velger vi produktene» for avgrensningen av utvalget. Et «Spar»-merke viser forskjellen mot høyeste tilgjengelige butikkpris for samme pakning, uten frakt – ikke en førprisrabatt.</p>
 </section>{GUIDE}</main>
 <script>{SCRIPT}</script>{t.render_footer()}{t.CONSENT_BANNER_HTML}{t.CONSENT_SCRIPT}
 </body></html>'''
