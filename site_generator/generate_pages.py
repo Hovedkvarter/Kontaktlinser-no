@@ -23,6 +23,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))  # for generate_sitemap.py, price_history.py
 
 from render_templates import render_product_page, render_category_page, render_home_page, render_guide_page, render_guides_index_page, render_brand_page, render_privacy_page, render_about_page, render_404_page, render_solution_product_page, render_solution_category_page, render_private_label_page, render_private_label_index_page, render_private_label_brand_page, render_manufacturer_page, render_illustration_disclaimer_page, render_terms_page, render_family_page, render_pricing_methodology_page, render_product_matching_page, render_editorial_principles_page, render_affiliate_disclosure_page, render_report_error_page, PRIVATE_LABEL_SUBBRANDS, MANUFACTURERS, BRAND_TO_MANUFACTURER, reconcile_product, _pack_size_from_id, build_search_index, GUIDE_CONTENT, oslo_date, _product_image
+from budget_landing import render_budget_landing
 from price_history import load_history, record_price, save_history
 from lastmod import resolve_lastmods
 
@@ -197,6 +198,8 @@ def build(catalog_path: Path = CATALOG_PATH, now: datetime | None = None,
     home_html = render_home_page({**catalog, "products": lens_products}, now, private_labels=private_labels, solution_products=solution_products, families=family_search_entries)
     write_file(BUILD_DIR / "index.html", home_html)
     print("  forside  -> /")
+    write_file(BUILD_DIR / "billige-linser-pa-nett" / "index.html",
+               render_budget_landing({**catalog, "products": lens_products}, now))
 
     # Guide-sidene henter denne først når noen fokuserer søkefeltet (forsiden
     # har samme indeks innebygd) -- holder guide-HTML-en lett.
@@ -458,7 +461,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
     private_labels = json.loads(PRIVATE_LABELS_PATH.read_text(encoding="utf-8"))["labels"] if PRIVATE_LABELS_PATH.exists() else []
 
     static_paths = [
-        "/", "/personvern/", "/om-oss/", "/slik-sammenligner-vi-priser/", "/slik-matcher-vi-produkter/",
+        "/", "/billige-linser-pa-nett/", "/personvern/", "/om-oss/", "/slik-sammenligner-vi-priser/", "/slik-matcher-vi-produkter/",
         "/redaksjonelle-prinsipper/", "/affiliate-og-finansiering/", "/meld-feil/", "/om-produktillustrasjoner/", "/vilkar/",
     ] + [f"/{cat_slug}/" for cat_slug in solution_categories] + (["/private-label/"] if private_labels else [])
     category_slugs = list(catalog["categories"].keys())
@@ -497,6 +500,7 @@ def update_site_content(catalog: dict, now: datetime) -> None:
             floors[path] = value
 
     set_floor("/", sitewide)
+    set_floor("/billige-linser-pa-nett/", sitewide)
     for p in lens_products:
         set_floor(product_paths[p["id"]], verified_date([p]))
     for p in solution_products:

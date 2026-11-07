@@ -7988,6 +7988,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
             <div class="search-suggestions" id="search-suggestions"></div>
           </div>
         </div>
+        <p class="budget-entry"><a href="/billige-linser-pa-nett/">Billige linser på nett – se produkter og kjøpetips</a></p>
         <div class="trust-card">
           <div class="trust-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
           <div>
@@ -11148,6 +11149,8 @@ def render_category_page(category_slug: str, category: dict, products: list[dict
   <noscript><p style="font-size:0.78rem;color:var(--muted);">Filtrering og sortering krever JavaScript. Listen over viser alle produkter, sortert etter lavest pris.</p></noscript>
 
   {category_summary_html}
+
+  <p><a href="/billige-linser-pa-nett/">Sammenlign billige linser på nett på tvers av linsetyper</a></p>
 
   <div class="guides">
     <h2>Guider</h2>
