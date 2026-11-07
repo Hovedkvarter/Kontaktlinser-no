@@ -75,6 +75,23 @@ class LandingTests(unittest.TestCase):
         reverse = landing.select_products(catalog(list(reversed(products))), NOW)
         self.assertEqual([r['product']['id'] for r in result], [r['product']['id'] for r in reverse])
 
+    def test_store_coverage_controls_selection_and_order(self):
+        products = [product('cheap-30pk', [offer(1)])]
+        for name, count, price in [('wide', 4, 400), ('second', 3, 200), ('third', 3, 300)]:
+            products.append(product(name+'-30pk', [offer(price, f'Store{i}') for i in range(count)]))
+        # Duplicate, stale and unavailable offers must not inflate coverage.
+        products[0]['offers'] += [offer(2, ' store '), offer(3, 'STORE')]
+        stale = offer(2, 'Old'); stale['checked_at'] = (NOW-timedelta(days=20)).isoformat()
+        unavailable = offer(2, 'Unavailable'); unavailable['in_stock'] = False
+        products[0]['offers'] += [stale, unavailable]
+        products.append(product('monthly-6pk', [offer(500, f'M{i}') for i in range(5)], 'manedslinser'))
+        rows = landing.select_products(catalog(products), NOW)
+        self.assertEqual([r['product']['id'] for r in rows], ['monthly-6pk', 'wide-30pk', 'second-30pk', 'third-30pk'])
+        self.assertEqual([r['store_count'] for r in rows], [5, 4, 3, 3])
+        soup = BeautifulSoup(landing.render_budget_landing(catalog(products), NOW), 'html.parser')
+        graph = next(json.loads(n.string)['@graph'] for n in soup.select('[type="application/ld+json"]') if '@graph' in json.loads(n.string))
+        self.assertEqual(graph[0]['mainEntity']['numberOfItems'], 4)
+
     def test_empty_state_has_no_fake_prices_or_product_schema(self):
         c = catalog([product('test-30pk', [offer(1)])])
         html = landing.render_budget_landing(c, NOW+timedelta(days=20))

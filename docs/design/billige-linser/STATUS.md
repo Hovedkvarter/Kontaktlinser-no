@@ -1,3 +1,21 @@
+# Gjeldende status — 7. november 2026
+
+## Vedtatt
+Kai godkjente publisering med forbehold om SEO-kvalitet. Produkter med flest butikker skal komme først. Lensit-avklaringen nedenfor beholdes.
+
+## Implementert og kontrollert
+Utvalg innen hver av fire kategorier og samlet rekkefølge prioriterer antall unike butikker med ferske, positive tilbud på lager etter eksisterende Lensit-filter. Ved likt antall: laveste eskepris, deretter stabil produkt-ID. Tre modeller per kategori beholdes. Synlig forklaring er oppdatert. Duplikater, gamle og utsolgte tilbud øker ikke butikkantallet.
+
+22 relevante unittester består, inkludert ny regresjon for utvalg og rekkefølge. Fullt bygg og byggevalidator består (231/231 produkter med priser). SEO-testprogram består. H1, title, canonical, indeksering, sitemap, interne lenker og JSON-LD er kontrollert i det nye bygget. Prisimport, ruting, GTM/GA4 og samtykke er uendret.
+
+Ny visuell kontroll ble blokkert av nettleserens URL-policy før siden kunne leses. Tidligere skjermbilder viser layouten, men ikke det nye produktutvalget. Ingen CSS eller komponentlayout er endret i denne revisjonen. GSC-data er fortsatt utilgjengelige; søkeplasseringer kan ikke garanteres.
+
+## Neste steg
+Kontroller CI for siste commit, merge og verifiser ordinær publisering og aktiv side. Godkjenningen gjelder denne siden og avtalte interne lenker. Publisering er ikke bekreftet i dette checkpointet.
+
+---
+Historikk (tidligere status og godkjenningskrav er erstattet av gjeldende status ovenfor):
+
 # Billige linser på nett — status 7. november 2026
 
 ## Gjeldende avklaring — 7. november 2026

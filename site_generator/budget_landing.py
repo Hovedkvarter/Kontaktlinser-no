@@ -14,7 +14,7 @@ CATEGORIES = ('dagslinser', 'manedslinser', 'toriske-linser', 'multifokale-linse
 
 
 def select_products(catalog, now):
-    """Three lowest eligible box prices per category, one pack per model.
+    """Three best-covered products per category, one pack per model.
 
     Small trial packs (< 3 lenses) are omitted. Freshness and image provenance
     use the existing helpers, including the owner-confirmed Lensit exclusion:
@@ -34,18 +34,20 @@ def select_products(catalog, now):
             continue
         lowest = min(valid, key=lambda o: (o['price_nok'], o['total'], o['retailer']))
         groups[category].append(dict(product=product, offers=valid, lowest=lowest,
-                                     image=image, pack=pack))
+                                     image=image, pack=pack, store_count=len({
+                                         str(o["retailer"]).strip().casefold() for o in valid
+                                         if str(o["retailer"]).strip()})))
     selected = []
     for rows in groups.values():
         seen = set()
-        for row in sorted(rows, key=lambda r: (r['lowest']['price_nok'], r['product']['id'])):
+        for row in sorted(rows, key=lambda r: (-r['store_count'], r['lowest']['price_nok'], r['product']['id'])):
             if row['pack'][0] in seen:
                 continue
             seen.add(row['pack'][0])
             selected.append(row)
             if len(seen) == 3:
                 break
-    return sorted(selected, key=lambda r: (r['lowest']['price_nok'], r['product']['id']))
+    return sorted(selected, key=lambda r: (-r['store_count'], r['lowest']['price_nok'], r['product']['id']))
 
 
 GUIDE = '''<section class="budget-guide" aria-labelledby="buying-guide">
@@ -171,13 +173,13 @@ def render_budget_landing(catalog, now=None):
 {search}<nav class="budget-links" aria-label="Velg linsetype">{links}</nav></header>
 <section class="budget-products" aria-labelledby="product-heading">
 <h2 id="product-heading">Finn et produkt å sammenligne</h2>
-<p class="budget-note">Et utvalg på tvers av linsetyper, sortert etter laveste eskepris. Prisene er uten frakt.</p>
+<p class="budget-note">Et utvalg på tvers av linsetyper, sortert etter flest butikker med ferske tilbud på lager. Ved likt antall vises laveste eskepris først. Prisene er uten frakt.</p>
 <div class="budget-filters" role="group" aria-label="Filtrer produktutvalget" hidden>{filters}</div>
 <p class="budget-count" id="budget-count" role="status" aria-live="polite">{len(rows)} produkter i utvalget</p>
 <div id="budget-products" class="product-tile-grid">{''.join(cards)}</div>
 {'' if rows else '<p>Ingen ferske priser er tilgjengelige i utvalget akkurat nå. Søk etter linsen din eller gå til en kategori over.</p>'}
 <p class="budget-note">Prisene gjelder én eske. Ulike linsetyper og pakninger dekker ulike perioder – lavest eskepris betyr ikke alltid lavest månedskostnad. Se frakt og sist kontrollerte pris på produktsiden.</p>
-<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil tre produkter per linsetype, valgt etter laveste eskepris blant ferske tilbud på lager med produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter eskepris, uten frakt. Lensit er foreløpig utelatt når de har lavest totalpris, fordi vi ikke har en avtale med dem.</p></details>
+<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil tre produkter per linsetype, valgt etter flest unike butikker med ferske tilbud på lager og produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter antall butikker, flest først. Ved likt antall prioriteres laveste eskepris, uten frakt. Flere tilbud fra samme butikk teller bare én gang. Lensit er foreløpig utelatt når de har lavest totalpris, fordi vi ikke har en avtale med dem.</p></details>
 <p class="disclosure">Vi kan få provisjon når du handler via lenkene på produktsidene. Tilbudene som inngår i sammenligningen, sorteres etter pris. Se «Slik velger vi produktene» for avgrensningen av utvalget. Et «Spar»-merke viser forskjellen mot høyeste tilgjengelige butikkpris for samme pakning, uten frakt – ikke en førprisrabatt.</p>
 </section>{GUIDE}</main>
 <script>{SCRIPT}</script>{t.render_footer()}{t.CONSENT_BANNER_HTML}{t.CONSENT_SCRIPT}
