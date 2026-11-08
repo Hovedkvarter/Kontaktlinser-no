@@ -44,6 +44,9 @@ BF_STYLE = """
  .bf-hero .budget-links a { padding: 10px 11px; }
  .bf-rings { opacity: .12; }
 }
+.budget-products .product-tile-cta { background: #061629; }
+.budget-products .product-tile:hover .product-tile-cta { background: #123455; }
+.budget-products .product-tile-cta:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
 .bf-campaigns { margin-top: 32px; padding: 24px; border: 1px solid var(--border); border-radius: 18px; background: white; }
 .bf-campaigns h2 { margin: 0 0 10px; }
 .bf-campaigns p { margin: 0; line-height: 1.65; }
@@ -84,11 +87,14 @@ def render_black_friday(catalog, now=None):
     for row in rows:
         p = row['product']
         href = f'/kontaktlinser/{p["brand_slug"]}/{p["slug"]}/'
+        manufacturer = t.BRAND_TO_MANUFACTURER.get(p['brand_slug'])
+        secondary = (f'<a class="product-tile-manufacturer" href="/produsent/{manufacturer}/">{escape(t.MANUFACTURERS[manufacturer]["name"])}</a>'
+                     if manufacturer else f'<span class="product-tile-manufacturer">{escape(p["brand_label"])}</span>')
         cards.append(t._render_product_tile(
             href=href, name=p['name'], image_url=row['image'],
             fallback_initials=p['brand_label'][:2], category_label=catalog['categories'][p['category_slug']]['label'],
-            secondary_line_html=f'<span class="product-tile-manufacturer">{row["pack"][1]} linser per eske</span>',
-            lowest=row['lowest'], other_count=row['store_count'] - 1,
+            secondary_line_html=secondary,
+            lowest=row['lowest'], other_count=row['store_count'] - 1, comparison_offers=row['offers'],
             data_attr=f' data-category="{escape(p["category_slug"])}" data-product-id="{escape(p["id"])}"'))
         items.append({'@type': 'ListItem', 'position': len(items)+1, 'name': p['name'], 'url': t.BASE_URL+href})
     links = ''.join(f'<a href="/kontaktlinser/{key}/">{escape(catalog["categories"][key]["label"])}</a>' for key in CATEGORIES)
@@ -123,7 +129,7 @@ def render_black_friday(catalog, now=None):
 {search}<nav class="budget-links" aria-label="Velg linsetype">{links}</nav></header>
 <section class="budget-products" aria-labelledby="product-heading">
 <h2 id="product-heading">Dagens priser på kontaktlinser</h2>
-<p class="budget-note">Utvalget er sortert etter flest butikker. Prisene gjelder én eske, uten frakt.</p>
+<p class="budget-note">Utvalget er sortert etter flest butikker. Prisene gjelder én eske, uten frakt. «Spar» og overstrøket pris viser forskjellen mellom butikkene for samme pakning, ikke en tidligere pris eller bekreftet Black Friday-rabatt.</p>
 <div class="budget-filters" role="group" aria-label="Filtrer produktutvalget" hidden>{filters}</div>
 <p class="budget-count" id="budget-count" role="status" aria-live="polite">{len(rows)} produkter i utvalget</p>
 <div id="budget-products" class="product-tile-grid">{''.join(cards)}</div>

@@ -47,3 +47,9 @@ LÆRING: Isolert hero lager egen stablingskontekst; eksplisitt z-index er nødve
 NESTE STEG: Publisering og kontroll av aktiv side. Månedlig tilbakeblikk fortsatt åpent.
 
 PUBLISERT: PR #52 merget som c567beb48094efdb2205733cb29b7bee6caad18b. PR-kontroll 42480430518, byggejobb 42480593768 og Pages-utrulling 42480714430 fullført med success. Aktiv side viste ny bf-hero etter oppfriskning i nettleser. Skjermbilde av samme design fra forhåndsvisning: dark-desktop.png. Ingen åpne blokkeringer for designet.
+
+
+## Ordinære produktkort 2026-11-08
+VEDTATT: Eier ønsker nettstedets ordinære produktoppføring, inkludert Spar-merke og sammenligningspris. Tidligere beslutning om å utelate disse på Black Friday er erstattet. Kun CTA-fargen skal være mørk marineblå som hero.
+IMPLEMENTERT: Eksisterende felles kortmal og beregning gjenbrukes, produsent vises som på merkekortene. Synlig felles forklaring over utvalget presiserer butikkforskjell, ikke historisk pris/kampanjerabatt. Ingen endring av prisgrunnlag, sortering eller øvrige sider.
+KONTROLL: 26 tester bestått, byggevalidering 231/231. Acuvue Oasys viser Spar 24 %, 349 kr sammenligningspris, fra 262 kr og Johnson & Johnson Vision. Desktop og mobilknapp kontrollert; bakgrunn #061629. Testen bekrefter at dubletter fra samme butikk ikke øker sammenligningsprisen. Skjermbilde: standard-cards.png.
