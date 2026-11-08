@@ -45,3 +45,5 @@ IMPLEMENTERT: Kun black_friday.py endret. Dekor i CSS uten bildefiler eller ekst
 KONTROLL: 26 relevante Python-tester, 47 søketester i JavaScript, SEO-kontroll og byggevalidering bestått. Desktop og 360 px mobilramme kontrollert, ingen horisontal sideoverflyt. Biofinity viser 13 treff. Søkelisten ligger over produktkortene.
 LÆRING: Isolert hero lager egen stablingskontekst; eksplisitt z-index er nødvendig for at søkeforslag skal ligge over produktkort. Dekor klippes i eget element, ikke i hero som inneholder søket.
 NESTE STEG: Publisering og kontroll av aktiv side. Månedlig tilbakeblikk fortsatt åpent.
+
+PUBLISERT: PR #52 merget som c567beb48094efdb2205733cb29b7bee6caad18b. PR-kontroll 42480430518, byggejobb 42480593768 og Pages-utrulling 42480714430 fullført med success. Aktiv side viste ny bf-hero etter oppfriskning i nettleser. Skjermbilde av samme design fra forhåndsvisning: dark-desktop.png. Ingen åpne blokkeringer for designet.
