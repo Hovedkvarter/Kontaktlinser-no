@@ -1,23 +1,23 @@
 # Black Friday og månedlig tilbakeblikk
 
-Dato: 2026-11-08. Kontaktlinser.no, lokal implementering. Ikke publisert.
+Dato: 2026-11-08. Kontaktlinser.no, lokal implementering. Publisering godkjent av eier 2026-11-08; avventer kontroll og utrulling.
 Base: f18b25f26e1c067cdd6ed9cd99acc047fba63a46. Separat fra startside-PR #50.
 
 ## VEDTATT
-Black Friday først. Budskap: «Lave priser på kontaktlinser – og bekreftede Black Friday-tilbud». Dagens priser er nyttige også uten prisfall. Ingen fremtredende «er prisene faktisk lavere»-seksjon. Publisering krever eiergodkjenning.
-Gjenbruk produktutvalg fra PR #49: flest unike butikker med ferske priser på lager først, tre modeller per linsetype. Gjeldende Lensit-avgrensning beholdes.
+Black Friday først. Budskap: «Lave priser på kontaktlinser – og bekreftede Black Friday-tilbud». Dagens priser er nyttige også uten prisfall. Ingen fremtredende «er prisene faktisk lavere»-seksjon. Publisering ble godkjent av eier i oppfølgingen.
+Gjenbruk produktutvalg fra PR #49: flest unike butikker med ferske priser på lager først, inntil åtte modeller per linsetype, totalt 30. Gjeldende Lensit-avgrensning beholdes.
 
 ## IMPLEMENTERT
 - /black-friday-kontaktlinser/ med eksisterende søk, produktkort, Mulish, kategorifilter og kjøpehjelp.
-- 12 faktiske produkter i kontrollbygget. Ingen førpriser eller Spar-merker på denne siden; butikkforskjell blir ikke presentert som en kampanje.
+- 30 faktiske produkter i kontrollbygget. Ingen førpriser eller Spar-merker på denne siden; butikkforskjell blir ikke presentert som en kampanje.
 - Egen redaksjonell seksjon for bekreftede kampanjer. Ingen kampanje er lagt inn; dagens tomtilstand sier dette tydelig.
 - Canonical, CollectionPage/ItemList og BreadcrumbList; sitemap og lastmod via eksisterende generator.
 - Diskrete lenker fra forside og «Billige linser på nett». Ingen endret import, sporing, samtykke eller affiliate-ruting.
 
 ## OBSERVERT / KONTROLL
-25 Python-tester og 47 JavaScript-søketester bestått, i tillegg til SEO-testene og byggevalidering (231/231 produkter med priser).
+26 Python-tester og 47 JavaScript-søketester bestått, i tillegg til SEO-testene og byggevalidering (231/231 produkter med priser).
 Full byggdiff før/etter med fast tidspunkt: én ny HTML-side, to eksisterende sider med nye interne lenker; 487 eksisterende HTML-sider identiske. Ingen interne lenkemål mangler på ny side.
-Nettleser: Biofinity gir 13 treff; torisk filter gir tre produkter. Mobil 360 CSS-piksler og nettbrett 753 CSS-piksler uten horisontal sideoverflyt; mobil via iframe, ikke fysisk enhet. Hele desktop-siden kontrollert. Skjermbilder i samme mappe.
+Nettleser: Biofinity gir 13 treff; torisk filter gir åtte produkter. Mobil 360 CSS-piksler og nettbrett 753 CSS-piksler uten horisontal sideoverflyt; mobil via iframe, ikke fysisk enhet. Hele desktop-siden kontrollert. Skjermbilder i samme mappe.
 Læring: gjenbruk av produktkort med comparison_offers lager butikkbaserte sparemerker. På kampanjesiden sendes laveste pris og unikt butikkantall uten comparison_offers. Regresjonstest dekker at prisforskjell mellom butikker ikke blir rabattpåstand og at utdaterte priser forsvinner.
 
 ## FORSLAG / ÅPENT: månedlig tilbakeblikk
@@ -30,4 +30,7 @@ Foreslått struktur: én oversikt med lenker til faste månedsutgaver. Hver mån
 - Månedens nyttige tema og tre konkrete endringer gir redaksjonell verdi; unngå bare nytt månedsnavn på samme tekst.
 
 ## Neste steg
-Gjennomgå Draft PR og skjermbilder, avstem med startside-PR #50 før merge. Verifiser kilder, gyldighetsperiode, produkter og vilkår før første kampanje føres inn; utløpte kampanjer må fjernes ved redaksjonell oppdatering. Dagens prisoppdatering lager ikke kampanjer automatisk. Godkjenning kreves før publisering. Avklar datagrunnlag for månedsarkivet etter Black Friday-siden.
+Gjennomgå Draft PR og skjermbilder, avstem med startside-PR #50 før merge. Verifiser kilder, gyldighetsperiode, produkter og vilkår før første kampanje føres inn; utløpte kampanjer må fjernes ved redaksjonell oppdatering. Dagens prisoppdatering lager ikke kampanjer automatisk. Eier har godkjent publisering. Avklar datagrunnlag for månedsarkivet etter Black Friday-siden.
+
+## Oppfølging før publisering
+Eier endret ønsket fra 32/fire til 30 produkter/fem per rad på desktop. Mobil beholder to. Popularitetstall er ikke verifisert; sorteringen følger fortsatt butikkdekning og kalles ikke mest populær. Ingen annen PR er inkludert i denne publiseringen.

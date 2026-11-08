@@ -7,6 +7,12 @@ from test_budget_landing import NOW, offer, product, catalog
 from site_generator import black_friday as page
 
 class BlackFridayTests(unittest.TestCase):
+    def test_extended_selection_is_capped_at_thirty(self):
+        products = [product(f"lens-{category}-{i}-30pk", [offer(100+i, "A")], category)
+                    for category in page.CATEGORIES for i in range(10)]
+        soup = BeautifulSoup(page.render_black_friday(catalog(products), NOW), "html.parser")
+        self.assertEqual(len(soup.select(".product-tile")), 30)
+
     def test_store_price_difference_is_not_a_campaign(self):
         c = catalog([product('test-30pk', [offer(100,'A'), offer(200,'B'), offer(210,'B')])])
         html = page.render_black_friday(c, NOW)

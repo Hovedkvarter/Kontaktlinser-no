@@ -13,8 +13,8 @@ DESCRIPTION = ('Sammenlign priser på kontaktlinser fra norske nettbutikker. Fin
 CATEGORIES = ('dagslinser', 'manedslinser', 'toriske-linser', 'multifokale-linser')
 
 
-def select_products(catalog, now):
-    """Three best-covered products per category, one pack per model.
+def select_products(catalog, now, per_category=3):
+    """Best-covered products per category, one pack per model (default three).
 
     Small trial packs (< 3 lenses) are omitted. Freshness and image provenance
     use the existing helpers, including the owner-confirmed Lensit exclusion:
@@ -45,7 +45,7 @@ def select_products(catalog, now):
                 continue
             seen.add(row['pack'][0])
             selected.append(row)
-            if len(seen) == 3:
+            if len(seen) == per_category:
                 break
     return sorted(selected, key=lambda r: (-r['store_count'], r['lowest']['price_nok'], r['product']['id']))
 

@@ -16,6 +16,7 @@ DESCRIPTION = ('Finn lave priser på kontaktlinser og se bekreftede Black Friday
                'Sammenlign linsen din hos norske nettbutikker.')
 
 BF_STYLE = """
+@media (min-width: 1000px) { .budget-products .product-tile-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } }
 .bf-lead { font-weight: 800; color: var(--ink); }
 .bf-campaigns { margin-top: 32px; padding: 24px; border: 1px solid var(--border); border-radius: 18px; background: white; }
 .bf-campaigns h2 { margin: 0 0 10px; }
@@ -51,7 +52,7 @@ GUIDE = '''<section class="budget-guide" aria-labelledby="buying-guide">
 
 def render_black_friday(catalog, now=None):
     now = now or datetime.now(timezone.utc)
-    rows = select_products(catalog, now)
+    rows = select_products(catalog, now, per_category=8)[:30]
     cards = []
     items = []
     for row in rows:
@@ -102,7 +103,7 @@ def render_black_friday(catalog, now=None):
 <div id="budget-products" class="product-tile-grid">{''.join(cards)}</div>
 {'' if rows else '<p>Ingen ferske priser er tilgjengelige i utvalget akkurat nå. Søk etter linsen din eller gå til en kategori over.</p>'}
 <p class="budget-note">Prisene gjelder én eske. Ulike linsetyper og pakninger dekker ulike perioder – lavest eskepris betyr ikke alltid lavest månedskostnad. Se frakt og sist kontrollerte pris på produktsiden.</p>
-<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil tre produkter per linsetype, valgt etter flest unike butikker med ferske tilbud på lager og produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter antall butikker, flest først. Ved likt antall prioriteres laveste eskepris, uten frakt. Flere tilbud fra samme butikk teller bare én gang. Lensit er foreløpig utelatt når de har lavest totalpris, fordi vi ikke har en avtale med dem.</p></details>
+<details class="budget-note"><summary>Slik velger vi produktene</summary><p>Inntil 30 produkter totalt og åtte per linsetype, valgt etter flest unike butikker med ferske tilbud på lager og produktbilde. Én pakning per modell, minst tre linser per eske. Hele utvalget er sortert etter antall butikker, flest først. Ved likt antall prioriteres laveste eskepris, uten frakt. Flere tilbud fra samme butikk teller bare én gang. Lensit er foreløpig utelatt når de har lavest totalpris, fordi vi ikke har en avtale med dem.</p></details>
 <p class="disclosure">Vi kan få provisjon når du handler via lenkene på produktsidene. Tilbudene som inngår i sammenligningen, sorteres etter pris. Se «Slik velger vi produktene» for avgrensningen av utvalget. Produktutvalget viser dagens priser. Produktene er ikke merket som Black Friday-tilbud uten en bekreftet kampanje.</p>
 </section>{CAMPAIGNS}{GUIDE}</main>
 <script>{SCRIPT}</script>{t.render_footer()}{t.CONSENT_BANNER_HTML}{t.CONSENT_SCRIPT}
