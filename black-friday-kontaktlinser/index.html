@@ -840,7 +840,33 @@ a { color: inherit; }
 }
 
 @media (min-width: 1000px) { .budget-products .product-tile-grid { grid-template-columns: repeat(5,minmax(0,1fr)); } }
-.bf-lead { font-weight: 800; color: var(--ink); }
+/* Scoped seasonal hero; decoration never clips the search suggestions. */
+.bf-hero { position: relative; z-index: 2; isolation: isolate; max-width: none; padding: 28px; margin: 12px 0 28px; border-radius: 22px; background: #061629; color: #d4e5f7; }
+.bf-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at 91% 85%, #10396b 0, transparent 58%), linear-gradient(110deg,#040f1d,#082344); }
+.bf-rings { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: -1; }
+.bf-rings span { position: absolute; width: 380px; height: 380px; right: 3%; top: 30px; border-radius: 50%; border: 1px solid #3978b8; transform: rotate(-32deg) scaleX(.8); background: radial-gradient(ellipse at 30% 15%,#2476b333,transparent 65%); box-shadow: inset 5px 3px 20px #428fcb44, 0 0 25px #1571bb33; }
+.bf-rings span:nth-child(2) { width: 310px; height: 310px; top: 95px; right: 6%; border-color: #a1ddff; box-shadow: inset 3px 2px 8px #7ccaff, 0 0 14px #359eff, 0 0 36px #1672b677; }
+.bf-rings span:nth-child(3) { width: 230px; height: 230px; top: 170px; right: 9%; border-color: #17578a; background: #04162a88; box-shadow: none; }
+.bf-hero h1 { color: #fff; }
+.bf-hero .kicker { color: #dfebf8; }
+.bf-hero .bf-lead { font-weight: 800; color: #fff; }
+.bf-hero p, .bf-hero .search-row { max-width: min(720px,72%); }
+.bf-hero .search-input { color: var(--ink); background: #fff; border-color: #c5ddfa; }
+.bf-hero .search-input:focus { box-shadow: 0 0 0 3px #8ccaff; }
+.bf-hero .budget-links a { background: #07192ccc; color: #fff; border-color: #91a8c1; }
+.bf-hero .budget-links a:hover { background: #173a62; border-color: #fff; }
+.bf-hero a:focus-visible, .bf-hero button:focus-visible { outline: 3px solid #91d1ff; outline-offset: 3px; }
+.bf-hero .search-no-match { color: var(--ink); }
+@media (max-width: 999px) {
+ .bf-hero p, .bf-hero .search-row { max-width: 100%; }
+ .bf-rings { opacity: .2; }
+}
+@media (max-width: 699px) {
+ .bf-hero { padding: 20px 16px; border-radius: 18px; margin-bottom: 22px; }
+ .bf-hero .budget-links { gap: 8px; }
+ .bf-hero .budget-links a { padding: 10px 11px; }
+ .bf-rings { opacity: .12; }
+}
 .bf-campaigns { margin-top: 32px; padding: 24px; border: 1px solid var(--border); border-radius: 18px; background: white; }
 .bf-campaigns h2 { margin: 0 0 10px; }
 .bf-campaigns p { margin: 0; line-height: 1.65; }
@@ -1424,7 +1450,7 @@ a { color: inherit; }
 </script>
 <main id="main-content" class="wrap wrap-wide budget-main">
 <p class="breadcrumb"><a href="/">Hjem</a> › Black Friday på kontaktlinser</p>
-<header class="budget-hero"><div class="kicker">Black November · Black Week · Black Friday</div>
+<header class="budget-hero bf-hero"><div class="bf-rings" aria-hidden="true"><span></span><span></span><span></span></div><div class="kicker">Black November · Black Week · Black Friday</div>
 <h1>Black Friday på kontaktlinser</h1>
 <p class="bf-lead">Lave priser på kontaktlinser – og bekreftede Black Friday-tilbud</p>
 <p>Søk etter linsene du bruker og sammenlign norske nettbutikker. Bekreftede kampanjer legges til når de er tilgjengelige.</p>
