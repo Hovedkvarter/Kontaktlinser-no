@@ -1,6 +1,7 @@
 # Startside: kontaktlinser
 
 Dato: 2026-11-08. Status: implementert og lokalt kontrollert; ikke publisert.
+Draft PR: https://github.com/Hovedkvarter/Kontaktlinser-no/pull/50
 
 ## Beslutninger
 - Startsiden dekker den brede intensjonen kontaktlinser; /billige-linser-pa-nett/ beholder prisorientert kjøpsintensjon.
@@ -14,7 +15,8 @@ Dato: 2026-11-08. Status: implementert og lokalt kontrollert; ikke publisert.
 
 ## Kontroll
 - Fullt bygg fra eksisterende katalog med samme tidspunkt før/etter: bare index.html endret; 488 øvrige HTML-filer identiske.
-- 22 tester bestått: test_search_rendering, test_budget_landing, test_product_tile_savings.
+- 47 JavaScript-søketester bestått mot 384 indekserte oppføringer (node --test tests/test_search.cjs).
+- 22 Python-tester bestått: test_search_rendering, test_budget_landing, test_product_tile_savings.
 - validate_build.py: 231/231 produktsider med priser OK. test_seo_schema.py: bestått.
 - Én H1, selvrefererende canonical, JSON-LD og lokale interne lenkemål kontrollert. Ingen nye URL-er eller sitemap-regler.
 - Desktop og mobil visuelt kontrollert; 360 og 753 CSS-piksler uten horisontal overflyt. Ved ekstremt smal 305 px måles 1 px overflyt i eksisterende layout.
