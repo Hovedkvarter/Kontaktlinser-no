@@ -37,3 +37,11 @@ Eier endret ønsket fra 32/fire til 30 produkter/fem per rad på desktop. Mobil 
 
 ## Publiseringsresultat
 PR #51 merget: b37eb2d8bcc8f0cba4588e09f645ab02c1175abf. PR-kontroll 42475638109 og publiseringsjobb 42475783613 fullført med success. Aktiv side kontrollert i nettleser: https://kontaktlinser.no/black-friday-kontaktlinser/ viser 30 produkter, fem i første desktoprad, korrekt canonical og torisk filter med åtte produkter. Lokal mobilkontroll etter utvidelse: 30 produkter, to per rad, 360 px uten overflyt. Startside-PR #50 er ikke inkludert.
+
+
+## Black Friday-design 2026-11-08
+VEDTATT: Eier godkjente skissen med mørk marineblå topp, blå fokusringer, hvitt søk og lyst produktområde, og ba uttrykkelig om publisering.
+IMPLEMENTERT: Kun black_friday.py endret. Dekor i CSS uten bildefiler eller ekstra nettverkskall. Mulish, innhold, 30 produkter, metadata og dataflyt beholdt. På mobil dempes ringene.
+KONTROLL: 26 relevante Python-tester, 47 søketester i JavaScript, SEO-kontroll og byggevalidering bestått. Desktop og 360 px mobilramme kontrollert, ingen horisontal sideoverflyt. Biofinity viser 13 treff. Søkelisten ligger over produktkortene.
+LÆRING: Isolert hero lager egen stablingskontekst; eksplisitt z-index er nødvendig for at søkeforslag skal ligge over produktkort. Dekor klippes i eget element, ikke i hero som inneholder søket.
+NESTE STEG: Publisering og kontroll av aktiv side. Månedlig tilbakeblikk fortsatt åpent.
