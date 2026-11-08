@@ -7765,7 +7765,13 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
     def render_category_row(slug: str, category: dict) -> str:
         icon = CATEGORY_ICONS.get(slug, "")
         color = CATEGORY_COLORS.get(slug, "blue")
-        tagline = CATEGORY_TAGLINES.get(slug, "")
+        tagline = {
+            "dagslinser": "Et nytt par hver dag, uten rengjøring etter bruk.",
+            "manedslinser": "Gjenbrukes gjennom måneden, med daglig rengjøring.",
+            "toriske-linser": "Kontaktlinser som korrigerer skjeve hornhinner.",
+            "fargede-linser": "Endrer eller fremhever øyefargen, med eller uten styrke.",
+            "multifokale-linser": "Flere styrker i samme linse for ulike avstander.",
+        }.get(slug, CATEGORY_TAGLINES.get(slug, ""))
         bg = CATEGORY_BG.get(slug)
         bg_html = (
             f'<img class="category-row-bg" src="/static/categories/bg-{bg}-320.webp" '
@@ -7801,16 +7807,23 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no</title>
-<meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
+<title>Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no</title>
+<meta name="description" content="Finn kontaktlinser etter merke og linsetype. Sammenlign priser fra norske nettbutikker, med og uten frakt, og få hjelp i våre linseguider.">
 <link rel="canonical" href="{BASE_URL}/">
-{_og_meta('Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
+{_og_meta('Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no', 'Finn kontaktlinser etter merke og linsetype. Sammenlign priser fra norske nettbutikker, med og uten frakt, og få hjelp i våre linseguider.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <link rel="preload" as="image" type="image/webp" media="(min-width: 1024px)" fetchpriority="high" imagesrcset="/static/hero/eye-560.webp 560w, /static/hero/eye-840.webp 840w, /static/hero/eye-1120.webp 1120w" imagesizes="(min-width: 1200px) 540px, 42vw">
 <style>{SHARED_STYLE}
 {PRIVATE_LABEL_ILLUSTRATION_STYLE}
 .hero-panel {{ padding: 0; }}
+.home-compare-steps {{ display: grid; gap: 16px; padding: 0; list-style: none; counter-reset: compare; }}
+.home-compare-steps li {{ counter-increment: compare; background: white; border: 1px solid var(--border); border-radius: 14px; padding: 18px; }}
+.home-compare-steps h3 {{ font-size: 1rem; margin: 0 0 8px; }}
+.home-compare-steps h3::before {{ content: counter(compare) ". "; color: var(--blue); }}
+.home-compare-steps p, .home-compare-links {{ font-size: .9rem; line-height: 1.6; margin: 0; }}
+.home-compare-links a {{ text-underline-offset: 3px; }}
+@media (min-width: 700px) {{ .home-compare-steps {{ grid-template-columns: repeat(3, minmax(0, 1fr)); }} }}
 .hero {{
   position: relative;
   padding: 8px 0 24px;
@@ -7976,8 +7989,8 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       <div class="hero-content">
         <div class="hero-heading hero-copy">
           <div class="kicker">Prissammenligning</div>
-          <h1>Finn billigste kontaktlinser</h1>
-          <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Se prisen med og uten frakt.</p>
+          <h1>Kontaktlinser – finn din linse og sammenlign priser</h1>
+          <p class="hero-subtext">Sammenlign priser på kontaktlinser fra norske nettbutikker. Søk etter linsen du bruker, eller finn frem via linsetype og merke. Se priser med og uten frakt.</p>
         </div>
         <div class="search-section">
           <div class="search-row">
@@ -8007,7 +8020,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
     <div class="kategorier-block desktop-only-block">
       <div class="section-header" id="kategorier" style="margin-top:20px;">
-        <h2>Kategorier</h2>
+        <h2>Finn kontaktlinser etter type</h2>
       </div>
       <div class="category-rows">
         {category_rows_html}
@@ -8016,7 +8029,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 
   <div class="section-header" id="merker">
-    <h2>Merker</h2>
+    <h2>Kontaktlinsemerker</h2>
   </div>
   <div class="brand-grid">
     {brand_cards_html}
@@ -8025,15 +8038,25 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
   <div class="kategorier-block mobile-only-block">
     <div class="section-header" style="margin-top:20px;">
-      <h2>Kategorier</h2>
+      <h2>Finn kontaktlinser etter type</h2>
     </div>
     <div class="category-rows">
       {category_rows_html}
     </div>
   </div>
 
+  <section class="home-compare" aria-labelledby="home-compare-title">
+    <div class="section-header"><h2 id="home-compare-title">Slik sammenligner du kontaktlinser</h2></div>
+    <ol class="home-compare-steps">
+      <li><h3>Finn linsen du bruker</h3><p>Søk etter produktnavnet på esken, eller finn frem via merke og linsetype. Kontroller at det er samme linsemodell.</p></li>
+      <li><h3>Sammenlign samme pakning</h3><p>Se hvor mange linser esken inneholder. En lavere eskepris betyr ikke alltid lavere pris per linse.</p></li>
+      <li><h3>Sjekk totalprisen</h3><p>Sammenlign pris med frakt for antallet esker du trenger. Kontroller styrke og øvrige linseverdier før bestilling.</p></li>
+    </ol>
+    <p class="home-compare-links"><a href="/guide/forsta-kontaktlinseresepten/">Forstå linseseddelen</a> · <a href="/guide/pris-per-linse-slik-sammenligner-du/">Sammenlign pris per linse</a> · <a href="/slik-sammenligner-vi-priser/">Slik beregner vi prisene</a></p>
+  </section>
+
   <div class="section-header">
-    <h2>Guider</h2>
+    <h2>Guider om kontaktlinser</h2>
   </div>
   <div class="guide-grid">
     {guide_cards_html}
