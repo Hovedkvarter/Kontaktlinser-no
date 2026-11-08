@@ -1,6 +1,6 @@
 # Black Friday og månedlig tilbakeblikk
 
-Dato: 2026-11-08. Kontaktlinser.no, lokal implementering. Publisering godkjent av eier 2026-11-08; avventer kontroll og utrulling.
+Dato: 2026-11-08. Kontaktlinser.no, lokal implementering. Publisert og kontrollert på kontaktlinser.no 2026-11-08.
 Base: f18b25f26e1c067cdd6ed9cd99acc047fba63a46. Separat fra startside-PR #50.
 
 ## VEDTATT
@@ -34,3 +34,6 @@ Gjennomgå Draft PR og skjermbilder, avstem med startside-PR #50 før merge. Ver
 
 ## Oppfølging før publisering
 Eier endret ønsket fra 32/fire til 30 produkter/fem per rad på desktop. Mobil beholder to. Popularitetstall er ikke verifisert; sorteringen følger fortsatt butikkdekning og kalles ikke mest populær. Ingen annen PR er inkludert i denne publiseringen.
+
+## Publiseringsresultat
+PR #51 merget: b37eb2d8bcc8f0cba4588e09f645ab02c1175abf. PR-kontroll 42475638109 og publiseringsjobb 42475783613 fullført med success. Aktiv side kontrollert i nettleser: https://kontaktlinser.no/black-friday-kontaktlinser/ viser 30 produkter, fem i første desktoprad, korrekt canonical og torisk filter med åtte produkter. Lokal mobilkontroll etter utvidelse: 30 produkter, to per rad, 360 px uten overflyt. Startside-PR #50 er ikke inkludert.
