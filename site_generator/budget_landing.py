@@ -13,8 +13,8 @@ DESCRIPTION = ('Sammenlign priser på kontaktlinser fra norske nettbutikker. Fin
 CATEGORIES = ('dagslinser', 'manedslinser', 'toriske-linser', 'multifokale-linser')
 
 
-def select_products(catalog, now):
-    """Three best-covered products per category, one pack per model.
+def select_products(catalog, now, per_category=3):
+    """Best-covered products per category, one pack per model (default three).
 
     Small trial packs (< 3 lenses) are omitted. Freshness and image provenance
     use the existing helpers, including the owner-confirmed Lensit exclusion:
@@ -45,7 +45,7 @@ def select_products(catalog, now):
                 continue
             seen.add(row['pack'][0])
             selected.append(row)
-            if len(seen) == 3:
+            if len(seen) == per_category:
                 break
     return sorted(selected, key=lambda r: (-r['store_count'], r['lowest']['price_nok'], r['product']['id']))
 
@@ -54,6 +54,7 @@ GUIDE = '''<section class="budget-guide" aria-labelledby="buying-guide">
 <div class="kicker">Få mer ut av prissammenligningen</div>
 <h2 id="buying-guide">Slik finner du billige kontaktlinser på nett</h2>
 <p>Start med navnet på linsen du allerede bruker. Den rimeligste esken i en oversikt er ikke nødvendigvis riktig linse for deg, eller den billigste løsningen over tid. Sammenlign samme produkt, riktig pakningsstørrelse og hele bestillingen.</p>
+<p>Handler du i november? <a href="/black-friday-kontaktlinser/">Se dagens priser og bekreftede Black Friday-tilbud</a>.</p>
 <h3>Hvor finner man de laveste prisene?</h3>
 <p>Ingen butikk trenger å være billigst på alt. Søk opp linsen din og åpne produktsiden for å sammenligne butikkene vi har tilbud fra. Der kan du se frakt og når prisene ble kontrollert. Vi selger ikke linser selv; kjøp, betaling og levering skjer hos nettbutikken.</p>
 <p>Utvalget over er en inngang til katalogen, ikke en test av hvilke linser som passer best. Les også <a href="/guide/hvilken-nettbutikk-har-billigst-kontaktlinser/">vår prisundersøkelse av nettbutikker</a> for et datert øyeblikksbilde. Bruk produktsidene for dagens sammenligning.</p>
