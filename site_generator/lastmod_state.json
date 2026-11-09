@@ -1,7 +1,7 @@
 {
  "/": {
   "lastmod": "2026-11-09",
-  "sig": "e8f2c402e75047bbb974b881384046e98d0da796"
+  "sig": "28b698e5c89d710eb51b2def7640753418e032a9"
  },
  "/affiliate-og-finansiering/": {
   "lastmod": "2026-10-15",
@@ -273,7 +273,7 @@
  },
  "/kontaktlinser/dagslinser/": {
   "lastmod": "2026-11-09",
-  "sig": "dba7107a6df459d13bfcdb94fc76816e16d8cc58"
+  "sig": "7b199948b0d483be4e283b96aad9e680a987c224"
  },
  "/kontaktlinser/dailies/dailies-all-day-comfort-30-pack/": {
   "lastmod": "2026-11-09",
@@ -415,9 +415,17 @@
   "lastmod": "2026-11-09",
   "sig": "8b1682dd482b1d913ff31ec58402c94b14131048"
  },
+ "/kontaktlinser/everclear/everclear-ultimate1-30-pack/": {
+  "lastmod": "2026-11-09",
+  "sig": "4cb13dbef166c1901c3adf703b857cce984fec88"
+ },
+ "/kontaktlinser/everclear/everclear-ultimate1-90-pack/": {
+  "lastmod": "2026-11-09",
+  "sig": "fa6326e25b25cf404fdb2d10b6d04d7a0b4a53bb"
+ },
  "/kontaktlinser/everclear/everclear-ultimate1-astigmatism-30-pack/": {
   "lastmod": "2026-11-09",
-  "sig": "d109990e0e0374acc3f501df9dac9ba762e0a3de"
+  "sig": "06b56e36972c604a6e62af933af9f1d8c5931da7"
  },
  "/kontaktlinser/everclear/everclear-ultimate30-astigmatism-3-pack/": {
   "lastmod": "2026-11-09",
@@ -849,7 +857,7 @@
  },
  "/merke/everclear/": {
   "lastmod": "2026-11-09",
-  "sig": "356a0d8d038a176821e6a5434d483895c6073506"
+  "sig": "0b0700c69bb1b6cc2239dcb1ea03be2afdd8eb9c"
  },
  "/merke/eyeq/": {
   "lastmod": "2026-11-09",
@@ -1582,6 +1590,10 @@
  "/serie/everclear-prime/": {
   "lastmod": "2026-11-09",
   "sig": "6d5c2d5d1d6df942682e355c69f60bf14b9e92c6"
+ },
+ "/serie/everclear-ultimate1/": {
+  "lastmod": "2026-11-09",
+  "sig": "bb020241dec9973fbe22442bf97e06c66c569bf1"
  },
  "/serie/eyeq-24/": {
   "lastmod": "2026-11-09",

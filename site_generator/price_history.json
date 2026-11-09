@@ -87094,5 +87094,19 @@
       "price": 169.0,
       "store": "Lenson"
     }
+  ],
+  "everclear-ultimate1-30pk": [
+    {
+      "date": "2026-11-09",
+      "price": 219.0,
+      "store": "Lenson"
+    }
+  ],
+  "everclear-ultimate1-90pk": [
+    {
+      "date": "2026-11-09",
+      "price": 559.0,
+      "store": "Lenson"
+    }
   ]
 }
