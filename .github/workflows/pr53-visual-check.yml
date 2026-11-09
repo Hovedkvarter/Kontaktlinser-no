@@ -1,0 +1,57 @@
+name: Midlertidig mobil- og SEO-kontroll PR53
+on:
+  push:
+    branches: [chatgpt/homepage-seo-copy-20261109]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Installer byggeverktøy
+        run: pip install requests beautifulsoup4
+      - name: Generer lokal forhåndsvisning fra katalog uten prisinnhenting
+        run: python site_generator/generate_pages.py site_generator/catalog_live.json
+      - name: Installer nettleser
+        run: |
+          npm install --no-save playwright
+          npx playwright install chromium
+      - name: Test ekte HTML på mobil og desktop
+        run: |
+          python -m http.server 8765 --directory site_generator/build > /tmp/pr53-server.log 2>&1 &
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const expectedTitle = 'Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no';
+            const expectedH1 = 'Kontaktlinser – finn din linse og sammenlign priser';
+            for (const width of [320, 375, 390, 768, 1024, 1440]) {
+              const page = await browser.newPage({viewport:{width,height:850},deviceScaleFactor:1});
+              await page.goto('http://127.0.0.1:8765/',{waitUntil:'domcontentloaded'});
+              await page.locator('.hero h1').waitFor();
+              const result = await page.evaluate(() => {
+                const h=document.querySelector('.hero h1'), search=document.querySelector('.hero .search-input'), box=h.getBoundingClientRect(), field=search?.getBoundingClientRect();
+                return { title:document.title, h1:h.textContent, h1Left:box.left,h1Right:box.right,h1Height:box.height, searchVisible: !!field && field.width>200 && field.left>=0 && field.right<=innerWidth+1, searchTop:field?.top, bodyWidth:document.documentElement.scrollWidth, viewport:innerWidth, canonical:document.querySelector('link[rel=canonical]')?.href, headings:[...document.querySelectorAll('h2')].map(e=>e.textContent.trim()) };
+              });
+              console.log(JSON.stringify({width,...result}));
+              if(result.title!==expectedTitle || result.h1!==expectedH1) throw Error('Uventet SEO-tittel eller H1 ved '+width);
+              if(result.bodyWidth>width+1 || result.h1Left < -1 || result.h1Right>width+1 || !result.searchVisible) throw Error('Mobil/desktop-overflow eller skjult søk ved '+width);
+              if(!result.canonical || result.canonical!=='https://kontaktlinser.no/') throw Error('Canonical feil');
+              for(const h of ['Finn kontaktlinser etter type','Kontaktlinsemerker','Guider om kontaktlinser']) if(!result.headings.includes(h)) throw Error('Manglende H2: '+h);
+              await page.screenshot({path:'/tmp/kontaktlinser-pr53-'+width+'.png',fullPage:false});
+              await page.close();
+            }
+            await browser.close();
+          })().catch(err=>{console.error(err);process.exit(1)});
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pr53-visual-screenshots
+          path: /tmp/kontaktlinser-pr53-*.png
