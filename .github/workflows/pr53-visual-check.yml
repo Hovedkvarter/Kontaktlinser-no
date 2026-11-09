@@ -1,5 +1,7 @@
 name: Midlertidig mobil- og SEO-kontroll PR53
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [chatgpt/homepage-seo-copy-20261109]
   workflow_dispatch:
