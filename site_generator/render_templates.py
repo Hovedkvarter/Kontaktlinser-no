@@ -7801,10 +7801,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no</title>
+<title>Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
-{_og_meta('Billige kontaktlinser – Sammenlign priser | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
+{_og_meta('Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <link rel="preload" as="image" type="image/webp" media="(min-width: 1024px)" fetchpriority="high" imagesrcset="/static/hero/eye-560.webp 560w, /static/hero/eye-840.webp 840w, /static/hero/eye-1120.webp 1120w" imagesizes="(min-width: 1200px) 540px, 42vw">
@@ -7976,8 +7976,8 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
       <div class="hero-content">
         <div class="hero-heading hero-copy">
           <div class="kicker">Prissammenligning</div>
-          <h1>Finn billigste kontaktlinser</h1>
-          <p class="hero-subtext">Vi sammenligner priser fra {n_retailers} norske nettbutikker. Se prisen med og uten frakt.</p>
+          <h1>Kontaktlinser – finn din linse og sammenlign priser</h1>
+          <p class="hero-subtext">Sammenlign priser på kontaktlinser fra norske nettbutikker. Finn din linse og se priser med og uten frakt.</p>
         </div>
         <div class="search-section">
           <div class="search-row">
@@ -8007,7 +8007,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
     <div class="kategorier-block desktop-only-block">
       <div class="section-header" id="kategorier" style="margin-top:20px;">
-        <h2>Kategorier</h2>
+        <h2>Finn kontaktlinser etter type</h2>
       </div>
       <div class="category-rows">
         {category_rows_html}
@@ -8016,7 +8016,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 
   <div class="section-header" id="merker">
-    <h2>Merker</h2>
+    <h2>Kontaktlinsemerker</h2>
   </div>
   <div class="brand-grid">
     {brand_cards_html}
@@ -8025,7 +8025,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 
   <div class="kategorier-block mobile-only-block">
     <div class="section-header" style="margin-top:20px;">
-      <h2>Kategorier</h2>
+      <h2>Finn kontaktlinser etter type</h2>
     </div>
     <div class="category-rows">
       {category_rows_html}
@@ -8033,7 +8033,7 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
   </div>
 
   <div class="section-header">
-    <h2>Guider</h2>
+    <h2>Guider om kontaktlinser</h2>
   </div>
   <div class="guide-grid">
     {guide_cards_html}
