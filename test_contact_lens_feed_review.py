@@ -17,7 +17,9 @@ class ContactLensReviewTests(unittest.TestCase):
         self.catalog = {p['id']: p for p in json.loads((ROOT / 'site_generator/catalog_live.json').read_text())['products']}
 
     def test_everclear_daily_and_monthly_packs_are_not_interchanged(self):
-        expected = {'10914': ('everclear-prime-30pk', 30, 'Dagslinse'),
+        expected = {'10916': ('everclear-ultimate1-30pk', 30, 'Dagslinse'),
+                    '10925': ('everclear-ultimate1-90pk', 90, 'Dagslinse'),
+                    '10914': ('everclear-prime-30pk', 30, 'Dagslinse'),
                     '10915': ('everclear-prime-astigmatism-30pk', 30, 'Dagslinse'),
                     '10917': ('everclear-ultimate1-astigmatism-30pk', 30, 'Dagslinse'),
                     '10919': ('everclear-ultimate30-astigmatism-3pk', 3, 'Månedslinse')}

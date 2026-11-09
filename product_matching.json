@@ -432,7 +432,9 @@
     "10914": "everclear-prime-30pk",
     "10915": "everclear-prime-astigmatism-30pk",
     "10917": "everclear-ultimate1-astigmatism-30pk",
-    "10919": "everclear-ultimate30-astigmatism-3pk"
+    "10919": "everclear-ultimate30-astigmatism-3pk",
+    "10916": "everclear-ultimate1-30pk",
+    "10925": "everclear-ultimate1-90pk"
   },
   "tradedoubler_lensway": {
     "$comment": "Lensway (Tradedoubler, fid=6884) -- feed aktivert 2026-08-29. Nøkkelen er offers[0].sourceProductId. Samme fremgangsmåte som Lenson (se der) -- 129 rader hentet fra verifiserte scrape_targets-slugs, samme sourceProductId-mønster bekreftet. 4 av disse (154, 6058, 6509, 8436) fantes ikke i feeden ved siste verifisering -- utelates ikke fra tabellen (samme SKU vil garantert dukke opp igjen om Lensway får dem tilbake på lager), men gir naturligvis ingen tilbud før de faktisk finnes i feeden. Lenson og Lensway deler for øvrig samme sourceProductId per fysisk produkt (samme LensGroup-plattform, bekreftet direkte i feed-data).",
@@ -614,7 +616,9 @@
     "10914": "everclear-prime-30pk",
     "10915": "everclear-prime-astigmatism-30pk",
     "10917": "everclear-ultimate1-astigmatism-30pk",
-    "10919": "everclear-ultimate30-astigmatism-3pk"
+    "10919": "everclear-ultimate30-astigmatism-3pk",
+    "10916": "everclear-ultimate1-30pk",
+    "10925": "everclear-ultimate1-90pk"
   },
   "adtraction_brilleland": {
     "40000013": "acuvue-moist-30pk",

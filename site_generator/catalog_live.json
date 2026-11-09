@@ -25397,6 +25397,170 @@
           }
         }
       ]
+    },
+    {
+      "id": "everclear-ultimate1-30pk",
+      "slug": "everclear-ultimate1-30-pack",
+      "name": "everclear ULTIMATE1 30-pack",
+      "description": "Sfærisk dagslinse i silikonhydrogel fra Menicon. Pakningen inneholder 30 linser.",
+      "long_description": "everclear ULTIMATE1 er en sfærisk dagslinse i silikonhydrogel fra Menicon. Denne pakningen inneholder 30 linser. Her sammenligner du tilbud fra Lensway og Lenson på samme pakningsstørrelse. ULTIMATE1 for Astigmatism er en egen torisk variant med egen produktside. Velg pakning og linseparametere som samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "30 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-ultimate1-30pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/8/7/8/everclear-ultimate1-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/3/8/7/8/everclear-ultimate1-image-original.jpg",
+      "image_reviewed_at": "2026-11-09",
+      "product_source_url": "https://www.lensway.no/everclear-ultimate1-lens-10916",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 219.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10916)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-lens-10916)",
+          "in_stock": true,
+          "checked_at": "2026-11-09T09:33:15.435071+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/8/7/8/everclear-ultimate1-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 219.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10916)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-lens-10916)",
+          "in_stock": true,
+          "checked_at": "2026-11-09T09:33:15.439277+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/7/1/4/0/3/everclear-ultimate1-image-original.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-30pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate1-90pk",
+      "slug": "everclear-ultimate1-90-pack",
+      "name": "everclear ULTIMATE1 90-pack",
+      "description": "Sfærisk dagslinse i silikonhydrogel fra Menicon. Pakningen inneholder 90 linser fordelt på 3 esker à 30 linser.",
+      "long_description": "everclear ULTIMATE1 er en sfærisk dagslinse i silikonhydrogel fra Menicon. Denne pakningen inneholder 90 linser fordelt på 3 esker à 30 linser. Her sammenligner du tilbud fra Lensway og Lenson på samme pakningsstørrelse. ULTIMATE1 for Astigmatism er en egen torisk variant med egen produktside. Velg pakning og linseparametere som samsvarer med linsene du har fått tilpasset.",
+      "brand_slug": "everclear",
+      "brand_label": "everclear",
+      "category_slug": "dagslinser",
+      "specs": [
+        [
+          "Produsent",
+          "Menicon"
+        ],
+        [
+          "Brukstid",
+          "Dagslinse"
+        ],
+        [
+          "Linsetype",
+          "Sfærisk"
+        ],
+        [
+          "Materialtype",
+          "Silikonhydrogel"
+        ],
+        [
+          "Pakningsstørrelse",
+          "90 linser"
+        ],
+        [
+          "Pakningsformat",
+          "3 × 30 linser"
+        ]
+      ],
+      "manual_image": "/static/products/everclear-ultimate1-90pk.jpg",
+      "image_source": "affiliate_feed",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/1/9/6/1/everclear-ultimate1-3x30-pack.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/1/9/6/1/everclear-ultimate1-3x30-pack.jpg",
+      "image_reviewed_at": "2026-11-09",
+      "product_source_url": "https://www.lensway.no/everclear-ultimate1-lens-10925",
+      "offers": [
+        {
+          "retailer": "Lensway",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 559.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10925)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-lens-10925)",
+          "in_stock": true,
+          "checked_at": "2026-11-09T09:33:15.449650+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/1/9/6/1/everclear-ultimate1-3x30-pack.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-90pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        },
+        {
+          "retailer": "Lenson",
+          "brand": "everclear",
+          "source": "affiliate_feed",
+          "network": "tradedoubler",
+          "price_nok": 559.0,
+          "shipping_nok": 50,
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10925)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-lens-10925)",
+          "in_stock": true,
+          "checked_at": "2026-11-09T09:33:15.453043+00:00",
+          "is_stale": false,
+          "is_lowest": false,
+          "image_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/5/0/6/5/6/everclear-ultimate1-3x30-pack.jpg",
+          "image_source": "affiliate_feed",
+          "product_id": "everclear-ultimate1-90pk",
+          "shipping_policy": {
+            "free_over": 1199,
+            "fee_nok": 50
+          }
+        }
+      ]
     }
   ]
 }

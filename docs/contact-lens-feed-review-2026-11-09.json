@@ -1,0 +1,49 @@
+{
+  "checked_at": "2026-11-09T09:33:15.478666+00:00",
+  "decisions": [
+    {
+      "key": "lensway:10916",
+      "product_id": "everclear-ultimate1-30pk",
+      "source_url": "https://www.lensway.no/everclear-ultimate1-lens-10916",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/1/3/8/7/8/everclear-ultimate1-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/1/3/8/7/8/everclear-ultimate1-image-original.jpg",
+      "image_sha256": "cff453806c9c7a53e698d7ab73ecb4b64092ed777d55c1d97ee26f47973d5c4c",
+      "fingerprint": "b7e53688f8747ccd",
+      "evidence": "Visuelt kontrollert originalt feedbilde: 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+    },
+    {
+      "key": "lenson:10916",
+      "product_id": "everclear-ultimate1-30pk",
+      "source_url": "https://www.lenson.com/no/everclear-ultimate1-lens-10916",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/7/1/4/0/3/everclear-ultimate1-image-original.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/202/img2/prod/7/1/4/0/3/everclear-ultimate1-image-original.jpg",
+      "image_sha256": "cff453806c9c7a53e698d7ab73ecb4b64092ed777d55c1d97ee26f47973d5c4c",
+      "fingerprint": "e755596be3e9525f",
+      "evidence": "Visuelt kontrollert originalt feedbilde: 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+    },
+    {
+      "key": "lensway:10925",
+      "product_id": "everclear-ultimate1-90pk",
+      "source_url": "https://www.lensway.no/everclear-ultimate1-lens-10925",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/83/img2/prod/0/1/9/6/1/everclear-ultimate1-3x30-pack.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/83/img2/prod/0/1/9/6/1/everclear-ultimate1-3x30-pack.jpg",
+      "image_sha256": "50bc3875cbbc392168ffe5d88078e282d3836f22311765f9e7275085dbc27276",
+      "fingerprint": "9d4604518b650713",
+      "evidence": "Visuelt kontrollert originalt feedbilde: 90 linser fordelt på 3 esker à 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+    },
+    {
+      "key": "lenson:10925",
+      "product_id": "everclear-ultimate1-90pk",
+      "source_url": "https://www.lenson.com/no/everclear-ultimate1-lens-10925",
+      "image_source_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_170,c_scale/v1/product/202/img2/prod/5/0/6/5/6/everclear-ultimate1-3x30-pack.jpg",
+      "image_retrieved_url": "https://lwg-res.cloudinary.com/t_img-trans,f_auto,w_900,c_scale/v1/product/202/img2/prod/5/0/6/5/6/everclear-ultimate1-3x30-pack.jpg",
+      "image_sha256": "50bc3875cbbc392168ffe5d88078e282d3836f22311765f9e7275085dbc27276",
+      "fingerprint": "59b5e48f3cde5f54",
+      "evidence": "Visuelt kontrollert originalt feedbilde: 90 linser fordelt på 3 esker à 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+    }
+  ],
+  "held_back": [
+    "lensway:10975",
+    "lenson:10975"
+  ]
+}

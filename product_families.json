@@ -303,6 +303,15 @@
         "everclear-prime-30pk",
         "everclear-prime-astigmatism-30pk"
       ]
+    },
+    {
+      "slug": "everclear-ultimate1",
+      "name": "everclear ULTIMATE1",
+      "member_ids": [
+        "everclear-ultimate1-30pk",
+        "everclear-ultimate1-90pk",
+        "everclear-ultimate1-astigmatism-30pk"
+      ]
     }
   ]
 }

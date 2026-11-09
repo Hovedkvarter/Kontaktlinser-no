@@ -1414,5 +1414,41 @@
     "status": "Koblet",
     "family": "everclear ULTIMATE30 for Astigmatism 3-pack",
     "note": "Pakning bekreftet i Lenson-sidetittel og Lensways feedbilde. Samme navn, produsent og SKU hos begge butikker."
+  },
+  "lensway:10916": {
+    "fingerprint": "b7e53688f8747ccd",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 30-pack",
+    "note": "Visuelt kontrollert originalt feedbilde: 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+  },
+  "lenson:10916": {
+    "fingerprint": "e755596be3e9525f",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 30-pack",
+    "note": "Visuelt kontrollert originalt feedbilde: 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+  },
+  "lensway:10925": {
+    "fingerprint": "9d4604518b650713",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 90-pack",
+    "note": "Visuelt kontrollert originalt feedbilde: 90 linser fordelt på 3 esker à 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+  },
+  "lenson:10925": {
+    "fingerprint": "59b5e48f3cde5f54",
+    "status": "Koblet",
+    "family": "everclear ULTIMATE1 90-pack",
+    "note": "Visuelt kontrollert originalt feedbilde: 90 linser fordelt på 3 esker à 30 linser, ULTIMATE1, 1 Day og Silicone Hydrogel. Samme SKU, navn, produsent og identiske bildebytes hos Lenson og Lensway. Ikke ELITE eller ULTIMATE30."
+  },
+  "lensway:10975": {
+    "fingerprint": "2df8f9c64657ddff",
+    "status": "Avklar pakning/farge – ikke publisert",
+    "family": "SWATI Coloured Lenses 1-day",
+    "note": "Visuelt feedbilde viser 10 blistere og Aquamarine, men feedtekst og strukturerte felter oppgir ikke pakningsantall eller fargevariant. Ikke nok til endelig matching. Ingen kobling til måneds-/halvårslinser."
+  },
+  "lenson:10975": {
+    "fingerprint": "955e32eb864ce58a",
+    "status": "Avklar pakning/farge – ikke publisert",
+    "family": "SWATI Coloured Lenses 1-day",
+    "note": "Visuelt feedbilde viser 10 blistere og Aquamarine, men feedtekst og strukturerte felter oppgir ikke pakningsantall eller fargevariant. Ikke nok til endelig matching. Ingen kobling til måneds-/halvårslinser."
   }
 }
