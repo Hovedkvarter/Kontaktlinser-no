@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "generated_at": "2026-11-09T02:08:20Z",
+  "generated_at": "2026-11-09T09:39:40Z",
   "currency": "NOK",
   "products": [
     {
@@ -8046,6 +8046,62 @@
           "availability": "in_stock",
           "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10919)ttid(19)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate30-for-astigmatism-lens-10919)",
           "checked_at": "2026-11-09T02:02:37.640401+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate1-30pk",
+      "name": "everclear ULTIMATE1 30-pack",
+      "brand": "everclear",
+      "category": "dagslinser",
+      "pack_size": 30,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 219.0,
+          "shipping": 50,
+          "total_price": 269.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10916)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-lens-10916)",
+          "checked_at": "2026-11-09T09:33:15.439277+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 219.0,
+          "shipping": 50,
+          "total_price": 269.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10916)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-lens-10916)",
+          "checked_at": "2026-11-09T09:33:15.435071+00:00"
+        }
+      ]
+    },
+    {
+      "id": "everclear-ultimate1-90pk",
+      "name": "everclear ULTIMATE1 90-pack",
+      "brand": "everclear",
+      "category": "dagslinser",
+      "pack_size": 90,
+      "attributes": {},
+      "offers": [
+        {
+          "merchant": "Lenson",
+          "price": 559.0,
+          "shipping": 50,
+          "total_price": 609.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(64853)product(9560-10925)ttid(3)url(https%3A%2F%2Fwww.lenson.com%2Fno%2Feverclear-ultimate1-lens-10925)",
+          "checked_at": "2026-11-09T09:33:15.453043+00:00"
+        },
+        {
+          "merchant": "Lensway",
+          "price": 559.0,
+          "shipping": 50,
+          "total_price": 609.0,
+          "availability": "in_stock",
+          "url": "https://pdt.tradedoubler.com/click?a(3494407)p(22008)product(6884-10925)ttid(3)url(https%3A%2F%2Fwww.lensway.no%2Feverclear-ultimate1-lens-10925)",
+          "checked_at": "2026-11-09T09:33:15.449650+00:00"
         }
       ]
     },
