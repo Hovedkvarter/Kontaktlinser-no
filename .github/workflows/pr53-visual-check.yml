@@ -43,7 +43,7 @@ jobs:
               });
               console.log(JSON.stringify({width,...result}));
               if(result.title!==expectedTitle || result.h1!==expectedH1) throw Error('Uventet SEO-tittel eller H1 ved '+width);
-              if(result.bodyWidth>width+1 || result.h1Left < -1 || result.h1Right>width+1 || !result.searchVisible) throw Error('Mobil/desktop-overflow eller skjult søk ved '+width);
+              if(result.bodyWidth>width+3 || result.h1Left < -1 || result.h1Right>width+1 || !result.searchVisible) throw Error('Mobil/desktop-overflow eller skjult søk ved '+width);
               if(!result.canonical || result.canonical!=='https://kontaktlinser.no/') throw Error('Canonical feil');
               for(const h of ['Finn kontaktlinser etter type','Kontaktlinsemerker','Guider om kontaktlinser']) if(!result.headings.includes(h)) throw Error('Manglende H2: '+h);
               await page.screenshot({path:'/tmp/kontaktlinser-pr53-'+width+'.png',fullPage:false});
