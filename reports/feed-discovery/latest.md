@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-09T11:48:50.107834+00:00
+Kontrollert: 2026-11-10T11:24:17.435096+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -10,13 +10,13 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1215 | 109 | 107 | 2 |
 | Extra Optical | ok | 2788 | 87 | 81 | 6 |
-| Lensway | ok | 1115 | 191 | 180 | 11 |
+| Lensway | ok | 1110 | 190 | 180 | 10 |
 | Lenson | ok | 192 | 192 | 180 | 12 |
-| Shopping4net | ok | 20272 | 120 | 94 | 26 |
+| Shopping4net | ok | 20248 | 120 | 94 | 26 |
 | Brilleland | ok | 925 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9535 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9537 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 1.
 
 ## Kandidater
 
@@ -59,7 +59,6 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Blepha varmende øyemaske | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Kompress øye BV Eyepad 56x70mm | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lensway | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
