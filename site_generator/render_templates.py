@@ -7801,10 +7801,10 @@ def render_home_page(catalog: dict, now: datetime | None = None, private_labels:
 {GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no</title>
+<title>Kontaktlinser – Sammenlign priser og finn din linse | Kontaktlinser.no</title>
 <meta name="description" content="Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.">
 <link rel="canonical" href="{BASE_URL}/">
-{_og_meta('Kontaktlinser – sammenlign priser og finn din linse | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
+{_og_meta('Kontaktlinser – Sammenlign priser og finn din linse | Kontaktlinser.no', 'Sammenlign priser på kontaktlinser fra norske nettbutikker. Vi viser alltid billigste tilgjengelige tilbud.', BASE_URL + '/')}
 {home_faq_schema}
 {FONT_LINKS}
 <link rel="preload" as="image" type="image/webp" media="(min-width: 1024px)" fetchpriority="high" imagesrcset="/static/hero/eye-560.webp 560w, /static/hero/eye-840.webp 840w, /static/hero/eye-1120.webp 1120w" imagesizes="(min-width: 1200px) 540px, 42vw">
