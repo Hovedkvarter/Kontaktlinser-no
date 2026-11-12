@@ -1,0 +1,9 @@
+{
+  "gtm_consent_reviewed": false,
+  "acquisition_enabled": false,
+  "property_id": "kontaktlinser-no",
+  "account_id": "",
+  "context_ttl_seconds": 1800,
+  "pilot_paths": ["/kontaktlinser/biofinity/biofinity-6-pack/"],
+  "pilot_retailers": ["Lensway", "Shopping4net"]
+}

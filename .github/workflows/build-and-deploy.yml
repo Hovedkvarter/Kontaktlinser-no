@@ -102,7 +102,7 @@ jobs:
 
       - name: Test smartere søk mot ferdig bygget nettsted
         run: |
-          node --test tests/test_search.cjs
+          node --test tests/test_search.cjs tests/test_consent.cjs
           python3 -m unittest test_search_rendering
 
       - name: Lagre oppdatert prishistorikk tilbake til repoet
