@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-11T11:11:31.018460+00:00
+Kontrollert: 2026-11-12T11:29:20.238798+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -8,15 +8,15 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
-| Interoptik | ok | 1215 | 109 | 107 | 2 |
-| Extra Optical | ok | 2787 | 87 | 81 | 6 |
-| Lensway | ok | 1113 | 192 | 180 | 12 |
+| Interoptik | ok | 1231 | 109 | 107 | 2 |
+| Extra Optical | ok | 2793 | 87 | 81 | 6 |
+| Lensway | ok | 1112 | 194 | 180 | 14 |
 | Lenson | ok | 193 | 193 | 180 | 13 |
-| Shopping4net | ok | 20210 | 120 | 94 | 26 |
-| Brilleland | ok | 925 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9530 | 80 | 43 | 37 |
+| Shopping4net | ok | 20231 | 120 | 94 | 26 |
+| Brilleland | ok | 1004 | 77 | 75 | 2 |
+| Apotekhjem | ok | 9528 | 80 | 43 | 37 |
 
-Nye rader: 6. Endrede rader: 0. Ikke lenger på kandidatlisten: 3.
+Nye rader: 2. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -29,14 +29,14 @@ Nye rader: 6. Endrede rader: 0. Ikke lenger på kandidatlisten: 3.
 | Lensway | everclear PRIME | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME 30-pack | Uendret |
 | Lenson | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
 | Lensway | everclear PRIME for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear PRIME for Astigmatism 30-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack | Uendret |
-| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 180-pack | Ny |
-| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 180-pack | Ny |
+| Lenson | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 180-pack | Uendret |
+| Lensway | everclear ULTIMATE1 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 180-pack | Uendret |
 | Lenson | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lensway | everclear ULTIMATE1 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 for Astigmatism 30-pack, everclear ULTIMATE30 for Astigmatism 3-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
-| Lenson | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Ny |
-| Lenson | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Ny |
-| Lensway | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Ny |
-| Lensway | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Ny |
+| Lenson | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Uendret |
+| Lenson | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Uendret |
+| Lensway | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Uendret |
+| Lensway | everclear ULTIMATE30 | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE1 30-pack, everclear ULTIMATE1 90-pack, everclear ELITE 30-pack | Uendret |
 | Lenson | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Lensway | everclear ULTIMATE30 for Astigmatism | Kontaktlinser | Åpen – Avklar variant/pakning | everclear ULTIMATE30 for Astigmatism 3-pack, everclear ULTIMATE1 for Astigmatism 30-pack, everclear PRIME for Astigmatism 30-pack | Uendret |
 | Shopping4net | FreshLook ColorBlends | Kontaktlinser | Pakning avklart – utsolgt – Identitet og 2-pakning bekreftet i butikkens produkttabell (artikkelnummer CL). Fersk affiliate-feed 26.10 sier out_of_stock. Avventer tilgjengelig tilbud før opprettelse; ikke koblet til nyere modell eller annet produkt. |  | Uendret |
@@ -64,10 +64,12 @@ Nye rader: 6. Endrede rader: 0. Ikke lenger på kandidatlisten: 3.
 | Lensway | Soft Clean | Linsevæske | Avklar produkttype – Soft Clean står under Tilbehør uten nærmere produktbeskrivelse. Kontroller om det gjelder linsepleie eller briller. |  | Uendret |
 | Apotekhjem | Blepha varmende øyemaske | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Kompress øye BV Eyepad 56x70mm | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Lensway | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Ny |
 | Lenson | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Lensway | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Ny |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
