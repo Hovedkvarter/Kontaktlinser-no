@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-13T11:14:00.599255+00:00
+Kontrollert: 2026-11-14T10:39:32.410067+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -8,15 +8,15 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
-| Interoptik | ok | 1231 | 109 | 107 | 2 |
-| Extra Optical | ok | 2792 | 87 | 81 | 6 |
-| Lensway | ok | 1109 | 194 | 180 | 14 |
+| Interoptik | ok | 1274 | 109 | 107 | 2 |
+| Extra Optical | ok | 2797 | 87 | 81 | 6 |
+| Lensway | ok | 1108 | 194 | 180 | 14 |
 | Lenson | ok | 195 | 195 | 180 | 15 |
-| Shopping4net | ok | 20259 | 120 | 94 | 26 |
+| Shopping4net | ok | 20267 | 120 | 94 | 26 |
 | Brilleland | ok | 1004 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9523 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9525 | 80 | 43 | 37 |
 
-Nye rader: 2. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -64,13 +64,13 @@ Nye rader: 2. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Lensway | Soft Clean | Linsevæske | Avklar produkttype – Soft Clean står under Tilbehør uten nærmere produktbeskrivelse. Kontroller om det gjelder linsepleie eller briller. |  | Uendret |
 | Apotekhjem | Blepha varmende øyemaske | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Kompress øye BV Eyepad 56x70mm | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Ny |
+| Lenson | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Frog | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Pig | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Lenson | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Ny |
+| Lenson | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Uendret |
 | Lensway | Lens Case Pink | Tilbehør | Åpen – Ny produktkandidat |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lenson Lens Case | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
