@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-16T11:42:35.376824+00:00
+Kontrollert: 2026-11-17T12:04:27.643855+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1262 | 109 | 107 | 2 |
-| Extra Optical | ok | 2799 | 87 | 81 | 6 |
-| Lensway | ok | 1102 | 193 | 179 | 14 |
-| Lenson | ok | 194 | 194 | 179 | 15 |
-| Shopping4net | ok | 20288 | 120 | 94 | 26 |
+| Extra Optical | ok | 2806 | 87 | 81 | 6 |
+| Lensway | ok | 1108 | 192 | 178 | 14 |
+| Lenson | ok | 193 | 193 | 178 | 15 |
+| Shopping4net | ok | 20247 | 120 | 94 | 26 |
 | Brilleland | ok | 988 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9525 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9523 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 6. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -62,7 +62,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Shopping4net | OPTI-FREE Puremoist 300 ml | Linsevæske | Mulig ny butikkobling – Produktnavn og størrelse peker på Opti-Free PureMoist 300 ml. Kontroller endelig variant før kobling. | Opti-Free PureMoist 300 ml | Uendret |
 | Shopping4net | OPTI-FREE Puremoist 90 ml | Linsevæske | Mulig ny butikkobling – Produktnavn og størrelse peker på Opti-Free PureMoist 90 ml. Kontroller endelig variant før kobling. | Opti-Free PureMoist 90 ml | Uendret |
 | Lensway | Soft Clean | Linsevæske | Avklar produkttype – Soft Clean står under Tilbehør uten nærmere produktbeskrivelse. Kontroller om det gjelder linsepleie eller briller. |  | Uendret |
-| Apotekhjem | Blepha varmende øyemaske | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Apotekhjem | Blepha Varmende Øyemaske (1 stk) | Tilbehør | Åpen – Avklar variant/pakning | MediPearl øyemaske 1 stk | Endret |
 | Apotekhjem | Kompress øye BV Eyepad 56x70mm | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lenson | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Lensway | Lens Case Blue | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
@@ -84,11 +84,11 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Øyedråpeflaske ster 10ml enpac | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Øyelapp sort m/strikk | Tilbehør | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | Bausch &amp; Lomb Desosept Salva 15 gram | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephademodex sterile våtservietter 30stk | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephaderm lindrende øyelokkskrem 40 ml | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephagel steril gel uten konserveringsmidler 30 G | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Blephasteam fuktkammerbriller - utgått | Øyelokkspleie | Utgått i feedtekst – Feedtittelen sier utgått. Ikke prioriter for publisering selv om et tilgjengelighetsfelt skulle si noe annet. |  | Uendret |
-| Apotekhjem | Blephasteam ringer fuktk brill | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
+| Apotekhjem | Blephademodex Sterile Våtservietter (30 stk) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Blephaderm Lindrende Øyelokkskrem (40 ml) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Blephagel Steril Gel Uten Konserveringsmidler (30 g) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Blephasteam Fuktkammerbriller (1 stk) - utgått | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Blephasteam Ringer til Fuktbriller (100 stk) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
 | Apotekhjem | Desosept salve øyelokk 15 g | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | POSIFORLID® Eye Spray 15 ml | Øyelokkspleie | Mulig ny butikkobling – Produktnavn og størrelse peker på POSIFORLID Eye Spray 15 ml. Kontroller endelig variant før kobling. | POSIFORLID Eye Spray 15 ml | Uendret |
 | Shopping4net | A.Vogel Ögondroppar 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
