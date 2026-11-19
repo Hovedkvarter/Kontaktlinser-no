@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-18T11:56:27.176877+00:00
+Kontrollert: 2026-11-19T11:52:59.517999+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -8,15 +8,15 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
-| Interoptik | ok | 1262 | 109 | 107 | 2 |
-| Extra Optical | ok | 2831 | 87 | 81 | 6 |
-| Lensway | ok | 1102 | 192 | 178 | 14 |
+| Interoptik | ok | 1230 | 109 | 107 | 2 |
+| Extra Optical | ok | 2828 | 87 | 81 | 6 |
+| Lensway | ok | 1099 | 192 | 178 | 14 |
 | Lenson | ok | 193 | 193 | 178 | 15 |
-| Shopping4net | ok | 20219 | 120 | 94 | 26 |
-| Brilleland | ok | 988 | 77 | 75 | 2 |
+| Shopping4net | ok | 20244 | 119 | 93 | 26 |
+| Brilleland | ok | 987 | 77 | 75 | 2 |
 | Apotekhjem | ok | 9523 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -99,7 +99,7 @@ Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
 | Shopping4net | Bausch &amp; Lomb Oxyal Tripple Action 10 ml | Øyepleie – vurder variant | Mulig ny butikkobling – Produktnavn og størrelse peker på OXYAL Triple Action 10 ml. Kontroller endelig variant før kobling. | OXYAL Triple Action 10 ml, OXYAL Trehalos Triple Action 10 ml | Uendret |
 | Apotekhjem | Bevita Eye Øyesalve 5 g – Lindrende salve for tørre øyne | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | Clear Eyes Bright &amp; Moist 15 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
-| Apotekhjem | Cleareyes Bright &amp; Moist Øyedråper (15 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Endret |
+| Apotekhjem | Cleareyes Bright &amp; Moist Øyedråper (15 ml) | Øyepleie – vurder variant | Åpen – Ny produktkandidat |  | Uendret |
 | Shopping4net | DROP-it Drop it Dry eyes 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | DROP-it Drop it Red eyes 10 ml | Øyepleie – vurder variant | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Apotekhjem | Fluoresceinna Minim øyedråper 20mg | Øyepleie – vurder variant | Vurder sortiment – Legemiddel-/spesialprodukt-kandidat. Produktkategori, pakning og egnethet for katalogen må vurderes separat. |  | Uendret |
