@@ -1,6 +1,6 @@
 # Feedkontroll – kontaktlinser.no
 
-Kontrollert: 2026-11-25T13:11:20.254933+00:00
+Kontrollert: 2026-11-26T12:51:24.596232+00:00
 
 Kun affiliate-feeds. Kandidater er feed-rader, ikke antall nye unike produkter. Ingen automatisk publisering eller kobling.
 
@@ -9,14 +9,14 @@ Navnelikhet er et vurderingsforslag. Pakning, variant og produktidentitet må be
 | Feed | Status | Rader | Relevante | Koblet | Til vurdering |
 |---|---|---:|---:|---:|---:|
 | Interoptik | ok | 1190 | 109 | 107 | 2 |
-| Extra Optical | ok | 2893 | 87 | 81 | 6 |
-| Lensway | ok | 1066 | 191 | 177 | 14 |
-| Lenson | ok | 192 | 192 | 177 | 15 |
-| Shopping4net | ok | 20233 | 120 | 94 | 26 |
+| Extra Optical | ok | 2887 | 87 | 81 | 6 |
+| Lensway | ok | 1061 | 192 | 178 | 14 |
+| Lenson | ok | 193 | 193 | 178 | 15 |
+| Shopping4net | ok | 20214 | 120 | 94 | 26 |
 | Brilleland | ok | 920 | 77 | 75 | 2 |
-| Apotekhjem | ok | 9520 | 80 | 43 | 37 |
+| Apotekhjem | ok | 9522 | 80 | 43 | 37 |
 
-Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
+Nye rader: 0. Endrede rader: 1. Ikke lenger på kandidatlisten: 0.
 
 ## Kandidater
 
@@ -87,7 +87,7 @@ Nye rader: 0. Endrede rader: 0. Ikke lenger på kandidatlisten: 0.
 | Apotekhjem | Blephademodex Sterile Våtservietter (30 stk) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Blephaderm Lindrende Øyelokkskrem (40 ml) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Blephagel Steril Gel Uten Konserveringsmidler (30 g) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Uendret |
-| Apotekhjem | Blephasteam Fuktkammerbriller (1 stk) - utgått | Øyelokkspleie | Åpen – Ny produktkandidat |  | Uendret |
+| Apotekhjem | Blephasteam Fuktkammerbriller (1 stk) - utgått | Øyelokkspleie | Åpen – Ny produktkandidat |  | Endret |
 | Apotekhjem | Blephasteam Ringer til Fuktbriller (100 stk) | Øyelokkspleie | Åpen – Ny produktkandidat |  | Uendret |
 | Apotekhjem | Desosept salve øyelokk 15 g | Øyelokkspleie | Ny produktkandidat – Ikke funnet som egen oppføring i publisert katalog. Pakning og variant må bekreftes før opprettelse. |  | Uendret |
 | Shopping4net | POSIFORLID® Eye Spray 15 ml | Øyelokkspleie | Mulig ny butikkobling – Produktnavn og størrelse peker på POSIFORLID Eye Spray 15 ml. Kontroller endelig variant før kobling. | POSIFORLID Eye Spray 15 ml | Uendret |
